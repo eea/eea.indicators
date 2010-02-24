@@ -8,7 +8,7 @@
     id="indicators-Update-RoleMappings" 
     handler="eea.indicators.setuphandlers.updateRoleMappings"
     title="Update Workflow role mappings for indicators"
-    version="2010-02-23T16:46:30.301580">
+    version="2010-02-24T15:28:47.831861">
    <dependency step="indicators-QI-dependencies"/>
    updates the workflow role mappings for indicators
  </import-step>
@@ -17,7 +17,7 @@
     id="indicators-postInstall" 
     handler="eea.indicators.setuphandlers.postInstall"
     title="manual coded post-install for indicators"
-    version="2010-02-23T16:46:30.301580">
+    version="2010-02-24T15:28:47.831861">
    <dependency step="indicators-QI-dependencies"/>
    manual coded post-install for indicators
  </import-step>
