@@ -33,32 +33,36 @@ PROJECTNAME = "indicators"
 DEFAULT_ADD_CONTENT_PERMISSION = "Add portal content"
 setDefaultRoles(DEFAULT_ADD_CONTENT_PERMISSION, ('Manager', 'Owner', 'Contributor'))
 ADD_CONTENT_PERMISSIONS = {
-    'Specification': 'indicators: Add Specification',
-    'SpecificationsFolder': 'indicators: Add SpecificationsFolder',
-    'Assessment': 'indicators: Add Assessment',
     'PolicyQuestion': 'indicators: Add PolicyQuestion',
-    'RationaleReference': 'indicators: Add RationaleReference',
-    'QuestionAssesment': 'indicators: Add QuestionAssesment',
+    'SpecificationsFolder': 'indicators: Add SpecificationsFolder',
     'ExternalDataSpec': 'indicators: Add ExternalDataSpec',
     'MethodologyReference': 'indicators: Add MethodologyReference',
+    'Specification': 'indicators: Add Specification',
+    'Assessment': 'indicators: Add Assessment',
+    'RationaleReference': 'indicators: Add RationaleReference',
+    'AssessmentPart': 'indicators: Add AssessmentPart',
     'WorkItem': 'indicators: Add WorkItem',
     'EEAData': 'indicators: Add EEAData',
-    'EEAFigure': 'indicators: Add EEAFigure',
     'Publication': 'indicators: Add Publication',
+    'EEAFigureFile': 'indicators: Add EEAFigureFile',
+    'EEAFigure': 'indicators: Add EEAFigure',
+    'ImageFile': 'indicators: Add ImageFile',
 }
 
-setDefaultRoles('indicators: Add Specification', ('Manager','Owner'))
-setDefaultRoles('indicators: Add SpecificationsFolder', ('Manager','Owner'))
-setDefaultRoles('indicators: Add Assessment', ('Manager','Owner'))
 setDefaultRoles('indicators: Add PolicyQuestion', ('Manager','Owner'))
-setDefaultRoles('indicators: Add RationaleReference', ('Manager','Owner'))
-setDefaultRoles('indicators: Add QuestionAssesment', ('Manager','Owner'))
+setDefaultRoles('indicators: Add SpecificationsFolder', ('Manager','Owner'))
 setDefaultRoles('indicators: Add ExternalDataSpec', ('Manager','Owner'))
 setDefaultRoles('indicators: Add MethodologyReference', ('Manager','Owner'))
+setDefaultRoles('indicators: Add Specification', ('Manager','Owner'))
+setDefaultRoles('indicators: Add Assessment', ('Manager','Owner'))
+setDefaultRoles('indicators: Add RationaleReference', ('Manager','Owner'))
+setDefaultRoles('indicators: Add AssessmentPart', ('Manager','Owner'))
 setDefaultRoles('indicators: Add WorkItem', ('Manager','Owner'))
 setDefaultRoles('indicators: Add EEAData', ('Manager','Owner'))
-setDefaultRoles('indicators: Add EEAFigure', ('Manager','Owner'))
 setDefaultRoles('indicators: Add Publication', ('Manager','Owner'))
+setDefaultRoles('indicators: Add EEAFigureFile', ('Manager','Owner'))
+setDefaultRoles('indicators: Add EEAFigure', ('Manager','Owner'))
+setDefaultRoles('indicators: Add ImageFile', ('Manager','Owner'))
 
 product_globals = globals()
 

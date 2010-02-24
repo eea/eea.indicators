@@ -19,8 +19,6 @@ import interfaces
 
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 
-from Products.ATReferenceBrowserWidget.ATReferenceBrowserWidget import \
-    ReferenceBrowserWidget
 from eea.indicators.config import *
 
 ##code-section module-header #fill in your manual code here
@@ -29,31 +27,11 @@ from eea.indicators.config import *
 schema = Schema((
 
     TextField(
-        name='summary_message',
-        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
-        widget=RichWidget(
-            label="Summary message",
-            label_msgid='indicators_label_summary_message',
-            i18n_domain='indicators',
-        ),
-        default_output_type='text/html',
-    ),
-    TextField(
         name='key_message',
         allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
         widget=RichWidget(
             label="Key message",
             label_msgid='indicators_label_key_message',
-            i18n_domain='indicators',
-        ),
-        default_output_type='text/html',
-    ),
-    TextField(
-        name='assessment',
-        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
-        widget=RichWidget(
-            label="Assessment",
-            label_msgid='indicators_label_assessment',
             i18n_domain='indicators',
         ),
         default_output_type='text/html',
@@ -105,28 +83,6 @@ schema = Schema((
             label_msgid='indicators_label_publish_date',
             i18n_domain='indicators',
         ),
-    ),
-    ReferenceField(
-        name='eeafigures',
-        widget=ReferenceBrowserWidget(
-            label='Eeafigures',
-            label_msgid='indicators_label_eeafigures',
-            i18n_domain='indicators',
-        ),
-        allowed_types=('EEAFigure',),
-        multiValued=0,
-        relationship='has_figures',
-    ),
-    ReferenceField(
-        name='publications',
-        widget=ReferenceBrowserWidget(
-            label='Publications',
-            label_msgid='indicators_label_publications',
-            i18n_domain='indicators',
-        ),
-        allowed_types=('Publication',),
-        multiValued=0,
-        relationship='published_in',
     ),
 
 ),

@@ -30,9 +30,6 @@ from Products.DataGridField.SelectColumn import SelectColumn
 from Products.ATContentTypes.content.folder import ATFolder, ATFolderSchema
 
 ##code-section module-header #fill in your manual code here
-
-from Products.ATContentTypes.content.base import registerATCT
-
 ##/code-section module-header
 
 schema = Schema((
@@ -252,17 +249,6 @@ schema = Schema((
         schemata="default",
     ),
     ReferenceField(
-        name='eeadatas',
-        widget=ReferenceBrowserWidget(
-            label='Eeadatas',
-            label_msgid='indicators_label_eeadatas',
-            i18n_domain='indicators',
-        ),
-        allowed_types=('EEAData',),
-        multiValued=1,
-        relationship='has_eea_data_specs',
-    ),
-    ReferenceField(
         name='externaldataspecs',
         widget=ReferenceBrowserWidget(
             label='Externaldataspecs',
@@ -272,6 +258,17 @@ schema = Schema((
         allowed_types=('ExternalDataSpec',),
         multiValued=1,
         relationship='has_external_data_specs',
+    ),
+    ReferenceField(
+        name='eeadatas',
+        widget=ReferenceBrowserWidget(
+            label='Eeadatas',
+            label_msgid='indicators_label_eeadatas',
+            i18n_domain='indicators',
+        ),
+        allowed_types=('EEAData',),
+        multiValued=1,
+        relationship='has_eea_data_specs',
     ),
 
 ),
@@ -308,9 +305,6 @@ registerType(Specification, PROJECTNAME)
 # end of class Specification
 
 ##code-section module-footer #fill in your manual code here
-
-registerATCT(Specification, PROJECTNAME)
-
 ##/code-section module-footer
 
 

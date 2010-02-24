@@ -1,17 +1,19 @@
 <?xml version="1.0"?>
 <object name="portal_factory" meta_type="Plone Factory Tool">
  <factorytypes>
-  <type portal_type="Specification"/>
-  <type portal_type="SpecificationsFolder"/>
-  <type portal_type="Assessment"/>
   <type portal_type="PolicyQuestion"/>
-  <type portal_type="RationaleReference"/>
-  <type portal_type="QuestionAssesment"/>
+  <type portal_type="SpecificationsFolder"/>
   <type portal_type="ExternalDataSpec"/>
   <type portal_type="MethodologyReference"/>
+  <type portal_type="Specification"/>
+  <type portal_type="Assessment"/>
+  <type portal_type="RationaleReference"/>
+  <type portal_type="AssessmentPart"/>
   <type portal_type="WorkItem"/>
   <type portal_type="EEAData"/>
-  <type portal_type="EEAFigure"/>
   <type portal_type="Publication"/>
+  <type portal_type="EEAFigureFile"/>
+  <type portal_type="EEAFigure"/>
+  <type portal_type="ImageFile"/>
  </factorytypes>
 </object>
