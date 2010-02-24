@@ -57,6 +57,19 @@ DirectoryView.registerDirectory('skins', product_globals)
 
 
 ##code-section custom-init-head #fill in your manual code here
+
+# temporarily add the path to the namespace package to the products path,
+# so that the directory views are set up correctly
+# Register our skins directory - this makes it available via portal_skins.
+
+from Products.CMFCore import utils
+from Globals import package_home
+from os.path import dirname
+ppath = utils.ProductsPath
+utils.ProductsPath.append(dirname(package_home(product_globals)))
+DirectoryView.registerDirectory('skins', product_globals)
+utils.ProductsPath = ppath
+
 ##/code-section custom-init-head
 
 

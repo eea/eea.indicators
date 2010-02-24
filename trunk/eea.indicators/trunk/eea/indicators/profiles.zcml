@@ -10,7 +10,7 @@
 
   <genericsetup:registerProfile
       name="default"
-      title="indicators"
+      title="eea.indicators"
       directory="profiles/default"
       description="Extension profile for indicators."
       provides="Products.GenericSetup.interfaces.EXTENSION"
