@@ -7,7 +7,7 @@
  <property name="description"></property>
  <property name="content_icon">Publication.gif</property>
  <property name="content_meta_type">Publication</property>
- <property name="product">indicators</property>
+ <property name="product">eea.indicators</property>
  <property name="factory">addPublication</property>
  <property name="immediate_view">base_view</property>
  <property name="global_allow">True</property>
@@ -50,3 +50,4 @@
   <permission value="Modify portal content"/>
  </action>
 </object>
+
