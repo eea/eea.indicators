@@ -1,18 +1,19 @@
 <?xml version="1.0"?>
-<object name="QuestionAssesment"
+<object name="AssessmentPart"
         meta_type="Factory-based Type Information with dynamic views"
         xmlns:i18n="http://xml.zope.org/namespaces/i18n">
    
  <property name="title">Question Assessment</property>
  <property name="description"></property>
- <property name="content_icon">QuestionAssesment.gif</property>
- <property name="content_meta_type">QuestionAssesment</property>
- <property name="product">indicators</property>
- <property name="factory">addQuestionAssesment</property>
+ <property name="content_icon">AssessmentPart.gif</property>
+ <property name="content_meta_type">AssessmentPart</property>
+ <property name="product">eea.indicators</property>
+ <property name="factory">addAssessmentPart</property>
  <property name="immediate_view">base_view</property>
  <property name="global_allow">False</property>
- <property name="filter_content_types">False</property>
+ <property name="filter_content_types">True</property>
  <property name="allowed_content_types">
+   <element value="EEAFigure"/>
  </property>
  <property name="allow_discussion">False</property>
  <property name="default_view">base_view</property>
@@ -21,10 +22,10 @@
  </property>
  <property name="default_view_fallback">False</property>
  <alias from="(Default)" to="(dynamic view)"/>
- <alias from="index.html" to="(dynamic view)"/>
  <alias from="view" to="(selected layout)"/>
  <alias from="edit" to="base_edit"/>
  <alias from="properties" to="base_metadata"/>
+ <alias from="sharing" to="folder_localrole_form"/>
  <action title="View" 
          action_id="view"
          category="object" 

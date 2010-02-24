@@ -79,19 +79,9 @@ def initialize(context):
     ##/code-section custom-init-top
 
     # imports packages and types for registration
+    import content
+    import stub_content
 
-    import Specification
-    import SpecificationsFolder
-    import Assessment
-    import PolicyQuestion
-    import RationaleReference
-    import QuestionAssesment
-    import ExternalDataSpec
-    import MethodologyReference
-    import WorkItem
-    import EEAData
-    import EEAFigure
-    import Publication
 
     # Initialize portal content
     all_content_types, all_constructors, all_ftis = process_types(

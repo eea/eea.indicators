@@ -26,6 +26,14 @@ from eea.indicators.config import *
 
 schema = Schema((
 
+    IntegerField(
+        name='excel_file',
+        widget=IntegerField._properties['widget'](
+            label='Excel_file',
+            label_msgid='indicators_label_excel_file',
+            i18n_domain='indicators',
+        ),
+    ),
 
 ),
 )
@@ -33,23 +41,23 @@ schema = Schema((
 ##code-section after-local-schema #fill in your manual code here
 ##/code-section after-local-schema
 
-EEAFigure_schema = BaseSchema.copy() + \
+EEAFigureFile_schema = BaseFolderSchema.copy() + \
     schema.copy()
 
 ##code-section after-schema #fill in your manual code here
 ##/code-section after-schema
 
-class EEAFigure(BaseContent, BrowserDefaultMixin):
+class EEAFigureFile(BaseFolder, BrowserDefaultMixin):
     """
     """
     security = ClassSecurityInfo()
 
-    implements(interfaces.IEEAFigure)
+    implements(interfaces.IEEAFigureFile)
 
-    meta_type = 'EEAFigure'
+    meta_type = 'EEAFigureFile'
     _at_rename_after_creation = True
 
-    schema = EEAFigure_schema
+    schema = EEAFigureFile_schema
 
     ##code-section class-header #fill in your manual code here
     ##/code-section class-header
@@ -57,8 +65,8 @@ class EEAFigure(BaseContent, BrowserDefaultMixin):
     # Methods
 
 
-registerType(EEAFigure, PROJECTNAME)
-# end of class EEAFigure
+registerType(EEAFigureFile, PROJECTNAME)
+# end of class EEAFigureFile
 
 ##code-section module-footer #fill in your manual code here
 ##/code-section module-footer

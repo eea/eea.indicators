@@ -39,17 +39,6 @@ schema = Schema((
         default_output_type='text/html',
     ),
     ReferenceField(
-        name='eeafigures',
-        widget=ReferenceBrowserWidget(
-            label='Eeafigures',
-            label_msgid='indicators_label_eeafigures',
-            i18n_domain='indicators',
-        ),
-        allowed_types=('EEAFigure',),
-        multiValued=1,
-        relationship='has_figures',
-    ),
-    ReferenceField(
         name='policyquestions',
         widget=ReferenceBrowserWidget(
             label='Policyquestions',
@@ -67,23 +56,23 @@ schema = Schema((
 ##code-section after-local-schema #fill in your manual code here
 ##/code-section after-local-schema
 
-QuestionAssesment_schema = BaseSchema.copy() + \
+AssessmentPart_schema = BaseFolderSchema.copy() + \
     schema.copy()
 
 ##code-section after-schema #fill in your manual code here
 ##/code-section after-schema
 
-class QuestionAssesment(BaseContent, BrowserDefaultMixin):
+class AssessmentPart(BaseFolder, BrowserDefaultMixin):
     """
     """
     security = ClassSecurityInfo()
 
-    implements(interfaces.IQuestionAssesment)
+    implements(interfaces.IAssessmentPart)
 
-    meta_type = 'QuestionAssesment'
+    meta_type = 'AssessmentPart'
     _at_rename_after_creation = True
 
-    schema = QuestionAssesment_schema
+    schema = AssessmentPart_schema
 
     ##code-section class-header #fill in your manual code here
     ##/code-section class-header
@@ -91,8 +80,8 @@ class QuestionAssesment(BaseContent, BrowserDefaultMixin):
     # Methods
 
 
-registerType(QuestionAssesment, PROJECTNAME)
-# end of class QuestionAssesment
+registerType(AssessmentPart, PROJECTNAME)
+# end of class AssessmentPart
 
 ##code-section module-footer #fill in your manual code here
 ##/code-section module-footer
