@@ -1,0 +1,6 @@
+Overview of the Indicators
+==========================
+
+	>>> print portal.objectValues()
+
+:vim: set ft=doctest:
