@@ -26,6 +26,30 @@ import transaction
 def isNotindicatorsProfile(context):
     return context.readDataFile("indicators_marker.txt") is None
 
+def installQIDependencies(context):
+    """This is for old-style products using QuickInstaller"""
+    if isNotindicatorsProfile(context): return 
+    logger.info("installQIDependencies starting")
+    site = context.getSite()
+    qi = getToolByName(site, 'portal_quickinstaller')
+
+    for dependency in DEPENDENCIES:
+        if qi.isProductInstalled(dependency):
+            logger.info("   re-Installing QI dependency %s:" % dependency)
+            qi.reinstallProducts([dependency])
+            transaction.savepoint() # is a savepoint really needed here?
+            logger.debug("   re-Installed QI dependency %s:" % dependency)
+        else:
+            if qi.isProductInstallable(dependency):
+                logger.info("   installing QI dependency %s:" % dependency)
+                qi.installProduct(dependency)
+                transaction.savepoint() # is a savepoint really needed here?
+                logger.debug("   installed dependency %s:" % dependency)
+            else:
+                logger.info("   QI dependency %s not installable" % dependency)
+                raise "   QI dependency %s not installable" % dependency
+    logger.info("installQIDependencies finished")
+
 
 
 def updateRoleMappings(context):
@@ -40,6 +64,15 @@ def postInstall(context):
     # the right place for your custom code
     if isNotindicatorsProfile(context): return
     site = context.getSite()
+
+    #install dependencies available as GS profiles
+
+    setuptool = getToolByName(site, 'portal_setup')
+    importcontext = 'profile-Products.DataGridField:default_25x'
+    setuptool.setImportContext(importcontext)
+    setuptool.runAllImportSteps()
+
+    logger.info("Installed dependency DataGridField")
 
 
 
