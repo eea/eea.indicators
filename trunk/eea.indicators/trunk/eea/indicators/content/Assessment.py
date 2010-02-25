@@ -71,22 +71,6 @@ schema = Schema((
             i18n_domain='indicators',
         ),
     ),
-    BooleanField(
-        name='published_on_eea',
-        widget=BooleanField._properties['widget'](
-            label="Published on EEA?",
-            label_msgid='indicators_label_published_on_eea',
-            i18n_domain='indicators',
-        ),
-    ),
-    DateTimeField(
-        name='publish_date',
-        widget=DateTimeField._properties['widget'](
-            label="Publication date",
-            label_msgid='indicators_label_publish_date',
-            i18n_domain='indicators',
-        ),
-    ),
 
 ),
 )
