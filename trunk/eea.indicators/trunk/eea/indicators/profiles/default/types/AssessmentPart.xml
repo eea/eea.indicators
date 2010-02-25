@@ -5,7 +5,7 @@
    
  <property name="title">Question Assessment</property>
  <property name="description"></property>
- <property name="content_icon">AssessmentPart.gif</property>
+ <property name="content_icon">AssessmentPart.png</property>
  <property name="content_meta_type">AssessmentPart</property>
  <property name="product">eea.indicators</property>
  <property name="factory">addAssessmentPart</property>
