@@ -39,14 +39,6 @@ schema = Schema((
         ),
         default_output_type='text/html',
     ),
-    DateTimeField(
-        name='creation_date',
-        widget=DateTimeField._properties['widget'](
-            label="Creation date",
-            label_msgid='indicators_label_creation_date',
-            i18n_domain='indicators',
-        ),
-    ),
     IntegerField(
         name='rating',
         widget=IntegerField._properties['widget'](
