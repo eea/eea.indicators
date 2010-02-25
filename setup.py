@@ -1,7 +1,9 @@
 from setuptools import setup, find_packages
 import os
 
-version = '1.0dev'
+name = 'eea.indicators'
+path = name.split('.') + ['version.txt']
+version = open(os.path.join(*path)).read().strip()
 
 setup(name='eea.indicators',
       version=version,
