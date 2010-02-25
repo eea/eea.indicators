@@ -3,7 +3,7 @@
         meta_type="Factory-based Type Information with dynamic views"
         xmlns:i18n="http://xml.zope.org/namespaces/i18n">
    
- <property name="title">Assessment</property>
+ <property name="title">Indicator Assessment</property>
  <property name="description"></property>
  <property name="content_icon">Assessment.gif</property>
  <property name="content_meta_type">Assessment</property>
@@ -51,4 +51,3 @@
   <permission value="Modify portal content"/>
  </action>
 </object>
-
