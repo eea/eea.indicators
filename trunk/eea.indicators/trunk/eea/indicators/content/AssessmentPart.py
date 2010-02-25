@@ -23,6 +23,9 @@ from Products.ATReferenceBrowserWidget.ATReferenceBrowserWidget import \
     ReferenceBrowserWidget
 from eea.indicators.config import *
 
+# additional imports from tagged value 'import'
+from Products.ATContentTypes.content.folder import ATFolder, ATFolderSchema
+
 ##code-section module-header #fill in your manual code here
 ##/code-section module-header
 
@@ -56,13 +59,13 @@ schema = Schema((
 ##code-section after-local-schema #fill in your manual code here
 ##/code-section after-local-schema
 
-AssessmentPart_schema = BaseFolderSchema.copy() + \
+AssessmentPart_schema = ATFolderSchema.copy() + \
     schema.copy()
 
 ##code-section after-schema #fill in your manual code here
 ##/code-section after-schema
 
-class AssessmentPart(BaseFolder, BrowserDefaultMixin):
+class AssessmentPart(ATFolder, BrowserDefaultMixin):
     """
     """
     security = ClassSecurityInfo()

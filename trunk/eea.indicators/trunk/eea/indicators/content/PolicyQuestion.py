@@ -19,9 +19,10 @@ import interfaces
 
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 
-from Products.ATReferenceBrowserWidget.ATReferenceBrowserWidget import \
-    ReferenceBrowserWidget
 from eea.indicators.config import *
+
+# additional imports from tagged value 'import'
+from Products.ATContentTypes.content.folder import ATFolder, ATFolderSchema
 
 ##code-section module-header #fill in your manual code here
 ##/code-section module-header
@@ -46,17 +47,6 @@ schema = Schema((
             i18n_domain='indicators',
         ),
     ),
-    ReferenceField(
-        name='eeafigures',
-        widget=ReferenceBrowserWidget(
-            label="Example EEA Figure",
-            label_msgid='indicators_label_eeafigures',
-            i18n_domain='indicators',
-        ),
-        allowed_types=('EEAFigure',),
-        multiValued=0,
-        relationship='example_figure',
-    ),
 
 ),
 )
@@ -64,13 +54,13 @@ schema = Schema((
 ##code-section after-local-schema #fill in your manual code here
 ##/code-section after-local-schema
 
-PolicyQuestion_schema = BaseSchema.copy() + \
+PolicyQuestion_schema = ATFolderSchema.copy() + \
     schema.copy()
 
 ##code-section after-schema #fill in your manual code here
 ##/code-section after-schema
 
-class PolicyQuestion(BaseContent, BrowserDefaultMixin):
+class PolicyQuestion(ATFolder, BrowserDefaultMixin):
     """
     """
     security = ClassSecurityInfo()

@@ -21,6 +21,9 @@ from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 
 from eea.indicators.config import *
 
+# additional imports from tagged value 'import'
+from Products.ATContentTypes.content.folder import ATFolder, ATFolderSchema
+
 ##code-section module-header #fill in your manual code here
 ##/code-section module-header
 
@@ -91,13 +94,13 @@ schema = Schema((
 ##code-section after-local-schema #fill in your manual code here
 ##/code-section after-local-schema
 
-Assessment_schema = BaseFolderSchema.copy() + \
+Assessment_schema = ATFolderSchema.copy() + \
     schema.copy()
 
 ##code-section after-schema #fill in your manual code here
 ##/code-section after-schema
 
-class Assessment(BaseFolder, BrowserDefaultMixin):
+class Assessment(ATFolder, BrowserDefaultMixin):
     """
     """
     security = ClassSecurityInfo()
