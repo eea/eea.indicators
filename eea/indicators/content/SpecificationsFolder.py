@@ -21,6 +21,9 @@ from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 
 from eea.indicators.config import *
 
+# additional imports from tagged value 'import'
+from Products.ATContentTypes.content.folder import ATBTreeFolder, ATBTreeFolderSchema
+
 ##code-section module-header #fill in your manual code here
 ##/code-section module-header
 
@@ -33,13 +36,13 @@ schema = Schema((
 ##code-section after-local-schema #fill in your manual code here
 ##/code-section after-local-schema
 
-SpecificationsFolder_schema = BaseBTreeFolderSchema.copy() + \
+SpecificationsFolder_schema = ATBTreeFolderSchema.copy() + \
     schema.copy()
 
 ##code-section after-schema #fill in your manual code here
 ##/code-section after-schema
 
-class SpecificationsFolder(BaseBTreeFolder, BrowserDefaultMixin):
+class SpecificationsFolder(ATBTreeFolder, BrowserDefaultMixin):
     """
     """
     security = ClassSecurityInfo()
