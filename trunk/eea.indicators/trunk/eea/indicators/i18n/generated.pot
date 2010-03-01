@@ -89,6 +89,11 @@ msgstr ""
 msgid "indicators_label_csi_topics"
 msgstr ""
 
+#. Default: "Data uncertainty"
+#: content/Specification.py
+msgid "indicators_label_data_uncertainty"
+msgstr ""
+
 #. Default: "Dataset path"
 #: ExternalDataSpec.py
 #: content/ExternalDataSpec.py
@@ -99,6 +104,11 @@ msgstr ""
 #: ExternalDataSpec.py
 #: content/ExternalDataSpec.py
 msgid "indicators_label_dataset_url"
+msgstr ""
+
+#. Default: "Definition"
+#: content/Specification.py
+msgid "indicators_label_definition"
 msgstr ""
 
 #. Default: "Description"
@@ -180,6 +190,21 @@ msgstr ""
 msgid "indicators_label_manager_user_id"
 msgstr ""
 
+#. Default: "Methodology"
+#: content/Specification.py
+msgid "indicators_label_methodology"
+msgstr ""
+
+#. Default: "Methodology gapfilling"
+#: content/Specification.py
+msgid "indicators_label_methodology_gapfilling"
+msgstr ""
+
+#. Default: "Methodology uncertainty"
+#: content/Specification.py
+msgid "indicators_label_methodology_uncertainty"
+msgstr ""
+
 #. Default: "More updates on"
 #: Specification.py
 #: content/Specification.py
@@ -196,6 +221,11 @@ msgstr ""
 #: Assessment.py
 #: content/Assessment.py
 msgid "indicators_label_mp_year"
+msgstr ""
+
+#. Default: "Old_id"
+#: content/Specification.py
+msgid "indicators_label_old_id"
 msgstr ""
 
 #. Default: "Other Comments"
@@ -323,6 +353,11 @@ msgstr ""
 #: Specification.py
 #: content/Specification.py
 msgid "indicators_label_typology"
+msgstr ""
+
+#. Default: "Units"
+#: content/Specification.py
+msgid "indicators_label_units"
 msgstr ""
 
 #. Default: "Version"

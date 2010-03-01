@@ -3,4 +3,7 @@ Overview of the Indicators
 
 	>>> print portal.objectValues()
 
+We have skin folders installed. We have several workflows installed.
+Test views. Test workflows. Test permissions.
+
 :vim: set ft=doctest:

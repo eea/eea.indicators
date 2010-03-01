@@ -230,6 +230,81 @@ schema = Schema((
         schemata="default",
         description="A unique sequence of characters that is shared by all the specifications which are versions of each other",
     ),
+    StringField(
+        name='old_id',
+        widget=StringField._properties['widget'](
+            label='Old_id',
+            label_msgid='indicators_label_old_id',
+            i18n_domain='indicators',
+        ),
+        visibility={'view':'hidden'},
+    ),
+    TextField(
+        name='definition',
+        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+        widget=RichWidget(
+            label="Definition",
+            label_msgid='indicators_label_definition',
+            i18n_domain='indicators',
+        ),
+        default_output_type='text/html',
+        schemata="default",
+    ),
+    TextField(
+        name='units',
+        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+        widget=RichWidget(
+            label="Units",
+            label_msgid='indicators_label_units',
+            i18n_domain='indicators',
+        ),
+        default_output_type='text/html',
+        schemata="default",
+    ),
+    TextField(
+        name='methodology',
+        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+        widget=RichWidget(
+            label="Methodology",
+            label_msgid='indicators_label_methodology',
+            i18n_domain='indicators',
+        ),
+        default_output_type='text/html',
+        schemata="default",
+    ),
+    TextField(
+        name='methodology_uncertainty',
+        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+        widget=RichWidget(
+            label="Methodology uncertainty",
+            label_msgid='indicators_label_methodology_uncertainty',
+            i18n_domain='indicators',
+        ),
+        default_output_type='text/html',
+        schemata="default",
+    ),
+    TextField(
+        name='data_uncertainty',
+        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+        widget=RichWidget(
+            label="Data uncertainty",
+            label_msgid='indicators_label_data_uncertainty',
+            i18n_domain='indicators',
+        ),
+        default_output_type='text/html',
+        schemata="default",
+    ),
+    TextField(
+        name='methodology_gapfilling',
+        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+        widget=RichWidget(
+            label="Methodology gapfilling",
+            label_msgid='indicators_label_methodology_gapfilling',
+            i18n_domain='indicators',
+        ),
+        default_output_type='text/html',
+        schemata="default",
+    ),
     ReferenceField(
         name='externaldataspecs',
         widget=ReferenceBrowserWidget(
@@ -281,6 +356,33 @@ class Specification(ATFolder, BrowserDefaultMixin):
     ##/code-section class-header
 
     # Methods
+
+    # Manually created methods
+
+    def get_secondary_policy_questions(self):
+        return self.objectValues('PolicyQuestion')
+
+    def get_primary_policy_question(self):
+        pass
+
+    def get_all_policy_questions(self):
+        return self.objectValues('PolicyQuestion')
+
+    def get_all_methodology_references(self):
+        pass
+
+    def get_all_rationale_references(self):
+        pass
+
+    def get_all_workitems(self):
+        pass
+
+    def get_all_assessments(self):
+        pass
+
+    def get_all_referenced_data(self):
+        pass
+
 
 
 registerType(Specification, PROJECTNAME)

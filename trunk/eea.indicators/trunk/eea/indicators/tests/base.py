@@ -21,12 +21,15 @@ def setup_indicators():
     fiveconfigure.debug_mode = True
     import Products.Five
     import Products.FiveSite
+    import eea.indicators
     zcml.load_config('meta.zcml', Products.Five)
     zcml.load_config('configure.zcml', Products.FiveSite)
+    zcml.load_config('configure.zcml', eea.indicators)
     fiveconfigure.debug_mode = False
 
     PloneTestCase.installProduct('Five')
     PloneTestCase.installProduct('FiveSite')
+    PloneTestCase.installProduct('eea.indicators')
 
 
 PRODUCTS = ('DataGridField')
