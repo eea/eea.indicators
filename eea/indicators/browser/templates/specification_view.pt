@@ -1,0 +1,40 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+	metal:use-macro="here/main_template/macros/master"
+	i18n:domain="indicators">
+	<head>
+		<title tal:content="context/Title"></title>
+	</head>
+	<body>
+		<div metal:fill-slot="main">
+			<ul class="toc">
+				<li><a href="#rationale">Rationale</a></li>
+				<li><a href="#definition">Indicator Definition</a></li>
+				<li><a href="#policy_context">Policy context and targets</a></li>
+				<li><a href="#policy_questions">Policy questions and graphics</a></li>
+				<li><a href="#methodology">Methodology</a></li>
+				<li><a href="#dataspecs">Data specifications</a></li>
+				<li><a href="#uncertainties">Uncertainties</a></li>
+				<li><a href="#further work">Further work</a></li>
+				<li><a href="#metadata">General metadata</a></li>
+			</ul>
+
+			<a name="versions"></a>
+			<h2>Assessment versions</h2>
+			<h3>Published (reviewed and quality assured)</h3>
+			<h3>Drafts (not yet published - not quality assured)</h3>
+
+			<a name="rationale"></a>
+			<h2 class="rationale">Rationale</h2>
+			<p tal:content="context/rationale_justification">Rationale justification</p>
+
+			<a name="definition"></a>
+			<h2 class="definition">Indicator definition</a>
+
+
+			<tal:rep tal:repeat="pq context/get_all_policy_questions">
+				<div tal:replace="structure pq/@@fulldetail" />
+			</tal:rep>
+		</div>
+	</body>
+</html>
+

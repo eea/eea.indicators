@@ -1,0 +1,54 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+	metal:use-macro="here/main_template/macros/master"
+	i18n:domain="indicators">
+	<head>
+		<title tal:content="context/Title"></title>
+	</head>
+	<body>
+		<div metal:fill-slot="main">
+			<h1 tal:content="context/Title">SpecFolder title</h1>
+			<table class="listing">
+				<thead>
+					<tr>
+						<th>CSI Code</th>
+						<th>Indicator name</th>
+						<th>CSI Topic</th>
+						<th>CSI Status</th>
+						<th>Visibility</th>
+						<th>EEA Manager</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr tal:repeat="spec python:here.objectValues('Specification')">
+						<td tal:define="codes spec/getCodes">
+							<span tal:repeat="code codes" tal:content="code">
+								Code	
+							</span>
+						</td>
+						<td><a href="" tal:attributes="href spec/absolute_url" 
+													 tal:content="spec/Title">Indicator name</a></td>
+						<td tal:content="spec/getCsi_topics">CSI Topics</td>
+						<td tal:content="spec/getCsi_status">CSI Status</td>
+						<td tal:content="python:wtool.getInfoFor(spec, 'review_state')">Status</td>
+						<td>EEA Manager</td>
+					</tr>
+				</tbody>
+			</table>
+			<h1>External Data Specifications</h1>
+			<table class="listing">
+				<thead>
+					<tr>
+						<th>Title</th>
+						<th>Provider</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr tal:repeat="eeadata python:here.objectValues('ExternalDataSpec')">
+						<td><a href="" tal:attributes="href eeadata/absolute_url" tal:content="eeadata/Title">Title</a></td>
+						<td tal:content="eeadata/getProvider_name">Provider name</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</body>
+</html>
