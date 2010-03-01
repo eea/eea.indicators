@@ -307,6 +307,11 @@ msgstr ""
 msgid "indicators_label_rationale_justification"
 msgstr ""
 
+#. Default: "Rationale uncertainty"
+#: content/Specification.py
+msgid "indicators_label_rationale_uncertainty"
+msgstr ""
+
 #. Default: "Reference type"
 #: RationaleReference.py
 #: content/RationaleReference.py

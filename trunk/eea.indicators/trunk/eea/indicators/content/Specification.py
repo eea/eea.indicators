@@ -30,6 +30,9 @@ from Products.DataGridField.SelectColumn import SelectColumn
 from Products.ATContentTypes.content.folder import ATFolder, ATFolderSchema
 
 ##code-section module-header #fill in your manual code here
+import datetime
+
+ONE_YEAR = datetime.timedelta(weeks=52)
 ##/code-section module-header
 
 schema = Schema((
@@ -178,11 +181,11 @@ schema = Schema((
         schemata="Rationale",
     ),
     TextField(
-        name='rational_uncertainty',
+        name='rationale_uncertainty',
         allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
         widget=RichWidget(
             label="Rationale uncertainty",
-            label_msgid='indicators_label_rational_uncertainty',
+            label_msgid='indicators_label_rationale_uncertainty',
             i18n_domain='indicators',
         ),
         default_output_type='text/html',
@@ -237,7 +240,7 @@ schema = Schema((
             label_msgid='indicators_label_old_id',
             i18n_domain='indicators',
         ),
-        visibility={'view':'hidden'},
+        visibility={'view':'hidden', 'edit':'hidden'},
     ),
     TextField(
         name='definition',
@@ -359,29 +362,19 @@ class Specification(ATFolder, BrowserDefaultMixin):
 
     # Manually created methods
 
-    def get_secondary_policy_questions(self):
-        return self.objectValues('PolicyQuestion')
-
-    def get_primary_policy_question(self):
-        pass
-
-    def get_all_policy_questions(self):
-        return self.objectValues('PolicyQuestion')
-
-    def get_all_methodology_references(self):
-        pass
-
-    def get_all_rationale_references(self):
-        pass
-
-    def get_all_workitems(self):
-        pass
-
-    def get_all_assessments(self):
-        pass
-
-    def get_all_referenced_data(self):
-        pass
+    def get_work(self):
+        in_future = datetime.datetime.now() + ONE_YEAR
+        items = self.objectValues('WorkItem')
+        short_term = []
+        long_term = []
+        for item in items:
+            d = item.getDue_date()
+            date = datetime.datetime(d.year(), d.month(), d.day())
+            if date > in_future:
+                long_term.append(item)
+            else:
+                short_term.append(item)
+        return {'long':long_term, 'short':short_term}
 
 
 

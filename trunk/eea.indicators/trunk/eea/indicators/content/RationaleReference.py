@@ -55,6 +55,7 @@ schema = Schema((
             i18n_domain='indicators',
         ),
         default_output_type='text/html',
+        accessor="Description",
     ),
     StringField(
         name='reference_type',

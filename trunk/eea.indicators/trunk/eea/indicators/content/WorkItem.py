@@ -39,19 +39,24 @@ schema = Schema((
     ),
     TextField(
         name='description',
-        widget=TextAreaWidget(
+        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+        widget=RichWidget(
             label_msgid="IMS_workitem_description_label",
             label='Description',
             i18n_domain='indicators',
         ),
+        default_output_type='text/html',
+        accessor="Description",
     ),
     TextField(
         name='needs',
-        widget=TextAreaWidget(
+        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+        widget=RichWidget(
             label_msgid="IMS_workitem_needs_label",
             label='Needs',
             i18n_domain='indicators',
         ),
+        default_output_type='text/html',
     ),
     StringField(
         name='status',
@@ -60,6 +65,17 @@ schema = Schema((
             label='Status',
             i18n_domain='indicators',
         ),
+        vocabulary= ["Not started", "In progress", "Completed" ],
+    ),
+    StringField(
+        name='title',
+        widget=StringField._properties['widget'](
+            visibility={'view':'hidden', 'edit':'hidden'},
+            label='Title',
+            label_msgid='indicators_label_title',
+            i18n_domain='indicators',
+        ),
+        accessor="Title",
     ),
 
 ),
@@ -90,6 +106,13 @@ class WorkItem(ATFolder, BrowserDefaultMixin):
     ##/code-section class-header
 
     # Methods
+
+    # Manually created methods
+
+    security.declarePublic('getTitle')
+    def getTitle(self):
+        return "Work in progress due %s" % self.getDue_date()
+
 
 
 registerType(WorkItem, PROJECTNAME)

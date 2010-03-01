@@ -56,6 +56,7 @@ schema = Schema((
         ),
         default_output_type='text/html',
         description="True",
+        accessor="Description",
     ),
 
 ),

@@ -6,6 +6,7 @@
 	</head>
 	<body>
 		<div metal:fill-slot="main">
+
 			<ul class="toc">
 				<li><a href="#rationale">Rationale</a></li>
 				<li><a href="#definition">Indicator Definition</a></li>
@@ -14,7 +15,7 @@
 				<li><a href="#methodology">Methodology</a></li>
 				<li><a href="#dataspecs">Data specifications</a></li>
 				<li><a href="#uncertainties">Uncertainties</a></li>
-				<li><a href="#further work">Further work</a></li>
+				<li><a href="#further_work">Further work</a></li>
 				<li><a href="#metadata">General metadata</a></li>
 			</ul>
 
@@ -25,15 +26,110 @@
 
 			<a name="rationale"></a>
 			<h2 class="rationale">Rationale</h2>
-			<p tal:content="context/rationale_justification">Rationale justification</p>
+			
+			<h3>Justification for indicator selection</h3>
+			<p tal:replace="structure context/rationale_justification">Rationale justification</p>
 
+			<h3>Scientific references:</h3>
+			<ul tal:define="refs python:context.objectValues('RationaleReference')">
+				<li tal:repeat="ref refs">
+					<a href="" tal:attributes="href ref/getLink" tal:content="ref/Title">Ref title</a>
+					<p tal:replace="structure ref/Description" />
+				</li>
+			</ul>
+			
 			<a name="definition"></a>
-			<h2 class="definition">Indicator definition</a>
+			<h2 class="definition">Indicator definition</h2>
+			<p tal:replace="structure context/getDefinition"></p>
 
+			<h3>Units</h3>
+			<p tal:replace="structure context/getUnits"></p>
 
-			<tal:rep tal:repeat="pq context/get_all_policy_questions">
-				<div tal:replace="structure pq/@@fulldetail" />
-			</tal:rep>
+			<a name="policy_context"></a>
+			<h2 class="policy_context">Policy Context and targets</h2>
+
+			<h3>Context description</h3>
+			<p tal:content="structure context/getPolicy_context_description"></p>
+
+			<h3>Targets</h3>
+			<p tal:content="structure context/getPolicy_context_targets"></p>
+			<h3>Related policy documents</h3>
+			XXX: show the references to related policy documents
+
+			<a name="policy_questions"></a>
+			<h2 class="policy_questions">Key policy question</h2>
+			<div tal:repeat="question python:here.objectValues('PolicyQuestion')">
+				<h3 tal:content="question/Title">Question title</h3>
+			</div>
+			XXX: put example graphics here
+
+			<a name="methodology"></a>
+			<h2 class="methodology">Methodology</h2>
+
+			<h3>Methodology for indicator calculation</h3>
+			<p tal:content="structure context/getMethodology" />
+
+			<h3>Methodology for gap filling</h3>
+			<p tal:content="structure context/getMethodology_gapfilling" />
+
+			<h3>Methodology references</h3>
+			<ul tal:define="refs python:context.objectValues('MethodologyReference')">
+				<li tal:repeat="ref refs">
+					<a href="" tal:attributes="href ref/getLink" tal:content="ref/Title">Ref</a>
+					<p tal:replace="structure ref/Description" />
+				</li>
+			</ul>
+
+			<a name="daataspecs"></a>
+			<h2 class="policy_questions">Data specifications</h2>
+			XXX: fill this in
+			<p tal:content="nothing"></p>
+
+			<a name="uncertainties"></a>
+			<h2 class="uncertainties">Uncertainties</h2>
+
+			<h3>Methodology uncertainty</h3>
+			<p tal:replace="structure context/getMethodology_uncertainty"></p>
+
+			<h3>Data sets uncertainty</h3>
+			<p tal:replace="structure context/getData_uncertainty"></p>
+
+			<h3>Rationale uncertainty</h3>
+			<p tal:replace="structure context/getRationale_uncertainty"></p>
+
+			<a name="further_work"></a>
+			<h2 class="further_work">Further work</h2>
+			<tal:def tal:define="works context/get_work; short works/short; long works/long">
+				<h3>Short term work</h3>
+				<p>Work specifed here requires to be completed within 1 year from now.</p>
+				<div tal:repeat="work short">
+					<h4>Work description</h4>
+					<p tal:replace="structure work/Description"></p>
+					<h4>Resource needs</h4>
+					<p tal:replace="structure work/getNeeds"></p>
+					<h4>Status</h4>
+					<p tal:replace="structure work/getStatus"></p>
+					<h4>Deadline</h4>
+					<p tal:replace="structure work/getDue_date"></p>
+				</div>
+				<h3>Long term work</h3>
+				<div tal:repeat="work long">
+					<h4>Work description</h4>
+					<p tal:replace="structure work/Description"></p>
+					<h4>Resource needs</h4>
+					<p tal:replace="structure work/getNeeds"></p>
+					<h4>Status</h4>
+					<p tal:replace="structure work/getStatus"></p>
+					<h4>Deadline</h4>
+					<p tal:replace="structure work/getDue_date"></p>
+				</div>
+
+			</tal:def>
+
+			<a name="metadata"></a>
+			<h2 class="metadata">General metadata</h2>
+			<p tal:content="nothing"></p>
+
 		</div>
 	</body>
 </html>
