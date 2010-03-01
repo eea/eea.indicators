@@ -18,6 +18,7 @@
 	<type type_id="RationaleReference"/>
 	<type type_id="Workflow"/>
 	<type type_id="ExternalDataSpec"/>
+	<type type_id="WorkItem"/>
 <!-- ##/code-section workflowbindings -->   
  </bindings>
 </object>
