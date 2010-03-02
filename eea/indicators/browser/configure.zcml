@@ -68,4 +68,10 @@
 		permission="zope2.View"
 		/>
 
+
+	<browser:resource
+		name='indicators.css'
+		file='css/indicators.css'
+		/>
+
 </configure>

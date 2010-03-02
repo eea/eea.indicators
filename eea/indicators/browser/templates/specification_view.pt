@@ -2,6 +2,10 @@
 	metal:use-macro="here/main_template/macros/master"
 	i18n:domain="indicators">
 	<head>
+		<metal:styleslot fill-slot="style_slot">
+			<link type="text/css" rel="stylesheet" media='screen,print' 
+				tal:attributes="href context/++resource++indicators.css" />
+		</metal:styleslot>
 		<title tal:content="context/Title"></title>
 	</head>
 	<body>
@@ -26,7 +30,7 @@
 
 			<a name="rationale"></a>
 			<h2 class="rationale">Rationale</h2>
-			
+
 			<h3>Justification for indicator selection</h3>
 			<p tal:replace="structure context/rationale_justification">Rationale justification</p>
 
@@ -37,7 +41,7 @@
 					<p tal:replace="structure ref/Description" />
 				</li>
 			</ul>
-			
+
 			<a name="definition"></a>
 			<h2 class="definition">Indicator definition</h2>
 			<p tal:replace="structure context/getDefinition"></p>
@@ -128,9 +132,49 @@
 
 			<a name="metadata"></a>
 			<h2 class="metadata">General metadata</h2>
-			<p tal:content="nothing"></p>
+
+			<div class='headed-box'>
+				<h3>Responsability and ownership</h3>
+
+				<h4>EEA Contact Info:</h4>
+				XXX: fill this in
+
+				<h4>Ownership</h4>
+				<ul>
+					<li tal:repeat="info context/getOwnership" >
+						<a tal:content="python:context.getOrganisationName(info).Title" tal:attributes="href info">EEA</a>
+					</li>
+				</ul>
+
+			</div>
+
+
+			<div class='headed-box'>
+				<h3>Identification</h3>
+				<p>
+					CSI Code: 
+					Source Code: 
+					Specification
+					link: 
+					version id: 
+
+					First draft created
+					Publish date
+					Last modified
+				</p>
+			</div>
+
+			<div class='headed-box'>
+				<h3>Classification</h3>
+				<div class="visualClear"><!-- --></div>
+				<strong>DPSIR</strong>: <span tal:replace="context/getDpsir" /><br/>
+				<strong>Typology</strong>: <span tal:replace="context/getTypology" /><br/>
+				<strong>EEA Themes</strong>:
+				<ul>
+					<li tal:repeat="theme context/getThemes" tal:content="theme" />
+				</ul>
+			</div>
 
 		</div>
 	</body>
 </html>
-
