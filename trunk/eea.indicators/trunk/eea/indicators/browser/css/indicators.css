@@ -1,0 +1,17 @@
+.headed-box {
+	border:1px solid Lightblue;
+	padding:6px;
+	clear:both;
+	margin-top:20px;
+}
+.headed-box h3 {
+	background-color:white;
+	float:left;
+	margin-left:20px;
+	margin-top:-18px;
+	padding:0 6px;
+	position:relative;
+}
+.headed-box p, .headed-box h4 {
+	margin-top:10px;
+}

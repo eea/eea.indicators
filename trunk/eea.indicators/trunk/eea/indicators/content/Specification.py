@@ -28,8 +28,14 @@ from Products.DataGridField import DataGridField, DataGridWidget
 from Products.DataGridField.Column import Column
 from Products.DataGridField.SelectColumn import SelectColumn
 from Products.ATContentTypes.content.folder import ATFolder, ATFolderSchema
+from Products.Archetypes.atapi import MultiSelectionWidget
 
 ##code-section module-header #fill in your manual code here
+from eea.dataservice.vocabulary import Organisations
+from Products.CMFCore import permissions
+from Products.CMFCore.utils import getToolByName
+from Products.EEAContentTypes.content.ThemeTaggable import ThemeTaggable, ThemeTaggable_schema
+
 import datetime
 
 ONE_YEAR = datetime.timedelta(weeks=52)
@@ -96,6 +102,7 @@ schema = Schema((
             i18n_domain='indicators',
         ),
         schemata="Classification",
+        vocabulary=['D','P','S','I', 'R'],
     ),
     StringField(
         name='typology',
@@ -105,21 +112,13 @@ schema = Schema((
             i18n_domain='indicators',
         ),
         schemata="Classification",
+        vocabulary=['A','B','C','D', 'E'],
     ),
     StringField(
         name='csi_topics',
         widget=SelectionWidget(
             label="CSI Topics",
             label_msgid='indicators_label_csi_topics',
-            i18n_domain='indicators',
-        ),
-        schemata="Classification",
-    ),
-    LinesField(
-        name='themes',
-        widget=LinesField._properties['widget'](
-            label="Themes",
-            label_msgid='indicators_label_themes',
             i18n_domain='indicators',
         ),
         schemata="Classification",
@@ -135,12 +134,14 @@ schema = Schema((
     ),
     LinesField(
         name='ownership',
-        widget=LinesField._properties['widget'](
-            label="Ownership",
+        widget=MultiSelectionWidget(
+            label="Owner",
+            macro="organisations_widget",
             label_msgid='indicators_label_ownership',
             i18n_domain='indicators',
         ),
         schemata="Responsability",
+        vocabulary=Organisations(),
     ),
     StringField(
         name='manager_user_id',
@@ -341,9 +342,10 @@ Specification_schema = ATFolderSchema.copy() + \
     schema.copy()
 
 ##code-section after-schema #fill in your manual code here
+Specification_schema = Specification_schema + ThemeTaggable_schema.copy()
 ##/code-section after-schema
 
-class Specification(ATFolder, BrowserDefaultMixin):
+class Specification(ATFolder, ThemeTaggable, BrowserDefaultMixin):
     """
     """
     security = ClassSecurityInfo()
@@ -375,6 +377,16 @@ class Specification(ATFolder, BrowserDefaultMixin):
             else:
                 short_term.append(item)
         return {'long':long_term, 'short':short_term}
+
+    security.declareProtected(permissions.View, 'getOrganisationName')
+    def getOrganisationName(self, url):
+        """ """
+        res = None
+        cat = getToolByName(self, 'portal_catalog')
+        brains = cat.searchResults({'portal_type' : 'Organisation',
+                                    'getUrl': url})
+        if brains: res = brains[0]
+        return res
 
 
 
