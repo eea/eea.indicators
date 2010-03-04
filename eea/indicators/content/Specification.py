@@ -153,6 +153,7 @@ schema = Schema((
             i18n_domain='indicators',
         ),
         schemata="Status",
+        vocabulary=["Under development", "Proposed for core set", "Endorsed by management board", "Dropped from core set"],
     ),
     TextField(
         name='comment',
@@ -205,15 +206,6 @@ schema = Schema((
             i18n_domain='indicators',
         ),
         default_output_type='text/html',
-        schemata="PolicyContext",
-    ),
-    LinesField(
-        name='related_policy_documents',
-        widget=LinesField._properties['widget'](
-            label="Related Policy Documents",
-            label_msgid='indicators_label_related_policy_documents',
-            i18n_domain='indicators',
-        ),
         schemata="PolicyContext",
     ),
     StringField(
@@ -303,10 +295,10 @@ schema = Schema((
         schemata="default",
     ),
     ReferenceField(
-        name='externaldataspecs',
+        name='relatedItems',
         widget=ReferenceBrowserWidget(
-            label='Externaldataspecs',
-            label_msgid='indicators_label_externaldataspecs',
+            label="External data sets",
+            label_msgid='indicators_label_relatedItems',
             i18n_domain='indicators',
         ),
         allowed_types=('ExternalDataSpec',),
@@ -316,13 +308,27 @@ schema = Schema((
     ReferenceField(
         name='example_data',
         widget=ReferenceBrowserWidget(
-            label='Example_data',
+            label="Example Datasets that can be used to generate Figures",
             label_msgid='indicators_label_example_data',
             i18n_domain='indicators',
         ),
         allowed_types=('EEAData',),
         multiValued=1,
         relationship='has_eea_data_specs',
+    ),
+    ReferenceField(
+        name='related_policy_documents',
+        widget=ReferenceBrowserWidget(
+            label="Related Policy Documents",
+            addable="True",
+            destination="./../",
+            label_msgid='indicators_label_related_policy_documents',
+            i18n_domain='indicators',
+        ),
+        allowed_types=('PolicyDocumentReference',),
+        schemata="PolicyContext",
+        multiValued=0,
+        relationship='specification_related_policy_documents',
     ),
 
 ),

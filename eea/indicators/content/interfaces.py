@@ -41,5 +41,9 @@ class IWorkItem(Interface):
     """Marker interface for .WorkItem.WorkItem
     """
 
+class IPolicyDocumentReference(Interface):
+    """Marker interface for .PolicyDocumentReference.PolicyDocumentReference
+    """
+
 ##code-section FOOT
 ##/code-section FOOT
