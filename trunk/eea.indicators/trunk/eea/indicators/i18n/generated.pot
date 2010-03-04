@@ -340,12 +340,14 @@ msgstr ""
 
 #. Default: "Answers to policy question"
 #: content/answers_to_question.py
+#: content/has_external_data_specs.py
 msgid "indicators_label_relatedItems"
 msgstr ""
 
 #. Default: "Related Policy Documents"
 #: Specification.py
 #: content/Specification.py
+#: content/specification_related_policy_documents.py
 msgid "indicators_label_related_policy_documents"
 msgstr ""
 

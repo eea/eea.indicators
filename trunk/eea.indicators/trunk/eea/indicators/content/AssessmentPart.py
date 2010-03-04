@@ -114,7 +114,10 @@ class AssessmentPart(ATFolder, BrowserDefaultMixin):
 
     security.declarePublic('Title')
     def Title(self):
-        q = self.getQuestion_answered()
+        try:
+            q = self.getQuestion_answered()
+        except AttributeError:  #reference_catalog is not found at creation
+            q = None
         if q is None:
             return "Answer to unknown question"
         #return u"Answer for: %s" % q.Title()
