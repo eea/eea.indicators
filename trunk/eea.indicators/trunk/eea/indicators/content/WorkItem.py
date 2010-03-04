@@ -70,7 +70,7 @@ schema = Schema((
     StringField(
         name='title',
         widget=StringField._properties['widget'](
-            visibility={'view':'hidden', 'edit':'hidden'},
+            visible={'view':'hidden', 'edit':'hidden'},
             label='Title',
             label_msgid='indicators_label_title',
             i18n_domain='indicators',

@@ -41,16 +41,15 @@ schema = Schema((
         ),
         default_output_type='text/html',
     ),
-    ComputedField(
+    StringField(
         name='title',
-        widget=ComputedField._properties['widget'](
+        widget=StringField._properties['widget'](
             visible={'view':'invisible', 'edit':'invisible'},
             label='Title',
             label_msgid='indicators_label_title',
             i18n_domain='indicators',
         ),
         required=False,
-        expression="context.Title()",
         accessor="Title",
     ),
     TextField(
