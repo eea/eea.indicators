@@ -40,14 +40,6 @@ schema = Schema((
         default_output_type='text/html',
     ),
     IntegerField(
-        name='rating',
-        widget=IntegerField._properties['widget'](
-            label="Rating",
-            label_msgid='indicators_label_rating',
-            i18n_domain='indicators',
-        ),
-    ),
-    IntegerField(
         name='mp_year',
         widget=IntegerField._properties['widget'](
             label="MP Year",
@@ -92,6 +84,24 @@ class Assessment(ATFolder, BrowserDefaultMixin):
     ##/code-section class-header
 
     # Methods
+
+    # Manually created methods
+
+    security.declarePublic('get_assessments')
+    def get_assessments(self):
+        parts = self.objectValues('AssessmentPart')
+        key = None
+        secondary = []
+        for part in parts:
+            if part.is_key_message():
+                key = part
+            else:
+                secondary.append(part)
+
+        return {
+                'key':key,
+                'secondary':secondary
+                }
 
 
 registerType(Assessment, PROJECTNAME)

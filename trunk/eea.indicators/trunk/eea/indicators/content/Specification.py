@@ -123,15 +123,6 @@ schema = Schema((
         ),
         schemata="Classification",
     ),
-    StringField(
-        name='eea_indicator_manager',
-        widget=SelectionWidget(
-            label="EEA Indicator Manager",
-            label_msgid='indicators_label_eea_indicator_manager',
-            i18n_domain='indicators',
-        ),
-        schemata="Responsability",
-    ),
     LinesField(
         name='ownership',
         widget=MultiSelectionWidget(
@@ -143,13 +134,15 @@ schema = Schema((
         schemata="Responsability",
         vocabulary=Organisations(),
     ),
-    StringField(
-        name='manager_user_id',
-        widget=StringField._properties['widget'](
+    TextField(
+        name='contact',
+        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+        widget=RichWidget(
             label="ID of manager user",
-            label_msgid='indicators_label_manager_user_id',
+            label_msgid='indicators_label_contact',
             i18n_domain='indicators',
         ),
+        default_output_type='text/html',
         schemata="Responsability",
     ),
     StringField(
@@ -237,11 +230,11 @@ schema = Schema((
     StringField(
         name='old_id',
         widget=StringField._properties['widget'](
+            visible={'view':'invisible', 'edit':'invisible'},
             label='Old_id',
             label_msgid='indicators_label_old_id',
             i18n_domain='indicators',
         ),
-        visibility={'view':'hidden', 'edit':'hidden'},
     ),
     TextField(
         name='definition',
@@ -321,10 +314,10 @@ schema = Schema((
         relationship='has_external_data_specs',
     ),
     ReferenceField(
-        name='eeadatas',
+        name='example_data',
         widget=ReferenceBrowserWidget(
-            label='Eeadatas',
-            label_msgid='indicators_label_eeadatas',
+            label='Example_data',
+            label_msgid='indicators_label_example_data',
             i18n_domain='indicators',
         ),
         allowed_types=('EEAData',),

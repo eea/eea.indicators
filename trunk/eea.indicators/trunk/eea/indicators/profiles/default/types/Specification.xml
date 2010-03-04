@@ -54,4 +54,12 @@
          visible="True">
   <permission value="Modify portal content"/>
  </action>
+ <action title="List Assessments" 
+         action_id="assessments"
+         category="object" 
+         condition_expr="python:1"
+         url_expr="string:${object_url}/./folder_contents?portal_type=Assessment" 
+         visible="True">
+  <permission value="Manage portal content"/>
+ </action>
 </object>

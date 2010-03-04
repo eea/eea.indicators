@@ -80,7 +80,6 @@ def initialize(context):
 
     # imports packages and types for registration
     import content
-    import stub_content
 
 
     # Initialize portal content

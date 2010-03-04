@@ -47,6 +47,14 @@ schema = Schema((
             i18n_domain='indicators',
         ),
     ),
+    ComputedField(
+        name='description',
+        widget=ComputedField._properties['widget'](
+            label='Description',
+            label_msgid='indicators_label_description',
+            i18n_domain='indicators',
+        ),
+    ),
 
 ),
 )

@@ -42,11 +42,6 @@ ADD_CONTENT_PERMISSIONS = {
     'RationaleReference': 'indicators: Add RationaleReference',
     'AssessmentPart': 'indicators: Add AssessmentPart',
     'WorkItem': 'indicators: Add WorkItem',
-    'EEAData': 'indicators: Add EEAData',
-    'Publication': 'indicators: Add Publication',
-    'EEAFigureFile': 'indicators: Add EEAFigureFile',
-    'EEAFigure': 'indicators: Add EEAFigure',
-    'ImageFile': 'indicators: Add ImageFile',
 }
 
 setDefaultRoles('indicators: Add PolicyQuestion', ('Manager','Owner'))
@@ -58,11 +53,6 @@ setDefaultRoles('indicators: Add Assessment', ('Manager','Owner'))
 setDefaultRoles('indicators: Add RationaleReference', ('Manager','Owner'))
 setDefaultRoles('indicators: Add AssessmentPart', ('Manager','Owner'))
 setDefaultRoles('indicators: Add WorkItem', ('Manager','Owner'))
-setDefaultRoles('indicators: Add EEAData', ('Manager','Owner'))
-setDefaultRoles('indicators: Add Publication', ('Manager','Owner'))
-setDefaultRoles('indicators: Add EEAFigureFile', ('Manager','Owner'))
-setDefaultRoles('indicators: Add EEAFigure', ('Manager','Owner'))
-setDefaultRoles('indicators: Add ImageFile', ('Manager','Owner'))
 
 product_globals = globals()
 

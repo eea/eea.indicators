@@ -46,6 +46,7 @@ schema = Schema((
             label_msgid='indicators_label_provider_name',
             i18n_domain='indicators',
         ),
+        required=True,
     ),
     StringField(
         name='provider_url',
@@ -54,6 +55,7 @@ schema = Schema((
             label_msgid='indicators_label_provider_url',
             i18n_domain='indicators',
         ),
+        required=True,
     ),
     StringField(
         name='dataset_url',
@@ -62,6 +64,7 @@ schema = Schema((
             label_msgid='indicators_label_dataset_url',
             i18n_domain='indicators',
         ),
+        required=True,
     ),
     TextField(
         name='dataset_path',
@@ -70,6 +73,7 @@ schema = Schema((
             label_msgid='indicators_label_dataset_path',
             i18n_domain='indicators',
         ),
+        required=True,
     ),
     TextField(
         name='entities_description',
@@ -78,6 +82,7 @@ schema = Schema((
             label_msgid='indicators_label_entities_description',
             i18n_domain='indicators',
         ),
+        required=True,
     ),
     TextField(
         name='timelines',
@@ -86,6 +91,7 @@ schema = Schema((
             label_msgid='indicators_label_timelines',
             i18n_domain='indicators',
         ),
+        required=True,
     ),
     TextField(
         name='other_comments',
@@ -94,6 +100,7 @@ schema = Schema((
             label_msgid='indicators_label_other_comments',
             i18n_domain='indicators',
         ),
+        required=False,
     ),
     StringField(
         name='category_of_use',
@@ -102,6 +109,7 @@ schema = Schema((
             label_msgid='indicators_label_category_of_use',
             i18n_domain='indicators',
         ),
+        required=True,
     ),
 
 ),
