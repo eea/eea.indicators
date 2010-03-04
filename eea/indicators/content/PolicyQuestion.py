@@ -47,13 +47,15 @@ schema = Schema((
             i18n_domain='indicators',
         ),
     ),
-    ComputedField(
+    TextField(
         name='description',
-        widget=ComputedField._properties['widget'](
+        widget=TextAreaWidget(
+            visible={'view':'invisible', 'edit':'invisible'},
             label='Description',
             label_msgid='indicators_label_description',
             i18n_domain='indicators',
         ),
+        accessor="Description",
     ),
 
 ),

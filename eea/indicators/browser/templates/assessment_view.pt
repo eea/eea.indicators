@@ -11,9 +11,11 @@
 											 key nocall:assessments/key;
 											 secondary assessments/secondary; "
 				>
-				<h2 tal:content="key/Title">Question here</h2>
-				<div tal:replace="structure key/assessment">Question here</div>
-				XXX: Graphic here
+				<div tal:condition="key">
+					<h2 tal:content="key/Title">Question here</h2>
+					<div tal:replace="structure key/assessment">Question here</div>
+					XXX: Graphic here
+				</div>
 
 				<tal:parts repeat="part secondary">
 					<h2 tal:content="part/Title">Question here</h2>
