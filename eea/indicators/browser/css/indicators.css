@@ -12,6 +12,14 @@
 	padding:0 6px;
 	position:relative;
 }
-.headed-box p, .headed-box h4 {
+.headed-box p, .headed-box h4, .headed-box div.wrapper {
 	margin-top:10px;
+}
+ul.toc {
+    background-color:lightblue;
+    padding:1em 3em;
+    margin:0 0 1em 0;
+}
+ul.toc a {
+    color:black;
 }

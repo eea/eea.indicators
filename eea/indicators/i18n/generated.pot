@@ -46,6 +46,11 @@ msgstr ""
 msgid "indicators_help_source_code"
 msgstr ""
 
+#. Default: "Answers to policy question"
+#: content/relates_to.py
+msgid "indicators_label_answers_to_question"
+msgstr ""
+
 #. Default: "Assessment"
 #: Assessment.py
 #: QuestionAssesment.py
@@ -69,6 +74,11 @@ msgstr ""
 #: Specification.py
 #: content/Specification.py
 msgid "indicators_label_comment"
+msgstr ""
+
+#. Default: "ID of manager user"
+#: content/Specification.py
+msgid "indicators_label_contact"
 msgstr ""
 
 #. Default: "Creation date"
@@ -114,7 +124,7 @@ msgstr ""
 #. Default: "Description"
 #: MethodologyReference.py
 #: RationaleReference.py
-#: content/MethodologyReference.py
+#: content/AssessmentPart.py
 msgid "indicators_label_description"
 msgstr ""
 
@@ -147,6 +157,11 @@ msgstr ""
 #: ExternalDataSpec.py
 #: content/ExternalDataSpec.py
 msgid "indicators_label_entities_description"
+msgstr ""
+
+#. Default: "Example_data"
+#: content/has_eea_data_specs.py
+msgid "indicators_label_example_data"
 msgstr ""
 
 #. Default: "Excel_file"
@@ -289,6 +304,11 @@ msgstr ""
 msgid "indicators_label_published_on_eea"
 msgstr ""
 
+#. Default: "Answers to policy question"
+#: content/relates_to.py
+msgid "indicators_label_question_answered"
+msgstr ""
+
 #. Default: "Rating"
 #: Assessment.py
 #: content/Assessment.py
@@ -316,6 +336,11 @@ msgstr ""
 #: RationaleReference.py
 #: content/RationaleReference.py
 msgid "indicators_label_reference_type"
+msgstr ""
+
+#. Default: "Answers to policy question"
+#: content/answers_to_question.py
+msgid "indicators_label_relatedItems"
 msgstr ""
 
 #. Default: "Related Policy Documents"

@@ -19,16 +19,6 @@
          meta_type="Factory-based Type Information with dynamic views"/>
  <object name="WorkItem"
          meta_type="Factory-based Type Information with dynamic views"/>
- <object name="EEAData"
-         meta_type="Factory-based Type Information with dynamic views"/>
- <object name="Publication"
-         meta_type="Factory-based Type Information with dynamic views"/>
- <object name="EEAFigureFile"
-         meta_type="Factory-based Type Information with dynamic views"/>
- <object name="EEAFigure"
-         meta_type="Factory-based Type Information with dynamic views"/>
- <object name="ImageFile"
-         meta_type="Factory-based Type Information with dynamic views"/>
  <!-- ##code-section TYPES -->
  <!-- ##/code-section TYPES -->
 </object>

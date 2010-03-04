@@ -27,7 +27,7 @@ def install(self, reinstall=False):
     print >> out, "Installation log of %s:" % PROJECTNAME
 
     setuptool = getToolByName(self, 'portal_setup')   
-    importcontext = 'profile-Products.%s:default' % PROJECTNAME
+    importcontext = 'profile-eea.%s:default' % PROJECTNAME
     setuptool.setImportContext(importcontext)
     setuptool.runAllImportSteps()
     return out.getvalue()

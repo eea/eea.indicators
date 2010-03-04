@@ -41,16 +41,40 @@ schema = Schema((
         ),
         default_output_type='text/html',
     ),
+    ComputedField(
+        name='title',
+        widget=ComputedField._properties['widget'](
+            visible={'view':'invisible', 'edit':'invisible'},
+            label='Title',
+            label_msgid='indicators_label_title',
+            i18n_domain='indicators',
+        ),
+        required=False,
+        expression="context.Title()",
+        accessor="Title",
+    ),
+    TextField(
+        name='description',
+        default="",
+        widget=TextAreaWidget(
+            visible={'edit' : 'invisible', 'view' : 'invisible' },
+            label='Description',
+            label_msgid='indicators_label_description',
+            i18n_domain='indicators',
+        ),
+        accessor="Description",
+    ),
     ReferenceField(
-        name='policyquestions',
+        name='question_answered',
         widget=ReferenceBrowserWidget(
-            label='Policyquestions',
-            label_msgid='indicators_label_policyquestions',
+            label="Answers to policy question",
+            label_msgid='indicators_label_question_answered',
             i18n_domain='indicators',
         ),
         allowed_types=('PolicyQuestion',),
         multiValued=0,
-        relationship='answers_to_question',
+        relationship='relates_to',
+        required=True,
     ),
 
 ),
@@ -63,6 +87,11 @@ AssessmentPart_schema = ATFolderSchema.copy() + \
     schema.copy()
 
 ##code-section after-schema #fill in your manual code here
+AssessmentPart_schema['question_answered'].widget = ReferenceWidget(
+            label="Answers to policy question",
+            label_msgid='indicators_label_question_answered',
+            i18n_domain='indicators',
+        )
 ##/code-section after-schema
 
 class AssessmentPart(ATFolder, BrowserDefaultMixin):
@@ -81,6 +110,24 @@ class AssessmentPart(ATFolder, BrowserDefaultMixin):
     ##/code-section class-header
 
     # Methods
+
+    # Manually created methods
+
+    security.declarePublic('Title')
+    def Title(self):
+        q = self.getQuestion_answered()
+        if q is None:
+            return "Answer to unknown question"
+        #return u"Answer for: %s" % q.Title()
+        return q.Title()
+
+    security.declarePublic('is_key_message')
+    def is_key_message(self):
+        q = self.getQuestion_answered()
+        if q is None:
+            return False
+        return q.getIs_key_question()
+
 
 
 registerType(AssessmentPart, PROJECTNAME)
