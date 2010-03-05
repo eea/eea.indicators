@@ -17,7 +17,6 @@
    <element value="MethodologyReference"/>
    <element value="Assessment"/>
    <element value="RationaleReference"/>
-   <element value="WorkItem"/>
  </property>
  <property name="allow_discussion">False</property>
  <property name="default_view">@@view</property>

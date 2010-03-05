@@ -17,8 +17,6 @@
          meta_type="Factory-based Type Information with dynamic views"/>
  <object name="AssessmentPart"
          meta_type="Factory-based Type Information with dynamic views"/>
- <object name="WorkItem"
-         meta_type="Factory-based Type Information with dynamic views"/>
  <object name="PolicyDocumentReference"
          meta_type="Factory-based Type Information with dynamic views"/>
  <!-- ##code-section TYPES -->
