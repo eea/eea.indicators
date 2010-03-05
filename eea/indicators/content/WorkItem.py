@@ -16,10 +16,13 @@ from AccessControl import ClassSecurityInfo
 from Products.Archetypes.atapi import *
 from zope.interface import implements
 import interfaces
-
+from Products.ATContentTypes.content.base import ATCTContent
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 
 from eea.indicators.config import *
+
+# additional imports from tagged value 'import'
+from Products.ATContentTypes.content.base import ATCTContent, ATContentTypeSchema
 
 ##code-section module-header #fill in your manual code here
 ##/code-section module-header
@@ -29,6 +32,7 @@ schema = Schema((
     StringField(
         name='title',
         widget=StringField._properties['widget'](
+            visible={'view':'invisible', 'edit':'invisible'},
             label='Title',
             label_msgid='indicators_label_title',
             i18n_domain='indicators',
@@ -78,13 +82,14 @@ schema = Schema((
 ##code-section after-local-schema #fill in your manual code here
 ##/code-section after-local-schema
 
-WorkItem_schema = BaseSchema.copy() + \
+WorkItem_schema = ATContentTypeSchema.copy() + \
+    getattr(ATCTContent, 'schema', Schema(())).copy() + \
     schema.copy()
 
 ##code-section after-schema #fill in your manual code here
 ##/code-section after-schema
 
-class WorkItem(BaseContent, BrowserDefaultMixin):
+class WorkItem(ATCTContent, BrowserDefaultMixin):
     """
     """
     security = ClassSecurityInfo()
