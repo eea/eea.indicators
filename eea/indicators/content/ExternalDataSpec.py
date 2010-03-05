@@ -16,7 +16,7 @@ from AccessControl import ClassSecurityInfo
 from Products.Archetypes.atapi import *
 from zope.interface import implements
 import interfaces
-
+from Products.ATContentTypes.content.base import ATCTContent
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 
 from eea.indicators.config import *
@@ -119,12 +119,13 @@ schema = Schema((
 ##/code-section after-local-schema
 
 ExternalDataSpec_schema = ATFolderSchema.copy() + \
+    getattr(ATCTContent, 'schema', Schema(())).copy() + \
     schema.copy()
 
 ##code-section after-schema #fill in your manual code here
 ##/code-section after-schema
 
-class ExternalDataSpec(ATFolder, BrowserDefaultMixin):
+class ExternalDataSpec(ATFolder, ATCTContent, BrowserDefaultMixin):
     """
     """
     security = ClassSecurityInfo()

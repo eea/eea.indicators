@@ -16,7 +16,7 @@ from AccessControl import ClassSecurityInfo
 from Products.Archetypes.atapi import *
 from zope.interface import implements
 import interfaces
-
+from Products.ATContentTypes.content.base import ATCTContent
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 
 from Products.ATReferenceBrowserWidget.ATReferenceBrowserWidget import \
@@ -83,6 +83,7 @@ schema = Schema((
 ##/code-section after-local-schema
 
 AssessmentPart_schema = ATFolderSchema.copy() + \
+    getattr(ATCTContent, 'schema', Schema(())).copy() + \
     schema.copy()
 
 ##code-section after-schema #fill in your manual code here
@@ -93,7 +94,7 @@ AssessmentPart_schema['question_answered'].widget = ReferenceWidget(
         )
 ##/code-section after-schema
 
-class AssessmentPart(ATFolder, BrowserDefaultMixin):
+class AssessmentPart(ATFolder, ATCTContent, BrowserDefaultMixin):
     """
     """
     security = ClassSecurityInfo()
