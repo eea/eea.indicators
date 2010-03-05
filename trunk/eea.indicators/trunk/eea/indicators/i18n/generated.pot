@@ -134,6 +134,11 @@ msgstr ""
 msgid "indicators_label_dpsir"
 msgstr ""
 
+#. Default: "Due_date"
+#: content/WorkItem.py
+msgid "indicators_label_due_date"
+msgstr ""
+
 #. Default: "EEA Indicator Manager"
 #: Specification.py
 #: content/Specification.py
@@ -236,6 +241,11 @@ msgstr ""
 #: Assessment.py
 #: content/Assessment.py
 msgid "indicators_label_mp_year"
+msgstr ""
+
+#. Default: "Needs"
+#: content/WorkItem.py
+msgid "indicators_label_needs"
 msgstr ""
 
 #. Default: "Old_id"
@@ -360,6 +370,11 @@ msgstr ""
 #. Default: "Datasets used for this Specification"
 #: content/has_eea_data_specs.py
 msgid "indicators_label_specification_data"
+msgstr ""
+
+#. Default: "Status"
+#: content/WorkItem.py
+msgid "indicators_label_status"
 msgstr ""
 
 #. Default: "Summary message"
