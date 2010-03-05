@@ -312,7 +312,7 @@ schema = Schema((
             label_msgid='indicators_label_example_data',
             i18n_domain='indicators',
         ),
-        allowed_types=('EEAData',),
+        allowed_types=('Data',),
         multiValued=1,
         relationship='has_eea_data_specs',
     ),

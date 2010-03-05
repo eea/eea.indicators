@@ -76,15 +76,6 @@ schema = Schema((
         required=True,
     ),
     TextField(
-        name='entities_description',
-        widget=TextAreaWidget(
-            label="Entities description",
-            label_msgid='indicators_label_entities_description',
-            i18n_domain='indicators',
-        ),
-        required=True,
-    ),
-    TextField(
         name='timelines',
         widget=TextAreaWidget(
             label="Timelines",
@@ -110,6 +101,18 @@ schema = Schema((
             i18n_domain='indicators',
         ),
         required=True,
+        vocabulary= [['DataUseCategory_01','Main dataset'],['DataUseCategory_02','Dataset for gapfilling'],['DataUseCategory_03','Dataset for normalizing'],['DataUseCategory_04','Indicator dataset']],
+    ),
+    TextField(
+        name='description',
+        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+        widget=RichWidget(
+            label="Entities description",
+            label_msgid='indicators_label_description',
+            i18n_domain='indicators',
+        ),
+        default_output_type='text/html',
+        accessor="Description",
     ),
 
 ),

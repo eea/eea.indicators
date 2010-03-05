@@ -15,11 +15,10 @@
 	<type type_id="AssessmentPart" />
 	<type type_id="ExternalDataSpec"/>
 	<type type_id="MethodologyReference"/>
-	<type type_id="PolicyDocument"/>
+	<type type_id="PolicyDocumentReference"/>
 	<type type_id="PolicyQuestion"/>
 	<type type_id="RationaleReference"/>
 	<type type_id="WorkItem"/>
-	<type type_id="Workflow"/>
 <!-- ##/code-section workflowbindings -->   
  </bindings>
 </object>
