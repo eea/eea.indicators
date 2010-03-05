@@ -21,6 +21,9 @@ from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 
 from eea.indicators.config import *
 
+# additional imports from tagged value 'import'
+from Products.ATContentTypes.content.base import ATCTContent, ATContentTypeSchema
+
 ##code-section module-header #fill in your manual code here
 ##/code-section module-header
 
@@ -45,14 +48,14 @@ schema = Schema((
 ##code-section after-local-schema #fill in your manual code here
 ##/code-section after-local-schema
 
-PolicyDocumentReference_schema = BaseSchema.copy() + \
+PolicyDocumentReference_schema = ATContentTypeSchema.copy() + \
     getattr(ATLink, 'schema', Schema(())).copy() + \
     schema.copy()
 
 ##code-section after-schema #fill in your manual code here
 ##/code-section after-schema
 
-class PolicyDocumentReference(BaseContent, ATLink, BrowserDefaultMixin):
+class PolicyDocumentReference(ATCTContent, ATLink, BrowserDefaultMixin):
     """
     """
     security = ClassSecurityInfo()
