@@ -14,15 +14,15 @@
 			<h1 tal:content="context/Title">Title here</h1>
 
 			<ul class="toc">
-				<li><a href="#rationale">Rationale</a></li>
-				<li><a href="#definition">Indicator Definition</a></li>
-				<li><a href="#policy_context">Policy context and targets</a></li>
-				<li><a href="#policy_questions">Policy questions and graphics</a></li>
-				<li><a href="#methodology">Methodology</a></li>
-				<li><a href="#dataspecs">Data specifications</a></li>
-				<li><a href="#uncertainties">Uncertainties</a></li>
-				<li><a href="#further_work">Further work</a></li>
-				<li><a href="#metadata">General metadata</a></li>
+				<li><a href="view#rationale">Rationale</a></li>
+				<li><a href="view#definition">Indicator Definition</a></li>
+				<li><a href="view#policy_context">Policy context and targets</a></li>
+				<li><a href="view#policy_questions">Policy questions and graphics</a></li>
+				<li><a href="view#methodology">Methodology</a></li>
+				<li><a href="view#dataspecs">Data specifications</a></li>
+				<li><a href="view#uncertainties">Uncertainties</a></li>
+				<li><a href="view#further_work">Further work</a></li>
+				<li><a href="view#metadata">General metadata</a></li>
 			</ul>
 
 			<a name="versions"></a>
@@ -60,7 +60,14 @@
 			<h3>Targets</h3>
 			<p tal:content="structure context/getPolicy_context_targets"></p>
 			<h3>Related policy documents</h3>
-			XXX: show the references to related policy documents
+			<ul>
+				<li tal:repeat="doc context/getRelated_policy_documents">
+					<a href="" tal:attributes="href doc/getRemoteUrl" tal:content="doc/Title">
+						Doc title here
+					</a>
+					<div tal:content="structure doc/Description" />
+				</li>
+			</ul>
 
 			<a name="policy_questions"></a>
 			<h2 class="policy_questions">Key policy question</h2>
@@ -86,10 +93,18 @@
 				</li>
 			</ul>
 
-			<a name="daataspecs"></a>
+			<a name="dataspecs"></a>
 			<h2 class="policy_questions">Data specifications</h2>
-			XXX: fill this in
-			<p tal:content="nothing"></p>
+			<ul>
+				<li tal:repeat="data context/getRelatedItems">
+					<a href="" tal:attributes="href data/getDataset_url" tal:content="data/Title">Dataset title</a>
+					<div tal:content="structure data/Description" />
+				</li>
+				<li tal:repeat="data context/getSpecification_data">
+					<a href="" tal:attributes="href data/absolute_url" tal:content="data/Title">Dataset title</a>
+					<div tal:content="structure data/Description" />
+				</li>
+			</ul>
 
 			<a name="uncertainties"></a>
 			<h2 class="uncertainties">Uncertainties</h2>

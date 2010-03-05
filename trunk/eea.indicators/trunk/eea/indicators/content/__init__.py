@@ -44,7 +44,6 @@ import Specification
 import Assessment
 import RationaleReference
 import AssessmentPart
-import WorkItem
 import PolicyDocumentReference
 
 ##code-section init-module-footer #fill in your manual code here

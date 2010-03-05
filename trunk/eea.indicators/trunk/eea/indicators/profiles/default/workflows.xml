@@ -2,6 +2,7 @@
 <object name="portal_workflow" meta_type="Plone Workflow Tool">
 <!-- ##code-section workflowobjects -->
 <!-- ##/code-section workflowobjects -->   
+<bindings>
 <!-- ##code-section workflowbindings -->
 	<type type_id="AssessmentPart" />
 	<type type_id="ExternalDataSpec"/>
@@ -11,5 +12,5 @@
 	<type type_id="RationaleReference"/>
 	<type type_id="WorkItem"/>
 <!-- ##/code-section workflowbindings -->   
- </bindings>
+</bindings>
 </object>
