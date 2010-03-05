@@ -22,7 +22,7 @@ from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 from eea.indicators.config import *
 
 # additional imports from tagged value 'import'
-from Products.ATContentTypes.content.folder import ATFolder, ATFolderSchema
+from Products.ATContentTypes.content.base import ATCTContent, ATContentTypeSchema
 
 ##code-section module-header #fill in your manual code here
 ##/code-section module-header
@@ -85,14 +85,14 @@ schema = Schema((
 ##code-section after-local-schema #fill in your manual code here
 ##/code-section after-local-schema
 
-WorkItem_schema = ATFolderSchema.copy() + \
+WorkItem_schema = ATContentTypeSchema.copy() + \
     getattr(ATCTContent, 'schema', Schema(())).copy() + \
     schema.copy()
 
 ##code-section after-schema #fill in your manual code here
 ##/code-section after-schema
 
-class WorkItem(ATFolder, ATCTContent, BrowserDefaultMixin):
+class WorkItem(ATCTContent, BrowserDefaultMixin):
     """
     """
     security = ClassSecurityInfo()
