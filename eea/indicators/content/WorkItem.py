@@ -16,24 +16,21 @@ from AccessControl import ClassSecurityInfo
 from Products.Archetypes.atapi import *
 from zope.interface import implements
 import interfaces
-from Products.ATContentTypes.content.base import ATCTContent
+
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 
 from eea.indicators.config import *
-
-# additional imports from tagged value 'import'
-from Products.ATContentTypes.content.base import ATCTContent, ATContentTypeSchema
 
 ##code-section module-header #fill in your manual code here
 ##/code-section module-header
 
 schema = Schema((
 
-    DateTimeField(
-        name='due_date',
-        widget=DateTimeField._properties['widget'](
-            label="Due date",
-            label_msgid="IMS_workitem_duedate_label",
+    StringField(
+        name='title',
+        widget=StringField._properties['widget'](
+            label='Title',
+            label_msgid='indicators_label_title',
             i18n_domain='indicators',
         ),
     ),
@@ -41,8 +38,8 @@ schema = Schema((
         name='description',
         allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
         widget=RichWidget(
-            label_msgid="IMS_workitem_description_label",
             label='Description',
+            label_msgid='indicators_label_description',
             i18n_domain='indicators',
         ),
         default_output_type='text/html',
@@ -52,8 +49,8 @@ schema = Schema((
         name='needs',
         allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
         widget=RichWidget(
-            label_msgid="IMS_workitem_needs_label",
             label='Needs',
+            label_msgid='indicators_label_needs',
             i18n_domain='indicators',
         ),
         default_output_type='text/html',
@@ -61,22 +58,18 @@ schema = Schema((
     StringField(
         name='status',
         widget=SelectionWidget(
-            label_msgid="IMS_workitem_status_label",
             label='Status',
+            label_msgid='indicators_label_status',
             i18n_domain='indicators',
         ),
-        vocabulary= ["Not started", "In progress", "Completed" ],
     ),
-    StringField(
-        name='title',
-        widget=StringField._properties['widget'](
-            visible={'view':'hidden', 'edit':'hidden'},
-            label='Title',
-            label_msgid='indicators_label_title',
+    DateTimeField(
+        name='due_date',
+        widget=DateTimeField._properties['widget'](
+            label='Due_date',
+            label_msgid='indicators_label_due_date',
             i18n_domain='indicators',
         ),
-        required=False,
-        accessor="Title",
     ),
 
 ),
@@ -85,14 +78,13 @@ schema = Schema((
 ##code-section after-local-schema #fill in your manual code here
 ##/code-section after-local-schema
 
-WorkItem_schema = ATContentTypeSchema.copy() + \
-    getattr(ATCTContent, 'schema', Schema(())).copy() + \
+WorkItem_schema = BaseSchema.copy() + \
     schema.copy()
 
 ##code-section after-schema #fill in your manual code here
 ##/code-section after-schema
 
-class WorkItem(ATCTContent, BrowserDefaultMixin):
+class WorkItem(BaseContent, BrowserDefaultMixin):
     """
     """
     security = ClassSecurityInfo()
