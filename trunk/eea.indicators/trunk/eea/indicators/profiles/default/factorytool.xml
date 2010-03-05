@@ -9,7 +9,6 @@
   <type portal_type="Assessment"/>
   <type portal_type="RationaleReference"/>
   <type portal_type="AssessmentPart"/>
-  <type portal_type="WorkItem"/>
   <type portal_type="PolicyDocumentReference"/>
  </factorytypes>
 </object>
