@@ -16,7 +16,7 @@ from AccessControl import ClassSecurityInfo
 from Products.Archetypes.atapi import *
 from zope.interface import implements
 import interfaces
-
+from Products.ATContentTypes.content.link import ATLink
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 
 from eea.indicators.config import *
@@ -26,33 +26,17 @@ from eea.indicators.config import *
 
 schema = Schema((
 
-    StringField(
-        name='title',
-        widget=StringField._properties['widget'](
-            label='Title',
-            label_msgid='indicators_label_title',
-            i18n_domain='indicators',
-        ),
-        required=True,
-        accessor="Title",
-    ),
     TextField(
         name='description',
-        widget=TextAreaWidget(
+        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+        widget=RichWidget(
             label='Description',
             label_msgid='indicators_label_description',
             i18n_domain='indicators',
         ),
-        required=True,
+        default_output_type='text/html',
         accessor="Description",
-    ),
-    StringField(
-        name='link',
-        widget=StringField._properties['widget'](
-            label="Link",
-            label_msgid='indicators_label_link',
-            i18n_domain='indicators',
-        ),
+        required=True,
     ),
 
 ),
@@ -62,12 +46,13 @@ schema = Schema((
 ##/code-section after-local-schema
 
 PolicyDocumentReference_schema = BaseSchema.copy() + \
+    getattr(ATLink, 'schema', Schema(())).copy() + \
     schema.copy()
 
 ##code-section after-schema #fill in your manual code here
 ##/code-section after-schema
 
-class PolicyDocumentReference(BaseContent, BrowserDefaultMixin):
+class PolicyDocumentReference(BaseContent, ATLink, BrowserDefaultMixin):
     """
     """
     security = ClassSecurityInfo()
@@ -83,6 +68,7 @@ class PolicyDocumentReference(BaseContent, BrowserDefaultMixin):
     ##/code-section class-header
 
     # Methods
+
 
 registerType(PolicyDocumentReference, PROJECTNAME)
 # end of class PolicyDocumentReference

@@ -16,36 +16,19 @@ from AccessControl import ClassSecurityInfo
 from Products.Archetypes.atapi import *
 from zope.interface import implements
 import interfaces
-
+from Products.ATContentTypes.content.link import ATLink
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 
 from eea.indicators.config import *
 
 # additional imports from tagged value 'import'
-from Products.ATContentTypes.content.folder import ATFolder, ATFolderSchema
+from Products.ATContentTypes.content.link import ATLink, ATLinkSchema
 
 ##code-section module-header #fill in your manual code here
 ##/code-section module-header
 
 schema = Schema((
 
-    StringField(
-        name='title',
-        widget=StringField._properties['widget'](
-            label='Title',
-            label_msgid='indicators_label_title',
-            i18n_domain='indicators',
-        ),
-        accessor="Title",
-    ),
-    StringField(
-        name='link',
-        widget=StringField._properties['widget'](
-            label='Link',
-            label_msgid='indicators_label_link',
-            i18n_domain='indicators',
-        ),
-    ),
     TextField(
         name='description',
         allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
@@ -72,13 +55,14 @@ schema = Schema((
 ##code-section after-local-schema #fill in your manual code here
 ##/code-section after-local-schema
 
-RationaleReference_schema = ATFolderSchema.copy() + \
+RationaleReference_schema = ATLinkSchema.copy() + \
+    getattr(ATLink, 'schema', Schema(())).copy() + \
     schema.copy()
 
 ##code-section after-schema #fill in your manual code here
 ##/code-section after-schema
 
-class RationaleReference(ATFolder, BrowserDefaultMixin):
+class RationaleReference(ATLink, BrowserDefaultMixin):
     """
     """
     security = ClassSecurityInfo()

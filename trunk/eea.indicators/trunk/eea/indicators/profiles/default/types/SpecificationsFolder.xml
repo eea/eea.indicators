@@ -16,6 +16,7 @@
    <element value="Specification"/>
    <element value="ExternalDataSpec"/>
    <element value="PolicyDocumentReference"/>
+   <element value="PolicyDocumentReference"/>
  </property>
  <property name="allow_discussion">False</property>
  <property name="default_view">@@view</property>

@@ -16,13 +16,10 @@ from AccessControl import ClassSecurityInfo
 from Products.Archetypes.atapi import *
 from zope.interface import implements
 import interfaces
-
+from Products.ATContentTypes.content.base import ATCTContent
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 
 from eea.indicators.config import *
-
-# additional imports from tagged value 'import'
-from Products.ATContentTypes.content.folder import ATFolder, ATFolderSchema
 
 ##code-section module-header #fill in your manual code here
 ##/code-section module-header
@@ -64,13 +61,14 @@ schema = Schema((
 ##code-section after-local-schema #fill in your manual code here
 ##/code-section after-local-schema
 
-PolicyQuestion_schema = ATFolderSchema.copy() + \
+PolicyQuestion_schema = BaseSchema.copy() + \
+    getattr(ATCTContent, 'schema', Schema(())).copy() + \
     schema.copy()
 
 ##code-section after-schema #fill in your manual code here
 ##/code-section after-schema
 
-class PolicyQuestion(ATFolder, BrowserDefaultMixin):
+class PolicyQuestion(ATCTContent, BrowserDefaultMixin):
     """
     """
     security = ClassSecurityInfo()
