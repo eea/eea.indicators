@@ -47,6 +47,7 @@ schema = Schema((
             label_msgid='indicators_label_reference_type',
             i18n_domain='indicators',
         ),
+        vocabulary=[("RationaleRefType_01", "Scientific reference"), ("RationaleRefType_02", "Reference to other indicator initiative") ],
     ),
 
 ),

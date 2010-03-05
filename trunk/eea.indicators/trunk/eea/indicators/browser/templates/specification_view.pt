@@ -39,7 +39,7 @@
 			<h3>Scientific references:</h3>
 			<ul tal:define="refs python:context.objectValues('RationaleReference')">
 				<li tal:repeat="ref refs">
-					<a href="" tal:attributes="href ref/getLink" tal:content="ref/Title">Ref title</a>
+					<a href="" tal:attributes="href ref/getRemoteUrl" tal:content="ref/Title">Ref title</a>
 					<p tal:replace="structure ref/Description" />
 				</li>
 			</ul>
@@ -74,7 +74,6 @@
 			<div tal:repeat="question python:here.objectValues('PolicyQuestion')">
 				<h3 tal:content="question/Title">Question title</h3>
 			</div>
-			XXX: put example graphics here
 
 			<a name="methodology"></a>
 			<h2 class="methodology">Methodology</h2>
@@ -88,7 +87,7 @@
 			<h3>Methodology references</h3>
 			<ul tal:define="refs python:context.objectValues('MethodologyReference')">
 				<li tal:repeat="ref refs">
-					<a href="" tal:attributes="href ref/getLink" tal:content="ref/Title">Ref</a>
+					<a href="" tal:attributes="href ref/getRemoteUrl" tal:content="ref/Title">Ref</a>
 					<p tal:replace="structure ref/Description" />
 				</li>
 			</ul>
