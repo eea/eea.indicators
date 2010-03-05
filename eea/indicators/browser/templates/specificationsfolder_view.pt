@@ -7,6 +7,8 @@
 	<body>
 		<div metal:fill-slot="main">
 			<h1 tal:content="context/Title">SpecFolder title</h1>
+
+			<h2>Specifications</h2>
 			<table class="listing">
 				<thead>
 					<tr>
@@ -34,7 +36,7 @@
 					</tr>
 				</tbody>
 			</table>
-			<h1>External Data Specifications</h1>
+			<h2>External Data Specifications</h2>
 			<table class="listing">
 				<thead>
 					<tr>
@@ -46,6 +48,21 @@
 					<tr tal:repeat="eeadata python:here.objectValues('ExternalDataSpec')">
 						<td><a href="" tal:attributes="href eeadata/absolute_url" tal:content="eeadata/Title">Title</a></td>
 						<td tal:content="eeadata/getProvider_name">Provider name</td>
+					</tr>
+				</tbody>
+			</table>
+			<h2>Policy Documents References</h2>
+			<table class="listing">
+				<thead>
+					<tr>
+						<th>Title</th>
+						<th>Provider</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr tal:repeat="doc python:here.objectValues('PolicyDocumentReference')">
+						<td><a href="" tal:attributes="href doc/absolute_url" tal:content="doc/Title">Title</a></td>
+						<td tal:content="doc/getRemoteUrl">Document name</td>
 					</tr>
 				</tbody>
 			</table>

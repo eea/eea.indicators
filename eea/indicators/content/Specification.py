@@ -298,21 +298,24 @@ schema = Schema((
         name='relatedItems',
         widget=ReferenceBrowserWidget(
             label="External data sets",
+            addable="True",
             label_msgid='indicators_label_relatedItems',
             i18n_domain='indicators',
         ),
         allowed_types=('ExternalDataSpec',),
+        schemata="DataSpecs",
         multiValued=1,
         relationship='has_external_data_specs',
     ),
     ReferenceField(
-        name='example_data',
+        name='specification_data',
         widget=ReferenceBrowserWidget(
-            label="Example Datasets that can be used to generate Figures",
-            label_msgid='indicators_label_example_data',
+            label="Datasets used for this Specification",
+            label_msgid='indicators_label_specification_data',
             i18n_domain='indicators',
         ),
         allowed_types=('Data',),
+        schemata="DataSpecs",
         multiValued=1,
         relationship='has_eea_data_specs',
     ),
@@ -327,7 +330,7 @@ schema = Schema((
         ),
         allowed_types=('PolicyDocumentReference',),
         schemata="PolicyContext",
-        multiValued=0,
+        multiValued=1,
         relationship='specification_related_policy_documents',
     ),
 
@@ -343,6 +346,27 @@ Specification_schema = ATFolderSchema.copy() + \
 
 ##code-section after-schema #fill in your manual code here
 Specification_schema = Specification_schema + ThemeTaggable_schema.copy()
+
+Specification_schema['relatedItems'].widget = ReferenceWidget(
+            label="External data sets",
+            addable="True",
+            label_msgid='indicators_label_relatedItems',
+            i18n_domain='indicators',
+        )
+
+Specification_schema['specification_data'].widget = ReferenceWidget(
+            label="Datasets used for this Specification",
+            label_msgid='indicators_label_specification_data',
+            i18n_domain='indicators',
+        )
+
+Specification_schema['related_policy_documents'].widget = ReferenceWidget(
+            label="Related Policy Documents",
+            addable="True",
+            destination="./../",
+            label_msgid='indicators_label_related_policy_documents',
+            i18n_domain='indicators',
+        )
 ##/code-section after-schema
 
 class Specification(ATFolder, ThemeTaggable, BrowserDefaultMixin):

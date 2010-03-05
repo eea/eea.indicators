@@ -357,6 +357,11 @@ msgstr ""
 msgid "indicators_label_source_code"
 msgstr ""
 
+#. Default: "Datasets used for this Specification"
+#: content/has_eea_data_specs.py
+msgid "indicators_label_specification_data"
+msgstr ""
+
 #. Default: "Summary message"
 #: Assessment.py
 msgid "indicators_label_summary_message"

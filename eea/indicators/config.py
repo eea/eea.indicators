@@ -41,7 +41,6 @@ ADD_CONTENT_PERMISSIONS = {
     'Assessment': 'indicators: Add Assessment',
     'RationaleReference': 'indicators: Add RationaleReference',
     'AssessmentPart': 'indicators: Add AssessmentPart',
-    'WorkItem': 'indicators: Add WorkItem',
     'PolicyDocumentReference': 'indicators: Add PolicyDocumentReference',
 }
 
@@ -53,7 +52,6 @@ setDefaultRoles('indicators: Add Specification', ('Manager','Owner'))
 setDefaultRoles('indicators: Add Assessment', ('Manager','Owner'))
 setDefaultRoles('indicators: Add RationaleReference', ('Manager','Owner'))
 setDefaultRoles('indicators: Add AssessmentPart', ('Manager','Owner'))
-setDefaultRoles('indicators: Add WorkItem', ('Manager','Owner'))
 setDefaultRoles('indicators: Add PolicyDocumentReference', ('Manager','Owner'))
 
 product_globals = globals()

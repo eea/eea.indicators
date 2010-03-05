@@ -37,10 +37,6 @@ class IAssessmentPart(Interface):
     """Marker interface for .AssessmentPart.AssessmentPart
     """
 
-class IWorkItem(Interface):
-    """Marker interface for .WorkItem.WorkItem
-    """
-
 class IPolicyDocumentReference(Interface):
     """Marker interface for .PolicyDocumentReference.PolicyDocumentReference
     """
