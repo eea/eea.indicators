@@ -351,6 +351,7 @@ msgstr ""
 #. Default: "Answers to policy question"
 #: content/answers_to_question.py
 #: content/has_external_data_specs.py
+#: content/specification_relateditems.py
 msgid "indicators_label_relatedItems"
 msgstr ""
 
@@ -369,6 +370,7 @@ msgstr ""
 
 #. Default: "Datasets used for this Specification"
 #: content/has_eea_data_specs.py
+#: content/specification_specification_data.py
 msgid "indicators_label_specification_data"
 msgstr ""
 

@@ -61,7 +61,7 @@ schema = Schema((
             label_msgid='indicators_label_version',
             i18n_domain='indicators',
         ),
-        schemata="default",
+        schemata="Classification",
     ),
     DataGridField(
         name='codes',
@@ -71,7 +71,7 @@ schema = Schema((
             label_msgid='indicators_label_codes',
             i18n_domain='indicators',
         ),
-        schemata="default",
+        schemata="Classification",
         columns=("set", "code"),
     ),
     StringField(
@@ -83,7 +83,7 @@ schema = Schema((
             description_msgid='indicators_help_source_code',
             i18n_domain='indicators',
         ),
-        schemata="default",
+        schemata="Classification",
     ),
     TextField(
         name='more_updates_on',
@@ -149,6 +149,7 @@ schema = Schema((
         name='csi_status',
         widget=SelectionWidget(
             label="CSI Status",
+            visible={'view':'hidden', 'edit':'hidden'},
             label_msgid='indicators_label_csi_status',
             i18n_domain='indicators',
         ),
@@ -216,7 +217,7 @@ schema = Schema((
             i18n_domain='indicators',
         ),
         required=True,
-        schemata="default",
+        schemata="Classification",
         description="A unique sequence of characters that is shared by all the specifications which are versions of each other",
     ),
     StringField(
@@ -259,7 +260,7 @@ schema = Schema((
             i18n_domain='indicators',
         ),
         default_output_type='text/html',
-        schemata="default",
+        schemata="Methodology",
     ),
     TextField(
         name='methodology_uncertainty',
@@ -270,7 +271,7 @@ schema = Schema((
             i18n_domain='indicators',
         ),
         default_output_type='text/html',
-        schemata="default",
+        schemata="Methodology",
     ),
     TextField(
         name='data_uncertainty',
@@ -281,7 +282,7 @@ schema = Schema((
             i18n_domain='indicators',
         ),
         default_output_type='text/html',
-        schemata="default",
+        schemata="DataSpecs",
     ),
     TextField(
         name='methodology_gapfilling',
@@ -292,7 +293,7 @@ schema = Schema((
             i18n_domain='indicators',
         ),
         default_output_type='text/html',
-        schemata="default",
+        schemata="Methodology",
     ),
     ReferenceField(
         name='relatedItems',
@@ -305,7 +306,7 @@ schema = Schema((
         allowed_types=('ExternalDataSpec',),
         schemata="DataSpecs",
         multiValued=1,
-        relationship='has_external_data_specs',
+        relationship='specification_relateditems',
     ),
     ReferenceField(
         name='specification_data',
@@ -317,7 +318,7 @@ schema = Schema((
         allowed_types=('Data',),
         schemata="DataSpecs",
         multiValued=1,
-        relationship='has_eea_data_specs',
+        relationship='specification_specification_data',
     ),
     ReferenceField(
         name='related_policy_documents',
@@ -367,6 +368,58 @@ Specification_schema['related_policy_documents'].widget = ReferenceWidget(
             label_msgid='indicators_label_related_policy_documents',
             i18n_domain='indicators',
         )
+
+Specification_schema['themes'].schemata = 'Classification'
+
+#batch reorder of the fields
+#this is created like this because we want explicit control over how the schemata fields
+#are ordered and changing this in the UML modeler is just too time consuming
+_field_order = [
+        {
+            'name':'default',
+            'fields':['title', 'description', 'more_updates_on', 'definition', 'units']
+            },
+        {
+            'name':'Rationale',
+            'fields':['rationale_justification', 'rationale_uncertainty',]
+            },
+        {
+            'name':'PolicyContext',
+            'fields':['policy_context_description', 'policy_context_targets', 'related_policy_documents', ]
+            },
+        {
+            'name':'Methodology',
+            'fields':['methodology', 'methodology_uncertainty', 'methodology_gapfilling', ]
+            },
+        {
+            'name':'DataSpecs',
+            'fields':['relatedItems', 'data_uncertainty', 'specification_data',]
+            },
+        {
+            'name':'Classification',
+            'fields':['version', 'codes', 'source_code', 'dpsir', 'typology', 'csi_topics', 'version_id', 'themes']
+            },
+        {
+            'name':'Responsability',
+            'fields':['ownership', 'contact', ]
+            },
+        {
+            'name':'Status',
+            'fields':['comment',]
+            },
+        ]
+
+old_order = Specification_schema._names
+new_order = []
+for info in _field_order:
+    new_order.extend(info['fields'])
+
+for name in old_order:  #add fields that are not in our specified list at the end of the schema
+    if name not in new_order:
+        new_order.append(name)
+
+Specification_schema._names = new_order
+
 ##/code-section after-schema
 
 class Specification(ATFolder, ThemeTaggable, BrowserDefaultMixin):
