@@ -28,7 +28,25 @@
 			<a name="versions"></a>
 			<h2>Assessment versions</h2>
 			<h3>Published (reviewed and quality assured)</h3>
-			<h3>Drafts (not yet published - not quality assured)</h3>
+			<ul tal:define="assessments python:here.getFolderContents(contentFilter={'review_state':'published', 'portal_type':'Assessment'})">
+				<li tal:condition="not:assessments">No published assessments</li>
+				<li tal:repeat="assessment assessments">
+					<a href="" tal:attributes="href assessment/Title" tal:content="assessment/Title">
+						Assessment title here
+					</a>
+				</li>
+			</ul>
+
+			<h3>Draft (not yet published - not quality assured)</h3>
+			<ul tal:define="assessments python:here.getFolderContents(contentFilter={'portal_type':'Assessment', })">
+				<li tal:condition="not:assessments" >No drafts available</li>
+				<li tal:repeat="assessment python:assessments">
+					<a href="" tal:attributes="href assessment/Title" tal:content="assessment/Title">
+						Assessment title here
+					</a>
+				</li>
+			</ul>
+
 
 			<a name="rationale"></a>
 			<h2 class="rationale">Rationale</h2>

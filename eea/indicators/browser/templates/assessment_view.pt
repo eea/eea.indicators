@@ -14,15 +14,6 @@
 			</div>
 
 			<h2>Assessment versions</h2>
-			<h3>Published (reviewed and quality assured)</h3>
-			<ul>
-				<li>XXX: repeat over the assessment versions</li>
-			</ul>
-			<h3>Draft (not yet published - not quality assured)</h3>
-			<ul>
-				<li>No drafts available</li>
-				<li>XXX: repeat over the assessment versions</li>
-			</ul>
 
 			<div tal:define="assessments context/get_assessments; 
 				key nocall:assessments/key;
@@ -64,7 +55,6 @@
 					</tal:mapsandgraphs>
 				</tal:parts>
 			</div>
-
 
 			<h2>Methodology, data sources and references</h2>
 			<p>See this <a href="..">indicator specification</a> for methodology, 
