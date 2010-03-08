@@ -28,16 +28,40 @@
 				key nocall:assessments/key;
 				secondary assessments/secondary; "
 				>
-				<div tal:condition="key">
+				<div tal:condition="key" >
 					<h2 tal:content="key/Title">Question here</h2>
 					<div tal:replace="structure key/assessment">Question here</div>
-					XXX: Graphic here
+					<tal:mapsandgraphs tal:define="figures python:key.getFolderContents()"
+						tal:condition="figures">
+						<h2 i18n:translate="publication_maps_and_graphs">Maps and graphs</h2>
+						<div class="map-photo-album"
+							tal:define="Batch python:modules['Products.CMFPlone'].Batch;
+							figure_context python:True;
+							b_start python:request.get('b_start', 0);
+							template_id string:;
+							folderContents python:Batch(figures, 12, int(b_start), orphan=1)">
+							<h4 id="maps-and-graphs" style="display: none">Fancybox relations</h4>
+							<metal:figures use-macro="here/atct_album_view/macros/listing" />
+						</div>
+					</tal:mapsandgraphs>
 				</div>
 
 				<tal:parts repeat="part secondary">
 					<h2 tal:content="part/Title">Question here</h2>
 					<div tal:replace="structure part/assessment">Question here</div>
-					XXX: Graphic here
+					<tal:mapsandgraphs tal:define="figures python:part.getFolderContents()"
+						tal:condition="figures">
+						<h2 i18n:translate="publication_maps_and_graphs">Maps and graphs</h2>
+						<div class="map-photo-album"
+							tal:define="Batch python:modules['Products.CMFPlone'].Batch;
+							figure_context python:True;
+							b_start python:request.get('b_start', 0);
+							template_id string:;
+							folderContents python:Batch(figures, 12, int(b_start), orphan=1)">
+							<h4 id="maps-and-graphs" style="display: none">Fancybox relations</h4>
+							<metal:figures use-macro="here/atct_album_view/macros/listing" />
+						</div>
+					</tal:mapsandgraphs>
 				</tal:parts>
 			</div>
 
@@ -65,7 +89,8 @@
 				<h4>EEA Management Plan</h4>
 				<a href="" 
 					tal:attributes="href string:http://applications/managementplan/showProject.asp?year=${context/getMp_year}&code=${context/getMp_code}"
-					tal:content="string:${context/getMp_year} ${context/getMp_code}>
+					tal:content="string:${context/getMp_year} ${context/getMp_code}">
+
 					</a>(note: EEA internal system) 
 			</div>
 
