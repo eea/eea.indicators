@@ -38,6 +38,7 @@ schema = Schema((
             i18n_domain='indicators',
         ),
         default_output_type='text/html',
+        searchable=True,
     ),
     IntegerField(
         name='mp_year',

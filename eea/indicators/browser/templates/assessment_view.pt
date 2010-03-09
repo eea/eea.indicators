@@ -21,7 +21,7 @@
 				>
 				<div tal:condition="key" >
 					<h2 tal:content="key/Title">Question here</h2>
-					<div tal:replace="structure key/assessment">Question here</div>
+					<div tal:replace="structure python:key.getAssessment()">Question here</div>
 					<tal:mapsandgraphs tal:define="figures python:key.getFolderContents()"
 						tal:condition="figures">
 						<h2 i18n:translate="publication_maps_and_graphs">Maps and graphs</h2>

@@ -40,6 +40,7 @@ schema = Schema((
         ),
         default_output_type='text/html',
         accessor="getDescription",
+        searchable=True,
     ),
     StringField(
         name='reference_type',

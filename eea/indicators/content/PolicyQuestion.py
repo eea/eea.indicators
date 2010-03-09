@@ -38,6 +38,7 @@ schema = Schema((
         ),
         required=True,
         accessor="Title",
+        searchable=True,
     ),
     BooleanField(
         name='is_key_question',
@@ -56,6 +57,7 @@ schema = Schema((
             i18n_domain='indicators',
         ),
         accessor="Description",
+        searchable=True,
     ),
 
 ),
