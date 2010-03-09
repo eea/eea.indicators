@@ -37,8 +37,9 @@ schema = Schema((
             label_msgid='indicators_label_description',
             i18n_domain='indicators',
         ),
-        default_output_type='text/html',
+        required=True,
         description="True",
+        default_output_type='text/html',
         accessor="Description",
     ),
 

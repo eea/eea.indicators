@@ -197,6 +197,7 @@ schema = Schema((
         ),
         default_output_type='text/html',
         schemata="PolicyContext",
+        required=True,
     ),
     TextField(
         name='policy_context_targets',
@@ -239,6 +240,7 @@ schema = Schema((
         ),
         default_output_type='text/html',
         schemata="default",
+        required=False,
     ),
     TextField(
         name='units',
@@ -250,6 +252,7 @@ schema = Schema((
         ),
         default_output_type='text/html',
         schemata="default",
+        required=False,
     ),
     TextField(
         name='methodology',
@@ -261,6 +264,7 @@ schema = Schema((
         ),
         default_output_type='text/html',
         schemata="Methodology",
+        required=False,
     ),
     TextField(
         name='methodology_uncertainty',

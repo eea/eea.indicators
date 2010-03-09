@@ -25,6 +25,7 @@ from eea.indicators.config import *
 from Products.ATContentTypes.content.link import ATLink, ATLinkSchema
 
 ##code-section module-header #fill in your manual code here
+from Products.CMFPlone.utils import getToolByName
 ##/code-section module-header
 
 schema = Schema((
@@ -38,7 +39,7 @@ schema = Schema((
             i18n_domain='indicators',
         ),
         default_output_type='text/html',
-        accessor="Description",
+        accessor="getDescription",
     ),
     StringField(
         name='reference_type',
@@ -47,6 +48,7 @@ schema = Schema((
             label_msgid='indicators_label_reference_type',
             i18n_domain='indicators',
         ),
+        required=True,
         vocabulary=[("RationaleRefType_01", "Scientific reference"), ("RationaleRefType_02", "Reference to other indicator initiative") ],
     ),
 
@@ -79,6 +81,14 @@ class RationaleReference(ATLink, BrowserDefaultMixin):
     ##/code-section class-header
 
     # Methods
+
+    # Manually created methods
+
+    security.declarePublic("Description")
+    def Description(self):
+        convert = getToolByName(self, 'portal_transforms').convert
+        return convert('html_to_text', self.getDescription()).getData()
+
 
 
 registerType(RationaleReference, PROJECTNAME)
