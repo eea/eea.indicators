@@ -78,7 +78,7 @@ class Assessment(ATFolder, BrowserDefaultMixin):
     implements(interfaces.IAssessment)
 
     meta_type = 'Assessment'
-    _at_rename_after_creation = True
+    _at_rename_after_creation = False
 
     schema = Assessment_schema
 

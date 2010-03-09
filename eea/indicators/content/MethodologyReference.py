@@ -65,7 +65,7 @@ class MethodologyReference(ATLink, BrowserDefaultMixin):
     implements(interfaces.IMethodologyReference)
 
     meta_type = 'MethodologyReference'
-    _at_rename_after_creation = True
+    _at_rename_after_creation = False
 
     schema = MethodologyReference_schema
 

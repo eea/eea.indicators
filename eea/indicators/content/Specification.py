@@ -450,7 +450,7 @@ class Specification(ATFolder, ThemeTaggable, BrowserDefaultMixin):
     implements(interfaces.ISpecification)
 
     meta_type = 'Specification'
-    _at_rename_after_creation = True
+    _at_rename_after_creation = False
 
     schema = Specification_schema
 
