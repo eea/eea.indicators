@@ -40,6 +40,8 @@ schema = Schema((
             i18n_domain='indicators',
         ),
         default_output_type='text/html',
+        searchable=True,
+        required=True,
     ),
     StringField(
         name='title',
@@ -62,6 +64,7 @@ schema = Schema((
             i18n_domain='indicators',
         ),
         accessor="Description",
+        searchable=True,
     ),
     ReferenceField(
         name='question_answered',

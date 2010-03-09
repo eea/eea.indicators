@@ -39,6 +39,7 @@ schema = Schema((
         ),
         required=True,
         accessor="Title",
+        searchable=True,
     ),
     StringField(
         name='provider_name',
@@ -48,6 +49,7 @@ schema = Schema((
             i18n_domain='indicators',
         ),
         required=True,
+        searchable=True,
     ),
     StringField(
         name='provider_url',
@@ -84,6 +86,7 @@ schema = Schema((
             i18n_domain='indicators',
         ),
         required=False,
+        searchable=True,
     ),
     TextField(
         name='other_comments',
@@ -93,6 +96,7 @@ schema = Schema((
             i18n_domain='indicators',
         ),
         required=False,
+        searchable=True,
     ),
     StringField(
         name='category_of_use',
@@ -112,9 +116,10 @@ schema = Schema((
             label_msgid='indicators_label_description',
             i18n_domain='indicators',
         ),
+        required=True,
+        searchable=True,
         default_output_type='text/html',
         accessor="getDescription",
-        required=True,
     ),
 
 ),

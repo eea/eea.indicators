@@ -38,6 +38,7 @@ schema = Schema((
             label_msgid='indicators_label_title',
             i18n_domain='indicators',
         ),
+        searchable=True,
     ),
     TextField(
         name='description',

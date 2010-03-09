@@ -53,6 +53,7 @@ schema = Schema((
         required=True,
         schemata="default",
         accessor="Title",
+        searchable=True,
     ),
     DateTimeField(
         name='version',
@@ -93,6 +94,7 @@ schema = Schema((
             i18n_domain='indicators',
         ),
         schemata="default",
+        searchable=True,
     ),
     StringField(
         name='dpsir',
@@ -144,6 +146,7 @@ schema = Schema((
         ),
         default_output_type='text/html',
         schemata="Responsability",
+        searchable=True,
     ),
     StringField(
         name='csi_status',
@@ -164,6 +167,7 @@ schema = Schema((
             i18n_domain='indicators',
         ),
         schemata="Status",
+        searchable=True,
     ),
     TextField(
         name='rationale_justification',
@@ -175,6 +179,7 @@ schema = Schema((
         ),
         default_output_type='text/html',
         schemata="Rationale",
+        searchable=True,
     ),
     TextField(
         name='rationale_uncertainty',
@@ -186,6 +191,7 @@ schema = Schema((
         ),
         default_output_type='text/html',
         schemata="Rationale",
+        searchable=True,
     ),
     TextField(
         name='policy_context_description',
@@ -195,9 +201,10 @@ schema = Schema((
             label_msgid='indicators_label_policy_context_description',
             i18n_domain='indicators',
         ),
-        default_output_type='text/html',
-        schemata="PolicyContext",
         required=True,
+        schemata="PolicyContext",
+        searchable=True,
+        default_output_type='text/html',
     ),
     TextField(
         name='policy_context_targets',
@@ -209,6 +216,7 @@ schema = Schema((
         ),
         default_output_type='text/html',
         schemata="PolicyContext",
+        searchable=True,
     ),
     StringField(
         name='version_id',
@@ -220,6 +228,7 @@ schema = Schema((
         required=True,
         schemata="Classification",
         description="A unique sequence of characters that is shared by all the specifications which are versions of each other",
+        searchable=True,
     ),
     StringField(
         name='old_id',
@@ -229,6 +238,7 @@ schema = Schema((
             label_msgid='indicators_label_old_id',
             i18n_domain='indicators',
         ),
+        searchable=True,
     ),
     TextField(
         name='definition',
@@ -238,9 +248,10 @@ schema = Schema((
             label_msgid='indicators_label_definition',
             i18n_domain='indicators',
         ),
-        default_output_type='text/html',
-        schemata="default",
         required=False,
+        schemata="default",
+        searchable=True,
+        default_output_type='text/html',
     ),
     TextField(
         name='units',
@@ -250,9 +261,10 @@ schema = Schema((
             label_msgid='indicators_label_units',
             i18n_domain='indicators',
         ),
-        default_output_type='text/html',
-        schemata="default",
         required=False,
+        schemata="default",
+        searchable=True,
+        default_output_type='text/html',
     ),
     TextField(
         name='methodology',
@@ -262,9 +274,10 @@ schema = Schema((
             label_msgid='indicators_label_methodology',
             i18n_domain='indicators',
         ),
-        default_output_type='text/html',
-        schemata="Methodology",
         required=False,
+        schemata="Methodology",
+        searchable=True,
+        default_output_type='text/html',
     ),
     TextField(
         name='methodology_uncertainty',
@@ -276,6 +289,7 @@ schema = Schema((
         ),
         default_output_type='text/html',
         schemata="Methodology",
+        searchable=True,
     ),
     TextField(
         name='data_uncertainty',
@@ -287,6 +301,7 @@ schema = Schema((
         ),
         default_output_type='text/html',
         schemata="DataSpecs",
+        searchable=True,
     ),
     TextField(
         name='methodology_gapfilling',
@@ -298,6 +313,7 @@ schema = Schema((
         ),
         default_output_type='text/html',
         schemata="Methodology",
+        searchable=True,
     ),
     ReferenceField(
         name='relatedItems',

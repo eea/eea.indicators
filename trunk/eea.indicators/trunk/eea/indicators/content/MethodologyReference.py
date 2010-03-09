@@ -39,6 +39,7 @@ schema = Schema((
         ),
         required=True,
         description="True",
+        searchable=True,
         default_output_type='text/html',
         accessor="Description",
     ),
