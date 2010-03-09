@@ -25,6 +25,7 @@ from eea.indicators.config import *
 from Products.ATContentTypes.content.base import ATCTContent, ATContentTypeSchema
 
 ##code-section module-header #fill in your manual code here
+from Products.CMFPlone.utils import getToolByName
 ##/code-section module-header
 
 schema = Schema((
@@ -47,7 +48,7 @@ schema = Schema((
             i18n_domain='indicators',
         ),
         default_output_type='text/html',
-        accessor="Description",
+        accessor="getDescription",
     ),
     TextField(
         name='needs',
@@ -111,6 +112,11 @@ class WorkItem(ATCTContent, BrowserDefaultMixin):
     security.declarePublic('getTitle')
     def getTitle(self):
         return "Work in progress due %s" % self.getDue_date()
+
+    security.declarePublic("Description")
+    def Description(self):
+        convert = getToolByName(self, 'portal_transforms').convert
+        return convert('html_to_text', self.getDescription()).getData()
 
 
 

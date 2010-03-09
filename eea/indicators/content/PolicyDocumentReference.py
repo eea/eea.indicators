@@ -25,6 +25,7 @@ from eea.indicators.config import *
 from Products.ATContentTypes.content.base import ATCTContent, ATContentTypeSchema
 
 ##code-section module-header #fill in your manual code here
+from Products.CMFPlone.utils import getToolByName
 ##/code-section module-header
 
 schema = Schema((
@@ -38,7 +39,7 @@ schema = Schema((
             i18n_domain='indicators',
         ),
         default_output_type='text/html',
-        accessor="Description",
+        accessor="getDescription",
         required=True,
     ),
 
@@ -71,6 +72,14 @@ class PolicyDocumentReference(ATCTContent, ATLink, BrowserDefaultMixin):
     ##/code-section class-header
 
     # Methods
+
+    # Manually created methods
+
+    security.declarePublic("Description")
+    def Description(self):
+        convert = getToolByName(self, 'portal_transforms').convert
+        return convert('html_to_text', self.getDescription()).getData()
+
 
 
 registerType(PolicyDocumentReference, PROJECTNAME)

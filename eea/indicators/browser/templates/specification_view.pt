@@ -41,7 +41,7 @@
 			<ul tal:define="assessments python:here.getFolderContents(contentFilter={'portal_type':'Assessment', })">
 				<li tal:condition="not:assessments" >No drafts available</li>
 				<li tal:repeat="assessment python:assessments">
-					<a href="" tal:attributes="href assessment/Title" tal:content="assessment/Title">
+					<a href="" tal:attributes="href assessment/absolute_url" tal:content="assessment/Title">
 						Assessment title here
 					</a>
 				</li>
