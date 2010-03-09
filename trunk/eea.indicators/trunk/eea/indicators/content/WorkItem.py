@@ -99,7 +99,7 @@ class WorkItem(ATCTContent, BrowserDefaultMixin):
     implements(interfaces.IWorkItem)
 
     meta_type = 'WorkItem'
-    _at_rename_after_creation = True
+    _at_rename_after_creation = False
 
     schema = WorkItem_schema
 

@@ -74,7 +74,7 @@ class RationaleReference(ATLink, BrowserDefaultMixin):
     implements(interfaces.IRationaleReference)
 
     meta_type = 'RationaleReference'
-    _at_rename_after_creation = True
+    _at_rename_after_creation = False
 
     schema = RationaleReference_schema
 
