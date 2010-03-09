@@ -12,6 +12,7 @@
 		<div metal:fill-slot="main">
 
 			<h1 tal:content="context/Title">Title here</h1>
+			<div metal:use-macro="here/portlet_themes_object/macros/portlet" />
 
 			<ul class="toc">
 				<li><a href="view#rationale">Rationale</a></li>
@@ -31,7 +32,7 @@
 			<ul tal:define="assessments python:here.getFolderContents(contentFilter={'review_state':'published', 'portal_type':'Assessment'})">
 				<li tal:condition="not:assessments">No published assessments</li>
 				<li tal:repeat="assessment assessments">
-					<a href="" tal:attributes="href assessment/Title" tal:content="assessment/Title">
+					<a tal:attributes="href python:brain.getObject().absolute_url()" tal:content="brain/Title">
 						Assessment title here
 					</a>
 				</li>
@@ -40,8 +41,8 @@
 			<h3>Draft (not yet published - not quality assured)</h3>
 			<ul tal:define="assessments python:here.getFolderContents(contentFilter={'portal_type':'Assessment', })">
 				<li tal:condition="not:assessments" >No drafts available</li>
-				<li tal:repeat="assessment python:assessments">
-					<a href="" tal:attributes="href assessment/absolute_url" tal:content="assessment/Title">
+				<li tal:repeat="brain python:assessments">
+					<a tal:attributes="href python:brain.getObject().absolute_url()" tal:content="brain/Title">
 						Assessment title here
 					</a>
 				</li>
@@ -221,10 +222,10 @@
 				<div class="visualClear"><!-- --></div>
 				<strong>DPSIR</strong>: <span tal:replace="context/getDpsir" /><br/>
 				<strong>Typology</strong>: <span tal:replace="context/getTypology" /><br/>
-				<strong>EEA Themes</strong>:
-				<ul>
-					<li tal:repeat="theme context/getThemes" tal:content="theme" />
-				</ul>
+				<!-- <strong>EEA Themes</strong>: -->
+				<!-- <ul> -->
+				<!-- 	<li tal:repeat="theme context/getThemes" tal:content="theme" /> -->
+				<!-- </ul> -->
 			</div>
 
 		</div>
