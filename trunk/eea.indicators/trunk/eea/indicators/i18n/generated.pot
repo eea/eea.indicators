@@ -204,6 +204,11 @@ msgstr ""
 msgid "indicators_label_link"
 msgstr ""
 
+#. Default: "Management_plan"
+#: content/Assessment.py
+msgid "indicators_label_management_plan"
+msgstr ""
+
 #. Default: "ID of manager user"
 #: Specification.py
 #: content/Specification.py

@@ -23,9 +23,13 @@ from eea.indicators.config import *
 
 # additional imports from tagged value 'import'
 from Products.ATContentTypes.content.folder import ATFolder, ATFolderSchema
+from eea.dataservice.fields.ManagementPlanField import ManagementPlanField
 
 ##code-section module-header #fill in your manual code here
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema
+from datetime import datetime
+from eea.dataservice.vocabulary import DatasetYears
+from eea.dataservice.widgets.ManagementPlanWidget import ManagementPlanWidget
 ##/code-section module-header
 
 schema = Schema((
@@ -41,19 +45,11 @@ schema = Schema((
         default_output_type='text/html',
         searchable=True,
     ),
-    IntegerField(
-        name='mp_year',
-        widget=IntegerField._properties['widget'](
-            label="MP Year",
-            label_msgid='indicators_label_mp_year',
-            i18n_domain='indicators',
-        ),
-    ),
-    StringField(
-        name='mp_code',
-        widget=StringField._properties['widget'](
-            label="MP Code",
-            label_msgid='indicators_label_mp_code',
+    ManagementPlanField(
+        name='management_plan',
+        widget=ManagementPlanField._properties['widget'](
+            label='Management_plan',
+            label_msgid='indicators_label_management_plan',
             i18n_domain='indicators',
         ),
     ),
@@ -69,6 +65,23 @@ Assessment_schema = ATFolderSchema.copy() + \
     schema.copy()
 
 ##code-section after-schema #fill in your manual code here
+Assessment_schema['management_plan'] = ManagementPlanField(
+        name='management_plan',
+        languageIndependent=True,
+        required=False,
+        default=(datetime.now().year, ''),
+        #validators = ('management_plan_code_validator',),
+        vocabulary=DatasetYears(),
+        widget = ManagementPlanWidget(
+            format="select",
+            label="EEA Management Plan",
+            description = ("EEA Management plan code."),
+            label_msgid='dataservice_label_eea_mp',
+            description_msgid='dataservice_help_eea_mp',
+            i18n_domain='eea.dataservice',
+        )
+    )
+
 finalizeATCTSchema(Assessment_schema)
 ##/code-section after-schema
 
