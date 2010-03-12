@@ -104,7 +104,7 @@ schema = Schema((
             i18n_domain='indicators',
         ),
         schemata="Classification",
-        vocabulary=['D','P','S','I', 'R'],
+        vocabulary=[('D', 'Driving forces'), ('P', 'Pressures'), ('S', 'States'), ('I', 'Impacts'), ('R', 'Reactions')],
     ),
     StringField(
         name='typology',
