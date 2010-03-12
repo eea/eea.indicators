@@ -25,6 +25,8 @@ from eea.indicators.config import *
 from Products.ATContentTypes.content.link import ATLink, ATLinkSchema
 
 ##code-section module-header #fill in your manual code here
+from Products.CMFPlone.utils import getToolByName
+from Products.ATContentTypes.content.schemata import finalizeATCTSchema
 ##/code-section module-header
 
 schema = Schema((
@@ -41,7 +43,7 @@ schema = Schema((
         description="True",
         searchable=True,
         default_output_type='text/html',
-        accessor="Description",
+        accessor="getDescription",
     ),
 
 ),
@@ -55,6 +57,7 @@ MethodologyReference_schema = ATLinkSchema.copy() + \
     schema.copy()
 
 ##code-section after-schema #fill in your manual code here
+finalizeATCTSchema(MethodologyReference_schema)
 ##/code-section after-schema
 
 class MethodologyReference(ATLink, BrowserDefaultMixin):
@@ -73,6 +76,14 @@ class MethodologyReference(ATLink, BrowserDefaultMixin):
     ##/code-section class-header
 
     # Methods
+
+    # Manually created methods
+
+    security.declarePublic("Description")
+    def Description(self):
+        convert = getToolByName(self, 'portal_transforms').convert
+        return convert('html_to_text', self.getDescription()).getData()
+
 
 
 registerType(MethodologyReference, PROJECTNAME)
