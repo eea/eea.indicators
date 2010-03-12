@@ -25,6 +25,7 @@ from eea.indicators.config import *
 from Products.ATContentTypes.content.folder import ATBTreeFolder, ATBTreeFolderSchema
 
 ##code-section module-header #fill in your manual code here
+from Products.CMFPlone.browser.interfaces import INavigationRoot
 ##/code-section module-header
 
 schema = Schema((
@@ -55,6 +56,7 @@ class SpecificationsFolder(ATBTreeFolder, BrowserDefaultMixin):
     schema = SpecificationsFolder_schema
 
     ##code-section class-header #fill in your manual code here
+    implements(INavigationRoot)
     ##/code-section class-header
 
     # Methods
