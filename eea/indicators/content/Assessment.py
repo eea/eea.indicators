@@ -123,6 +123,9 @@ class Assessment(ATFolder, BrowserDefaultMixin):
     def Title(self):
         return u"Assessment"    #XXX: fix this
 
+    security.declarePublic('getThemes')
+    def getThemes(self):
+        return self.aq_parent.getThemes()
 
 
 registerType(Assessment, PROJECTNAME)
