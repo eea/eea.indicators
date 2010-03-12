@@ -46,6 +46,8 @@ import RationaleReference
 import AssessmentPart
 import PolicyDocumentReference
 import WorkItem
+import PolicyDocumentReferenceDatabase
+import ExternalDataSpecDatabase
 
 ##code-section init-module-footer #fill in your manual code here
 ##/code-section init-module-footer

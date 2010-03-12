@@ -10,6 +10,13 @@
 		/>
 
 	<browser:page
+		for="eea.indicators.content.interfaces.IAssessment"
+		name="wizards"
+		template="templates/assessment_wizards.pt"
+		permission="zope2.View"
+		/>
+
+	<browser:page
 		for="eea.indicators.content.interfaces.IAssessmentPart"
 		name="view"
 		template="templates/assessmentpart_view.pt"
@@ -41,6 +48,13 @@
 		for="eea.indicators.content.interfaces.ISpecification"
 		name="view"
 		class=".specification.IndexPage"
+		permission="zope2.View"
+		/>
+
+	<browser:page
+		for="eea.indicators.content.interfaces.ISpecification"
+		name="wizards"
+		template="templates/specification_wizards.pt"
 		permission="zope2.View"
 		/>
 

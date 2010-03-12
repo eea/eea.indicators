@@ -62,4 +62,12 @@
          visible="True">
   <permission value="Manage portal content"/>
  </action>
+ <action title="Wizards" 
+         action_id="wizards"
+         category="object" 
+         condition_expr="python:1"
+         url_expr="string:${object_url}/@@wizards" 
+         visible="True">
+  <permission value="Manage portal content"/>
+ </action>
 </object>

@@ -11,5 +11,7 @@
   <type portal_type="AssessmentPart"/>
   <type portal_type="PolicyDocumentReference"/>
   <type portal_type="WorkItem"/>
+  <type portal_type="PolicyDocumentReferenceDatabase"/>
+  <type portal_type="ExternalDataSpecDatabase"/>
  </factorytypes>
 </object>

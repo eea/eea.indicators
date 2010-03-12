@@ -43,6 +43,8 @@ ADD_CONTENT_PERMISSIONS = {
     'AssessmentPart': 'indicators: Add AssessmentPart',
     'PolicyDocumentReference': 'indicators: Add PolicyDocumentReference',
     'WorkItem': 'indicators: Add WorkItem',
+    'PolicyDocumentReferenceDatabase': 'indicators: Add PolicyDocumentReferenceDatabase',
+    'ExternalDataSpecDatabase': 'indicators: Add ExternalDataSpecDatabase',
 }
 
 setDefaultRoles('indicators: Add PolicyQuestion', ('Manager','Owner'))
@@ -55,6 +57,8 @@ setDefaultRoles('indicators: Add RationaleReference', ('Manager','Owner'))
 setDefaultRoles('indicators: Add AssessmentPart', ('Manager','Owner'))
 setDefaultRoles('indicators: Add PolicyDocumentReference', ('Manager','Owner'))
 setDefaultRoles('indicators: Add WorkItem', ('Manager','Owner'))
+setDefaultRoles('indicators: Add PolicyDocumentReferenceDatabase', ('Manager','Owner'))
+setDefaultRoles('indicators: Add ExternalDataSpecDatabase', ('Manager','Owner'))
 
 product_globals = globals()
 

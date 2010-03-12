@@ -1,25 +1,24 @@
 <?xml version="1.0"?>
-<object name="SpecificationsFolder"
+<object name="PolicyDocumentReferenceDatabase"
         meta_type="Factory-based Type Information with dynamic views"
         xmlns:i18n="http://xml.zope.org/namespaces/i18n">
    
- <property name="title">Specifications Database</property>
+ <property name="title">PolicyDocumentReferenceDatabase</property>
  <property name="description"></property>
- <property name="content_icon">SpecificationsFolder.gif</property>
- <property name="content_meta_type">SpecificationsFolder</property>
+ <property name="content_icon">PolicyDocumentReferenceDatabase.gif</property>
+ <property name="content_meta_type">PolicyDocumentReferenceDatabase</property>
  <property name="product">eea.indicators</property>
- <property name="factory">addSpecificationsFolder</property>
- <property name="immediate_view">@@view</property>
+ <property name="factory">addPolicyDocumentReferenceDatabase</property>
+ <property name="immediate_view">base_view</property>
  <property name="global_allow">True</property>
  <property name="filter_content_types">True</property>
  <property name="allowed_content_types">
-   <element value="Specification"/>
    <element value="PolicyDocumentReference"/>
  </property>
  <property name="allow_discussion">False</property>
- <property name="default_view">@@view</property>
+ <property name="default_view">base_view</property>
  <property name="view_methods">
-  <element value="@@view"/>
+  <element value="base_view"/>
  </property>
  <property name="default_view_fallback">False</property>
  <alias from="(Default)" to="(dynamic view)"/>
