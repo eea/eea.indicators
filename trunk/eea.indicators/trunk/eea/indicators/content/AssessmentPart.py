@@ -27,6 +27,7 @@ from eea.indicators.config import *
 from Products.ATContentTypes.content.folder import ATFolder, ATFolderSchema
 
 ##code-section module-header #fill in your manual code here
+from Products.ATContentTypes.content.schemata import finalizeATCTSchema
 ##/code-section module-header
 
 schema = Schema((
@@ -96,6 +97,7 @@ AssessmentPart_schema['question_answered'].widget = ReferenceWidget(
             i18n_domain='indicators',
             destination="get_specification_path",
         )
+finalizeATCTSchema(AssessmentPart_schema)
 ##/code-section after-schema
 
 class AssessmentPart(ATFolder, ATCTContent, BrowserDefaultMixin):

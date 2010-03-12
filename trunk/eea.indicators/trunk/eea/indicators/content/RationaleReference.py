@@ -26,6 +26,7 @@ from Products.ATContentTypes.content.link import ATLink, ATLinkSchema
 
 ##code-section module-header #fill in your manual code here
 from Products.CMFPlone.utils import getToolByName
+from Products.ATContentTypes.content.schemata import finalizeATCTSchema
 ##/code-section module-header
 
 schema = Schema((
@@ -64,6 +65,7 @@ RationaleReference_schema = ATLinkSchema.copy() + \
     schema.copy()
 
 ##code-section after-schema #fill in your manual code here
+finalizeATCTSchema(RationaleReference_schema)
 ##/code-section after-schema
 
 class RationaleReference(ATLink, BrowserDefaultMixin):

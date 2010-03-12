@@ -26,6 +26,7 @@ from Products.ATContentTypes.content.base import ATCTContent, ATContentTypeSchem
 
 ##code-section module-header #fill in your manual code here
 from Products.CMFPlone.utils import getToolByName
+from Products.ATContentTypes.content.schemata import finalizeATCTSchema
 ##/code-section module-header
 
 schema = Schema((
@@ -55,6 +56,7 @@ PolicyDocumentReference_schema = ATContentTypeSchema.copy() + \
     schema.copy()
 
 ##code-section after-schema #fill in your manual code here
+finalizeATCTSchema(PolicyDocumentReference_schema)
 ##/code-section after-schema
 
 class PolicyDocumentReference(ATCTContent, ATLink, BrowserDefaultMixin):

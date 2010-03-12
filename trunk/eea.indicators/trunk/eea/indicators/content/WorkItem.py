@@ -26,6 +26,7 @@ from Products.ATContentTypes.content.base import ATCTContent, ATContentTypeSchem
 
 ##code-section module-header #fill in your manual code here
 from Products.CMFPlone.utils import getToolByName
+from Products.ATContentTypes.content.schemata import finalizeATCTSchema
 ##/code-section module-header
 
 schema = Schema((
@@ -89,6 +90,7 @@ WorkItem_schema = ATContentTypeSchema.copy() + \
     schema.copy()
 
 ##code-section after-schema #fill in your manual code here
+finalizeATCTSchema(WorkItem_schema)
 ##/code-section after-schema
 
 class WorkItem(ATCTContent, BrowserDefaultMixin):

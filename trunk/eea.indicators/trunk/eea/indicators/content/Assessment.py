@@ -25,6 +25,7 @@ from eea.indicators.config import *
 from Products.ATContentTypes.content.folder import ATFolder, ATFolderSchema
 
 ##code-section module-header #fill in your manual code here
+from Products.ATContentTypes.content.schemata import finalizeATCTSchema
 ##/code-section module-header
 
 schema = Schema((
@@ -68,6 +69,7 @@ Assessment_schema = ATFolderSchema.copy() + \
     schema.copy()
 
 ##code-section after-schema #fill in your manual code here
+finalizeATCTSchema(Assessment_schema)
 ##/code-section after-schema
 
 class Assessment(ATFolder, BrowserDefaultMixin):

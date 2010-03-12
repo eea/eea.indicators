@@ -26,6 +26,7 @@ from Products.ATContentTypes.content.base import ATCTContent, ATContentTypeSchem
 
 ##code-section module-header #fill in your manual code here
 from Products.CMFPlone.utils import getToolByName
+from Products.ATContentTypes.content.schemata import finalizeATCTSchema
 ##/code-section module-header
 
 schema = Schema((
@@ -126,6 +127,11 @@ schema = Schema((
 )
 
 ##code-section after-local-schema #fill in your manual code here
+ExternalDataSpec_schema = ATContentTypeSchema.copy() + \
+    getattr(ATCTContent, 'schema', Schema(())).copy() + \
+    schema.copy()
+
+finalizeATCTSchema(ExternalDataSpec_schema)
 ##/code-section after-local-schema
 
 ExternalDataSpec_schema = ATContentTypeSchema.copy() + \

@@ -25,6 +25,7 @@ from eea.indicators.config import *
 from Products.ATContentTypes.content.base import ATCTContent, ATContentTypeSchema
 
 ##code-section module-header #fill in your manual code here
+from Products.ATContentTypes.content.schemata import finalizeATCTSchema
 ##/code-section module-header
 
 schema = Schema((
@@ -71,6 +72,7 @@ PolicyQuestion_schema = ATContentTypeSchema.copy() + \
     schema.copy()
 
 ##code-section after-schema #fill in your manual code here
+finalizeATCTSchema(PolicyQuestion_schema)
 ##/code-section after-schema
 
 class PolicyQuestion(ATCTContent, BrowserDefaultMixin):

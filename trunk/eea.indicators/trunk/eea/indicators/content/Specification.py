@@ -31,10 +31,11 @@ from Products.ATContentTypes.content.folder import ATFolder, ATFolderSchema
 from Products.Archetypes.atapi import MultiSelectionWidget
 
 ##code-section module-header #fill in your manual code here
-from eea.dataservice.vocabulary import Organisations
+from Products.ATContentTypes.content.schemata import finalizeATCTSchema
 from Products.CMFCore import permissions
 from Products.CMFCore.utils import getToolByName
 from Products.EEAContentTypes.content.ThemeTaggable import ThemeTaggable, ThemeTaggable_schema
+from eea.dataservice.vocabulary import Organisations
 
 import datetime
 
@@ -156,7 +157,7 @@ schema = Schema((
             label_msgid='indicators_label_csi_status',
             i18n_domain='indicators',
         ),
-        schemata="Status",
+        schemata="default",
         vocabulary=["Under development", "Proposed for core set", "Endorsed by management board", "Dropped from core set"],
     ),
     TextField(
@@ -305,6 +306,15 @@ schema = Schema((
         schemata="Methodology",
         searchable=True,
     ),
+    TextField(
+        name='description',
+        widget=TextAreaWidget(
+            visible={'view':'invisible', 'edit':'invisible'},
+            label='Description',
+            label_msgid='indicators_label_description',
+            i18n_domain='indicators',
+        ),
+    ),
     ReferenceField(
         name='relatedItems',
         widget=ReferenceBrowserWidget(
@@ -425,7 +435,7 @@ for name in old_order:  #add fields that are not in our specified list at the en
         new_order.append(name)
 
 Specification_schema._names = new_order
-
+finalizeATCTSchema(Specification_schema)
 ##/code-section after-schema
 
 class Specification(ATFolder, ThemeTaggable, BrowserDefaultMixin):
