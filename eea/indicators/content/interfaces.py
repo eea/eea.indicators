@@ -45,5 +45,13 @@ class IWorkItem(Interface):
     """Marker interface for .WorkItem.WorkItem
     """
 
+class IPolicyDocumentReferenceDatabase(Interface):
+    """Marker interface for .PolicyDocumentReferenceDatabase.PolicyDocumentReferenceDatabase
+    """
+
+class IExternalDataSpecDatabase(Interface):
+    """Marker interface for .ExternalDataSpecDatabase.ExternalDataSpecDatabase
+    """
+
 ##code-section FOOT
 ##/code-section FOOT

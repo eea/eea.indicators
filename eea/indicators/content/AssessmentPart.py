@@ -94,6 +94,7 @@ AssessmentPart_schema['question_answered'].widget = ReferenceWidget(
             label="Answers to policy question",
             label_msgid='indicators_label_question_answered',
             i18n_domain='indicators',
+            destination="get_specification_path",
         )
 ##/code-section after-schema
 
@@ -133,6 +134,13 @@ class AssessmentPart(ATFolder, ATCTContent, BrowserDefaultMixin):
         if q is None:
             return False
         return q.getIs_key_question()
+
+    security.declarePublic('get_specification_path')
+    def get_specification_path(self):
+        #returns the path to the specification, used by the ReferenceWidget
+        import pdb; pdb.set_trace()
+        spec = self.aq_parent.aq_parent #Specification -> Assessment -> AssessmentPart
+        return spec.getPhysicalPath()
 
 
 

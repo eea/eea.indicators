@@ -21,6 +21,10 @@
          meta_type="Factory-based Type Information with dynamic views"/>
  <object name="WorkItem"
          meta_type="Factory-based Type Information with dynamic views"/>
+ <object name="PolicyDocumentReferenceDatabase"
+         meta_type="Factory-based Type Information with dynamic views"/>
+ <object name="ExternalDataSpecDatabase"
+         meta_type="Factory-based Type Information with dynamic views"/>
  <!-- ##code-section TYPES -->
  <!-- ##/code-section TYPES -->
 </object>
