@@ -160,16 +160,6 @@ schema = Schema((
         vocabulary=["Under development", "Proposed for core set", "Endorsed by management board", "Dropped from core set"],
     ),
     TextField(
-        name='comment',
-        widget=TextAreaWidget(
-            label="Comments",
-            label_msgid='indicators_label_comment',
-            i18n_domain='indicators',
-        ),
-        schemata="Status",
-        searchable=True,
-    ),
-    TextField(
         name='rationale_justification',
         allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
         widget=RichWidget(
@@ -423,10 +413,6 @@ _field_order = [
             'name':'Responsability',
             'fields':['ownership', 'contact', ]
             },
-        {
-            'name':'Status',
-            'fields':['comment',]
-            },
         ]
 
 old_order = Specification_schema._names
@@ -489,6 +475,7 @@ class Specification(ATFolder, ThemeTaggable, BrowserDefaultMixin):
     def Description(self):
         convert = getToolByName(self, 'portal_transforms').convert
         return convert('html_to_text', self.getDefinition()).getData()
+
 
 
 registerType(Specification, PROJECTNAME)
