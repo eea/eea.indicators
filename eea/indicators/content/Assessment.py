@@ -104,10 +104,10 @@ class Assessment(ATFolder, BrowserDefaultMixin):
                 'key':key,
                 'secondary':secondary
                 }
+
     security.declarePublic('Title')
     def Title(self):
-        pass
-
+        return u"Assessment"    #XXX: fix this
 
 
 registerType(Assessment, PROJECTNAME)
