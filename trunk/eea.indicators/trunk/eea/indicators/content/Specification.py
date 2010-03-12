@@ -46,15 +46,16 @@ schema = Schema((
 
     StringField(
         name='title',
+        required_for_publication="True",
         widget=StringField._properties['widget'](
             label="Title",
             label_msgid='indicators_label_title',
             i18n_domain='indicators',
         ),
-        required=True,
         schemata="default",
-        accessor="Title",
         searchable=True,
+        required=True,
+        accessor="Title",
     ),
     DateTimeField(
         name='version',
@@ -67,6 +68,7 @@ schema = Schema((
     ),
     DataGridField(
         name='codes',
+        required_for_publication="True",
         widget=DataGridWidget(
             label="Specification identification codes",
             columns={'set':Column("Set ID"), "code":Column("Code number")},
@@ -99,6 +101,7 @@ schema = Schema((
     ),
     StringField(
         name='dpsir',
+        required_for_publication="True",
         widget=SelectionWidget(
             label="DPSIR",
             label_msgid='indicators_label_dpsir',
@@ -109,6 +112,7 @@ schema = Schema((
     ),
     StringField(
         name='typology',
+        required_for_publication="True",
         widget=SelectionWidget(
             label="Typology",
             label_msgid='indicators_label_typology',
@@ -163,14 +167,15 @@ schema = Schema((
     TextField(
         name='rationale_justification',
         allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+        required_for_publication="True",
         widget=RichWidget(
             label="Rationale justification",
             label_msgid='indicators_label_rationale_justification',
             i18n_domain='indicators',
         ),
-        default_output_type='text/html',
         schemata="Rationale",
         searchable=True,
+        default_output_type='text/html',
     ),
     TextField(
         name='rationale_uncertainty',
@@ -187,6 +192,7 @@ schema = Schema((
     TextField(
         name='policy_context_description',
         allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+        required_for_publication="True",
         widget=RichWidget(
             label="Policy context",
             label_msgid='indicators_label_policy_context_description',
@@ -234,6 +240,7 @@ schema = Schema((
     TextField(
         name='definition',
         allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+        required_for_publication="True",
         widget=RichWidget(
             label="Definition",
             label_msgid='indicators_label_definition',
@@ -247,6 +254,7 @@ schema = Schema((
     TextField(
         name='units',
         allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+        required_for_publication="True",
         widget=RichWidget(
             label="Units",
             label_msgid='indicators_label_units',
@@ -260,6 +268,7 @@ schema = Schema((
     TextField(
         name='methodology',
         allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+        required_for_publication="True",
         widget=RichWidget(
             label="Methodology",
             label_msgid='indicators_label_methodology',
@@ -323,6 +332,16 @@ schema = Schema((
             i18n_domain='indicators',
         ),
         required=False,
+        schemata="default",
+    ),
+    StringField(
+        name='manager_user_id',
+        required_for_publication="True",
+        widget=StringField._properties['widget'](
+            label="Indicator Manager User",
+            label_msgid='indicators_label_manager_user_id',
+            i18n_domain='indicators',
+        ),
         schemata="default",
     ),
     ReferenceField(
@@ -407,7 +426,8 @@ Specification_schema['themes'].schemata = 'Classification'
 _field_order = [
         {
             'name':'default',
-            'fields':['title', 'description', 'more_updates_on', 'definition', 'units', 'related_external_indicator',]
+            'fields':[  'title', 'description', 'more_updates_on', 'definition',
+                        'units', 'related_external_indicator', 'manager_user_id']
             },
         {
             'name':'Rationale',
@@ -445,7 +465,9 @@ for name in old_order:  #add fields that are not in our specified list at the en
         new_order.append(name)
 
 Specification_schema._names = new_order
+Specification_schema['themes'].required_for_publication = True
 finalizeATCTSchema(Specification_schema)
+
 ##/code-section after-schema
 
 class Specification(ATFolder, ThemeTaggable, BrowserDefaultMixin):

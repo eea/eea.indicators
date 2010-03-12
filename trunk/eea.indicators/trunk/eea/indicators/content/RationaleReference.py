@@ -31,20 +31,20 @@ from Products.ATContentTypes.content.schemata import finalizeATCTSchema
 
 schema = Schema((
 
-    TextField(
-        name='description',
-        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
-        widget=RichWidget(
-            label='Description',
-            label_msgid='indicators_label_description',
+    StringField(
+        name='title',
+        required_for_publication="True",
+        widget=StringField._properties['widget'](
+            label='Title',
+            label_msgid='indicators_label_title',
             i18n_domain='indicators',
         ),
-        default_output_type='text/html',
-        accessor="getDescription",
-        searchable=True,
+        required=True,
+        accessor="Title",
     ),
     StringField(
         name='reference_type',
+        required_for_publication="True",
         widget=SelectionWidget(
             label="Reference type",
             label_msgid='indicators_label_reference_type',
@@ -52,6 +52,19 @@ schema = Schema((
         ),
         required=True,
         vocabulary=[("RationaleRefType_01", "Scientific reference"), ("RationaleRefType_02", "Reference to other indicator initiative") ],
+    ),
+    TextField(
+        name='description',
+        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+        required_for_publication="True",
+        widget=RichWidget(
+            label='Description',
+            label_msgid='indicators_label_description',
+            i18n_domain='indicators',
+        ),
+        searchable=True,
+        default_output_type='text/html',
+        accessor="getDescription",
     ),
 
 ),

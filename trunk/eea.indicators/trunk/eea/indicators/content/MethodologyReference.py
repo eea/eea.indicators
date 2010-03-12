@@ -31,17 +31,29 @@ from Products.ATContentTypes.content.schemata import finalizeATCTSchema
 
 schema = Schema((
 
+    StringField(
+        name='title',
+        required_for_publication="True",
+        widget=StringField._properties['widget'](
+            label='Title',
+            label_msgid='indicators_label_title',
+            i18n_domain='indicators',
+        ),
+        required=True,
+        accessor="Title",
+    ),
     TextField(
         name='description',
-        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+        required_for_publication="True",
         widget=RichWidget(
             label='Description',
             label_msgid='indicators_label_description',
             i18n_domain='indicators',
         ),
-        required=True,
         description="True",
         searchable=True,
+        required=True,
+        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
         default_output_type='text/html',
         accessor="getDescription",
     ),
