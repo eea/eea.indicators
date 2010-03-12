@@ -485,6 +485,10 @@ class Specification(ATFolder, ThemeTaggable, BrowserDefaultMixin):
         if brains: res = brains[0]
         return res
 
+    security.declarePublic("Description")
+    def Description(self):
+        convert = getToolByName(self, 'portal_transforms').convert
+        return convert('html_to_text', self.getDefinition()).getData()
 
 
 registerType(Specification, PROJECTNAME)
