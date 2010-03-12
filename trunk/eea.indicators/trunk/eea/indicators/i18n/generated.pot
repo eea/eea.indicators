@@ -355,6 +355,11 @@ msgstr ""
 msgid "indicators_label_relatedItems"
 msgstr ""
 
+#. Default: "Related external indicator"
+#: content/Specification.py
+msgid "indicators_label_related_external_indicator"
+msgstr ""
+
 #. Default: "Related Policy Documents"
 #: Specification.py
 #: content/Specification.py

@@ -315,6 +315,16 @@ schema = Schema((
             i18n_domain='indicators',
         ),
     ),
+    StringField(
+        name='related_external_indicator',
+        widget=StringField._properties['widget'](
+            label="Related external indicator",
+            label_msgid='indicators_label_related_external_indicator',
+            i18n_domain='indicators',
+        ),
+        required=False,
+        schemata="default",
+    ),
     ReferenceField(
         name='relatedItems',
         widget=ReferenceBrowserWidget(
@@ -397,7 +407,7 @@ Specification_schema['themes'].schemata = 'Classification'
 _field_order = [
         {
             'name':'default',
-            'fields':['title', 'description', 'more_updates_on', 'definition', 'units']
+            'fields':['title', 'description', 'more_updates_on', 'definition', 'units', 'related_external_indicator',]
             },
         {
             'name':'Rationale',
