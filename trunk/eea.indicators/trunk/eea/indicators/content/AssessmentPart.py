@@ -97,6 +97,7 @@ AssessmentPart_schema['question_answered'].widget = ReferenceWidget(
             i18n_domain='indicators',
             destination="get_specification_path",
         )
+AssessmentPart_schema.moveField('question_answered', pos=0)
 finalizeATCTSchema(AssessmentPart_schema)
 ##/code-section after-schema
 

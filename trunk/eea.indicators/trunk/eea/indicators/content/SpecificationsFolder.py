@@ -56,7 +56,6 @@ class SpecificationsFolder(ATBTreeFolder, BrowserDefaultMixin):
     schema = SpecificationsFolder_schema
 
     ##code-section class-header #fill in your manual code here
-    implements(INavigationRoot)
     ##/code-section class-header
 
     # Methods

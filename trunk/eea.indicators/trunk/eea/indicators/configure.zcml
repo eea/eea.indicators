@@ -13,6 +13,10 @@
   <!-- ##code-section configure.zcml -->
 	<five:registerPackage package="." initialize=".initialize" />
 	<include package=".browser" />
+
+	<class class=".content.SpecificationsFolder.SpecificationsFolder">
+		<implements interface="Products.CMFPlone.browser.interfaces.INavigationRoot" />
+	</class>
   <!-- ##/code-section configure.zcml -->
 
 </configure>
