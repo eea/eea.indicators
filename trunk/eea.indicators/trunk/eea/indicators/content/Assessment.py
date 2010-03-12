@@ -104,6 +104,10 @@ class Assessment(ATFolder, BrowserDefaultMixin):
                 'key':key,
                 'secondary':secondary
                 }
+    security.declarePublic('Title')
+    def Title(self):
+        pass
+
 
 
 registerType(Assessment, PROJECTNAME)

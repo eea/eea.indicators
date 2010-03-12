@@ -56,6 +56,7 @@ class PolicyDocumentReferenceDatabase(BaseBTreeFolder, BrowserDefaultMixin):
 
     # Methods
 
+
 registerType(PolicyDocumentReferenceDatabase, PROJECTNAME)
 # end of class PolicyDocumentReferenceDatabase
 
