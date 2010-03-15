@@ -23,3 +23,32 @@ ul.toc {
 ul.toc a {
     color:black;
 }
+
+/* fields that are required for publication */
+#assessment-base-edit #archetypes-fieldname-key_message,  
+#externaldataspec-base-edit #archetypes-fieldname-provider_name, 
+#externaldataspec-base-edit #archetypes-fieldname-provider_url, 
+#externaldataspec-base-edit #archetypes-fieldname-dataset_url, 
+#externaldataspec-base-edit #archetypes-fieldname-description, 
+#assessmentpart-base-edit #archetypes-fieldname-assessment,
+#methodologyreference-base-edit #archetypes-fieldname-title,
+#methodologyreference-base-edit #archetypes-fieldname-description,
+#rationalereference-base-edit #archetypes-fieldname-title,
+#rationalereference-base-edit #archetypes-fieldname-description,
+#rationalereference-base-edit #archetypes-fieldname-reference_type,
+#specification-base-edit #archetypes-fieldname-title,
+#specification-base-edit #archetypes-fieldname-codes,
+#specification-base-edit #archetypes-fieldname-dpsir,
+#specification-base-edit #archetypes-fieldname-typology,
+#specification-base-edit #archetypes-fieldname-rationale_justification,
+#specification-base-edit #archetypes-fieldname-policy_context_description,
+#specification-base-edit #archetypes-fieldname-definition,
+#specification-base-edit #archetypes-fieldname-units,
+#specification-base-edit #archetypes-fieldname-methodology,
+#specification-base-edit #archetypes-fieldname-manager_user_id,
+#specification-base-edit #archetypes-fieldname-themes, 
+#policyquestion-base-edit #archetypes-fieldname-title {
+	background-color:lightblue;
+} 
+
+
