@@ -32,7 +32,7 @@ schema = Schema((
 
     StringField(
         name='title',
-        required_for_publication="True",
+        required_for_publication=True,
         widget=StringField._properties['widget'](
             label="Question",
             label_msgid='indicators_label_title',

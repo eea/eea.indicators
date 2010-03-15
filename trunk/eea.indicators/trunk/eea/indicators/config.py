@@ -71,6 +71,9 @@ DEPENDENCIES = []
 PRODUCT_DEPENDENCIES = []
 
 ##code-section config-bottom #fill in your manual code here
+import os
+from Globals import package_home
+templates_dir =  os.path.join(package_home(product_globals), 'browser/templates')
 ##/code-section config-bottom
 
 
