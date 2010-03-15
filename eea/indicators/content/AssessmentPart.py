@@ -35,7 +35,7 @@ schema = Schema((
     TextField(
         name='assessment',
         allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
-        required_for_publication="True",
+        required_for_publication=True,
         widget=RichWidget(
             label='Assessment',
             label_msgid='indicators_label_assessment',

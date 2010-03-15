@@ -35,6 +35,7 @@ from Products.ATContentTypes.content.schemata import finalizeATCTSchema
 from Products.CMFCore import permissions
 from Products.CMFCore.utils import getToolByName
 from Products.EEAContentTypes.content.ThemeTaggable import ThemeTaggable, ThemeTaggable_schema
+from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 from eea.dataservice.vocabulary import Organisations
 
 import datetime
@@ -46,7 +47,7 @@ schema = Schema((
 
     StringField(
         name='title',
-        required_for_publication="True",
+        required_for_publication=True,
         widget=StringField._properties['widget'](
             label="Title",
             label_msgid='indicators_label_title',
@@ -68,7 +69,7 @@ schema = Schema((
     ),
     DataGridField(
         name='codes',
-        required_for_publication="True",
+        required_for_publication=True,
         widget=DataGridWidget(
             label="Specification identification codes",
             columns={'set':Column("Set ID"), "code":Column("Code number")},
@@ -101,7 +102,7 @@ schema = Schema((
     ),
     StringField(
         name='dpsir',
-        required_for_publication="True",
+        required_for_publication=True,
         widget=SelectionWidget(
             label="DPSIR",
             label_msgid='indicators_label_dpsir',
@@ -112,7 +113,7 @@ schema = Schema((
     ),
     StringField(
         name='typology',
-        required_for_publication="True",
+        required_for_publication=True,
         widget=SelectionWidget(
             label="Typology",
             label_msgid='indicators_label_typology',
@@ -167,7 +168,7 @@ schema = Schema((
     TextField(
         name='rationale_justification',
         allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
-        required_for_publication="True",
+        required_for_publication=True,
         widget=RichWidget(
             label="Rationale justification",
             label_msgid='indicators_label_rationale_justification',
@@ -192,7 +193,7 @@ schema = Schema((
     TextField(
         name='policy_context_description',
         allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
-        required_for_publication="True",
+        required_for_publication=True,
         widget=RichWidget(
             label="Policy context",
             label_msgid='indicators_label_policy_context_description',
@@ -240,7 +241,7 @@ schema = Schema((
     TextField(
         name='definition',
         allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
-        required_for_publication="True",
+        required_for_publication=True,
         widget=RichWidget(
             label="Definition",
             label_msgid='indicators_label_definition',
@@ -254,7 +255,7 @@ schema = Schema((
     TextField(
         name='units',
         allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
-        required_for_publication="True",
+        required_for_publication=True,
         widget=RichWidget(
             label="Units",
             label_msgid='indicators_label_units',
@@ -268,7 +269,7 @@ schema = Schema((
     TextField(
         name='methodology',
         allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
-        required_for_publication="True",
+        required_for_publication=True,
         widget=RichWidget(
             label="Methodology",
             label_msgid='indicators_label_methodology',
@@ -336,7 +337,7 @@ schema = Schema((
     ),
     StringField(
         name='manager_user_id',
-        required_for_publication="True",
+        required_for_publication=True,
         widget=StringField._properties['widget'](
             label="Indicator Manager User",
             label_msgid='indicators_label_manager_user_id',
@@ -348,7 +349,7 @@ schema = Schema((
         name='relatedItems',
         widget=ReferenceBrowserWidget(
             label="External data sets",
-            addable="True",
+            addable=True,
             label_msgid='indicators_label_relatedItems',
             i18n_domain='indicators',
         ),
@@ -373,7 +374,7 @@ schema = Schema((
         name='related_policy_documents',
         widget=ReferenceBrowserWidget(
             label="Related Policy Documents",
-            addable="True",
+            addable=True,
             destination="./../",
             label_msgid='indicators_label_related_policy_documents',
             i18n_domain='indicators',
@@ -399,7 +400,7 @@ Specification_schema = Specification_schema + ThemeTaggable_schema.copy()
 
 Specification_schema['relatedItems'].widget = ReferenceWidget(
             label="External data sets",
-            addable="True",
+            addable=True,
             label_msgid='indicators_label_relatedItems',
             i18n_domain='indicators',
         )
@@ -412,7 +413,7 @@ Specification_schema['specification_data'].widget = ReferenceWidget(
 
 Specification_schema['related_policy_documents'].widget = ReferenceWidget(
             label="Related Policy Documents",
-            addable="True",
+            addable=True,
             destination="./../",
             label_msgid='indicators_label_related_policy_documents',
             i18n_domain='indicators',
@@ -468,6 +469,20 @@ Specification_schema._names = new_order
 Specification_schema['themes'].required_for_publication = True
 finalizeATCTSchema(Specification_schema)
 
+required_for_publication = [
+                            "title",
+                            "codes",
+                            "dpsir",
+                            "typology",
+                            "rationale_justification",
+                            "policy_context_description",
+                            "definition",
+                            "units",
+                            "methodology",
+                            "manager_user_id",
+                            "themes",
+                            ]
+
 ##/code-section after-schema
 
 class Specification(ATFolder, ThemeTaggable, BrowserDefaultMixin):
@@ -483,6 +498,11 @@ class Specification(ATFolder, ThemeTaggable, BrowserDefaultMixin):
     schema = Specification_schema
 
     ##code-section class-header #fill in your manual code here
+
+    #this template is customized to expose the number of remaining
+    #unfilled fields that are mandatory for publishing
+    edit_macros = PageTemplateFile('edit_macros.pt', templates_dir)
+
     ##/code-section class-header
 
     # Methods
@@ -517,6 +537,21 @@ class Specification(ATFolder, ThemeTaggable, BrowserDefaultMixin):
     def Description(self):
         convert = getToolByName(self, 'portal_transforms').convert
         return convert('html_to_text', self.getDefinition()).getData()
+
+    security.declarePublic('get_count_publish_fields')
+    def get_count_publish_fields(self):
+        fields = required_for_publication
+
+        schematas = {}
+        for field in self.schema.fields():
+            if not field.schemata in schematas:
+                schematas[field.schemata] = []
+            req = getattr(field, 'required_for_publication', False)
+            if req:
+                if not field.getAccessor(self)():  #we assume that the value return is something not empty
+                    schematas[field.schemata].append(field.__name__)
+
+        return schematas
 
 
 
