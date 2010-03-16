@@ -29,9 +29,11 @@ from Products.DataGridField.Column import Column
 from Products.DataGridField.SelectColumn import SelectColumn
 from Products.ATContentTypes.content.folder import ATFolder, ATFolderSchema
 from Products.Archetypes.atapi import MultiSelectionWidget
+from Products.ATVocabularyManager import NamedVocabulary
 
 ##code-section module-header #fill in your manual code here
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema
+from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
 from Products.CMFCore import permissions
 from Products.CMFCore.utils import getToolByName
 from Products.EEAContentTypes.content.ThemeTaggable import ThemeTaggable, ThemeTaggable_schema
@@ -72,7 +74,8 @@ schema = Schema((
         required_for_publication=True,
         widget=DataGridWidget(
             label="Specification identification codes",
-            columns={'set':Column("Set ID"), "code":Column("Code number")},
+            columns={'set':SelectColumn("Set ID", vocabulary="get_indicator_codes"), "code":Column("Code number")},
+            auto_insert=True,
             label_msgid='indicators_label_codes',
             i18n_domain='indicators',
         ),
@@ -586,14 +589,19 @@ class Specification(ATFolder, ThemeTaggable, BrowserDefaultMixin):
     security.declarePublic('left_slots')
     def left_slots(self):
         _slot = ['here/portlet_completeness/macros/portlet']
-        _assigned = self.getProperty('left_slots') or []
+        #_assigned = self.getProperty('left_slots') or []
 
         parent = self.aq_parent
         base_slots=getattr(parent,'left_slots', [])
         if callable(base_slots):
             base_slots = base_slots()
 
-        return list(base_slots) + list(_assigned) + _slot
+        return list(base_slots) + _slot
+
+    def get_indicator_codes(self):
+        atvm = getToolByName(self, ATVOCABULARYTOOL)
+        vocab = getattr(atvm, 'indicator_codes')
+        return vocab.getDisplayList(self)
 
 
 

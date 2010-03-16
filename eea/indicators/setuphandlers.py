@@ -21,6 +21,10 @@ import os
 from Products.CMFCore.utils import getToolByName
 import transaction
 ##code-section HEAD
+
+from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
+from eea.indicators.config import CODES
+
 ##/code-section HEAD
 
 def isNotindicatorsProfile(context):
@@ -77,4 +81,22 @@ def postInstall(context):
 
 
 ##code-section FOOT
+def setup_vocabularies(context):
+    """Setup ATVocabularyManager vocabularies"""
+
+    site = context.getSite()
+    atvm = getToolByName(site, ATVOCABULARYTOOL, None)
+    if atvm is None:
+        raise ValueError("Could not find the ATVocabularyManager")
+    
+    vkey = 'indicator_codes'
+    if hasattr(atvm, vkey):
+        return
+    
+    atvm.invokeFactory('SimpleVocabulary', vkey)
+    vocab = atvm[vkey]
+    for key in CODES:
+        vocab.invokeFactory('SimpleVocabularyTerm', key)
+        vocab[key].setTitle(key)
+
 ##/code-section FOOT
