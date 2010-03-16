@@ -74,6 +74,18 @@ PRODUCT_DEPENDENCIES = []
 import os
 from Globals import package_home
 templates_dir =  os.path.join(package_home(product_globals), 'browser/templates')
+
+CODES = [
+        'APE',
+        'CLIM',
+        'EECCA',
+        'ENER',
+        'Outlook',
+        'SEBI',
+        'TERM',
+        'WBSCI',
+        'CSI',
+        ]
 ##/code-section config-bottom
 
 
