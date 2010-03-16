@@ -553,6 +553,48 @@ class Specification(ATFolder, ThemeTaggable, BrowserDefaultMixin):
 
         return schematas
 
+    security.declarePublic('get_completeness')
+    def get_completeness(self):
+
+        _done           = 0 #the percentage of fields required for publication that are filled in
+        _optional       = 0 #fields that are not required for publication that are not filled in
+        _required       = 0 #the fields required for publication that are filled in
+        _total_required = 0 #the number of fields that are required for publication
+        _total          = 0 #the grand total of fields
+
+        for field in self.schema.fields():
+            _total += 1
+            has_value = bool(field.getAccessor(self)())  #we assume that the return value is something not empty
+
+            if getattr(field, 'required_for_publication', False):
+                _total_required += 1
+                if has_value:
+                    _required += 1
+            else:
+                if not has_value:
+                    _optional += 1
+
+        _done = int(float(_required) / float(_total_required) * 100.0)
+
+        return {
+                'done':_done,
+                'required':_required,
+                'publishing':_total_required,
+                'optional':_optional,
+                'total':_total,
+                }
+    security.declarePublic('left_slots')
+    def left_slots(self):
+        _slot = ['here/portlet_completeness/macros/portlet']
+        _assigned = self.getProperty('left_slots') or []
+
+        parent = self.aq_parent
+        base_slots=getattr(parent,'left_slots', [])
+        if callable(base_slots):
+            base_slots = base_slots()
+
+        return list(base_slots) + list(_assigned) + _slot
+
 
 
 registerType(Specification, PROJECTNAME)
