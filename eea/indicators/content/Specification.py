@@ -82,17 +82,6 @@ schema = Schema((
         schemata="Classification",
         columns=("set", "code"),
     ),
-    StringField(
-        name='source_code',
-        widget=StringField._properties['widget'](
-            label="Source Code",
-            description="Useful only for CSI indicators, to tell which was original code",
-            label_msgid='indicators_label_source_code',
-            description_msgid='indicators_help_source_code',
-            i18n_domain='indicators',
-        ),
-        schemata="Classification",
-    ),
     TextField(
         name='more_updates_on',
         widget=TextAreaWidget(
@@ -451,7 +440,7 @@ _field_order = [
             },
         {
             'name':'Classification',
-            'fields':['version', 'codes', 'source_code', 'dpsir', 'typology', 'csi_topics', 'version_id', 'themes']
+            'fields':['version', 'codes', 'dpsir', 'typology', 'csi_topics', 'version_id', 'themes']
             },
         {
             'name':'Responsability',
