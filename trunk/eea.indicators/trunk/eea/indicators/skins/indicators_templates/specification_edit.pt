@@ -1,0 +1,14 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+	lang="en"
+	i18n:domain="indicators">
+
+	<head>
+		<metal:slot metal:define-macro="css">
+			<style type="text/css"
+				media="all"
+				tal:content="structure string:<!-- @import url(${context/++resource++indicators.css}); -->">
+			</style>
+		</metal:slot>
+	</head>
+	<body />
+</html>
