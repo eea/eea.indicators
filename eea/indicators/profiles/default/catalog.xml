@@ -5,5 +5,10 @@
     <indexed_attr value="getOld_id"/>
   </index>
 <!-- ##code-section FOOT -->
+  <index name="get_codes" 
+         meta_type="KeywordIndex">
+    <indexed_attr value="get_codes"/>
+  </index>
+	<column value="get_codes" />
 <!-- ##/code-section FOOT -->
 </object>

@@ -592,7 +592,23 @@ class Specification(ATFolder, ThemeTaggable, BrowserDefaultMixin):
         vocab = getattr(atvm, 'indicator_codes')
         return vocab.getDisplayList(self)
 
-
+    security.declarePublic('get_codes')
+    def get_codes(self):
+        """Returns a list of specification codes, for indexing.
+        
+        Indexes the codes of this specification in the form of 
+        a KeywordIndex with ['SETA', "SETA001", "SETB", "SETB009"]
+        the idea is to be able to search for set code (ex: SETB)
+        but also for the full code (ex:SETB009)
+        """
+        codes = self.getCodes()
+        res = []
+        for code in codes:
+            res.extend( 
+                [code['set'], 
+                "%s%s" % (code['set'], code['code'])]
+                )
+        return res
 
 registerType(Specification, PROJECTNAME)
 # end of class Specification
