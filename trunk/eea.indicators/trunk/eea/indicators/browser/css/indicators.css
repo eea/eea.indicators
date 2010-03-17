@@ -57,4 +57,14 @@ ul.toc a {
 }
 #datagridwidget-add-button {
 	float:none;
+	background:none repeat scroll 0 0 #F5821F;
+	border-color:#FFCC99 #663300 #333300 #FF9966;
+	border-style:solid;
+	border-width:1px;
+	color:white;
+	cursor:pointer;
+	font:bold 0.9em verdana,sans-serif;
+	padding:0.2em 0.3em;
+	text-decoration:none;
+	text-transform:lowercase;
 }
