@@ -1,4 +1,4 @@
-./archgenxml -c archgenxml.cfg ims-ng.zuml 
+./archgenxml -c archgenxml.cfg ims-ng.zuml --pdb-on-exception=YES
 
 #rename Products.indicators to eea.indicators
 find indicators/* -type f -print | xargs sed -i 's/Products\.indicators/eea\.indicators/g'

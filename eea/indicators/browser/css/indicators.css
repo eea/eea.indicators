@@ -52,4 +52,9 @@ ul.toc a {
 	padding:1em;
 } 
 
-
+#datagridwidget-table-codes {
+	width:auto !important;
+}
+#datagridwidget-add-button {
+	float:none;
+}
