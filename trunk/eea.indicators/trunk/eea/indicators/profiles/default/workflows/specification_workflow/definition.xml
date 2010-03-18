@@ -222,13 +222,14 @@
   </guard>
  </transition>
  <transition transition_id="quickPublish"
-             title="quickPublish"
+             title="Publish"
              new_state="published"
              trigger="USER"
              before_script=""
              after_script="">
-  <action url="" category="workflow">quickPublish</action>
+  <action url="" category="workflow">Publish</action>
   <guard>
+    <guard-role>Reviewer</guard-role>
   </guard>
  </transition>
  <transition transition_id="reject"
