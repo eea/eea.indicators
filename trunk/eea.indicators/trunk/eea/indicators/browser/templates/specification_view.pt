@@ -192,10 +192,6 @@
 							CSI 001
 						</div>
 					</div>
-					<div tal:condition="context/getSource_code" >
-						<strong>Source Code</strong>
-						<span tal:content="context/getSource_code" />
-					</div>
 					<strong>Specification</strong>
 					<div>Link: <a href="" tal:attributes="href context/absolute_url" 
 							tal:content="context/getId">ISpecification1235</a>

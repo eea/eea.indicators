@@ -17,6 +17,10 @@
 	<class class=".content.SpecificationsFolder.SpecificationsFolder">
 		<implements interface="Products.CMFPlone.browser.interfaces.INavigationRoot" />
 	</class>
+
+	<subscriber handler=".events.delegate_manager" 
+		for="eea.indicators.content.interfaces.ISpecification
+				 zope.app.event.interfaces.IObjectModifiedEvent" />
   <!-- ##/code-section configure.zcml -->
 
 </configure>
