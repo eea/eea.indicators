@@ -88,4 +88,9 @@
 		file='css/indicators.css'
 		/>
 
+	<browser:resource
+		name='indicators.js'
+		file='js/indicators.js'
+		/>
+
 </configure>
