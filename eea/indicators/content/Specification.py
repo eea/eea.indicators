@@ -38,6 +38,7 @@ from Products.CMFCore import permissions
 from Products.CMFCore.utils import getToolByName
 from Products.EEAContentTypes.content.ThemeTaggable import ThemeTaggable, ThemeTaggable_schema
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
+from Products.UserAndGroupSelectionWidget import UserAndGroupSelectionWidget
 from eea.dataservice.vocabulary import Organisations
 
 import datetime
@@ -411,6 +412,13 @@ Specification_schema['related_policy_documents'].widget = ReferenceWidget(
             i18n_domain='indicators',
         )
 
+Specification_schema['manager_user_id'].widget = UserAndGroupSelectionWidget(
+            label="The manager of this Indicator Specification",
+            usersOnly=True,
+            label_msgid='indicators_label_manager_user_id',
+            i18n_domain='indicators',
+        )
+
 Specification_schema['themes'].schemata = 'Classification'
 
 #batch reorder of the fields
@@ -595,8 +603,8 @@ class Specification(ATFolder, ThemeTaggable, BrowserDefaultMixin):
     security.declarePublic('get_codes')
     def get_codes(self):
         """Returns a list of specification codes, for indexing.
-        
-        Indexes the codes of this specification in the form of 
+
+        Indexes the codes of this specification in the form of
         a KeywordIndex with ['SETA', "SETA001", "SETB", "SETB009"]
         the idea is to be able to search for set code (ex: SETB)
         but also for the full code (ex:SETB009)
@@ -604,11 +612,13 @@ class Specification(ATFolder, ThemeTaggable, BrowserDefaultMixin):
         codes = self.getCodes()
         res = []
         for code in codes:
-            res.extend( 
-                [code['set'], 
+            res.extend(
+                [code['set'],
                 "%s%s" % (code['set'], code['code'])]
                 )
         return res
+
+
 
 registerType(Specification, PROJECTNAME)
 # end of class Specification

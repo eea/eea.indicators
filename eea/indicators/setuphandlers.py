@@ -75,8 +75,12 @@ def postInstall(context):
     importcontext = 'profile-Products.DataGridField:default_25x'
     setuptool.setImportContext(importcontext)
     setuptool.runAllImportSteps()
+    logger.info("Installed dependency Products.DataGridField")
 
-    logger.info("Installed dependency DataGridField")
+    importcontext = 'profile-Products.UserAndGroupSelectionWidget:default'
+    setuptool.setImportContext(importcontext)
+    setuptool.runAllImportSteps()
+    logger.info("Installed dependency Products.UserAndGroupSelectionWidget")
 
 
 
