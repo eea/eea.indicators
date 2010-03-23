@@ -16,6 +16,7 @@
 
 	<class class=".content.SpecificationsFolder.SpecificationsFolder">
 		<implements interface="Products.CMFPlone.browser.interfaces.INavigationRoot" />
+		<implements interface="eea.workflow.interfaces.IHasMandatoryWorkflowFields" />
 	</class>
 
 	<subscriber handler=".events.delegate_manager" 

@@ -44,7 +44,6 @@ schema = Schema((
     ),
     StringField(
         name='provider_name',
-        required_for_publication="True",
         widget=StringField._properties['widget'](
             label="Dataset provider name",
             label_msgid='indicators_label_provider_name',
@@ -52,26 +51,27 @@ schema = Schema((
         ),
         required=True,
         searchable=True,
+        required_for_published="True",
     ),
     StringField(
         name='provider_url',
-        required_for_publication="True",
         widget=StringField._properties['widget'](
             label="Provider URL",
             label_msgid='indicators_label_provider_url',
             i18n_domain='indicators',
         ),
         required=True,
+        required_for_published="True",
     ),
     StringField(
         name='dataset_url',
-        required_for_publication="True",
         widget=StringField._properties['widget'](
             label="Dataset URL",
             label_msgid='indicators_label_dataset_url',
             i18n_domain='indicators',
         ),
         required=True,
+        required_for_published="True",
     ),
     TextField(
         name='dataset_path',
@@ -115,7 +115,6 @@ schema = Schema((
     TextField(
         name='description',
         allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
-        required_for_publication="True",
         widget=RichWidget(
             label="Entities description",
             label_msgid='indicators_label_description',
@@ -125,6 +124,7 @@ schema = Schema((
         searchable=True,
         default_output_type='text/html',
         accessor="getDescription",
+        required_for_published="True",
     ),
 
 ),

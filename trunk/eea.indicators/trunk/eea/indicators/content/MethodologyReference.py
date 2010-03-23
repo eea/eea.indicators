@@ -33,7 +33,6 @@ schema = Schema((
 
     StringField(
         name='title',
-        required_for_publication=True,
         widget=StringField._properties['widget'](
             label='Title',
             label_msgid='indicators_label_title',
@@ -41,10 +40,10 @@ schema = Schema((
         ),
         required=True,
         accessor="Title",
+        required_for_published=True,
     ),
     TextField(
         name='description',
-        required_for_publication=True,
         widget=RichWidget(
             label='Description',
             label_msgid='indicators_label_description',
@@ -53,6 +52,7 @@ schema = Schema((
         description="True",
         searchable=True,
         required=True,
+        required_for_published=True,
         allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
         default_output_type='text/html',
         accessor="getDescription",

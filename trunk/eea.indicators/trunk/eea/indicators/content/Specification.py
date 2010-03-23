@@ -50,7 +50,6 @@ schema = Schema((
 
     StringField(
         name='title',
-        required_for_publication=True,
         widget=StringField._properties['widget'](
             label="Title",
             label_msgid='indicators_label_title',
@@ -60,6 +59,7 @@ schema = Schema((
         searchable=True,
         required=True,
         accessor="Title",
+        required_for_published=True,
     ),
     DateTimeField(
         name='version',
@@ -72,7 +72,6 @@ schema = Schema((
     ),
     DataGridField(
         name='codes',
-        required_for_publication=True,
         widget=DataGridWidget(
             label="Specification identification codes",
             columns={'set':SelectColumn("Set ID", vocabulary="get_indicator_codes"), "code":Column("Code number")},
@@ -82,6 +81,7 @@ schema = Schema((
         ),
         schemata="Classification",
         columns=("set", "code"),
+        required_for_published=True,
     ),
     TextField(
         name='more_updates_on',
@@ -95,7 +95,6 @@ schema = Schema((
     ),
     StringField(
         name='dpsir',
-        required_for_publication=True,
         widget=SelectionWidget(
             label="DPSIR",
             label_msgid='indicators_label_dpsir',
@@ -103,10 +102,10 @@ schema = Schema((
         ),
         schemata="Classification",
         vocabulary=[('D', 'Driving forces'), ('P', 'Pressures'), ('S', 'States'), ('I', 'Impacts'), ('R', 'Reactions')],
+        required_for_published=True,
     ),
     StringField(
         name='typology',
-        required_for_publication=True,
         widget=SelectionWidget(
             label="Typology",
             label_msgid='indicators_label_typology',
@@ -114,6 +113,7 @@ schema = Schema((
         ),
         schemata="Classification",
         vocabulary=['A','B','C','D', 'E'],
+        required_for_published=True,
     ),
     StringField(
         name='csi_topics',
@@ -161,7 +161,6 @@ schema = Schema((
     TextField(
         name='rationale_justification',
         allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
-        required_for_publication=True,
         widget=RichWidget(
             label="Rationale justification",
             label_msgid='indicators_label_rationale_justification',
@@ -170,6 +169,7 @@ schema = Schema((
         schemata="Rationale",
         searchable=True,
         default_output_type='text/html',
+        required_for_published=True,
     ),
     TextField(
         name='rationale_uncertainty',
@@ -186,7 +186,6 @@ schema = Schema((
     TextField(
         name='policy_context_description',
         allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
-        required_for_publication=True,
         widget=RichWidget(
             label="Policy context",
             label_msgid='indicators_label_policy_context_description',
@@ -196,6 +195,7 @@ schema = Schema((
         schemata="PolicyContext",
         searchable=True,
         default_output_type='text/html',
+        required_for_published=True,
     ),
     TextField(
         name='policy_context_targets',
@@ -234,7 +234,6 @@ schema = Schema((
     TextField(
         name='definition',
         allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
-        required_for_publication=True,
         widget=RichWidget(
             label="Definition",
             label_msgid='indicators_label_definition',
@@ -244,11 +243,11 @@ schema = Schema((
         schemata="default",
         searchable=True,
         default_output_type='text/html',
+        required_for_published=True,
     ),
     TextField(
         name='units',
         allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
-        required_for_publication=True,
         widget=RichWidget(
             label="Units",
             label_msgid='indicators_label_units',
@@ -258,11 +257,11 @@ schema = Schema((
         schemata="default",
         searchable=True,
         default_output_type='text/html',
+        required_for_published=True,
     ),
     TextField(
         name='methodology',
         allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
-        required_for_publication=True,
         widget=RichWidget(
             label="Methodology",
             label_msgid='indicators_label_methodology',
@@ -272,6 +271,7 @@ schema = Schema((
         schemata="Methodology",
         searchable=True,
         default_output_type='text/html',
+        required_for_published=True,
     ),
     TextField(
         name='methodology_uncertainty',
@@ -330,13 +330,13 @@ schema = Schema((
     ),
     StringField(
         name='manager_user_id',
-        required_for_publication=True,
         widget=StringField._properties['widget'](
             label="Indicator Manager User",
             label_msgid='indicators_label_manager_user_id',
             i18n_domain='indicators',
         ),
         schemata="default",
+        required_for_published=True,
     ),
     ReferenceField(
         name='relatedItems',
@@ -585,7 +585,7 @@ class Specification(ATFolder, ThemeTaggable, BrowserDefaultMixin):
                 }
     security.declarePublic('left_slots')
     def left_slots(self):
-        _slot = ['here/portlet_completeness/macros/portlet']
+        _slot = ['here/portlet_readiness/macros/portlet']
         #_assigned = self.getProperty('left_slots') or []
 
         parent = self.aq_parent
