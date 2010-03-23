@@ -82,6 +82,11 @@ def postInstall(context):
     setuptool.runAllImportSteps()
     logger.info("Installed dependency Products.UserAndGroupSelectionWidget")
 
+    importcontext = 'profile-eea.workflow:default'
+    setuptool.setImportContext(importcontext)
+    setuptool.runAllImportSteps()
+    logger.info("Installed dependency eea.workflow")
+
 
 
 ##code-section FOOT

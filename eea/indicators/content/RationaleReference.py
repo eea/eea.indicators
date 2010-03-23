@@ -33,7 +33,6 @@ schema = Schema((
 
     StringField(
         name='title',
-        required_for_publication=True,
         widget=StringField._properties['widget'](
             label='Title',
             label_msgid='indicators_label_title',
@@ -41,10 +40,10 @@ schema = Schema((
         ),
         required=True,
         accessor="Title",
+        required_for_published=True,
     ),
     StringField(
         name='reference_type',
-        required_for_publication=True,
         widget=SelectionWidget(
             label="Reference type",
             label_msgid='indicators_label_reference_type',
@@ -52,11 +51,11 @@ schema = Schema((
         ),
         required=True,
         vocabulary=[("RationaleRefType_01", "Scientific reference"), ("RationaleRefType_02", "Reference to other indicator initiative") ],
+        required_for_published=True,
     ),
     TextField(
         name='description',
         allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
-        required_for_publication=True,
         widget=RichWidget(
             label='Description',
             label_msgid='indicators_label_description',
@@ -65,6 +64,7 @@ schema = Schema((
         searchable=True,
         default_output_type='text/html',
         accessor="getDescription",
+        required_for_published=True,
     ),
 
 ),
