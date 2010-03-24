@@ -30,6 +30,7 @@ from Products.ATContentTypes.content.schemata import finalizeATCTSchema
 from datetime import datetime
 from eea.dataservice.vocabulary import DatasetYears
 from eea.dataservice.widgets.ManagementPlanWidget import ManagementPlanWidget
+from eea.indicators import msg_factory as _
 ##/code-section module-header
 
 schema = Schema((
@@ -53,6 +54,18 @@ schema = Schema((
             label_msgid='indicators_label_management_plan',
             i18n_domain='indicators',
         ),
+    ),
+    StringField(
+        name='title',
+        widget=StringField._properties['widget'](
+            visible={'view':'invisible', 'edit':'invisible'},
+            label='Title',
+            label_msgid='indicators_label_title',
+            i18n_domain='indicators',
+        ),
+        required=False,
+        accessor="Title",
+        searchable=True,
     ),
 
 ),
@@ -122,28 +135,10 @@ class Assessment(ATFolder, BrowserDefaultMixin):
                 }
     security.declarePublic("Title")
     def Title(self):
-        has_versions = self.unrestrictedTraverse('@@hasVersions')()
-
-        if not has_versions:
-            msg = _(u"assessment_title_no_versions_msg",
-                default=u"Assessment for ${title}",
-                mapping={'title':self.aq_parent.getTitle()})
-            return self.translate(msg)
-
-        version = 0 #avoids problem in create new version
-        versions = self.unrestrictedTraverse('@@getVersions')()
-
-        for k,v in versions.items():    #this is a dict {1:<Spec>, 2:<Spec>}
-            if v.getPhysicalPath() == self.getPhysicalPath():
-                version = k
-                break
-
-        msg = _(u"specification_title_msg",
-                default=u"Assessment for ${title} (version ${version})",
-                mapping={'title':self.aq_parent.getTitle(), 'version':version})
-
-        return self.translate(msg)
-
+        wftool = getToolByName(self, 'portal_workflow')
+        info = wftool.getInfoFor(self)
+        pass
+        #if not hasattr(self, 'aq_inner'):
     security.declarePublic('getThemes')
     def getThemes(self):
         return self.aq_parent.getThemes()

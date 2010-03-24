@@ -53,6 +53,13 @@
 
 	<browser:page
 		for="eea.indicators.content.interfaces.ISpecification"
+		name="get_schemata_count"
+		class=".specification.SchemataCounts"
+		permission="zope2.View"
+		/>
+
+	<browser:page
+		for="eea.indicators.content.interfaces.ISpecification"
 		name="wizards"
 		template="templates/specification_wizards.pt"
 		permission="zope2.View"
@@ -104,6 +111,24 @@
 
 	<browser:menuItem
 		for="eea.indicators.content.interfaces.ISpecification"
+		menu="object_buttons"
+		title="Revoke version"
+		action="@@revokeVersion"
+		description="Revoke a version"
+		permission="cmf.ModifyPortalContent"
+		/>
+
+	<browser:menuItem
+		for="eea.indicators.content.interfaces.IAssessment"
+		menu="object_buttons"
+		title="Create new version"
+		action="@@createVersion"
+		description="Create a new version"
+		permission="cmf.ModifyPortalContent"
+		/>
+
+	<browser:menuItem
+		for="eea.indicators.content.interfaces.IAssessment"
 		menu="object_buttons"
 		title="Revoke version"
 		action="@@revokeVersion"

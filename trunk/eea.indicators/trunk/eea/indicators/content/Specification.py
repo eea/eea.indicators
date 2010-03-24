@@ -560,21 +560,6 @@ class Specification(ATFolder, ThemeTaggable, BrowserDefaultMixin):
         convert = getToolByName(self, 'portal_transforms').convert
         return convert('html_to_text', self.getDefinition()).getData()
 
-    security.declarePublic('get_count_publish_fields')
-    def get_count_publish_fields(self):
-        fields = required_for_publication
-
-        schematas = {}
-        for field in self.schema.fields():
-            if not field.schemata in schematas:
-                schematas[field.schemata] = []
-            req = getattr(field, 'required_for_publication', False)
-            if req:
-                if not field.getAccessor(self)():  #we assume that the value return is something not empty
-                    schematas[field.schemata].append(field.__name__)
-
-        return schematas
-
     security.declarePublic('get_completeness')
     def get_completeness(self):
 
