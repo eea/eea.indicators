@@ -31,18 +31,18 @@
       </tal:has_document_byline>
 
       <div id="archetypes-schemata-links" 
-				tal:define="schemata_counts python:here.get_count_publish_fields()" 
+				tal:define="schemata_counts here/@@get_schemata_count | nothing;"
 				tal:condition="fieldsets">
         <tal:block repeat="set fieldsets">
           <tal:current condition="python:set == fieldset and fieldsets != ['default']">
 						<strong>[<span tal:content="set" i18n:translate="" />
-							<span tal:replace="python:'(%s)' % len(schemata_counts[set])" tal:condition="python:schemata_counts[set]">23</span>
+							<span tal:replace="python:'(%s)' % len(schemata_counts[set])" tal:condition="python:schemata_counts and schemata_counts[set]">23</span>
 							]</strong>
           </tal:current>
           <tal:others condition="python:set != fieldset">
             <a href="#" tal:attributes="href string:${here/absolute_url}/${template/getId}?fieldset=${set}">
 							[<span tal:content="set" i18n:translate="" />
-							<span tal:replace="python:'(%s)' % len(schemata_counts[set])" tal:condition="python:schemata_counts[set]">23</span>
+							<span tal:replace="python:'(%s)' % len(schemata_counts[set])" tal:condition="python:schemata_counts and schemata_counts[set]">23</span>
 							]</a>
           </tal:others>
         </tal:block>
