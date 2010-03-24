@@ -93,4 +93,22 @@
 		file='js/indicators.js'
 		/>
 
+	<browser:menuItem
+		for="eea.indicators.content.interfaces.ISpecification"
+		menu="object_buttons"
+		title="Create new version"
+		action="@@createVersion"
+		description="Create a new version"
+		permission="cmf.ModifyPortalContent"
+		/>
+
+	<browser:menuItem
+		for="eea.indicators.content.interfaces.ISpecification"
+		menu="object_buttons"
+		title="Revoke version"
+		action="@@revokeVersion"
+		description="Revoke a version"
+		permission="cmf.ModifyPortalContent"
+		/>
+
 </configure>

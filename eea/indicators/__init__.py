@@ -70,6 +70,9 @@ utils.ProductsPath.append(dirname(package_home(product_globals)))
 DirectoryView.registerDirectory('skins', product_globals)
 utils.ProductsPath = ppath
 
+from zope.i18nmessageid import MessageFactory
+msg_factory = MessageFactory('indicators')
+
 ##/code-section custom-init-head
 
 
