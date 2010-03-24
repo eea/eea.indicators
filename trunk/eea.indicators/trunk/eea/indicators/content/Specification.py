@@ -40,6 +40,7 @@ from Products.EEAContentTypes.content.ThemeTaggable import ThemeTaggable, ThemeT
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 from Products.UserAndGroupSelectionWidget import UserAndGroupSelectionWidget
 from eea.dataservice.vocabulary import Organisations
+from eea.indicators import msg_factory as _
 
 import datetime
 
@@ -58,7 +59,7 @@ schema = Schema((
         schemata="default",
         searchable=True,
         required=True,
-        accessor="Title",
+        accessor="getTitle",
         required_for_published=True,
     ),
     DateTimeField(
@@ -532,6 +533,27 @@ class Specification(ATFolder, ThemeTaggable, BrowserDefaultMixin):
                                     'getUrl': url})
         if brains: res = brains[0]
         return res
+
+    security.declarePublic("Title")
+    def Title(self):
+        has_versions = self.unrestrictedTraverse('@@hasVersions')()
+
+        if not has_versions:
+            return self.getTitle()
+
+        version = 0 #avoids problem in create new version
+        versions = self.unrestrictedTraverse('@@getVersions')()
+
+        for k,v in versions.items():    #this is a dict {1:<Spec>, 2:<Spec>}
+            if v.getPhysicalPath() == self.getPhysicalPath():
+                version = k
+                break
+
+        msg = _(u"specification_title_msg",
+                default=u"${title} (version ${version})",
+                mapping={'title':self.getTitle(), 'version':version})
+
+        return self.translate(msg)
 
     security.declarePublic("Description")
     def Description(self):

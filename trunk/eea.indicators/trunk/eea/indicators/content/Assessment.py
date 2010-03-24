@@ -120,9 +120,29 @@ class Assessment(ATFolder, BrowserDefaultMixin):
                 'key':key,
                 'secondary':secondary
                 }
-    security.declarePublic('Title')
+    security.declarePublic("Title")
     def Title(self):
-        return u"Assessment"    #XXX: fix this
+        has_versions = self.unrestrictedTraverse('@@hasVersions')()
+
+        if not has_versions:
+            msg = _(u"assessment_title_no_versions_msg",
+                default=u"Assessment for ${title}",
+                mapping={'title':self.aq_parent.getTitle()})
+            return self.translate(msg)
+
+        version = 0 #avoids problem in create new version
+        versions = self.unrestrictedTraverse('@@getVersions')()
+
+        for k,v in versions.items():    #this is a dict {1:<Spec>, 2:<Spec>}
+            if v.getPhysicalPath() == self.getPhysicalPath():
+                version = k
+                break
+
+        msg = _(u"specification_title_msg",
+                default=u"Assessment for ${title} (version ${version})",
+                mapping={'title':self.aq_parent.getTitle(), 'version':version})
+
+        return self.translate(msg)
 
     security.declarePublic('getThemes')
     def getThemes(self):

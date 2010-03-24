@@ -91,9 +91,11 @@
 						</div>
 					</div>
 
-					<div tal:condition="context/getSource_code" >
-						<strong>Source Code</strong>
-						<span tal:content="context/getSource_code" />
+					<div tal:replace="nothing">
+						<div tal:condition="context/getSource_code" >
+							<strong>Source Code</strong>
+							<span tal:content="context/getSource_code" />
+						</div>
 					</div>
 
 					<strong>Specification</strong>

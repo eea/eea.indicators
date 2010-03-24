@@ -15,17 +15,21 @@
 			<div metal:use-macro="here/portlet_themes_object/macros/portlet" />
 			<div metal:use-macro="here/portlet_toc/macros/portlet" />
 
+			<metal:versions use-macro="here/portlet_versions/macros/versions">
+				<metal:new fill-slot="old" />
+			</metal:versions>
+
 			<!-- <ul class="toc"> -->
-			<!-- 	<li><a href="view#rationale">Rationale</a></li> -->
-			<!-- 	<li><a href="view#definition">Indicator Definition</a></li> -->
-			<!-- 	<li><a href="view#policy_context">Policy context and targets</a></li> -->
-			<!-- 	<li><a href="view#policy_questions">Policy questions and graphics</a></li> -->
-			<!-- 	<li><a href="view#methodology">Methodology</a></li> -->
-			<!-- 	<li><a href="view#dataspecs">Data specifications</a></li> -->
-			<!-- 	<li><a href="view#uncertainties">Uncertainties</a></li> -->
-			<!-- 	<li><a href="view#further_work">Further work</a></li> -->
-			<!-- 	<li><a href="view#metadata">General metadata</a></li> -->
-			<!-- </ul> -->
+				<!-- 	<li><a href="view#rationale">Rationale</a></li> -->
+				<!-- 	<li><a href="view#definition">Indicator Definition</a></li> -->
+				<!-- 	<li><a href="view#policy_context">Policy context and targets</a></li> -->
+				<!-- 	<li><a href="view#policy_questions">Policy questions and graphics</a></li> -->
+				<!-- 	<li><a href="view#methodology">Methodology</a></li> -->
+				<!-- 	<li><a href="view#dataspecs">Data specifications</a></li> -->
+				<!-- 	<li><a href="view#uncertainties">Uncertainties</a></li> -->
+				<!-- 	<li><a href="view#further_work">Further work</a></li> -->
+				<!-- 	<li><a href="view#metadata">General metadata</a></li> -->
+				<!-- </ul> -->
 
 			<a name="versions"></a>
 			<h2>Assessment versions</h2>
@@ -166,6 +170,10 @@
 
 			</tal:def>
 
+			<metal:versions use-macro="here/portlet_versions/macros/versions">
+				<metal:new fill-slot="new" />
+			</metal:versions>
+
 			<a name="metadata"></a>
 			<h2 class="metadata">General metadata</h2>
 
@@ -221,8 +229,8 @@
 				<strong>Typology</strong>: <span tal:replace="context/getTypology" /><br/>
 				<!-- <strong>EEA Themes</strong>: -->
 				<!-- <ul> -->
-				<!-- 	<li tal:repeat="theme context/getThemes" tal:content="theme" /> -->
-				<!-- </ul> -->
+					<!-- 	<li tal:repeat="theme context/getThemes" tal:content="theme" /> -->
+					<!-- </ul> -->
 			</div>
 
 		</div>
