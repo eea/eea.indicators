@@ -1,37 +1,10 @@
 from DateTime import DateTime
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone import utils
-from Products.Five import BrowserView
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from eea.indicators.content.Specification import required_for_publication
 from eea.versions.interfaces import IVersionControl, IVersionEnhanced
 from eea.versions.versions import CreateVersion as BaseCreateVersion
-from eea.versions.versions import _get_random, _reindex
 from zope.interface import alsoProvides, directlyProvides, directlyProvidedBy
-
-
-class IndexPage(BrowserView):
-    template = ViewPageTemplateFile('templates/specification_view.pt')
-
-    __call__ = template
-
-
-class SchemataCounts(BrowserView):
-    """Returns the count of fields that are required for publishing"""
-
-    def __call__(self):
-        fields = required_for_publication
-
-        schematas = {}
-        for field in self.context.schema.fields():
-            if not field.schemata in schematas:
-                schematas[field.schemata] = []
-            req = getattr(field, 'required_for_published', False)
-            if req:
-                if not field.getAccessor(self.context)():  #we assume that the value return is something not empty
-                    schematas[field.schemata].append(field.__name__)
-
-        return schematas
+from eea.versions.versions import _get_random, _reindex
 
 
 class CreateVersion(BaseCreateVersion):

@@ -14,7 +14,10 @@ from Products.Five import fiveconfigure
 from Products.Five import zcml
 from Products.PloneTestCase import PloneTestCase
 from Products.PloneTestCase.layer import onsetup
+from zope.app.component.hooks import setSite
 
+PRODUCTS = ['DataGridField', 'ATVocabularyManager']
+PROFILES = ['eea.indicators:default',]
 
 @onsetup
 def setup_indicators():
@@ -29,13 +32,16 @@ def setup_indicators():
 
     PloneTestCase.installProduct('Five')
     PloneTestCase.installProduct('FiveSite')
-    PloneTestCase.installProduct('eea.indicators')
 
+    for product in PRODUCTS:
+        PloneTestCase.installProduct(product)
 
-PRODUCTS = ('DataGridField')
 
 setup_indicators()
-PloneTestCase.setupPloneSite(products=PRODUCTS)
+PRODUCTS.append('eea.indicators')
+PloneTestCase.setupPloneSite(   
+        products=PRODUCTS, 
+    )
 
 
 class BaseIndicatorsTestCase(PloneTestCase.FunctionalTestCase):
