@@ -1,15 +1,26 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
 	metal:use-macro="here/main_template/macros/master"
 	i18n:domain="indicators">
-	<head>
-		<metal:styleslot fill-slot="style_slot">
-			<link type="text/css" rel="stylesheet" media='screen,print' 
-				tal:attributes="href context/++resource++indicators.css" />
-		</metal:styleslot>
-		<title tal:content="context/Title"></title>
-	</head>
+
+	<metal:jsslot fill-slot="javascript_head_slot">
+			<script type="text/javascript" tal:attributes="src context/++resource++jquery.ui-1.7.js"></script>
+			<script type="text/javascript" tal:attributes="src context/++resource++indicators.js"></script>
+	</metal:jsslot>
+
+	<metal:cssslot fill-slot="css_slot">
+		<!-- TODO: temporary -->
+		<link media="screen" type="text/css" rel="stylesheet" 
+			tal:attributes="href context/++resource++eea.faceted-navigation-edit.css" />
+		<!-- <link media="screen" type="text/css" rel="stylesheet"  -->
+		<!-- 	tal:attributes="href string:$portal_url/@@faceted_edit.css"  -->
+		<!-- 	/> -->
+	</metal:cssslot>
+
 	<body>
 		<div metal:fill-slot="main">
+
+			<div id="dialog_edit_target">target</div>
+			<a href="javascript:dialog_edit('./simple_edit?fieldset=Methodology', 'Edit Methodology')">Show dialog</a>
 
 			<h1 tal:content="context/Title">Title here</h1>
 			<div metal:use-macro="here/portlet_themes_object/macros/portlet" />
@@ -33,7 +44,7 @@
 
 			<a name="versions"></a>
 			<h2>Assessment versions</h2>
-			<h3>Published (reviewed and quality assured)</h3>
+			<h5>Published (reviewed and quality assured)</h5>
 			<ul tal:define="assessments python:here.getFolderContents(contentFilter={'review_state':'published', 'portal_type':'Assessment'})">
 				<li tal:condition="not:assessments">No published assessments</li>
 				<li tal:repeat="brain assessments">
@@ -43,7 +54,7 @@
 				</li>
 			</ul>
 
-			<h3>Draft (not yet published - not quality assured)</h3>
+			<h5>Draft (not yet published - not quality assured)</h5>
 			<ul tal:define="assessments python:here.getFolderContents(contentFilter={'portal_type':'Assessment', 'review_state':'draft'})">
 				<li tal:condition="not:assessments" >No drafts available</li>
 				<li tal:repeat="brain python:assessments">

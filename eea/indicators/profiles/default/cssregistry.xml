@@ -14,5 +14,15 @@
  -->
 
  <!-- ##code-section cssregistry.xml -->
+ <stylesheet title=""
+             cacheable="True"
+             compression="safe"
+             cookable="True"
+             enabled="1"
+             expression=""
+             id="++resource++indicators.css"
+             media="all"
+             rel="stylesheet"
+             rendering="import"/>
  <!-- ##/code-section cssregistry.xml -->
 </object>
