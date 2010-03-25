@@ -13,16 +13,19 @@
 	position:relative;
 }
 .headed-box p, .headed-box h4, .headed-box div.wrapper {
-	margin-top:10px;
+	padding-top:0px;
+    margin-top:14px;
 }
-ul.toc {
-    background-color:lightblue;
-    padding:1em 3em;
-    margin:0 0 1em 0;
-}
-ul.toc a {
-    color:black;
-}
+
+
+/* ul.toc { */
+/*     background-color:lightblue; */
+/*     padding:1em 3em; */
+/*     margin:0 0 1em 0; */
+/* } */
+/* ul.toc a { */
+/*     color:black; */
+/* } */
 
 /* fields that are required for publication */
 #assessment-base-edit #archetypes-fieldname-key_message,  
@@ -48,8 +51,8 @@ ul.toc a {
 #specification-base-edit #archetypes-fieldname-manager_user_id,
 #specification-base-edit #archetypes-fieldname-themes, 
 #policyquestion-base-edit #archetypes-fieldname-title {
-	background-color:lightblue;
-	padding:1em;
+	background-color:#FF4444;
+	padding:1em 1em 2em;
 } 
 
 #datagridwidget-table-codes {
@@ -68,3 +71,29 @@ ul.toc a {
 	text-decoration:none;
 	text-transform:lowercase;
 }
+
+/* dialog customizations */
+.section-ims .ui-dialog {
+	width:800px !important;
+	/* width:auto !important; */
+}
+
+#dialog-inner {
+	/* height:500px; */
+	/* overflow:auto; */
+}
+
+.widgets-area {
+	height:400px;
+	overflow:auto;
+}
+.section-ims iframe.kupu-editor-iframe {
+	height:250px;
+}
+
+/* temporary overrides */
+dl.toc {
+    display:inherit !important;
+		/* conflicts with kupu styling */
+}
+

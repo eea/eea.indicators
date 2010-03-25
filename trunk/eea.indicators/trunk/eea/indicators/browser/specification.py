@@ -17,7 +17,7 @@ class IndexPage(BrowserView):
 
 
 class SchemataCounts(BrowserView):
-    """Returns the count of fields that are required for publishing"""
+    """Provides a dictionary of fields that are required for publishing grouped by schematas"""
 
     def __call__(self):
         fields = required_for_publication
@@ -28,6 +28,7 @@ class SchemataCounts(BrowserView):
                 schematas[field.schemata] = []
             req = getattr(field, 'required_for_published', False)
             if req:
+                #TODO: text fields should be stripped of HTML to see if they really have content
                 if not field.getAccessor(self.context)():  #we assume that the value return is something not empty
                     schematas[field.schemata].append(field.__name__)
 

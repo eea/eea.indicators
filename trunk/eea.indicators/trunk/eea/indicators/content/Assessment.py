@@ -134,16 +134,21 @@ class Assessment(ATFolder, BrowserDefaultMixin):
                 'key':key,
                 'secondary':secondary
                 }
-
     security.declarePublic("Title")
     def Title(self):
-        wftool = getToolByName(self, 'portal_workflow')
-        info = wftool.getStatusOf('specification_workflow', self)   #XXX: rewrite to the actual used workflow
+        try:
+            wftool = getToolByName(self, 'portal_workflow')
+        except AttributeError:
+            return u"Untitled"  #the object has not finished its creation process
+        info = wftool.getStatusOf('specification_workflow', self)   #TODO: rewrite to the actual used workflow
+        if not info:
+            return u"Untitled"  #the object has not finished its creation process
+
         if info['review_state'] == "published":
             time = info['time']
             msg = _("assessment-title-published",
                     default=u"Assessment published ${date}",
-                    mapping={'date':u"%s %s" % 
+                    mapping={'date':u"%s %s" %
                         (time.Mon(), time.year())
                         }
                     )
@@ -152,7 +157,7 @@ class Assessment(ATFolder, BrowserDefaultMixin):
             time = info['time']
             msg = _("assessment-title-draft",
                     default=u"Assessment DRAFT created ${date}",
-                    mapping={'date':u"%s %s" % 
+                    mapping={'date':u"%s %s" %
                         (time.Mon(), time.year())
                         }
                     )
