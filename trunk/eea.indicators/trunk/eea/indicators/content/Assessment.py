@@ -27,6 +27,7 @@ from eea.dataservice.fields.ManagementPlanField import ManagementPlanField
 
 ##code-section module-header #fill in your manual code here
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema
+from Products.CMFCore.utils import getToolByName
 from datetime import datetime
 from eea.dataservice.vocabulary import DatasetYears
 from eea.dataservice.widgets.ManagementPlanWidget import ManagementPlanWidget
@@ -133,12 +134,30 @@ class Assessment(ATFolder, BrowserDefaultMixin):
                 'key':key,
                 'secondary':secondary
                 }
+
     security.declarePublic("Title")
     def Title(self):
         wftool = getToolByName(self, 'portal_workflow')
-        info = wftool.getInfoFor(self)
-        pass
-        #if not hasattr(self, 'aq_inner'):
+        info = wftool.getStatusOf('specification_workflow', self)   #XXX: rewrite to the actual used workflow
+        if info['review_state'] == "published":
+            time = info['time']
+            msg = _("assessment-title-published",
+                    default=u"Assessment published ${date}",
+                    mapping={'date':u"%s %s" % 
+                        (time.Mon(), time.year())
+                        }
+                    )
+            return self.translate(msg)
+        else:
+            time = info['time']
+            msg = _("assessment-title-draft",
+                    default=u"Assessment DRAFT created ${date}",
+                    mapping={'date':u"%s %s" % 
+                        (time.Mon(), time.year())
+                        }
+                    )
+            return self.translate(msg)
+
     security.declarePublic('getThemes')
     def getThemes(self):
         return self.aq_parent.getThemes()

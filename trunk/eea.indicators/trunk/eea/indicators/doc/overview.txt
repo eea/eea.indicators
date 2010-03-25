@@ -1,9 +1,50 @@
 Overview of the Indicators
 ==========================
 
-	>>> print portal.objectValues()
-
 We have skin folders installed. We have several workflows installed.
 Test views. Test workflows. Test permissions.
 
 :vim: set ft=doctest:
+
+Versioning
+----------
+
+Specifications have versions; a version of a specification is a new revision of the Spec; 
+it is a completely restructured specification, with new format for Assessments. This is implemented
+with eea.versions
+ 
+Assessments have versions, each year the specifications get new assessments. 
+
+When creating a new version of a Specification, the new specification is a copy of the old, 
+with the following exceptions:
+
+ * none of the assessments are copied
+ * the work items are not copied
+ * the rest of the contained content items are copied
+
+When creating a new version of an Assessment, the new assessment is a copy of the old, 
+with the following exceptions:
+
+ * All the assessment parts are copied, but their text is erased
+ * All the EEAFigures contained inside are erased????
+
+When creating a new Assessment for a Specification, the Assessment should already contained
+AssessmentParts created for all the PolicyQuestions
+
+The Indicators Database
+-----------------------
+
+First, we have the Indicators Database (implemented in the class SpecificationsFolder):
+
+    >>> self.loginAsPortalOwner()
+    >>> id = self.portal.invokeFactory('SpecificationsFolder', 'ims')
+    >>> ims = portal._getOb(id)
+		>>> print ims
+		<SpecificationsFolder at ims>
+
+Inside the indicators database we can add Specifications
+
+		>>> id = ims.invokeFactory("Specification", 'spec1')
+		>>> spec1 = ims._getObj(id)
+		>>> spec1
+
