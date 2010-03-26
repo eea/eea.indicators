@@ -110,7 +110,6 @@
 						/>
 
 					<metal:block define-slot="buttons">
-
 						<input class="context"
 							tabindex=""
 							type="submit"
@@ -128,15 +127,11 @@
 							i18n:attributes="value label_cancel;"
 							tal:attributes="tabindex tabindex/next"
 							/>
-
 					</metal:block>
 
 					<metal:block define-slot="extra_buttons" />
-
 				</div>
-
 			</form>
-
 		</div>
 	</body>
 </html>

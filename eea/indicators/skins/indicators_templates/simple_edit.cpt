@@ -74,15 +74,12 @@
   </metal:css>
     
   <body>
-
     <metal:fill fill-slot="main">
       <metal:main define-macro="main">
         <metal:use_body use-macro="body_macro" />
       </metal:main>
     </metal:fill>
-
   </body>
 
 </html>
-
 </tal:block>
