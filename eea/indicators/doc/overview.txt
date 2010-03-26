@@ -25,11 +25,13 @@ with the following exceptions:
 When creating a new version of an Assessment, the new assessment is a copy of the old, 
 with the following exceptions:
 
- * All the EEAFigures contained inside are copy of the ones in the previous assessment but must be linked as new versions of the figures in the older assessment.
+ * All the EEAFigures contained inside are copy of the ones in the previous assessment 
+   but must be linked as new versions of the figures in the older assessment.
 
-EEAFigures inside an assessment cannot be versioned via the Plone GUI. Only when a user create a new Assessment new version of Figures are made and done by code (see above). 
+EEAFigures inside an assessment cannot be versioned via the Plone GUI. Only when a user 
+create a new Assessment new version of Figures are made and done by code (see above). 
 
-When creating a new Assessment for a Specification, the Assessment should already contained
+When creating a new Assessment for a Specification, the Assessment should already contain
 AssessmentParts created for all the PolicyQuestions
 
 The Indicators Database
@@ -40,8 +42,8 @@ First, we have the Indicators Database (implemented in the class SpecificationsF
     >>> self.loginAsPortalOwner()
     >>> id = self.portal.invokeFactory('SpecificationsFolder', 'ims')
     >>> ims = portal._getOb(id)
-	>>> print ims
-	<SpecificationsFolder at ims>
+    >>> print ims
+    <SpecificationsFolder at ims>
 
 Inside the indicators database we can add Specifications
 

@@ -16,3 +16,17 @@ function dialog_edit(url, title){
 	$("#dialog-inner").load(url);
 	change_kupu_styles();
 }
+
+(function($) {
+ $.fn.make_editable = function(link, title) {
+ return this.each(function() {
+	 $('a', this).click(function(e){
+		 var title = $(this).text();
+		 var link = $(this).attr('href');
+		 dialog_edit(link, title);
+		 return false;
+		 });
+	 });
+ };
+ })(jQuery);
+
