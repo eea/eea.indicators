@@ -4,17 +4,17 @@
 	clear:both;
 	margin-top:20px;
 }
-.headed-box h3 {
+.headed-box h5 {
 	background-color:white;
-	float:left;
-	margin-left:20px;
-	margin-top:-18px;
+	/* float:left; */
+	top:-14px;
 	padding:0 6px;
 	position:relative;
+	margin:0 0 0 20px;
 }
-.headed-box p, .headed-box h4, .headed-box div.wrapper {
+.headed-box p, .headed-box h6, .headed-box div.wrapper {
 	padding-top:0px;
-    margin-top:14px;
+	margin:15px 0 0;
 }
 
 
@@ -87,13 +87,25 @@
 	height:400px;
 	overflow:auto;
 }
-.section-ims iframe.kupu-editor-iframe {
-	height:250px;
+iframe.kupu-editor-iframe {
+	height:450px;
+}
+.field {
+	margin:2em 2em 0 0;
 }
 
 /* temporary overrides */
 dl.toc {
-    display:inherit !important;
-		/* conflicts with kupu styling */
+	display:inherit !important;
+	/* conflicts with kupu styling */
 }
 
+#rationale {
+	background-color:#eDeDeD;
+	margin:1em 0;
+	padding:1px 1em;
+}
+#rationale .controls {
+	float:right;
+	/* width:200px; */
+}

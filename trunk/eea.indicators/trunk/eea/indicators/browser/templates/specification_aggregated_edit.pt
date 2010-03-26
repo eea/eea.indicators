@@ -3,24 +3,24 @@
 	i18n:domain="indicators">
 
 	<metal:jsslot fill-slot="javascript_head_slot">
-			<script type="text/javascript" tal:attributes="src context/++resource++jquery.ui-1.7.js"></script>
-			<script type="text/javascript" tal:attributes="src context/++resource++indicators.js"></script>
+		<script type="text/javascript" tal:attributes="src context/++resource++jquery.ui-1.7.js"></script>
+		<script type="text/javascript" tal:attributes="src context/++resource++indicators.js"></script>
 	</metal:jsslot>
 
 	<metal:cssslot fill-slot="css_slot">
 		<!-- TODO: temporary -->
-		<link media="screen" type="text/css" rel="stylesheet" 
-			tal:attributes="href context/++resource++eea.faceted-navigation-edit.css" />
 		<!-- <link media="screen" type="text/css" rel="stylesheet"  -->
-		<!-- 	tal:attributes="href string:$portal_url/@@faceted_edit.css"  -->
-		<!-- 	/> -->
+		<!-- 	tal:attributes="href context/++resource++eea.faceted-navigation-edit.css" /> -->
+		<!-- <link media="screen" type="text/css" rel="stylesheet"  -->
+			<!-- 	tal:attributes="href string:$portal_url/@@faceted_edit.css"  -->
+			<!-- 	/> -->
 	</metal:cssslot>
 
 	<body>
 		<div metal:fill-slot="main">
 
 			<div id="dialog_edit_target"></div>
-			<a href="javascript:dialog_edit('./simple_edit?fieldset=Methodology', 'Edit Methodology')">Show dialog</a>
+			<!-- <a href="javascript:dialog_edit('./simple_edit?fieldset=Methodology', 'Edit Methodology')">Show dialog</a> -->
 
 			<h1 tal:content="context/Title">Title here</h1>
 			<div metal:use-macro="here/portlet_themes_object/macros/portlet" />
@@ -30,19 +30,6 @@
 				<metal:new fill-slot="old" />
 			</metal:versions>
 
-			<!-- <ul class="toc"> -->
-				<!-- 	<li><a href="view#rationale">Rationale</a></li> -->
-				<!-- 	<li><a href="view#definition">Indicator Definition</a></li> -->
-				<!-- 	<li><a href="view#policy_context">Policy context and targets</a></li> -->
-				<!-- 	<li><a href="view#policy_questions">Policy questions and graphics</a></li> -->
-				<!-- 	<li><a href="view#methodology">Methodology</a></li> -->
-				<!-- 	<li><a href="view#dataspecs">Data specifications</a></li> -->
-				<!-- 	<li><a href="view#uncertainties">Uncertainties</a></li> -->
-				<!-- 	<li><a href="view#further_work">Further work</a></li> -->
-				<!-- 	<li><a href="view#metadata">General metadata</a></li> -->
-				<!-- </ul> -->
-
-			<a name="versions"></a>
 			<h2>Assessment versions</h2>
 			<h5>Published (reviewed and quality assured)</h5>
 			<ul tal:define="assessments python:here.getFolderContents(contentFilter={'review_state':'published', 'portal_type':'Assessment'})">
@@ -65,36 +52,41 @@
 			</ul>
 
 
-			<a name="rationale"></a>
-			<h2 class="rationale">Rationale</h2>
+			<div id="rationale">
+				<div class="controls">
+					<a href="./simple_edit?fieldset=Rationale&specific_field=rationale_justification">Edit Rationale Justification</a>
+				</div>
+				<h2 class="rationale">Rationale</h2>
 
-			<h3>Justification for indicator selection</h3>
-			<p tal:replace="structure context/rationale_justification">Rationale justification</p>
+				<h5>Justification for indicator selection</h5>
+				<p tal:replace="structure context/rationale_justification">Rationale justification</p>
 
-			<h3>Scientific references:</h3>
-			<ul tal:define="refs python:context.objectValues('RationaleReference')">
-				<li tal:repeat="ref refs">
-					<a href="" tal:attributes="href ref/getRemoteUrl" tal:content="ref/Title">Ref title</a>
-					<p tal:replace="structure ref/Description" />
-				</li>
-			</ul>
+				<h5>Scientific references:</h5>
+				<ul tal:define="refs python:context.objectValues('RationaleReference')">
+					<li tal:repeat="ref refs">
+						<a href="" tal:attributes="href ref/getRemoteUrl" tal:content="ref/Title">Ref title</a>
+						<p tal:replace="structure ref/Description" />
+					</li>
+				</ul>
+			</div>
+			<script>
+				$('#rationale').make_editable();
+			</script>
 
-			<a name="definition"></a>
 			<h2 class="definition">Indicator definition</h2>
 			<p tal:replace="structure context/getDefinition"></p>
 
-			<h3>Units</h3>
+			<h5>Units</h5>
 			<p tal:replace="structure context/getUnits"></p>
 
-			<a name="policy_context"></a>
 			<h2 class="policy_context">Policy Context and targets</h2>
 
-			<h3>Context description</h3>
+			<h5>Context description</h5>
 			<p tal:content="structure context/getPolicy_context_description"></p>
 
-			<h3>Targets</h3>
+			<h5>Targets</h5>
 			<p tal:content="structure context/getPolicy_context_targets"></p>
-			<h3>Related policy documents</h3>
+			<h5>Related policy documents</h5>
 			<ul>
 				<li tal:repeat="doc context/getRelated_policy_documents">
 					<a href="" tal:attributes="href doc/getRemoteUrl" tal:content="doc/Title">
@@ -104,22 +96,20 @@
 				</li>
 			</ul>
 
-			<a name="policy_questions"></a>
 			<h2 class="policy_questions">Key policy question</h2>
 			<div tal:repeat="question python:here.objectValues('PolicyQuestion')">
-				<h3 tal:content="question/Title">Question title</h3>
+				<h5 tal:content="question/Title">Question title</h5>
 			</div>
 
-			<a name="methodology"></a>
 			<h2 class="methodology">Methodology</h2>
 
-			<h3>Methodology for indicator calculation</h3>
+			<h5>Methodology for indicator calculation</h5>
 			<p tal:content="structure context/getMethodology" />
 
-			<h3>Methodology for gap filling</h3>
+			<h5>Methodology for gap filling</h5>
 			<p tal:content="structure context/getMethodology_gapfilling" />
 
-			<h3>Methodology references</h3>
+			<h5>Methodology references</h5>
 			<ul tal:define="refs python:context.objectValues('MethodologyReference')">
 				<li tal:repeat="ref refs">
 					<a href="" tal:attributes="href ref/getRemoteUrl" tal:content="ref/Title">Ref</a>
@@ -127,7 +117,6 @@
 				</li>
 			</ul>
 
-			<a name="dataspecs"></a>
 			<h2 class="policy_questions">Data specifications</h2>
 			<ul>
 				<li tal:repeat="data context/getRelatedItems">
@@ -140,42 +129,40 @@
 				</li>
 			</ul>
 
-			<a name="uncertainties"></a>
 			<h2 class="uncertainties">Uncertainties</h2>
 
-			<h3>Methodology uncertainty</h3>
+			<h5>Methodology uncertainty</h5>
 			<p tal:replace="structure context/getMethodology_uncertainty"></p>
 
-			<h3>Data sets uncertainty</h3>
+			<h5>Data sets uncertainty</h5>
 			<p tal:replace="structure context/getData_uncertainty"></p>
 
-			<h3>Rationale uncertainty</h3>
+			<h5>Rationale uncertainty</h5>
 			<p tal:replace="structure context/getRationale_uncertainty"></p>
 
-			<a name="further_work"></a>
 			<h2 class="further_work">Further work</h2>
 			<tal:def tal:define="works context/get_work; short works/short; long works/long">
-				<h3>Short term work</h3>
+				<h5>Short term work</h5>
 				<p>Work specifed here requires to be completed within 1 year from now.</p>
 				<div tal:repeat="work short">
-					<h4>Work description</h4>
+					<h5>Work description</h5>
 					<p tal:replace="structure work/Description"></p>
-					<h4>Resource needs</h4>
+					<h5>Resource needs</h5>
 					<p tal:replace="structure work/getNeeds"></p>
-					<h4>Status</h4>
+					<h5>Status</h5>
 					<p tal:replace="structure work/getStatus"></p>
-					<h4>Deadline</h4>
+					<h5>Deadline</h5>
 					<p tal:replace="structure work/getDue_date"></p>
 				</div>
-				<h3>Long term work</h3>
+				<h5>Long term work</h5>
 				<div tal:repeat="work long">
-					<h4>Work description</h4>
+					<h5>Work description</h5>
 					<p tal:replace="structure work/Description"></p>
-					<h4>Resource needs</h4>
+					<h5>Resource needs</h5>
 					<p tal:replace="structure work/getNeeds"></p>
-					<h4>Status</h4>
+					<h5>Status</h5>
 					<p tal:replace="structure work/getStatus"></p>
-					<h4>Deadline</h4>
+					<h5>Deadline</h5>
 					<p tal:replace="structure work/getDue_date"></p>
 				</div>
 
@@ -185,16 +172,15 @@
 				<metal:new fill-slot="new" />
 			</metal:versions>
 
-			<a name="metadata"></a>
 			<h2 class="metadata">General metadata</h2>
 
 			<div class='headed-box'>
-				<h3>Responsability and ownership</h3>
+				<h5>Responsability and ownership</h5>
 
-				<h4>EEA Contact Info:</h4>
+				<h6>EEA Contact Info:</h6>
 				<div tal:content="structure context/getContact">...</div>
 
-				<h4>Ownership</h4>
+				<h6>Ownership</h6>
 				<ul>
 					<li tal:repeat="info context/getOwnership" >
 						<a tal:content="python:context.getOrganisationName(info).Title" tal:attributes="href info">EEA</a>
@@ -204,7 +190,7 @@
 			</div>
 
 			<div class='headed-box'>
-				<h3>Identification</h3>
+				<h5>Identification</h5>
 				<div class="wrapper" >
 					<div tal:define="codes context/getCodes">
 						<strong>CSI Code</strong>
@@ -234,7 +220,7 @@
 			</div>
 
 			<div class='headed-box'>
-				<h3>Classification</h3>
+				<h5>Classification</h5>
 				<div class="visualClear"><!-- --></div>
 				<strong>DPSIR</strong>: <span tal:replace="context/getDpsir" /><br/>
 				<strong>Typology</strong>: <span tal:replace="context/getTypology" /><br/>

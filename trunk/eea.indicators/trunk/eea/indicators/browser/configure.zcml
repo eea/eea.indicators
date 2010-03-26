@@ -62,6 +62,13 @@
 
 	<browser:page
 		for="eea.indicators.content.interfaces.ISpecification"
+		name="edit_aggregated"
+		class=".specification.AggregatedEditPage"
+		permission="zope2.View"
+		/>
+
+	<browser:page
+		for="eea.indicators.content.interfaces.ISpecification"
 		name="get_schemata_count"
 		class=".specification.SchemataCounts"
 		permission="zope2.View"

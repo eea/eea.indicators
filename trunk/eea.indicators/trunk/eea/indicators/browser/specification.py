@@ -16,8 +16,18 @@ class IndexPage(BrowserView):
     __call__ = template
 
 
+class AggregatedEditPage(BrowserView):
+    template = ViewPageTemplateFile('templates/specification_aggregated_edit.pt')
+
+    __call__ = template
+
+
 class SchemataCounts(BrowserView):
-    """Provides a dictionary of fields that are required for publishing grouped by schematas"""
+    """Provides a dictionary of fields that are required for publishing grouped by schematas
+    
+    
+    TODO: see if able to move this to eea.workflow
+    """
 
     def __call__(self):
         fields = required_for_publication
