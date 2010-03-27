@@ -2,6 +2,10 @@
 	metal:use-macro="here/main_template/macros/master"
 	i18n:domain="indicators">
 
+	<metal:baseslot fill-slot="base">
+		<base href="" tal:attributes="href request/URL" />
+	</metal:baseslot>
+
 	<metal:jsslot fill-slot="javascript_head_slot">
 		<script type="text/javascript" tal:attributes="src context/++resource++jquery.ui-1.7.js"></script>
 		<script type="text/javascript" tal:attributes="src context/++resource++indicators.js"></script>
@@ -18,11 +22,12 @@
 
 	<body>
 		<div metal:fill-slot="main">
+			<div id="dialog_edit_target">
+				<!-- This div is used by active field editing -->
+			</div>
 
-			<div id="dialog_edit_target"></div>
-			<!-- <a href="javascript:dialog_edit('./simple_edit?fieldset=Methodology', 'Edit Methodology')">Show dialog</a> -->
+			<div tal:replace="structure context/fragment_title" />
 
-			<h1 tal:content="context/Title">Title here</h1>
 			<div metal:use-macro="here/portlet_themes_object/macros/portlet" />
 			<div metal:use-macro="here/portlet_toc/macros/portlet" />
 
@@ -54,7 +59,7 @@
 
 			<div id="rationale">
 				<div class="controls">
-					<a href="./simple_edit?fieldset=Rationale&specific_field=rationale_justification">Edit Rationale Justification</a>
+					<a href="./simple_edit?specific_field=title">Edit Rationale Justification</a>
 				</div>
 				<h2 class="rationale">Rationale</h2>
 
@@ -70,7 +75,7 @@
 				</ul>
 			</div>
 			<script>
-				$('#rationale').make_editable();
+				//				$('#rationale').make_editable();
 			</script>
 
 			<h2 class="definition">Indicator definition</h2>

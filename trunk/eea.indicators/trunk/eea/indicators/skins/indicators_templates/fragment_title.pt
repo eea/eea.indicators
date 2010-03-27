@@ -1,0 +1,21 @@
+<tal:def tal:define="submit_handler string:simple_edit; ">
+	<tal:def tal:define="region_name string:title_area;
+		region_update_handler string:fragment_title;">
+
+		<metal:macro metal:use-macro="context/simple_edit_macros/macros/active_region">
+			<metal:slot metal:fill-slot="content">
+
+				<tal:def tal:define="fieldname string:title">
+					<metal:macro metal:use-macro="here/simple_edit_macros/macros/active_field">
+						<metal:slot metal:fill-slot="content">
+							<h1 tal:content="context/Title">Title here</h1>
+						</metal:slot>
+					</metal:macro>
+				</tal:def>
+
+			</metal:slot>
+		</metal:macro>
+
+	</tal:def>
+</tal:def>
+

@@ -83,8 +83,12 @@
 	/* overflow:auto; */
 }
 
+#dialog-inner .cancel-btn {
+	padding-left:2em;
+}
+
 iframe.kupu-editor-iframe {
-	height:300px !important;
+	height:360px !important;
 }
 
 #dialog-inner .field {
@@ -94,6 +98,9 @@ iframe.kupu-editor-iframe {
 	margin:0 1em 0 0 !important;
 }
 #dialog-inner label {
+	display:none;
+}
+#dialog-inner .fieldTextFormat {
 	display:none;
 }
 
@@ -113,7 +120,39 @@ dl.toc {
 	margin:1em 0;
 	padding:1px 1em;
 }
+
 #rationale .controls {
 	float:right;
 	/* width:200px; */
 }
+
+.active_field .metadata, .active_region .metadata {
+	display:none;
+}
+
+.active_field_hovered {
+	background-color:#FFA8D5;
+}
+
+.active_field .control {
+	display:none;
+}
+
+.active_field_hovered .control {
+	display:block !important;
+	float:right;
+	padding:4px 4px 0 0;
+}
+
+/* .active_field :hover { */
+/* 	background-color:#FFA8D5; */
+/* } */
+/*  */
+/* .active_field .control { */
+/* 	display:none; */
+/* } */
+/*  */
+/* .active_field :hover .control { */
+/* 	display:block; */
+/* 	float:right; */
+/* } */
