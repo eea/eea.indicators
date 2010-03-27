@@ -8,7 +8,7 @@
                    default_fieldset python:(not schematas or schematas.has_key('default')) and 'default' or fieldsets[0];
                    fieldset request/fieldset|options/fieldset|default_fieldset;
                    fields python:schematas[fieldset].editableFields(here);
-									 specific_field request/specific_field | nothing;
+									 specific_field options/state/kwargs/specific_field|options/specific_field|request/specific_field | nothing;
 									 fields python:specific_field and filter(lambda f:f.getName() == specific_field, fields) or fields;
                    dummy python:here.at_isEditable(fields);
                    portal_type python:here.getPortalTypeName().lower().replace(' ', '_');

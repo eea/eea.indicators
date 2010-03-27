@@ -2,13 +2,13 @@
 title = Edit
 
 [validators]
-validators = validate_base
+validators = 
 validators..form_add =
 validators..cancel =
 
 [actions]
-action.success = traverse_to:string:content_edit
+action.success = traverse_to:string:simple_content_edit
 action.success..form_add = traverse_to:string:add_reference
 action.success..cancel = traverse_to:string:go_back
-action.failure = traverse_to_action:string:edit
+action.failure = traverse_to:string:simple_edit
 
