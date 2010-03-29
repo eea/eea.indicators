@@ -629,6 +629,15 @@ class Specification(ATFolder, ThemeTaggable, BrowserDefaultMixin):
                 )
         return res
 
+    security.declareProtected(permissions.ModifyPortalContent, 'object_factory')
+    def object_factory(self):
+        """Create an object according to special rules for that object """
+        factories = SpecificationFactories(self)
+        type_name = self.REQUEST['type_name']
+        factory = factories[type_name]
+        obj = factory()
+        return "OK"
+
     security.declareProtected(permissions.ModifyPortalContent, 'simpleProcessForm')
     def simpleProcessForm(self, data=1, metadata=0, REQUEST=None, values=None):
         """Processes the schema looking for data in the form.
@@ -684,7 +693,7 @@ class Specification(ATFolder, ThemeTaggable, BrowserDefaultMixin):
         event.notify(objectevent.ObjectModifiedEvent(self))
 
         logging.info("SimpleProcessForm done")
-        return 
+        return
 
     security.declareProtected(permissions.View, 'simple_validate')
     def simple_validate(self, REQUEST, errors=None):
@@ -707,7 +716,7 @@ class Specification(ATFolder, ThemeTaggable, BrowserDefaultMixin):
         if not fieldname:
             raise ValueError("Could not get valid field from the request")
 
-        fields = [(field.getName(), field) for field in 
+        fields = [(field.getName(), field) for field in
                         self.schema.filterFields(__name__=fieldname)]
         for name, field in fields:
             error = 0
@@ -737,9 +746,39 @@ class Specification(ATFolder, ThemeTaggable, BrowserDefaultMixin):
         return errors
 
 
+
 registerType(Specification, PROJECTNAME)
 # end of class Specification
 
 ##code-section module-footer #fill in your manual code here
+class SpecificationFactories(object):
+    """A simple class that provides some inteligence for specification object factories"""
+
+    def __init__(self, spec):
+        self.spec = spec
+
+    def __getitem__(self, name):
+        return getattr(self, 'factory_' + name)
+
+    def factory_RationaleReference(self):
+        type_name = 'RationaleReference'
+        id = self.spec.generateUniqueId(type_name)
+        new_id = self.spec.invokeFactory(type_name=type_name,
+                id=id,
+                title=_("Newly created Rationale Reference"))
+        ref = self.spec[new_id]
+        return ref
+
+    def factory_PolicyQuestion(self):
+        type_name = 'PolicyQuestion'
+        id = self.spec.generateUniqueId(type_name)
+        new_id = self.spec.invokeFactory(type_name=type_name,
+                id=id,
+                title=_("Newly created Policy Question"))
+        ref = self.spec[new_id]
+        return ref
+
 ##/code-section module-footer
+
+
 

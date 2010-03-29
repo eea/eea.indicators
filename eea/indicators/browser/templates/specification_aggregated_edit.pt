@@ -48,7 +48,7 @@
 
 			<h5>Draft (not yet published - not quality assured)</h5>
 			<ul tal:define="assessments python:here.getFolderContents(contentFilter={'portal_type':'Assessment', 'review_state':'draft'})">
-				<li tal:condition="not:assessments" >No drafts available</li>
+				<li tal:condition="not:assessments">No drafts available</li>
 				<li tal:repeat="brain python:assessments">
 					<a tal:attributes="href python:brain.getObject().absolute_url()" tal:content="brain/Title">
 						Assessment title here
@@ -56,94 +56,13 @@
 				</li>
 			</ul>
 
-
-			<div id="rationale">
-				<div class="controls">
-					<a href="./simple_edit?specific_field=title">Edit Rationale Justification</a>
-				</div>
-				<h2 class="rationale">Rationale</h2>
-
-				<h5>Justification for indicator selection</h5>
-				<p tal:replace="structure context/rationale_justification">Rationale justification</p>
-
-				<h5>Scientific references:</h5>
-				<ul tal:define="refs python:context.objectValues('RationaleReference')">
-					<li tal:repeat="ref refs">
-						<a href="" tal:attributes="href ref/getRemoteUrl" tal:content="ref/Title">Ref title</a>
-						<p tal:replace="structure ref/Description" />
-					</li>
-				</ul>
-			</div>
-			<script>
-				//				$('#rationale').make_editable();
-			</script>
-
-			<h2 class="definition">Indicator definition</h2>
-			<p tal:replace="structure context/getDefinition"></p>
-
-			<h5>Units</h5>
-			<p tal:replace="structure context/getUnits"></p>
-
-			<h2 class="policy_context">Policy Context and targets</h2>
-
-			<h5>Context description</h5>
-			<p tal:content="structure context/getPolicy_context_description"></p>
-
-			<h5>Targets</h5>
-			<p tal:content="structure context/getPolicy_context_targets"></p>
-			<h5>Related policy documents</h5>
-			<ul>
-				<li tal:repeat="doc context/getRelated_policy_documents">
-					<a href="" tal:attributes="href doc/getRemoteUrl" tal:content="doc/Title">
-						Doc title here
-					</a>
-					<div tal:content="structure doc/Description" />
-				</li>
-			</ul>
-
-			<h2 class="policy_questions">Key policy question</h2>
-			<div tal:repeat="question python:here.objectValues('PolicyQuestion')">
-				<h5 tal:content="question/Title">Question title</h5>
-			</div>
-
-			<h2 class="methodology">Methodology</h2>
-
-			<h5>Methodology for indicator calculation</h5>
-			<p tal:content="structure context/getMethodology" />
-
-			<h5>Methodology for gap filling</h5>
-			<p tal:content="structure context/getMethodology_gapfilling" />
-
-			<h5>Methodology references</h5>
-			<ul tal:define="refs python:context.objectValues('MethodologyReference')">
-				<li tal:repeat="ref refs">
-					<a href="" tal:attributes="href ref/getRemoteUrl" tal:content="ref/Title">Ref</a>
-					<p tal:replace="structure ref/Description" />
-				</li>
-			</ul>
-
-			<h2 class="policy_questions">Data specifications</h2>
-			<ul>
-				<li tal:repeat="data context/getRelatedItems">
-					<a href="" tal:attributes="href data/getDataset_url" tal:content="data/Title">Dataset title</a>
-					<div tal:content="structure data/Description" />
-				</li>
-				<li tal:repeat="data context/getSpecification_data">
-					<a href="" tal:attributes="href data/absolute_url" tal:content="data/Title">Dataset title</a>
-					<div tal:content="structure data/Description" />
-				</li>
-			</ul>
-
-			<h2 class="uncertainties">Uncertainties</h2>
-
-			<h5>Methodology uncertainty</h5>
-			<p tal:replace="structure context/getMethodology_uncertainty"></p>
-
-			<h5>Data sets uncertainty</h5>
-			<p tal:replace="structure context/getData_uncertainty"></p>
-
-			<h5>Rationale uncertainty</h5>
-			<p tal:replace="structure context/getRationale_uncertainty"></p>
+			<div tal:replace="structure context/fragment_scientific_references" />
+			<div tal:replace="structure context/fragment_definition" />
+			<div tal:replace="structure context/fragment_policy_questions" />
+			<div tal:replace="structure context/fragment_policy_context" />
+			<div tal:replace="structure context/fragment_methodology" />
+			<div tal:replace="structure context/fragment_data_specifications" />
+			<div tal:replace="structure context/fragment_uncertainties" />
 
 			<h2 class="further_work">Further work</h2>
 			<tal:def tal:define="works context/get_work; short works/short; long works/long">

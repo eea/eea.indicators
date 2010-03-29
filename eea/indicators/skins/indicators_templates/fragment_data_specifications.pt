@@ -1,0 +1,11 @@
+<h2 class="policy_questions">Data specifications</h2>
+<ul>
+	<li tal:repeat="data context/getRelatedItems">
+		<a href="" tal:attributes="href data/getDataset_url" tal:content="data/Title">Dataset title</a>
+		<div tal:content="structure data/Description" />
+	</li>
+	<li tal:repeat="data context/getSpecification_data">
+		<a href="" tal:attributes="href data/absolute_url" tal:content="data/Title">Dataset title</a>
+		<div tal:content="structure data/Description" />
+	</li>
+</ul>

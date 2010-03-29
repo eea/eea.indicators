@@ -1,0 +1,53 @@
+<tal:def tal:define="submit_handler string:simple_edit; ">
+	<tal:def tal:define="region_name string:methodology_area;
+		region_update_handler string:fragment_methodology;">
+
+		<metal:macro metal:use-macro="context/simple_edit_macros/macros/active_region">
+			<metal:slot metal:fill-slot="content">
+
+			<h2 class="methodology">Methodology</h2>
+
+				<tal:def tal:define="fieldname string:methodology; fieldset string:Methodology">
+					<metal:macro metal:use-macro="here/simple_edit_macros/macros/active_field">
+						<metal:slot metal:fill-slot="content">
+							<h5>Methodology for indicator calculation</h5>
+							<p tal:content="structure context/getMethodology" />
+						</metal:slot>
+						<metal:slot metal:fill-slot="extra-metadata">
+							<div class="width">800</div>
+							<div class="height">600</div>
+						</metal:slot>
+					</metal:macro>
+				</tal:def>
+
+
+				<tal:def tal:define="fieldname string:methodology_gapfilling; fieldset string:Methodology">
+					<metal:macro metal:use-macro="here/simple_edit_macros/macros/active_field">
+						<metal:slot metal:fill-slot="content">
+							<h5>Methodology for gap filling</h5>
+							<p tal:content="structure context/getMethodology_gapfilling" />
+						</metal:slot>
+						<metal:slot metal:fill-slot="extra-metadata">
+							<div class="width">800</div>
+							<div class="height">600</div>
+						</metal:slot>
+					</metal:macro>
+				</tal:def>
+
+				<h5>Methodology references</h5>
+				<ul tal:define="refs python:context.objectValues('MethodologyReference')">
+					<li tal:repeat="ref refs">
+						<a href="" tal:attributes="href ref/getRemoteUrl" tal:content="ref/Title">Ref</a>
+						<p tal:replace="structure ref/Description" />
+					</li>
+				</ul>
+
+			</metal:slot>
+		</metal:macro>
+
+	</tal:def>
+</tal:def>
+
+
+
+
