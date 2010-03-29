@@ -39,4 +39,19 @@ def install(self, reinstall=False):
         wfobj = wf_tool.getWorkflowById(wf_id)
         wfobj.manager_bypass = 1
 
+    # enable portal_factory for given types
+    factory_tool = getToolByName(portal, 'portal_factory')
+    factory_types=[
+        "Assessment",
+        "AssessmentPart",
+        "ExternalDataSpec",
+        "MethodologyReference",
+        "PolicyDocumentReference",
+        "PolicyQuestion",
+        "RationaleReference",
+        "Specification",
+        "WorkItem",
+        ] + factory_tool.getFactoryTypes().keys()
+    factory_tool.manage_setPortalFactoryTypes(listOfTypeIds=factory_types)
+
     return out.getvalue()
