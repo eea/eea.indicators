@@ -175,6 +175,20 @@ a.object_creator:hover {
 	border:none;
 }
 
+a.schemata_edit {
+	padding:1px 6px;
+	background-color:#DDD;
+	color:black;
+	text-decoration:none;
+	display:block;
+	float:left;
+	margin-right:1em;
+}
+a.schemata_edit:hover {
+	background-color:black;
+	color:white;
+	border:none;
+}
 
 /* .active_field :hover { */
 /* 	background-color:#FFA8D5; */

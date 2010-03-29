@@ -67,7 +67,7 @@
 			<h2 class="further_work">Further work</h2>
 			<tal:def tal:define="works context/get_work; short works/short; long works/long">
 				<h5>Short term work</h5>
-				<p>Work specifed here requires to be completed within 1 year from now.</p>
+				<p>Work specified here has to be completed within 1 year from now.</p>
 				<div tal:repeat="work short">
 					<h5>Work description</h5>
 					<p tal:replace="structure work/Description"></p>
