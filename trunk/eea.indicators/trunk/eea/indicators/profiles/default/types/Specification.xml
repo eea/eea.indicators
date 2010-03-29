@@ -62,11 +62,11 @@
          visible="True">
   <permission value="Manage portal content"/>
  </action>
- <action title="Wizards" 
-         action_id="wizards"
+ <action title="Aggregated Edit" 
+         action_id="edit_aggregated"
          category="object" 
          condition_expr="python:1"
-         url_expr="string:${object_url}/@@wizards" 
+         url_expr="string:${object_url}/@@edit_aggregated" 
          visible="True">
   <permission value="Manage portal content"/>
  </action>

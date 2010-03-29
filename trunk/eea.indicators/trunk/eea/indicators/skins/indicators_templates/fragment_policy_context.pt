@@ -1,0 +1,61 @@
+<tal:def tal:define="submit_handler string:simple_edit; ">
+	<tal:def tal:define="region_name string:policy_context_area;
+		region_update_handler string:fragment_policy_context;">
+
+		<metal:macro metal:use-macro="context/simple_edit_macros/macros/active_region">
+			<metal:slot metal:fill-slot="content">
+
+				<h2 class="policy_context">Policy Context and targets</h2>
+
+				<tal:def tal:define="fieldname string:policy_context_description; fieldset string:PolicyContext">
+					<metal:macro metal:use-macro="here/simple_edit_macros/macros/active_field">
+						<metal:slot metal:fill-slot="content">
+							<h5>Context description</h5>
+							<p tal:content="structure context/getPolicy_context_description"></p>
+						</metal:slot>
+						<metal:slot metal:fill-slot="extra-metadata">
+							<div class="width">800</div>
+							<div class="height">600</div>
+						</metal:slot>
+					</metal:macro>
+				</tal:def>
+
+
+				<tal:def tal:define="fieldname string:policy_context_targets; fieldset string:PolicyContext">
+					<metal:macro metal:use-macro="here/simple_edit_macros/macros/active_field">
+						<metal:slot metal:fill-slot="content">
+							<h5>Targets</h5>
+							<p tal:content="structure context/getPolicy_context_targets"></p>
+						</metal:slot>
+						<metal:slot metal:fill-slot="extra-metadata">
+							<div class="width">800</div>
+							<div class="height">600</div>
+						</metal:slot>
+					</metal:macro>
+				</tal:def>
+
+				<tal:def tal:define="fieldname string:related_policy_documents; fieldset string:PolicyContext">
+					<metal:macro metal:use-macro="here/simple_edit_macros/macros/active_field">
+						<metal:slot metal:fill-slot="content">
+							<h5>Related policy documents</h5>
+							<ul>
+								<li tal:repeat="doc context/getRelated_policy_documents">
+									<a href="" tal:attributes="href doc/getRemoteUrl" tal:content="doc/Title">
+										Doc title here
+									</a>
+									<div tal:content="structure doc/Description" />
+								</li>
+							</ul>
+						</metal:slot>
+						<metal:slot metal:fill-slot="extra-metadata">
+							<div class="width">800</div>
+							<div class="height">600</div>
+						</metal:slot>
+					</metal:macro>
+				</tal:def>
+
+			</metal:slot>
+		</metal:macro>
+
+	</tal:def>
+</tal:def>

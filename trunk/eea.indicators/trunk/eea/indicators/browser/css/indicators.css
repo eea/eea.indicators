@@ -6,7 +6,7 @@
 }
 .headed-box h5 {
 	background-color:white;
-	/* float:left; */
+	float:left;
 	top:-14px;
 	padding:0 6px;
 	position:relative;
@@ -74,7 +74,7 @@
 
 /* dialog customizations */
 .section-ims .ui-dialog {
-	width:800px !important;
+	/* width:800px !important; */
 	/* width:auto !important; */
 }
 
@@ -88,7 +88,7 @@
 }
 
 iframe.kupu-editor-iframe {
-	height:360px !important;
+	height:380px !important;
 }
 
 #dialog-inner .field {
@@ -98,14 +98,14 @@ iframe.kupu-editor-iframe {
 	margin:0 1em 0 0 !important;
 }
 #dialog-inner label {
-	display:none;
+	/* display:none; */
 }
 #dialog-inner .fieldTextFormat {
 	display:none;
 }
 
 .widgets-area {
-	height:400px;
+	max-height:500px;
 	overflow:auto;
 }
 
@@ -131,7 +131,7 @@ dl.toc {
 }
 
 .active_field_hovered {
-	background-color:#FFA8D5;
+	background-color:#F3F3F3;
 }
 
 .active_field .control {
@@ -141,8 +141,40 @@ dl.toc {
 .active_field_hovered .control {
 	display:block !important;
 	float:right;
-	padding:4px 4px 0 0;
+	padding:4px;
+	background-color:black;
+	position:relative;
+	top:3px;
+	right:3px;
 }
+.active_field_hovered .control a {
+	color:white;
+	font-weight:bold;
+	text-decoration:none;
+}
+.active_field_hovered .control {
+}
+.active_field {
+	padding:1px;
+}
+.active_field h5 {
+	margin-top:0;
+}
+
+a.object_creator {
+	padding:4px;
+	background-color:#DDD;
+	color:black;
+	text-decoration:none;
+	display:block;
+	float:right;
+}
+a.object_creator:hover {
+	background-color:black;
+	color:white;
+	border:none;
+}
+
 
 /* .active_field :hover { */
 /* 	background-color:#FFA8D5; */

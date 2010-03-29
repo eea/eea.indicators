@@ -1,0 +1,54 @@
+<tal:def tal:define="submit_handler string:simple_edit; ">
+	<tal:def tal:define="region_name string:uncertainties_area;
+		region_update_handler string:fragment_uncertainties;">
+
+		<metal:macro metal:use-macro="context/simple_edit_macros/macros/active_region">
+			<metal:slot metal:fill-slot="content">
+
+				<h2 class="uncertainties">Uncertainties</h2>
+
+				<tal:def tal:define="fieldname string:methodology_uncertainty; fieldset string:Methodology">
+					<metal:macro metal:use-macro="here/simple_edit_macros/macros/active_field">
+						<metal:slot metal:fill-slot="content">
+							<h5>Methodology uncertainty</h5>
+							<p tal:replace="structure context/getMethodology_uncertainty"></p>
+						</metal:slot>
+						<metal:slot metal:fill-slot="extra-metadata">
+							<div class="width">800</div>
+							<div class="height">600</div>
+						</metal:slot>
+					</metal:macro>
+				</tal:def>
+
+
+				<tal:def tal:define="fieldname string:data_uncertainty; fieldset string:DataSpecs">
+					<metal:macro metal:use-macro="here/simple_edit_macros/macros/active_field">
+						<metal:slot metal:fill-slot="content">
+							<h5>Data sets uncertainty</h5>
+							<p tal:replace="structure context/getData_uncertainty"></p>
+						</metal:slot>
+						<metal:slot metal:fill-slot="extra-metadata">
+							<div class="width">800</div>
+							<div class="height">600</div>
+						</metal:slot>
+					</metal:macro>
+				</tal:def>
+
+				<tal:def tal:define="fieldname string:rationale_uncertainty; fieldset string:Rationale">
+					<metal:macro metal:use-macro="here/simple_edit_macros/macros/active_field">
+						<metal:slot metal:fill-slot="content">
+							<h5>Rationale uncertainty</h5>
+							<p tal:replace="structure context/getRationale_uncertainty"></p>
+						</metal:slot>
+						<metal:slot metal:fill-slot="extra-metadata">
+							<div class="width">800</div>
+							<div class="height">600</div>
+						</metal:slot>
+					</metal:macro>
+				</tal:def>
+
+			</metal:slot>
+		</metal:macro>
+
+	</tal:def>
+</tal:def>

@@ -1,0 +1,34 @@
+<tal:def tal:define="submit_handler string:simple_edit; ">
+	<tal:def tal:define="region_name string:scientific_references_area;
+		region_update_handler string:fragment_scientific_references;">
+
+		<metal:macro metal:use-macro="context/simple_edit_macros/macros/active_region">
+			<metal:slot metal:fill-slot="content">
+
+				<tal:def tal:define="fieldname string:rationale_justification; fieldset string:Rationale">
+					<metal:macro metal:use-macro="here/simple_edit_macros/macros/active_field">
+						<metal:slot metal:fill-slot="content">
+							<h5>Justification for indicator selection</h5>
+							<p tal:replace="structure context/rationale_justification">Rationale justification</p>
+						</metal:slot>
+						<metal:slot metal:fill-slot="extra-metadata">
+							<div class="width">800</div>
+							<div class="height">600</div>
+						</metal:slot>
+					</metal:macro>
+				</tal:def>
+
+				<a href='./object_factory?type_name=RationaleReference' class="object_creator">+ Scientific Reference</a>
+				<h5>Scientific references:</h5>
+				<ul tal:define="refs python:context.objectValues('RationaleReference')">
+					<li tal:repeat="ref refs">
+						<a href="" tal:attributes="href ref/getRemoteUrl" tal:content="ref/Title">Ref title</a>
+						<p tal:replace="structure ref/Description" />
+					</li>
+				</ul>
+
+			</metal:slot>
+		</metal:macro>
+
+	</tal:def>
+</tal:def>
