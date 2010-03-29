@@ -7,10 +7,14 @@ function change_kupu_styles(){
 
 $(document).ready(function () {
         // this should be integrated somehow into the kupu API
-        setTimeout('change_kupu_styles()', '2000');
-        set_actives();
-        set_creators();
+        on_load_dom()
 });
+
+function on_load_dom(){
+    setTimeout('change_kupu_styles()', '2000');
+    set_actives();
+    set_creators();
+}
 
 function set_actives(){
     $("#dialog-inner .cancel-btn").click(function(e){
@@ -48,8 +52,7 @@ function set_creators(){
                     console.log("Reloading region", region);
                     reload_region($(region));
                     // $(region).replaceWith(r);
-                    set_actives();
-                    set_creators();
+                    on_load_dom()
                     return false;
                 }
                 });
@@ -121,11 +124,8 @@ function reload_region(el){
         },
         success: function(r) { 
             $(el).replaceWith(r);
-            // console.log("active fields", $('.active_field'));
-            // $(".active_field").make_editable();
-            set_actives();
-
-        return false;
+            on_load_dom();
+            return false;
         }
         });
 

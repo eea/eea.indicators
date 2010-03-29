@@ -14,15 +14,28 @@
  -->
 
  <!-- ##code-section cssregistry.xml -->
+
  <stylesheet title=""
              cacheable="True"
              compression="safe"
              cookable="True"
              enabled="1"
-             expression=""
+             expression="python:object.meta_type=='Specification'"
              id="++resource++indicators.css"
              media="all"
              rel="stylesheet"
              rendering="import"/>
+
+ <stylesheet title=""
+             cacheable="True"
+             compression="safe"
+             cookable="True"
+             enabled="1"
+             expression="python:object.meta_type=='Specification'"
+             id="++resource++active_dialogs.css"
+             media="all"
+             rel="stylesheet"
+             rendering="import"/>
+
  <!-- ##/code-section cssregistry.xml -->
 </object>
