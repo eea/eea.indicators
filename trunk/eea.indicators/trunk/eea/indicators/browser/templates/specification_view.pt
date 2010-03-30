@@ -2,25 +2,8 @@
 	metal:use-macro="here/main_template/macros/master"
 	i18n:domain="indicators">
 
-	<metal:jsslot fill-slot="javascript_head_slot">
-			<script type="text/javascript" tal:attributes="src context/++resource++jquery.ui-1.7.js"></script>
-			<script type="text/javascript" tal:attributes="src context/++resource++indicators.js"></script>
-	</metal:jsslot>
-
-	<metal:cssslot fill-slot="css_slot">
-		<!-- TODO: temporary -->
-		<link media="screen" type="text/css" rel="stylesheet" 
-			tal:attributes="href context/++resource++eea.faceted-navigation-edit.css" />
-		<!-- <link media="screen" type="text/css" rel="stylesheet"  -->
-		<!-- 	tal:attributes="href string:$portal_url/@@faceted_edit.css"  -->
-		<!-- 	/> -->
-	</metal:cssslot>
-
 	<body>
 		<div metal:fill-slot="main">
-
-			<div id="dialog_edit_target"></div>
-			<a href="javascript:dialog_edit('./simple_edit?fieldset=Methodology', 'Edit Methodology')">Show dialog</a>
 
 			<h1 tal:content="context/Title">Title here</h1>
 			<div metal:use-macro="here/portlet_themes_object/macros/portlet" />
