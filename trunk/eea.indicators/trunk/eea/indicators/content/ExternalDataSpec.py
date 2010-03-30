@@ -3,7 +3,7 @@
 # $Id$
 #
 # Copyright (c) 2010 by ['Tiberiu Ichim']
-# Generator: ArchGenXML
+# Generator: ArchGenXML 
 #            http://plone.org/products/archgenxml
 #
 # GNU General Public License (GPL)
@@ -131,9 +131,6 @@ schema = Schema((
 )
 
 ##code-section after-local-schema #fill in your manual code here
-schema['provider_url'].validators=('isURL',)
-schema['dataset_url'].validators=('isURL',)
-
 ExternalDataSpec_schema = ATContentTypeSchema.copy() + \
     getattr(ATCTContent, 'schema', Schema(())).copy() + \
     schema.copy()

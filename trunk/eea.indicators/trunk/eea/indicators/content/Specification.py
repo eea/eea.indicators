@@ -632,10 +632,19 @@ class Specification(ATFolder, ThemeTaggable, BrowserDefaultMixin):
     security.declareProtected(permissions.ModifyPortalContent, 'object_factory')
     def object_factory(self):
         """Create an object according to special rules for that object """
+
         factories = SpecificationFactories(self)
         type_name = self.REQUEST['type_name']
         factory = factories[type_name]
         obj = factory()
+        return "OK"
+
+    security.declareProtected(permissions.ModifyPortalContent, 'delete_object')
+    def delete_object(self):
+        """Delete objects from this container"""
+
+        id = self.REQUEST['id']
+        del self[id]
         return "OK"
 
     security.declareProtected(permissions.ModifyPortalContent, 'simpleProcessForm')
