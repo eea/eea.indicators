@@ -19,6 +19,10 @@
 		<implements interface="eea.workflow.interfaces.IHasMandatoryWorkflowFields" />
 	</class>
 
+	<class class=".content.Specification.Specification">
+		<implements interface="eea.workflow.interfaces.IHasMandatoryWorkflowFields" />
+	</class>
+
 	<subscriber handler=".events.delegate_manager" 
 		for="eea.indicators.content.interfaces.ISpecification
 				 zope.app.event.interfaces.IObjectModifiedEvent" />

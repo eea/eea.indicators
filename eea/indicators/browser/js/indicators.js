@@ -6,14 +6,35 @@ function change_kupu_styles(){
 }
 
 $(document).ready(function () {
-        // this should be integrated somehow into the kupu API
-        on_load_dom()
+    on_load_dom();
+    $(window).ajaxStart(function(){
+            console.log('doing start');
+            $('body').append("<div class='specification-loading'></div>");
+            var dim = get_dimmensions();
+            var scr = get_scrollXY();
+            $('.specification-loading').css({
+                'top':dim.height/2-50 + scr.y + 'px',
+                'left':dim.width/2-50 + scr.x + 'px'
+                });
+            return false;
+        });
+    $(window).ajaxComplete(function(){
+            console.log('doing end');
+            $('.specification-loading').remove();
+            return false;
+        }
+    );
 });
 
 function on_load_dom(){
     setTimeout('change_kupu_styles()', '2000');
     set_actives();
     set_creators();
+    set_deleters();
+    set_editors();
+    set_sortables();
+    // activates the active fields
+    $(".active_field").make_editable();
 }
 
 function set_actives(){
@@ -31,9 +52,51 @@ function set_actives(){
             $(this).removeClass("active_field_hovered");    
             return false;
             });
+}
 
-    // activates the active fields
-    $(".active_field").make_editable();
+function set_sortables() {
+
+    $('.sortable_spec').sortable({
+            'handle':'.handler',
+            'items':'.list-item',
+            placeholder: 'ui-state-highlight'
+            });	
+}
+
+function set_editors(){
+    $('a.schemata_edit').click(function(){
+            var link = $(this).attr('href');
+            var title = $(this).text();
+            var region = $(this).parents(".active_region")[0];
+            var options = {
+            'width':800,
+            'height':600
+            }
+            console.log("Clicking ", link, region);
+            var active_region = region.id; //the region that will be reloaded
+
+            dialog_edit(link, title, function(text, status, xhr){
+
+                // TODO: this is a _temporary_ hack to make kupu work properly
+                // the problem is probably that not all the DOM is loaded when the kupu editor
+                // is initiated and so it freezes the editor
+                // A proper fix would be to see if it's possible to delay the kupu load when it is 
+                // loaded through AJAX
+                // This fix has two problems: it uses a global variable (window.kupu_id) - but 
+                // this is easily fixable; it loads a frame (emptypage.html) that might not be completely
+                // loaded in the timeout interval, and when that happens it throws an error
+
+                $('.kupu-editor-iframe').parent().parent().parent().parent().each(function(){
+                    //there should be one active kupu
+                    window.kupu_id = $(this).attr('id');
+                    setTimeout('initialize_kupu()', 500);
+                    });
+
+                schemata_ajaxify($("#dialog-inner"), active_region);
+
+                }, options);
+            return false;
+            });
 }
 
 function set_creators(){
@@ -51,8 +114,28 @@ function set_creators(){
                 success: function(r) { 
                     console.log("Reloading region", region);
                     reload_region($(region));
-                    // $(region).replaceWith(r);
-                    on_load_dom()
+                    return false;
+                }
+                });
+            return false;
+            });
+}
+
+function set_deleters(){
+    $('a.object_delete').click(function(){
+            var link = $(this).attr('href');
+            var region = $(this).parents(".active_region")[0];
+            console.log("Clicking ", link, region);
+            $.ajax({
+                url: link,
+                type:'GET',
+                // timeout: 2000,
+                error: function() {
+                    alert("Failed to update!");
+                },
+                success: function(r) { 
+                    console.log("Reloading region", region);
+                    reload_region($(region));
                     return false;
                 }
                 });
@@ -83,6 +166,7 @@ function set_creators(){
             'width':width,
             'height':height
          }
+         var region_id = null;
 
          dialog_edit(link, title, function(text, status, xhr){
 
@@ -123,8 +207,16 @@ function reload_region(el){
             alert("Failed to update!");
         },
         success: function(r) { 
+            var id = $(el).attr('id');
+            console.log(el);
             $(el).replaceWith(r);
             on_load_dom();
+            console.log("ID", id);
+            var new_el = $("#"+id);
+            console.log("Fading ", new_el);
+            // $(new_el).effect('slide');
+            $(new_el).animate({backgroundColor:'#e1e1e1'}, 1000)
+                    .animate({backgroundColor:'transparent'}, 1500);
             return false;
         }
         });
@@ -156,7 +248,7 @@ function ajaxify(el, fieldname){
                 var textarea = $('textarea[name=' + fieldname + ']', el)[0];
                 window.active_kupu.saveDataToField(textarea.form, textarea);
             }
-            
+
             var data = ($(":input[name=" + fieldname + "]", this).serialize() + 
                 "&form_submit=Save&form.submitted=1&specific_field=" + fieldname
                 );
@@ -174,6 +266,56 @@ function ajaxify(el, fieldname){
                 success: function(r) { 
                     $(el).html(r);
                     ajaxify(el);
+                    return false;
+                }
+            });
+            return false;
+            });
+};
+
+function schemata_ajaxify(el, active_region){
+    console.log("schemata ajaxifying"); 
+    console.log(el);
+    console.log($("form", el));
+
+    set_actives();
+
+    $("form", el).submit(
+            function(e){
+            var form = this;
+
+            var inputs = [];
+            $(".widgets-list .widget-name").each(function(){
+                inputs.push($(this).text());
+                });
+
+// problem: we can't read the content of kupu fields because we can't get a reference to them
+// solution to problem: when we initialize a kupu editor with KupuEditor(iframe), it shouldn't reload
+// the frame, so we can then get a reference to the kupu editor
+
+            var data = "";
+            $(inputs).each(function(i, v){
+                var sep = ""
+                var field = $(":input[name=" + v + "]", form);
+                (i == 0) ? sep = "" : sep = "&";
+                data += sep + field.serialize();
+                });
+            data += "&_active_region=" + active_region;
+            data += "&form_submit=Save&form.submitted=1";
+            console.log(data);
+
+            $.ajax({
+                "data": data,
+                url: this.action,
+                type:'POST',
+                // timeout: 2000,
+                error: function() {
+                    // console.log("Failed to submit");
+                    alert("Failed to submit");
+                },
+                success: function(r) { 
+                    $(el).html(r);
+                    schemata_ajaxify(el, active_region);
                     return false;
                 }
             });
@@ -207,4 +349,44 @@ window.active_kupu = null;
 
 function initialize_kupu(){
     window.active_kupu = initPloneKupu(window.kupu_id);
+} 
+
+function close_dialog(region){
+    reload_region($("#"+region));
+    $("#dialog-inner").dialog("destroy");
+}
+
+function get_dimmensions() {
+  var myWidth = 0, myHeight = 0;
+  if( typeof( window.innerWidth ) == 'number' ) {
+    //Non-IE
+    myWidth = window.innerWidth;
+    myHeight = window.innerHeight;
+  } else if( document.documentElement && ( document.documentElement.clientWidth || document.documentElement.clientHeight ) ) {
+    //IE 6+ in 'standards compliant mode'
+    myWidth = document.documentElement.clientWidth;
+    myHeight = document.documentElement.clientHeight;
+  } else if( document.body && ( document.body.clientWidth || document.body.clientHeight ) ) {
+    //IE 4 compatible
+    myWidth = document.body.clientWidth;
+    myHeight = document.body.clientHeight;
+  }
+  return {'width':myWidth, 'height':myHeight}
+}
+function get_scrollXY() {
+  var scrOfX = 0, scrOfY = 0;
+  if( typeof( window.pageYOffset ) == 'number' ) {
+    //Netscape compliant
+    scrOfY = window.pageYOffset;
+    scrOfX = window.pageXOffset;
+  } else if( document.body && ( document.body.scrollLeft || document.body.scrollTop ) ) {
+    //DOM compliant
+    scrOfY = document.body.scrollTop;
+    scrOfX = document.body.scrollLeft;
+  } else if( document.documentElement && ( document.documentElement.scrollLeft || document.documentElement.scrollTop ) ) {
+    //IE6 standards compliant mode
+    scrOfY = document.documentElement.scrollTop;
+    scrOfX = document.documentElement.scrollLeft;
+  }
+  return {x: scrOfX, y:scrOfY };
 }

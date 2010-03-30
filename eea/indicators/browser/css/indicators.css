@@ -74,7 +74,7 @@
 
 /* dialog customizations */
 .section-ims .ui-dialog {
-	/* width:800px !important; */
+	width:800px !important;
 	/* width:auto !important; */
 }
 
@@ -88,7 +88,7 @@
 }
 
 iframe.kupu-editor-iframe {
-	height:380px !important;
+	height:280px !important;
 }
 
 #dialog-inner .field {
@@ -105,8 +105,12 @@ iframe.kupu-editor-iframe {
 }
 
 .widgets-area {
-	max-height:500px;
+	max-height:400px;
 	overflow:auto;
+}
+
+.widgets-area .widgets-list {
+	display:none;
 }
 
 /* temporary overrides */
@@ -142,7 +146,7 @@ dl.toc {
 	display:block !important;
 	float:right;
 	padding:4px;
-	background-color:black;
+	background-color:#79AE59;
 	position:relative;
 	top:3px;
 	right:3px;
@@ -162,30 +166,32 @@ dl.toc {
 }
 
 a.object_creator {
-	padding:4px;
-	background-color:#DDD;
+	background-color:#CEE2A8;
+	border-bottom:1px solid #AAA;
 	color:black;
-	text-decoration:none;
 	display:block;
 	float:right;
+	padding:4px;
+	text-decoration:none;
 }
 a.object_creator:hover {
-	background-color:black;
+	background-color:#79AE59;
 	color:white;
 	border:none;
 }
 
-a.schemata_edit {
+a.schemata_edit, a.object_delete {
 	padding:1px 6px;
-	background-color:#DDD;
+	background-color:#CEE2A8;
 	color:black;
 	text-decoration:none;
 	display:block;
 	float:left;
 	margin-right:1em;
+	border-bottom:1px solid #AAA;
 }
-a.schemata_edit:hover {
-	background-color:black;
+a.schemata_edit:hover, a.object_delete:hover {
+	background-color:#79AE59;
 	color:white;
 	border:none;
 }
@@ -202,3 +208,48 @@ a.schemata_edit:hover {
 /* 	display:block; */
 /* 	float:right; */
 /* } */
+
+.sortable_spec {
+	margin: 0; 
+	padding: 0; 
+	width: 100%; 
+}
+.sortable_spec .handler {
+	/* position: absolute; margin-left: -1.3em;  */
+	float:left;
+	margin-right:1em;
+	display:block;
+}
+
+.sortable_spec .ui-state-highlight {
+	height:40px;
+}
+.sortable_spec .ui-sortable-helper .spec_control {
+	/* display:none; */
+}
+.ui-sortable-helper {
+	width:inherit !important;
+}
+
+.scientific_references {
+	list-style-type:none;	
+	list-style-image:none;
+	line-height:inherit;
+}
+.checks_alert {
+	float:right;
+	background-color:red;
+	padding:2px;
+	color:white;
+}
+
+.specification-loading {
+  background-image:url(../../++resource++faceted_images/ajax-loader.gif);
+  background-repeat:no-repeat;
+	position:absolute;
+	opacity:1;
+	height:100px;
+	width:100px;
+	z-index:1200;
+}
+

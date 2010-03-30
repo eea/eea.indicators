@@ -5,5 +5,5 @@ title = Validate Content Integrity
 validators =
 
 [actions]
-action.success = redirect_to:string:close_schemata_edit
+action.success = traverse_to:string:close_schemata_edit
 action.failure = traverse_to:string:schemata_content_edit

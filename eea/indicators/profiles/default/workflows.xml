@@ -2,33 +2,19 @@
 <object name="portal_workflow" meta_type="Plone Workflow Tool">
  <object name="specification_workflow" meta_type="Workflow"/>
 <!-- ##code-section workflowobjects -->
-<!-- ##/code-section workflowobjects -->
+<!-- ##/code-section workflowobjects -->   
  <bindings>
   <type type_id="Specification">
    <bound-workflow workflow_id="specification_workflow" />
   </type>
 <!-- ##code-section workflowbindings -->
-  <type type_id="AssessmentPart">
-   <bound-workflow workflow_id="specification_workflow" />
-  </type>
-  <type type_id="ExternalDataSpec">
-   <bound-workflow workflow_id="specification_workflow" />
-  </type>
-  <type type_id="MethodologyReference">
-   <bound-workflow workflow_id="specification_workflow" />
-  </type>
-  <type type_id="PolicyDocumentReference">
-   <bound-workflow workflow_id="specification_workflow" />
-  </type>
-  <type type_id="PolicyQuestion">
-   <bound-workflow workflow_id="specification_workflow" />
-  </type>
-  <type type_id="RationaleReference">
-   <bound-workflow workflow_id="specification_workflow" />
-  </type>
-  <type type_id="WorkItem">
-   <bound-workflow workflow_id="specification_workflow" />
-  </type>
-<!-- ##/code-section workflowbindings -->
+	<type type_id="AssessmentPart" />
+	<type type_id="ExternalDataSpec"/>
+	<type type_id="MethodologyReference"/>
+	<type type_id="PolicyDocumentReference"/>
+	<type type_id="PolicyQuestion"/>
+	<type type_id="RationaleReference"/>
+	<type type_id="WorkItem"/>
+<!-- ##/code-section workflowbindings -->   
  </bindings>
 </object>
