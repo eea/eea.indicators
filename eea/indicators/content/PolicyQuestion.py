@@ -73,6 +73,7 @@ PolicyQuestion_schema = ATContentTypeSchema.copy() + \
     schema.copy()
 
 ##code-section after-schema #fill in your manual code here
+PolicyQuestion_schema['related_items'].widget.visible = {'view':'invisible', 'edit':'invisible'}
 finalizeATCTSchema(PolicyQuestion_schema)
 PolicyQuestion_schema['relatedItems'].widget.visible = {'view':'invisible', 'edit':'invisible'}
 ##/code-section after-schema

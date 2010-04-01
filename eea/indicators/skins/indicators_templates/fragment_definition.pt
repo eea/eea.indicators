@@ -19,10 +19,10 @@
 				</tal:def>
 
 
+				<h5>Units</h5>
 				<tal:def tal:define="fieldname string:units; fieldset string:default">
 					<metal:macro metal:use-macro="here/simple_edit_macros/macros/active_field">
 						<metal:slot metal:fill-slot="content">
-							<h5>Units</h5>
 							<p tal:replace="structure context/getUnits"></p>
 						</metal:slot>
 						<metal:slot metal:fill-slot="extra-metadata">

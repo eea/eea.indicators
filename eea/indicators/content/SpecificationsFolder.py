@@ -41,6 +41,7 @@ SpecificationsFolder_schema = ATBTreeFolderSchema.copy() + \
     schema.copy()
 
 ##code-section after-schema #fill in your manual code here
+SpecificationsFolder_schema['related_items'].widget.visible = {'view':'invisible', 'edit':'invisible'}
 ##/code-section after-schema
 
 class SpecificationsFolder(ATBTreeFolder, BrowserDefaultMixin):

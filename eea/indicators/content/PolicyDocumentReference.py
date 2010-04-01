@@ -57,6 +57,7 @@ PolicyDocumentReference_schema = ATContentTypeSchema.copy() + \
 
 ##code-section after-schema #fill in your manual code here
 finalizeATCTSchema(PolicyDocumentReference_schema)
+PolicyDocumentReference_schema['related_items'].widget.visible = {'view':'invisible', 'edit':'invisible'}
 ##/code-section after-schema
 
 class PolicyDocumentReference(ATCTContent, ATLink, BrowserDefaultMixin):
