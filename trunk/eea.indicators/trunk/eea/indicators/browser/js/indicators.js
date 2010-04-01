@@ -8,7 +8,6 @@ function change_kupu_styles(){
 $(document).ready(function () {
     on_load_dom();
     $(window).ajaxStart(function(){
-            console.log('doing start');
             $('body').append("<div class='specification-loading'></div>");
             var dim = get_dimmensions();
             var scr = get_scrollXY();
@@ -19,7 +18,6 @@ $(document).ready(function () {
             return false;
         });
     $(window).ajaxComplete(function(){
-            console.log('doing end');
             $('.specification-loading').remove();
             return false;
         }
@@ -55,7 +53,6 @@ function set_actives(){
 }
 
 function set_sortables() {
-
     $('.sortable_spec').sortable({
             'handle':'.handler',
             'items':'.list-item',
@@ -72,7 +69,6 @@ function set_editors(){
             'width':800,
             'height':600
             }
-            console.log("Clicking ", link, region);
             var active_region = region.id; //the region that will be reloaded
 
             dialog_edit(link, title, function(text, status, xhr){
@@ -103,7 +99,6 @@ function set_creators(){
     $('a.object_creator').click(function(){
             var link = $(this).attr('href');
             var region = $(this).parents(".active_region")[0];
-            console.log("Clicking ", link, region);
             $.ajax({
                 url: link,
                 type:'GET',
@@ -112,7 +107,6 @@ function set_creators(){
                     alert("Failed to update!");
                 },
                 success: function(r) { 
-                    console.log("Reloading region", region);
                     reload_region($(region));
                     return false;
                 }
@@ -125,7 +119,6 @@ function set_deleters(){
     $('a.object_delete').click(function(){
             var link = $(this).attr('href');
             var region = $(this).parents(".active_region")[0];
-            console.log("Clicking ", link, region);
             $.ajax({
                 url: link,
                 type:'GET',
@@ -134,7 +127,6 @@ function set_deleters(){
                     alert("Failed to update!");
                 },
                 success: function(r) { 
-                    console.log("Reloading region", region);
                     reload_region($(region));
                     return false;
                 }
@@ -147,7 +139,6 @@ function set_deleters(){
  $.fn.make_editable = function() {
 
  return this.each(function() {
-     // console.log("Making editable ", this);
      var content = $('.content', this).get();
 
      var metadata = $('.metadata', this);
@@ -196,27 +187,22 @@ function set_deleters(){
 
 function reload_region(el){
     var update_handler = $(".metadata .region_update_handler", el).text();
-    // console.log(el, update_handler);
 
     $.ajax({
         url: update_handler,
         type:'GET',
         // timeout: 2000,
         error: function() {
-            // console.log("Failed to update");
             alert("Failed to update!");
         },
         success: function(r) { 
             var id = $(el).attr('id');
-            console.log(el);
             $(el).replaceWith(r);
             on_load_dom();
-            console.log("ID", id);
             var new_el = $("#"+id);
-            console.log("Fading ", new_el);
-            // $(new_el).effect('slide');
-            $(new_el).animate({backgroundColor:'#e1e1e1'}, 1000)
-                    .animate({backgroundColor:'transparent'}, 1500);
+            $(new_el).effect('highlight');
+            // $(new_el).animate({backgroundColor:'#e1e1e1'}, 1000)
+            //         .animate({backgroundColor:'transparent'}, 1500);
             return false;
         }
         });
@@ -238,13 +224,10 @@ function closer(fieldname){
 }
 
 function ajaxify(el, fieldname){
-    // console.log("ajaxifying");
-
     $("form", el).submit(
             function(e){
             //if we find a kupu frame inside this form, we assume our field is a richtext field
             if ($('.kupu-editor-iframe', el).length > 0) {
-                console.log("We have kupu");
                 var textarea = $('textarea[name=' + fieldname + ']', el)[0];
                 window.active_kupu.saveDataToField(textarea.form, textarea);
             }
@@ -252,7 +235,6 @@ function ajaxify(el, fieldname){
             var data = ($(":input[name=" + fieldname + "]", this).serialize() + 
                 "&form_submit=Save&form.submitted=1&specific_field=" + fieldname
                 );
-            // console.log("submiting to (action, data)", this.action, data);
 
             $.ajax({
                 "data": data,
@@ -260,7 +242,6 @@ function ajaxify(el, fieldname){
                 type:'POST',
                 // timeout: 2000,
                 error: function() {
-                    // console.log("Failed to submit");
                     alert("Failed to submit");
                 },
                 success: function(r) { 
@@ -274,9 +255,6 @@ function ajaxify(el, fieldname){
 };
 
 function schemata_ajaxify(el, active_region){
-    console.log("schemata ajaxifying"); 
-    console.log(el);
-    console.log($("form", el));
 
     set_actives();
 
@@ -302,7 +280,6 @@ function schemata_ajaxify(el, active_region){
                 });
             data += "&_active_region=" + active_region;
             data += "&form_submit=Save&form.submitted=1";
-            console.log(data);
 
             $.ajax({
                 "data": data,
@@ -310,7 +287,6 @@ function schemata_ajaxify(el, active_region){
                 type:'POST',
                 // timeout: 2000,
                 error: function() {
-                    // console.log("Failed to submit");
                     alert("Failed to submit");
                 },
                 success: function(r) { 

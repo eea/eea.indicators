@@ -97,6 +97,7 @@ Assessment_schema['management_plan'] = ManagementPlanField(
         )
     )
 
+Assessment_schema['relatedItems'].widget.visible = {'view':'invisible', 'edit':'invisible'}
 finalizeATCTSchema(Assessment_schema)
 ##/code-section after-schema
 

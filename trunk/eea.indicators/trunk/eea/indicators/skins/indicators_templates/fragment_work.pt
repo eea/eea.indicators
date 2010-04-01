@@ -1,0 +1,67 @@
+<h2 class="further_work">Further work</h2>
+
+<tal:def tal:define="region_name string:work_area;
+	region_update_handler string:fragment_work;">
+
+	<metal:macro metal:use-macro="context/simple_edit_macros/macros/active_region">
+		<metal:slot metal:fill-slot="content">
+
+			<tal:def tal:define="works context/get_work; 
+				short works/short; 
+				long works/long;
+				incomplete works/incomplete">
+				<a href='./object_factory?type_name=WorkItem' class="object_creator">+ Work Item</a>
+
+				<div tal:repeat="work incomplete">
+					<a href="" 
+						class="schemata_edit spec_control"
+						tal:attributes="href string:${work/absolute_url}/schemata_edit?fieldset=default">Edit</a>
+					<a href="" 
+						class="object_delete spec_control"
+						tal:attributes="href string:${work/aq_parent/absolute_url}/delete_object?id=${work/getId}">Delete</a>
+					<strong tal:content="work/Title" />
+				</div>
+
+				<h5>Short term work</h5>
+				<p>Work specified here has to be completed within 1 year from now.</p>
+				<div tal:repeat="work short">
+					<a href="" 
+						class="schemata_edit spec_control"
+						tal:attributes="href string:${work/absolute_url}/schemata_edit?fieldset=default">Edit</a>
+					<a href="" 
+						class="object_delete spec_control"
+						tal:attributes="href string:${work/aq_parent/absolute_url}/delete_object?id=${work/getId}">Delete</a>
+					<h5>Work description</h5>
+					<p tal:replace="structure work/Description"></p>
+					<h5>Resource needs</h5>
+					<p tal:replace="structure work/getNeeds"></p>
+					<h5>Status</h5>
+					<p tal:replace="structure work/getStatus"></p>
+					<h5>Deadline</h5>
+					<p tal:replace="structure work/getDue_date"></p>
+				</div>
+
+				<h5>Long term work</h5>
+				<div tal:repeat="work long">
+					<a href="" 
+						class="schemata_edit spec_control"
+						tal:attributes="href string:${work/absolute_url}/schemata_edit?fieldset=default">Edit</a>
+					<a href="" 
+						class="object_delete spec_control"
+						tal:attributes="href string:${work/aq_parent/absolute_url}/delete_object?id=${work/getId}">Delete</a>
+					<h5>Work description</h5>
+					<p tal:replace="structure work/Description"></p>
+					<h5>Resource needs</h5>
+					<p tal:replace="structure work/getNeeds"></p>
+					<h5>Status</h5>
+					<p tal:replace="structure work/getStatus"></p>
+					<h5>Deadline</h5>
+					<p tal:replace="structure work/getDue_date"></p>
+				</div>
+
+			</tal:def>
+
+		</metal:slot>
+	</metal:macro>
+
+</tal:def>

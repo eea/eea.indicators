@@ -519,14 +519,18 @@ class Specification(ATFolder, ThemeTaggable, BrowserDefaultMixin):
         items = self.objectValues('WorkItem')
         short_term = []
         long_term = []
+        incomplete = []
         for item in items:
             d = item.getDue_date()
+            if not(d):
+                incomplete.append(item)
+                continue
             date = datetime.datetime(d.year(), d.month(), d.day())
             if date > in_future:
                 long_term.append(item)
             else:
                 short_term.append(item)
-        return {'long':long_term, 'short':short_term}
+        return {'long':long_term, 'short':short_term, 'incomplete':incomplete}
 
     security.declareProtected(permissions.View, 'getOrganisationName')
     def getOrganisationName(self, url):
@@ -769,23 +773,27 @@ class SpecificationFactories(object):
     def __getitem__(self, name):
         return getattr(self, 'factory_' + name)
 
-    def factory_RationaleReference(self):
-        type_name = 'RationaleReference'
+    def _generic_factory(self, type_name):
         id = self.spec.generateUniqueId(type_name)
         new_id = self.spec.invokeFactory(type_name=type_name,
                 id=id,
-                title=_("Newly created Rationale Reference"))
+                title=_('label-newly-created-type',
+                    default="Newly created ${type_name}",
+                    mapping={"type_name":type_name}))
         ref = self.spec[new_id]
         return ref
 
+    def factory_RationaleReference(self):
+        type_name = 'RationaleReference'
+        return self._generic_factory(type_name)
+
     def factory_PolicyQuestion(self):
         type_name = 'PolicyQuestion'
-        id = self.spec.generateUniqueId(type_name)
-        new_id = self.spec.invokeFactory(type_name=type_name,
-                id=id,
-                title=_("Newly created Policy Question"))
-        ref = self.spec[new_id]
-        return ref
+        return self._generic_factory(type_name)
+
+    def factory_WorkItem(self):
+        type_name = 'WorkItem'
+        return self._generic_factory(type_name)
 
 ##/code-section module-footer
 

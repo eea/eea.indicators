@@ -78,6 +78,7 @@ RationaleReference_schema = ATLinkSchema.copy() + \
     schema.copy()
 
 ##code-section after-schema #fill in your manual code here
+RationaleReference_schema['related_items'].widget.visible = {'view':'invisible', 'edit':'invisible'}
 finalizeATCTSchema(RationaleReference_schema)
 ##/code-section after-schema
 

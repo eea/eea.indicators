@@ -129,6 +129,9 @@ dl.toc {
 	float:right;
 	/* width:200px; */
 }
+.active_region {
+    padding:1em 0;
+}
 
 .active_field .metadata, .active_region .metadata {
 	display:none;
@@ -156,10 +159,9 @@ dl.toc {
 	font-weight:bold;
 	text-decoration:none;
 }
-.active_field_hovered .control {
-}
 .active_field {
 	padding:1px;
+    min-height:20px;
 }
 .active_field h5 {
 	margin-top:0;

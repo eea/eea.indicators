@@ -99,6 +99,7 @@ AssessmentPart_schema['question_answered'].widget = ReferenceWidget(
             destination="get_specification_path",
         )
 AssessmentPart_schema.moveField('question_answered', pos=0)
+AssessmentPart_schema['relatedItems'].widget.visible = {'view':'invisible', 'edit':'invisible'}
 finalizeATCTSchema(AssessmentPart_schema)
 ##/code-section after-schema
 

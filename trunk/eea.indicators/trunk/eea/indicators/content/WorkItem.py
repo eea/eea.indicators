@@ -27,6 +27,7 @@ from Products.ATContentTypes.content.base import ATCTContent, ATContentTypeSchem
 ##code-section module-header #fill in your manual code here
 from Products.CMFPlone.utils import getToolByName
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema
+from eea.indicators import msg_factory as _
 ##/code-section module-header
 
 schema = Schema((
@@ -91,6 +92,7 @@ WorkItem_schema = ATContentTypeSchema.copy() + \
 
 ##code-section after-schema #fill in your manual code here
 finalizeATCTSchema(WorkItem_schema)
+WorkItem_schema['related_items'].widget.visible = {'view':'invisible', 'edit':'invisible'}
 ##/code-section after-schema
 
 class WorkItem(ATCTContent, BrowserDefaultMixin):
@@ -112,9 +114,15 @@ class WorkItem(ATCTContent, BrowserDefaultMixin):
 
     # Manually created methods
 
-    security.declarePublic('getTitle')
-    def getTitle(self):
-        return "Work in progress due %s" % self.getDue_date()
+    security.declarePublic('Title')
+    def Title(self):
+        if not(self.getDue_date()):
+            return _(
+                    "title-work-get-title-none",
+                    default="Newly created work item"
+                    )
+
+        return ("Work in progress due %s" % self.getDue_date())
 
     security.declarePublic("Description")
     def Description(self):
