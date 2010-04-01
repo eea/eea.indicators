@@ -23,7 +23,6 @@ from eea.indicators.config import *
 
 # additional imports from tagged value 'import'
 from Products.ATContentTypes.content.folder import ATFolder, ATFolderSchema
-from Products.Archetypes.atapi import MultiSelectionWidget
 
 ##code-section module-header #fill in your manual code here
 ##/code-section module-header

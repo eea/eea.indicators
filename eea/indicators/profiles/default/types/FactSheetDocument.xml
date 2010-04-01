@@ -3,15 +3,15 @@
         meta_type="Factory-based Type Information with dynamic views"
         xmlns:i18n="http://xml.zope.org/namespaces/i18n">
    
- <property name="title">Methodology Reference</property>
+ <property name="title">Fact Sheet Document</property>
  <property name="description"></property>
- <property name="content_icon">MethodologyReference.png</property>
+ <property name="content_icon">FactSheetDocument.gif</property>
  <property name="content_meta_type">FactSheetDocument</property>
  <property name="product">eea.indicators</property>
  <property name="factory">addFactSheetDocument</property>
  <property name="immediate_view">base_view</property>
  <property name="global_allow">False</property>
- <property name="filter_content_types">True</property>
+ <property name="filter_content_types">False</property>
  <property name="allowed_content_types">
  </property>
  <property name="allow_discussion">False</property>

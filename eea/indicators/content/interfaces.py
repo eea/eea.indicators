@@ -54,4 +54,19 @@ class IExternalDataSpecDatabase(Interface):
     """
 
 ##code-section FOOT
+class IIndicatorFactSheetsFolder(Interface):
+    """Marker interface for .IndicatorFactSheetsFolder.IndicatorFactSheetsFolder
+    """
+
+class IFactSheetDocument(Interface):
+    """Marker interface for .FactSheetDocument.FactSheetDocument
+    """
+
+class IIndicatorFactSheet(Interface):
+    """Marker interface for .IndicatorFactSheet.IndicatorFactSheet
+    """
+
+class IKeyMessage(Interface):
+    """Marker interface for .KeyMessage.KeyMessage
+    """
 ##/code-section FOOT

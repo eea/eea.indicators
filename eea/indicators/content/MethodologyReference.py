@@ -69,7 +69,7 @@ MethodologyReference_schema = ATLinkSchema.copy() + \
     schema.copy()
 
 ##code-section after-schema #fill in your manual code here
-MethodologyReference_schema['related_items'].widget.visible = {'view':'invisible', 'edit':'invisible'}
+MethodologyReference_schema['relatedItems'].widget.visible = {'view':'invisible', 'edit':'invisible'}
 finalizeATCTSchema(MethodologyReference_schema)
 ##/code-section after-schema
 
