@@ -92,7 +92,7 @@ WorkItem_schema = ATContentTypeSchema.copy() + \
 
 ##code-section after-schema #fill in your manual code here
 finalizeATCTSchema(WorkItem_schema)
-WorkItem_schema['related_items'].widget.visible = {'view':'invisible', 'edit':'invisible'}
+WorkItem_schema['relatedItems'].widget.visible = {'view':'invisible', 'edit':'invisible'}
 ##/code-section after-schema
 
 class WorkItem(ATCTContent, BrowserDefaultMixin):

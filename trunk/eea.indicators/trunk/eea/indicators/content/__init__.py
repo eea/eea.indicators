@@ -50,5 +50,10 @@ import PolicyDocumentReferenceDatabase
 import ExternalDataSpecDatabase
 
 ##code-section init-module-footer #fill in your manual code here
+#v1 content
+import FactSheetDocument
+import IndicatorFactSheet
+import IndicatorFactSheetsFolder
+import KeyMessage
 ##/code-section init-module-footer
 

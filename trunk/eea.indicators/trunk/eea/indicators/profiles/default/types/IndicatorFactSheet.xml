@@ -3,13 +3,13 @@
         meta_type="Factory-based Type Information with dynamic views"
         xmlns:i18n="http://xml.zope.org/namespaces/i18n">
    
- <property name="title">Indicator Specification</property>
+ <property name="title">Indicator Fact Sheet</property>
  <property name="description"></property>
- <property name="content_icon">Specification.png</property>
+ <property name="content_icon">IndicatorFactSheet.gif</property>
  <property name="content_meta_type">IndicatorFactSheet</property>
  <property name="product">eea.indicators</property>
  <property name="factory">addIndicatorFactSheet</property>
- <property name="immediate_view">@@view</property>
+ <property name="immediate_view">base_view</property>
  <property name="global_allow">False</property>
  <property name="filter_content_types">True</property>
  <property name="allowed_content_types">
@@ -18,9 +18,9 @@
    <element value="EEAFigure"/>
  </property>
  <property name="allow_discussion">False</property>
- <property name="default_view">@@view</property>
+ <property name="default_view">base_view</property>
  <property name="view_methods">
-  <element value="@@view"/>
+  <element value="base_view"/>
  </property>
  <property name="default_view_fallback">False</property>
  <alias from="(Default)" to="(dynamic view)"/>

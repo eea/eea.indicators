@@ -135,7 +135,7 @@ ExternalDataSpec_schema = ATContentTypeSchema.copy() + \
     getattr(ATCTContent, 'schema', Schema(())).copy() + \
     schema.copy()
 
-ExternalDataSpec_schema['related_items'].widget.visible = {'view':'invisible', 'edit':'invisible'}
+ExternalDataSpec_schema['relatedItems'].widget.visible = {'view':'invisible', 'edit':'invisible'}
 finalizeATCTSchema(ExternalDataSpec_schema)
 ##/code-section after-local-schema
 
