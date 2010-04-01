@@ -46,6 +46,16 @@ msgstr ""
 msgid "indicators_help_source_code"
 msgstr ""
 
+#. Default: "ID of manager user"
+#: content/IndicatorFactSheet.py
+msgid "indicators_label_DEV_responsible"
+msgstr ""
+
+#. Default: "Owner"
+#: content/IndicatorFactSheet.py
+msgid "indicators_label_EEA_responsible"
+msgstr ""
+
 #. Default: "Answers to policy question"
 #: content/relates_to.py
 msgid "indicators_label_answers_to_question"
@@ -56,6 +66,11 @@ msgstr ""
 #: QuestionAssesment.py
 #: content/AssessmentPart.py
 msgid "indicators_label_assessment"
+msgstr ""
+
+#. Default: "Assessment Date"
+#: content/IndicatorFactSheet.py
+msgid "indicators_label_assessment_date"
 msgstr ""
 
 #. Default: "Category of use"
@@ -97,6 +112,16 @@ msgstr ""
 #: Specification.py
 #: content/Specification.py
 msgid "indicators_label_csi_topics"
+msgstr ""
+
+#. Default: "Data source info"
+#: content/IndicatorFactSheet.py
+msgid "indicators_label_data_source_info"
+msgstr ""
+
+#. Default: "Data Source Providers"
+#: content/IndicatorFactSheet.py
+msgid "indicators_label_data_source_providers"
 msgstr ""
 
 #. Default: "Data uncertainty"
@@ -215,6 +240,11 @@ msgstr ""
 msgid "indicators_label_manager_user_id"
 msgstr ""
 
+#. Default: "Key message"
+#: content/KeyMessage.py
+msgid "indicators_label_message"
+msgstr ""
+
 #. Default: "Methodology"
 #: content/Specification.py
 msgid "indicators_label_methodology"
@@ -286,6 +316,11 @@ msgstr ""
 #: answers_to_question.py
 #: content/answers_to_question.py
 msgid "indicators_label_policyquestions"
+msgstr ""
+
+#. Default: "Priority data flows"
+#: content/IndicatorFactSheet.py
+msgid "indicators_label_priority_data_flows"
 msgstr ""
 
 #. Default: "Dataset provider name"
@@ -374,6 +409,7 @@ msgstr ""
 
 #. Default: "Source Code"
 #: Specification.py
+#: content/IndicatorFactSheet.py
 #: content/Specification.py
 msgid "indicators_label_source_code"
 msgstr ""
