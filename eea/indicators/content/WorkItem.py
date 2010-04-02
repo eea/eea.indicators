@@ -40,7 +40,7 @@ schema = Schema((
             label_msgid='indicators_label_title',
             i18n_domain='indicators',
         ),
-        searchable=True,
+        searchable=False,
     ),
     TextField(
         name='description',
@@ -70,14 +70,17 @@ schema = Schema((
             label_msgid='indicators_label_status',
             i18n_domain='indicators',
         ),
+        required=True,
+        vocabulary=["Not started", "In progress", "Completed"],
     ),
     DateTimeField(
         name='due_date',
         widget=DateTimeField._properties['widget'](
-            label='Due_date',
+            label="Due date",
             label_msgid='indicators_label_due_date',
             i18n_domain='indicators',
         ),
+        required=True,
     ),
 
 ),
