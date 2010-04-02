@@ -254,4 +254,6 @@ a.schemata_edit:hover, a.object_delete:hover {
 	width:100px;
 	z-index:1200;
 }
-
+/* textarea.kupu-editor-textarea { */
+/* 	display:inherit !important */
+/* } */

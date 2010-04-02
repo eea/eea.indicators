@@ -1,5 +1,3 @@
-<h2 class="further_work">Further work</h2>
-
 <tal:def tal:define="region_name string:work_area;
 	region_update_handler string:fragment_work;">
 
