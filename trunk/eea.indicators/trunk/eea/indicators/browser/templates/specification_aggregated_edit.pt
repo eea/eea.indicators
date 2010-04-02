@@ -63,6 +63,8 @@
 			<div tal:replace="structure context/fragment_methodology" />
 			<div tal:replace="structure context/fragment_data_specifications" />
 			<div tal:replace="structure context/fragment_uncertainties" />
+
+			<h2 class="further_work">Further work</h2>
 			<div tal:replace="structure context/fragment_work" />
 
 			<metal:versions use-macro="here/portlet_versions/macros/versions">
