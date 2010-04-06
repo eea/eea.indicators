@@ -78,7 +78,10 @@
 }
 
 iframe.kupu-editor-iframe {
-	height:280px !important;
+	/* height:280px !important; */
+}
+div.kupu-fulleditor-zoomed .kupu-editor-iframe {
+	/* height:inherit !important; */
 }
 
 #dialog-inner .field {
