@@ -6,7 +6,7 @@ function change_kupu_styles(){
 }
 
 $(document).ready(function () {
-		on_load_dom();
+		
 		$(window).ajaxStart(function(){
             $('body').append("<div class='specification-loading'></div>");
             var dim = get_dimmensions();
@@ -22,34 +22,41 @@ $(document).ready(function () {
             return false;
         }
     );
+
+		set_editors();
+		set_actives();
+		set_creators();
+		set_deleters();
+		
+		// activates the active fields
+		// $(".active_field").make_editable();
+		setTimeout('change_kupu_styles()', '2000');
+
+		on_load_dom();
 });
 
-function on_load_dom(){
-	setTimeout('change_kupu_styles()', '2000');
-	set_actives();
-	set_creators();
-	set_deleters();
-	set_editors();
+function on_load_dom() {
+	// executed whenever the regions are reloaded
+	
 	set_sortables();
-	// activates the active fields
-	// $(".active_field").make_editable();
+
 }
 
 function set_actives(){
 	// adds effects for active fields; this should be executed whenever the DOM is reloaded
 	
 	// make the Cancel link from dialogs close the form
-	$("#dialog-inner .cancel-btn").click(function(e){
+	$("#dialog-inner .cancel-btn").live('click', function(e){
 			$("#dialog-inner").dialog("destroy");
 			return false;
 			});     
 
 	// make the controls appear on the active fields, on hover
-	$(".active_field").mouseover(function(e){
+	$(".active_field").live('mouseover', function(e){
 			$(this).addClass("active_field_hovered");   
 			return false;
 			});
-	$(".active_field").mouseout(function(e){
+	$(".active_field").live('mouseout', function(e){
 			$(this).removeClass("active_field_hovered");    
 			return false;
 			});
@@ -67,7 +74,7 @@ function set_sortables() {
 function set_editors(){
 	// Set handlers for Edit (full schemata) buttons
 	
-	$('a.schemata_edit').click(function(){
+	$('a.schemata_edit').live('click', function(){
 			var link = $(this).attr('href');
 			var title = $(this).text();
 			var region = $(this).parents(".active_region")[0];
@@ -104,7 +111,8 @@ function set_editors(){
 function set_creators(){
 	// Set handlers for Create buttons
 	
-	$('a.object_creator').click(function(){
+	$('a.object_creator').live('click', function(){
+			console.log("going once");
 			var link = $(this).attr('href');
 			var region = $(this).parents(".active_region")[0];
 			$.ajax({
@@ -125,7 +133,7 @@ function set_creators(){
 
 function set_deleters(){
 	// Set handlers for Delete buttons
-	$('a.object_delete').click(function(){
+	$('a.object_delete').live('click', function(){
 			var link = $(this).attr('href');
 			var region = $(this).parents(".active_region")[0];
 			$.ajax({
@@ -143,63 +151,6 @@ function set_deleters(){
 			return false;
 			});
 }
-
-(function($) {
- $.fn.make_editable = function() {
- // Set an ajax/dialog handler for "active fields"
- // An active field, in its current implementation, is a sort of inline edit
- // for a field: hovering over the field will change the background color
- // and make the special controls appear (for example, an Edit button)
- // Clicking the edit button will make a modal dialog popup where an edit form
- // is presented, with just that field. Saving the form reloads the field in the 
- // original view
-
- return this.each(function() {
-     var content = $('.content', this).get();
-
-     var metadata = $('.metadata', this);
-     var fieldname = $('.metadata > .fieldname', this).text();
-
-     var width = Number($('.metadata > .width', this).text()) || 700;
-     var height = Number($('.metadata > .height', this).text()) || null;
-
-     var id_to_fill = 'active_field-' + fieldname
-     $(content).attr('id', id_to_fill);
-
-     $('.control a', this).click(function(e){
-         var title = $(this).text();
-         var link = $(this).attr('href');
-         var options = {
-            'width':width,
-            'height':height
-         }
-         var region_id = null;
-
-         dialog_edit(link, title, function(text, status, xhr){
-
-             // TODO: this is a _temporary_ hack to make kupu work properly
-             // the problem is probably that not all the DOM is loaded when the kupu editor
-             // is initiated and so it freezes the editor
-             // A proper fix would be to see if it's possible to delay the kupu load when it is 
-             // loaded through AJAX
-             // This fix has two problems: it uses a global variable (window.kupu_id) - but 
-             // this is easily fixable; it loads a frame (emptypage.html) that might not be completely
-             // loaded in the timeout interval, and when that happens it throws an error
-
-             $('.kupu-editor-iframe').parent().parent().parent().parent().each(function(){
-							 //there should be one active kupu
-							 window.kupu_id = $(this).attr('id');
-							 setTimeout('initialize_kupu()', 500);
-						 });
-
-             ajaxify($("#dialog-inner"), fieldname);
-
-             }, options);
-         return false;
-     });
- });
- };
-})(jQuery);
 
 function reload_region(el){
 	var update_handler = $(".metadata .region_update_handler", el).text();
@@ -239,37 +190,6 @@ function closer(fieldname){
 	return false;
 }
 
-function ajaxify(el, fieldname){
-	// This will make a form submit and resubmit using AJAX
-	$("form", el).submit(
-			function(e){
-			//if we find a kupu frame inside this form, we assume our field is a richtext field
-			if ($('.kupu-editor-iframe', el).length > 0) {
-			var textarea = $('textarea[name=' + fieldname + ']', el)[0];
-			// window.active_kupu.saveDataToField(textarea.form, textarea);
-			}
-
-			var data = ($(":input[name=" + fieldname + "]", this).serialize() + 
-				"&form_submit=Save&form.submitted=1&specific_field=" + fieldname
-				);
-
-			$.ajax({
-                "data": data,
-                url: this.action,
-                type:'POST',
-                // timeout: 2000,
-                error: function() {
-                    alert("Failed to submit");
-                },
-                success: function(r) { 
-                    $(el).html(r);
-                    ajaxify(el);
-                    return false;
-                }
-								});
-			return false;
-			});
-};
 
 function schemata_ajaxify(el, active_region){
 
@@ -357,8 +277,6 @@ function dialog_edit(url, title, callback, options){
 					}
 				}
         });
-
-
 
     $("#dialog-inner").load(url, callback);
     change_kupu_styles();
@@ -450,3 +368,100 @@ KupuEditor.prototype.getRichText = function(form, field) {
 
 		return contents;
 };
+
+
+
+
+
+
+
+function ajaxify(el, fieldname){
+	// This will make a form submit and resubmit itself using AJAX
+	
+	$("form", el).submit(
+			function(e){
+			//if we find a kupu frame inside this form, we assume our field is a richtext field
+			if ($('.kupu-editor-iframe', el).length > 0) {
+			var textarea = $('textarea[name=' + fieldname + ']', el)[0];
+			// window.active_kupu.saveDataToField(textarea.form, textarea);
+			}
+
+			var data = ($(":input[name=" + fieldname + "]", this).serialize() + 
+				"&form_submit=Save&form.submitted=1&specific_field=" + fieldname
+				);
+
+			$.ajax({
+                "data": data,
+                url: this.action,
+                type:'POST',
+                // timeout: 2000,
+                error: function() {
+                    alert("Failed to submit");
+                },
+                success: function(r) { 
+                    $(el).html(r);
+                    ajaxify(el);
+                    return false;
+                }
+								});
+			return false;
+			});
+};
+
+(function($) {
+ $.fn.make_editable = function() {
+ // Set an ajax/dialog handler for "active fields"
+ // An active field, in its current implementation, is a sort of inline edit
+ // for a field: hovering over the field will change the background color
+ // and make the special controls appear (for example, an Edit button)
+ // Clicking the edit button will make a modal dialog popup where an edit form
+ // is presented, with just that field. Saving the form reloads the field in the 
+ // original view
+
+ return this.each(function() {
+     var content = $('.content', this).get();
+
+     var metadata = $('.metadata', this);
+     var fieldname = $('.metadata > .fieldname', this).text();
+
+     var width = Number($('.metadata > .width', this).text()) || 700;
+     var height = Number($('.metadata > .height', this).text()) || null;
+
+     var id_to_fill = 'active_field-' + fieldname
+     $(content).attr('id', id_to_fill);
+
+     $('.control a', this).click(function(e){
+         var title = $(this).text();
+         var link = $(this).attr('href');
+         var options = {
+            'width':width,
+            'height':height
+         }
+         var region_id = null;
+
+         dialog_edit(link, title, function(text, status, xhr){
+
+             // TODO: this is a _temporary_ hack to make kupu work properly
+             // the problem is probably that not all the DOM is loaded when the kupu editor
+             // is initiated and so it freezes the editor
+             // A proper fix would be to see if it's possible to delay the kupu load when it is 
+             // loaded through AJAX
+             // This fix has two problems: it uses a global variable (window.kupu_id) - but 
+             // this is easily fixable; it loads a frame (emptypage.html) that might not be completely
+             // loaded in the timeout interval, and when that happens it throws an error
+
+             $('.kupu-editor-iframe').parent().parent().parent().parent().each(function(){
+							 //there should be one active kupu
+							 window.kupu_id = $(this).attr('id');
+							 setTimeout('initialize_kupu()', 500);
+						 });
+
+             // ajaxify($("#dialog-inner"), fieldname);
+
+             }, options);
+         return false;
+     });
+ });
+ };
+})(jQuery);
+
