@@ -345,8 +345,16 @@ function dialog_edit(url, title, callback, options){
         'title':title,
         closeOnEscape:true,
 				buttons: {
-					'Save':function(e){},
-					'Cancel':function(e){}
+					'Save':function(e){
+						var button = e.target;	
+						var form = $("#dialog-inner form").get(0);
+						var e = document.createEvent("HTMLEvents");
+						e.initEvent('submit', true, true);
+						form.dispatchEvent(e);	// TODO: need to check compatibility with IE
+					},
+					'Cancel':function(e){
+						$("#dialog-inner").dialog("destroy");
+					}
 				}
         });
 
