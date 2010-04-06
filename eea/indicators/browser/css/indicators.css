@@ -17,16 +17,6 @@
 	margin:15px 0 0;
 }
 
-
-/* ul.toc { */
-/*     background-color:lightblue; */
-/*     padding:1em 3em; */
-/*     margin:0 0 1em 0; */
-/* } */
-/* ul.toc a { */
-/*     color:black; */
-/* } */
-
 /* fields that are required for publication */
 #assessment-base-edit #archetypes-fieldname-key_message,  
 #externaldataspec-base-edit #archetypes-fieldname-provider_name, 
@@ -198,19 +188,6 @@ a.schemata_edit:hover, a.object_delete:hover {
 	border:none;
 }
 
-/* .active_field :hover { */
-/* 	background-color:#FFA8D5; */
-/* } */
-/*  */
-/* .active_field .control { */
-/* 	display:none; */
-/* } */
-/*  */
-/* .active_field :hover .control { */
-/* 	display:block; */
-/* 	float:right; */
-/* } */
-
 .sortable_spec {
 	margin: 0; 
 	padding: 0; 
@@ -254,6 +231,35 @@ a.schemata_edit:hover, a.object_delete:hover {
 	width:100px;
 	z-index:1200;
 }
+
+#policy_questions .list-item {
+	margin:6px 0;
+}
+
+
+/* ul.toc { */
+/*     background-color:lightblue; */
+/*     padding:1em 3em; */
+/*     margin:0 0 1em 0; */
+/* } */
+/* ul.toc a { */
+/*     color:black; */
+/* } */
+
+
+/* .active_field :hover { */
+/* 	background-color:#FFA8D5; */
+/* } */
+/*  */
+/* .active_field .control { */
+/* 	display:none; */
+/* } */
+/*  */
+/* .active_field :hover .control { */
+/* 	display:block; */
+/* 	float:right; */
+/* } */
+
 /* textarea.kupu-editor-textarea { */
 /* 	display:inherit !important */
 /* } */

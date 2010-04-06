@@ -17,7 +17,7 @@
 						<a href="" 
 							class="object_delete spec_control"
 							tal:attributes="href string:${question/aq_parent/absolute_url}/delete_object?id=${question/getId}">Delete</a>
-						<h5 tal:content="question/Title">Question title</h5>
+						<strong tal:content="question/Title">Question title</strong>
 					</div>
 				</div>
 

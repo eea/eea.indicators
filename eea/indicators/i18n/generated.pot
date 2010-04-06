@@ -407,6 +407,11 @@ msgstr ""
 msgid "indicators_label_related_policy_documents"
 msgstr ""
 
+#. Default: "Remoteurl"
+#: content/PolicyDocumentReference.py
+msgid "indicators_label_remoteUrl"
+msgstr ""
+
 #. Default: "Source Code"
 #: Specification.py
 #: content/IndicatorFactSheet.py
