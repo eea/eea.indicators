@@ -56,6 +56,7 @@ PolicyDocumentReference_schema = ATContentTypeSchema.copy() + \
     schema.copy()
 
 ##code-section after-schema #fill in your manual code here
+#TODO: fix below validators, end up in error when are assigned
 #PolicyDocumentReference_schema['title'].validators=('unique_policy_title_validator',)
 #PolicyDocumentReference_schema['remoteUrl'].validators=(['isURL', 'unique_policy_url_validator'])
 

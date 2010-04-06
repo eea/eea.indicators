@@ -3,7 +3,7 @@
 # $Id$
 #
 # Copyright (c) 2010 by ['Tiberiu Ichim']
-# Generator: ArchGenXML 
+# Generator: ArchGenXML
 #            http://plone.org/products/archgenxml
 #
 # GNU General Public License (GPL)
@@ -29,6 +29,9 @@ __docformat__ = 'plaintext'
 
 
 ##code-section init-module-header #fill in your manual code here
+# Validators
+import validators
+
 ##/code-section init-module-header
 
 
@@ -50,7 +53,7 @@ import PolicyDocumentReferenceDatabase
 import ExternalDataSpecDatabase
 
 ##code-section init-module-footer #fill in your manual code here
-#v1 content
+# V1 content
 import FactSheetDocument
 import IndicatorFactSheet
 import IndicatorFactSheetsFolder
