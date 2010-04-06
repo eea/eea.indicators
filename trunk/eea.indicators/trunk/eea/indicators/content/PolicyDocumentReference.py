@@ -3,7 +3,7 @@
 # $Id$
 #
 # Copyright (c) 2010 by ['Tiberiu Ichim']
-# Generator: ArchGenXML
+# Generator: ArchGenXML 
 #            http://plone.org/products/archgenxml
 #
 # GNU General Public License (GPL)
@@ -31,6 +31,17 @@ from Products.ATContentTypes.content.schemata import finalizeATCTSchema
 
 schema = Schema((
 
+    StringField(
+        name='title',
+        widget=StringField._properties['widget'](
+            label='Title',
+            label_msgid='indicators_label_title',
+            i18n_domain='indicators',
+        ),
+        required=True,
+        accessor="Title",
+        validators=('unique_policy_title_validator',),
+    ),
     TextField(
         name='description',
         allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
@@ -44,6 +55,19 @@ schema = Schema((
         default_output_type='text/html',
         accessor="getDescription",
     ),
+    StringField(
+        name='remoteUrl',
+        widget=StringField._properties['widget'](
+            label='Remoteurl',
+            label_msgid='indicators_label_remoteUrl',
+            i18n_domain='indicators',
+        ),
+        searchable=True,
+        validators=('isURL', 'unique_policy_url_validator'),
+        default="http://",
+        required=True,
+        primary=True,
+    ),
 
 ),
 )
@@ -56,7 +80,6 @@ PolicyDocumentReference_schema = ATContentTypeSchema.copy() + \
     schema.copy()
 
 ##code-section after-schema #fill in your manual code here
-#TODO: fix below validators, end up in error when are assigned
 #PolicyDocumentReference_schema['title'].validators=('unique_policy_title_validator',)
 #PolicyDocumentReference_schema['remoteUrl'].validators=(['isURL', 'unique_policy_url_validator'])
 

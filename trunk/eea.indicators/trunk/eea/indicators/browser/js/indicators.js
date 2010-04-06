@@ -36,10 +36,13 @@ function on_load_dom(){
 }
 
 function set_actives(){
+	// adds effects for active fields; this should be executed whenever the DOM is reloaded
+	
+	// make the Cancel link from dialogs close the form
 	$("#dialog-inner .cancel-btn").click(function(e){
 			$("#dialog-inner").dialog("destroy");
 			return false;
-			});     // make the Cancel link from dialogs close the form
+			});     
 
 	// make the controls appear on the active fields, on hover
 	$(".active_field").mouseover(function(e){
@@ -53,6 +56,7 @@ function set_actives(){
 }
 
 function set_sortables() {
+	// make certain DOM elements sortable with jquery UI sortable
 	$('.sortable_spec').sortable({
 			'handle':'.handler',
 			'items':'.list-item',
@@ -61,6 +65,8 @@ function set_sortables() {
 }
 
 function set_editors(){
+	// Set handlers for Edit (full schemata) buttons
+	
 	$('a.schemata_edit').click(function(){
 			var link = $(this).attr('href');
 			var title = $(this).text();
@@ -96,6 +102,8 @@ function set_editors(){
 }
 
 function set_creators(){
+	// Set handlers for Create buttons
+	
 	$('a.object_creator').click(function(){
 			var link = $(this).attr('href');
 			var region = $(this).parents(".active_region")[0];
@@ -116,6 +124,7 @@ function set_creators(){
 }
 
 function set_deleters(){
+	// Set handlers for Delete buttons
 	$('a.object_delete').click(function(){
 			var link = $(this).attr('href');
 			var region = $(this).parents(".active_region")[0];
@@ -137,6 +146,13 @@ function set_deleters(){
 
 (function($) {
  $.fn.make_editable = function() {
+ // Set an ajax/dialog handler for "active fields"
+ // An active field, in its current implementation, is a sort of inline edit
+ // for a field: hovering over the field will change the background color
+ // and make the special controls appear (for example, an Edit button)
+ // Clicking the edit button will make a modal dialog popup where an edit form
+ // is presented, with just that field. Saving the form reloads the field in the 
+ // original view
 
  return this.each(function() {
      var content = $('.content', this).get();
@@ -224,6 +240,7 @@ function closer(fieldname){
 }
 
 function ajaxify(el, fieldname){
+	// This will make a form submit and resubmit using AJAX
 	$("form", el).submit(
 			function(e){
 			//if we find a kupu frame inside this form, we assume our field is a richtext field
@@ -311,6 +328,7 @@ function schemata_ajaxify(el, active_region){
 };
 
 function dialog_edit(url, title, callback, options){
+	// Opens a modal dialog with the given title
     options = options || {
         'height':null,
         'width':700,
