@@ -3,7 +3,7 @@
 # $Id$
 #
 # Copyright (c) 2010 by ['Tiberiu Ichim']
-# Generator: ArchGenXML 
+# Generator: ArchGenXML
 #            http://plone.org/products/archgenxml
 #
 # GNU General Public License (GPL)
@@ -80,9 +80,6 @@ PolicyDocumentReference_schema = ATContentTypeSchema.copy() + \
     schema.copy()
 
 ##code-section after-schema #fill in your manual code here
-#PolicyDocumentReference_schema['title'].validators=('unique_policy_title_validator',)
-#PolicyDocumentReference_schema['remoteUrl'].validators=(['isURL', 'unique_policy_url_validator'])
-
 finalizeATCTSchema(PolicyDocumentReference_schema)
 PolicyDocumentReference_schema['relatedItems'].widget.visible = {'view':'invisible', 'edit':'invisible'}
 ##/code-section after-schema
