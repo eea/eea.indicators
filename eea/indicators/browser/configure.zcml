@@ -156,17 +156,22 @@
 		/>
 
 	<browser:resource
+		name='modaledit.css'
+		file='css/modaledit.css'
+		/>
+
+	<browser:resource
 		name='indicators.js'
 		file='js/indicators.js'
 		/>
 
-	<configure package="eea.facetednavigation.browser.resources">
-		<browser:page
-			for="*"
-			name="active_dialogs.css"
-			class=".css.EditCSS"
-			permission="zope.Public"
-			/>
-	</configure>
+	<!-- <configure package="eea.facetednavigation.browser.resources"> -->
+	<!-- 	<browser:page -->
+	<!-- 		for="*" -->
+	<!-- 		name="active_dialogs.css" -->
+	<!-- 		class=".css.EditCSS" -->
+	<!-- 		permission="zope.Public" -->
+	<!-- 		/> -->
+	<!-- </configure> -->
 
 </configure>

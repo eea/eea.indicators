@@ -64,7 +64,7 @@
 
 /* dialog customizations */
 .section-ims .ui-dialog {
-	width:800px !important;
+	/* width:800px !important; */
 	/* width:auto !important; */
 }
 
@@ -95,8 +95,8 @@ iframe.kupu-editor-iframe {
 }
 
 .widgets-area {
-	max-height:400px;
-	overflow:auto;
+	/* max-height:400px; */
+	/* overflow:auto; */
 }
 
 .widgets-area .widgets-list {
@@ -223,7 +223,7 @@ a.schemata_edit:hover, a.object_delete:hover {
 }
 
 .specification-loading {
-  background-image:url(../../++resource++faceted_images/ajax-loader.gif);
+  background-image:url(./++resource++faceted_images/ajax-loader.gif);
   background-repeat:no-repeat;
 	position:absolute;
 	opacity:1;
