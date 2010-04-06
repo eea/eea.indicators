@@ -12,12 +12,12 @@
 	</metal:jsslot>
 
 	<metal:cssslot fill-slot="css_slot">
-		<!-- TODO: temporary -->
-		<!-- <link media="screen" type="text/css" rel="stylesheet"  -->
-			<!-- 	tal:attributes="href context/++resource++eea.faceted-navigation-edit.css" /> -->
-		<!-- <link media="screen" type="text/css" rel="stylesheet"  -->
-			<!-- 	tal:attributes="href string:$portal_url/@@faceted_edit.css"  -->
-			<!-- 	/> -->
+		<link media="screen" type="text/css" rel="stylesheet" 
+			tal:attributes="href string:${context/++resource++jquery.ui.theme/jquery-ui-1.7.custom.css}" 
+				/>
+		<link media="screen" type="text/css" rel="stylesheet" 
+			tal:attributes="href string:${context/++resource++modaledit.css}" 
+				/>
 	</metal:cssslot>
 
 	<body>

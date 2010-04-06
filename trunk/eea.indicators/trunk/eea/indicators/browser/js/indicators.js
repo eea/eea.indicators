@@ -343,8 +343,15 @@ function dialog_edit(url, title, callback, options){
         height:options.height,
         minHeight:options.height,
         'title':title,
-        closeOnEscape:true
+        closeOnEscape:true,
+				buttons: {
+					'Save':function(e){},
+					'Cancel':function(e){}
+				}
         });
+
+
+
     $("#dialog-inner").load(url, callback);
     change_kupu_styles();
 };

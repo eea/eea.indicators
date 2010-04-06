@@ -187,16 +187,16 @@
 							tal:attributes="tabindex tabindex/next;
 							disabled python:test(isLocked, 'disabled', None);"
 							/>
-						<input class="context"
-							tabindex=""
-							type="submit"
-							name="form_submit"
-							value="Save"
-							i18n:attributes="value label_save;"
-							tal:attributes="tabindex tabindex/next;
-							disabled python:test(isLocked, 'disabled', None);"
-							/>
-						<a href="#" class="cancel-btn" i18n:translate="label_cancel">Cancel</a>
+						<!-- <input class="context" -->
+						<!-- 	tabindex="" -->
+						<!-- 	type="submit" -->
+						<!-- 	name="form_submit" -->
+						<!-- 	value="Save" -->
+						<!-- 	i18n:attributes="value label_save;" -->
+						<!-- 	tal:attributes="tabindex tabindex/next; -->
+						<!-- 	disabled python:test(isLocked, 'disabled', None);" -->
+						<!-- 	/> -->
+						<!-- <a href="#" class="cancel-btn" i18n:translate="label_cancel">Cancel</a> -->
 						<!-- <input class="standalone" -->
 						<!-- 	tabindex="" -->
 						<!-- 	type="submit" -->
