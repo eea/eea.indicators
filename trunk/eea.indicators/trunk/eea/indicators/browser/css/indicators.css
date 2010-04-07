@@ -239,6 +239,10 @@ a.schemata_edit:hover, a.object_delete:hover {
 	margin:6px 0;
 }
 
+.calendar {
+	z-index:1100;
+}
+
 
 /* ul.toc { */
 /*     background-color:lightblue; */
