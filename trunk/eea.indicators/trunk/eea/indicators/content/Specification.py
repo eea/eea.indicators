@@ -764,6 +764,12 @@ registerType(Specification, PROJECTNAME)
 # end of class Specification
 
 ##code-section module-footer #fill in your manual code here
+
+#placed here so that it will be found by extraction utility
+_titlemsg = _('label-newly-created-type',
+        default="Newly created ${type_name}",
+        )
+
 class SpecificationFactories(object):
     """A simple class that provides some inteligence for specification object factories"""
 
@@ -777,9 +783,12 @@ class SpecificationFactories(object):
         id = self.spec.generateUniqueId(type_name)
         new_id = self.spec.invokeFactory(type_name=type_name,
                 id=id,
-                title=_('label-newly-created-type',
+                title=self.spec.translate(
+                    msgid='label-newly-created-type',
+                    domain='indicators',
                     default="Newly created ${type_name}",
-                    mapping={"type_name":type_name}))
+                    mapping={'type_name':type_name},
+                    ))
         ref = self.spec[new_id]
         return ref
 
