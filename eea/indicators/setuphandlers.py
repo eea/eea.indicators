@@ -32,7 +32,7 @@ def isNotindicatorsProfile(context):
 
 def installQIDependencies(context):
     """This is for old-style products using QuickInstaller"""
-    if isNotindicatorsProfile(context): return 
+    if isNotindicatorsProfile(context): return
     logger.info("installQIDependencies starting")
     site = context.getSite()
     qi = getToolByName(site, 'portal_quickinstaller')
@@ -54,12 +54,10 @@ def installQIDependencies(context):
                 raise "   QI dependency %s not installable" % dependency
     logger.info("installQIDependencies finished")
 
-
-
 def updateRoleMappings(context):
     """after workflow changed update the roles mapping. this is like pressing
     the button 'Update Security Setting' and portal_workflow"""
-    if isNotindicatorsProfile(context): return 
+    if isNotindicatorsProfile(context): return
     wft = getToolByName(context.getSite(), 'portal_workflow')
     wft.updateRoleMappings()
 
@@ -87,7 +85,23 @@ def postInstall(context):
     setuptool.runAllImportSteps()
     logger.info("Installed dependency eea.workflow")
 
+    # DCWorkflowDump doesn't yet support the 'manager_bypass'
+    wf_id = 'specification_workflow'
+    wf_tool = getToolByName(site, 'portal_workflow')
+    if wf_id in wf_tool.objectIds():
+        wfobj = wf_tool.getWorkflowById(wf_id)
+        wfobj.manager_bypass = 1
+        logger.info("Set 'Manager role bypasses guards' to True for 'specification_workflow'")
 
+    # Enable portal_factory for given types
+    factory_tool = getToolByName(site, 'portal_factory')
+    factory_types = [
+        "IndicatorFactSheet",
+        "KeyMessage",
+        "FactSheetDocument",
+        ] + factory_tool.getFactoryTypes().keys()
+    factory_tool.manage_setPortalFactoryTypes(listOfTypeIds=factory_types)
+    logger.info("Factory tool enabled for IndicatorFactSheet, KeyMessage and FactSheetDocument")
 
 ##code-section FOOT
 def setup_vocabularies(context):
@@ -97,11 +111,11 @@ def setup_vocabularies(context):
     atvm = getToolByName(site, ATVOCABULARYTOOL, None)
     if atvm is None:
         raise ValueError("Could not find the ATVocabularyManager")
-    
+
     vkey = 'indicator_codes'
     if hasattr(atvm, vkey):
         return
-    
+
     atvm.invokeFactory('SimpleVocabulary', vkey)
     vocab = atvm[vkey]
     for key in CODES:
