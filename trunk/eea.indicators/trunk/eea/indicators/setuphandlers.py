@@ -32,7 +32,7 @@ def isNotindicatorsProfile(context):
 
 def installQIDependencies(context):
     """This is for old-style products using QuickInstaller"""
-    if isNotindicatorsProfile(context): return
+    if isNotindicatorsProfile(context): return 
     logger.info("installQIDependencies starting")
     site = context.getSite()
     qi = getToolByName(site, 'portal_quickinstaller')
@@ -54,10 +54,12 @@ def installQIDependencies(context):
                 raise "   QI dependency %s not installable" % dependency
     logger.info("installQIDependencies finished")
 
+
+
 def updateRoleMappings(context):
     """after workflow changed update the roles mapping. this is like pressing
     the button 'Update Security Setting' and portal_workflow"""
-    if isNotindicatorsProfile(context): return
+    if isNotindicatorsProfile(context): return 
     wft = getToolByName(context.getSite(), 'portal_workflow')
     wft.updateRoleMappings()
 
@@ -102,6 +104,8 @@ def postInstall(context):
         ] + factory_tool.getFactoryTypes().keys()
     factory_tool.manage_setPortalFactoryTypes(listOfTypeIds=factory_types)
     logger.info("Factory tool enabled for IndicatorFactSheet, KeyMessage and FactSheetDocument")
+
+
 
 ##code-section FOOT
 def setup_vocabularies(context):

@@ -16,11 +16,11 @@ $(document).ready(function () {
                 'left':dim.width/2-50 + scr.x + 'px'
                 });
             return false;
-        });
+		});
     $(window).ajaxComplete(function(){
-            $('.specification-loading').remove();
-            return false;
-        }
+				$('.specification-loading').remove();
+				return false;
+			}
     );
 
 		set_editors();
@@ -39,7 +39,6 @@ function on_load_dom() {
 	// executed whenever the regions are reloaded
 	
 	set_sortables();
-
 }
 
 function set_actives(){
@@ -64,6 +63,7 @@ function set_actives(){
 
 function set_sortables() {
 	// make certain DOM elements sortable with jquery UI sortable
+	
 	$('.sortable_spec').sortable({
 			'handle':'.handler',
 			'items':'.list-item',
@@ -120,6 +120,7 @@ function set_creators(){
 
 function set_deleters(){
 	// Set handlers for Delete buttons
+
 	$('a.object_delete').live('click', function(){
 			var link = $(this).attr('href');
 			var region = $(this).parents(".active_region")[0];
@@ -187,21 +188,15 @@ function schemata_ajaxify(el, active_region){
 	// is initiated and so it freezes the editor
 	// A proper fix would be to see if it's possible to delay the kupu load when it is 
 	// loaded through AJAX
-	// This fix has two problems: it uses a global variable (window.kupu_id) - but 
-	// this is easily fixable; it loads a frame (emptypage.html) that might not be completely
+	// This fix has one problem: it loads a frame (emptypage.html) that might not be completely
 	// loaded in the timeout interval, and when that happens it throws an error
 
 	$('.kupu-editor-iframe').parent().parent().parent().parent().each(function(){
-		initPloneKupu($(this).attr('id'));
+			var kupu_id = $(this).attr('id');
+			setTimeout(function(){
+				initPloneKupu(kupu_id);
+				}, 100);
 		});
-
-		//there should be one active kupu
-		// window.kupu_id = $(this).attr('id');
-		// setTimeout('initialize_kupu()', 500);
-
-		// initialize_kupu($(this).attr('id'));
-		// window.kupu_id = $(this).attr('id');
-		// setTimeout("initPloneKupu(window.kupu_id)", 5);
 		
 	$("form", el).submit(
 			function(e){
@@ -257,14 +252,14 @@ function schemata_ajaxify(el, active_region){
 
 function dialog_edit(url, title, callback, options){
 	// Opens a modal dialog with the given title
-    options = options || {
-        'height':null,
-        'width':800,
-    }
-    var target = $('#dialog_edit_target');
-    $("#dialog-inner").remove();     // temporary, apply real fix
-    $(target).append("<div id='dialog-inner'></div>");
-    $("#dialog-inner").dialog({
+	options = options || {
+		'height':null,
+			'width':800,
+	}
+	var target = $('#dialog_edit_target');
+	$("#dialog-inner").remove();     // temporary, apply real fix
+	$(target).append("<div id='dialog-inner'></div>");
+	$("#dialog-inner").dialog({
         modal:true, 
         width:options.width, 
         minWidth:options.width, 
@@ -284,26 +279,18 @@ function dialog_edit(url, title, callback, options){
 						$("#dialog-inner").dialog("destroy");
 					}
 				}
-        });
+				});
 
-    $("#dialog-inner").load(url, callback);
-    change_kupu_styles();
+	$("#dialog-inner").load(url, callback);
+	change_kupu_styles();
 };
 
-window.kupu_id = null;
-window.active_kupu = null;
-
-function initialize_kupu(kupu_id){
-	// console.log("initializing kupu" + kupu_id);
-	window.kupu_id = kupu_id;
-	// setTimeout('initPloneKupu(window.kupu_id);', 500);
-	// window.kupu = initPloneKupu(kupu_id);
-} 
 
 function close_dialog(region){
     reload_region($("#"+region));
     $("#dialog-inner").dialog("destroy");
 }
+
 
 function get_dimmensions() {
   var myWidth = 0, myHeight = 0;
@@ -343,79 +330,92 @@ function get_scrollXY() {
 
 
 function get_kupu_editor(editorId) {
-    var prefix = '#'+editorId+' ';
+	// initializes a kupu editor and returns it. 
+	// This is needed to make up for the lack of proper API:
+	// we can't get the kupu editor back from just the iframe or whatever
+	// The content here is taken from initPloneKupu()
+	
+	var prefix = '#'+editorId+' ';
 
-    var iframe = getFromSelector(prefix+'iframe.kupu-editor-iframe');
-    var textarea = getFromSelector(prefix+'textarea.kupu-editor-textarea');
-    var form = textarea.form;
+	var iframe = getFromSelector(prefix+'iframe.kupu-editor-iframe');
+	var textarea = getFromSelector(prefix+'textarea.kupu-editor-textarea');
+	var form = textarea.form;
 
-    // first we create a logger
-    var l = new DummyLogger();
+	// first we create a logger
+	var l = new DummyLogger();
 
-    // now some config values
-    var conf = loadDictFromXML(document, prefix+'xml.kupuconfig');
+	// now some config values
+	var conf = loadDictFromXML(document, prefix+'xml.kupuconfig');
 
-    // the we create the document, hand it over the id of the iframe
-    var doc = new KupuDocument(iframe);
+	// the we create the document, hand it over the id of the iframe
+	var doc = new KupuDocument(iframe);
 
-    // now we can create the controller
-    var kupu = (window.kupu = new KupuEditor(doc, conf, l));
-		return kupu;
+	// now we can create the controller
+	var kupu = (window.kupu = new KupuEditor(doc, conf, l));
+	return kupu;
 }
 
 
 KupuEditor.prototype.getRichText = function(form, field) {
-    var sourcetool = this.getTool('sourceedittool');
-    if (sourcetool) {sourcetool.cancelSourceMode();};
-    var transform = this._filterContent(this.getInnerDocument().documentElement);
+	// taken from saveDataToForm, because that function assumes too much
+	var sourcetool = this.getTool('sourceedittool');
+	if (sourcetool) {sourcetool.cancelSourceMode();};
+	var transform = this._filterContent(this.getInnerDocument().documentElement);
 
-    var contents = this.getXMLBody(transform);
-    if (/^<body[^>]*>(<\/?(p|br)[^>]*>|\&nbsp;|\s)*<\/body>$/.test(contents)) {
-        contents = ''; /* Ignore nearly empty contents */
-    }
-    var base = this._getBase(transform);
-    contents = this._fixupSingletons(contents);
-    contents = this.makeLinksRelative(contents, base).replace(/<\/?body[^>]*>/g, "");
+	var contents = this.getXMLBody(transform);
+	if (/^<body[^>]*>(<\/?(p|br)[^>]*>|\&nbsp;|\s)*<\/body>$/.test(contents)) {
+		contents = ''; /* Ignore nearly empty contents */
+	}
+	var base = this._getBase(transform);
+	contents = this._fixupSingletons(contents);
+	contents = this.makeLinksRelative(contents, base).replace(/<\/?body[^>]*>/g, "");
 
-		return contents;
+	return contents;
 };
-
-
-
-
-
 
 
 function ajaxify(el, fieldname){
 	// This will make a form submit and resubmit itself using AJAX
+	// It also takes care of kupu mangling
+
+	$('.kupu-editor-iframe').parent().parent().parent().parent().each(function(){
+			var kupu_id = $(this).attr('id');
+			setTimeout(function(){
+				initPloneKupu(kupu_id);
+				}, 100);
+		});
 	
 	$("form", el).submit(
 			function(e){
-			//if we find a kupu frame inside this form, we assume our field is a richtext field
-			if ($('.kupu-editor-iframe', el).length > 0) {
-			var textarea = $('textarea[name=' + fieldname + ']', el)[0];
-			// window.active_kupu.saveDataToField(textarea.form, textarea);
-			}
 
-			var data = ($(":input[name=" + fieldname + "]", this).serialize() + 
-				"&form_submit=Save&form.submitted=1&specific_field=" + fieldname
-				);
+				$('.kupu-editor-iframe').parent().parent().parent().parent().each(function(){
+					var id        = $(this).attr('id');
+					var thiskupu  = get_kupu_editor(id);
+					var fieldname = id.substr("kupu-editor-".length);
+					var textarea  = $('#' + id + ' textarea[name=' + fieldname + ']')[0];
+					var result    = thiskupu.getRichText(textarea.form, textarea);
+					textarea.value = result;
+				});
 
-			$.ajax({
-                "data": data,
-                url: this.action,
-                type:'POST',
-                // timeout: 2000,
-                error: function() {
-                    alert("Failed to submit");
-                },
-                success: function(r) { 
-                    $(el).html(r);
-                    ajaxify(el);
-                    return false;
-                }
-								});
-			return false;
+				var data = ($(":input[name=" + fieldname + "]", this).serialize() + 
+					"&form_submit=Save&form.submitted=1&specific_field=" + fieldname
+					);
+
+				$.ajax({
+									"data": data,
+									url: this.action,
+									type:'POST',
+									// timeout: 2000,
+									error: function() {
+											alert("Failed to submit");
+									},
+									success: function(r) { 
+											$(el).html(r);
+											ajaxify(el);
+											return false;
+									}
+									});
+				return false;
 			});
 };
 
@@ -451,25 +451,8 @@ function ajaxify(el, fieldname){
          var region_id = null;
 
          dialog_edit(link, title, function(text, status, xhr){
-
-             // TODO: this is a _temporary_ hack to make kupu work properly
-             // the problem is probably that not all the DOM is loaded when the kupu editor
-             // is initiated and so it freezes the editor
-             // A proper fix would be to see if it's possible to delay the kupu load when it is 
-             // loaded through AJAX
-             // This fix has two problems: it uses a global variable (window.kupu_id) - but 
-             // this is easily fixable; it loads a frame (emptypage.html) that might not be completely
-             // loaded in the timeout interval, and when that happens it throws an error
-
-             $('.kupu-editor-iframe').parent().parent().parent().parent().each(function(){
-							 //there should be one active kupu
-							 // window.kupu_id = $(this).attr('id');
-							 // setTimeout('initialize_kupu()', 500);
-						 });
-
-             // ajaxify($("#dialog-inner"), fieldname);
-
-             }, options);
+             ajaxify($("#dialog-inner"), fieldname);
+				 }, options);
          return false;
      });
  });
