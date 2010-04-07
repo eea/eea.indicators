@@ -30,7 +30,7 @@ $(document).ready(function () {
 		
 		// activates the active fields
 		// $(".active_field").make_editable();
-		setTimeout('change_kupu_styles()', '2000');
+		// setTimeout('change_kupu_styles()', '2000');
 
 		on_load_dom();
 });
@@ -67,7 +67,8 @@ function set_sortables() {
 	$('.sortable_spec').sortable({
 			'handle':'.handler',
 			'items':'.list-item',
-			placeholder: 'ui-state-highlight'
+			placeholder: 'ui-state-highlight',
+			// containment: 'parent'	// has a bug in UI, sometimes it's impossible to move #2 to #1
 			});	
 }
 
@@ -86,20 +87,6 @@ function set_editors(){
 
 			dialog_edit(link, title, function(text, status, xhr){
 
-				// TODO: this is a _temporary_ hack to make kupu work properly
-				// the problem is probably that not all the DOM is loaded when the kupu editor
-				// is initiated and so it freezes the editor
-				// A proper fix would be to see if it's possible to delay the kupu load when it is 
-				// loaded through AJAX
-				// This fix has two problems: it uses a global variable (window.kupu_id) - but 
-				// this is easily fixable; it loads a frame (emptypage.html) that might not be completely
-				// loaded in the timeout interval, and when that happens it throws an error
-
-				$('.kupu-editor-iframe').parent().parent().parent().parent().each(function(){
-					//there should be one active kupu
-					window.kupu_id = $(this).attr('id');
-					setTimeout('initialize_kupu()', 500);
-					});
 
 				schemata_ajaxify($("#dialog-inner"), active_region);
 
@@ -194,7 +181,28 @@ function closer(fieldname){
 function schemata_ajaxify(el, active_region){
 
 	set_actives();
+	
+	// TODO: this is a _temporary_ hack to make kupu work properly
+	// the problem is probably that not all the DOM is loaded when the kupu editor
+	// is initiated and so it freezes the editor
+	// A proper fix would be to see if it's possible to delay the kupu load when it is 
+	// loaded through AJAX
+	// This fix has two problems: it uses a global variable (window.kupu_id) - but 
+	// this is easily fixable; it loads a frame (emptypage.html) that might not be completely
+	// loaded in the timeout interval, and when that happens it throws an error
 
+	$('.kupu-editor-iframe').parent().parent().parent().parent().each(function(){
+		initPloneKupu($(this).attr('id'));
+		});
+
+		//there should be one active kupu
+		// window.kupu_id = $(this).attr('id');
+		// setTimeout('initialize_kupu()', 500);
+
+		// initialize_kupu($(this).attr('id'));
+		// window.kupu_id = $(this).attr('id');
+		// setTimeout("initPloneKupu(window.kupu_id)", 5);
+		
 	$("form", el).submit(
 			function(e){
 			var form = this;
@@ -251,7 +259,7 @@ function dialog_edit(url, title, callback, options){
 	// Opens a modal dialog with the given title
     options = options || {
         'height':null,
-        'width':700,
+        'width':800,
     }
     var target = $('#dialog_edit_target');
     $("#dialog-inner").remove();     // temporary, apply real fix
@@ -268,7 +276,7 @@ function dialog_edit(url, title, callback, options){
 					'Save':function(e){
 						var button = e.target;	
 						var form = $("#dialog-inner form").get(0);
-						var e = document.createEvent("HTMLEvents");
+						var e = document.createEvent("HTMLEvents");	// TODO: replace with jquery's trigger()
 						e.initEvent('submit', true, true);
 						form.dispatchEvent(e);	// TODO: need to check compatibility with IE
 					},
@@ -285,8 +293,11 @@ function dialog_edit(url, title, callback, options){
 window.kupu_id = null;
 window.active_kupu = null;
 
-function initialize_kupu(){
-    window.active_kupu = initPloneKupu(window.kupu_id);
+function initialize_kupu(kupu_id){
+	// console.log("initializing kupu" + kupu_id);
+	window.kupu_id = kupu_id;
+	// setTimeout('initPloneKupu(window.kupu_id);', 500);
+	// window.kupu = initPloneKupu(kupu_id);
 } 
 
 function close_dialog(region){
@@ -452,8 +463,8 @@ function ajaxify(el, fieldname){
 
              $('.kupu-editor-iframe').parent().parent().parent().parent().each(function(){
 							 //there should be one active kupu
-							 window.kupu_id = $(this).attr('id');
-							 setTimeout('initialize_kupu()', 500);
+							 // window.kupu_id = $(this).attr('id');
+							 // setTimeout('initialize_kupu()', 500);
 						 });
 
              // ajaxify($("#dialog-inner"), fieldname);
