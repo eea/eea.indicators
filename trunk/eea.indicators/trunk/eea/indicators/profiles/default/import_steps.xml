@@ -5,7 +5,7 @@
     id="indicators-QI-dependencies" 
     handler="eea.indicators.setuphandlers.installQIDependencies"
     title="Dependend QI installables for indicators"
-    version="2010-04-07T14:10:56.349303">
+    version="2010-04-08T11:45:57.227014">
    Install quickinstaller dependencies for indicators
  </import-step>
  
@@ -16,7 +16,7 @@
     id="indicators-Update-RoleMappings" 
     handler="eea.indicators.setuphandlers.updateRoleMappings"
     title="Update Workflow role mappings for indicators"
-    version="2010-04-07T14:10:56.349303">
+    version="2010-04-08T11:45:57.227014">
    <dependency step="indicators-QI-dependencies"/>
    updates the workflow role mappings for indicators
  </import-step>
@@ -25,7 +25,7 @@
     id="indicators-postInstall" 
     handler="eea.indicators.setuphandlers.postInstall"
     title="manual coded post-install for indicators"
-    version="2010-04-07T14:10:56.349303">
+    version="2010-04-08T11:45:57.227014">
    <dependency step="indicators-QI-dependencies"/>
    manual coded post-install for indicators
  </import-step>

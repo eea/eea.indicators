@@ -2,7 +2,6 @@
 <object name="portal_factory" meta_type="Plone Factory Tool">
  <factorytypes>
   <type portal_type="PolicyQuestion"/>
-  <type portal_type="SpecificationsFolder"/>
   <type portal_type="ExternalDataSpec"/>
   <type portal_type="MethodologyReference"/>
   <type portal_type="Specification"/>
@@ -11,7 +10,5 @@
   <type portal_type="AssessmentPart"/>
   <type portal_type="PolicyDocumentReference"/>
   <type portal_type="WorkItem"/>
-  <type portal_type="PolicyDocumentReferenceDatabase"/>
-  <type portal_type="ExternalDataSpecDatabase"/>
  </factorytypes>
 </object>

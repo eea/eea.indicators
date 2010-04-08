@@ -3,8 +3,6 @@
         meta_type="Plone Types Tool">
  <object name="PolicyQuestion"
          meta_type="Factory-based Type Information with dynamic views"/>
- <object name="SpecificationsFolder"
-         meta_type="Factory-based Type Information with dynamic views"/>
  <object name="ExternalDataSpec"
          meta_type="Factory-based Type Information with dynamic views"/>
  <object name="MethodologyReference"
@@ -20,10 +18,6 @@
  <object name="PolicyDocumentReference"
          meta_type="Factory-based Type Information with dynamic views"/>
  <object name="WorkItem"
-         meta_type="Factory-based Type Information with dynamic views"/>
- <object name="PolicyDocumentReferenceDatabase"
-         meta_type="Factory-based Type Information with dynamic views"/>
- <object name="ExternalDataSpecDatabase"
          meta_type="Factory-based Type Information with dynamic views"/>
  <!-- ##code-section TYPES -->
  <object name="FactSheetDocument"
