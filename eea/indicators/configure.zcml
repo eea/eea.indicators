@@ -14,9 +14,9 @@
   <five:registerPackage package="." initialize=".initialize" />
   <include package=".browser" />
 
-  <class class=".content.SpecificationsFolder.SpecificationsFolder">
-    <implements interface="Products.CMFPlone.browser.interfaces.INavigationRoot" />
-  </class>
+  <!-- <class class=".content.SpecificationsFolder.SpecificationsFolder"> -->
+  <!--   <implements interface="Products.CMFPlone.browser.interfaces.INavigationRoot" /> -->
+  <!-- </class> -->
 
   <class class=".content.Specification.Specification">
     <implements interface="eea.workflow.interfaces.IHasMandatoryWorkflowFields" />
