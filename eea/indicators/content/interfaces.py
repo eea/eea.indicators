@@ -9,10 +9,6 @@ class IPolicyQuestion(Interface):
     """Marker interface for .PolicyQuestion.PolicyQuestion
     """
 
-class ISpecificationsFolder(Interface):
-    """Marker interface for .SpecificationsFolder.SpecificationsFolder
-    """
-
 class IExternalDataSpec(Interface):
     """Marker interface for .ExternalDataSpec.ExternalDataSpec
     """
@@ -43,14 +39,6 @@ class IPolicyDocumentReference(Interface):
 
 class IWorkItem(Interface):
     """Marker interface for .WorkItem.WorkItem
-    """
-
-class IPolicyDocumentReferenceDatabase(Interface):
-    """Marker interface for .PolicyDocumentReferenceDatabase.PolicyDocumentReferenceDatabase
-    """
-
-class IExternalDataSpecDatabase(Interface):
-    """Marker interface for .ExternalDataSpecDatabase.ExternalDataSpecDatabase
     """
 
 ##code-section FOOT

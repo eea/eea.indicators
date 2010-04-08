@@ -40,7 +40,6 @@ import validators
 
 # Classes
 import PolicyQuestion
-import SpecificationsFolder
 import ExternalDataSpec
 import MethodologyReference
 import Specification
@@ -49,8 +48,6 @@ import RationaleReference
 import AssessmentPart
 import PolicyDocumentReference
 import WorkItem
-import PolicyDocumentReferenceDatabase
-import ExternalDataSpecDatabase
 
 ##code-section init-module-footer #fill in your manual code here
 # V1 content

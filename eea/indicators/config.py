@@ -34,7 +34,6 @@ DEFAULT_ADD_CONTENT_PERMISSION = "Add portal content"
 setDefaultRoles(DEFAULT_ADD_CONTENT_PERMISSION, ('Manager', 'Owner', 'Contributor'))
 ADD_CONTENT_PERMISSIONS = {
     'PolicyQuestion': 'indicators: Add PolicyQuestion',
-    'SpecificationsFolder': 'indicators: Add SpecificationsFolder',
     'ExternalDataSpec': 'indicators: Add ExternalDataSpec',
     'MethodologyReference': 'indicators: Add MethodologyReference',
     'Specification': 'indicators: Add Specification',
@@ -43,12 +42,9 @@ ADD_CONTENT_PERMISSIONS = {
     'AssessmentPart': 'indicators: Add AssessmentPart',
     'PolicyDocumentReference': 'indicators: Add PolicyDocumentReference',
     'WorkItem': 'indicators: Add WorkItem',
-    'PolicyDocumentReferenceDatabase': 'indicators: Add PolicyDocumentReferenceDatabase',
-    'ExternalDataSpecDatabase': 'indicators: Add ExternalDataSpecDatabase',
 }
 
 setDefaultRoles('indicators: Add PolicyQuestion', ('Manager','Owner'))
-setDefaultRoles('indicators: Add SpecificationsFolder', ('Manager','Owner'))
 setDefaultRoles('indicators: Add ExternalDataSpec', ('Manager','Owner'))
 setDefaultRoles('indicators: Add MethodologyReference', ('Manager','Owner'))
 setDefaultRoles('indicators: Add Specification', ('Manager','Owner'))
@@ -57,8 +53,6 @@ setDefaultRoles('indicators: Add RationaleReference', ('Manager','Owner'))
 setDefaultRoles('indicators: Add AssessmentPart', ('Manager','Owner'))
 setDefaultRoles('indicators: Add PolicyDocumentReference', ('Manager','Owner'))
 setDefaultRoles('indicators: Add WorkItem', ('Manager','Owner'))
-setDefaultRoles('indicators: Add PolicyDocumentReferenceDatabase', ('Manager','Owner'))
-setDefaultRoles('indicators: Add ExternalDataSpecDatabase', ('Manager','Owner'))
 
 product_globals = globals()
 
