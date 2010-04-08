@@ -14,9 +14,6 @@
 					</div>
 					<div tal:repeat="question questions"
 						class="list-item" tal:attributes="id question/getId">
-						<div class="metadata">
-							<span class="itemid" tal:content="question/getId" />
-						</div>
 						<span class="handler ui-icon ui-icon-arrowthick-2-n-s"></span>
 						<a href="" 
 							class="schemata_edit spec_control"
