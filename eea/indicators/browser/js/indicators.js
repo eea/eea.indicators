@@ -216,19 +216,20 @@ function schemata_ajaxify(el, active_region){
 				textarea.value = result;
 			});
 
+			// $(inputs).each(function(i, v){
+			// 	var sep = ""
+			// 	var field = $(":input[name=" + v + "]", form).get(0);
+			// 	(i == 0) ? sep = "" : sep = "&";
+
+			// 	if (field && (field.nodeName == "TEXTAREA")) {
+			// 		data += sep + v + "=" + escape(field.value);
+			// 	} else {
+			// 		data += sep + $(field).serialize();
+			// 	}
+      // });
+
 			var data = "";
-			$(inputs).each(function(i, v){
-				var sep = ""
-				var field = $(":input[name=" + v + "]", form).get(0);
-				(i == 0) ? sep = "" : sep = "&";
-
-				if (field && (field.nodeName == "TEXTAREA")) {
-					data += sep + v + "=" + escape(field.value);
-				} else {
-					data += sep + $(field).serialize();
-				}
-
-				});
+      data = $(form).serialize();
 			data += "&_active_region=" + active_region;
 			data += "&form_submit=Save&form.submitted=1";
 
@@ -459,3 +460,4 @@ function ajaxify(el, fieldname){
  };
 })(jQuery);
 
+// vim: set sw=2 ts=2 et:
