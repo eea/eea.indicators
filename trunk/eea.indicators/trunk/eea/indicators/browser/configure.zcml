@@ -83,17 +83,24 @@
 
 	<browser:page
 		for="eea.indicators.content.interfaces.ISpecification"
+		name="change_order"
+		class=".utils.Sorter"
+		permission="zope2.View"
+		/>
+
+	<browser:page
+		for="eea.indicators.content.interfaces.ISpecification"
 		name="createVersion"
 		permission="cmf.ModifyPortalContent"
 		class=".assessment.CreateVersion"
 		/>
 
-	<browser:page
-		for="eea.indicators.content.interfaces.ISpecificationsFolder"
-		name="view"
-		template="templates/specificationsfolder_view.pt"
-		permission="zope2.View"
-		/>
+	<!-- <browser:page -->
+	<!-- 	for="eea.indicators.content.interfaces.ISpecificationsFolder" -->
+	<!-- 	name="view" -->
+	<!-- 	template="templates/specificationsfolder_view.pt" -->
+	<!-- 	permission="zope2.View" -->
+	<!-- 	/> -->
 
 	<browser:page
 		for="eea.indicators.content.interfaces.IRationaleReference"

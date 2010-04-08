@@ -64,12 +64,34 @@ function set_actives(){
 function set_sortables() {
 	// make certain DOM elements sortable with jquery UI sortable
 	
-	$('.sortable_spec').sortable({
-			'handle':'.handler',
-			'items':'.list-item',
-			placeholder: 'ui-state-highlight',
-			// containment: 'parent'	// has a bug in UI, sometimes it's impossible to move #2 to #1
-			});	
+	$('.sortable_spec').each(function(){
+      var handler = $(".metadata .handler", this).text();
+      console.log(handler);
+      $(this).sortable({
+          'handle':'.handler',
+          'items':'.list-item',
+          placeholder: 'ui-state-highlight',
+          // containment: 'parent'	// has a bug in UI, sometimes it's impossible to move #2 to #1
+          'update':function(event, ui){
+            var sortable = event.target;
+            var neworder = $(sortable).sortable('toArray');
+            var data = "";
+            $(neworder).each(function(){
+              data += "&order:list=" + this;
+              });
+            $.ajax({
+              'url':handler,
+              'type':'POST',
+              'data':data,
+              'success':function(){
+                console.log('done');
+              }
+            });
+          }
+        });	
+      $('.sortable_spec').disableSelection();
+      
+      });
 }
 
 function set_editors(){

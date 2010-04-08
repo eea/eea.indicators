@@ -8,8 +8,15 @@
 				<a href='./object_factory?type_name=PolicyQuestion' class="object_creator">+ Policy Question</a>
 				<h2 class="policy_questions">Policy Questions</h2>
 				<div id="policy_questions" class="sortable_spec" tal:condition="questions">
+					<div class="metadata">
+						<span class="handler" 
+							tal:content="string:${context/absolute_url}/change_order"></span>
+					</div>
 					<div tal:repeat="question questions"
-						class="list-item">
+						class="list-item" tal:attributes="id question/getId">
+						<div class="metadata">
+							<span class="itemid" tal:content="question/getId" />
+						</div>
 						<span class="handler ui-icon ui-icon-arrowthick-2-n-s"></span>
 						<a href="" 
 							class="schemata_edit spec_control"
