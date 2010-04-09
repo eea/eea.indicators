@@ -804,6 +804,11 @@ class SpecificationFactories(object):
         type_name = 'WorkItem'
         return self._generic_factory(type_name)
 
+    def factory_Assessment(self):
+        # TODO: make new versions if already exists 
+        type_name = 'Assessment'
+        return self._generic_factory(type_name)
+
 ##/code-section module-footer
 
 

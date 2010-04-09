@@ -8,7 +8,7 @@
 				<tal:def tal:define="fieldname string:rationale_justification; fieldset string:Rationale">
 					<metal:macro metal:use-macro="here/simple_edit_macros/macros/active_field">
 						<metal:slot metal:fill-slot="content">
-							<h5>Justification for indicator selection</h5>
+							<h3>Justification for indicator selection</h3>
 							<p tal:replace="structure context/rationale_justification">Rationale justification</p>
 						</metal:slot>
 						<metal:slot metal:fill-slot="extra-metadata">
@@ -19,7 +19,7 @@
 				</tal:def>
 
 				<a href='./object_factory?type_name=RationaleReference' class="object_creator">+ Scientific Reference</a>
-				<h5>Scientific references:</h5>
+				<h3>Scientific references:</h3>
 				<ul tal:define="refs python:context.objectValues('RationaleReference')" class="sortable_spec scientific_references">
 					<li tal:repeat="ref refs" class="list-item">
 						<span class="handler ui-icon ui-icon-arrowthick-2-n-s"></span>

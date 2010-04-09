@@ -110,16 +110,16 @@
 						/>
 
 					<metal:block define-slot="buttons">
-						<input class="context"
-							tabindex=""
-							type="submit"
-							name="form_submit"
-							value="Save"
-							i18n:attributes="value label_save;"
-							tal:attributes="tabindex tabindex/next;
-							disabled python:test(isLocked, 'disabled', None);"
-							/>
-						<a href="#" class="cancel-btn" i18n:translate="label_cancel">Cancel</a>
+						<!-- <input class="context" -->
+						<!-- 	tabindex="" -->
+						<!-- 	type="submit" -->
+						<!-- 	name="form_submit" -->
+						<!-- 	value="Save" -->
+						<!-- 	i18n:attributes="value label_save;" -->
+						<!-- 	tal:attributes="tabindex tabindex/next; -->
+						<!-- 	disabled python:test(isLocked, 'disabled', None);" -->
+						<!-- 	/> -->
+						<!-- <a href="#" class="cancel-btn" i18n:translate="label_cancel">Cancel</a> -->
 					</metal:block>
 
 				</div>
@@ -140,7 +140,7 @@
 			<div class="visualClear"><!-- --></div>
 		</metal:macro>
 
-		<div metal:define-macro="active_field" class="active_field">
+		<div metal:define-macro="active_field" class="active_field_hovered">
 			<div class="control">
 				<a href="" 
 					tal:attributes="href string:${submit_handler}?fieldset=${fieldset}&specific_field=$fieldname">Edit</a>
