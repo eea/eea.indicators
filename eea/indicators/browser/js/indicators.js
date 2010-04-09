@@ -1,4 +1,5 @@
 function change_kupu_styles(){
+  // customize the Kupu editor to IMS standards
 	$(".kupu-table").remove();
 	$('.kupu-image').remove();
 	$(".kupu-tb-styles option[value='h2|']").remove();
@@ -29,7 +30,7 @@ $(document).ready(function () {
 		set_deleters();
 		
 		// activates the active fields
-		// $(".active_field").make_editable();
+		$(".active_field_hovered").make_editable();
 		// setTimeout('change_kupu_styles()', '2000');
 
 		on_load_dom();
@@ -46,7 +47,7 @@ function set_actives(){
 	
 	// make the Cancel link from dialogs close the form
 	$("#dialog-inner .cancel-btn").live('click', function(e){
-			$("#dialog-inner").dialog("destroy");
+			$("#dialog-inner").dialog("close");
 			return false;
 			});     
 
@@ -66,7 +67,6 @@ function set_sortables() {
 	
 	$('.sortable_spec').each(function(){
       var handler = $(".metadata .handler", this).text();
-      console.log(handler);
       $(this).sortable({
           'handle':'.handler',
           'items':'.list-item',
@@ -84,7 +84,6 @@ function set_sortables() {
               'type':'POST',
               'data':data,
               'success':function(){
-                console.log('done');
               }
             });
           }
@@ -108,10 +107,7 @@ function set_editors(){
 			var active_region = region.id; //the region that will be reloaded
 
 			dialog_edit(link, title, function(text, status, xhr){
-
-
 				schemata_ajaxify($("#dialog-inner"), active_region);
-
 				}, options);
 				return false;
 			});
@@ -121,7 +117,6 @@ function set_creators(){
 	// Set handlers for Create buttons
 	
 	$('a.object_creator').live('click', function(){
-			console.log("going once");
 			var link = $(this).attr('href');
 			var region = $(this).parents(".active_region")[0];
 			$.ajax({
@@ -188,6 +183,8 @@ return false;
 }
 
 function closer(fieldname){
+  // if returned through AJAX, it reloads the region and closes the dialog
+  
 	var text = $('#value_response').html();
 	var fieldname = "#active_field-"+fieldname + " > *";
 	var region = $(fieldname).parents('.active_region').get();
@@ -195,7 +192,7 @@ function closer(fieldname){
 
 	$(fieldname).html(text);
 	$('#value_response').remove();
-	$("#dialog-inner").dialog("destroy");
+	$("#dialog-inner").dialog("close");
 
 	return false;
 }
@@ -217,7 +214,7 @@ function schemata_ajaxify(el, active_region){
 			var kupu_id = $(this).attr('id');
 			setTimeout(function(){
 				initPloneKupu(kupu_id);
-				}, 100);
+        }, 100);
 		});
 		
 	$("form", el).submit(
@@ -229,26 +226,7 @@ function schemata_ajaxify(el, active_region){
 				inputs.push($(this).text());
 				});
 
-			$('.kupu-editor-iframe').parent().parent().parent().parent().each(function(){
-				var id        = $(this).attr('id');
-				var thiskupu  = get_kupu_editor(id);
-				var fieldname = id.substr("kupu-editor-".length);
-				var textarea  = $('#' + id + ' textarea[name=' + fieldname + ']')[0];
-				var result    = thiskupu.getRichText(textarea.form, textarea);
-				textarea.value = result;
-			});
-
-			// $(inputs).each(function(i, v){
-			// 	var sep = ""
-			// 	var field = $(":input[name=" + v + "]", form).get(0);
-			// 	(i == 0) ? sep = "" : sep = "&";
-
-			// 	if (field && (field.nodeName == "TEXTAREA")) {
-			// 		data += sep + v + "=" + escape(field.value);
-			// 	} else {
-			// 		data += sep + $(field).serialize();
-			// 	}
-      // });
+      save_kupu_values(form);
 
 			var data = "";
       data = $(form).serialize();
@@ -275,6 +253,7 @@ function schemata_ajaxify(el, active_region){
 
 function dialog_edit(url, title, callback, options){
 	// Opens a modal dialog with the given title
+  
 	options = options || {
 		'height':null,
 			'width':800,
@@ -299,9 +278,27 @@ function dialog_edit(url, title, callback, options){
 						form.dispatchEvent(e);	// TODO: need to check compatibility with IE
 					},
 					'Cancel':function(e){
-						$("#dialog-inner").dialog("destroy");
+						$("#dialog-inner").dialog("close");
 					}
-				}
+				},
+        beforeclose:function(event, ui){
+            var form = $("#dialog-inner form").get(0);
+            beforeunloadtool = window.onbeforeunload && window.onbeforeunload.tool;
+
+            if (beforeunloadtool) {
+
+              save_kupu_values(form);
+ 
+              // beforeunloadtool.removeForms(form);
+              if (beforeunloadtool.isAnyFormChanged()) {
+                alert(window.onbeforeunload.tool.execute());
+                return false;
+              } else {
+                return true;
+              }; 
+            }
+            return true;
+          }
 				});
 
 	$("#dialog-inner").load(url, callback);
@@ -311,7 +308,8 @@ function dialog_edit(url, title, callback, options){
 
 function close_dialog(region){
     reload_region($("#"+region));
-    $("#dialog-inner").dialog("destroy");
+    $("#dialog-inner").dialog("close");
+
 }
 
 
@@ -410,17 +408,9 @@ function ajaxify(el, fieldname){
 	
 	$("form", el).submit(
 			function(e){
-
-				$('.kupu-editor-iframe').parent().parent().parent().parent().each(function(){
-					var id        = $(this).attr('id');
-					var thiskupu  = get_kupu_editor(id);
-					var fieldname = id.substr("kupu-editor-".length);
-					var textarea  = $('#' + id + ' textarea[name=' + fieldname + ']')[0];
-					var result    = thiskupu.getRichText(textarea.form, textarea);
-					textarea.value = result;
-				});
-
-				var data = ($(":input[name=" + fieldname + "]", this).serialize() + 
+        var form = this;
+        save_kupu_values(this);
+				var data = ($(":input[name=" + fieldname + "]", form).serialize() + 
 					"&form_submit=Save&form.submitted=1&specific_field=" + fieldname
 					);
 
@@ -437,9 +427,9 @@ function ajaxify(el, fieldname){
 											ajaxify(el);
 											return false;
 									}
-									});
+                });
 				return false;
-			});
+      });
 };
 
 (function($) {
@@ -464,7 +454,9 @@ function ajaxify(el, fieldname){
      var id_to_fill = 'active_field-' + fieldname
      $(content).attr('id', id_to_fill);
 
-     $('.control a', this).click(function(e){
+     var controls = $('.control a', this);
+     controls.disableSelection();
+     controls.click(function(e){
          var title = $(this).text();
          var link = $(this).attr('href');
          var options = {
@@ -481,5 +473,20 @@ function ajaxify(el, fieldname){
  });
  };
 })(jQuery);
+
+function save_kupu_values(el) {
+  // saves each value from a kupu editor into its associated textarea
+
+  $('.kupu-editor-iframe', el).parent().parent().parent().parent().each(function(){
+    var id        = $(this).attr('id');
+    var thiskupu  = get_kupu_editor(id);
+    var fieldname = id.substr("kupu-editor-".length);
+    var textarea  = $('#' + id + ' textarea[name=' + fieldname + ']')[0];
+    var result    = thiskupu.getRichText(textarea.form, textarea);
+    if (result != textarea.defaultValue) {
+      textarea.value = result;
+    }
+  });
+}
 
 // vim: set sw=2 ts=2 et:

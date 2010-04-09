@@ -10,7 +10,7 @@
 				<tal:def tal:define="fieldname string:methodology; fieldset string:Methodology">
 					<metal:macro metal:use-macro="here/simple_edit_macros/macros/active_field">
 						<metal:slot metal:fill-slot="content">
-							<h5>Methodology for indicator calculation</h5>
+							<h3>Methodology for indicator calculation</h3>
 							<p tal:content="structure context/getMethodology" />
 						</metal:slot>
 						<metal:slot metal:fill-slot="extra-metadata">
@@ -24,7 +24,7 @@
 				<tal:def tal:define="fieldname string:methodology_gapfilling; fieldset string:Methodology">
 					<metal:macro metal:use-macro="here/simple_edit_macros/macros/active_field">
 						<metal:slot metal:fill-slot="content">
-							<h5>Methodology for gap filling</h5>
+							<h3>Methodology for gap filling</h3>
 							<p tal:content="structure context/getMethodology_gapfilling" />
 						</metal:slot>
 						<metal:slot metal:fill-slot="extra-metadata">
@@ -34,7 +34,7 @@
 					</metal:macro>
 				</tal:def>
 
-				<h5>Methodology references</h5>
+				<h3>Methodology references</h3>
 				<ul tal:define="refs python:context.objectValues('MethodologyReference')">
 					<li tal:repeat="ref refs">
 						<a href="" tal:attributes="href ref/getRemoteUrl" tal:content="ref/Title">Ref</a>

@@ -130,12 +130,13 @@ dl.toc {
 	display:none;
 }
 
-.active_field_hovered {
-	background-color:#F3F3F3;
-}
-
 .active_field .control {
 	display:none;
+}
+
+.active_field_hovered {
+	border:1px dotted black;
+	/* background-color:#F3F3F3; */
 }
 
 .active_field_hovered .control {
@@ -154,7 +155,7 @@ dl.toc {
 }
 .active_field {
 	padding:1px;
-    min-height:20px;
+	min-height:20px;
 }
 .active_field h5 {
 	margin-top:0;
