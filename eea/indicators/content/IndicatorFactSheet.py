@@ -146,6 +146,7 @@ IndicatorFactSheet_schema = ATFolderSchema.copy() + \
     schema.copy()
 
 ##code-section after-schema #fill in your manual code here
+IndicatorFactSheet_schema['relatedItems'].widget.visible = {'view':'visible', 'edit':'visible'}
 ##/code-section after-schema
 
 class IndicatorFactSheet(ATFolder, BrowserDefaultMixin):
