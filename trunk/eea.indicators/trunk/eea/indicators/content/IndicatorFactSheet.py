@@ -31,7 +31,6 @@ schema = Schema((
 
     StringField(
         name='title',
-        required_for_publication=True,
         widget=StringField._properties['widget'](
             label="Title",
             label_msgid='indicators_label_title',
@@ -117,6 +116,26 @@ schema = Schema((
             i18n_domain='indicators',
         ),
     ),
+    StringField(
+        name='policy_question',
+        widget=StringField._properties['widget'](
+            label="Policy Question",
+            label_msgid='indicators_label_policy_question',
+            i18n_domain='indicators',
+        ),
+        searchable=True,
+    ),
+    StringField(
+        name='dpsir',
+        widget=SelectionWidget(
+            label="DPSIR",
+            label_msgid='indicators_label_dpsir',
+            i18n_domain='indicators',
+        ),
+        schemata="Classification",
+        vocabulary=[('D', 'Driving forces'), ('P', 'Pressures'), ('S', 'States'), ('I', 'Impacts'), ('R', 'Reactions')],
+        required_for_published=True,
+    ),
 
 ),
 )
@@ -129,6 +148,7 @@ IndicatorFactSheet_schema = ATFolderSchema.copy() + \
     schema.copy()
 
 ##code-section after-schema #fill in your manual code here
+IndicatorFactSheet_schema['relatedItems'].widget.visible = {'view':'invisible', 'edit':'invisible'}
 ##/code-section after-schema
 
 class IndicatorFactSheet(ATFolder, BrowserDefaultMixin):

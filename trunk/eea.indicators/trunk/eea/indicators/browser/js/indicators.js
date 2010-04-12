@@ -284,19 +284,23 @@ function dialog_edit(url, title, callback, options){
         beforeclose:function(event, ui){
             var form = $("#dialog-inner form").get(0);
             beforeunloadtool = window.onbeforeunload && window.onbeforeunload.tool;
+            save_kupu_values(form);
+            var res = beforeunloadtool.isAnyFormChanged();
+            console.log("Result: " + res);
+            
+            beforeunloadtool.removeForms(form);
+            return true;    // TODO: fix this so that the form unload alert works properly
 
-            if (beforeunloadtool) {
-
-              save_kupu_values(form);
- 
-              // beforeunloadtool.removeForms(form);
-              if (beforeunloadtool.isAnyFormChanged()) {
-                alert(window.onbeforeunload.tool.execute());
-                return false;
-              } else {
-                return true;
-              }; 
-            }
+            // if (beforeunloadtool) {
+            //   save_kupu_values(form);
+            //   if (beforeunloadtool.isAnyFormChanged()) {
+            //      // the problem is that it falsely detects changed content;
+            //     alert(window.onbeforeunload.tool.execute());
+            //     return false;
+            //   } else {
+            //     return true;
+            //   }; 
+            // }
             return true;
           }
 				});
@@ -483,6 +487,8 @@ function save_kupu_values(el) {
     var fieldname = id.substr("kupu-editor-".length);
     var textarea  = $('#' + id + ' textarea[name=' + fieldname + ']')[0];
     var result    = thiskupu.getRichText(textarea.form, textarea);
+    result = result.replace(/^\s+/g, "");  // for some reasons what kupu saves has a space in front
+
     if (result != textarea.defaultValue) {
       textarea.value = result;
     }

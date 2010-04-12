@@ -52,6 +52,8 @@ KeyMessage_schema = ATContentTypeSchema.copy() + \
     schema.copy()
 
 ##code-section after-schema #fill in your manual code here
+KeyMessage_schema['title'].required = False
+KeyMessage_schema['relatedItems'].widget.visible = {'view':'invisible', 'edit':'invisible'}
 ##/code-section after-schema
 
 class KeyMessage(ATCTContent, BrowserDefaultMixin):
@@ -70,6 +72,10 @@ class KeyMessage(ATCTContent, BrowserDefaultMixin):
     ##/code-section class-header
 
     # Methods
+
+    security.declarePublic("Title")
+    def Title(self):
+        return self.getId()
 
 
 registerType(KeyMessage, PROJECTNAME)
