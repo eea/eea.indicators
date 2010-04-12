@@ -38,14 +38,6 @@
          visible="True">
   <permission value="View"/>
  </action>
- <action title="Edit" 
-         action_id="edit"
-         category="object" 
-         condition_expr=""
-         url_expr="string:${object_url}/edit" 
-         visible="True">
-  <permission value="Modify portal content"/>
- </action>
  <action title="Properties" 
          action_id="metadata"
          category="object" 
@@ -54,19 +46,19 @@
          visible="True">
   <permission value="Modify portal content"/>
  </action>
- <action title="List Assessments" 
-         action_id="assessments"
-         category="object" 
-         condition_expr="python:1"
-         url_expr="string:${object_url}/./folder_contents?portal_type=Assessment" 
-         visible="True">
-  <permission value="Manage portal content"/>
- </action>
- <action title="Aggregated Edit" 
-         action_id="edit_aggregated"
+ <action title="Edit" 
+         action_id="edit"
          category="object" 
          condition_expr="python:1"
          url_expr="string:${object_url}/@@edit_aggregated" 
+         visible="True">
+  <permission value="Manage portal content"/>
+ </action>
+ <action title="Advanced Edit" 
+         action_id="advanced_edit"
+         category="object" 
+         condition_expr="python:1"
+         url_expr="string:${object_url}/base_edit" 
          visible="True">
   <permission value="Manage portal content"/>
  </action>
