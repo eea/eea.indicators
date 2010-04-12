@@ -11,13 +11,13 @@ from zope.interface import alsoProvides, directlyProvides, directlyProvidedBy
 
 
 class IndexPage(BrowserView):
-    template = ViewPageTemplateFile('templates/specification_view.pt')
+    template = ViewPageTemplateFile('templates/specification/view.pt')
 
     __call__ = template
 
 
 class AggregatedEditPage(BrowserView):
-    template = ViewPageTemplateFile('templates/specification_aggregated_edit.pt')
+    template = ViewPageTemplateFile('templates/specification/aggregated_edit.pt')
 
     __call__ = template
 
@@ -50,10 +50,10 @@ class CreateVersion(BaseCreateVersion):
 
     def __call__(self):
         pu = getToolByName(self.context, 'plone_utils')
-        obj_uid = self.context.UID()
+        #obj_uid = self.context.UID()
         obj_id = self.context.getId()
-        obj_title = self.context.Title()
-        obj_type = self.context.portal_type
+        #obj_title = self.context.Title()
+        #obj_type = self.context.portal_type
         parent = utils.parent(self.context)
 
         # Adapt version parent (if case)
@@ -67,21 +67,30 @@ class CreateVersion(BaseCreateVersion):
             _reindex(self.context)
 
         # Create version object
-        #TODO: customize copy logic
-        cp = parent.manage_copyObjects(ids=[obj_id])
-        res = parent.manage_pasteObjects(cp)
+        clipb = parent.manage_copyObjects(ids=[obj_id])
+        res = parent.manage_pasteObjects(clipb)
         new_id = res[0]['new_id']
 
         ver = getattr(parent, new_id)
 
-        # Remove copy_of from ID
+        # Fixes the generated id: remove copy_of from ID
+        #TODO: add -vX sufix to the ids
         id = ver.getId()
         new_id = id.replace('copy_of_', '')
         new_id = self.generateNewId(parent, new_id, ver.UID())
         parent.manage_renameObject(id=id, new_id=new_id)
+        new_spec = parent[new_id]
 
         # Set effective date today
         ver.setEffectiveDate(DateTime())
+
+        #Delete assessments and work items
+        for id in new_spec.objectIds('Assessment'):
+            new_spec._delOb(id) #shouldn't send IObjectRemovedEvent
+
+        for id in new_spec.objectIds('WorkItem'):
+            new_spec._delOb(id)
+
 
         # Set new state
         ver.reindexObject()
