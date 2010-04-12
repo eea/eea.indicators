@@ -25,6 +25,7 @@ from eea.indicators.config import *
 from Products.ATContentTypes.content.file import ATFile, ATFileSchema
 
 ##code-section module-header #fill in your manual code here
+from eea.dataservice.fields import EventFileField
 ##/code-section module-header
 
 schema = Schema((
@@ -53,6 +54,16 @@ schema = Schema((
         required=True,
         accessor="getDescription",
     ),
+    EventFileField('file',
+        required=False,
+        primary=True,
+        widget = FileWidget(
+            description = "Select the file to be added by clicking the 'Browse' button.",
+            description_msgid = "help_file",
+            label= "File",
+            label_msgid = "label_file",
+            i18n_domain = "plone",
+            show_content_type = False,)),
 
 ),
 )
@@ -65,6 +76,8 @@ FactSheetDocument_schema = ATFileSchema.copy() + \
     schema.copy()
 
 ##code-section after-schema #fill in your manual code here
+FactSheetDocument_schema['description'].required = False
+FactSheetDocument_schema['relatedItems'].widget.visible = {'view':'invisible', 'edit':'invisible'}
 ##/code-section after-schema
 
 class FactSheetDocument(ATFile, BrowserDefaultMixin):
