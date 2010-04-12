@@ -2,28 +2,8 @@
 	xmlns:browser="http://namespaces.zope.org/browser"
 	xmlns:five="http://namespaces.zope.org/five">
 
-	<include file="versions.zcml" />
-
-	<browser:page
-		for="eea.indicators.content.interfaces.IAssessment"
-		name="view"
-		template="templates/assessment_view.pt"
-		permission="zope2.View"
-		/>
-
-	<browser:page
-		for="eea.indicators.content.interfaces.IAssessment"
-		name="wizards"
-		template="templates/assessment_wizards.pt"
-		permission="zope2.View"
-		/>
-
-	<browser:page
-		for="eea.indicators.content.interfaces.IAssessment"
-		name="createVersion"
-		permission="cmf.ModifyPortalContent"
-		class=".assessment.CreateVersion"
-		/>
+	<include file="specification.zcml" />
+	<include file="assessment.zcml" />
 
 	<browser:page
 		for="eea.indicators.content.interfaces.IAssessmentPart"
@@ -54,61 +34,11 @@
 		/>
 
 	<browser:page
-		for="eea.indicators.content.interfaces.ISpecification"
-		name="view"
-		class=".specification.IndexPage"
-		permission="zope2.View"
-		/>
-
-	<browser:page
-		for="eea.indicators.content.interfaces.ISpecification"
-		name="edit_aggregated"
-		class=".specification.AggregatedEditPage"
-		permission="zope2.View"
-		/>
-
-	<browser:page
-		for="eea.indicators.content.interfaces.ISpecification"
-		name="get_schemata_count"
-		class=".specification.SchemataCounts"
-		permission="zope2.View"
-		/>
-
-	<browser:page
-		for="eea.indicators.content.interfaces.ISpecification"
-		name="wizards"
-		template="templates/specification_wizards.pt"
-		permission="zope2.View"
-		/>
-
-	<browser:page
-		for="eea.indicators.content.interfaces.ISpecification"
-		name="change_order"
-		class=".utils.Sorter"
-		permission="zope2.View"
-		/>
-
-	<browser:page
-		for="eea.indicators.content.interfaces.ISpecification"
-		name="createVersion"
-		permission="cmf.ModifyPortalContent"
-		class=".assessment.CreateVersion"
-		/>
-
-	<!-- <browser:page -->
-	<!-- 	for="eea.indicators.content.interfaces.ISpecificationsFolder" -->
-	<!-- 	name="view" -->
-	<!-- 	template="templates/specificationsfolder_view.pt" -->
-	<!-- 	permission="zope2.View" -->
-	<!-- 	/> -->
-
-	<browser:page
 		for="eea.indicators.content.interfaces.IRationaleReference"
 		name="view"
 		template="templates/rationalereference_view.pt"
 		permission="zope2.View"
 		/>
-
 
 	<!-- subviews -->
 
@@ -120,42 +50,7 @@
 		/>
 
 
-
-	<browser:menuItem
-		for="eea.indicators.content.interfaces.ISpecification"
-		menu="object_buttons"
-		title="Create new version"
-		action="@@createVersion"
-		description="Create a new version"
-		permission="cmf.ModifyPortalContent"
-		/>
-
-	<browser:menuItem
-		for="eea.indicators.content.interfaces.ISpecification"
-		menu="object_buttons"
-		title="Revoke version"
-		action="@@revokeVersion"
-		description="Revoke a version"
-		permission="cmf.ModifyPortalContent"
-		/>
-
-	<browser:menuItem
-		for="eea.indicators.content.interfaces.IAssessment"
-		menu="object_buttons"
-		title="Create new version"
-		action="@@createVersion"
-		description="Create a new version"
-		permission="cmf.ModifyPortalContent"
-		/>
-
-	<browser:menuItem
-		for="eea.indicators.content.interfaces.IAssessment"
-		menu="object_buttons"
-		title="Revoke version"
-		action="@@revokeVersion"
-		description="Revoke a version"
-		permission="cmf.ModifyPortalContent"
-		/>
+	<!-- Resources -->
 
 	<browser:resource
 		name='indicators.css'

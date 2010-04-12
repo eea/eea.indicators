@@ -1,0 +1,118 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+	xmlns:browser="http://namespaces.zope.org/browser"
+	xmlns:five="http://namespaces.zope.org/five">
+
+	<browser:page
+		for="eea.indicators.content.interfaces.ISpecification"
+		name="view"
+		class=".specification.IndexPage"
+		permission="zope2.View"
+		/>
+
+	<browser:page
+		for="eea.indicators.content.interfaces.ISpecification"
+		name="edit_aggregated"
+		class=".specification.AggregatedEditPage"
+		permission="zope2.View"
+		/>
+
+	<browser:page
+		for="eea.indicators.content.interfaces.ISpecification"
+		name="get_schemata_count"
+		class=".specification.SchemataCounts"
+		permission="zope2.View"
+		/>
+
+	<browser:page
+		for="eea.indicators.content.interfaces.ISpecification"
+		name="wizards"
+		template="templates/specification/wizards.pt"
+		permission="zope2.View"
+		/>
+
+	<browser:page
+		for="eea.indicators.content.interfaces.ISpecification"
+		name="change_order"
+		class=".utils.Sorter"
+		permission="zope2.View"
+		/>
+
+
+	<!-- Specification Versioning -->
+	<browser:page
+		for="eea.indicators.content.interfaces.ISpecification"
+		name="createVersion" permission="cmf.ModifyPortalContent" 
+		class=".specification.CreateVersion" />
+	<browser:menuItem
+		for="eea.indicators.content.interfaces.ISpecification"
+		menu="object_buttons" title="Create new version" action="@@createVersion"
+		description="Create a new version" permission="cmf.ModifyPortalContent" />
+	<browser:menuItem
+		for="eea.indicators.content.interfaces.ISpecification"
+		menu="object_buttons" title="Revoke version" action="@@revokeVersion"
+		description="Revoke a version" permission="cmf.ModifyPortalContent" />
+
+
+	<!-- Fragments used in aggregated edit -->
+	<browser:page
+		for="eea.indicators.content.interfaces.ISpecification"
+		name="fragment_assessments"
+		template="templates/specification/fragment_assessments.pt"
+		permission="zope2.View"
+		/>
+	<browser:page
+		for="eea.indicators.content.interfaces.ISpecification"
+		name="fragment_data_specifications"
+		template="templates/specification/fragment_data_specifications.pt"
+		permission="zope2.View"
+		/>
+	<browser:page
+		for="eea.indicators.content.interfaces.ISpecification"
+		name="fragment_definition"
+		template="templates/specification/fragment_definition.pt"
+		permission="zope2.View"
+		/>
+	<browser:page
+		for="eea.indicators.content.interfaces.ISpecification"
+		name="fragment_methodology"
+		template="templates/specification/fragment_methodology.pt"
+		permission="zope2.View"
+		/>
+	<browser:page
+		for="eea.indicators.content.interfaces.ISpecification"
+		name="fragment_policy_context"
+		template="templates/specification/fragment_policy_context.pt"
+		permission="zope2.View"
+		/>
+	<browser:page
+		for="eea.indicators.content.interfaces.ISpecification"
+		name="fragment_policy_questions"
+		template="templates/specification/fragment_policy_questions.pt"
+		permission="zope2.View"
+		/>
+	<browser:page
+		for="eea.indicators.content.interfaces.ISpecification"
+		name="fragment_scientific_references"
+		template="templates/specification/fragment_scientific_references.pt"
+		permission="zope2.View"
+		/>
+	<browser:page
+		for="eea.indicators.content.interfaces.ISpecification"
+		name="fragment_title"
+		template="templates/specification/fragment_title.pt"
+		permission="zope2.View"
+		/>
+	<browser:page
+		for="eea.indicators.content.interfaces.ISpecification"
+		name="fragment_uncertainties"
+		template="templates/specification/fragment_uncertainties.pt"
+		permission="zope2.View"
+		/>
+	<browser:page
+		for="eea.indicators.content.interfaces.ISpecification"
+		name="fragment_work"
+		template="templates/specification/fragment_work.pt"
+		permission="zope2.View"
+		/>
+
+</configure>
