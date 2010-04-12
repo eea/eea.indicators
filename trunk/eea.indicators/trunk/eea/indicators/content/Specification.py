@@ -3,7 +3,7 @@
 # $Id$
 #
 # Copyright (c) 2010 by ['Tiberiu Ichim']
-# Generator: ArchGenXML
+# Generator: ArchGenXML 
 #            http://plone.org/products/archgenxml
 #
 # GNU General Public License (GPL)
@@ -105,7 +105,9 @@ schema = Schema((
             label_msgid='indicators_label_dpsir',
             i18n_domain='indicators',
         ),
+        schemata="Classification",
         vocabulary=[('D', 'Driving forces'), ('P', 'Pressures'), ('S', 'States'), ('I', 'Impacts'), ('R', 'Reactions')],
+        required_for_published=True,
     ),
     StringField(
         name='typology',
