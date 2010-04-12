@@ -3,7 +3,7 @@
 # $Id$
 #
 # Copyright (c) 2010 by ['Tiberiu Ichim']
-# Generator: ArchGenXML 
+# Generator: ArchGenXML
 #            http://plone.org/products/archgenxml
 #
 # GNU General Public License (GPL)
@@ -803,7 +803,7 @@ class SpecificationFactories(object):
         return self._generic_factory(type_name)
 
     def factory_Assessment(self):
-        # TODO: make new versions if already exists 
+        # TODO: make new versions if already exists
         type_name = 'Assessment'
         return self._generic_factory(type_name)
 
