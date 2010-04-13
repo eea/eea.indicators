@@ -132,7 +132,9 @@ schema = Schema((
             label_msgid='indicators_label_dpsir',
             i18n_domain='indicators',
         ),
+        schemata="Classification",
         vocabulary=[('D', 'Driving forces'), ('P', 'Pressures'), ('S', 'States'), ('I', 'Impacts'), ('R', 'Reactions')],
+        required_for_published=True,
     ),
 
 ),
@@ -146,7 +148,6 @@ IndicatorFactSheet_schema = ATFolderSchema.copy() + \
     schema.copy()
 
 ##code-section after-schema #fill in your manual code here
-IndicatorFactSheet_schema['relatedItems'].widget.visible = {'view':'visible', 'edit':'visible'}
 ##/code-section after-schema
 
 class IndicatorFactSheet(ATFolder, BrowserDefaultMixin):

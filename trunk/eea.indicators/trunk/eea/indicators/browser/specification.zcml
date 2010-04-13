@@ -2,40 +2,25 @@
 	xmlns:browser="http://namespaces.zope.org/browser"
 	xmlns:five="http://namespaces.zope.org/five">
 
-	<browser:page
+	<browser:page name="view"
 		for="eea.indicators.content.interfaces.ISpecification"
-		name="view"
-		class=".specification.IndexPage"
-		permission="zope2.View"
-		/>
+		class=".specification.IndexPage" permission="zope2.View" />
 
-	<browser:page
+	<browser:page name="edit_aggregated"
 		for="eea.indicators.content.interfaces.ISpecification"
-		name="edit_aggregated"
-		class=".specification.AggregatedEditPage"
-		permission="zope2.View"
-		/>
+		class=".specification.AggregatedEditPage" permission="zope2.View" />
 
-	<browser:page
+	<browser:page name="get_schemata_count"
 		for="eea.indicators.content.interfaces.ISpecification"
-		name="get_schemata_count"
-		class=".specification.SchemataCounts"
-		permission="zope2.View"
-		/>
+		class=".specification.SchemataCounts" permission="zope2.View" />
 
-	<browser:page
+	<browser:page name="wizards"
 		for="eea.indicators.content.interfaces.ISpecification"
-		name="wizards"
-		template="templates/specification/wizards.pt"
-		permission="zope2.View"
-		/>
+		template="templates/specification/wizards.pt" permission="zope2.View" />
 
-	<browser:page
+	<browser:page name="change_order"
 		for="eea.indicators.content.interfaces.ISpecification"
-		name="change_order"
-		class=".utils.Sorter"
-		permission="zope2.View"
-		/>
+		class=".utils.Sorter" permission="zope2.View" />
 
 
 	<!-- Specification Versioning -->

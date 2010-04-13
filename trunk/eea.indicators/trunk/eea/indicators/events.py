@@ -5,6 +5,8 @@ import logging
 ROLE = 'SpecificationManager' 
 
 def delegate_manager(specification, event):
+    """Handler for ISpecification -> IObjectModifiedEvent """
+
     new_manager = specification.getManager_user_id()
     pm = getToolByName(specification, 'portal_membership')
 

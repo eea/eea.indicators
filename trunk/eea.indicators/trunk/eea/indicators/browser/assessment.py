@@ -1,10 +1,18 @@
 from DateTime import DateTime
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone import utils
+from Products.Five import BrowserView
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from eea.versions.interfaces import IVersionControl, IVersionEnhanced
 from eea.versions.versions import CreateVersion as BaseCreateVersion
-from zope.interface import alsoProvides, directlyProvides, directlyProvidedBy
 from eea.versions.versions import _get_random, _reindex
+from zope.interface import alsoProvides, directlyProvides, directlyProvidedBy
+
+
+class AggregatedEditPage(BrowserView):
+    template = ViewPageTemplateFile('templates/assessment/aggregated_edit.pt')
+
+    __call__ = template
 
 
 class CreateVersion(BaseCreateVersion):
