@@ -175,6 +175,9 @@ a.object_creator:hover {
 	color:white;
 	border:none;
 }
+a.object_creator-disabled {
+	display:none;
+}
 
 a.schemata_edit, a.object_delete {
 	padding:1px 6px;

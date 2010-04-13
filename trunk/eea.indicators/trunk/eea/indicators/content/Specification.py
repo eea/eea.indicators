@@ -42,6 +42,7 @@ from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 from Products.UserAndGroupSelectionWidget import UserAndGroupSelectionWidget
 from eea.dataservice.vocabulary import Organisations
 from eea.indicators import msg_factory as _
+from eea.indicators.browser.assessment import create_version as create_assessment_version
 from zope import event
 from zope.app.event import objectevent
 
@@ -106,7 +107,7 @@ schema = Schema((
             i18n_domain='indicators',
         ),
         schemata="Classification",
-        vocabulary=[('D', 'Driving forces'), ('P', 'Pressures'), ('S', 'States'), ('I', 'Impacts'), ('R', 'Reactions')],
+        vocabulary=[("None", ""), ('D', 'Driving forces'), ('P', 'Pressures'), ('S', 'States'), ('I', 'Impacts'), ('R', 'Reactions')],
         required_for_published=True,
     ),
     StringField(
@@ -771,7 +772,10 @@ _titlemsg = _('label-newly-created-type',
         )
 
 class SpecificationFactories(object):
-    """A simple class that provides some inteligence for specification object factories"""
+    """A simple class that provides some inteligence for specification object factories
+
+    These object factories are used in the Specification Aggregated Edit View
+    """
 
     def __init__(self, spec):
         self.spec = spec
@@ -805,9 +809,34 @@ class SpecificationFactories(object):
         return self._generic_factory(type_name)
 
     def factory_Assessment(self):
-        # TODO: make new versions if already exists
         type_name = 'Assessment'
-        return self._generic_factory(type_name)
+
+        #create a version if we already have an Assessment
+        assessments = self.spec.objectValues(type_name)
+        if assessments:
+            original = assessments[-1]  #we assume the latest object is the last one
+            return create_assessment_version(original)
+
+        #create a new Assessment from scratch
+        id = self.spec.generateUniqueId(type_name)
+        new_id = self.spec.invokeFactory(type_name=type_name,
+                id=id,
+                title=self.spec.translate(
+                    msgid='label-newly-created-type',
+                    domain='indicators',
+                    default="Newly created ${type_name}",
+                    mapping={'type_name':type_name},
+                    ))
+        ast = self.spec[new_id]
+
+        #create assessment parts for each policy question
+        for pq in self.spec.objectValues("PolicyQuestion"):
+            id = ast.invokeFactory(type_name="AssessmentPart",
+                    id=ast.generateUniqueId("PolicyQuestion"),)
+            ap = ast[id]
+            ap.setQuestion_answered(pq)
+
+        return ast
 
 ##/code-section module-footer
 
