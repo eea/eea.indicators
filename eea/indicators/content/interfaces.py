@@ -42,10 +42,6 @@ class IWorkItem(Interface):
     """
 
 ##code-section FOOT
-class IIndicatorFactSheetsFolder(Interface):
-    """Marker interface for .IndicatorFactSheetsFolder.IndicatorFactSheetsFolder
-    """
-
 class IFactSheetDocument(Interface):
     """Marker interface for .FactSheetDocument.FactSheetDocument
     """

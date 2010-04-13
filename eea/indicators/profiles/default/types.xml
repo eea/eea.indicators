@@ -24,8 +24,6 @@
          meta_type="Factory-based Type Information with dynamic views"/>
  <object name="IndicatorFactSheet"
          meta_type="Factory-based Type Information with dynamic views"/>
- <object name="IndicatorFactSheetsFolder"
-         meta_type="Factory-based Type Information with dynamic views"/>
  <object name="KeyMessage"
          meta_type="Factory-based Type Information with dynamic views"/>
  <!-- ##/code-section TYPES -->
