@@ -6,6 +6,11 @@
 		for="eea.indicators.content.interfaces.IAssessment"
 		template="templates/assessment/view.pt" permission="zope2.View" />
 
+	<browser:page name="edit_aggregated"
+		for="eea.indicators.content.interfaces.IAssessment"
+		class=".assessment.AggregatedEditPage" permission="zope2.View"
+		/>
+
 	<browser:page name="wizards"
 		for="eea.indicators.content.interfaces.IAssessment"
 		template="templates/assessment/wizards.pt" permission="zope2.View" />
@@ -14,10 +19,12 @@
 	<browser:page name="createVersion" 
 		for="eea.indicators.content.interfaces.IAssessment" 
 		permission="cmf.ModifyPortalContent" class=".assessment.CreateVersion" />
+
 	<browser:menuItem title="Create new version" 
 		for="eea.indicators.content.interfaces.IAssessment"
 		menu="object_buttons" action="@@createVersion" 
 		description="Create a new version" permission="cmf.ModifyPortalContent" />
+
 	<browser:menuItem title="Revoke version" 
 		for="eea.indicators.content.interfaces.IAssessment"
 		menu="object_buttons" action="@@revokeVersion"

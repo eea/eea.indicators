@@ -3,12 +3,24 @@
 		region_update_handler string:fragment_assignments;">
 
 		<metal:macro metal:use-macro="context/simple_edit_macros/macros/active_region">
-			<metal:slot metal:fill-slot="content">
+			<metal:slot metal:fill-slot="content" 
+				tal:define="has_pq python:here.getFolderContents(
+				contentFilter={'portal_type':'PolicyQuestion'});
+				can_add python: has_pq and ' ' or '-disabled';">
 
-				<a href='./object_factory?type_name=Assessment' class="object_creator">+ Indicator Assessment</a>
+				<div tal:condition="not:has_pq" class="checks_alert">
+					You can't create an assessment until you add some Policy Questions
+				</div>
+
+				<a href='./object_factory?type_name=Assessment' 
+					class="object_creator" 
+					tal:attributes="class string:object_creator${can_add}">+ Indicator Assessment</a>
+
 				<h2>Assessment versions</h2>
 				<h5>Published (reviewed and quality assured)</h5>
-				<ul tal:define="assessments python:here.getFolderContents(contentFilter={'review_state':'published', 'portal_type':'Assessment'})">
+				<ul tal:define="assessments python:here.getFolderContents(
+					contentFilter={'review_state':'published', 
+					'portal_type':'Assessment'})">
 					<li tal:condition="not:assessments">No published assessments</li>
 					<li tal:repeat="brain assessments">
 						<a tal:attributes="href python:brain.getObject().absolute_url()" tal:content="brain/Title">
@@ -18,7 +30,9 @@
 				</ul>
 
 				<h5>Draft (not yet published - not quality assured)</h5>
-				<ul tal:define="assessments python:here.getFolderContents(contentFilter={'portal_type':'Assessment', 'review_state':'draft'})">
+				<ul tal:define="assessments python:here.getFolderContents(
+					contentFilter={'portal_type':'Assessment', 
+					'review_state':'draft'})">
 					<li tal:condition="not:assessments">No drafts available</li>
 					<li tal:repeat="brain python:assessments">
 						<a tal:attributes="href python:brain.getObject().absolute_url()" tal:content="brain/Title">

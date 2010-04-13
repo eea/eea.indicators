@@ -5,7 +5,8 @@
 		<metal:slot metal:fill-slot="content">
 			<tal:defs tal:define="questions python:here.objectValues('PolicyQuestion')" >
 
-				<a href='./object_factory?type_name=PolicyQuestion' class="object_creator">+ Policy Question</a>
+				<a href='./object_factory?type_name=PolicyQuestion' 
+					class="object_creator">+ Policy Question</a>
 				<h2 class="policy_questions">Policy Questions</h2>
 				<div id="policy_questions" class="sortable_spec" tal:condition="questions">
 					<div class="metadata">
