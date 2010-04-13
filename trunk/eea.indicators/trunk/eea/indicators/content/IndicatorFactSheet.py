@@ -132,7 +132,7 @@ schema = Schema((
             label_msgid='indicators_label_dpsir',
             i18n_domain='indicators',
         ),
-        vocabulary=[('D', 'Driving forces'), ('P', 'Pressures'), ('S', 'States'), ('I', 'Impacts'), ('R', 'Reactions')],
+        vocabulary=[('None', ''), ('D', 'Driving forces'), ('P', 'Pressures'), ('S', 'States'), ('I', 'Impacts'), ('R', 'Reactions')],
     ),
 
 ),
