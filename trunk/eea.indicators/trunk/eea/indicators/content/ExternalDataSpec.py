@@ -3,7 +3,7 @@
 # $Id$
 #
 # Copyright (c) 2010 by ['Tiberiu Ichim']
-# Generator: ArchGenXML 
+# Generator: ArchGenXML
 #            http://plone.org/products/archgenxml
 #
 # GNU General Public License (GPL)
@@ -133,13 +133,6 @@ schema = Schema((
 ##code-section after-local-schema #fill in your manual code here
 schema['provider_url'].validators=('isURL',)
 schema['dataset_url'].validators=('isURL',)
-
-ExternalDataSpec_schema = ATContentTypeSchema.copy() + \
-    getattr(ATCTContent, 'schema', Schema(())).copy() + \
-    schema.copy()
-
-ExternalDataSpec_schema['relatedItems'].widget.visible = {'view':'invisible', 'edit':'invisible'}
-finalizeATCTSchema(ExternalDataSpec_schema)
 ##/code-section after-local-schema
 
 ExternalDataSpec_schema = ATContentTypeSchema.copy() + \
@@ -147,6 +140,9 @@ ExternalDataSpec_schema = ATContentTypeSchema.copy() + \
     schema.copy()
 
 ##code-section after-schema #fill in your manual code here
+ExternalDataSpec_schema.moveField('relatedItems', after='category_of_use')
+#ExternalDataSpec_schema['relatedItems'].widget.visible = {'view':'invisible', 'edit':'invisible'}
+finalizeATCTSchema(ExternalDataSpec_schema)
 ##/code-section after-schema
 
 class ExternalDataSpec(ATCTContent, BrowserDefaultMixin):
