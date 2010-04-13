@@ -1,6 +1,6 @@
 <tal:def tal:define="submit_handler string:simple_edit; ">
 	<tal:def tal:define="region_name string:assessments_area;
-		region_update_handler string:fragment_assignments;">
+		region_update_handler string:fragment_assessments;">
 
 		<metal:macro metal:use-macro="context/simple_edit_macros/macros/active_region">
 			<metal:slot metal:fill-slot="content" 
@@ -9,7 +9,7 @@
 				can_add python: has_pq and ' ' or '-disabled';">
 
 				<div tal:condition="not:has_pq" class="checks_alert">
-					You can't create an assessment until you add some Policy Questions
+					You can't create new Assessments until you have at least a main Policy Question
 				</div>
 
 				<a href='./object_factory?type_name=Assessment' 

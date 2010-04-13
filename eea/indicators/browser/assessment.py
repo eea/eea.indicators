@@ -5,8 +5,8 @@ from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from eea.versions.interfaces import IVersionControl, IVersionEnhanced
 from eea.versions.versions import CreateVersion as BaseCreateVersion
-from eea.versions.versions import _get_random, _reindex
-from zope.interface import alsoProvides, directlyProvides, directlyProvidedBy
+from eea.versions.versions import _get_random, _reindex, generateNewId
+from zope.interface import alsoProvides
 
 
 class AggregatedEditPage(BrowserView):
@@ -19,42 +19,49 @@ class CreateVersion(BaseCreateVersion):
     """Create new version customizations for eea.versions """
 
     def __call__(self):
-        pu = getToolByName(self.context, 'plone_utils')
-        obj_uid = self.context.UID()
-        obj_id = self.context.getId()
-        obj_title = self.context.Title()
-        obj_type = self.context.portal_type
-        parent = utils.parent(self.context)
+        version = create_version(self.context)
+        return self.request.RESPONSE.redirect(version.absolute_url())
 
-        # Adapt version parent (if case)
-        if not IVersionEnhanced.providedBy(self.context):
-            alsoProvides(self.context, IVersionEnhanced)
-        verparent = IVersionControl(self.context)
-        verId = verparent.getVersionId()
-        if not verId:
-            verId = _get_random(10)
-            verparent.setVersionId(verId)
-            _reindex(self.context)
 
-        # Create version object
-        #TODO: customize copy logic
-        cp = parent.manage_copyObjects(ids=[obj_id])
-        res = parent.manage_pasteObjects(cp)
-        new_id = res[0]['new_id']
+def create_version(original):
+    """Creates a new version of an Assessment. Returns the new version object
+    """
+    pu = getToolByName(original, 'plone_utils')
+    obj_uid = original.UID()
+    obj_id = original.getId()
+    obj_title = original.Title()
+    obj_type = original.portal_type
+    parent = utils.parent(original)
 
-        ver = getattr(parent, new_id)
+    # Adapt version parent (if case)
+    if not IVersionEnhanced.providedBy(original):
+        alsoProvides(original, IVersionEnhanced)
+    verparent = IVersionControl(original)
+    verId = verparent.getVersionId()
+    if not verId:
+        verId = _get_random(10)
+        verparent.setVersionId(verId)
+        _reindex(original)
 
-        # Remove copy_of from ID
-        id = ver.getId()
-        new_id = id.replace('copy_of_', '')
-        new_id = self.generateNewId(parent, new_id, ver.UID())
-        parent.manage_renameObject(id=id, new_id=new_id)
+    # Create version object
+    #TODO: customize copy logic
+    cp = parent.manage_copyObjects(ids=[obj_id])
+    res = parent.manage_pasteObjects(cp)
+    new_id = res[0]['new_id']
 
-        # Set effective date today
-        ver.setEffectiveDate(DateTime())
+    ver = getattr(parent, new_id)
 
-        # Set new state
-        ver.reindexObject()
-        _reindex(self.context)  #some indexed values of the context may depend on versions
+    # Remove copy_of from ID
+    id = ver.getId()
+    new_id = id.replace('copy_of_', '')
+    new_id = generateNewId(parent, new_id, ver.UID())
+    parent.manage_renameObject(id=id, new_id=new_id)
 
-        return self.request.RESPONSE.redirect(ver.absolute_url())
+    # Set effective date today
+    ver.setEffectiveDate(DateTime())
+
+    # Set new state
+    ver.reindexObject()
+    _reindex(original)  #some indexed values of the context may depend on versions
+
+    return ver

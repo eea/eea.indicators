@@ -26,9 +26,14 @@
 					</div>
 				</div>
 
-				<div tal:condition="not:questions" class="checks_alert">
-					You need to have at least one Policy Question
-				</div>
+				<tal:defs tal:define="
+					check_question python:lambda o:o.getIs_key_question();
+					main_question python:filter(check_question, questions)">
+					<div class="checks_alert" 
+						tal:condition="python:not((main_question and questions) or main_question)">
+						You need to have at least one main Policy Question
+					</div>
+				</tal:defs>
 
 			</tal:defs>
 
