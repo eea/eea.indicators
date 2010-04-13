@@ -3,7 +3,7 @@
 # $Id$
 #
 # Copyright (c) 2010 by ['Tiberiu Ichim']
-# Generator: ArchGenXML 
+# Generator: ArchGenXML
 #            http://plone.org/products/archgenxml
 #
 # GNU General Public License (GPL)
@@ -53,7 +53,6 @@ import WorkItem
 # V1 content
 import FactSheetDocument
 import IndicatorFactSheet
-import IndicatorFactSheetsFolder
 import KeyMessage
 ##/code-section init-module-footer
 
