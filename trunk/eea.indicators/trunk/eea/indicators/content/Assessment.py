@@ -101,7 +101,7 @@ Assessment_schema['relatedItems'].widget.visible = {'view':'invisible', 'edit':'
 finalizeATCTSchema(Assessment_schema)
 ##/code-section after-schema
 
-class Assessment(ATFolder, BrowserDefaultMixin):
+class Assessment(ATFolder, ModalFieldEditableAware, BrowserDefaultMixin):
     """
     """
     security = ClassSecurityInfo()

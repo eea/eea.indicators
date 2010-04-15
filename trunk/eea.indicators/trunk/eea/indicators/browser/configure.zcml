@@ -40,13 +40,17 @@
 		permission="zope2.View"
 		/>
 
+
 	<!-- subviews -->
 
-	<browser:page
+	<browser:page name="fulldetail"
 		for="eea.indicators.content.interfaces.IPolicyQuestion"
-		name="fulldetail"
 		template="templates/policyquestion_fulldetail.pt"
-		permission="zope2.View"
+		permission="zope2.View" />
+
+	<browser:page name="indicator_utils" for="zope.interface.Interface"
+		class=".utils.IndicatorUtils" permission="zope2.View" 
+		allowed_interface=".utils.IIndicatorUtils" 	
 		/>
 
 
@@ -54,26 +58,14 @@
 
 	<browser:resource
 		name='indicators.css'
-		file='css/indicators.css'
-		/>
+		file='css/indicators.css' />
 
 	<browser:resource
 		name='modaledit.css'
-		file='css/modaledit.css'
-		/>
+		file='css/modaledit.css' />
 
 	<browser:resource
 		name='indicators.js'
-		file='js/indicators.js'
-		/>
-
-	<!-- <configure package="eea.facetednavigation.browser.resources"> -->
-	<!-- 	<browser:page -->
-	<!-- 		for="*" -->
-	<!-- 		name="active_dialogs.css" -->
-	<!-- 		class=".css.EditCSS" -->
-	<!-- 		permission="zope.Public" -->
-	<!-- 		/> -->
-	<!-- </configure> -->
+		file='js/indicators.js' />
 
 </configure>

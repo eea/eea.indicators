@@ -140,10 +140,11 @@
 			<div class="visualClear"><!-- --></div>
 		</metal:macro>
 
-		<div metal:define-macro="active_field" class="active_field_hovered">
+		<div metal:define-macro="active_field" class="active_field_hovered" 
+			tal:define="thiscontext nocall:thiscontext|context">
 			<div class="control">
 				<a href="" 
-					tal:attributes="href string:${submit_handler}?fieldset=${fieldset}&specific_field=$fieldname">Edit</a>
+					tal:attributes="href string:${thiscontext/absolute_url}/${submit_handler}?fieldset=${fieldset}&specific_field=$fieldname">Edit</a>
 			</div>
 			<div class="content">
 				<metal:slot metal:define-slot="content"></metal:slot>

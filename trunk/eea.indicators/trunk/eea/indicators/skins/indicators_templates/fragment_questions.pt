@@ -1,40 +1,8 @@
-<div tal:define="assessments context/get_assessments; 
+<div tal:define="
+	assessments context/get_assessments; 
 	key nocall:assessments/key;
-	secondary assessments/secondary;">
-
-	<div tal:condition="key" >
-		<h2 tal:content="key/Title">Question here</h2>
-		<div tal:replace="structure python:key.getAssessment()">Question here</div>
-		<tal:mapsandgraphs tal:define="figures python:key.getFolderContents()"
-			tal:condition="figures">
-			<h2 i18n:translate="publication_maps_and_graphs">Maps and graphs</h2>
-			<div class="map-photo-album"
-				tal:define="Batch python:modules['Products.CMFPlone'].Batch;
-				figure_context python:True;
-				b_start python:request.get('b_start', 0);
-				template_id string:;
-				folderContents python:Batch(figures, 12, int(b_start), orphan=1)">
-				<h4 id="maps-and-graphs" style="display: none">Fancybox relations</h4>
-				<metal:figures use-macro="here/atct_album_view/macros/listing" />
-			</div>
-		</tal:mapsandgraphs>
-	</div>
-
-	<tal:parts repeat="part secondary">
-		<h2 tal:content="part/Title">Question here</h2>
-		<div tal:replace="structure part/assessment">Question here</div>
-		<tal:mapsandgraphs tal:define="figures python:part.getFolderContents()"
-			tal:condition="figures">
-			<h2 i18n:translate="publication_maps_and_graphs">Maps and graphs</h2>
-			<div class="map-photo-album"
-				tal:define="Batch python:modules['Products.CMFPlone'].Batch;
-				figure_context python:True;
-				b_start python:request.get('b_start', 0);
-				template_id string:;
-				folderContents python:Batch(figures, 12, int(b_start), orphan=1)">
-				<h4 id="maps-and-graphs" style="display: none">Fancybox relations</h4>
-				<metal:figures use-macro="here/atct_album_view/macros/listing" />
-			</div>
-		</tal:mapsandgraphs>
+	secondary nocall:assessments/secondary;">
+	<tal:parts repeat="part python:[key] + secondary">
+		<div tal:replace="structure part/fragment_assessment_part" tal:condition="part" />
 	</tal:parts>
 </div>

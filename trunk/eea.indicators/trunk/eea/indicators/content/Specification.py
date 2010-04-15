@@ -3,7 +3,7 @@
 # $Id$
 #
 # Copyright (c) 2010 by ['Tiberiu Ichim']
-# Generator: ArchGenXML
+# Generator: ArchGenXML 
 #            http://plone.org/products/archgenxml
 #
 # GNU General Public License (GPL)
@@ -43,6 +43,7 @@ from Products.UserAndGroupSelectionWidget import UserAndGroupSelectionWidget
 from eea.dataservice.vocabulary import Organisations
 from eea.indicators import msg_factory as _
 from eea.indicators.browser.assessment import create_version as create_assessment_version
+from eea.indicators.content.base import ModalFieldEditableAware, CustomizedObjectFactory
 from zope import event
 from zope.app.event import objectevent
 
@@ -491,7 +492,7 @@ required_for_publication = [
 
 ##/code-section after-schema
 
-class Specification(ATFolder, ThemeTaggable, BrowserDefaultMixin):
+class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  CustomizedObjectFactory, BrowserDefaultMixin):
     """
     """
     security = ClassSecurityInfo()
@@ -634,16 +635,6 @@ class Specification(ATFolder, ThemeTaggable, BrowserDefaultMixin):
                 )
         return res
 
-    security.declareProtected(permissions.ModifyPortalContent, 'object_factory')
-    def object_factory(self):
-        """Create an object according to special rules for that object """
-
-        factories = SpecificationFactories(self)
-        type_name = self.REQUEST['type_name']
-        factory = factories[type_name]
-        obj = factory()
-        return "OK"
-
     security.declareProtected(permissions.ModifyPortalContent, 'delete_object')
     def delete_object(self):
         """Delete objects from this container"""
@@ -651,150 +642,6 @@ class Specification(ATFolder, ThemeTaggable, BrowserDefaultMixin):
         id = self.REQUEST['id']
         del self[id]
         return "OK"
-
-    security.declareProtected(permissions.ModifyPortalContent, 'simpleProcessForm')
-    def simpleProcessForm(self, data=1, metadata=0, REQUEST=None, values=None):
-        """Processes the schema looking for data in the form.
-        """
-
-        #customized to process a single field instead of multiple fields
-
-        request = REQUEST or self.REQUEST
-        _marker = []
-        if values:
-            form = values
-        else:
-            form = request.form
-
-        fieldset = form.get('fieldset', None)
-        schema = self.Schema()
-        schemata = self.Schemata()
-        fields = []
-
-        fieldname = None
-        for name in form.keys():
-            if name in self.schema.keys():
-                fieldname = name
-
-        if not fieldname:
-            raise ValueError("Field is not found")
-            return
-
-        field = self.schema[fieldname]
-
-        result = field.widget.process_form(self, field, form,
-                                           empty_marker=_marker)
-        try:
-            # Pass validating=False to inform the widget that we
-            # aren't in the validation phase, IOW, the returned
-            # data will be forwarded to the storage
-            result = field.widget.process_form(self, field, form,
-                                               empty_marker=_marker,
-                                               validating=False)
-        except TypeError:
-            # Support for old-style process_form methods
-            result = field.widget.process_form(self, field, form,
-                                               empty_marker=_marker)
-
-        # Set things by calling the mutator
-        mutator = field.getMutator(self)
-        __traceback_info__ = (self, field, mutator)
-        result[1]['field'] = field.__name__
-        mapply(mutator, result[0], **result[1])
-
-        self.reindexObject()
-        self.at_post_edit_script()
-        event.notify(objectevent.ObjectModifiedEvent(self))
-
-        logging.info("SimpleProcessForm done")
-        return
-
-    security.declareProtected(permissions.View, 'simple_validate')
-    def simple_validate(self, REQUEST, errors=None):
-
-        #customized because we don't want to validate a whole
-        #schemata, because some fields are required
-
-        if errors is None:
-            errors = {}
-
-        _marker = []
-        form = REQUEST.form
-        instance = self
-
-        fieldname = None
-        for name in form.keys():
-            if name in self.schema.keys():
-                fieldname = name
-                break
-        if not fieldname:
-            raise ValueError("Could not get valid field from the request")
-
-        fields = [(field.getName(), field) for field in
-                        self.schema.filterFields(__name__=fieldname)]
-        for name, field in fields:
-            error = 0
-            value = None
-            widget = field.widget
-            if form:
-                result = widget.process_form(instance, field, form,
-                                             empty_marker=_marker)
-            else:
-                result = None
-            if result is None or result is _marker:
-                accessor = field.getEditAccessor(instance) or field.getAccessor(instance)
-                if accessor is not None:
-                    value = accessor()
-                else:
-                    # can't get value to validate -- bail
-                    continue
-            else:
-                value = result[0]
-
-            res = field.validate(instance=instance,
-                                 value=value,
-                                 errors=errors,
-                                 REQUEST=REQUEST)
-            if res:
-                errors[field.getName()] = res
-        return errors
-
-
-
-registerType(Specification, PROJECTNAME)
-# end of class Specification
-
-##code-section module-footer #fill in your manual code here
-
-#placed here so that it will be found by extraction utility
-_titlemsg = _('label-newly-created-type',
-        default="Newly created ${type_name}",
-        )
-
-class SpecificationFactories(object):
-    """A simple class that provides some inteligence for specification object factories
-
-    These object factories are used in the Specification Aggregated Edit View
-    """
-
-    def __init__(self, spec):
-        self.spec = spec
-
-    def __getitem__(self, name):
-        return getattr(self, 'factory_' + name)
-
-    def _generic_factory(self, type_name):
-        id = self.spec.generateUniqueId(type_name)
-        new_id = self.spec.invokeFactory(type_name=type_name,
-                id=id,
-                title=self.spec.translate(
-                    msgid='label-newly-created-type',
-                    domain='indicators',
-                    default="Newly created ${type_name}",
-                    mapping={'type_name':type_name},
-                    ))
-        ref = self.spec[new_id]
-        return ref
 
     def factory_RationaleReference(self):
         type_name = 'RationaleReference'
@@ -812,31 +659,44 @@ class SpecificationFactories(object):
         type_name = 'Assessment'
 
         #create a version if we already have an Assessment
-        assessments = self.spec.objectValues(type_name)
+        assessments = self.objectValues(type_name)
         if assessments:
             original = assessments[-1]  #we assume the latest object is the last one
             return create_assessment_version(original)
 
         #create a new Assessment from scratch
-        id = self.spec.generateUniqueId(type_name)
-        new_id = self.spec.invokeFactory(type_name=type_name,
+        id = self.generateUniqueId(type_name)
+        new_id = self.invokeFactory(type_name=type_name,
                 id=id,
-                title=self.spec.translate(
+                title=self.translate(
                     msgid='label-newly-created-type',
                     domain='indicators',
                     default="Newly created ${type_name}",
                     mapping={'type_name':type_name},
                     ))
-        ast = self.spec[new_id]
+        ast = self[new_id]
 
         #create assessment parts for each policy question
-        for pq in self.spec.objectValues("PolicyQuestion"):
+        for pq in self.objectValues("PolicyQuestion"):
             id = ast.invokeFactory(type_name="AssessmentPart",
                     id=ast.generateUniqueId("PolicyQuestion"),)
             ap = ast[id]
             ap.setQuestion_answered(pq)
+            ap.reindexObject()
 
         return ast
+
+
+
+registerType(Specification, PROJECTNAME)
+# end of class Specification
+
+##code-section module-footer #fill in your manual code here
+
+#placed here so that it will be found by extraction utility
+_titlemsg = _('label-newly-created-type',
+        default="Newly created ${type_name}",
+        )
 
 ##/code-section module-footer
 

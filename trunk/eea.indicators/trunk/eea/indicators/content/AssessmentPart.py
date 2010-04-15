@@ -28,6 +28,7 @@ from Products.ATContentTypes.content.folder import ATFolder, ATFolderSchema
 
 ##code-section module-header #fill in your manual code here
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema
+from eea.indicators.content.base import ModalFieldEditableAware
 ##/code-section module-header
 
 schema = Schema((
@@ -143,9 +144,12 @@ class AssessmentPart(ATFolder, ATCTContent, BrowserDefaultMixin):
     security.declarePublic('get_specification_path')
     def get_specification_path(self):
         #returns the path to the specification, used by the ReferenceWidget
-        import pdb; pdb.set_trace()
         spec = self.aq_parent.aq_parent #Specification -> Assessment -> AssessmentPart
         return spec.getPhysicalPath()
+
+    def factory_EEAFigure(self):
+        type_name = 'EEAFigure'
+        return self._generic_factory(type_name)
 
 
 

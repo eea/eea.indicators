@@ -126,7 +126,7 @@ dl.toc {
     padding:1em 0;
 }
 
-.active_field .metadata, .active_region .metadata {
+.active_field .metadata, .active_field_hovered .metadata, .active_region .metadata {
 	display:none;
 }
 
@@ -159,6 +159,11 @@ dl.toc {
 }
 .active_field h5 {
 	margin-top:0;
+}
+.active_region .placeholder {
+	background-color:#FFEB9B;
+	padding:1em;
+	text-align:center;
 }
 
 a.object_creator {
