@@ -32,6 +32,7 @@ from datetime import datetime
 from eea.dataservice.vocabulary import DatasetYears
 from eea.dataservice.widgets.ManagementPlanWidget import ManagementPlanWidget
 from eea.indicators import msg_factory as _
+from eea.indicators.content.base import ModalFieldEditableAware, CustomizedObjectFactory
 ##/code-section module-header
 
 schema = Schema((
