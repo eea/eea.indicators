@@ -407,7 +407,7 @@ function ajaxify(el, fieldname){
 			var kupu_id = $(this).attr('id');
 			setTimeout(function(){
 				initPloneKupu(kupu_id);
-				}, 100);
+				}, 1000);
 		});
 	
 	$("form", el).submit(

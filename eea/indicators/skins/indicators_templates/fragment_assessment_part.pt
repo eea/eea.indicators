@@ -1,0 +1,54 @@
+<tal:def tal:define="
+	submit_handler string:simple_edit; 
+	imsutils nocall:context/@@indicator_utils;
+	region_name python:imsutils.str_to_id(context.Title(), context);
+	region_update_handler string:${context/absolute_url}/fragment_assessment_part;
+	figures python:context.getFolderContents();
+	">
+
+	<metal:macro metal:use-macro="context/simple_edit_macros/macros/active_region">
+		<metal:slot metal:fill-slot="content">
+
+			<h2 tal:content="context/Title">Question here</h2>
+
+			<tal:def tal:define="fieldname string:assessment; 
+				fieldset string:default; ">
+				<metal:macro metal:use-macro="context/simple_edit_macros/macros/active_field">
+					<metal:slot metal:fill-slot="content">
+						<div tal:condition="python:not imsutils.field_has_value('assessment', context)" class="placeholder">
+							Please edit this Question Assessment
+						</div>
+						<div tal:replace="structure context/assessment" />
+					</metal:slot>
+					<metal:slot metal:fill-slot="extra-metadata">
+						<div class="width">800</div>
+						<div class="height">600</div>
+						<!-- <div class="title">Question assessment</div> -->
+					</metal:slot>
+				</metal:macro>
+			</tal:def>
+
+			<div tal:attributes="class python:figures and ' ' or 'placeholder'">
+				<a href='./object_factory?type_name=EEAFigure' 
+					tal:attributes="href string:${context/absolute_url}/object_factory?type_name=EEAFigure"
+					class="object_creator">+ EEA Figure</a>
+				<span tal:condition="not:figures">Please add at least one EEAFigure</span>
+			</div>
+
+				<tal:mapsandgraphs tal:condition="figures">
+					<h2 i18n:translate="publication_maps_and_graphs">Maps and graphs</h2>
+					<div class="map-photo-album"
+						tal:define="Batch python:modules['Products.CMFPlone'].Batch;
+						figure_context python:True;
+						b_start python:request.get('b_start', 0);
+						template_id string:;
+						folderContents python:Batch(figures, 12, int(b_start), orphan=1)">
+						<h4 id="maps-and-graphs" style="display: none">Fancybox relations</h4>
+						<metal:figures use-macro="here/atct_album_view/macros/listing" />
+					</div>
+				</tal:mapsandgraphs>
+
+		</metal:slot>
+	</metal:macro>
+
+</tal:def>

@@ -1,5 +1,9 @@
+from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone.utils import normalizeString
 from Products.Five import BrowserView
+from zope.interface import Interface, implements
 import logging
+
 
 class Sorter(BrowserView):
     """Sort objects inside an ordered folder based on new ids"""
@@ -15,3 +19,29 @@ class Sorter(BrowserView):
                 #logging.info("Moved %s from position %s to %s", id, old_i, i)
 
         return "<done />"
+
+
+class IIndicatorUtils(Interface):
+    #str_to_id = Attribute(u"String to Id conversion")
+
+    def str_to_id():
+        """Convert an ordinary string (maybe title) to something that can be used as a DOM element ID"""
+
+    def field_has_value(fieldname, context):
+        """Return True if the given field has a value for the given context object"""
+
+
+class IndicatorUtils(BrowserView):
+    """Various utils for Indicators"""
+
+    implements(IIndicatorUtils)
+
+    def str_to_id(self, s, context):
+        s = normalizeString(s, context=context)
+        return s.replace(".", "_")
+
+    def field_has_value(self, fieldname, context):
+        """This is a dumb implementation that assumes only richtext for now"""
+        convert = getToolByName(self.context, 'portal_transforms').convert
+        value = context.schema[fieldname].getAccessor(context)()
+        return convert('html_to_text', value).getData()
