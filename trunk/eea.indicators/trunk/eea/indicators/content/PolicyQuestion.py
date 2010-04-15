@@ -85,7 +85,7 @@ class PolicyQuestion(ATCTContent, BrowserDefaultMixin):
     implements(interfaces.IPolicyQuestion)
 
     meta_type = 'PolicyQuestion'
-    _at_rename_after_creation = False
+    _at_rename_after_creation = True
 
     schema = PolicyQuestion_schema
 
