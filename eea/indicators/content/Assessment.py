@@ -109,7 +109,7 @@ class Assessment(ATFolder, ModalFieldEditableAware, BrowserDefaultMixin):
     implements(interfaces.IAssessment)
 
     meta_type = 'Assessment'
-    _at_rename_after_creation = False
+    _at_rename_after_creation = True
 
     schema = Assessment_schema
 

@@ -500,7 +500,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
     implements(interfaces.ISpecification)
 
     meta_type = 'Specification'
-    _at_rename_after_creation = False
+    _at_rename_after_creation = True
 
     schema = Specification_schema
 

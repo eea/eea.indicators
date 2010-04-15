@@ -112,7 +112,7 @@ class AssessmentPart(ATFolder, ATCTContent, BrowserDefaultMixin):
     implements(interfaces.IAssessmentPart)
 
     meta_type = 'AssessmentPart'
-    _at_rename_after_creation = False
+    _at_rename_after_creation = True
 
     schema = AssessmentPart_schema
 
