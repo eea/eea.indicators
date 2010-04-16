@@ -28,7 +28,7 @@ from Products.ATContentTypes.content.folder import ATFolder, ATFolderSchema
 
 ##code-section module-header #fill in your manual code here
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema
-from eea.indicators.content.base import ModalFieldEditableAware
+from eea.indicators.content.base import ModalFieldEditableAware, CustomizedObjectFactory
 ##/code-section module-header
 
 schema = Schema((
@@ -104,7 +104,7 @@ AssessmentPart_schema['relatedItems'].widget.visible = {'view':'invisible', 'edi
 finalizeATCTSchema(AssessmentPart_schema)
 ##/code-section after-schema
 
-class AssessmentPart(ATFolder, ATCTContent, BrowserDefaultMixin):
+class AssessmentPart(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory, ATCTContent, BrowserDefaultMixin):
     """
     """
     security = ClassSecurityInfo()

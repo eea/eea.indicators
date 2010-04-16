@@ -119,7 +119,7 @@ schema = Schema((
             i18n_domain='indicators',
         ),
         schemata="Classification",
-        vocabulary=['A','B','C','D', 'E'],
+        vocabulary=['None', 'A','B','C','D', 'E'],
         required_for_published=True,
     ),
     StringField(
