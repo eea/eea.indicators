@@ -45,8 +45,9 @@ schema = Schema((
             label_msgid='indicators_label_key_message',
             i18n_domain='indicators',
         ),
-        default_output_type='text/html',
+        default_content_type="text/html",
         searchable=True,
+        default_output_type="text/x-html-safe",
         required_for_published=True,
     ),
     ManagementPlanField(

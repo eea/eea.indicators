@@ -45,3 +45,12 @@ class IndicatorUtils(BrowserView):
         convert = getToolByName(self.context, 'portal_transforms').convert
         value = context.schema[fieldname].getAccessor(context)()
         return convert('html_to_text', value).getData()
+
+
+class ObjectDelete(BrowserView):
+    """Delete objects from this container"""
+
+    def __call__(self):
+        id = self.request.form['id']
+        del self.context[id]
+        return "<done />"

@@ -61,8 +61,10 @@
 									<div class="figure_edit_control">
 										<a href="" tal:attributes="href listing_url">Edit</a>
 									</div>
-									<div class="figure_edit_control" style="margin-top:80px">
-										<a href="" tal:attributes="href listing_url">Delete</a>
+
+									<div class="figure_edit_control object_delete" style="margin-top:80px">
+										<a class="object_delete" href="" tal:attributes="href 
+											string:${obj/aq_parent/absolute_url}/@@object_delete?id=${obj/getId}">Delete</a>
 									</div>
 									<a tal:condition="display" tal:attributes="
 										href listing_url;

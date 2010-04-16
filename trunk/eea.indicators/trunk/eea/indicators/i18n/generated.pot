@@ -447,6 +447,11 @@ msgstr ""
 msgid "indicators_label_timelines"
 msgstr ""
 
+#. Default: "Timelines"
+#: content/ExternalDataSpec.py
+msgid "indicators_label_timeliness"
+msgstr ""
+
 #. Default: "Title"
 #: ExternalDataSpec.py
 #: MethodologyReference.py

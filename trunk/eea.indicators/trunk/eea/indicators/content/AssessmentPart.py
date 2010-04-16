@@ -35,16 +35,17 @@ schema = Schema((
 
     TextField(
         name='assessment',
-        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
         widget=RichWidget(
             label='Assessment',
             label_msgid='indicators_label_assessment',
             i18n_domain='indicators',
         ),
-        required=True,
+        default_content_type="text/html",
         searchable=True,
-        default_output_type='text/html',
+        required=True,
         required_for_published=True,
+        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+        default_output_type="text/x-html-safe",
     ),
     StringField(
         name='title',
