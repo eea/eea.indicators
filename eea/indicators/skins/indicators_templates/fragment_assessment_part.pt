@@ -59,7 +59,7 @@
 								listing_url urlview/listing_url;">
 								<div class='photoAlbumEntry photoAlbumFolder'>
 									<div class="figure_edit_control">
-										<a href="" tal:attributes="href listing_url">Edit</a>
+										<a href="" tal:attributes="href string:${listing_url}/edit">Edit</a>
 									</div>
 
 									<div class="figure_edit_control object_delete" style="margin-top:80px">
