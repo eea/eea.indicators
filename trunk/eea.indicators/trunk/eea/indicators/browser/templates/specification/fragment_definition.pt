@@ -2,13 +2,14 @@
 	<tal:def tal:define="region_name string:definition_area;
 		region_update_handler string:fragment_definition;">
 
+		<div class="logic_group">
+		<h2 class="definition">Indicator definition</h2>
 		<metal:macro metal:use-macro="context/simple_edit_macros/macros/active_region">
 			<metal:slot metal:fill-slot="content">
 
 				<tal:def tal:define="fieldname string:definition; fieldset string:default">
 					<metal:macro metal:use-macro="here/simple_edit_macros/macros/active_field">
 						<metal:slot metal:fill-slot="content">
-							<h2 class="definition">Indicator definition</h2>
 							<p tal:replace="structure context/getDefinition"></p>
 						</metal:slot>
 						<metal:slot metal:fill-slot="extra-metadata">
@@ -34,6 +35,7 @@
 
 			</metal:slot>
 		</metal:macro>
+	</div>
 
 	</tal:def>
 </tal:def>

@@ -662,6 +662,10 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
         type_name = 'WorkItem'
         return self._generic_factory(type_name)
 
+    def factory_MethodologyReference(self):
+        type_name = 'MethodologyReference'
+        return self._generic_factory(type_name)
+
     def factory_Assessment(self):
         type_name = 'Assessment'
 
