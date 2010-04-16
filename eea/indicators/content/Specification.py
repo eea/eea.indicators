@@ -92,13 +92,16 @@ schema = Schema((
     ),
     TextField(
         name='more_updates_on',
-        widget=TextAreaWidget(
+        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+        widget=RichWidget(
             label="More updates on",
             label_msgid='indicators_label_more_updates_on',
             i18n_domain='indicators',
         ),
-        schemata="default",
+        default_content_type="text/html",
         searchable=True,
+        schemata="default",
+        default_output_type="text/x-html-safe",
     ),
     StringField(
         name='dpsir',
@@ -150,9 +153,10 @@ schema = Schema((
             label_msgid='indicators_label_contact',
             i18n_domain='indicators',
         ),
-        default_output_type='text/html',
-        schemata="Responsability",
+        default_content_type="text/html",
         searchable=True,
+        schemata="Responsability",
+        default_output_type="text/x-html-safe",
     ),
     StringField(
         name='csi_status',
@@ -167,16 +171,17 @@ schema = Schema((
     ),
     TextField(
         name='rationale_justification',
-        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
         widget=RichWidget(
             label="Rationale justification",
             label_msgid='indicators_label_rationale_justification',
             i18n_domain='indicators',
         ),
-        schemata="Rationale",
+        default_content_type="text/html",
         searchable=True,
-        default_output_type='text/html',
         required_for_published=True,
+        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+        schemata="Rationale",
+        default_output_type="text/x-html-safe",
     ),
     TextField(
         name='rationale_uncertainty',
@@ -186,23 +191,25 @@ schema = Schema((
             label_msgid='indicators_label_rationale_uncertainty',
             i18n_domain='indicators',
         ),
-        default_output_type='text/html',
-        schemata="Rationale",
+        default_content_type="text/html",
         searchable=True,
+        schemata="Rationale",
+        default_output_type="text/x-html-safe",
     ),
     TextField(
         name='policy_context_description',
-        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
         widget=RichWidget(
             label="Policy context",
             label_msgid='indicators_label_policy_context_description',
             i18n_domain='indicators',
         ),
-        required=True,
-        schemata="PolicyContext",
+        default_content_type="text/html",
         searchable=True,
-        default_output_type='text/html',
+        required=True,
         required_for_published=True,
+        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+        schemata="PolicyContext",
+        default_output_type="text/x-html-safe",
     ),
     TextField(
         name='policy_context_targets',
@@ -212,9 +219,10 @@ schema = Schema((
             label_msgid='indicators_label_policy_context_targets',
             i18n_domain='indicators',
         ),
-        default_output_type='text/html',
-        schemata="PolicyContext",
+        default_content_type="text/html",
         searchable=True,
+        schemata="PolicyContext",
+        default_output_type="text/x-html-safe",
     ),
     StringField(
         name='version_id',
@@ -240,45 +248,48 @@ schema = Schema((
     ),
     TextField(
         name='definition',
-        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
         widget=RichWidget(
             label="Definition",
             label_msgid='indicators_label_definition',
             i18n_domain='indicators',
         ),
-        required=False,
-        schemata="default",
+        default_content_type="text/html",
         searchable=True,
-        default_output_type='text/html',
+        required=False,
         required_for_published=True,
+        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+        schemata="default",
+        default_output_type="text/x-html-safe",
     ),
     TextField(
         name='units',
-        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
         widget=RichWidget(
             label="Units",
             label_msgid='indicators_label_units',
             i18n_domain='indicators',
         ),
-        required=False,
-        schemata="default",
+        default_content_type="text/html",
         searchable=True,
-        default_output_type='text/html',
+        required=False,
         required_for_published=True,
+        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+        schemata="default",
+        default_output_type="text/x-html-safe",
     ),
     TextField(
         name='methodology',
-        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
         widget=RichWidget(
             label="Methodology",
             label_msgid='indicators_label_methodology',
             i18n_domain='indicators',
         ),
-        required=False,
-        schemata="Methodology",
+        default_content_type="text/html",
         searchable=True,
-        default_output_type='text/html',
+        required=False,
         required_for_published=True,
+        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+        schemata="Methodology",
+        default_output_type="text/x-html-safe",
     ),
     TextField(
         name='methodology_uncertainty',
@@ -288,9 +299,10 @@ schema = Schema((
             label_msgid='indicators_label_methodology_uncertainty',
             i18n_domain='indicators',
         ),
-        default_output_type='text/html',
-        schemata="Methodology",
+        default_content_type="text/html",
         searchable=True,
+        schemata="Methodology",
+        default_output_type="text/x-html-safe",
     ),
     TextField(
         name='data_uncertainty',
@@ -300,9 +312,10 @@ schema = Schema((
             label_msgid='indicators_label_data_uncertainty',
             i18n_domain='indicators',
         ),
-        default_output_type='text/html',
-        schemata="DataSpecs",
+        default_content_type="text/html",
         searchable=True,
+        schemata="DataSpecs",
+        default_output_type="text/x-html-safe",
     ),
     TextField(
         name='methodology_gapfilling',
@@ -312,9 +325,10 @@ schema = Schema((
             label_msgid='indicators_label_methodology_gapfilling',
             i18n_domain='indicators',
         ),
-        default_output_type='text/html',
-        schemata="Methodology",
+        default_content_type="text/html",
         searchable=True,
+        schemata="Methodology",
+        default_output_type="text/x-html-safe",
     ),
     TextField(
         name='description',
@@ -324,6 +338,7 @@ schema = Schema((
             label_msgid='indicators_label_description',
             i18n_domain='indicators',
         ),
+        accessor="Description",
     ),
     StringField(
         name='related_external_indicator',
@@ -634,14 +649,6 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
                 "%s%s" % (code['set'], code['code'])]
                 )
         return res
-
-    security.declareProtected(permissions.ModifyPortalContent, 'delete_object')
-    def delete_object(self):
-        """Delete objects from this container"""
-
-        id = self.REQUEST['id']
-        del self[id]
-        return "OK"
 
     def factory_RationaleReference(self):
         type_name = 'RationaleReference'

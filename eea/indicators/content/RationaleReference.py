@@ -55,16 +55,17 @@ schema = Schema((
     ),
     TextField(
         name='description',
-        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
         widget=RichWidget(
             label='Description',
             label_msgid='indicators_label_description',
             i18n_domain='indicators',
         ),
+        default_content_type="text/html",
         searchable=True,
-        default_output_type='text/html',
-        accessor="getDescription",
         required_for_published=True,
+        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+        default_output_type="text/x-html-safe",
+        accessor="getDescription",
     ),
 
 ),
