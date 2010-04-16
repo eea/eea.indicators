@@ -144,5 +144,6 @@ class CustomizedObjectFactory(object):
                     default="Newly created ${type_name}",
                     mapping={'type_name':type_name},
                     ))
+        
         ref = self[new_id]
         return ref

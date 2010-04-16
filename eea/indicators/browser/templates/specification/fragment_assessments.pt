@@ -2,6 +2,7 @@
 	<tal:def tal:define="region_name string:assessments_area;
 		region_update_handler string:fragment_assessments;">
 
+		<h2>Assessment versions</h2>
 		<metal:macro metal:use-macro="context/simple_edit_macros/macros/active_region">
 			<metal:slot metal:fill-slot="content" 
 				tal:define="has_pq python:here.getFolderContents(
@@ -16,7 +17,6 @@
 					class="object_creator" 
 					tal:attributes="class string:object_creator${can_add}">+ Indicator Assessment</a>
 
-				<h2>Assessment versions</h2>
 				<h5>Published (reviewed and quality assured)</h5>
 				<ul tal:define="assessments python:here.getFolderContents(
 					contentFilter={'review_state':'published', 

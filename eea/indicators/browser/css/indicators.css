@@ -167,18 +167,20 @@ dl.toc {
 }
 
 a.object_creator {
+	/* float:right; */
+	/* padding:4px; */
 	background-color:#CEE2A8;
 	border-bottom:1px solid #AAA;
 	color:black;
 	display:block;
-	float:right;
-	padding:4px;
+	margin-bottom:6px;
+	text-align:center;
 	text-decoration:none;
 }
 a.object_creator:hover {
 	background-color:#79AE59;
 	color:white;
-	border:none;
+	border-bottom:1px solid #AAA;
 }
 a.object_creator-disabled {
 	display:none;
@@ -252,6 +254,23 @@ a.schemata_edit:hover, a.object_delete:hover {
 	z-index:1100;
 }
 
+.logic_group {
+	padding:1em;
+}
+.figure_edit_control {
+	position:absolute;
+	margin-top:40px;
+	margin-left:50px;
+}
+.figure_edit_control a {
+	background-color:#79AE59;
+	color:white;
+	font-size:inherit;
+	height:inherit;
+	width:inherit;
+	padding:4px;
+	font-weight:bold;
+}
 
 /* ul.toc { */
 /*     background-color:lightblue; */
