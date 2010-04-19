@@ -2,51 +2,53 @@
 	<tal:def tal:define="region_name string:assessments_area;
 		region_update_handler string:fragment_assessments;">
 
-		<h2>Assessment versions</h2>
-		<metal:macro metal:use-macro="context/simple_edit_macros/macros/active_region">
-			<metal:slot metal:fill-slot="content" 
-				tal:define="has_pq python:here.getFolderContents(
-				contentFilter={'portal_type':'PolicyQuestion'});
-				can_add python: has_pq and ' ' or '-disabled';">
+		<div class="logic_group">
+			<h2>Assessment versions</h2>
+			<metal:macro metal:use-macro="context/simple_edit_macros/macros/active_region">
+				<metal:slot metal:fill-slot="content" 
+					tal:define="has_pq python:here.getFolderContents(
+					contentFilter={'portal_type':'PolicyQuestion'});
+					can_add python: has_pq and ' ' or '-disabled';">
 
-				<div tal:condition="not:has_pq" class="checks_alert">
-					You can't create new Assessments until you have at least a main Policy Question
-				</div>
+					<div tal:condition="not:has_pq" class="checks_alert">
+						You can't create new Assessments until you have at least a main Policy Question
+					</div>
 
-				<a href='./object_factory?type_name=Assessment' 
-					class="object_creator" 
-					tal:attributes="class string:object_creator${can_add}">+ Indicator Assessment</a>
+					<a href='./object_factory?type_name=Assessment' 
+						class="object_creator" 
+						tal:attributes="class string:object_creator${can_add}">+ Indicator Assessment</a>
 
-				<div style="width:49%; float:left">
-					<h5>Published (reviewed and quality assured)</h5>
-					<ul tal:define="assessments python:here.getFolderContents(
-						contentFilter={'review_state':'published', 
-						'portal_type':'Assessment'})">
-						<li tal:condition="not:assessments">No published assessments</li>
-						<li tal:repeat="brain assessments">
-							<a tal:attributes="href python:brain.getObject().absolute_url()" tal:content="brain/Title">
-								Assessment title here
-							</a>
-						</li>
-					</ul>
-				</div>
+					<div style="width:49%; float:left">
+						<h5>Published (reviewed and quality assured)</h5>
+						<ul tal:define="assessments python:here.getFolderContents(
+							contentFilter={'review_state':'published', 
+							'portal_type':'Assessment'})">
+							<li tal:condition="not:assessments">No published assessments</li>
+							<li tal:repeat="brain assessments">
+								<a tal:attributes="href python:brain.getObject().absolute_url()" tal:content="brain/Title">
+									Assessment title here
+								</a>
+							</li>
+						</ul>
+					</div>
 
-				<div style="width:49%; float:left">
-					<h5>Draft (not yet published - not quality assured)</h5>
-					<ul tal:define="assessments python:here.getFolderContents(
-						contentFilter={'portal_type':'Assessment', 
-						'review_state':'draft'})">
-						<li tal:condition="not:assessments">No drafts available</li>
-						<li tal:repeat="brain python:assessments">
-							<a tal:attributes="href python:brain.getObject().absolute_url()" tal:content="brain/Title">
-								Assessment title here
-							</a>
-						</li>
-					</ul>
-				</div>
+					<div style="width:49%; float:left">
+						<h5>Draft (not yet published - not quality assured)</h5>
+						<ul tal:define="assessments python:here.getFolderContents(
+							contentFilter={'portal_type':'Assessment', 
+							'review_state':'draft'})">
+							<li tal:condition="not:assessments">No drafts available</li>
+							<li tal:repeat="brain python:assessments">
+								<a tal:attributes="href python:brain.getObject().absolute_url()" tal:content="brain/Title">
+									Assessment title here
+								</a>
+							</li>
+						</ul>
+					</div>
 
-			</metal:slot>
-		</metal:macro>
+				</metal:slot>
+			</metal:macro>
 
+		</div>
 	</tal:def>
 </tal:def>
