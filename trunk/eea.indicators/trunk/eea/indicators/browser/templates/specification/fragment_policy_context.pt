@@ -1,59 +1,74 @@
 <tal:def tal:define="submit_handler string:simple_edit; ">
 	<tal:def tal:define="region_name string:policy_context_area;
-		region_update_handler string:fragment_policy_context;">
+		region_update_handler string:fragment_policy_context;
+		imsutils nocall:context/@@indicator_utils;">
 
 		<metal:macro metal:use-macro="context/simple_edit_macros/macros/active_region">
 			<metal:slot metal:fill-slot="content">
+				<div class="logic_group">
 
-				<h2 class="policy_context">Policy Context and targets</h2>
+					<h2 class="policy_context">Policy Context and targets</h2>
 
-				<tal:def tal:define="fieldname string:policy_context_description; fieldset string:PolicyContext">
-					<metal:macro metal:use-macro="here/simple_edit_macros/macros/active_field">
-						<metal:slot metal:fill-slot="content">
-							<h3>Context description</h3>
-							<p tal:content="structure context/getPolicy_context_description"></p>
-						</metal:slot>
-						<metal:slot metal:fill-slot="extra-metadata">
-							<div class="width">800</div>
-							<div class="height">600</div>
-						</metal:slot>
-					</metal:macro>
-				</tal:def>
+					<h3>Context description</h3>
+					<tal:def tal:define="fieldname string:policy_context_description; fieldset string:PolicyContext">
+						<metal:macro metal:use-macro="here/simple_edit_macros/macros/active_field">
+							<metal:slot metal:fill-slot="content">
+								<div tal:condition="python:not imsutils.field_has_value('policy_context_description', context)" 
+									class="placeholder">
+									Please fill in
+								</div>
+								<p tal:content="structure context/getPolicy_context_description"></p>
+							</metal:slot>
+							<metal:slot metal:fill-slot="extra-metadata">
+								<div class="width">800</div>
+								<div class="height">600</div>
+							</metal:slot>
+						</metal:macro>
+					</tal:def>
 
 
-				<tal:def tal:define="fieldname string:policy_context_targets; fieldset string:PolicyContext">
-					<metal:macro metal:use-macro="here/simple_edit_macros/macros/active_field">
-						<metal:slot metal:fill-slot="content">
-							<h3>Targets</h3>
-							<p tal:content="structure context/getPolicy_context_targets"></p>
-						</metal:slot>
-						<metal:slot metal:fill-slot="extra-metadata">
-							<div class="width">800</div>
-							<div class="height">600</div>
-						</metal:slot>
-					</metal:macro>
-				</tal:def>
+					<h3>Targets</h3>
+					<tal:def tal:define="fieldname string:policy_context_targets; fieldset string:PolicyContext">
+						<metal:macro metal:use-macro="here/simple_edit_macros/macros/active_field">
+							<metal:slot metal:fill-slot="content">
+								<div tal:condition="python:not imsutils.field_has_value('policy_context_targets', context)" 
+									class="placeholder">
+									Please fill in
+								</div>
+								<p tal:content="structure context/getPolicy_context_targets"></p>
+							</metal:slot>
+							<metal:slot metal:fill-slot="extra-metadata">
+								<div class="width">800</div>
+								<div class="height">600</div>
+							</metal:slot>
+						</metal:macro>
+					</tal:def>
 
-				<tal:def tal:define="fieldname string:related_policy_documents; fieldset string:PolicyContext">
-					<metal:macro metal:use-macro="here/simple_edit_macros/macros/active_field">
-						<metal:slot metal:fill-slot="content">
-							<h3>Related policy documents</h3>
-							<ul>
-								<li tal:repeat="doc context/getRelated_policy_documents">
-									<a href="" tal:attributes="href doc/getRemoteUrl" tal:content="doc/Title">
-										Doc title here
-									</a>
-									<div tal:content="structure doc/Description" />
-								</li>
-							</ul>
-						</metal:slot>
-						<metal:slot metal:fill-slot="extra-metadata">
-							<div class="width">800</div>
-							<div class="height">600</div>
-						</metal:slot>
-					</metal:macro>
-				</tal:def>
+					<h3>Related policy documents</h3>
+					<tal:def tal:define="fieldname string:related_policy_documents; 
+						fieldset string:PolicyContext; docs context/getRelated_policy_documents;">
+						<metal:macro metal:use-macro="here/simple_edit_macros/macros/active_field">
+							<metal:slot metal:fill-slot="content">
+								<div tal:condition="python:not docs" class="placeholder">
+									Please fill in
+								</div>
+								<ul>
+									<li tal:repeat="doc docs">
+										<a href="" tal:attributes="href doc/getRemoteUrl" tal:content="doc/Title">
+											Doc title here
+										</a>
+										<div tal:content="structure doc/Description" />
+									</li>
+								</ul>
+							</metal:slot>
+							<metal:slot metal:fill-slot="extra-metadata">
+								<div class="width">800</div>
+								<div class="height">600</div>
+							</metal:slot>
+						</metal:macro>
+					</tal:def>
 
+				</div>
 			</metal:slot>
 		</metal:macro>
 
