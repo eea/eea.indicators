@@ -3,7 +3,7 @@
 # $Id$
 #
 # Copyright (c) 2010 by ['Tiberiu Ichim']
-# Generator: ArchGenXML 
+# Generator: ArchGenXML
 #            http://plone.org/products/archgenxml
 #
 # GNU General Public License (GPL)
@@ -126,7 +126,9 @@ class WorkItem(ATCTContent, BrowserDefaultMixin):
                     default="Newly created work item"
                     )
 
-        return ("Work in progress due %s" % self.getDue_date())
+        duedate = self.toLocalizedTime(self.getDue_date(), long_format=0)
+        title = "Work in progress due %s" % duedate
+        return (title)
 
     security.declarePublic("Description")
     def Description(self):
