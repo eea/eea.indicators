@@ -3,7 +3,7 @@
 # $Id$
 #
 # Copyright (c) 2010 by ['Tiberiu Ichim']
-# Generator: ArchGenXML
+# Generator: ArchGenXML 
 #            http://plone.org/products/archgenxml
 #
 # GNU General Public License (GPL)
@@ -127,8 +127,14 @@ class WorkItem(ATCTContent, BrowserDefaultMixin):
                     )
 
         duedate = self.toLocalizedTime(self.getDue_date(), long_format=0)
-        title = "Work in progress due %s" % duedate
-        return (title)
+        title = _("work-work-aggregated",
+                default="Work ${status} due ${due}",
+                mapping = {
+                    'status':self.getStatus(),
+                    'due':duedate,
+                    }
+                )
+        return self.translate(title)
 
     security.declarePublic("Description")
     def Description(self):

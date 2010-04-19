@@ -1,11 +1,42 @@
-<h2 class="policy_questions">Data specifications</h2>
-<ul>
-	<li tal:repeat="data context/getRelatedItems">
-		<a href="" tal:attributes="href data/getDataset_url" tal:content="data/Title">Dataset title</a>
-		<div tal:content="structure data/Description" />
-	</li>
-	<li tal:repeat="data context/getSpecification_data">
-		<a href="" tal:attributes="href data/absolute_url" tal:content="data/Title">Dataset title</a>
-		<div tal:content="structure data/Description" />
-	</li>
-</ul>
+<tal:defs 
+	tal:define="region_name string:data_specifications;
+	region_update_handler string:fragment_data_specifications;
+	submit_handler string:simple_edit;
+	imsutils nocall:context/@@indicator_utils;
+	related context/getRelatedItems; specs context/getSpecification_data;">
+
+	<metal:macro metal:use-macro="context/simple_edit_macros/macros/active_region">
+		<metal:slot metal:fill-slot="content">
+
+			<div class="logic_group">
+				<h2 class="policy_questions">Data specifications</h2>
+				<tal:def tal:define="fieldname string:relatedItems; fieldset string:DataSpecs">
+					<metal:macro metal:use-macro="here/simple_edit_macros/macros/active_field">
+						<metal:slot metal:fill-slot="content">
+							<div tal:condition="python:not (related or specs)" 
+								class="placeholder">
+								Please fill in
+							</div>
+							<ul>
+								<li tal:repeat="data related">
+									<a href="" tal:attributes="href data/getDataset_url" tal:content="data/Title">Dataset title</a>
+									<div tal:content="structure data/Description" />
+								</li>
+								<li tal:repeat="data specs">
+									<a href="" tal:attributes="href data/absolute_url" tal:content="data/Title">Dataset title</a>
+									<div tal:content="structure data/Description" />
+								</li>
+							</ul>
+						</metal:slot>
+						<metal:slot metal:fill-slot="extra-metadata">
+							<div class="width">800</div>
+							<div class="height">600</div>
+						</metal:slot>
+					</metal:macro>
+				</tal:def>
+			</div>
+
+		</metal:slot>
+	</metal:macro>
+</tal:defs>
+

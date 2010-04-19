@@ -99,5 +99,11 @@
 		template="templates/specification/fragment_work.pt"
 		permission="zope2.View"
 		/>
+	<browser:page
+		for="eea.indicators.content.interfaces.ISpecification"
+		name="fragment_metadata"
+		template="templates/specification/fragment_metadata.pt"
+		permission="zope2.View"
+		/>
 
 </configure>
