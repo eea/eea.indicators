@@ -12,12 +12,15 @@
 __author__ = """Tiberiu Ichim <unknown>"""
 __docformat__ = 'plaintext'
 
-from AccessControl import ClassSecurityInfo
-from Products.Archetypes.atapi import *
-from zope.interface import implements
 import interfaces
+from zope.interface import implements
+from Products.Archetypes.atapi import *
+from AccessControl import ClassSecurityInfo
 from Products.ATContentTypes.content.folder import ATFolder
+from Products.CMFCore.permissions import ModifyPortalContent
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
+from Products.OrderableReferenceField._field import OrderableReferenceField
+from Products.ATReferenceBrowserWidget.ATReferenceBrowserWidget import ReferenceBrowserWidget
 
 from eea.indicators.config import *
 
@@ -134,6 +137,28 @@ schema = Schema((
         ),
         vocabulary=[('None', ''), ('D', 'Driving forces'), ('P', 'Pressures'), ('S', 'States'), ('I', 'Impacts'), ('R', 'Reactions')],
     ),
+    OrderableReferenceField(
+        'relatedItems',
+        relationship = 'relatesTo',
+        multiValued = True,
+        isMetadata = True,
+        languageIndependent = False,
+        index = 'KeywordIndex',
+        write_permission = ModifyPortalContent,
+        widget = ReferenceBrowserWidget(
+            allow_search = True,
+            allow_browse = True,
+            allow_sorting = True,
+            show_indexes = False,
+            force_close_on_insert = True,
+            label = "Related Item(s)",
+            label_msgid = "indfactsheet_label_related_items",
+            description = "Specify relaetd item(s).",
+            description_msgid = "indfactsheet_help_related_items",
+            i18n_domain = "plone",
+            visible = {'edit' : 'visible', 'view' : 'invisible' }
+            )
+        )
 
 ),
 )
@@ -144,6 +169,7 @@ schema = Schema((
 IndicatorFactSheet_schema = ATFolderSchema.copy() + \
     getattr(ATFolder, 'schema', Schema(())).copy() + \
     schema.copy()
+IndicatorFactSheet_schema.moveField('relatedItems', after='dpsir')
 
 ##code-section after-schema #fill in your manual code here
 ##/code-section after-schema
@@ -156,7 +182,7 @@ class IndicatorFactSheet(ATFolder, BrowserDefaultMixin):
     implements(interfaces.IIndicatorFactSheet)
 
     meta_type = 'IndicatorFactSheet'
-    _at_rename_after_creation = False
+    _at_rename_after_creation = True
 
     schema = IndicatorFactSheet_schema
 

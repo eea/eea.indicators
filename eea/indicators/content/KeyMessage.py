@@ -3,7 +3,7 @@
 # $Id$
 #
 # Copyright (c) 2010 by ['Tiberiu Ichim']
-# Generator: ArchGenXML 
+# Generator: ArchGenXML
 #            http://plone.org/products/archgenxml
 #
 # GNU General Public License (GPL)
@@ -64,7 +64,7 @@ class KeyMessage(ATCTContent, BrowserDefaultMixin):
     implements(interfaces.IKeyMessage)
 
     meta_type = 'KeyMessage'
-    _at_rename_after_creation = False
+    _at_rename_after_creation = True
 
     schema = KeyMessage_schema
 
