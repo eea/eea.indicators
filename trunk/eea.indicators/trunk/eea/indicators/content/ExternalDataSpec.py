@@ -3,7 +3,7 @@
 # $Id$
 #
 # Copyright (c) 2010 by ['Tiberiu Ichim']
-# Generator: ArchGenXML 
+# Generator: ArchGenXML
 #            http://plone.org/products/archgenxml
 #
 # GNU General Public License (GPL)
@@ -151,7 +151,6 @@ ExternalDataSpec_schema = ATContentTypeSchema.copy() + \
 
 ##code-section after-schema #fill in your manual code here
 ExternalDataSpec_schema.moveField('relatedItems', after='category_of_use')
-#ExternalDataSpec_schema['relatedItems'].widget.visible = {'view':'invisible', 'edit':'invisible'}
 finalizeATCTSchema(ExternalDataSpec_schema)
 ##/code-section after-schema
 

@@ -87,7 +87,7 @@ class FactSheetDocument(ATFile, BrowserDefaultMixin):
     implements(interfaces.IFactSheetDocument)
 
     meta_type = 'FactSheetDocument'
-    _at_rename_after_creation = False
+    _at_rename_after_creation = True
 
     schema = FactSheetDocument_schema
 
