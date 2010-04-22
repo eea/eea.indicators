@@ -3,7 +3,7 @@
 # $Id$
 #
 # Copyright (c) 2010 by ['Tiberiu Ichim']
-# Generator: ArchGenXML 
+# Generator: ArchGenXML
 #            http://plone.org/products/archgenxml
 #
 # GNU General Public License (GPL)
@@ -512,7 +512,8 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
     """
     security = ClassSecurityInfo()
 
-    implements(interfaces.ISpecification)
+    implements(interfaces.ISpecification,
+               interfaces.IIndicatorAssessment)
 
     meta_type = 'Specification'
     _at_rename_after_creation = True
