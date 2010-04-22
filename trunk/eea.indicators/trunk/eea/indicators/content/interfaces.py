@@ -53,4 +53,8 @@ class IIndicatorFactSheet(Interface):
 class IKeyMessage(Interface):
     """Marker interface for .KeyMessage.KeyMessage
     """
+
+class IIndicatorAssessment(Interface):
+    """Marker interface for Specifications and IndicatorFactSheets
+    """
 ##/code-section FOOT

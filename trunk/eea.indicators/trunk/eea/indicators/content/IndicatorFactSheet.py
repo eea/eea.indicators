@@ -179,7 +179,8 @@ class IndicatorFactSheet(ATFolder, BrowserDefaultMixin):
     """
     security = ClassSecurityInfo()
 
-    implements(interfaces.IIndicatorFactSheet)
+    implements(interfaces.IIndicatorFactSheet,
+               interfaces.IIndicatorAssessment)
 
     meta_type = 'IndicatorFactSheet'
     _at_rename_after_creation = True
