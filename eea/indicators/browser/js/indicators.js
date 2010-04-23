@@ -28,9 +28,8 @@ $(document).ready(function () {
 		set_actives();
 		set_creators();
 		set_deleters();
+    set_edit_buttons();
 		
-		// activates the active fields
-		$(".active_field_hovered").make_editable();
 		// setTimeout('change_kupu_styles()', '2000');
 
 		on_load_dom();
@@ -113,6 +112,36 @@ function set_editors(){
 			});
 }
 
+function set_edit_buttons() {
+  // activate single active fields
+  
+  $('.active_field a').disableSelection();
+	$('.active_field a').live('click', function(){
+			var link = $(this).attr('href');
+			var title = $(this).text();
+			var region = $(this).parents(".active_region")[0];
+      var field = $(this).parents('.active_field')[0];
+
+			var active_region = region.id; //the region that will be reloaded
+
+      var content = $('.content', field).get();
+      var metadata = $('.metadata', field);
+      var fieldname = $('.metadata > .fieldname', field).text();
+
+			var options = { 'width':800, 'height':600 }
+      options.height = Number($('.metadata > .height', field).text()) || options.height; 
+      options.width = Number($('.metadata > .width', field).text()) || options.width;
+
+      var id_to_fill = 'active_field-' + fieldname
+      $(content).attr('id', id_to_fill);
+      dialog_edit(link, title, function(text, status, xhr){
+				// schemata_ajaxify($("#dialog-inner"), fieldname);
+        ajaxify($("#dialog-inner"), fieldname);
+        }, options);
+      return false;
+  });
+}
+
 function set_creators(){
 	// Set handlers for Create buttons
 	
@@ -183,7 +212,7 @@ return false;
 }
 
 function closer(fieldname){
-  // if returned through AJAX, it reloads the region and closes the dialog
+  // reloads a region and closes the dialog based on an active field name
   
 	var text = $('#value_response').html();
 	var fieldname = "#active_field-"+fieldname + " > *";
@@ -214,7 +243,7 @@ function schemata_ajaxify(el, active_region){
 			var kupu_id = $(this).attr('id');
 			setTimeout(function(){
 				initPloneKupu(kupu_id);
-        }, 100);
+        }, 1000);
 		});
 		
 	$("form", el).submit(
@@ -436,48 +465,6 @@ function ajaxify(el, fieldname){
       });
 };
 
-(function($) {
- $.fn.make_editable = function() {
- // Set an ajax/dialog handler for "active fields"
- // An active field, in its current implementation, is a sort of inline edit
- // for a field: hovering over the field will change the background color
- // and make the special controls appear (for example, an Edit button)
- // Clicking the edit button will make a modal dialog popup where an edit form
- // is presented, with just that field. Saving the form reloads the field in the 
- // original view
-
- return this.each(function() {
-     var content = $('.content', this).get();
-
-     var metadata = $('.metadata', this);
-     var fieldname = $('.metadata > .fieldname', this).text();
-
-     var width = Number($('.metadata > .width', this).text()) || 700;
-     var height = Number($('.metadata > .height', this).text()) || null;
-
-     var id_to_fill = 'active_field-' + fieldname
-     $(content).attr('id', id_to_fill);
-
-     var controls = $('.control a', this);
-     controls.disableSelection();
-     controls.click(function(e){
-         var title = $(this).text();
-         var link = $(this).attr('href');
-         var options = {
-            'width':width,
-            'height':height
-         }
-         var region_id = null;
-
-         dialog_edit(link, title, function(text, status, xhr){
-             ajaxify($("#dialog-inner"), fieldname);
-				 }, options);
-         return false;
-     });
- });
- };
-})(jQuery);
-
 function save_kupu_values(el) {
   // saves each value from a kupu editor into its associated textarea
 
@@ -494,5 +481,48 @@ function save_kupu_values(el) {
     }
   });
 }
+
+
+// (function($) {
+//  $.fn.make_editable = function() {
+//  // Set an ajax/dialog handler for "active fields"
+//  // An active field, in its current implementation, is a sort of inline edit
+//  // for a field: hovering over the field will change the background color
+//  // and make the special controls appear (for example, an Edit button)
+//  // Clicking the edit button will make a modal dialog popup where an edit form
+//  // is presented, with just that field. Saving the form reloads the field in the 
+//  // original view
+// 
+//  return this.each(function() {
+//      var content = $('.content', this).get();
+// 
+//      var metadata = $('.metadata', this);
+//      var fieldname = $('.metadata > .fieldname', this).text();
+// 
+//      var width = Number($('.metadata > .width', this).text()) || 700;
+//      var height = Number($('.metadata > .height', this).text()) || null;
+// 
+//      var id_to_fill = 'active_field-' + fieldname
+//      $(content).attr('id', id_to_fill);
+// 
+//      var controls = $('.control a', this);
+//      controls.disableSelection();
+//      controls.click(function(e){
+//          var title = $(this).text();
+//          var link = $(this).attr('href');
+//          var options = {
+//             'width':width,
+//             'height':height
+//          }
+//          var region_id = null;
+// 
+//          dialog_edit(link, title, function(text, status, xhr){
+//              ajaxify($("#dialog-inner"), fieldname);
+// 				 }, options);
+//          return false;
+//      });
+//  });
+//  };
+// })(jQuery);
 
 // vim: set sw=2 ts=2 et:

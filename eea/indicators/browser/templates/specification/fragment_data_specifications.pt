@@ -11,13 +11,15 @@
 			<div class="logic_group">
 				<h2 class="policy_questions">Data specifications</h2>
 				<tal:def tal:define="fieldname string:relatedItems; fieldset string:DataSpecs">
+					<div class="portalMessage" tal:condition="python:not (related or specs)">
+						You need to reference at least one Data Spec
+					</div>
 					<metal:macro metal:use-macro="here/simple_edit_macros/macros/active_field">
 						<metal:slot metal:fill-slot="content">
-							<div tal:condition="python:not (related or specs)" 
-								class="placeholder">
+							<div tal:condition="python:not (related or specs)" class="placeholder">
 								Please fill in
 							</div>
-							<ul>
+							<ul tal:condition="python:(related or specs)">
 								<li tal:repeat="data related">
 									<a href="" tal:attributes="href data/getDataset_url" tal:content="data/Title">Dataset title</a>
 									<div tal:content="structure data/Description" />
