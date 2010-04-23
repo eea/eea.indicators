@@ -29,5 +29,11 @@
 		for="eea.indicators.content.interfaces.IAssessment"
 		menu="object_buttons" action="@@revokeVersion"
 		description="Revoke a version" permission="cmf.ModifyPortalContent" />
+
+	<browser:page 
+		name="get_readiness" for="eea.indicators.content.interfaces.IAssessment"
+		permission="zope2.View"	class=".assessment.WorkflowStateReadiness"
+		allowed_interface="eea.workflow.interfaces.IObjectReadiness"
+		/>
 		
 </configure>

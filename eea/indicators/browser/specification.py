@@ -7,6 +7,7 @@ from eea.indicators.content.Specification import required_for_publication
 from eea.versions.interfaces import IVersionControl, IVersionEnhanced
 from eea.versions.versions import CreateVersion as BaseCreateVersion
 from eea.versions.versions import _get_random, _reindex
+from eea.workflow.readiness import ObjectReadiness
 from zope.interface import alsoProvides, directlyProvides, directlyProvidedBy
 
 
@@ -97,3 +98,23 @@ class CreateVersion(BaseCreateVersion):
         _reindex(self.context)  #some indexed values of the context may depend on versions
 
         return self.request.RESPONSE.redirect(ver.absolute_url())
+
+
+class WorkflowStateReadiness(ObjectReadiness):
+    def is_ready_for(self, state_name):
+        if state_name == 'published':
+            #check if there's at least one reference to a DataSpec
+            #TODO: this checks for relationship to ExternalDataSpec
+            #when the ExternalDataSpec + EEADATA is unified, check that this works
+            if not self.context.getRelatedItems():
+                return False
+
+            #check if there's at least one main policy question
+            pq = self.context.objectValues("PolicyQuestion")
+            mains = [q for q in pq if q.getIs_key_question() == True]
+            if not mains:
+                return False
+
+            return True
+        else:
+            return super(WorkflowStateReadiness, self).is_ready_for(state_name)

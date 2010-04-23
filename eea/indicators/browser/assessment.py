@@ -6,6 +6,7 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from eea.versions.interfaces import IVersionControl, IVersionEnhanced
 from eea.versions.versions import CreateVersion as BaseCreateVersion
 from eea.versions.versions import _get_random, _reindex, generateNewId
+from eea.workflow.readiness import ObjectReadiness
 from zope.interface import alsoProvides
 
 
@@ -65,3 +66,28 @@ def create_version(original):
     _reindex(original)  #some indexed values of the context may depend on versions
 
     return ver
+
+
+class WorkflowStateReadiness(ObjectReadiness):
+
+    def field_has_value(self, fieldname, context):
+        convert = getToolByName(self.context, 'portal_transforms').convert
+        value = context.schema[fieldname].getAccessor(context)()
+        return convert('html_to_text', value).getData()
+
+    def is_ready_for(self, state_name):
+        if state_name == 'published':
+            #check that all the questions are answered
+            ap = self.objectValues("AssessmentPart")
+            missing = [p for p in ap if not self.field_has_value('assessment', self.context)]
+            if missing:
+                return False
+            #check that the parent Specification is published
+            parent = self.context.aq_parent
+            wftool = getToolByName('portal_workflow')
+            state = wftool.getInfoFor(parent, 'review_state')
+            if state != "published":
+                return False
+            return True
+        else:
+            return super(WorkflowStateReadiness, self).is_ready_for(state_name)

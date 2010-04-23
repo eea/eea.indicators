@@ -23,6 +23,7 @@ from eea.indicators.config import *
 
 # additional imports from tagged value 'import'
 from Products.ATContentTypes.content.base import ATCTContent, ATContentTypeSchema
+from eea.dataservice.vocabulary import Organisations
 
 ##code-section module-header #fill in your manual code here
 from Products.CMFPlone.utils import getToolByName

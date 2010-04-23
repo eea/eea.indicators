@@ -14,11 +14,9 @@ __docformat__ = 'plaintext'
 
 from AccessControl import ClassSecurityInfo
 from Products.Archetypes.atapi import *
-from zope import interface
 from zope.interface import implements
 import interfaces
 from Products.ATContentTypes.content.folder import ATFolder
-from eea.indicators.content.IIndicatorAssessment import IIndicatorAssessment
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 
 from Products.ATReferenceBrowserWidget.ATReferenceBrowserWidget import \
@@ -515,7 +513,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
     """
     security = ClassSecurityInfo()
 
-    implements(interfaces.ISpecification, IIndicatorAssessment)
+    implements(interfaces.ISpecification)
 
     meta_type = 'Specification'
     _at_rename_after_creation = True

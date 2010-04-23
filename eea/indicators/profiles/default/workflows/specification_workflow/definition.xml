@@ -153,6 +153,7 @@
  </state>
  <state state_id="visible"
         title="Visible with direct link (hidden in listings)">
+  <exit-transition transition_id="publish"/>
   <permission-map name="Access contents information"
                   acquired="False">
    <permission-role>Anonymous</permission-role>
@@ -208,7 +209,7 @@
   <action url="" category="workflow">Publish</action>
   <guard>
     <guard-role>WebReviewer</guard-role>
-    <guard-expression>python:path('context/@@get_readiness').is_ready_for(state_change.new_state.getId())</guard-expression>
+    <guard-expression>python:path('here/@@get_readiness').is_ready_for('published')</guard-expression>
   </guard>
  </transition>
  <transition transition_id="publishEionet"
@@ -231,7 +232,7 @@
   <action url="" category="workflow">Publish</action>
   <guard>
     <guard-role>Reviewer</guard-role>
-    <guard-expression>python:path('context/@@get_readiness').is_ready_for(state_change.new_state.getId())</guard-expression>
+    <guard-expression>python:path('here/@@get_readiness').is_ready_for("published")</guard-expression>
   </guard>
  </transition>
  <transition transition_id="reject"
