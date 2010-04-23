@@ -1,6 +1,7 @@
 <tal:def tal:define="submit_handler string:simple_edit; ">
 	<tal:def tal:define="region_name string:scientific_references_area;
-		region_update_handler string:fragment_scientific_references;">
+		region_update_handler string:fragment_scientific_references;
+		imsutils nocall:context/@@indicator_utils;">
 
 		<metal:macro metal:use-macro="context/simple_edit_macros/macros/active_region">
 			<metal:slot metal:fill-slot="content">
@@ -10,6 +11,10 @@
 					<tal:def tal:define="fieldname string:rationale_justification; fieldset string:Rationale">
 						<metal:macro metal:use-macro="here/simple_edit_macros/macros/active_field">
 							<metal:slot metal:fill-slot="content">
+								<div tal:condition="python:not imsutils.field_has_value(fieldname, context)" 
+									class="placeholder">
+									Please fill in
+								</div>
 								<p tal:replace="structure context/rationale_justification">Rationale justification</p>
 							</metal:slot>
 							<metal:slot metal:fill-slot="extra-metadata">

@@ -108,11 +108,11 @@ migrate_from_eeadesign2006 	eea.design.setuphandlers.migrate_from_eeadesign2006
 Various import steps that are not handled by GS import/export handlers. 	valentine.linguaflow.setuphandlers.setupVarious
 
 
-1, 2, 3, 4, , 18, 24, 29, 42, 
+1, 2, 3, 4, 18, 24, 29, 42, 
 
 
 pasul 4 blocheaza zope
-pasul 2 futizeaza installul
+pasul 2 strica zope
 
 Se apeleaza @@invalidateClientsCache
 

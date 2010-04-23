@@ -121,6 +121,16 @@ dl.toc {
 	padding:4px;
 	font-weight:bold;
 }
+.col3 {
+	float:left;
+	width:30%;
+	border-left:1px solid lightblue;
+	padding-left:6px;
+}
+.work_item {}
+.work_item h5 {margin:0}
+.work_item h6 {margin:0}
+
 
 /* ul.toc { */
 /*     background-color:lightblue; */
@@ -130,8 +140,6 @@ dl.toc {
 /* ul.toc a { */
 /*     color:black; */
 /* } */
-
-
 /* .active_field :hover { */
 /* 	background-color:#FFA8D5; */
 /* } */
@@ -144,11 +152,9 @@ dl.toc {
 /* 	display:block; */
 /* 	float:right; */
 /* } */
-
 /* textarea.kupu-editor-textarea { */
 /* 	display:inherit !important */
 /* } */
-
 /* .checks_alert { */
 /* 	/* float:right; */ */
 /* 	background-color:red; */

@@ -1,6 +1,7 @@
 <tal:def tal:define="submit_handler string:simple_edit; ">
 	<tal:def tal:define="region_name string:definition_area;
-		region_update_handler string:fragment_definition;">
+		region_update_handler string:fragment_definition;
+		imsutils nocall:context/@@indicator_utils;">
 
 		<div class="logic_group">
 			<h2 class="definition">Indicator definition</h2>
@@ -10,6 +11,10 @@
 					<tal:def tal:define="fieldname string:definition; fieldset string:default">
 						<metal:macro metal:use-macro="here/simple_edit_macros/macros/active_field">
 							<metal:slot metal:fill-slot="content">
+								<div tal:condition="python:not imsutils.field_has_value(fieldname, context)" 
+									class="placeholder">
+									Please fill in
+								</div>
 								<p tal:replace="structure context/getDefinition"></p>
 							</metal:slot>
 							<metal:slot metal:fill-slot="extra-metadata">
@@ -24,6 +29,10 @@
 					<tal:def tal:define="fieldname string:units; fieldset string:default">
 						<metal:macro metal:use-macro="here/simple_edit_macros/macros/active_field">
 							<metal:slot metal:fill-slot="content">
+								<div tal:condition="python:not imsutils.field_has_value(fieldname, context)" 
+									class="placeholder">
+									Please fill in
+								</div>
 								<p tal:replace="structure context/getUnits"></p>
 							</metal:slot>
 							<metal:slot metal:fill-slot="extra-metadata">

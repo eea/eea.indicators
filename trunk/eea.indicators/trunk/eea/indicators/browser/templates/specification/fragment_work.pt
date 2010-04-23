@@ -13,53 +13,56 @@
 					incomplete works/incomplete">
 					<a href='./object_factory?type_name=WorkItem' class="object_creator">+ Work Item</a>
 
-					<h4>Unclassified work</h4>
-					<div tal:repeat="work incomplete">
-						<a href="" 
-							class="schemata_edit spec_control"
-							tal:attributes="href string:${work/absolute_url}/schemata_edit?fieldset=default">Edit</a>
-						<a href="" 
-							class="object_delete spec_control"
-							tal:attributes="href string:${work/aq_parent/absolute_url}/delete_object?id=${work/getId}">Delete</a>
-						<h5 tal:content="work/Title" />
-					</div>
-
-					<h4>Short term work (to be completed within 1 year from now.)</h4>
-					<div tal:repeat="work short">
-						<a href="" 
-							class="schemata_edit spec_control"
-							tal:attributes="href string:${work/absolute_url}/schemata_edit?fieldset=default">Edit</a>
-						<a href="" 
-							class="object_delete spec_control"
-							tal:attributes="href string:${work/aq_parent/absolute_url}/delete_object?id=${work/getId}">Delete</a>
-						<h5 tal:content="work/Title" />
+					<div class="col3">
+						<h4>Short term work (to be completed within 1 year from now.)</h4>
+						<div tal:repeat="work short" class="work_item">
+							<a href="" 
+								class="schemata_edit spec_control"
+								tal:attributes="href string:${work/absolute_url}/schemata_edit?fieldset=default">Edit</a>
+							<a href="" 
+								class="object_delete spec_control"
+								tal:attributes="href string:${work/aq_parent/absolute_url}/delete_object?id=${work/getId}">Delete</a>
+							<h5 tal:content="work/Title" />
 
 							<!-- <h6>Work description</h6> -->
 							<p tal:replace="structure work/Description"></p>
-						<h6>Resource needs</h6>
-						<p tal:replace="structure work/getNeeds"></p>
-						<!-- <h6>Status</h6> -->
-						<!-- <p tal:replace="structure work/getStatus"></p> -->
-						<!-- <h6>Deadline</h6> -->
-						<!-- <p tal:replace="structure work/getDue_date"></p> -->
+							<h6>Resource needs</h6>
+							<p tal:replace="structure work/getNeeds"></p>
+							<!-- <h6>Status</h6> -->
+							<!-- <p tal:replace="structure work/getStatus"></p> -->
+							<!-- <h6>Deadline</h6> -->
+							<!-- <p tal:replace="structure work/getDue_date"></p> -->
+						</div>
 					</div>
 
-					<h4>Long term work</h4>
-					<div tal:repeat="work long">
-						<a href="" 
-							class="schemata_edit spec_control"
-							tal:attributes="href string:${work/absolute_url}/schemata_edit?fieldset=default">Edit</a>
-						<a href="" 
-							class="object_delete spec_control"
-							tal:attributes="href string:${work/aq_parent/absolute_url}/delete_object?id=${work/getId}">Delete</a>
-						<h5>Work description</h5>
-						<p tal:replace="structure work/Description"></p>
-						<h5>Resource needs</h5>
-						<p tal:replace="structure work/getNeeds"></p>
-						<h5>Status</h5>
-						<p tal:replace="structure work/getStatus"></p>
-						<h5>Deadline</h5>
-						<p tal:replace="structure work/getDue_date"></p>
+					<div class="col3">
+						<h4>Long term work</h4>
+						<div tal:repeat="work long" class="work_item">
+							<a href="" 
+								class="schemata_edit spec_control"
+								tal:attributes="href string:${work/absolute_url}/schemata_edit?fieldset=default">Edit</a>
+							<a href="" 
+								class="object_delete spec_control"
+								tal:attributes="href string:${work/aq_parent/absolute_url}/delete_object?id=${work/getId}">Delete</a>
+
+							<h5 tal:content="work/Title" />
+							<p tal:replace="structure work/Description"></p>
+							<h5>Resource needs</h5>
+							<p tal:replace="structure work/getNeeds"></p>
+						</div>
+					</div>
+
+					<div class="col3">
+						<h4>Unclassified work</h4>
+						<div tal:repeat="work incomplete" class="work_item">
+							<a href="" 
+								class="schemata_edit spec_control"
+								tal:attributes="href string:${work/absolute_url}/schemata_edit?fieldset=default">Edit</a>
+							<a href="" 
+								class="object_delete spec_control"
+								tal:attributes="href string:${work/aq_parent/absolute_url}/object_delete?id=${work/getId}">Delete</a>
+							<h5 tal:content="work/Title" />
+						</div>
 					</div>
 
 				</tal:def>

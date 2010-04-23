@@ -208,6 +208,7 @@
   <action url="" category="workflow">Publish</action>
   <guard>
     <guard-role>WebReviewer</guard-role>
+    <guard-expression>python:path('context/@@get_readiness').is_ready_for(state_change.new_state.getId())</guard-expression>
   </guard>
  </transition>
  <transition transition_id="publishEionet"
@@ -230,6 +231,7 @@
   <action url="" category="workflow">Publish</action>
   <guard>
     <guard-role>Reviewer</guard-role>
+    <guard-expression>python:path('context/@@get_readiness').is_ready_for(state_change.new_state.getId())</guard-expression>
   </guard>
  </transition>
  <transition transition_id="reject"

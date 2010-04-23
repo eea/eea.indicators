@@ -3,6 +3,7 @@
 from zope.interface import Interface
 
 ##code-section HEAD
+from eea.indicators.content.IIndicatorAssessment import IIndicatorAssessment
 ##/code-section HEAD
 
 class IPolicyQuestion(Interface):
@@ -54,7 +55,4 @@ class IKeyMessage(Interface):
     """Marker interface for .KeyMessage.KeyMessage
     """
 
-class IIndicatorAssessment(Interface):
-    """Marker interface for Specifications and IndicatorFactSheets
-    """
 ##/code-section FOOT

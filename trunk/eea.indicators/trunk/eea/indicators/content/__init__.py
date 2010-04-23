@@ -48,6 +48,7 @@ import RationaleReference
 import AssessmentPart
 import PolicyDocumentReference
 import WorkItem
+import IIndicatorAssessment
 
 ##code-section init-module-footer #fill in your manual code here
 # V1 content

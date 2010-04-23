@@ -3,7 +3,7 @@
 # $Id$
 #
 # Copyright (c) 2010 by ['Tiberiu Ichim']
-# Generator: ArchGenXML
+# Generator: ArchGenXML 
 #            http://plone.org/products/archgenxml
 #
 # GNU General Public License (GPL)
@@ -14,9 +14,11 @@ __docformat__ = 'plaintext'
 
 from AccessControl import ClassSecurityInfo
 from Products.Archetypes.atapi import *
+from zope import interface
 from zope.interface import implements
 import interfaces
 from Products.ATContentTypes.content.folder import ATFolder
+from eea.indicators.content.IIndicatorAssessment import IIndicatorAssessment
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 
 from Products.ATReferenceBrowserWidget.ATReferenceBrowserWidget import \
@@ -42,6 +44,7 @@ from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 from Products.UserAndGroupSelectionWidget import UserAndGroupSelectionWidget
 from eea.dataservice.vocabulary import Organisations
 from eea.indicators import msg_factory as _
+#from eea.indicators.content.interfaces import IIndicatorAssessment
 from eea.indicators.browser.assessment import create_version as create_assessment_version
 from eea.indicators.content.base import ModalFieldEditableAware, CustomizedObjectFactory
 from zope import event
@@ -512,8 +515,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
     """
     security = ClassSecurityInfo()
 
-    implements(interfaces.ISpecification,
-               interfaces.IIndicatorAssessment)
+    implements(interfaces.ISpecification, IIndicatorAssessment)
 
     meta_type = 'Specification'
     _at_rename_after_creation = True

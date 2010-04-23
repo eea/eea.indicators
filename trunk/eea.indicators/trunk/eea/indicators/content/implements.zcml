@@ -1,0 +1,16 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:five="http://namespaces.zope.org/five">
+
+  <!-- ##code-section HEAD -->
+  <!-- ##/code-section HEAD -->
+  
+  <five:implements
+    class="eea.indicators.content.Specification.Specification"
+    interface="None"
+   />
+ 
+
+ <!-- ##code-section FOOT -->
+  <!-- ##/code-section FOOT -->
+
+</configure>
