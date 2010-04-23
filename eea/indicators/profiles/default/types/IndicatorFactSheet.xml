@@ -18,10 +18,10 @@
    <element value="EEAFigure"/>
  </property>
  <property name="allow_discussion">False</property>
- <property name="default_view">indicator_fact_sheet_view</property>
+ <property name="default_view">indicatorfactsheet_view</property>
  <property name="view_methods">
   <element value="base_view"/>
-  <element value="indicator_fact_sheet_view"/>
+  <element value="indicatorfactsheet_view"/>
  </property>
  <property name="default_view_fallback">False</property>
  <alias from="(Default)" to="(dynamic view)"/>

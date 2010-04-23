@@ -4,6 +4,7 @@
 
 	<include file="specification.zcml" />
 	<include file="assessment.zcml" />
+	<include file="indicatorfactsheet.zcml" />
 
 	<browser:page
 		for="eea.indicators.content.interfaces.IAssessmentPart"
@@ -49,8 +50,8 @@
 		permission="zope2.View" />
 
 	<browser:page name="indicator_utils" for="zope.interface.Interface"
-		class=".utils.IndicatorUtils" permission="zope2.View" 
-		allowed_interface=".utils.IIndicatorUtils" 	
+		class=".utils.IndicatorUtils" permission="zope2.View"
+		allowed_interface=".utils.IIndicatorUtils"
 		/>
 
 	<browser:page name="object_delete" for="zope.interface.Interface"
