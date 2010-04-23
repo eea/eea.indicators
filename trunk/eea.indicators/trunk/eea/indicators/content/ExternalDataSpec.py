@@ -53,25 +53,29 @@ schema = Schema((
         searchable=True,
         required_for_published="True",
     ),
-    StringField(
+    LinesField(
         name='provider_url',
-        widget=StringField._properties['widget'](
+        widget=MultiSelectionWidget(
             label="Provider URL",
+            macro="organisations_widget",
             label_msgid='indicators_label_provider_url',
             i18n_domain='indicators',
         ),
         required=True,
         required_for_published="True",
+        vocabulary=Organisations(),
     ),
-    StringField(
+    LinesField(
         name='dataset_url',
-        widget=StringField._properties['widget'](
+        widget=MultiSelectionWidget(
             label="Dataset URL",
+            macro="organisations_widget",
             label_msgid='indicators_label_dataset_url',
             i18n_domain='indicators',
         ),
         required=True,
         required_for_published="True",
+        vocabulary=Organisations(),
     ),
     TextField(
         name='dataset_path',
