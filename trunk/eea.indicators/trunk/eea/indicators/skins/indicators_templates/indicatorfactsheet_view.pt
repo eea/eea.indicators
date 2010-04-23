@@ -9,12 +9,6 @@
 
   <head><title></title></head>
 
-  <metal:javascript_head fill-slot="javascript_head_slot">
-  </metal:javascript_head>
-
-  <metal:css fill-slot="css_slot">
-  </metal:css>
-
   <body>
     <metal:fill fill-slot="main">
       <metal:main_macro define-macro="main"
