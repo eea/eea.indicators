@@ -44,24 +44,26 @@
 				</tal:def>
 
 				<h3>Methodology references</h3>
-				<a href='./object_factory?type_name=MethodologyReference' 
-					class="object_creator">+ Methodology Reference</a>
-				<div id="methodology_references" class="sortable_spec" 
-					tal:define="refs python:context.objectValues('MethodologyReference')">
-					<div class="metadata">
-						<span class="handler" 
-							tal:content="string:${context/absolute_url}/change_order"></span>
-					</div>
-					<div tal:repeat="ref refs" class="list-item" tal:attributes="id ref/getId">
-						<span class="handler ui-icon ui-icon-arrowthick-2-n-s"></span>
-						<a href="" 
-							class="schemata_edit spec_control"
-							tal:attributes="href string:${ref/absolute_url}/schemata_edit?fieldset=default">Edit</a>
-						<a href="" 
-							class="object_delete spec_control"
-							tal:attributes="href string:${ref/aq_parent/absolute_url}/@@object_delete?id=${ref/getId}">Delete</a>
-						<a href="" tal:attributes="href ref/getRemoteUrl"><strong tal:content="ref/Title">Ref</strong></a>
-						<p tal:replace="structure ref/getDescription" />
+				<div class="grouped_field">
+					<a href='./object_factory?type_name=MethodologyReference' 
+						class="object_creator">+ Methodology Reference</a>
+					<div id="methodology_references" class="sortable_spec" 
+						tal:define="refs python:context.objectValues('MethodologyReference')">
+						<div class="metadata">
+							<span class="handler" 
+								tal:content="string:${context/absolute_url}/change_order"></span>
+						</div>
+						<div tal:repeat="ref refs" class="list-item" tal:attributes="id ref/getId">
+							<span class="handler ui-icon ui-icon-arrowthick-2-n-s"></span>
+							<a href="" 
+								class="schemata_edit spec_control"
+								tal:attributes="href string:${ref/absolute_url}/schemata_edit?fieldset=default">Edit</a>
+							<a href="" 
+								class="object_delete spec_control"
+								tal:attributes="href string:${ref/aq_parent/absolute_url}/@@object_delete?id=${ref/getId}">Delete</a>
+							<a href="" tal:attributes="href ref/getRemoteUrl"><strong tal:content="ref/Title">Ref</strong></a>
+							<p tal:replace="structure ref/getDescription" />
+						</div>
 					</div>
 				</div>
 
