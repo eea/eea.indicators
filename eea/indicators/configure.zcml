@@ -1,9 +1,9 @@
-<configure xmlns="http://namespaces.zope.org/zope" 
-           xmlns:browser="http://namespaces.zope.org/browser" 
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:browser="http://namespaces.zope.org/browser"
            xmlns:five="http://namespaces.zope.org/five"
            xmlns:i18n="http://namespaces.zope.org/i18n"
            i18n_domain="indicators">
-  
+
   <i18n:registerTranslations directory="locales" />
 
   <include file="profiles.zcml" />
@@ -13,10 +13,6 @@
   <!-- ##code-section configure.zcml -->
   <five:registerPackage package="." initialize=".initialize" />
   <include package=".browser" />
-
-  <!-- <class class=".content.SpecificationsFolder.SpecificationsFolder"> -->
-  <!--   <implements interface="Products.CMFPlone.browser.interfaces.INavigationRoot" /> -->
-  <!-- </class> -->
 
   <class class=".content.Specification.Specification">
     <implements interface="eea.workflow.interfaces.IHasMandatoryWorkflowFields" />
