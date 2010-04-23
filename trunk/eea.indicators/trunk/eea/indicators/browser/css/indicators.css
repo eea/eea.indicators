@@ -131,6 +131,10 @@ dl.toc {
 .work_item h5 {margin:0}
 .work_item h6 {margin:0}
 
+.grouped_field {
+	border:1px dotted black;
+	padding:1em;
+}
 
 /* ul.toc { */
 /*     background-color:lightblue; */
