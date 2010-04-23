@@ -22,6 +22,14 @@
 		for="eea.indicators.content.interfaces.ISpecification"
 		class=".utils.Sorter" permission="zope2.View" />
 
+	<browser:page 
+		name="get_readiness" 
+		for="eea.indicators.content.interfaces.ISpecification"
+		permission="zope2.View"	
+		class=".specification.WorkflowStateReadiness"
+		allowed_interface="eea.workflow.interfaces.IObjectReadiness"
+		/>
+
 
 	<!-- Specification Versioning -->
 	<browser:page
