@@ -1,0 +1,86 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xml:lang="en"
+      lang="en"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="plone">
+
+  <head><title></title></head>
+
+  <metal:javascript_head fill-slot="javascript_head_slot">
+  </metal:javascript_head>
+
+  <metal:css fill-slot="css_slot">
+  </metal:css>
+
+  <body>
+    <metal:fill fill-slot="main">
+      <metal:main_macro define-macro="main"
+            tal:define="portal_type python:here.getPortalTypeName().lower().replace(' ', '_');
+            base_macros here/base/macros;
+            view_template python:'%s_view' % portal_type;
+            view_macros python:path('here/%s/macros|nothing' % view_template);
+            header_macro view_macros/header | header_macro | base_macros/header;">
+
+            <metal:use_header use-macro="header_macro" />
+
+            <!--
+<dtml-var standard_html_header>
+<dtml-var header_box>
+<div class="roundedBox lightBGC">
+ <div class="keyMessage">
+   <h4>Key messages</h4>
+  <dtml-unless production_view><dtml-var key_message></dtml-unless>
+ </div>
+</div>
+<h2>Figures</h2>
+<dtml-if "objectValues('IndicatorGraph')">
+<dtml-var graph_box>
+</dtml-if>
+<h2>Assessment</h2>
+<p><dtml-var site_introduction></p>
+<p><dtml-var more_info html_quote></p>
+<p><dtml-var more_info2 html_quote></p>
+<h2>Download detailed information and factsheets</h2>
+<dtml-var factsheet_links>
+<dtml-var show_related_indicators>
+<dtml-var standard_html_footer>
+-->
+
+<h1>
+  Indicator:
+  <tal:block content="context/title_or_id" />
+  [<i><tal:block define="value context/getAssessment_date"
+                 content="python:context.toLocalizedTime(value, long_format=0)" /></i>]
+</h1>
+
+<!-- #TODO: version info -->
+
+<tal:policy_question define="policy_question context/getPolicy_question"
+                     condition="policy_question">
+  <h2 tal:content="policy_question" />
+</tal:policy_question>
+
+<!--
+<dtml-if "_.len(policy_issue)>1">
+<h2><dtml-var "_.string.capitalize(_['policy_issue'][0])+_['policy_issue'][1:]"></h2>
+</dtml-if>
+-->
+
+
+
+
+
+
+
+
+
+
+
+
+      </metal:main_macro>
+    </metal:fill>
+  </body>
+</html>

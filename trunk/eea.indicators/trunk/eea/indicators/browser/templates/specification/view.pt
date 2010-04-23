@@ -196,7 +196,7 @@
 						</div>
 					</div>
 					<strong>Specification</strong>
-					<div>Link: <a href="" tal:attributes="href context/absolute_url" 
+					<div>Link: <a href="" tal:attributes="href context/absolute_url"
 							tal:content="context/getId">ISpecification1235</a>
 					</div>
 					<div>

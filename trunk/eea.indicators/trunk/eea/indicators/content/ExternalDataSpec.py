@@ -3,7 +3,7 @@
 # $Id$
 #
 # Copyright (c) 2010 by ['Tiberiu Ichim']
-# Generator: ArchGenXML 
+# Generator: ArchGenXML
 #            http://plone.org/products/archgenxml
 #
 # GNU General Public License (GPL)
@@ -27,6 +27,7 @@ from Products.ATContentTypes.content.base import ATCTContent, ATContentTypeSchem
 ##code-section module-header #fill in your manual code here
 from Products.CMFPlone.utils import getToolByName
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema
+from eea.dataservice.vocabulary import Organisations
 ##/code-section module-header
 
 schema = Schema((
