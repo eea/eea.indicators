@@ -1,12 +1,13 @@
 from DateTime import DateTime
 from Products.CMFCore.utils import getToolByName
-from Products.CMFPlone import utils
+from Products.CMFPlone.utils import parent
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from eea.versions.interfaces import IVersionControl, IVersionEnhanced
 from eea.versions.versions import CreateVersion as BaseCreateVersion
 from eea.versions.versions import _get_random, _reindex, generateNewId
 from eea.workflow.readiness import ObjectReadiness
+from zope.component import getMultiAdapter
 from zope.interface import alsoProvides
 
 
@@ -24,7 +25,7 @@ class CreateVersion(BaseCreateVersion):
         return self.request.RESPONSE.redirect(version.absolute_url())
 
 
-def create_version(original):
+def create_version(original, request=None):
     """Creates a new version of an Assessment. Returns the new version object
     """
     pu = getToolByName(original, 'plone_utils')
@@ -32,7 +33,9 @@ def create_version(original):
     obj_id = original.getId()
     obj_title = original.Title()
     obj_type = original.portal_type
-    parent = utils.parent(original)
+    spec = parent = parent(original)
+    if request is None:
+        request = original.REQUEST
 
     # Adapt version parent (if case)
     if not IVersionEnhanced.providedBy(original):
@@ -45,7 +48,6 @@ def create_version(original):
         _reindex(original)
 
     # Create version object
-    #TODO: customize copy logic
     cp = parent.manage_copyObjects(ids=[obj_id])
     res = parent.manage_pasteObjects(cp)
     new_id = res[0]['new_id']
@@ -61,11 +63,47 @@ def create_version(original):
     # Set effective date today
     ver.setEffectiveDate(DateTime())
 
+    # All the EEAFigures contained inside are copy of the ones in the previous assessment 
+    # but must be linked as new versions of the figures in the older assessment.
+    # To achieve this, we must recreate all assessment parts and figures
+
+    assessment = ver
+    assessment.manage_delObjects(ids=ver.objectIds('AssessmentPart'))
+
+    for pq in spec.objectValues('PolicyQuestion'):
+
+        id = assessment.invokeFactory(type_name="AssessmentPart",
+                id=assessment.generateUniqueId("AssessmentPart"),)
+        ap = assessment[id]
+        ap.setQuestion_answered(pq)
+
+        figures = get_figures_for_pq_in_assessment(pq, assessment)
+        #now create versions of figures
+        for fig in figures: 
+            _ignored = getMultiAdapter((fig, request), name="createVersion")()
+            #latestVersion = getMultiAdapter()
+
     # Set new state
     ver.reindexObject()
     _reindex(original)  #some indexed values of the context may depend on versions
 
     return ver
+
+def get_figures_for_pq_in_assessment(pq, assessment):
+    """Given a PolicyQuestion from a Specification and an Assessment, returns all EEAFigures
+    contained in the AssessmentPart that answers to that PolicyQuestion"""
+
+    path = pq.getPhysicalPath()
+    
+    assessment_part = None
+    for part in assessment.objectValues('AssessmentPart'):
+        if part.getQuestion_answered().getPhysicalPath() == path:   #TODO: check if the part points to pq
+            assessment_part = part
+            break
+    if assessment_part is not None:
+        return assessment_part.objectValues('EEAFigure')
+
+    return []
 
 
 class WorkflowStateReadiness(ObjectReadiness):

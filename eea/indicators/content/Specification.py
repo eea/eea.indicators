@@ -624,7 +624,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
                 }
     security.declarePublic('left_slots')
     def left_slots(self):
-        _slot = ['here/portlet_readiness/macros/portlet']
+        _slot = ['here/portlet_completeness/macros/portlet']
         #_assigned = self.getProperty('left_slots') or []
 
         parent = self.aq_parent
@@ -705,7 +705,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
         #create assessment parts for each policy question
         for pq in self.objectValues("PolicyQuestion"):
             id = ast.invokeFactory(type_name="AssessmentPart",
-                    id=ast.generateUniqueId("PolicyQuestion"),)
+                                   id=ast.generateUniqueId("AssessmentPart"),)
             ap = ast[id]
             ap.setQuestion_answered(pq)
             ap.reindexObject()
