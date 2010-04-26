@@ -624,7 +624,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
                 }
     security.declarePublic('left_slots')
     def left_slots(self):
-        _slot = ['here/portlet_completeness/macros/portlet']
+        _slot = ['here/portlet_readiness/macros/portlet']
         #_assigned = self.getProperty('left_slots') or []
 
         parent = self.aq_parent
