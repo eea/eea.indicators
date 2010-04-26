@@ -81,6 +81,18 @@ class UniqueSpecificationCode:
 
         field = context.schema['codes']
         value = get_dgf_value(field, value)
+
+        #check if the codes are numeric
+        not_numeric = []
+        for row in value:
+            code = row['code']
+            try:
+                code = int(code)
+            except ValueError:
+                not_numeric.append(row)
+        if not_numeric:
+            not_numeric = ", ".join(["".join((str(code), str(set))) for code, set in not_numeric])
+            return "Validation failed, you need to enter a number for set code(s): %s" % not_numeric
         codes = ["".join((v['set'], v['code'])) for v in value]
 
         for code in codes:
@@ -104,6 +116,7 @@ class UniqueSpecificationCode:
                 return ("Validation failed, there is already another Specification with code %s" % code)
 
         return True
+
 
 validation.register(UniqueSpecificationCode('unique_specification_code'))
 
