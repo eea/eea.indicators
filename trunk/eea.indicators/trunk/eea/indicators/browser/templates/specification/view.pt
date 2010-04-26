@@ -1,52 +1,50 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
-	metal:use-macro="here/main_template/macros/master"
-	i18n:domain="indicators">
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="indicators">
 
-	<body>
-		<div metal:fill-slot="main">
+  <body>
+    <div metal:fill-slot="main">
+      <metal:main_macro define-macro="main"
+                        tal:define="portal_type python:here.getPortalTypeName().lower().replace(' ', '_');
+                                    base_macros here/base/macros;
+                                    view_template python:'%s_view' % portal_type;
+                                    view_macros python:path('here/%s/macros|nothing' % view_template);
+                                    header_macro view_macros/header | header_macro | base_macros/header;">
 
-			<h1 tal:content="context/Title">Title here</h1>
-			<div metal:use-macro="here/portlet_themes_object/macros/portlet" />
-			<div metal:use-macro="here/portlet_toc/macros/portlet" />
+        <metal:use_header use-macro="header_macro" />
 
-			<metal:versions use-macro="here/portlet_versions/macros/versions">
-				<metal:new fill-slot="old" />
-			</metal:versions>
+        <div metal:use-macro="here/portlet_themes_object/macros/portlet" />
+        <div metal:use-macro="here/portlet_toc/macros/portlet" />
 
-			<!-- <ul class="toc"> -->
-				<!-- 	<li><a href="view#rationale">Rationale</a></li> -->
-				<!-- 	<li><a href="view#definition">Indicator Definition</a></li> -->
-				<!-- 	<li><a href="view#policy_context">Policy context and targets</a></li> -->
-				<!-- 	<li><a href="view#policy_questions">Policy questions and graphics</a></li> -->
-				<!-- 	<li><a href="view#methodology">Methodology</a></li> -->
-				<!-- 	<li><a href="view#dataspecs">Data specifications</a></li> -->
-				<!-- 	<li><a href="view#uncertainties">Uncertainties</a></li> -->
-				<!-- 	<li><a href="view#further_work">Further work</a></li> -->
-				<!-- 	<li><a href="view#metadata">General metadata</a></li> -->
-				<!-- </ul> -->
+        <metal:versions use-macro="here/portlet_versions/macros/versions">
+          <metal:new fill-slot="old" />
+        </metal:versions>
 
-			<a name="versions"></a>
-			<h2>Assessment versions</h2>
-			<h5>Published (reviewed and quality assured)</h5>
-			<ul tal:define="assessments python:here.getFolderContents(contentFilter={'review_state':'published', 'portal_type':'Assessment'})">
-				<li tal:condition="not:assessments">No published assessments</li>
-				<li tal:repeat="brain assessments">
-					<a tal:attributes="href brain/getURL" tal:content="brain/Title">
-						Assessment title here
-					</a>
-				</li>
-			</ul>
+        <tal:assessment_versions define="assessments context/@@assessment_versions;
+                                         published python:assessments['published'];
+                                         draft python:assessments['draft']">
+          <a name="versions"></a>
+          <h2>Assessment versions</h2>
+          <h5>Published (reviewed and quality assured)</h5>
+          <ul>
+            <li tal:condition="not:published">No published assessments</li>
+            <li tal:repeat="assessment published">
+              <a tal:attributes="href assessment/absolute_url" tal:content="assessment/Title">
+                Assessment title here
+              </a>
+            </li>
+          </ul>
 
-			<h5>Draft (not yet published - not quality assured)</h5>
-			<ul tal:define="assessments python:here.getFolderContents(contentFilter={'portal_type':'Assessment', 'review_state':'draft'})">
-				<li tal:condition="not:assessments" >No drafts available</li>
-				<li tal:repeat="brain python:assessments">
-					<a tal:attributes="href brain/getURL" tal:content="brain/Title">
-						Assessment title here
-					</a>
-				</li>
-			</ul>
-
+          <h5>Draft (not yet published - not quality assured)</h5>
+          <ul>
+            <li tal:condition="not:draft">No drafts available</li>
+            <li tal:repeat="assessment draft">
+              <a tal:attributes="href assessment/absolute_url" tal:content="assessment/Title">
+                Assessment title here
+              </a>
+            </li>
+          </ul>
+        </tal:assessment_versions>
 
 			<a name="rationale"></a>
 			<h2 class="rationale">Rationale</h2>
@@ -114,7 +112,7 @@
 			<h2 class="policy_questions">Data specifications</h2>
 			<ul>
 				<li tal:repeat="data context/getRelatedItems">
-					<a href="" tal:attributes="href data/getDataset_url" tal:content="data/Title">Dataset title</a>
+					<!-- ALEC a href="" tal:attributes="href data/getDataset_url" tal:content="data/Title">Dataset title</a -->
 					<div tal:content="structure data/Description" />
 				</li>
 				<li tal:repeat="data context/getSpecification_data">
@@ -227,6 +225,7 @@
 					<!-- </ul> -->
 			</div>
 
+      </metal:main_macro>
 		</div>
 	</body>
 </html>

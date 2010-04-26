@@ -1,3 +1,9 @@
+# -*- coding: utf-8 -*-
+
+__author__ = """European Environment Agency (EEA)"""
+__docformat__ = 'plaintext'
+__credits__ = """contributions: Alec Ghica, Tiberiu Ichim"""
+
 from DateTime import DateTime
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone import utils
@@ -16,16 +22,14 @@ class IndexPage(BrowserView):
 
     __call__ = template
 
-
 class AggregatedEditPage(BrowserView):
     template = ViewPageTemplateFile('templates/specification/aggregated_edit.pt')
 
     __call__ = template
 
-
 class SchemataCounts(BrowserView):
     """Provides a dictionary of fields that are required for publishing grouped by schematas
-    
+
     TODO: see if able to move this to eea.workflow
     """
 
@@ -43,7 +47,6 @@ class SchemataCounts(BrowserView):
                     schematas[field.schemata].append(field.__name__)
 
         return schematas
-
 
 class CreateVersion(BaseCreateVersion):
     """Create new version customizations for eea.versions """
@@ -96,7 +99,6 @@ class CreateVersion(BaseCreateVersion):
 
         return self.request.RESPONSE.redirect(ver.absolute_url())
 
-
 class WorkflowStateReadiness(ObjectReadiness):
     def is_ready_for(self, state_name):
         if state_name == 'published':
@@ -115,3 +117,41 @@ class WorkflowStateReadiness(ObjectReadiness):
             return True
         else:
             return super(WorkflowStateReadiness, self).is_ready_for(state_name)
+
+class AssessmentVersions(BrowserView):
+    """ Return contained Assessments divided by 'published' and 'draft' sorted
+        by publish_date and creation_date
+    """
+
+    def sort_assessments(self, data):
+        """ """
+        wftool = getToolByName(self.context, 'portal_workflow')
+        assessments = {}
+
+        for assessment in data:
+            #TODO: rewrite to the actual used workflow
+            info = wftool.getStatusOf('specification_workflow', assessment)
+            time = info['time']
+            assessments[time] = assessment
+
+        res = assessments.keys()
+        res.sort()
+
+        return [assessments[k] for k in res]
+
+    def __call__(self):
+        res = {'published': [], 'draft': []}
+
+        assessments = self.context.getFolderContents(
+                             contentFilter={'review_state':'published',
+                                            'portal_type':'Assessment'},
+                             full_objects = True)
+        res['published'] = self.sort_assessments(assessments)
+
+        assessments = self.context.getFolderContents(
+                             contentFilter={'review_state':'draft',
+                                            'portal_type':'Assessment'},
+                             full_objects = True)
+        res['draft'] = self.sort_assessments(assessments)
+
+        return res
