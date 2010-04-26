@@ -106,3 +106,34 @@ class UniqueSpecificationCode:
         return True
 
 validation.register(UniqueSpecificationCode('unique_specification_code'))
+
+class OneAssessmentPartPerQuestionValidator:
+    __implements__ = IValidator
+
+    def __init__(self,
+                 name,
+                 title='One Assessment per Question',
+                 description="Check if the PolicyQuestion is already answered"):
+        self.name = name
+        self.title = title or name
+        self.description = description
+
+    def __call__(self, value, *args, **kwargs):
+
+        instance = kwargs['instance']
+        catalog = getToolByName(instance, 'uid_catalog')
+        brains = catalog.searchResults(UID=value[0])
+        pq = brains[0].getObject()
+
+        q_path = pq.getPhysicalPath()
+        path = instance.getPhysicalPath()
+
+        for ap in instance.aq_parent.objectValues('AssessmentPart'):
+            if ap.getPhysicalPath() == path:    #same object
+                continue
+            if ap.getQuestion_answered().getPhysicalPath() == q_path:
+                return "Validation failed, there's already an Assessment Part that answers this question"
+
+        return True
+
+validation.register(OneAssessmentPartPerQuestionValidator('one_assessment_per_question'))

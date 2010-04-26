@@ -77,10 +77,11 @@ schema = Schema((
             label_msgid='indicators_label_question_answered',
             i18n_domain='indicators',
         ),
-        allowed_types=('PolicyQuestion',),
-        multiValued=0,
         relationship='relates_to',
         required=True,
+        multiValued=0,
+        validators=('one_assessment_per_question',),
+        allowed_types=('PolicyQuestion',),
     ),
 
 ),

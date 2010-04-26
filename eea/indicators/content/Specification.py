@@ -659,7 +659,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
 
     security.declareProtected("Modify portal content", 'setCodes')
     def setCodes(self, value):
-        #we want to filter rows that don't have a number filled in 
+        #we want to filter rows that don't have a number filled in
         field = self.schema['codes']
         instance = self
         value = get_dgf_value(field, value)
