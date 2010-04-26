@@ -8,11 +8,12 @@
 				<tal:def tal:define="fieldname string:title; fieldset string:default">
 					<metal:macro metal:use-macro="here/simple_edit_macros/macros/active_field">
 						<metal:slot metal:fill-slot="content">
-							<h1 tal:content="context/Title">Title here</h1>
+							<h1 tal:content="context/Title" tal:condition="context/Title">Title here</h1>
+							<h1 tal:condition="not: context/Title">Untitled Specification</h1>
 						</metal:slot>
 						<metal:slot metal:fill-slot="extra-metadata">
-							<div class="width">400</div>
-							<div class="height">160</div>
+							<div class="width">480</div>
+							<div class="height">180</div>
 						</metal:slot>
 					</metal:macro>
 				</tal:def>

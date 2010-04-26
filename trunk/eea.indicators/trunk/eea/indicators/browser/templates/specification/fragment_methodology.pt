@@ -15,7 +15,7 @@
 						<metal:slot metal:fill-slot="content">
 							<div tal:condition="python:not imsutils.field_has_value('methodology', context)" 
 								class="placeholder">
-								Please edit the methodology for indicator calculation
+								Please fill in
 							</div>
 							<p tal:replace="structure context/getMethodology" />
 						</metal:slot>
@@ -32,7 +32,7 @@
 						<metal:slot metal:fill-slot="content">
 							<div tal:condition="python:not imsutils.field_has_value('methodology_gapfilling', context)" 
 								class="placeholder">
-								Please edit the methodology for gapfilling
+								Please fill in
 							</div>
 							<p tal:replace="structure context/getMethodology_gapfilling" />
 						</metal:slot>

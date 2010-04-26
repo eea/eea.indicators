@@ -442,9 +442,9 @@ function ajaxify(el, fieldname){
 	$("form", el).submit(
 			function(e){
         var form = this;
-        save_kupu_values(this);
-				var data = ($(":input[name=" + fieldname + "]", form).serialize() + 
-					"&form_submit=Save&form.submitted=1&specific_field=" + fieldname
+        save_kupu_values(form);
+        // $(":input[name=" + fieldname + "]", form).serialize() +
+				var data = ($(form).serialize() +  "&form_submit=Save&form.submitted=1&specific_field=" + fieldname
 					);
 
 				$.ajax({

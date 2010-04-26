@@ -147,7 +147,7 @@
 /* Active fields styling 
  * ========================*/
 .active_region {
-		padding:1em 0;
+		/* padding:1em 0; */
 }
 
 .active_field .metadata, .active_field_hovered .metadata, .active_region .metadata {

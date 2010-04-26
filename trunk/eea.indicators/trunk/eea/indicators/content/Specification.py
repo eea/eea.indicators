@@ -45,6 +45,7 @@ from eea.indicators import msg_factory as _
 #from eea.indicators.content.interfaces import IIndicatorAssessment
 from eea.indicators.browser.assessment import create_version as create_assessment_version
 from eea.indicators.content.base import ModalFieldEditableAware, CustomizedObjectFactory
+from eea.indicators.content.utils import get_dgf_value
 from zope import event
 from zope.app.event import objectevent
 
@@ -90,6 +91,7 @@ schema = Schema((
         schemata="Classification",
         columns=("set", "code"),
         required_for_published=True,
+        validators=('unique_specification_code',),
     ),
     TextField(
         name='more_updates_on',
@@ -550,6 +552,10 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
                 short_term.append(item)
         return {'long':long_term, 'short':short_term, 'incomplete':incomplete}
 
+    def get_assessments(self):
+        assessments = self.objectValues('Assessment')
+        pass
+
     security.declareProtected(permissions.View, 'getOrganisationName')
     def getOrganisationName(self, url):
         """ """
@@ -650,6 +656,14 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
                 "%s%s" % (code['set'], code['code'])]
                 )
         return res
+
+    security.declareProtected("Modify portal content", 'setCodes')
+    def setCodes(self, value):
+        #we want to filter rows that don't have a number filled in 
+        field = self.schema['codes']
+        instance = self
+        value = get_dgf_value(field, value)
+        field.getStorage(instance).set(field.getName(), instance, value)
 
     def factory_RationaleReference(self):
         type_name = 'RationaleReference'

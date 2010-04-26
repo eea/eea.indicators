@@ -135,7 +135,9 @@ dl.toc {
 	border:1px dotted black;
 	padding:1em;
 }
-
+.active_region h5 {
+	margin-top:0;	
+}
 /* ul.toc { */
 /*     background-color:lightblue; */
 /*     padding:1em 3em; */
