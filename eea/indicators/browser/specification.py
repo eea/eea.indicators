@@ -5,7 +5,7 @@ from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from eea.indicators.content.Specification import required_for_publication
 from eea.versions.interfaces import IVersionControl, IVersionEnhanced
-from eea.versions.versions import CreateVersion as BaseCreateVersion
+from eea.versions.versions import CreateVersion as BaseCreateVersion, generateNewId
 from eea.versions.versions import _get_random, _reindex
 from eea.workflow.readiness import ObjectReadiness
 from zope.interface import alsoProvides, directlyProvides, directlyProvidedBy
@@ -26,12 +26,11 @@ class AggregatedEditPage(BrowserView):
 class SchemataCounts(BrowserView):
     """Provides a dictionary of fields that are required for publishing grouped by schematas
     
-    
     TODO: see if able to move this to eea.workflow
     """
 
     def __call__(self):
-        fields = required_for_publication
+        fields = required_for_publication   #TODO: rename this to required_for_published
 
         schematas = {}
         for field in self.context.schema.fields():
@@ -78,7 +77,7 @@ class CreateVersion(BaseCreateVersion):
         #TODO: add -vX sufix to the ids
         id = ver.getId()
         new_id = id.replace('copy_of_', '')
-        new_id = self.generateNewId(parent, new_id, ver.UID())
+        new_id = generateNewId(parent, new_id, ver.UID())
         parent.manage_renameObject(id=id, new_id=new_id)
         new_spec = parent[new_id]
 
@@ -86,11 +85,9 @@ class CreateVersion(BaseCreateVersion):
         ver.setEffectiveDate(DateTime())
 
         #Delete assessments and work items
-        for id in new_spec.objectIds('Assessment'):
-            new_spec._delOb(id) #shouldn't send IObjectRemovedEvent
-
-        for id in new_spec.objectIds('WorkItem'):
-            new_spec._delOb(id)
+        #new_spec._delOb(id) #shouldn't send IObjectRemovedEvent
+        new_spec.manage_delObjects(ids=new_spec.objectIds('Assessment'))
+        new_spec.manage_delObjects(ids=new_spec.objectIds('WorkItem'))
 
 
         # Set new state

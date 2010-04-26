@@ -31,7 +31,7 @@
 			<ul tal:define="assessments python:here.getFolderContents(contentFilter={'review_state':'published', 'portal_type':'Assessment'})">
 				<li tal:condition="not:assessments">No published assessments</li>
 				<li tal:repeat="brain assessments">
-					<a tal:attributes="href python:brain.getObject().absolute_url()" tal:content="brain/Title">
+					<a tal:attributes="href brain/getURL" tal:content="brain/Title">
 						Assessment title here
 					</a>
 				</li>
@@ -41,7 +41,7 @@
 			<ul tal:define="assessments python:here.getFolderContents(contentFilter={'portal_type':'Assessment', 'review_state':'draft'})">
 				<li tal:condition="not:assessments" >No drafts available</li>
 				<li tal:repeat="brain python:assessments">
-					<a tal:attributes="href python:brain.getObject().absolute_url()" tal:content="brain/Title">
+					<a tal:attributes="href brain/getURL" tal:content="brain/Title">
 						Assessment title here
 					</a>
 				</li>

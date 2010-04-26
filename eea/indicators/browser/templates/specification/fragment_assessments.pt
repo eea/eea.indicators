@@ -2,18 +2,16 @@
 	<tal:def tal:define="region_name string:assessments_area;
 		region_update_handler string:fragment_assessments;">
 
-		<div class="logic_group">
+		<div class="logic_group" tal:define="has_pq python:here.getFolderContents(
+			contentFilter={'portal_type':'PolicyQuestion'});
+			can_add python: has_pq and ' ' or '-disabled';">
 			<h2>Assessment versions</h2>
+			<div tal:condition="not:has_pq" class="portalMessage">
+				You can't create new Assessments until you have defined a main Policy Question
+			</div>
 			<div class="grouped_field">
 				<metal:macro metal:use-macro="context/simple_edit_macros/macros/active_region">
-					<metal:slot metal:fill-slot="content" 
-						tal:define="has_pq python:here.getFolderContents(
-						contentFilter={'portal_type':'PolicyQuestion'});
-						can_add python: has_pq and ' ' or '-disabled';">
-
-						<div tal:condition="not:has_pq" class="checks_alert">
-							You can't create new Assessments until you have at least a main Policy Question
-						</div>
+					<metal:slot metal:fill-slot="content" >
 
 						<a href='./object_factory?type_name=Assessment' 
 							class="object_creator" 

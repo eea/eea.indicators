@@ -2,11 +2,13 @@
 
 __author__ = """European Environment Agency (EEA)"""
 __docformat__ = 'plaintext'
-__credits__ = """contributions: Alec Ghica"""
+__credits__ = """contributions: Alec Ghica, Tiberiu Ichim"""
 
-from Products.validation import validation
 from Products.CMFPlone.utils import getToolByName
+from Products.validation import validation
 from Products.validation.interfaces.IValidator import IValidator
+from eea.indicators.content.utils import get_dgf_value
+from zope.component import getMultiAdapter
 
 
 class UniquePolicyDocTitleValidator:
@@ -33,6 +35,7 @@ class UniquePolicyDocTitleValidator:
 
 validation.register(UniquePolicyDocTitleValidator('unique_policy_title_validator'))
 
+
 class UniquePolicyDocUrlValidator:
     __implements__ = IValidator
 
@@ -55,3 +58,43 @@ class UniquePolicyDocUrlValidator:
         return 1
 
 validation.register(UniquePolicyDocUrlValidator('unique_policy_url_validator'))
+
+
+class UniqueSpecificationCode:
+    __implements__ = IValidator
+
+    def __init__(self,
+                 name,
+                 title='Unique Specification code',
+                 description='Check if the Specification code already exists in IMS'):
+        self.name = name
+        self.title = title or name
+        self.description = description
+
+    def __call__(self, value, *args, **kwargs):
+
+        context = kwargs['instance']
+        request = kwargs['REQUEST']
+        spec_id = context.getId()
+        versions = getMultiAdapter((context, request), name='getVersions')()
+        cat = getToolByName(kwargs['instance'], 'portal_catalog')
+
+        field = context.schema['codes']
+        value = get_dgf_value(field, value)
+        codes = ["".join((v['set'], v['code'])) for v in value]
+
+        for code in codes:
+            # {'query':codes,'operator':'or'}
+            brains = cat(portal_type='Specification', get_codes=[code])
+
+            #first, check if the spec is the same as the one being edited
+            brains = [b for b in brains if b.id != spec_id]
+            if brains:
+                return ("Validation failed, there is already another Specification with code %s" % code)
+
+            #next, check if the objects are versions of the instance
+            objs = [b.getObject() for b in brains]
+
+        return True
+
+validation.register(UniqueSpecificationCode('unique_specification_code'))
