@@ -22,19 +22,24 @@
 		for="eea.indicators.content.interfaces.ISpecification"
 		class=".utils.Sorter" permission="zope2.View" />
 
-	<browser:page 
-		name="get_readiness" 
+	<browser:page
+		name="get_readiness"
 		for="eea.indicators.content.interfaces.ISpecification"
-		permission="zope2.View"	
+		permission="zope2.View"
 		class=".specification.WorkflowStateReadiness"
 		allowed_interface="eea.workflow.interfaces.IObjectReadiness"
 		/>
 
+  <!-- Used on public view -->
+  <browser:page name="assessment_versions"
+           for="eea.indicators.content.interfaces.ISpecification"
+           class=".specification.AssessmentVersions"
+           permission="zope2.View" />
 
 	<!-- Specification Versioning -->
 	<browser:page
 		for="eea.indicators.content.interfaces.ISpecification"
-		name="createVersion" permission="cmf.ModifyPortalContent" 
+		name="createVersion" permission="cmf.ModifyPortalContent"
 		class=".specification.CreateVersion" />
 	<browser:menuItem
 		for="eea.indicators.content.interfaces.ISpecification"
