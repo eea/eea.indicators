@@ -4,7 +4,7 @@ from Products.CMFPlone.utils import parent
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from eea.versions.interfaces import IVersionControl, IVersionEnhanced
-from eea.versions.versions import CreateVersion as BaseCreateVersion
+from eea.versions.versions import CreateVersion as BaseCreateVersion, create_version
 from eea.versions.versions import _get_random, _reindex, generateNewId
 from eea.workflow.readiness import ObjectReadiness
 from zope.component import getMultiAdapter
@@ -33,7 +33,7 @@ def create_version(original, request=None):
     obj_id = original.getId()
     obj_title = original.Title()
     obj_type = original.portal_type
-    spec = parent = parent(original)
+    spec = parent(original)
     if request is None:
         request = original.REQUEST
 
@@ -48,17 +48,17 @@ def create_version(original, request=None):
         _reindex(original)
 
     # Create version object
-    cp = parent.manage_copyObjects(ids=[obj_id])
-    res = parent.manage_pasteObjects(cp)
+    cp = spec.manage_copyObjects(ids=[obj_id])
+    res = spec.manage_pasteObjects(cp)
     new_id = res[0]['new_id']
 
-    ver = getattr(parent, new_id)
+    ver = getattr(spec, new_id)
 
     # Remove copy_of from ID
     id = ver.getId()
     new_id = id.replace('copy_of_', '')
-    new_id = generateNewId(parent, new_id, ver.UID())
-    parent.manage_renameObject(id=id, new_id=new_id)
+    new_id = generateNewId(spec, new_id, ver.UID())
+    spec.manage_renameObject(id=id, new_id=new_id)
 
     # Set effective date today
     ver.setEffectiveDate(DateTime())
@@ -77,15 +77,19 @@ def create_version(original, request=None):
         ap = assessment[id]
         ap.setQuestion_answered(pq)
 
-        figures = get_figures_for_pq_in_assessment(pq, assessment)
+        figures = get_figures_for_pq_in_assessment(pq, original)
         #now create versions of figures
         for fig in figures: 
-            _ignored = getMultiAdapter((fig, request), name="createVersion")()
-            #latestVersion = getMultiAdapter()
+            version = create_version(fig)
+            _parent = fig.aq_parent
+            cp = _parent.manage_cutObjects(ids=[version.getId()])
+            res = ap.manage_pasteObjects(cp)
+
+        ap.reindexObject()
 
     # Set new state
     ver.reindexObject()
-    _reindex(original)  #some indexed values of the context may depend on versions
+    original.reindexObject()    # _reindex(original)  #some indexed values of the context may depend on versions
 
     return ver
 
