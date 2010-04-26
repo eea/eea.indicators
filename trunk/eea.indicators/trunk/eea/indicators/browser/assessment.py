@@ -4,7 +4,7 @@ from Products.CMFPlone.utils import parent
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from eea.versions.interfaces import IVersionControl, IVersionEnhanced
-from eea.versions.versions import CreateVersion as BaseCreateVersion, create_version
+from eea.versions.versions import CreateVersion as BaseCreateVersion, create_version as base_create_version
 from eea.versions.versions import _get_random, _reindex, generateNewId
 from eea.workflow.readiness import ObjectReadiness
 from zope.component import getMultiAdapter
@@ -80,7 +80,7 @@ def create_version(original, request=None):
         figures = get_figures_for_pq_in_assessment(pq, original)
         #now create versions of figures
         for fig in figures: 
-            version = create_version(fig)
+            version = base_create_version(fig)
             _parent = fig.aq_parent
             cp = _parent.manage_cutObjects(ids=[version.getId()])
             res = ap.manage_pasteObjects(cp)
