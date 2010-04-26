@@ -76,7 +76,7 @@ class UniqueSpecificationCode:
         context = kwargs['instance']
         request = kwargs['REQUEST']
         spec_id = context.getId()
-        versions = getMultiAdapter((context, request), name='getVersions')()
+        versions = getMultiAdapter((context, request), name='getVersions')().values()
         cat = getToolByName(kwargs['instance'], 'portal_catalog')
 
         field = context.schema['codes']
@@ -84,16 +84,24 @@ class UniqueSpecificationCode:
         codes = ["".join((v['set'], v['code'])) for v in value]
 
         for code in codes:
-            # {'query':codes,'operator':'or'}
+            #Now we check if there are other specifications in IMS that are not:
+            #the same object or versions of the same object
+            #To do this, we retrieve a list of all specifications with the same
+            #code and we filter out those that are versions or identical objs
+
             brains = cat(portal_type='Specification', get_codes=[code])
-
-            #first, check if the spec is the same as the one being edited
-            brains = [b for b in brains if b.id != spec_id]
-            if brains:
-                return ("Validation failed, there is already another Specification with code %s" % code)
-
-            #next, check if the objects are versions of the instance
             objs = [b.getObject() for b in brains]
+            not_same = []
+            for obj in objs:
+                path = obj.getPhysicalPath()
+
+                #if any version has the same path as the checked object,
+                #then we consider all versions to be the same as the object
+                if not [v for v in versions if v.getPhysicalPath() == path]:
+                    not_same.append(obj)
+
+            if not_same:
+                return ("Validation failed, there is already another Specification with code %s" % code)
 
         return True
 
