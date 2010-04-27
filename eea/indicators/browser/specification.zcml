@@ -36,6 +36,11 @@
            class=".specification.AssessmentVersions"
            permission="zope2.View" />
 
+  <browser:page name="policy_questions"
+           for="eea.indicators.content.interfaces.ISpecification"
+           class=".specification.PolicyQuestions"
+           permission="zope2.View" />
+
 	<!-- Specification Versioning -->
 	<browser:page
 		for="eea.indicators.content.interfaces.ISpecification"
