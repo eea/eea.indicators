@@ -1,5 +1,5 @@
 .headed-box {
-	border:1px solid Lightblue;
+	border:1px solid blue;
 	padding:6px;
 	clear:both;
 	margin-top:20px;
@@ -138,42 +138,3 @@ dl.toc {
 .active_region h5 {
 	margin-top:0;	
 }
-/* ul.toc { */
-/*     background-color:lightblue; */
-/*     padding:1em 3em; */
-/*     margin:0 0 1em 0; */
-/* } */
-/* ul.toc a { */
-/*     color:black; */
-/* } */
-/* .active_field :hover { */
-/* 	background-color:#FFA8D5; */
-/* } */
-/*  */
-/* .active_field .control { */
-/* 	display:none; */
-/* } */
-/*  */
-/* .active_field :hover .control { */
-/* 	display:block; */
-/* 	float:right; */
-/* } */
-/* textarea.kupu-editor-textarea { */
-/* 	display:inherit !important */
-/* } */
-/* .checks_alert { */
-/* 	/* float:right; */ */
-/* 	background-color:red; */
-/* 	padding:2px; */
-/* 	color:white; */
-/* } */
-/* #rationale { */
-/* 	background-color:#eDeDeD; */
-/* 	margin:1em 0; */
-/* 	padding:1px 1em; */
-/* } */
-/*  */
-/* #rationale .controls { */
-/* 	float:right; */
-/* 	/* width:200px; */ */
-/* } */
