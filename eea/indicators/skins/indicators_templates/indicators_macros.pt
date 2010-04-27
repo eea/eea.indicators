@@ -1,0 +1,10 @@
+<!-- Tooltip macro -->
+<metal:tooltip define-macro="tooltip"
+	tal:define="tooltip tooltip|field/widget/description|nothing"
+	tal:condition="tooltip">
+	<img class="eea-flexible-tooltip-bottom"
+		src="information.png"
+		title=""
+		tal:attributes="src string:${portal_url}/information.png;
+		title tooltip" />
+</metal:tooltip>
