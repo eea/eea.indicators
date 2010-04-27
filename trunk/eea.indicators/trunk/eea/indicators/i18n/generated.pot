@@ -40,6 +40,11 @@ msgstr ""
 msgid "IMS_workitem_status_label"
 msgstr ""
 
+#. Default: "Here comes Dataspec description"
+#: content/specification_relateditems.py
+msgid "indicators_help_relatedItems"
+msgstr ""
+
 #. Default: "Useful only for CSI indicators, to tell which was original code"
 #: Specification.py
 #: content/Specification.py

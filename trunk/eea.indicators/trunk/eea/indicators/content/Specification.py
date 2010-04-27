@@ -368,7 +368,9 @@ schema = Schema((
         widget=ReferenceBrowserWidget(
             label="External data sets",
             addable=True,
+            description="Here comes Dataspec description",
             label_msgid='indicators_label_relatedItems',
+            description_msgid='indicators_help_relatedItems',
             i18n_domain='indicators',
         ),
         allowed_types=('ExternalDataSpec',),
@@ -664,7 +666,10 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
         instance = self
         value = get_dgf_value(field, value)
         for row in value:
-            row['code'] = "%03d" % int(row['code'])
+            try:
+                row['code'] = "%03d" % int(row['code'])
+            except ValueError:
+                continue
         field.getStorage(instance).set(field.getName(), instance, value)
 
     def factory_RationaleReference(self):

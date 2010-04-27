@@ -9,10 +9,10 @@
       </script>
 		</metal:slot>
 		<metal:slot metal:define-macro="css">
-			<style type="text/css"
-				media="all"
-				tal:content="structure string:<!-- @import url(${context/++resource++indicators.css}); -->">
-			</style>
+			<!-- <style type="text/css" -->
+			<!-- 	media="all" -->
+			<!-- 	tal:content="structure string:<!-- @import url(${context/++resource++indicators.css}); -->"> -->
+			<!-- </style> -->
 		</metal:slot>
 	</head>
 	<body />
