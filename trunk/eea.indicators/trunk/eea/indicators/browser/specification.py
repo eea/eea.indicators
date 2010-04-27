@@ -22,14 +22,16 @@ class IndexPage(BrowserView):
 
     __call__ = template
 
+
 class AggregatedEditPage(BrowserView):
     template = ViewPageTemplateFile('templates/specification/aggregated_edit.pt')
 
     __call__ = template
 
+
 class SchemataCounts(BrowserView):
     """Provides a dictionary of fields that are required for publishing grouped by schematas
-
+    
     TODO: see if able to move this to eea.workflow
     """
 
@@ -47,6 +49,7 @@ class SchemataCounts(BrowserView):
                     schematas[field.schemata].append(field.__name__)
 
         return schematas
+
 
 class CreateVersion(BaseCreateVersion):
     """Create new version customizations for eea.versions """
@@ -98,6 +101,7 @@ class CreateVersion(BaseCreateVersion):
         _reindex(self.context)  #some indexed values of the context may depend on versions
 
         return self.request.RESPONSE.redirect(ver.absolute_url())
+
 
 class WorkflowStateReadiness(ObjectReadiness):
     def is_ready_for(self, state_name):

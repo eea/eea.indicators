@@ -663,6 +663,8 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
         field = self.schema['codes']
         instance = self
         value = get_dgf_value(field, value)
+        for row in value:
+            row['code'] = "%03d" % int(row['code'])
         field.getStorage(instance).set(field.getName(), instance, value)
 
     def factory_RationaleReference(self):
