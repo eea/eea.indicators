@@ -91,8 +91,9 @@ class UniqueSpecificationCode:
             except ValueError:
                 not_numeric.append(row)
         if not_numeric:
-            not_numeric = ", ".join(["".join((str(code), str(set))) for code, set in not_numeric])
+            not_numeric = ", ".join([" ".join((row['set'], str(row['set']))) for row in not_numeric])
             return "Validation failed, you need to enter a number for set code(s): %s" % not_numeric
+
         codes = ["".join((v['set'], v['code'])) for v in value]
 
         for code in codes:
