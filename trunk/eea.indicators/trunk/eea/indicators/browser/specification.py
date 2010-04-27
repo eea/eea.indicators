@@ -31,7 +31,7 @@ class AggregatedEditPage(BrowserView):
 
 class SchemataCounts(BrowserView):
     """Provides a dictionary of fields that are required for publishing grouped by schematas
-    
+
     TODO: see if able to move this to eea.workflow
     """
 
@@ -157,5 +157,26 @@ class AssessmentVersions(BrowserView):
                                             'portal_type':'Assessment'},
                              full_objects = True)
         res['draft'] = self.sort_assessments(assessments)
+
+        return res
+
+class PolicyQuestions(BrowserView):
+    """ Return contained PolicyQuestions divided by 'is_key_question' property
+    """
+
+    def __call__(self):
+        res = {'all': [], 'key_questions': [], 'questions': []}
+
+        #TODO: get only published questions?
+        questions = self.context.getFolderContents(
+                           contentFilter={'portal_type':'PolicyQuestion'},
+                           full_objects = True)
+
+        res['all'] = questions
+        for question in questions:
+            if question.getIs_key_question:
+                res['key_questions'].append(question)
+            else:
+                res['questions'].append(question)
 
         return res

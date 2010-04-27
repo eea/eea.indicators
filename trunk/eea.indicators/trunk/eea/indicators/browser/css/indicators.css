@@ -1,5 +1,5 @@
 .headed-box {
-	border:1px solid blue;
+	border:1px solid LightBlue;
 	padding:6px;
 	clear:both;
 	margin-top:20px;
@@ -18,11 +18,11 @@
 }
 
 /* fields that are required for publication */
-#assessment-base-edit #archetypes-fieldname-key_message,  
-#externaldataspec-base-edit #archetypes-fieldname-provider_name, 
-#externaldataspec-base-edit #archetypes-fieldname-provider_url, 
-#externaldataspec-base-edit #archetypes-fieldname-dataset_url, 
-#externaldataspec-base-edit #archetypes-fieldname-description, 
+#assessment-base-edit #archetypes-fieldname-key_message,
+#externaldataspec-base-edit #archetypes-fieldname-provider_name,
+#externaldataspec-base-edit #archetypes-fieldname-provider_url,
+#externaldataspec-base-edit #archetypes-fieldname-dataset_url,
+#externaldataspec-base-edit #archetypes-fieldname-description,
 #assessmentpart-base-edit #archetypes-fieldname-assessment,
 #methodologyreference-base-edit #archetypes-fieldname-title,
 #methodologyreference-base-edit #archetypes-fieldname-description,
@@ -39,11 +39,11 @@
 #specification-base-edit #archetypes-fieldname-units,
 #specification-base-edit #archetypes-fieldname-methodology,
 #specification-base-edit #archetypes-fieldname-manager_user_id,
-#specification-base-edit #archetypes-fieldname-themes, 
+#specification-base-edit #archetypes-fieldname-themes,
 #policyquestion-base-edit #archetypes-fieldname-title {
 	background-color:#FF4444;
 	padding:1em 1em 2em;
-} 
+}
 #datagridwidget-table-codes {
 	width:auto !important;
 }
@@ -62,19 +62,19 @@
 }
 /* temporary overrides */
 dl.toc {
-	/* TODO: temporary override, because of conflict with kupu styling 
+	/* TODO: temporary override, because of conflict with kupu styling
 	 * Per Thulin has a ticket to fix this */
 	display:inherit !important;
 }
 
-/* Active field stuff 
+/* Active field stuff
  * =============================*/
 
 
 .sortable_spec {
-	margin: 0; 
-	padding: 0; 
-	width: 100%; 
+	margin: 0;
+	padding: 0;
+	width: 100%;
 }
 .sortable_spec .handler {
 	/* position: absolute; margin-left: -1.3em;  */
@@ -94,7 +94,7 @@ dl.toc {
 }
 
 .scientific_references {
-	list-style-type:none;	
+	list-style-type:none;
 	list-style-image:none;
 	line-height:inherit;
 }
@@ -136,5 +136,18 @@ dl.toc {
 	padding:1em;
 }
 .active_region h5 {
-	margin-top:0;	
+	margin-top:0;
+}
+
+/* Specification view */
+.documentContent th {
+  background-color: LightBlue;
+  font-weight: bold;
+  font-size: 1.2em;
+
+}
+
+.specificationIcon {
+  float:left;
+  margin-right: 5px;
 }
