@@ -16,6 +16,8 @@ from eea.versions.versions import _get_random, _reindex
 from eea.workflow.readiness import ObjectReadiness
 from zope.interface import alsoProvides, directlyProvides, directlyProvidedBy
 
+import logging
+logger = logging.getLogger('eea.indicators')
 
 class IndexPage(BrowserView):
     template = ViewPageTemplateFile('templates/specification/view.pt')
@@ -180,3 +182,20 @@ class PolicyQuestions(BrowserView):
                 res['questions'].append(question)
 
         return res
+
+class ContactInfo(BrowserView):
+    """ Return LDAP user based on manager_user_id
+    """
+
+    def __call__(self):
+        manager_ob = None
+        manager_id = self.context.getManager_user_id()
+
+        # Get LDAP user
+        try:
+            #TODO: #3292
+            manager_ob = self.context.acl_users.EIONETLDAPNEW.acl_users.getUser(manager_id)
+        except Exception, err:
+            logger.exception('Exception: %s ', err)
+
+        return manager_ob
