@@ -8,12 +8,12 @@
 
 	<browser:page name="edit_aggregated"
 		for="eea.indicators.content.interfaces.IAssessment"
-		class=".assessment.AggregatedEditPage" permission="zope2.View"
-		/>
+		class=".assessment.AggregatedEditPage" permission="zope2.View" />
 
-	<browser:page name="wizards"
-		for="eea.indicators.content.interfaces.IAssessment"
-		template="templates/assessment/wizards.pt" permission="zope2.View" />
+	<browser:page 
+		name="get_readiness" for="eea.indicators.content.interfaces.IAssessment"
+		permission="zope2.View"	class=".assessment.WorkflowStateReadiness"
+		allowed_interface="eea.workflow.interfaces.IObjectReadiness" />
 
 	<!-- Assessment Versioning -->
 	<browser:page name="createVersion" 
@@ -30,10 +30,8 @@
 		menu="object_buttons" action="@@revokeVersion"
 		description="Revoke a version" permission="cmf.ModifyPortalContent" />
 
-	<browser:page 
-		name="get_readiness" for="eea.indicators.content.interfaces.IAssessment"
-		permission="zope2.View"	class=".assessment.WorkflowStateReadiness"
-		allowed_interface="eea.workflow.interfaces.IObjectReadiness"
-		/>
+	<!-- <browser:page name="wizards" -->
+	<!-- 	for="eea.indicators.content.interfaces.IAssessment" -->
+	<!-- 	template="templates/assessment/wizards.pt" permission="zope2.View" /> -->
 		
 </configure>

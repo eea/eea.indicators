@@ -56,6 +56,9 @@ class SchemataCounts(BrowserView):
 class CreateVersion(BaseCreateVersion):
     """Create new version customizations for eea.versions """
 
+    #TODO: take out duplicate code that is now found in 
+    #eea.versions.versions.create_version
+
     def __call__(self):
         pu = getToolByName(self.context, 'plone_utils')
         #obj_uid = self.context.UID()
