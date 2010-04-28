@@ -2,11 +2,11 @@
 	<tal:def tal:define="region_name string:title_area;
 		region_update_handler string:fragment_title;">
 
-		<metal:macro metal:use-macro="context/simple_edit_macros/macros/active_region">
+		<metal:macro metal:use-macro="context/indicators_macros/macros/active_region">
 			<metal:slot metal:fill-slot="content">
 
 				<tal:def tal:define="fieldname string:title; fieldset string:default">
-					<metal:macro metal:use-macro="here/simple_edit_macros/macros/active_field">
+					<metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
 						<metal:slot metal:fill-slot="content">
 							<h1 tal:content="context/Title" tal:condition="context/Title">Title here</h1>
 							<h1 tal:condition="not: context/Title">Untitled Specification</h1>
