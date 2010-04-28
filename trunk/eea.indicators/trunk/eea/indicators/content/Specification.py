@@ -76,15 +76,6 @@ schema = Schema((
         accessor="getTitle",
         required_for_published=True,
     ),
-    DateTimeField(
-        name='version',
-        widget=DateTimeField._properties['widget'](
-            label="Version",
-            label_msgid='indicators_label_version',
-            i18n_domain='indicators',
-        ),
-        schemata="Classification",
-    ),
     DataGridField(
         name='codes',
         widget=DataGridWidget(
@@ -237,6 +228,7 @@ schema = Schema((
         name='version_id',
         widget=StringField._properties['widget'](
             label="Version ID",
+            visible={'view':'invisible', 'edit':'invisible'},
             label_msgid='indicators_label_version_id',
             i18n_domain='indicators',
         ),
