@@ -2,7 +2,9 @@
       metal:use-macro="here/main_template/macros/master"
       i18n:domain="indicators">
 
-      <!-- #TODO: i18n:translate -->
+      <!-- #TODO: * i18n:translate
+                  * add <img> "specificationIcon" as CSS of <h2>
+      -->
 
   <body>
     <div metal:fill-slot="main">
@@ -13,12 +15,16 @@
                                     view_macros python:path('here/%s/macros|nothing' % view_template);
                                     header_macro view_macros/header | header_macro | base_macros/header;">
 
-        <img src="Specification.png"
+        <img src="Specification.gif"
              id="specification_icon"
-             tal:attributes="src string:${context/portal_url}/Specification.png"
+             tal:attributes="src string:${context/portal_url}/Specification.gif"
              class="specificationIcon" />
 
         <metal:use_header use-macro="header_macro" />
+
+        <metal:versions use-macro="here/portlet_versions/macros/versions">
+          <metal:new fill-slot="new" />
+        </metal:versions>
 
         <div metal:use-macro="here/portlet_themes_object/macros/portlet" />
         <div metal:use-macro="here/portlet_toc/macros/portlet" />
@@ -31,9 +37,9 @@
                                          published python:assessments['published'];
                                          draft python:assessments['draft']">
           <a name="versions"></a>
-          <img src="Assessment.png"
+          <img src="Assessment.gif"
                id="assessment_icon"
-               tal:attributes="src string:${context/portal_url}/Assessment.png"
+               tal:attributes="src string:${context/portal_url}/Assessment.gif"
                class="specificationIcon" />
 
           <h2>Assessment versions</h2>
@@ -59,9 +65,9 @@
         </tal:assessment_versions>
 
           <a name="rationale"></a>
-          <img src="RationaleReference.png"
+          <img src="RationaleReference.gif"
                id="rationalereference_icon"
-               tal:attributes="src string:${context/portal_url}/RationaleReference.png"
+               tal:attributes="src string:${context/portal_url}/RationaleReference.gif"
                class="specificationIcon" />
 
           <h2>Rationale</h2>
@@ -82,9 +88,9 @@
           </ul>
 
           <a name="definition"></a>
-          <img src="IMSDefinition.png"
+          <img src="IMSDefinition.gif"
                id="definition_icon"
-               tal:attributes="src string:${context/portal_url}/IMSDefinition.png"
+               tal:attributes="src string:${context/portal_url}/IMSDefinition.gif"
                class="specificationIcon" />
 
           <h2>Indicator definition</h2>
@@ -100,9 +106,9 @@
           </tal:units>
 
           <a name="policy_context"></a>
-          <img src="PolicyContext.png"
+          <img src="PolicyContext.gif"
                id="policycontext_icon"
-               tal:attributes="src string:${context/portal_url}/PolicyContext.png"
+               tal:attributes="src string:${context/portal_url}/PolicyContext.gif"
                class="specificationIcon" />
 
           <h2>Policy Context and targets</h2>
@@ -138,9 +144,9 @@
                                        key_questions python:policy_questions['key_questions'];
                                        questions python:policy_questions['questions']">
           <tal:question repeat="question all_questions">
-            <img src="PolicyQuestion.png"
+            <img src="PolicyQuestion.gif"
                  id="policyquestion_icon"
-                 tal:attributes="src string:${context/portal_url}/PolicyQuestion.png"
+                 tal:attributes="src string:${context/portal_url}/PolicyQuestion.gif"
                  class="specificationIcon" />
             <h2 tal:condition="question/getIs_key_question">Key policy question</h2>
             <h2 tal:condition="not:question/getIs_key_question">Specific policy question</h2>
@@ -150,9 +156,9 @@
           </tal:policy_question>
 
           <a name="methodology"></a>
-          <img src="IMSMethodology.png"
+          <img src="MethodologyReference.gif"
                id="methodology_icon"
-               tal:attributes="src string:${context/portal_url}/IMSMethodology.png"
+               tal:attributes="src string:${context/portal_url}/MethodologyReference.gif"
                class="specificationIcon" />
 
           <h2>Methodology</h2>
@@ -183,77 +189,135 @@
           </tal:methodology_references>
 
           <a name="dataspecs"></a>
-          <img src="DataSpecification.png"
+          <img src="DataSpecification.gif"
                id="dataspecification_icon"
-               tal:attributes="src string:${context/portal_url}/DataSpecification.png"
+               tal:attributes="src string:${context/portal_url}/DataSpecification.gif"
                class="specificationIcon" />
-          <!-- #3273 -->
+          <!-- TODO: #3273 -->
           <h2>Data specifications</h2>
-			<ul>
-				<li tal:repeat="data context/getRelatedItems">
-					<a href=""
-					   tal:attributes="href string:${context/portal_url}/data-and-maps/data/ds_resolveuid/${data/@@getLatestVersionLink}"
-					   tal:content="data/@@getLatestVersionLink">Dataset title</a>
-				</li>
-				<li tal:repeat="data context/getSpecification_data">
-					<a href="" tal:attributes="href data/absolute_url" tal:content="data/Title">Dataset title</a>
-					<div tal:content="structure data/Description" />
-				</li>
-			</ul>
+          <ul>
+            <!-- #TODO: <li>No datasets have been specifed yet.</li> -->
+            <li tal:repeat="data context/getRelatedItems">
+              <a href=""
+                 tal:attributes="href string:${context/portal_url}/data-and-maps/data/ds_resolveuid/${data/@@getLatestVersionLink}"
+                 tal:content="data/@@getLatestVersionLink">Dataset title</a>
+            </li>
+            <li tal:repeat="data context/getSpecification_data">
+              <a href="" tal:attributes="href data/absolute_url" tal:content="data/Title">Dataset title</a>
+              <div tal:content="structure data/Description" />
+            </li>
+          </ul>
 
-			<a name="uncertainties"></a>
-			<h2>Uncertainties</h2>
+          <a name="uncertainties"></a>
+          <img src="IMSUncertainties.gif"
+               id="uncertainties_icon"
+               tal:attributes="src string:${context/portal_url}/IMSUncertainties.gif"
+               class="specificationIcon" />
+          <h2>Uncertainties</h2>
 
-			<h3>Methodology uncertainty</h3>
-			<p tal:replace="structure context/getMethodology_uncertainty"></p>
+          <h3>Methodology uncertainty</h3>
+          <tal:methodology_uncertainty define="methodology_uncertainty context/getMethodology_uncertainty">
+            <p tal:condition="methodology_uncertainty" tal:replace="structure methodology_uncertainty"></p>
+            <p tal:condition="not:methodology_uncertainty">No uncertainty has been specified</p>
+          </tal:methodology_uncertainty>
 
-			<h3>Data sets uncertainty</h3>
-			<p tal:replace="structure context/getData_uncertainty"></p>
+          <h3>Data sets uncertainty</h3>
+          <tal:data_uncertainty define="data_uncertainty context/getData_uncertainty">
+            <p tal:condition="data_uncertainty" tal:replace="structure data_uncertainty"></p>
+            <p tal:condition="not:data_uncertainty">No uncertainty has been specified</p>
+          </tal:data_uncertainty>
 
-			<h3>Rationale uncertainty</h3>
-			<p tal:replace="structure context/getRationale_uncertainty"></p>
+          <h3>Rationale uncertainty</h3>
+          <tal:rationale_uncertainty define="rationale_uncertainty context/getRationale_uncertainty">
+            <p tal:condition="rationale_uncertainty" tal:replace="structure rationale_uncertainty"></p>
+            <p tal:condition="not:rationale_uncertainty">No uncertainty has been specified</p>
+          </tal:rationale_uncertainty>
 
-			<a name="further_work"></a>
-			<h2>Further work</h2>
-			<tal:def tal:define="works context/get_work; short works/short; long works/long">
-				<h3>Short term work</h3>
-				<p>Work specified here requires to be completed within 1 year from now.</p>
-				<div tal:repeat="work short">
-					<h4>Work description</h4>
-					<p tal:replace="structure work/Description"></p>
-					<h4>Resource needs</h4>
-					<p tal:replace="structure work/getNeeds"></p>
-					<h4>Status</h4>
-					<p tal:replace="structure work/getStatus"></p>
-					<h4>Deadline</h4>
-					<p tal:replace="structure work/getDue_date"></p>
-				</div>
-				<h3>Long term work</h3>
-				<div tal:repeat="work long">
-					<h4>Work description</h4>
-					<p tal:replace="structure work/Description"></p>
-					<h4>Resource needs</h4>
-					<p tal:replace="structure work/getNeeds"></p>
-					<h4>Status</h4>
-					<p tal:replace="structure work/getStatus"></p>
-					<h4>Deadline</h4>
-					<p tal:replace="structure work/getDue_date"></p>
-				</div>
+          <a name="further_work"></a>
+          <img src="WorkItem.gif"
+               id="uncertainties_icon"
+               tal:attributes="src string:${context/portal_url}/WorkItem.gif"
+               class="specificationIcon" />
+          <h2>Further work</h2>
 
-			</tal:def>
+          <tal:def tal:define="works context/get_work; short works/short; long works/long">
+            <h3>Short term work</h3>
+            <p>Work specified here requires to be completed within 1 year from now.</p>
+            <div tal:repeat="work short">
+              <h4>Work description</h4>
+              <tal:description define="description work/Description">
+                <p tal:condition="description" tal:replace="structure description"></p>
+                <p tal:condition="not:description">No further work description has been specified</p>
+              </tal:description>
+              <h4>Resource needs</h4>
+              <tal:needs define="needs work/getNeeds">
+                <p tal:condition="needs" tal:replace="structure needs"></p>
+                <p tal:condition="not:needs">No resource needs have been specified</p>
+              </tal:needs>
+              <h4>Status</h4>
+              <tal:status define="status work/getStatus">
+                <p tal:condition="status" tal:replace="structure status"></p>
+                <p tal:condition="status">No status has been specified</p>
+              </tal:status>
+              <h4>Deadline</h4>
+              <p tal:replace="structure work/getDue_date"></p>
+            </div>
+            <h3>Long term work</h3>
+            <p>Work specifed here will require more than 1 year (from now) to be completed.</p>
+            <div tal:repeat="work long">
+              <h4>Work description</h4>
+              <tal:description define="description work/Description">
+                <p tal:condition="description" tal:replace="structure description"></p>
+                <p tal:condition="not:description">No further work description has been specified</p>
+              </tal:description>
+              <h4>Resource needs</h4>
+              <tal:needs define="needs work/getNeeds">
+                <p tal:condition="needs" tal:replace="structure needs"></p>
+                <p tal:condition="not:needs">No resource needs have been specified</p>
+              </tal:needs>
+              <h4>Status</h4>
+              <tal:status define="status work/getStatus">
+                <p tal:condition="status" tal:replace="structure status"></p>
+                <p tal:condition="not:status">No status has been specified</p>
+              </tal:status>
+              <h4>Deadline</h4>
+              <p tal:replace="structure work/getDue_date"></p>
+            </div>
+          </tal:def>
 
-			<metal:versions use-macro="here/portlet_versions/macros/versions">
-				<metal:new fill-slot="new" />
-			</metal:versions>
+          <a name="metadata"></a>
+          <img src="IMSDescription.gif"
+               id="metadata_icon"
+               tal:attributes="src string:${context/portal_url}/IMSDescription.gif"
+               class="specificationIcon" />
+          <h2>General metadata</h2>
 
-			<a name="metadata"></a>
-			<h2>General metadata</h2>
+          <div class='headed-box'>
+            <h3>Responsability and ownership</h3>
 
-			<div class='headed-box'>
-				<h3>Responsability and ownership</h3>
+            <h4>EEA Contact Info:</h4>
+            <tal:contact define="manager_id context/getManager_user_id;
+                                 contact context/getContact">
+              <tal:manager condition="manager_id">
+                <tal:block define="manager_ob context/@@indicator_contact_info">
+                  <a href=""
+                     tal:condition="manager_ob"
+                     title="Contact indicator manager"
+                     tal:attributes="href string:http://www.eionet.europa.eu/sitedirsearch?name=${manager_ob/uid}"
+                     tal:content="manager_ob/cn">Contact</a>
+                  <p tal:condition="not:manager_ob">
+                    <span>User not found:</span>
+                    <tal:manager_id tal:content="manager_id" />
+                  </p>
+                </tal:block>
+              </tal:manager>
+              <tal:contact condition="not:manager_id">
+                <p tal:content="contact" />
+              </tal:contact>
+            </tal:contact>
 
-				<h4>EEA Contact Info:</h4>
-				<div tal:content="structure context/getContact">...</div>
+
+
 
 				<h4>Ownership</h4>
 				<ul>
@@ -261,8 +325,7 @@
 						<a tal:content="python:context.getOrganisationName(info).Title" tal:attributes="href info">EEA</a>
 					</li>
 				</ul>
-
-			</div>
+          </div>
 
 			<div class='headed-box'>
 				<h3>Identification</h3>
