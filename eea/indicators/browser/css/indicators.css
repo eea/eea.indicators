@@ -1,20 +1,20 @@
 .headed-box {
-	border:1px solid LightBlue;
-	padding:6px;
-	clear:both;
-	margin-top:20px;
+  border:1px solid LightBlue;
+  padding:6px;
+  clear:both;
+  margin-top:20px;
 }
 .headed-box h5 {
-	background-color:white;
-	float:left;
-	top:-14px;
-	padding:0 6px;
-	position:relative;
-	margin:0 0 0 20px;
+  background-color:white;
+  float:left;
+  top:-14px;
+  padding:0 6px;
+  position:relative;
+  margin:0 0 0 20px;
 }
 .headed-box p, .headed-box h6, .headed-box div.wrapper {
-	padding-top:0px;
-	margin:15px 0 0;
+  padding-top:0px;
+  margin:15px 0 0;
 }
 
 /* fields that are required for publication */
@@ -41,30 +41,30 @@
 #specification-base-edit #archetypes-fieldname-manager_user_id,
 #specification-base-edit #archetypes-fieldname-themes,
 #policyquestion-base-edit #archetypes-fieldname-title {
-	background-color:#FF4444;
-	padding:1em 1em 2em;
+  background-color:#FF4444;
+  padding:1em 1em 2em;
 }
 #datagridwidget-table-codes {
-	width:auto !important;
+  width:auto !important;
 }
 #datagridwidget-add-button {
-	float:none;
-	background:none repeat scroll 0 0 #F5821F;
-	border-color:#FFCC99 #663300 #333300 #FF9966;
-	border-style:solid;
-	border-width:1px;
-	color:white;
-	cursor:pointer;
-	font:bold 0.9em verdana,sans-serif;
-	padding:0.2em 0.3em;
-	text-decoration:none;
-	text-transform:lowercase;
+  float:none;
+  background:none repeat scroll 0 0 #F5821F;
+  border-color:#FFCC99 #663300 #333300 #FF9966;
+  border-style:solid;
+  border-width:1px;
+  color:white;
+  cursor:pointer;
+  font:bold 0.9em verdana,sans-serif;
+  padding:0.2em 0.3em;
+  text-decoration:none;
+  text-transform:lowercase;
 }
 /* temporary overrides */
 dl.toc {
-	/* TODO: temporary override, because of conflict with kupu styling
-	 * Per Thulin has a ticket to fix this */
-	display:inherit !important;
+  /* TODO: temporary override, because of conflict with kupu styling
+   * Per Thulin has a ticket to fix this */
+  display:inherit !important;
 }
 
 /* Active field stuff
@@ -72,71 +72,71 @@ dl.toc {
 
 
 .sortable_spec {
-	margin: 0;
-	padding: 0;
-	width: 100%;
+  margin: 0;
+  padding: 0;
+  width: 100%;
 }
 .sortable_spec .handler {
-	/* position: absolute; margin-left: -1.3em;  */
-	float:left;
-	margin-right:1em;
-	display:block;
+  /* position: absolute; margin-left: -1.3em;  */
+  float:left;
+  margin-right:1em;
+  display:block;
 }
 
 .sortable_spec .ui-state-highlight {
-	height:40px;
+  height:40px;
 }
 .sortable_spec .ui-sortable-helper .spec_control {
-	/* display:none; */
+  /* display:none; */
 }
 .ui-sortable-helper {
-	width:inherit !important;
+  width:inherit !important;
 }
 
 .scientific_references {
-	list-style-type:none;
-	list-style-image:none;
-	line-height:inherit;
+  list-style-type:none;
+  list-style-image:none;
+  line-height:inherit;
 }
 
 .list-item {
-	/* #policy_questions  */
-	margin:6px 0;
+  /* #policy_questions  */
+  margin:6px 0;
 }
 
 .logic_group {
-	padding:1em;
+  padding:1em;
 }
 .figure_edit_control {
-	position:absolute;
-	margin-top:40px;
-	margin-left:50px;
+  position:absolute;
+  margin-top:40px;
+  margin-left:50px;
 }
 .figure_edit_control a {
-	background-color:#79AE59;
-	color:white;
-	font-size:inherit;
-	height:inherit;
-	width:inherit;
-	padding:4px;
-	font-weight:bold;
+  background-color:#79AE59;
+  color:white;
+  font-size:inherit;
+  height:inherit;
+  width:inherit;
+  padding:4px;
+  font-weight:bold;
 }
 .col3 {
-	float:left;
-	width:30%;
-	border-left:1px solid lightblue;
-	padding-left:6px;
+  float:left;
+  width:30%;
+  border-left:1px solid lightblue;
+  padding-left:6px;
 }
 .work_item {}
 .work_item h5 {margin:0}
 .work_item h6 {margin:0}
 
 .grouped_field {
-	border:1px dotted black;
-	padding:1em;
+  border:1px dotted black;
+  padding:1em;
 }
 .active_region h5 {
-	margin-top:0;
+  margin-top:0;
 }
 
 /* Specification view */
