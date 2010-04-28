@@ -205,6 +205,15 @@ function set_deleters(){
 
 function reload_region(el){
 	var update_handler = $(".metadata .region_update_handler", el).text();
+  var also_reload = $(".metadata .also_reload", el);
+  if (also_reload) {
+    $(also_reload).children().each(function(){
+        var region = $(this).text();
+        if (region) { 
+          reload_region($("#"+region)) 
+        }
+    });
+  }
 
 	$.ajax({
         url: update_handler,
@@ -332,7 +341,6 @@ function dialog_edit(url, title, callback, options){
             beforeunloadtool = window.onbeforeunload && window.onbeforeunload.tool;
             save_kupu_values(form);
             var res = beforeunloadtool.isAnyFormChanged();
-            console.log("Result: " + res);
             
             beforeunloadtool.removeForms(form);
             return true;    // TODO: fix this so that the form unload alert works properly

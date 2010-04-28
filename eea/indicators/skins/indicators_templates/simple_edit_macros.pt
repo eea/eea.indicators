@@ -126,35 +126,5 @@
 			</form>
 		</div>
 
-		<metal:macro metal:define-macro="active_region">
-			<div class="active_region" tal:attributes="id region_name">
-				<div class="content">
-					<metal:slot metal:define-slot="content"></metal:slot>
-				</div>
-				<div class="metadata">
-					<div class="region_update_handler" 
-						tal:content="region_update_handler"></div>
-					<metal:slot metal:define-slot="extra-metadata"></metal:slot>
-				</div>
-			</div>
-			<div class="visualClear"><!-- --></div>
-		</metal:macro>
-
-		<div metal:define-macro="active_field" class="active_field" 
-			tal:define="thiscontext nocall:thiscontext|context">
-			<div class="control">
-				<a href="" 
-					tal:attributes="href string:${thiscontext/absolute_url}/${submit_handler}?fieldset=${fieldset}&specific_field=$fieldname">Edit</a>
-			</div>
-			<div class="content">
-				<metal:slot metal:define-slot="content"></metal:slot>
-			</div>
-			<div class="metadata">
-				<div class="fieldname" tal:content="fieldname" />
-				<div class="submit_handler" tal:content="submit_handler" />
-				<metal:slot metal:define-slot="extra-metadata"></metal:slot>
-			</div>
-		</div>
-
 	</body>
 </html>

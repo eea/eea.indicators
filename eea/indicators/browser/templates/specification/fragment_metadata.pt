@@ -6,7 +6,7 @@
 		<!-- <div tal:content="python:path('context/@@get_readiness').get_info_for('published')" /> -->
 		<!-- <div tal:content="python:path('context/@@get_readiness').is_ready_for('published')" /> -->
 
-		<metal:macro metal:use-macro="context/simple_edit_macros/macros/active_region">
+		<metal:macro metal:use-macro="context/indicators_macros/macros/active_region">
 			<metal:slot metal:fill-slot="content">
 				<div class="logic_group">
 					<h2 class="metadata">General metadata</h2>
@@ -16,7 +16,7 @@
 
 						<h6>EEA Contact Info:</h6> 
 						<tal:def tal:define="fieldname string:contact; fieldset string:Responsability">
-							<metal:macro metal:use-macro="here/simple_edit_macros/macros/active_field">
+							<metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
 								<metal:slot metal:fill-slot="content">
 									<div tal:condition="python:not imsutils.field_has_value(fieldname, context)" 
 										class="placeholder">
@@ -34,7 +34,7 @@
 						<h6>Ownership</h6>
 						<tal:def tal:define="fieldname string:ownership; fieldset string:Responsability; 
 							owners context/getOwnership">
-							<metal:macro metal:use-macro="here/simple_edit_macros/macros/active_field">
+							<metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
 							<metal:slot metal:fill-slot="content">
 								<div tal:condition="python:not owners" class="placeholder">
 									Please fill in
@@ -61,7 +61,7 @@
 						<strong>DPSIR</strong>
 						<tal:def tal:define="fieldname string:dpsir; fieldset string:Classification;
 							dpsir context/getDpsir">
-							<metal:macro metal:use-macro="here/simple_edit_macros/macros/active_field">
+							<metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
 								<metal:slot metal:fill-slot="content">
 									<div tal:condition="python:not dpsir" class="placeholder">
 										Please fill in
@@ -78,7 +78,7 @@
 						<strong>Typology</strong> 
 						<tal:def tal:define="fieldname string:typology; fieldset string:Classification;
 							typology context/getTypology">
-							<metal:macro metal:use-macro="here/simple_edit_macros/macros/active_field">
+							<metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
 								<metal:slot metal:fill-slot="content">
 									<div tal:condition="python:not typology" class="placeholder">
 										Please fill in
@@ -99,7 +99,7 @@
 							<div class="portalMessage" tal:condition="not:themes">
 								You need to assign a primary theme
 							</div>
-							<metal:macro metal:use-macro="here/simple_edit_macros/macros/active_field">
+							<metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
 								<metal:slot metal:fill-slot="content">
 									<div tal:condition="python:not themes" class="placeholder">
 										Please fill in
@@ -124,7 +124,7 @@
 								<strong>CSI Code</strong>
 								<tal:def tal:define="fieldname string:codes; fieldset string:Classification;
 									dpsir context/getDpsir">
-									<metal:macro metal:use-macro="here/simple_edit_macros/macros/active_field">
+									<metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
 										<metal:slot metal:fill-slot="content">
 											<div tal:condition="python:not codes" class="placeholder">
 												Please fill in

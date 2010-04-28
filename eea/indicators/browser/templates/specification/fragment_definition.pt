@@ -5,11 +5,11 @@
 
 		<div class="logic_group">
 			<h2 class="definition">Indicator definition</h2>
-			<metal:macro metal:use-macro="context/simple_edit_macros/macros/active_region">
+			<metal:macro metal:use-macro="context/indicators_macros/macros/active_region">
 				<metal:slot metal:fill-slot="content">
 
 					<tal:def tal:define="fieldname string:definition; fieldset string:default">
-						<metal:macro metal:use-macro="here/simple_edit_macros/macros/active_field">
+						<metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
 							<metal:slot metal:fill-slot="content">
 								<div tal:condition="python:not imsutils.field_has_value(fieldname, context)" 
 									class="placeholder">
@@ -27,7 +27,7 @@
 
 					<h3>Units</h3>
 					<tal:def tal:define="fieldname string:units; fieldset string:default">
-						<metal:macro metal:use-macro="here/simple_edit_macros/macros/active_field">
+						<metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
 							<metal:slot metal:fill-slot="content">
 								<div tal:condition="python:not imsutils.field_has_value(fieldname, context)" 
 									class="placeholder">

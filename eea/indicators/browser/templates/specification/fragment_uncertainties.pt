@@ -4,14 +4,14 @@
 		imsutils nocall:context/@@indicator_utils;">
 
 		<div class="logic_group">
-			<metal:macro metal:use-macro="context/simple_edit_macros/macros/active_region">
+			<metal:macro metal:use-macro="context/indicators_macros/macros/active_region">
 				<metal:slot metal:fill-slot="content">
 
 					<h2 class="uncertainties">Uncertainties</h2>
 
 					<h5>Methodology uncertainty</h5>
 					<tal:def tal:define="fieldname string:methodology_uncertainty; fieldset string:Methodology">
-						<metal:macro metal:use-macro="here/simple_edit_macros/macros/active_field">
+						<metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
 							<metal:slot metal:fill-slot="content">
 								<div tal:condition="python:not imsutils.field_has_value('methodology_uncertainty', context)" 
 									class="placeholder">
@@ -29,7 +29,7 @@
 
 					<h5>Data sets uncertainty</h5>
 					<tal:def tal:define="fieldname string:data_uncertainty; fieldset string:DataSpecs">
-						<metal:macro metal:use-macro="here/simple_edit_macros/macros/active_field">
+						<metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
 							<metal:slot metal:fill-slot="content">
 								<div tal:condition="python:not imsutils.field_has_value('data_uncertainty', context)" 
 									class="placeholder">
@@ -46,7 +46,7 @@
 
 					<h5>Rationale uncertainty</h5>
 					<tal:def tal:define="fieldname string:rationale_uncertainty; fieldset string:Rationale">
-						<metal:macro metal:use-macro="here/simple_edit_macros/macros/active_field">
+						<metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
 							<metal:slot metal:fill-slot="content">
 								<div tal:condition="python:not imsutils.field_has_value('rationale_uncertainty', context)" 
 									class="placeholder">

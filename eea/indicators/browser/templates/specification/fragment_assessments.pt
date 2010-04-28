@@ -7,7 +7,7 @@
 		published assessments/published;
 		draft assessments/draft;">
 
-		<metal:macro metal:use-macro="context/simple_edit_macros/macros/active_region">
+		<metal:macro metal:use-macro="context/indicators_macros/macros/active_region">
 			<metal:slot metal:fill-slot="content" >
 				<div class="logic_group">
 
