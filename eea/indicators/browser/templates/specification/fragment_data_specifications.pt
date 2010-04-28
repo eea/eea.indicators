@@ -20,7 +20,7 @@
 					<tal:defs tal:define="fieldName string:relatedItems; 
 						field python:context.schema['relatedItems'];
 						value python:context.getRawRelatedItems()">
-						<span metal:use-macro="here/eeareferencebrowser/macros/reference_edit" />
+						<!-- <span metal:use-macro="here/eeareferencebrowser/macros/reference_edit" /> -->
 					</tal:defs>
 					<metal:macro metal:use-macro="here/simple_edit_macros/macros/active_field">
 						<metal:slot metal:fill-slot="content">

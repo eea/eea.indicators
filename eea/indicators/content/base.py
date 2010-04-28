@@ -133,7 +133,11 @@ class CustomizedObjectFactory(object):
         type_name = self.REQUEST['type_name']
         factory = getattr(self, 'factory_' + type_name)
         obj = factory()
-        return "<done />"
+        return """
+<div class='metadata'>
+    <div class='object_edit_url'>%s/schemata_edit</div>
+</div>
+""" % obj.absolute_url()
 
     def _generic_factory(self, type_name):
         id = self.generateUniqueId(type_name)
