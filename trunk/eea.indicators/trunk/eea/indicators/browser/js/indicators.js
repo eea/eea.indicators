@@ -106,10 +106,12 @@ function set_editors(){
 			var active_region = region.id; //the region that will be reloaded
 
 			dialog_edit(link, title, function(text, status, xhr){
-				schemata_ajaxify($("#dialog-inner"), active_region);
-				}, options);
-				return false;
-			});
+          schemata_ajaxify($("#dialog-inner"), active_region);
+				}, 
+        options);
+
+      return false;
+  });
 }
 
 function set_edit_buttons() {
@@ -148,20 +150,35 @@ function set_creators(){
 	$('a.object_creator').live('click', function(){
 			var link = $(this).attr('href');
 			var region = $(this).parents(".active_region")[0];
+      var title = "Edit";
+      var options = {
+        'width':800,
+        'height':600
+      }
 			$.ajax({
-                url: link,
-                type:'GET',
-                // timeout: 2000,
-                error: function() {
-                    alert("Failed to update!");
-                },
-                success: function(r) { 
-                    reload_region($(region));
-                    return false;
-                }
-                });
+          url: link,
+          type:'GET',
+          // timeout: 2000,
+          error: function() {
+              alert("Failed to update!");
+          },
+          success: function(r) { 
+            reload_region($(region));
+            var info = $(r).children('.object_edit_url');
+            if (info) {
+              var edit_link = info.text();
+              dialog_edit(edit_link, title, function(text, status, xhr){
+                schemata_ajaxify($("#dialog-inner"), $(region).attr('id'));
+                }, 
+                options
+              );
+            }
             return false;
-            });
+          }
+        });
+
+      return false;
+    });
 }
 
 function set_deleters(){
