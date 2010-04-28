@@ -125,6 +125,7 @@ class CustomizedObjectFactory(object):
 
     security = ClassSecurityInfo()
 
+    #TODO: change permission to 'Add portal content'
     security.declareProtected(permissions.ModifyPortalContent, 'object_factory')
     def object_factory(self):
         """Create an object according to special rules for that object """

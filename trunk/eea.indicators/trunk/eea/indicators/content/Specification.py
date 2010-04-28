@@ -52,6 +52,12 @@ from zope.app.event import objectevent
 import datetime
 import logging
 
+try:
+    from Products.OrderableReferenceField._field import OrderableReferenceField
+except ImportError:
+    from Products.Archetypes.atapi import ReferenceField as OrderableReferenceField
+from eea.relations.widget.referencewidget import EEAReferenceBrowserWidget
+
 ONE_YEAR = datetime.timedelta(weeks=52)
 ##/code-section module-header
 
@@ -447,6 +453,15 @@ Specification_schema['manager_user_id'].widget = UserAndGroupSelectionWidget(
         )
 
 Specification_schema['themes'].schemata = 'Classification'
+Specification_schema['relatedItems'] = OrderableReferenceField('relatedItems',
+        schemata='DataSpecs',
+        relationship='relatesTo',
+        multivalued=True,
+        isMetadata=False,
+        widget=EEAReferenceBrowserWidget(
+            label='Data sets',
+            description='Here comes datasets description',
+            ))
 
 #batch reorder of the fields
 #this is created like this because we want explicit control over how the schemata fields
