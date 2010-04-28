@@ -29,6 +29,8 @@ from Products.ATContentTypes.content.folder import ATFolder, ATFolderSchema
 ##code-section module-header #fill in your manual code here
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema
 from eea.indicators.content.base import ModalFieldEditableAware, CustomizedObjectFactory
+from eea.indicators.content.interfaces import ISpecification
+from eea.indicators.content.utils import get_specific_parent
 ##/code-section module-header
 
 schema = Schema((
@@ -151,7 +153,15 @@ class AssessmentPart(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory
 
     def factory_EEAFigure(self):
         type_name = 'EEAFigure'
-        return self._generic_factory(type_name)
+        figure = self._generic_factory(type_name)
+
+        try:
+            spec = get_specific_parent(self, lambda o:ISpecification.providedBy(o))
+            themes = spec.getThemes()
+        except ValueError:
+            themes = []
+
+        figure.setThemes(themes)
 
 
 

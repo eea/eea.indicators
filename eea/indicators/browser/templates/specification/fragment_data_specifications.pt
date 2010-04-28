@@ -17,6 +17,11 @@
 					<div class="portalMessage" tal:condition="python:not (related or specs)">
 						You need to reference at least one Data Spec
 					</div>
+					<tal:defs tal:define="fieldName string:relatedItems; 
+						field python:context.schema['relatedItems'];
+						value python:context.getRawRelatedItems()">
+						<span metal:use-macro="here/eeareferencebrowser/macros/reference_edit" />
+					</tal:defs>
 					<metal:macro metal:use-macro="here/simple_edit_macros/macros/active_field">
 						<metal:slot metal:fill-slot="content">
 							<div tal:condition="python:not (related or specs)" class="placeholder">
@@ -39,6 +44,9 @@
 						</metal:slot>
 					</metal:macro>
 				</tal:def>
+
+
+
 			</div>
 
 		</metal:slot>

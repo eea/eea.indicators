@@ -80,6 +80,9 @@ CODES = [
         'WBSCI',
         'CSI',
         ]
+DEPENDENCIES = [
+        'eea.relations'
+        ]
 ##/code-section config-bottom
 
 
