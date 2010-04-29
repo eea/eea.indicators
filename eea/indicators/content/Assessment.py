@@ -3,7 +3,7 @@
 # $Id$
 #
 # Copyright (c) 2010 by ['Tiberiu Ichim']
-# Generator: ArchGenXML 
+# Generator: ArchGenXML
 #            http://plone.org/products/archgenxml
 #
 # GNU General Public License (GPL)
@@ -99,7 +99,7 @@ Assessment_schema['management_plan'] = ManagementPlanField(
         )
     )
 
-Assessment_schema['relatedItems'].widget.visible = {'view':'invisible', 'edit':'invisible'}
+Assessment_schema['relatedItems'].widget.visible = {'view':'visible', 'edit':'visible'}
 finalizeATCTSchema(Assessment_schema)
 ##/code-section after-schema
 
