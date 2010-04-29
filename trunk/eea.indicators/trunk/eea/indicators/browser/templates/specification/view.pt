@@ -40,16 +40,18 @@
               </a>
             </li>
           </ul>
-
-          <h5>Draft (not yet published - not quality assured)</h5>
-          <ul>
-            <li tal:condition="not:draft">No drafts available</li>
-            <li tal:repeat="assessment draft">
+          
+          <tal:draft_versions condition="python:not portal.portal_membership.isAnonymousUser()">
+           <h5>Draft (not yet published - not quality assured)</h5>
+           <ul>
+             <li tal:condition="not:draft">No drafts available</li>
+             <li tal:repeat="assessment draft">
               <a tal:attributes="href assessment/absolute_url" tal:content="assessment/Title">
                 Assessment title here
               </a>
-            </li>
-          </ul>
+             </li>
+            </ul>
+           </tal:draft_versions>
         </tal:assessment_versions>
 
           <a name="rationale"></a>
