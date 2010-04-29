@@ -2,9 +2,7 @@
       metal:use-macro="here/main_template/macros/master"
       i18n:domain="indicators">
 
-      <!-- #TODO: * i18n:translate
-                  * add <img> "specificationIcon" as CSS of <h2>
-      -->
+      <!-- #TODO: * i18n:translate -->
 
   <body>
     <div metal:fill-slot="main">
@@ -14,11 +12,6 @@
                                     view_template python:'%s_view' % portal_type;
                                     view_macros python:path('here/%s/macros|nothing' % view_template);
                                     header_macro view_macros/header | header_macro | base_macros/header;">
-
-        <img src="Specification.gif"
-             id="specification_icon"
-             tal:attributes="src string:${context/portal_url}/Specification.gif"
-             class="specificationIcon" />
 
         <metal:use_header use-macro="header_macro" />
 
@@ -37,12 +30,7 @@
                                          published python:assessments['published'];
                                          draft python:assessments['draft']">
           <a name="versions"></a>
-          <img src="Assessment.gif"
-               id="assessment_icon"
-               tal:attributes="src string:${context/portal_url}/Assessment.gif"
-               class="specificationIcon" />
-
-          <h2>Assessment versions</h2>
+          <h2 id="assessment_versions">Assessment versions</h2>
           <h5>Published (reviewed and quality assured)</h5>
           <ul>
             <li tal:condition="not:published">No published assessments</li>
@@ -65,12 +53,7 @@
         </tal:assessment_versions>
 
           <a name="rationale"></a>
-          <img src="RationaleReference.gif"
-               id="rationalereference_icon"
-               tal:attributes="src string:${context/portal_url}/RationaleReference.gif"
-               class="specificationIcon" />
-
-          <h2>Rationale</h2>
+          <h2 id="rationale">Rationale</h2>
           <tal:justification define="rationale_justification context/rationale_justification">
             <h3>Justification for indicator selection:</h3>
             <p tal:replace="structure rationale_justification"
@@ -88,12 +71,7 @@
           </ul>
 
           <a name="definition"></a>
-          <img src="IMSDefinition.gif"
-               id="definition_icon"
-               tal:attributes="src string:${context/portal_url}/IMSDefinition.gif"
-               class="specificationIcon" />
-
-          <h2>Indicator definition</h2>
+          <h2 id="indicator_definition">Indicator definition</h2>
           <tal:definition define="definition context/getDefinition">
             <p tal:condition="not:definition">No definition has been specified</p>
             <p tal:condition="definition" tal:replace="structure definition"></p>
@@ -106,12 +84,7 @@
           </tal:units>
 
           <a name="policy_context"></a>
-          <img src="PolicyContext.gif"
-               id="policycontext_icon"
-               tal:attributes="src string:${context/portal_url}/PolicyContext.gif"
-               class="specificationIcon" />
-
-          <h2>Policy Context and targets</h2>
+          <h2 id="policy_context">Policy Context and targets</h2>
 
           <h3>Context description</h3>
           <tal:policy_description define="policy_description context/getPolicy_context_description">
@@ -144,24 +117,15 @@
                                        key_questions python:policy_questions['key_questions'];
                                        questions python:policy_questions['questions']">
           <tal:question repeat="question all_questions">
-            <img src="PolicyQuestion.gif"
-                 id="policyquestion_icon"
-                 tal:attributes="src string:${context/portal_url}/PolicyQuestion.gif"
-                 class="specificationIcon" />
-            <h2 tal:condition="question/getIs_key_question">Key policy question</h2>
-            <h2 tal:condition="not:question/getIs_key_question">Specific policy question</h2>
+            <h2 class="policy_question" tal:condition="question/getIs_key_question">Key policy question</h2>
+            <h2 class="policy_question" tal:condition="not:question/getIs_key_question">Specific policy question</h2>
 
             <h3 tal:content="question/Title">Question title</h3>
           </tal:question>
           </tal:policy_question>
 
           <a name="methodology"></a>
-          <img src="MethodologyReference.gif"
-               id="methodology_icon"
-               tal:attributes="src string:${context/portal_url}/MethodologyReference.gif"
-               class="specificationIcon" />
-
-          <h2>Methodology</h2>
+          <h2 id="methodology">Methodology</h2>
 
           <tal:methodology define="methodology context/getMethodology">
             <h3>Methodology for indicator calculation</h3>
@@ -189,12 +153,8 @@
           </tal:methodology_references>
 
           <a name="dataspecs"></a>
-          <img src="DataSpecification.gif"
-               id="dataspecification_icon"
-               tal:attributes="src string:${context/portal_url}/DataSpecification.gif"
-               class="specificationIcon" />
           <!-- TODO: #3273 -->
-          <h2>Data specifications</h2>
+          <h2 id="data_specifications">Data specifications</h2>
           <ul>
             <!-- #TODO: <li>No datasets have been specifed yet.</li> -->
             <li tal:repeat="data context/getRelatedItems">
@@ -209,11 +169,7 @@
           </ul>
 
           <a name="uncertainties"></a>
-          <img src="IMSUncertainties.gif"
-               id="uncertainties_icon"
-               tal:attributes="src string:${context/portal_url}/IMSUncertainties.gif"
-               class="specificationIcon" />
-          <h2>Uncertainties</h2>
+          <h2 id="uncertainties">Uncertainties</h2>
 
           <h3>Methodology uncertainty</h3>
           <tal:methodology_uncertainty define="methodology_uncertainty context/getMethodology_uncertainty">
@@ -234,11 +190,7 @@
           </tal:rationale_uncertainty>
 
           <a name="further_work"></a>
-          <img src="WorkItem.gif"
-               id="uncertainties_icon"
-               tal:attributes="src string:${context/portal_url}/WorkItem.gif"
-               class="specificationIcon" />
-          <h2>Further work</h2>
+          <h2 id="further_work">Further work</h2>
 
           <tal:def tal:define="works context/get_work; short works/short; long works/long">
             <h3>Short term work</h3>
@@ -286,11 +238,7 @@
           </tal:def>
 
           <a name="metadata"></a>
-          <img src="IMSDescription.gif"
-               id="metadata_icon"
-               tal:attributes="src string:${context/portal_url}/IMSDescription.gif"
-               class="specificationIcon" />
-          <h2>General metadata</h2>
+          <h2 id="general_metadata">General metadata</h2>
 
           <div class='headed-box'>
             <h3>Responsability and ownership</h3>
