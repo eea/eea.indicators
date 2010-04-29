@@ -56,7 +56,7 @@ class SchemataCounts(BrowserView):
 class CreateVersion(BaseCreateVersion):
     """Create new version customizations for eea.versions """
 
-    #TODO: take out duplicate code that is now found in 
+    #TODO: take out duplicate code that is now found in
     #eea.versions.versions.create_version
 
     def __call__(self):
@@ -138,10 +138,13 @@ class AssessmentVersions(BrowserView):
         assessments = {}
 
         for assessment in data:
-            #TODO: rewrite to the actual used workflow
-            info = wftool.getStatusOf('specification_workflow', assessment)
-            time = info['time']
-            assessments[time] = assessment
+            try:
+                #TODO: rewrite to the actual used workflow
+                info = wftool.getStatusOf('specification_workflow', assessment)
+                time = info['time']
+                assessments[time] = assessment
+            except Exception, err:
+                logger.exception('Exception: %s ', err)
 
         res = assessments.keys()
         res.sort()
