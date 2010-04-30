@@ -205,3 +205,11 @@ class ContactInfo(BrowserView):
             logger.exception('Exception: %s ', err)
 
         return manager_ob
+
+class RelatedItems(BrowserView):
+    """ Return related Policy Documents
+    """
+
+    def __call__(self, ctype):
+        return [rel for rel in self.context.getRelatedItems()
+                    if rel.portal_type == ctype]

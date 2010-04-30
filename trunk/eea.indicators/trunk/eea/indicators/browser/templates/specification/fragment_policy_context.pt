@@ -13,7 +13,7 @@
 					<tal:def tal:define="fieldname string:policy_context_description; fieldset string:PolicyContext">
 						<metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
 							<metal:slot metal:fill-slot="content">
-								<div tal:condition="python:not imsutils.field_has_value('policy_context_description', context)" 
+								<div tal:condition="python:not imsutils.field_has_value('policy_context_description', context)"
 									class="placeholder">
 									Please fill in
 								</div>
@@ -31,7 +31,7 @@
 					<tal:def tal:define="fieldname string:policy_context_targets; fieldset string:PolicyContext">
 						<metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
 							<metal:slot metal:fill-slot="content">
-								<div tal:condition="python:not imsutils.field_has_value('policy_context_targets', context)" 
+								<div tal:condition="python:not imsutils.field_has_value('policy_context_targets', context)"
 									class="placeholder">
 									Please fill in
 								</div>
@@ -45,8 +45,9 @@
 					</tal:def>
 
 					<h3>Related policy documents</h3>
-					<tal:def tal:define="fieldname string:related_policy_documents; 
-						fieldset string:PolicyContext; docs context/getRelated_policy_documents;">
+					<!-- #TODO: replace Edit related_policy_documents with Edit relatedItems -->
+					<tal:def tal:define="fieldname string:related_policy_documents;
+						fieldset string:PolicyContext; docs context/@@related_policy_documents;">
 						<metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
 							<metal:slot metal:fill-slot="content">
 								<div tal:condition="python:not docs" class="placeholder">

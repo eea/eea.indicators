@@ -3,7 +3,7 @@
 # $Id$
 #
 # Copyright (c) 2010 by ['Tiberiu Ichim']
-# Generator: ArchGenXML 
+# Generator: ArchGenXML
 #            http://plone.org/products/archgenxml
 #
 # GNU General Public License (GPL)
@@ -27,10 +27,15 @@ from eea.indicators.config import *
 from Products.ATContentTypes.content.folder import ATFolder, ATFolderSchema
 
 ##code-section module-header #fill in your manual code here
-from Products.ATContentTypes.content.schemata import finalizeATCTSchema
-from eea.indicators.content.base import ModalFieldEditableAware, CustomizedObjectFactory
-from eea.indicators.content.interfaces import ISpecification
 from eea.indicators.content.utils import get_specific_parent
+from eea.indicators.content.interfaces import ISpecification
+from Products.ATContentTypes.content.schemata import finalizeATCTSchema
+from eea.relations.widget.referencewidget import EEAReferenceBrowserWidget
+from eea.indicators.content.base import ModalFieldEditableAware, CustomizedObjectFactory
+try:
+    from Products.OrderableReferenceField._field import OrderableReferenceField
+except ImportError:
+    from Products.Archetypes.atapi import ReferenceField as OrderableReferenceField
 ##/code-section module-header
 
 schema = Schema((
@@ -97,14 +102,18 @@ AssessmentPart_schema = ATFolderSchema.copy() + \
     schema.copy()
 
 ##code-section after-schema #fill in your manual code here
-AssessmentPart_schema['question_answered'].widget = ReferenceWidget(
+AssessmentPart_schema.delField('question_answered')
+AssessmentPart_schema.moveField('relatedItems', pos=0)
+AssessmentPart_schema['relatedItems'] = OrderableReferenceField('relatedItems',
+        relationship='relatesTo',
+        required=True,
+        multiValued=False,
+        validators=('one_assessment_per_question',),
+        widget=EEAReferenceBrowserWidget(
             label="Answers to policy question",
             label_msgid='indicators_label_question_answered',
             i18n_domain='indicators',
-            destination="get_specification_path",
-        )
-AssessmentPart_schema.moveField('question_answered', pos=0)
-AssessmentPart_schema['relatedItems'].widget.visible = {'view':'invisible', 'edit':'invisible'}
+            ))
 finalizeATCTSchema(AssessmentPart_schema)
 ##/code-section after-schema
 
@@ -130,7 +139,7 @@ class AssessmentPart(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory
     security.declarePublic('Title')
     def Title(self):
         try:
-            q = self.getQuestion_answered()
+            q = self.getRelatedItems()
         except AttributeError:  #reference_catalog is not found at creation
             q = None
         if q is None:
@@ -140,7 +149,7 @@ class AssessmentPart(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory
 
     security.declarePublic('is_key_message')
     def is_key_message(self):
-        q = self.getQuestion_answered()
+        q = self.getRelatedItems()
         if q is None:
             return False
         return q.getIs_key_question()

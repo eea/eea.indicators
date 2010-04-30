@@ -3,7 +3,7 @@
 	region_update_handler string:fragment_data_specifications;
 	submit_handler string:simple_edit;
 	imsutils nocall:context/@@indicator_utils;
-	related context/getRelatedItems; specs context/getSpecification_data;
+	related context/getRelatedItems;
 	tooltip_macro context/indicators_macros/macros/tooltip;
 	portal_url context/portal_url;">
 
@@ -14,7 +14,7 @@
 				<h2 class="policy_questions" tal:define="tooltip string:Data specification description"><span metal:use-macro="tooltip_macro" />
 					Data specifications</h2>
 				<tal:def tal:define="fieldname string:relatedItems; fieldset string:DataSpecs">
-					<div class="portalMessage" tal:condition="python:not (related or specs)">
+					<div class="portalMessage" tal:condition="python:not related">
 						You need to reference at least one Data Spec
 					</div>
 					<tal:defs tal:define="fieldName string:relatedItems;
@@ -24,18 +24,14 @@
 					</tal:defs>
 					<metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
 						<metal:slot metal:fill-slot="content">
-							<div tal:condition="python:not (related or specs)" class="placeholder">
+							<div tal:condition="python:not related" class="placeholder">
 								Please fill in
 							</div>
-							<ul tal:condition="python:(related or specs)">
+							<ul tal:condition="python:related">
 								<li tal:repeat="data related">
 									<a href=""
 									   tal:attributes="href string:${context/portal_url}/data-and-maps/data/ds_resolveuid/${data/@@getLatestVersionLink}"
 									   tal:content="data/@@getLatestVersionLink">Dataset title</a>
-								</li>
-								<li tal:repeat="data specs">
-									<a href="" tal:attributes="href data/absolute_url" tal:content="data/Title">Dataset title</a>
-									<div tal:content="structure data/Description" />
 								</li>
 							</ul>
 						</metal:slot>

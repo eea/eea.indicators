@@ -416,26 +416,17 @@ Specification_schema = ATFolderSchema.copy() + \
 ##code-section after-schema #fill in your manual code here
 Specification_schema = Specification_schema + ThemeTaggable_schema.copy()
 
-Specification_schema['relatedItems'].widget = ReferenceWidget(
-            label="External data sets",
-            addable=True,
-            label_msgid='indicators_label_relatedItems',
-            i18n_domain='indicators',
-        )
-
-Specification_schema['specification_data'].widget = ReferenceWidget(
-            label="Datasets used for this Specification",
-            label_msgid='indicators_label_specification_data',
-            i18n_domain='indicators',
-        )
-
-Specification_schema['related_policy_documents'].widget = ReferenceWidget(
-            label="Related Policy Documents",
-            addable=True,
-            destination="./../",
-            label_msgid='indicators_label_related_policy_documents',
-            i18n_domain='indicators',
-        )
+Specification_schema.delField('related_policy_documents')
+Specification_schema.delField('specification_data')
+Specification_schema['relatedItems'] = OrderableReferenceField('relatedItems',
+        schemata='DataSpecs',
+        relationship='relatesTo',
+        multivalued=True,
+        isMetadata=False,
+        widget=EEAReferenceBrowserWidget(
+            label='Related Item(s)',
+            description='Specify related item(s).',
+            ))
 
 Specification_schema['manager_user_id'].widget = UserAndGroupSelectionWidget(
             label="The manager of this Indicator Specification",
@@ -445,16 +436,6 @@ Specification_schema['manager_user_id'].widget = UserAndGroupSelectionWidget(
         )
 
 Specification_schema['themes'].schemata = 'Classification'
-Specification_schema['relatedItems'] = OrderableReferenceField('relatedItems',
-        schemata='DataSpecs',
-        relationship='relatesTo',
-        multivalued=True,
-        isMetadata=False,
-        widget=EEAReferenceBrowserWidget(
-            label='Data sets',
-            description='Here comes datasets description',
-            ))
-
 #batch reorder of the fields
 #this is created like this because we want explicit control over how the schemata fields
 #are ordered and changing this in the UML modeler is just too time consuming
@@ -470,15 +451,15 @@ _field_order = [
             },
         {
             'name':'PolicyContext',
-            'fields':['policy_context_description', 'policy_context_targets', 'related_policy_documents', ]
+            'fields':['policy_context_description', 'policy_context_targets',]
             },
         {
             'name':'Methodology',
-            'fields':['methodology', 'methodology_uncertainty', 'methodology_gapfilling', ]
+            'fields':['methodology', 'methodology_uncertainty', 'methodology_gapfilling',]
             },
         {
             'name':'DataSpecs',
-            'fields':['relatedItems', 'data_uncertainty', 'specification_data',]
+            'fields':['relatedItems', 'data_uncertainty']
             },
         {
             'name':'Classification',
@@ -721,7 +702,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
             id = ast.invokeFactory(type_name="AssessmentPart",
                                    id=ast.generateUniqueId("AssessmentPart"),)
             ap = ast[id]
-            ap.setQuestion_answered(pq)
+            ap.setRelatedItems(pq)
             ap.reindexObject()
 
         return ast

@@ -19,7 +19,6 @@ from AccessControl import ClassSecurityInfo
 from Products.ATContentTypes.content.folder import ATFolder
 from Products.CMFCore.permissions import ModifyPortalContent
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
-from Products.OrderableReferenceField._field import OrderableReferenceField
 from Products.ATReferenceBrowserWidget.ATReferenceBrowserWidget import ReferenceBrowserWidget
 
 from eea.indicators.config import *
@@ -28,6 +27,11 @@ from eea.indicators.config import *
 from Products.ATContentTypes.content.folder import ATFolder, ATFolderSchema
 
 ##code-section module-header #fill in your manual code here
+try:
+    from Products.OrderableReferenceField._field import OrderableReferenceField
+except ImportError:
+    from Products.Archetypes.atapi import ReferenceField as OrderableReferenceField
+from eea.relations.widget.referencewidget import EEAReferenceBrowserWidget
 ##/code-section module-header
 
 schema = Schema((
@@ -137,29 +141,14 @@ schema = Schema((
         ),
         vocabulary=[('None', ''), ('D', 'Driving forces'), ('P', 'Pressures'), ('S', 'States'), ('I', 'Impacts'), ('R', 'Reactions')],
     ),
-    OrderableReferenceField(
-        'relatedItems',
-        relationship = 'relatesTo',
-        multiValued = True,
-        isMetadata = True,
-        languageIndependent = False,
-        index = 'KeywordIndex',
-        write_permission = ModifyPortalContent,
-        widget = ReferenceBrowserWidget(
-            allow_search = True,
-            allow_browse = True,
-            allow_sorting = True,
-            show_indexes = False,
-            force_close_on_insert = True,
-            label = "Related Item(s)",
-            label_msgid = "indfactsheet_label_related_items",
-            description = "Specify relaetd item(s).",
-            description_msgid = "indfactsheet_help_related_items",
-            i18n_domain = "plone",
-            visible = {'edit' : 'visible', 'view' : 'invisible' }
-            )
-        )
-
+    OrderableReferenceField('relatedItems',
+            relationship='relatesTo',
+            multivalued=True,
+            isMetadata=False,
+            widget=EEAReferenceBrowserWidget(
+                label='Related Item(s)',
+                description='Specify related item(s).',
+                ))
 ),
 )
 

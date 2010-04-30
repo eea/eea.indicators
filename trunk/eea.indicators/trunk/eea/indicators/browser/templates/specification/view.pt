@@ -40,7 +40,7 @@
               </a>
             </li>
           </ul>
-          
+
           <tal:draft_versions condition="python:not portal.portal_membership.isAnonymousUser()">
            <h5>Draft (not yet published - not quality assured)</h5>
            <ul>
@@ -100,7 +100,8 @@
             <p tal:condition="not:policy_targets">No targets have been specified</p>
           </tal:policy_targets>
 
-          <tal:policy_documents define="policy_documents context/getRelated_policy_documents">
+          <tal:policy_documents define="policyDocuments nocall:context/@@related_items;
+                                        policy_documents python:policyDocuments('PolicyDocumentReference')">
             <h3>Related policy documents</h3>
             <ul tal:condition="policy_documents">
               <li tal:repeat="doc policy_documents">
@@ -157,16 +158,13 @@
           <a name="dataspecs"></a>
           <!-- TODO: #3273 -->
           <h2 id="data_specifications">Data specifications</h2>
-          <ul>
-            <!-- #TODO: <li>No datasets have been specifed yet.</li> -->
-            <li tal:repeat="data context/getRelatedItems">
+          <ul tal:define="datasetsView nocall:context/@@related_items;
+                          datasets python:datasetsView('Data')">
+            <li tal:condition="not:datasets">No datasets have been specifed yet.</li>
+            <li tal:repeat="data datasets" tal:condition="datasets">
               <a href=""
                  tal:attributes="href string:${context/portal_url}/data-and-maps/data/ds_resolveuid/${data/@@getLatestVersionLink}"
                  tal:content="data/@@getLatestVersionLink">Dataset title</a>
-            </li>
-            <li tal:repeat="data context/getSpecification_data">
-              <a href="" tal:attributes="href data/absolute_url" tal:content="data/Title">Dataset title</a>
-              <div tal:content="structure data/Description" />
             </li>
           </ul>
 
