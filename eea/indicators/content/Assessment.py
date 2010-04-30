@@ -33,6 +33,11 @@ from eea.dataservice.vocabulary import DatasetYears
 from eea.dataservice.widgets.ManagementPlanWidget import ManagementPlanWidget
 from eea.indicators import msg_factory as _
 from eea.indicators.content.base import ModalFieldEditableAware, CustomizedObjectFactory
+try:
+    from Products.OrderableReferenceField._field import OrderableReferenceField
+except ImportError:
+    from Products.Archetypes.atapi import ReferenceField as OrderableReferenceField
+from eea.relations.widget.referencewidget import EEAReferenceBrowserWidget
 ##/code-section module-header
 
 schema = Schema((
@@ -99,7 +104,14 @@ Assessment_schema['management_plan'] = ManagementPlanField(
         )
     )
 
-Assessment_schema['relatedItems'].widget.visible = {'view':'visible', 'edit':'visible'}
+Assessment_schema['relatedItems'] = OrderableReferenceField('relatedItems',
+        relationship='relatesTo',
+        multivalued=True,
+        isMetadata=False,
+        widget=EEAReferenceBrowserWidget(
+            label='Related Item(s)',
+            description='Specify related item(s).',
+            ))
 finalizeATCTSchema(Assessment_schema)
 ##/code-section after-schema
 

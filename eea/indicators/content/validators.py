@@ -145,7 +145,7 @@ class OneAssessmentPartPerQuestionValidator:
         for ap in instance.aq_parent.objectValues('AssessmentPart'):
             if ap.getPhysicalPath() == path:    #same object
                 continue
-            if ap.getQuestion_answered().getPhysicalPath() == q_path:
+            if ap.getRelatedItems().getPhysicalPath() == q_path:
                 return "Validation failed, there's already an Assessment Part that answers this question"
 
         return True

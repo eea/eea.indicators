@@ -63,7 +63,7 @@ def create_version(original, request=None):
     # Set effective date today
     ver.setEffectiveDate(DateTime())
 
-    # All the EEAFigures contained inside are copy of the ones in the previous assessment 
+    # All the EEAFigures contained inside are copy of the ones in the previous assessment
     # but must be linked as new versions of the figures in the older assessment.
     # To achieve this, we must recreate all assessment parts and figures
 
@@ -75,11 +75,11 @@ def create_version(original, request=None):
         id = assessment.invokeFactory(type_name="AssessmentPart",
                 id=assessment.generateUniqueId("AssessmentPart"),)
         ap = assessment[id]
-        ap.setQuestion_answered(pq)
+        ap.setRelatedItems(pq)
 
         figures = get_figures_for_pq_in_assessment(pq, original)
         #now create versions of figures
-        for fig in figures: 
+        for fig in figures:
             version = base_create_version(fig)
             _parent = fig.aq_parent
             cp = _parent.manage_cutObjects(ids=[version.getId()])
@@ -98,10 +98,10 @@ def get_figures_for_pq_in_assessment(pq, assessment):
     contained in the AssessmentPart that answers to that PolicyQuestion"""
 
     path = pq.getPhysicalPath()
-    
+
     assessment_part = None
     for part in assessment.objectValues('AssessmentPart'):
-        if part.getQuestion_answered().getPhysicalPath() == path:   #TODO: check if the part points to pq
+        if part.getRelatedItems().getPhysicalPath() == path:   #TODO: check if the part points to pq
             assessment_part = part
             break
     if assessment_part is not None:

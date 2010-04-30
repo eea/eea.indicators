@@ -46,6 +46,11 @@
            class=".specification.ContactInfo"
            permission="zope2.View" />
 
+  <browser:page name="related_items"
+           for="eea.indicators.content.interfaces.ISpecification"
+           class=".specification.RelatedItems"
+           permission="zope2.View" />
+
 	<!-- Specification Versioning -->
 	<browser:page
 		for="eea.indicators.content.interfaces.ISpecification"
