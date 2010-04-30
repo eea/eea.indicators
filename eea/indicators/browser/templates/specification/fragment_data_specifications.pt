@@ -1,4 +1,4 @@
-<tal:defs 
+<tal:defs
 	tal:define="region_name string:data_specifications;
 	region_update_handler string:fragment_data_specifications;
 	submit_handler string:simple_edit;
@@ -17,7 +17,7 @@
 					<div class="portalMessage" tal:condition="python:not (related or specs)">
 						You need to reference at least one Data Spec
 					</div>
-					<tal:defs tal:define="fieldName string:relatedItems; 
+					<tal:defs tal:define="fieldName string:relatedItems;
 						field python:context.schema['relatedItems'];
 						value python:context.getRawRelatedItems()">
 						<!-- <span metal:use-macro="here/eeareferencebrowser/macros/reference_edit" /> -->
@@ -29,8 +29,9 @@
 							</div>
 							<ul tal:condition="python:(related or specs)">
 								<li tal:repeat="data related">
-									<a href="" tal:attributes="href data/getDataset_url" tal:content="data/Title">Dataset title</a>
-									<div tal:content="structure data/Description" />
+									<a href=""
+									   tal:attributes="href string:${context/portal_url}/data-and-maps/data/ds_resolveuid/${data/@@getLatestVersionLink}"
+									   tal:content="data/@@getLatestVersionLink">Dataset title</a>
 								</li>
 								<li tal:repeat="data specs">
 									<a href="" tal:attributes="href data/absolute_url" tal:content="data/Title">Dataset title</a>
