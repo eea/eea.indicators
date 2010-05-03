@@ -22,6 +22,7 @@
         <div metal:use-macro="here/portlet_toc/macros/portlet" />
         <div id="content-more-updates-on"
              class="system-message"
+             tal:condition="context/getMore_updates_on"
              tal:content="structure context/getMore_updates_on" />
 
         <metal:versions use-macro="here/portlet_versions/macros/versions">
