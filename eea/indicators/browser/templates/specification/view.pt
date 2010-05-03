@@ -18,9 +18,11 @@
         <metal:versions use-macro="here/portlet_versions/macros/versions">
           <metal:new fill-slot="new" />
         </metal:versions>
-
         <div metal:use-macro="here/portlet_themes_object/macros/portlet" />
         <div metal:use-macro="here/portlet_toc/macros/portlet" />
+        <div id="content-more-updates-on"
+             class="system-message"
+             tal:content="structure context/getMore_updates_on" />
 
         <metal:versions use-macro="here/portlet_versions/macros/versions">
           <metal:new fill-slot="old" />
