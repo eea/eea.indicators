@@ -5,7 +5,7 @@
 		<metal:slot metal:fill-slot="content">
 
 			<div class="logic_group">
-				<h2 class="further_work">Further work</h2>
+				<h2 id="further_work">Further work</h2>
 
 				<div class="grouped_field">
 					<tal:def tal:define="works context/get_work; 

@@ -1,5 +1,5 @@
 <tal:defs
-	tal:define="region_name string:data_specifications;
+	tal:define="region_name string:data_spec;
 	region_update_handler string:fragment_data_specifications;
 	submit_handler string:simple_edit;
 	imsutils nocall:context/@@indicator_utils;
@@ -11,7 +11,7 @@
 		<metal:slot metal:fill-slot="content">
 
 			<div class="logic_group">
-				<h2 class="policy_questions" tal:define="tooltip string:Data specification description"><span metal:use-macro="tooltip_macro" />
+				<h2 id="data_specifications" tal:define="tooltip string:Data specification description"><span metal:use-macro="tooltip_macro" />
 					Data specifications</h2>
 				<tal:def tal:define="fieldname string:relatedItems; fieldset string:DataSpecs">
 					<div class="portalMessage" tal:condition="python:not related">
@@ -41,8 +41,6 @@
 						</metal:slot>
 					</metal:macro>
 				</tal:def>
-
-
 
 			</div>
 

@@ -11,7 +11,7 @@
 			<metal:slot metal:fill-slot="content" >
 				<div class="logic_group">
 
-					<h2>Assessment versions</h2>
+					<h2 id="assessment_versions">Assessment versions</h2>
 					<div tal:condition="not:has_pq" class="portalMessage">
 						You can't create new Assessments until you have defined a main Policy Question
 					</div>
