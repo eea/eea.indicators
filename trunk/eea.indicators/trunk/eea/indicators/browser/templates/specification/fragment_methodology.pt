@@ -8,7 +8,7 @@
 		<metal:slot metal:fill-slot="content">
 
 			<div class="logic_group" >
-				<h2 class="methodology">Methodology</h2>
+				<h2 id="methodology">Methodology</h2>
 
 				<h3>Methodology for indicator calculation</h3>
 				<tal:def tal:define="fieldname string:methodology; fieldset string:Methodology">

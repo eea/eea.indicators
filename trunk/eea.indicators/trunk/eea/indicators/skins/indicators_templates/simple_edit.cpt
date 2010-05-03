@@ -4,12 +4,12 @@
                    dummy python:temporary and request.set('disable_border', True);
                    Iterator python:modules['Products.Archetypes'].IndexIterator;
                    schematas here/Schemata;
+                   specific_field options/state/kwargs/specific_field|options/specific_field|request/specific_field | nothing;
                    fieldsets python:[key for key in schematas.keys() if (key != 'metadata') and (schematas[key].editableFields(here, visible_only=True))];
                    default_fieldset python:(not schematas or schematas.has_key('default')) and 'default' or fieldsets[0];
                    fieldset request/fieldset|options/fieldset|default_fieldset;
                    fields python:schematas[fieldset].editableFields(here);
-									 specific_field options/state/kwargs/specific_field|options/specific_field|request/specific_field | nothing;
-									 fields python:specific_field and filter(lambda f:f.getName() == specific_field, fields) or fields;
+                   fields python:specific_field and filter(lambda f:f.getName() == specific_field, fields) or fields;
                    dummy python:here.at_isEditable(fields);
                    portal_type python:here.getPortalTypeName().lower().replace(' ', '_');
                    type_name here/getPortalTypeName|here/archetype_name;

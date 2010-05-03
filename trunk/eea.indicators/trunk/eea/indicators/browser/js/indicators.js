@@ -316,6 +316,7 @@ function dialog_edit(url, title, callback, options){
 	var target = $('#dialog_edit_target');
 	$("#dialog-inner").remove();     // temporary, apply real fix
 	$(target).append("<div id='dialog-inner'></div>");
+  window.onbeforeunload = null; // disable form unloaders
 	$("#dialog-inner").dialog({
         modal:true, 
         width:options.width, 
@@ -337,6 +338,7 @@ function dialog_edit(url, title, callback, options){
 					}
 				},
         beforeclose:function(event, ui){
+            return true;
             var form = $("#dialog-inner form").get(0);
             beforeunloadtool = window.onbeforeunload && window.onbeforeunload.tool;
             save_kupu_values(form);
@@ -355,7 +357,6 @@ function dialog_edit(url, title, callback, options){
             //     return true;
             //   }; 
             // }
-            return true;
           }
 				});
 
@@ -469,7 +470,7 @@ function ajaxify(el, fieldname){
         var form = this;
         save_kupu_values(form);
         // $(":input[name=" + fieldname + "]", form).serialize() +
-				var data = ($(form).serialize() +  "&form_submit=Save&form.submitted=1&specific_field=" + fieldname
+				var data = ($(form).serialize() +  "&form_submit=Save&form.submitted=1"     // &specific_field=" + fieldname
 					);
 
 				$.ajax({
@@ -507,6 +508,9 @@ function save_kupu_values(el) {
   });
 }
 
+function customBeforeUnload() {
+
+}
 
 // (function($) {
 //  $.fn.make_editable = function() {
@@ -551,3 +555,4 @@ function save_kupu_values(el) {
 // })(jQuery);
 
 // vim: set sw=2 ts=2 et:
+//

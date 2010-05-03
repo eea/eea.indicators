@@ -7,7 +7,7 @@
 			<metal:slot metal:fill-slot="content">
 				<div class="logic_group">
 
-					<h2 class="policy_context">Policy Context and targets</h2>
+					<h2 id="policy_context">Policy Context and targets</h2>
 
 					<h3>Context description</h3>
 					<tal:def tal:define="fieldname string:policy_context_description; fieldset string:PolicyContext">
