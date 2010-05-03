@@ -463,7 +463,7 @@ _field_order = [
             },
         {
             'name':'Classification',
-            'fields':['codes', 'dpsir', 'typology', 'csi_topics', 'version_id', 'themes']
+            'fields':['codes', 'dpsir', 'typology', 'version_id', 'themes']
             },
         {
             'name':'Responsability',
