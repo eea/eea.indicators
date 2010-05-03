@@ -138,6 +138,10 @@ dl.toc {
   font-weight: bold;
   font-size: 1.2em;
 }
+#content-more-updates-on {
+  background-color: #d0df86;
+  margin-right: 25em;
+}
 h1 {
   background: transparent url(Specification.gif) no-repeat scroll 0 8px;
   padding: 10px 0 6px 30px;
