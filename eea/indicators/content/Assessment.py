@@ -3,7 +3,7 @@
 # $Id$
 #
 # Copyright (c) 2010 by ['Tiberiu Ichim']
-# Generator: ArchGenXML 
+# Generator: ArchGenXML
 #            http://plone.org/products/archgenxml
 #
 # GNU General Public License (GPL)
@@ -155,7 +155,7 @@ class Assessment(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory, Br
             wftool = getToolByName(self, 'portal_workflow')
         except AttributeError:
             return u"Untitled"  #the object has not finished its creation process
-        info = wftool.getStatusOf('specification_workflow', self)   #TODO: rewrite to the actual used workflow
+        info = wftool.getStatusOf('indicators_workflow', self)
         if not info:
             return u"Untitled"  #the object has not finished its creation process
 
