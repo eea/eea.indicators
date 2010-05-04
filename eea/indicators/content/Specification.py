@@ -125,15 +125,6 @@ schema = Schema((
         vocabulary=[['None', ''], ['A', 'A'], ['B', 'B'], ['C', 'C'], ['D', 'D'], ['E', 'E']],
         required_for_published=True,
     ),
-    StringField(
-        name='csi_topics',
-        widget=SelectionWidget(
-            label="CSI Topics",
-            label_msgid='indicators_label_csi_topics',
-            i18n_domain='indicators',
-        ),
-        schemata="Classification",
-    ),
     LinesField(
         name='ownership',
         widget=MultiSelectionWidget(
@@ -375,32 +366,6 @@ schema = Schema((
         schemata="DataSpecs",
         multiValued=1,
         relationship='specification_relateditems',
-    ),
-    ReferenceField(
-        name='specification_data',
-        widget=ReferenceBrowserWidget(
-            label="Datasets used for this Specification",
-            label_msgid='indicators_label_specification_data',
-            i18n_domain='indicators',
-        ),
-        allowed_types=('Data',),
-        schemata="DataSpecs",
-        multiValued=1,
-        relationship='specification_specification_data',
-    ),
-    ReferenceField(
-        name='related_policy_documents',
-        widget=ReferenceBrowserWidget(
-            label="Related Policy Documents",
-            addable=True,
-            destination="./../",
-            label_msgid='indicators_label_related_policy_documents',
-            i18n_domain='indicators',
-        ),
-        allowed_types=('PolicyDocumentReference',),
-        schemata="PolicyContext",
-        multiValued=1,
-        relationship='specification_related_policy_documents',
     ),
 
 ),
