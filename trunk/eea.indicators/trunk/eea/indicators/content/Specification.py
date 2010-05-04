@@ -149,17 +149,6 @@ schema = Schema((
         schemata="Responsability",
         default_output_type="text/x-html-safe",
     ),
-    StringField(
-        name='csi_status',
-        widget=SelectionWidget(
-            label="CSI Status",
-            visible={'view':'hidden', 'edit':'hidden'},
-            label_msgid='indicators_label_csi_status',
-            i18n_domain='indicators',
-        ),
-        schemata="default",
-        vocabulary=["Under development", "Proposed for core set", "Endorsed by management board", "Dropped from core set"],
-    ),
     TextField(
         name='rationale_justification',
         widget=RichWidget(
