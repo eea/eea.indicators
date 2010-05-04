@@ -47,7 +47,9 @@
 					<h3>Related policy documents</h3>
 					<!-- #TODO: replace Edit related_policy_documents with Edit relatedItems -->
 					<tal:def tal:define="fieldname string:related_policy_documents;
-						fieldset string:PolicyContext; docs context/@@related_policy_documents;">
+						fieldset string:PolicyContext; 
+						related_view nocall:context/@@related_items;
+						docs python:related_view('PolicyDocumentReference');">
 						<metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
 							<metal:slot metal:fill-slot="content">
 								<div tal:condition="python:not docs" class="placeholder">

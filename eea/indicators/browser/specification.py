@@ -189,6 +189,7 @@ class PolicyQuestions(BrowserView):
 
         return res
 
+
 class ContactInfo(BrowserView):
     """ Return LDAP user based on manager_user_id
     """
@@ -205,6 +206,7 @@ class ContactInfo(BrowserView):
             logger.exception('Exception: %s ', err)
 
         return manager_ob
+
 
 class RelatedItems(BrowserView):
     """ Return related Policy Documents
