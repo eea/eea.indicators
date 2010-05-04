@@ -381,8 +381,6 @@ Specification_schema = ATFolderSchema.copy() + \
 ##code-section after-schema #fill in your manual code here
 Specification_schema = Specification_schema + ThemeTaggable_schema.copy()
 
-Specification_schema.delField('related_policy_documents')
-Specification_schema.delField('specification_data')
 Specification_schema['relatedItems'] = OrderableReferenceField('relatedItems',
         schemata='DataSpecs',
         relationship='relatesTo',

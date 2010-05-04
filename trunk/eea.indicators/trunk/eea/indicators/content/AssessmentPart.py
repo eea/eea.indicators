@@ -87,7 +87,6 @@ AssessmentPart_schema = ATFolderSchema.copy() + \
     schema.copy()
 
 ##code-section after-schema #fill in your manual code here
-AssessmentPart_schema.delField('question_answered')
 AssessmentPart_schema.moveField('relatedItems', pos=0)
 AssessmentPart_schema['relatedItems'] = OrderableReferenceField('relatedItems',
         relationship='relatesTo',
