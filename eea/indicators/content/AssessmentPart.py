@@ -142,17 +142,18 @@ class AssessmentPart(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory
             q = self.getRelatedItems()
         except AttributeError:  #reference_catalog is not found at creation
             q = None
-        if q is None:
+        if not q:
             return "Answer to unknown question"
+
         #return u"Answer for: %s" % q.Title()
-        return q.Title()
+        return q[0].Title()
 
     security.declarePublic('is_key_message')
     def is_key_message(self):
         q = self.getRelatedItems()
-        if q is None:
+        if not q:
             return False
-        return q.getIs_key_question()
+        return q[0].getIs_key_question()
 
     security.declarePublic('get_specification_path')
     def get_specification_path(self):
