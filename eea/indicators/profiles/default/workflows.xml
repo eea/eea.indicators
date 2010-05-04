@@ -1,15 +1,16 @@
 <?xml version="1.0"?>
 <object name="portal_workflow" meta_type="Plone Workflow Tool">
- <object name="Specification_State_Machine_2" meta_type="Workflow"/>
 <!-- ##code-section workflowobjects -->
 <!-- ##/code-section workflowobjects -->   
+<!-- ##code-section workflowbindings -->
+
+ <object name="indicators_workflow" meta_type="Workflow"/>
  <bindings>
   <type type_id="Specification">
-   <bound-workflow workflow_id="Specification_State_Machine_2" />
+   <bound-workflow workflow_id="indicators_workflow" />
   </type>
-<!-- ##code-section workflowbindings -->
  <type type_id="Assessment">
-  <bound-workflow workflow_id="specification_workflow" />
+  <bound-workflow workflow_id="indicators_workflow" />
  </type>
  <type type_id="AssessmentPart" />
  <type type_id="ExternalDataSpec"/>
@@ -17,6 +18,7 @@
  <type type_id="PolicyDocumentReference"/>
  <type type_id="PolicyQuestion"/>
  <type type_id="RationaleReference"/>
+ <type type_id="Specification"/>
  <type type_id="WorkItem"/>
 <!-- ##/code-section workflowbindings -->   
  </bindings>
