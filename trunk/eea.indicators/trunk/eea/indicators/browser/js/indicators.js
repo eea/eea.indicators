@@ -241,8 +241,9 @@ function closer(fieldname){
   // reloads a region and closes the dialog based on an active field name
   
 	var text = $('#value_response').html();
-	var fieldname = "#active_field-"+fieldname + " > *";
+	var fieldname = "#active_field-"+fieldname;
 	var region = $(fieldname).parents('.active_region').get();
+  console.log(region);
 	reload_region(region);
 
 	$(fieldname).html(text);
@@ -368,7 +369,6 @@ function dialog_edit(url, title, callback, options){
 function close_dialog(region){
     reload_region($("#"+region));
     $("#dialog-inner").dialog("close");
-
 }
 
 
@@ -469,10 +469,7 @@ function ajaxify(el, fieldname){
 			function(e){
         var form = this;
         save_kupu_values(form);
-        // $(":input[name=" + fieldname + "]", form).serialize() +
-				var data = ($(form).serialize() +  "&form_submit=Save&form.submitted=1"     // &specific_field=" + fieldname
-					);
-
+				var data = ($(form).serialize() + "&form_submit=Save&form.submitted=1");
 				$.ajax({
 									"data": data,
 									url: this.action,
@@ -508,10 +505,7 @@ function save_kupu_values(el) {
   });
 }
 
-function customBeforeUnload() {
-
-}
-
+//
 // (function($) {
 //  $.fn.make_editable = function() {
 //  // Set an ajax/dialog handler for "active fields"
