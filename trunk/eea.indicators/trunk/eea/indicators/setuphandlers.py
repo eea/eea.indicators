@@ -32,7 +32,7 @@ def isNotindicatorsProfile(context):
 
 def installQIDependencies(context):
     """This is for old-style products using QuickInstaller"""
-    if isNotindicatorsProfile(context): return 
+    if isNotindicatorsProfile(context): return
     logger.info("installQIDependencies starting")
     site = context.getSite()
     qi = getToolByName(site, 'portal_quickinstaller')
@@ -59,7 +59,7 @@ def installQIDependencies(context):
 def updateRoleMappings(context):
     """after workflow changed update the roles mapping. this is like pressing
     the button 'Update Security Setting' and portal_workflow"""
-    if isNotindicatorsProfile(context): return 
+    if isNotindicatorsProfile(context): return
     wft = getToolByName(context.getSite(), 'portal_workflow')
     wft.updateRoleMappings()
 
@@ -88,12 +88,12 @@ def postInstall(context):
     logger.info("Installed dependency eea.workflow")
 
     # DCWorkflowDump doesn't yet support the 'manager_bypass'
-    wf_id = 'specification_workflow'
+    wf_id = 'indicators_workflow'
     wf_tool = getToolByName(site, 'portal_workflow')
     if wf_id in wf_tool.objectIds():
         wfobj = wf_tool.getWorkflowById(wf_id)
         wfobj.manager_bypass = 1
-        logger.info("Set 'Manager role bypasses guards' to True for 'specification_workflow'")
+        logger.info("Set 'Manager role bypasses guards' to True for 'indicators_workflow'")
 
     # Enable portal_factory for given types
     factory_tool = getToolByName(site, 'portal_factory')

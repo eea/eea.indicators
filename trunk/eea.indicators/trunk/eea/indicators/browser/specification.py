@@ -139,8 +139,7 @@ class AssessmentVersions(BrowserView):
 
         for assessment in data:
             try:
-                #TODO: rewrite to the actual used workflow
-                info = wftool.getStatusOf('specification_workflow', assessment)
+                info = wftool.getStatusOf('indicators_workflow', assessment)
                 time = info['time']
                 assessments[time] = assessment
             except Exception, err:
