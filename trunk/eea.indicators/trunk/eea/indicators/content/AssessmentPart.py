@@ -3,7 +3,7 @@
 # $Id$
 #
 # Copyright (c) 2010 by ['Tiberiu Ichim']
-# Generator: ArchGenXML
+# Generator: ArchGenXML 
 #            http://plone.org/products/archgenxml
 #
 # GNU General Public License (GPL)
@@ -19,8 +19,6 @@ import interfaces
 from Products.ATContentTypes.content.base import ATCTContent
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 
-from Products.ATReferenceBrowserWidget.ATReferenceBrowserWidget import \
-    ReferenceBrowserWidget
 from eea.indicators.config import *
 
 # additional imports from tagged value 'import'
@@ -76,19 +74,6 @@ schema = Schema((
         ),
         accessor="Description",
         searchable=True,
-    ),
-    ReferenceField(
-        name='question_answered',
-        widget=ReferenceBrowserWidget(
-            label="Answers to policy question",
-            label_msgid='indicators_label_question_answered',
-            i18n_domain='indicators',
-        ),
-        relationship='relates_to',
-        required=True,
-        multiValued=0,
-        validators=('one_assessment_per_question',),
-        allowed_types=('PolicyQuestion',),
     ),
 
 ),
