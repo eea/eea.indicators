@@ -166,7 +166,11 @@
 	display:block !important;
 	float:right;
 	padding:4px;
-	background-color:#79AE59;
+	/* background-color:#79AE59; */
+	background:none repeat scroll 0 0 #F5821F;
+	border-color:#FFCC99 #663300 #333300 #FF9966;
+	border-style:solid;
+	border-width:1px;
 	/* position:relative; */
 	/* top:3px; */
 	/* right:3px; */
@@ -202,7 +206,11 @@ a.object_creator {
 	text-decoration:none;
 }
 a.object_creator:hover {
-	background-color:#79AE59;
+	/* background-color:#79AE59; */
+	background:none repeat scroll 0 0 #F5821F;
+	border-color:#FFCC99 #663300 #333300 #FF9966;
+	border-style:solid;
+	border-width:1px;
 	color:white;
 	border-bottom:1px solid #AAA;
 }
@@ -221,7 +229,11 @@ a.schemata_edit, a.object_delete {
 	border-bottom:1px solid #AAA;
 }
 a.schemata_edit:hover, a.object_delete:hover {
-	background-color:#79AE59;
+	/* background-color:#79AE59; */
+	background:none repeat scroll 0 0 #F5821F;
+	border-color:#FFCC99 #663300 #333300 #FF9966;
+	border-style:solid;
+	border-width:1px;
 	color:white;
 	border:none;
 }
