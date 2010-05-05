@@ -20,17 +20,33 @@
 						You need to reference at least one Data Spec
 					</div>
 
-					<div class="active_field" tal:define="fieldName string:relatedItems;
+					<div class="active_field" id="active_field-relatedItems" tal:define="fieldName string:relatedItems;
 						field python:context.schema['relatedItems'];
+						widget python:field.widget;
 						value python:context.getRawRelatedItems()">
-						<div class="content">
-							<div tal:condition="python:not related" class="placeholder">
-								Please fill in
+						<form method="POST" action="" tal:attributes="action string:${context/absolute_url}/simple_edit">
+							<input type="hidden" name="specific_field" tal:attributes="value fieldName" />
+							<input type="hidden" name="form.submitted" value="1" />
+							<input type="hidden" name="form_submit" value="Save" />
+							<div class="content">
+								<div tal:condition="python:not related" class="placeholder">
+									Please fill in
+								</div>
+								<span metal:use-macro="here/eeareferencebrowser/macros/popup" >
+									<div metal:fill-slot="script">
+										<script type="text/javascript" tal:content="string:
+											var popup = new EEAReferenceBrowser.Widget('$fieldName');;
+											$$(popup.events).bind(popup.events.SAVED, function(evt){
+												ajaxify($$('#active_field-$fieldName'), '$fieldName');
+												$$('#active_field-$fieldName form').trigger('submit');
+											});
+											"></script>
+									</div>
+								</span>
 							</div>
-							<span metal:use-macro="here/eeareferencebrowser/macros/reference_edit" />
-						</div>
-					</div>
 
+						</form>
+					</div>
 				</tal:def>
 			</div>
 		</metal:slot>

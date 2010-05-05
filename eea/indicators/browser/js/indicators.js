@@ -39,6 +39,7 @@ $(document).ready(function () {
       var parent = $(this).parent();
       $(parent).prepend(this);
       });
+
 });
 
 function on_load_dom() {

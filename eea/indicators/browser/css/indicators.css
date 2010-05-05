@@ -107,7 +107,11 @@ dl.toc {
   margin-left:50px;
 }
 .figure_edit_control a {
-  background-color:#79AE59;
+  /* background-color:#79AE59; */
+	background:none repeat scroll 0 0 #F5821F;
+	border-color:#FFCC99 #663300 #333300 #FF9966;
+	border-style:solid;
+	border-width:1px;
   color:white;
   font-size:inherit;
   height:inherit;
@@ -132,11 +136,11 @@ dl.toc {
   margin-top:0;
 }
 #relatedItems-widget {
-	float:right;
+	/* float:right; */
 }
 #relatedItems-widget .searchButton {
-	background-color:#79AE59;
-	border:none;
+	/* background-color:#79AE59; */
+	/* border:none; */
 	font-size:inherit;
 }
 
