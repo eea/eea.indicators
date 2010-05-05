@@ -3,9 +3,16 @@
 	region_update_handler string:fragment_data_specifications;
 	submit_handler string:simple_edit;
 	imsutils nocall:context/@@indicator_utils;
-	related context/getRelatedItems;
 	tooltip_macro context/indicators_macros/macros/tooltip;
-	portal_url context/portal_url;">
+	portal_url context/portal_url;
+
+	fieldName string:relatedItems;
+	fieldset string:DataSpecs;
+	field python:context.schema['relatedItems'];
+	widget python:field.widget;
+	related_view nocall:context/@@related_items;
+	value python:related_view.get_uids(['EEAData', 'ExternalDataSpec']);
+	">
 
 	<metal:macro metal:use-macro="context/indicators_macros/macros/active_region">
 		<metal:slot metal:fill-slot="content">
@@ -15,41 +22,12 @@
 					<span metal:use-macro="tooltip_macro" /> Data specifications
 				</h2>
 
-				<tal:def tal:define="fieldname string:relatedItems; fieldset string:DataSpecs">
-					<div class="portalMessage" tal:condition="python:not related">
-						You need to reference at least one Data Spec
-					</div>
+				<div class="portalMessage" tal:condition="python:not value">
+					You need to reference at least one Data Spec
+				</div>
 
-					<div class="active_field" id="active_field-relatedItems" tal:define="fieldName string:relatedItems;
-						field python:context.schema['relatedItems'];
-						widget python:field.widget;
-						value python:context.getRawRelatedItems()">
-						<form method="POST" action="" tal:attributes="action string:${context/absolute_url}/simple_edit">
-							<input type="hidden" name="specific_field" tal:attributes="value fieldName" />
-							<input type="hidden" name="form.submitted" value="1" />
-							<input type="hidden" name="form_submit" value="Save" />
-							<div class="content">
-								<div tal:condition="python:not related" class="placeholder">
-									Please fill in
-								</div>
-								<span metal:use-macro="here/eeareferencebrowser/macros/popup" >
-									<div metal:fill-slot="script">
-										<script type="text/javascript" tal:content="string:
-											Faceted.Cleanup();;
-											jQuery('.popup-tabs #faceted-form').remove();;
-											var popup = new EEAReferenceBrowser.Widget('$fieldName');;
-											$$(popup.events).bind(popup.events.SAVED, function(evt){
-												ajaxify($$('#active_field-$fieldName'), '$fieldName');
-												$$('#active_field-$fieldName form').trigger('submit');
-											});
-											"></script>
-									</div>
-								</span>
-							</div>
+				<div metal:use-macro="context/indicators_macros/macros/active_relation_field" />
 
-						</form>
-					</div>
-				</tal:def>
 			</div>
 		</metal:slot>
 	</metal:macro>
