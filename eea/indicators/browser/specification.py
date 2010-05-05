@@ -211,5 +211,18 @@ class RelatedItems(BrowserView):
     """
 
     def __call__(self, ctype):
+        if type(ctype) not in (list, tuple):
+            ctype = [ctype]
+
         return [rel for rel in self.context.getRelatedItems()
-                    if rel.portal_type == ctype]
+                    if rel.portal_type in ctype]
+
+
+    def get_uids(self, ctype):
+
+        if type(ctype) not in (list, tuple):
+            ctype = [ctype]
+
+        return [rel.UID() for rel in self.context.getRelatedItems() 
+                if rel.portal_type in ctype]
+

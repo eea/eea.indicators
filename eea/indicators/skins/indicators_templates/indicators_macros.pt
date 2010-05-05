@@ -45,3 +45,32 @@
 		<metal:slot metal:define-slot="extra-metadata"></metal:slot>
 	</div>
 </div>
+
+<!-- Active reference field macro -->
+<metal:macro metal:define-macro="active_relation_field">
+	<div class="active_field" tal:attributes="id string:active_field-$fieldName" id="active_field-relatedItems">
+		<form method="POST" action="" tal:attributes="action string:${context/absolute_url}/simple_edit">
+			<input type="hidden" name="specific_field" tal:attributes="value fieldName" />
+			<input type="hidden" name="form.submitted" value="1" />
+			<input type="hidden" name="form_submit" value="Save" />
+			<div class="content">
+				<div tal:condition="python:not value" class="placeholder">
+					Please fill in
+				</div>
+				<span metal:use-macro="here/eeareferencebrowser/macros/popup" >
+					<div metal:fill-slot="script">
+						<script type="text/javascript" tal:content="string:
+							Faceted.Cleanup();;
+							jQuery('.popup-tabs #faceted-form').remove();;
+							var popup = new EEAReferenceBrowser.Widget('$fieldName');;
+							$$(popup.events).bind(popup.events.SAVED, function(evt){
+							ajaxify($$('#active_field-$fieldName'), '$fieldName');
+							$$('#active_field-$fieldName form').trigger('submit');
+							});
+							"></script>
+					</div>
+				</span>
+			</div>
+		</form>
+	</div>
+</metal:macro>
