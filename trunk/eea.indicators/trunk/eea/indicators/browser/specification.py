@@ -174,14 +174,13 @@ class PolicyQuestions(BrowserView):
     def __call__(self):
         res = {'all': [], 'key_questions': [], 'questions': []}
 
-        #TODO: get only published questions?
         questions = self.context.getFolderContents(
                            contentFilter={'portal_type':'PolicyQuestion'},
                            full_objects = True)
 
         res['all'] = questions
         for question in questions:
-            if question.getIs_key_question:
+            if question.getIs_key_question():
                 res['key_questions'].append(question)
             else:
                 res['questions'].append(question)
