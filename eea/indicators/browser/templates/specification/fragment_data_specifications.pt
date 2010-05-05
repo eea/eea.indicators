@@ -35,6 +35,8 @@
 								<span metal:use-macro="here/eeareferencebrowser/macros/popup" >
 									<div metal:fill-slot="script">
 										<script type="text/javascript" tal:content="string:
+											Faceted.Cleanup();;
+											jQuery('.popup-tabs #faceted-form').remove();;
 											var popup = new EEAReferenceBrowser.Widget('$fieldName');;
 											$$(popup.events).bind(popup.events.SAVED, function(evt){
 												ajaxify($$('#active_field-$fieldName'), '$fieldName');
