@@ -1,3 +1,5 @@
+<!-- TODO: remove the thiscontext variable, is not needed -->
+
 <!-- Tooltip macro -->
 <metal:tooltip define-macro="tooltip"
 	tal:define="tooltip tooltip|field/widget/description|nothing"
@@ -32,7 +34,7 @@
 	tal:define="thiscontext nocall:thiscontext|context">
 	<div class="control">
 		<a href="" 
-			tal:attributes="href string:${thiscontext/absolute_url}/${submit_handler}?fieldset=${fieldset}&specific_field=$fieldname">Edit</a>
+			tal:attributes="href string:${thiscontext/absolute_url}/${submit_handler}?fieldset=${fieldset}&specific_field=$fieldname">edit...</a>
 	</div>
 	<div class="content">
 		<metal:slot metal:define-slot="content"></metal:slot>
