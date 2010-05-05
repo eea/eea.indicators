@@ -11,39 +11,28 @@
 		<metal:slot metal:fill-slot="content">
 
 			<div class="logic_group">
-				<h2 id="data_specifications" tal:define="tooltip string:Data specification description"><span metal:use-macro="tooltip_macro" />
-					Data specifications</h2>
+				<h2 id="data_specifications" tal:define="tooltip string:Data specification description">
+					<span metal:use-macro="tooltip_macro" /> Data specifications
+				</h2>
+
 				<tal:def tal:define="fieldname string:relatedItems; fieldset string:DataSpecs">
 					<div class="portalMessage" tal:condition="python:not related">
 						You need to reference at least one Data Spec
 					</div>
-					<tal:defs tal:define="fieldName string:relatedItems;
+
+					<div class="active_field" tal:define="fieldName string:relatedItems;
 						field python:context.schema['relatedItems'];
 						value python:context.getRawRelatedItems()">
-						<!-- <span metal:use-macro="here/eeareferencebrowser/macros/reference_edit" /> -->
-					</tal:defs>
-					<metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
-						<metal:slot metal:fill-slot="content">
+						<div class="content">
 							<div tal:condition="python:not related" class="placeholder">
 								Please fill in
 							</div>
-							<ul tal:condition="python:related">
-								<li tal:repeat="data related">
-									<a href=""
-									   tal:attributes="href string:${context/portal_url}/data-and-maps/data/ds_resolveuid/${data/@@getLatestVersionLink}"
-									   tal:content="data/@@getLatestVersionLink">Dataset title</a>
-								</li>
-							</ul>
-						</metal:slot>
-						<metal:slot metal:fill-slot="extra-metadata">
-							<div class="width">800</div>
-							<div class="height">600</div>
-						</metal:slot>
-					</metal:macro>
+							<span metal:use-macro="here/eeareferencebrowser/macros/reference_edit" />
+						</div>
+					</div>
+
 				</tal:def>
-
 			</div>
-
 		</metal:slot>
 	</metal:macro>
 </tal:defs>

@@ -9,14 +9,14 @@ function change_kupu_styles(){
 $(document).ready(function () {
 		
 		$(window).ajaxStart(function(){
-            $('body').append("<div class='specification-loading'></div>");
-            var dim = get_dimmensions();
-            var scr = get_scrollXY();
-            $('.specification-loading').css({
-                'top':dim.height/2-50 + scr.y + 'px',
-                'left':dim.width/2-50 + scr.x + 'px'
-                });
-            return false;
+      $('body').append("<div class='specification-loading'></div>");
+      var dim = get_dimmensions();
+      var scr = get_scrollXY();
+      $('.specification-loading').css({
+          'top':dim.height/2-50 + scr.y + 'px',
+          'left':dim.width/2-50 + scr.x + 'px'
+          });
+      return false;
 		});
     $(window).ajaxComplete(function(){
 				$('.specification-loading').remove();
@@ -33,6 +33,12 @@ $(document).ready(function () {
 		// setTimeout('change_kupu_styles()', '2000');
 
 		on_load_dom();
+    
+    // styling tweak for relations widget edit button
+    $(".eea-widget-referencebrowser").each(function(){
+      var parent = $(this).parent();
+      $(parent).prepend(this);
+      });
 });
 
 function on_load_dom() {

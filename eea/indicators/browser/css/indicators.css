@@ -131,6 +131,14 @@ dl.toc {
 .active_region h5 {
   margin-top:0;
 }
+#relatedItems-widget {
+	float:right;
+}
+#relatedItems-widget .searchButton {
+	background-color:#79AE59;
+	border:none;
+	font-size:inherit;
+}
 
 /* Specification view */
 .documentContent th {
