@@ -34,7 +34,10 @@
 	tal:define="thiscontext nocall:thiscontext|context">
 	<div class="control">
 		<a href="" 
-			tal:attributes="href string:${thiscontext/absolute_url}/${submit_handler}?fieldset=${fieldset}&specific_field=$fieldname">edit...</a>
+			tal:attributes="href 
+			string:${thiscontext/absolute_url}/${submit_handler}?fieldset=${fieldset}&specific_field=$fieldname">
+			edit...
+		</a>
 	</div>
 	<div class="content">
 		<metal:slot metal:define-slot="content"></metal:slot>
@@ -47,30 +50,57 @@
 </div>
 
 <!-- Active reference field macro -->
-<metal:macro metal:define-macro="active_relation_field">
-	<div class="active_field" tal:attributes="id string:active_field-$fieldName" id="active_field-relatedItems">
-		<form method="POST" action="" tal:attributes="action string:${context/absolute_url}/simple_edit">
-			<input type="hidden" name="specific_field" tal:attributes="value fieldName" />
-			<input type="hidden" name="form.submitted" value="1" />
-			<input type="hidden" name="form_submit" value="Save" />
-			<div class="content">
-				<div tal:condition="python:not value" class="placeholder">
-					Please fill in
-				</div>
-				<span metal:use-macro="here/eeareferencebrowser/macros/popup" >
+<!--  
+Parameters:
+
+@@param realFieldName: optional
+
+TODO:explain
+
+@@param fieldName: required
+This is the field that will be edited; 
+
+@@param field: required
+The field that will be edited;
+
+@@param value: required
+A list of uids that are the initial value of that field;
+
+-->
+
+<metal:macro metal:define-macro="active_relation_field" 
+	tal:define="widget nocall:field/widget;
+	widget_dom_id string:active_field-$fieldName;
+	realFieldName realFieldName|fieldName" >
+
+	<div class="active_field" tal:attributes="id widget_dom_id"> 
+		<div class="content">
+			<div tal:condition="python:not value" class="placeholder">
+				Please fill in
+			</div>
+
+			<form method="POST" action="" 
+				tal:attributes="action string:${context/absolute_url}/simple_edit">
+				<input type="hidden" name="specific_field" tal:attributes="value fieldName" />
+				<input type="hidden" name="fieldset" tal:attributes="value field/schemata" />
+
+				<metal:macro metal:use-macro="here/eeareferencebrowser/macros/popup" >
 					<div metal:fill-slot="script">
 						<script type="text/javascript" tal:content="string:
 							Faceted.Cleanup();;
 							jQuery('.popup-tabs #faceted-form').remove();;
+
 							var popup = new EEAReferenceBrowser.Widget('$fieldName');;
+
 							$$(popup.events).bind(popup.events.SAVED, function(evt){
-							ajaxify($$('#active_field-$fieldName'), '$fieldName');
-							$$('#active_field-$fieldName form').trigger('submit');
+								ajaxify($$('#$widget_dom_id'), '$realFieldName');
+								$$('#$widget_dom_id form').trigger('submit');
 							});
 							"></script>
 					</div>
-				</span>
-			</div>
-		</form>
+				</metal:macro>
+			</form>
+
+		</div>
 	</div>
 </metal:macro>
