@@ -219,7 +219,6 @@ class RelatedItems(BrowserView):
 
 
     def get_uids(self, ctype):
-
         if type(ctype) not in (list, tuple):
             ctype = [ctype]
 
