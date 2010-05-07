@@ -12,6 +12,9 @@
 #this is probably not needed
 specific_field = context.REQUEST.form.get('specific_field')
 state.set(specific_field=specific_field)
+active_region = context.REQUEST.form.get('active_region')
+if active_region:
+	state.set(active_region=active_region)
 
 errors = {}
 errors = context.simple_validate(REQUEST=context.REQUEST, errors=errors)

@@ -244,23 +244,27 @@ function reload_region(el){
 return false;
 }
 
-function closer(fieldname){
+function closer(fieldname, active_region){
   // reloads a region and closes the dialog based on an active field name
   
   //TODO: check that these 3 commented lines don't break anything; 
   //they don't seem to be needed if we reload the region
-  //
 	// var text = $('#value_response').html(); // 1
-  //
-	var fieldname = "#active_field-"+fieldname;
-	var region = $(fieldname).parents('.active_region').get();
+  
+  if (active_region) {
+    var region = $("#" + active_region).get();
+  } else {
+    var fieldname = "#active_field-"+fieldname;
+    var region = $(fieldname).parents('.active_region').get();
+  }
+
   console.log("Closing & reloading region", region);
-	reload_region(region);
+  reload_region(region);
 
 	// $(fieldname).html(text);   // 2
 	// $('#value_response').remove(); // 3
+  
 	$("#dialog-inner").dialog("close");
-
 	return false;
 }
 
