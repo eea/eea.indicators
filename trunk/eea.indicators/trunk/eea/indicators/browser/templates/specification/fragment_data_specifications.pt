@@ -9,14 +9,12 @@
 
 	field python:context.schema['relatedItems'];
 	value python:related_view.get_uids(['Data', 'ExternalDataSpec']);
-	fieldName string:relatedItems;
-	realFieldName string:relatedItemsData;
+	fieldName string:relatedItemsData;
+	realFieldName string:relatedItems;
 	">
 
 	<metal:macro metal:use-macro="context/indicators_macros/macros/active_region">
 		<metal:slot metal:fill-slot="content">
-
-			<div tal:content="value" />
 
 			<div class="logic_group">
 				<h2 id="data_specifications" tal:define="tooltip string:Data specification description">

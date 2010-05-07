@@ -66,6 +66,9 @@ The field that will be edited;
 @@param value: required
 A list of uids that are the initial value of that field;
 
+@@param region_name: required
+The name of the region fragment that will be updated;
+
 -->
 
 <metal:macro metal:define-macro="active_relation_field" 
@@ -81,10 +84,24 @@ A list of uids that are the initial value of that field;
 
 			<form method="POST" action="" 
 				tal:attributes="action string:${context/absolute_url}/simple_edit">
-				<input type="hidden" name="specific_field" tal:attributes="value fieldName" />
+				<input type="hidden" name="specific_field" tal:attributes="value realFieldName" />
 				<input type="hidden" name="fieldset" tal:attributes="value field/schemata" />
+				<input type="hidden" name="active_region" tal:attributes="value region_name" />
 
 				<metal:macro metal:use-macro="here/eeareferencebrowser/macros/popup" >
+					<metal:slot fill-slot="edit">
+						<input type="hidden" value=""
+							tal:condition="multiVal"
+							tal:attributes="name string:$realFieldName:default" />
+						<select style="display:none" tal:attributes="
+							multiple python:multiVal and 'multiple' or None;
+							name string:$realFieldName:list; id fieldName;">
+							<tal:uids repeat="uid uids">
+								<option selected="selected"
+									tal:condition="uid" tal:attributes="value uid" tal:content="uid" />
+							</tal:uids>
+						</select>
+					</metal:slot>
 					<div metal:fill-slot="script">
 						<script type="text/javascript" tal:content="string:
 							Faceted.Cleanup();;
