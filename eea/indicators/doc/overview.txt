@@ -34,20 +34,3 @@ create a new Assessment new version of Figures are made and done by code (see ab
 When creating a new Assessment for a Specification, the Assessment should already contain
 AssessmentParts created for all the PolicyQuestions
 
-The Indicators Database
------------------------
-
-First, we have the Indicators Database (implemented in the class SpecificationsFolder):
-
-    >>> self.loginAsPortalOwner()
-    >>> id = self.portal.invokeFactory('SpecificationsFolder', 'ims')
-    >>> ims = portal._getOb(id)
-    >>> print ims
-    <SpecificationsFolder at ims>
-
-Inside the indicators database we can add Specifications
-
-    >>> id = ims.invokeFactory("Specification", 'spec1')
-    >>> spec1 = ims._getObj(id)
-    >>> spec1
-
