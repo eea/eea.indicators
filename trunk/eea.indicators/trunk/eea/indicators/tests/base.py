@@ -17,7 +17,6 @@ from Products.PloneTestCase.layer import onsetup
 from zope.app.component.hooks import setSite
 
 PRODUCTS = ['DataGridField', 'ATVocabularyManager', "RedirectionTool"]
-#PROFILES = ['eea.indicators:default',]
 
 @onsetup
 def setup_indicators():
