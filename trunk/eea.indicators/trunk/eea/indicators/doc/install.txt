@@ -1,119 +1,20 @@
-1	 Dependend QI installables for indicators
-Install quickinstaller dependencies for indicators 	eea.indicators.setuphandlers.installQIDependencies
-2	manual coded post-install for indicators
-manual coded post-install for indicators 	eea.indicators.setuphandlers.postInstall
-3	eea.indicators: Install vocabularies with ATVocabularyManager
-	eea.indicators.setuphandlers.setup_vocabularies
-4	Update Workflow role mappings for indicators
-updates the workflow role mappings for indicators 	eea.indicators.setuphandlers.updateRoleMappings
-5	Skins import
-Various import steps that are not handled by GS import/export handlers. 	Products.EEAPloneAdmin.exportimport.setuphandlers.setupSkins
-6	eea.promotion: Add Our Roles
-Add Custom Roles for eea.promotion 	eea.promotion.setuphandlers.addOurRoles
-7	Install Vocabularies for eea.dataservice
-Installs the vocabulary files into vocabulary library for eea.dataservice 	eea.dataservice.setuphandlers.installVocabularies
-8	EEAPloneAdmin: Fix language independent fields on Press/Highlight/Promotion
-	Products.EEAPloneAdmin.exportimport.localsite.fixLangIndependentFields
-9	ThemeCentre: Wise migration
-	Products.ThemeCentre.setuphandlers.migrateWise2ThemeCentre
-10	EEAPloneAdmin: setup local navigation menues
-	Products.EEAPloneAdmin.exportimport.localsite.setupNavigationManager
-11	EEAPloneAdmin: import translations
-	Products.EEAPloneAdmin.exportimport.localsite.importTranslations
-12	Site Properties
-Import site properties. 	Products.CMFCore.exportimport.properties.importSiteProperties
-13	Install Vocabularies for eea.reports
-Installs the vocabulary files into vocabulary library for eea.reports 	eea.reports.setuphandlers.installVocabularies
-14	EEAContentTypes: geocoding
-Various import steps that are not handled by GS import/export handlers. 	Products.EEAContentTypes.setup.ConfigurationMethods.setupGeocoding
-15	EEAPloneAdmin: setup local site structure
-	Products.EEAPloneAdmin.exportimport.localsite.setupTranslateSiteStructure
-16	EEAPloneAdmin: setup local rdf repositories
-	Products.EEAPloneAdmin.exportimport.localsite.setupLocalRDFRepositories
-17	EEA migration
-	Products.EEAPloneAdmin.exportimport.setuphandlers.setupVarious
-18	Role / Permission Map
-Import custom roles and non-default role-permission mappings. 	Products.GenericSetup.rolemap.importRolemap
-19	Required tools
-Create required tools, replacing any of the wrong class, and remove forbidden ones. 	Products.GenericSetup.tool.importToolset
-20	Plone Properties
-Export plone properties tool and subobjects. 	Products.CMFPlone.exportimport.propertiestool.importPloneProperties
-21	Skins Tool
-Import skins tool's filesystem directory views and skin path definitions. 	Products.CMFCore.exportimport.skins.importSkinsTool
-22	Action Providers
-Import actions tool's action providers and their actions. 	Products.CMFCore.exportimport.actions.importActionProviders
-23	Faceted Settings
-Import faceted settings 	eea.faceted.tool.exportimport.importFacetedTool
-24	Types Tool
-Import types tool's type information objects. 	Products.CMFCore.exportimport.typeinfo.importTypesTool
-25	Various Plone Settings
-Plone specific settings 	Products.CMFPlone.setuphandlers.importVarious
-26	Kupu Settings
-Import Kupu settings 	Products.kupu.plone.exportimport.importKupuSettings
-27	Workflow Tool
-Import workflow tool's workflow definitions and supporting scripts. 	Products.CMFCore.exportimport.workflow.importWorkflowTool
-28	Portal Factory Tool
-Import type registration for the portal factory tool. 	Products.CMFPlone.exportimport.factorytool.importFactoryTool
-29	Javascript registry
-Import javascript registry 	Products.ResourceRegistries.exportimport.jsregistry.importJSRegistry
-30	MemberData Properties
-Import MemberData properties 	Products.CMFPlone.exportimport.memberdata_properties.importMemberDataProperties
-31	Content Type Registry
-Import content type registry's predicates and bindings. 	Products.CMFCore.exportimport.contenttyperegistry.importContentTypeRegistry
-32	MailHost
-Import mailhost settings 	Products.CMFCore.exportimport.mailhost.importMailHost
-33	Catalog Tool
-Import catalog tool's sub-objects, indexes and columns. 	Products.CMFCore.exportimport.catalog.importCatalogTool
-34	Content
-Import the site's structure and content. 	Products.CMFCore.exportimport.content.importSiteStructure
-35	Final Plone Config
-Final Plone configuration 	Products.CMFPlone.setuphandlers.importFinalSteps
-36	EEAContentTypes: miscellaneous import steps
-Various import steps that are not handled by GS import/export handlers. 	Products.EEAContentTypes.setup.ConfigurationMethods.setupVarious
-37	eea.promotion: Quicklinks
-Setup Quicklinks Folders 	eea.promotion.setuphandlers.setupQuicklinks
-38	XLIFFMarshall: miscellaneous import steps
-Various import steps that are not handled by GS import/export handlers. 	Products.XLIFFMarshall.setuphandlers.setupVarious
-39	ThemeCentre: miscellaneous import steps
-Various import steps that are not handled by GS import/export handlers. 	Products.ThemeCentre.setuphandlers.setupVarious
-40	NavigationManager: miscellaneous import steps
-Various import steps that are not handled by GS import/export handlers. 	Products.NavigationManager.setuphandlers.setupVarious
-41	EEA Faceted Tool setup
-EEA Faceted Tool installation step. 	eea.faceted.tool.setuphandlers.setupVarious
-42	Stylesheet registry
-Import stylesheet registry 	Products.ResourceRegistries.exportimport.cssregistry.importCSSRegistry
-43	EEAPloneAdmin: setup local sites step
-	Products.EEAPloneAdmin.exportimport.localsite.setupLocalSites
-44	EEAPloneAdmin: fix local promotions
-	Products.EEAPloneAdmin.exportimport.localsite.fixPromotion
-45	PloneGazette various
-Import various steps of PloneGazette 	Products.PloneGazette.setuphandlers.importVarious
-46	eea.promotion: Admin Panel
-Setup Promotion Manage Page 	eea.promotion.setuphandlers.setupManagePage
-47	EEA site setup
-	Products.EEAPloneAdmin.exportimport.setuphandlers.setupVarious
-48	EEAPloneAdmin: get translations from google
-	Products.EEAPloneAdmin.exportimport.localsite.getTranslationsFromGoogle
-49	Control Panel
-Import Plone control panel actions. 	Products.CMFPlone.exportimport.controlpanel.importControlPanel
-50	Action Icons
-Import action icon definitions 	Products.CMFActionIcons.exportimport.importActionIconsTool
-51	EEAPloneAdmin: setup local retag all translations
-	Products.EEAPloneAdmin.exportimport.localsite.setupRetagAllTranslations
-52	eea.design: migrate_from_eeadesign2006
-migrate_from_eeadesign2006 	eea.design.setuphandlers.migrate_from_eeadesign2006
-53	EEAPloneAdmin: themecentre fix, set default page and layout
-	Products.EEAPloneAdmin.exportimport.localsite.themecentreFix
-54	Valentine Linguaflow: miscellaneous import steps
-Various import steps that are not handled by GS import/export handlers. 	valentine.linguaflow.setuphandlers.setupVarious
+Instalation
+===========
 
+This product is installable from the Plone Control Panel / Add/Remove Products page. In the case of a 
+busy website with a large catalog, it is advisable that the following portal_setup steps are manually 
+applied (select the eea.indicators profile as active before):
 
-1, 2, 3, 4, 18, 24, 29, 42, 
+	* Dependend QI installables for indicators
+	* manual coded post-install for indicators
+	* eea.indicators: Install vocabularies with ATVocabularyManager
+	* Update Workflow role mappings for indicators
+	* Role / Permission Map
+	* Skins Tool
+	* Types Tool
+	* Workflow Tool
+	* Portal Factory Tool
+	* Javascript registry
+	* Catalog Tool
+	* Stylesheet registry
 
-
-pasul 4 blocheaza zope
-pasul 2 strica zope
-
-Se apeleaza @@invalidateClientsCache
-
-Se incarca inutil o gramada de css-uri in emptypage.html din kupu

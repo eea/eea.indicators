@@ -23,7 +23,7 @@ import transaction
 
 ##code-section HEAD
 from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
-from eea.indicators.config import CODES
+from eea.indicators.config import CODES, PROFILE_DEPENDENCIES
 ##/code-section HEAD
 
 def isNotindicatorsProfile(context):
@@ -69,20 +69,10 @@ def postInstall(context):
     #install dependencies available as GS profiles
 
     setuptool = getToolByName(site, 'portal_setup')
-    importcontext = 'profile-Products.DataGridField:default_25x'
-    setuptool.setImportContext(importcontext)
-    setuptool.runAllImportSteps()
-    logger.info("Installed dependency Products.DataGridField")
-
-    importcontext = 'profile-Products.UserAndGroupSelectionWidget:default'
-    setuptool.setImportContext(importcontext)
-    setuptool.runAllImportSteps()
-    logger.info("Installed dependency Products.UserAndGroupSelectionWidget")
-
-    importcontext = 'profile-eea.workflow:default'
-    setuptool.setImportContext(importcontext)
-    setuptool.runAllImportSteps()
-    logger.info("Installed dependency eea.workflow")
+    for name, importcontext in PROFILE_DEPENDENCIES:
+        setuptool.setImportContext(importcontext)
+        setuptool.runAllImportSteps()
+        logger.info("Installed dependency %s" % name)
 
     # DCWorkflowDump doesn't yet support the 'manager_bypass'
     wf_id = 'indicators_workflow'
@@ -102,7 +92,7 @@ def postInstall(context):
     factory_tool.manage_setPortalFactoryTypes(listOfTypeIds=factory_types)
     logger.info("Factory tool enabled for IndicatorFactSheet, KeyMessage and FactSheetDocument")
 
-    # Enable aliases ( redirects ) for eea.indicators content types
+    # Enable aliases (redirects) for eea.indicators content types
     redirection_tool = getToolByName(site, 'portal_redirection')
     ctypes = ["IndicatorFactSheet",
               "KeyMessage",
