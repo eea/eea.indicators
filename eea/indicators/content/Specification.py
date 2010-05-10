@@ -593,10 +593,11 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
         codes = self.getCodes()
         res = []
         for code in codes:
-            res.extend(
-                [code['set'],
-                "%s%s" % (code['set'], code['code'])]
-                )
+            if code:
+                res.extend(
+                    [code['set'],
+                    "%s%s" % (code['set'], code['code'])]
+                    )
         return res
 
     security.declareProtected("Modify portal content", 'setCodes')

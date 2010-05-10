@@ -86,9 +86,10 @@ PROFILE_DEPENDENCIES = (
          ('Products.DataGridField', 'profile-Products.DataGridField:default_25x'),
          ('Products.UserAndGroupSelectionWidget',  'profile-Products.UserAndGroupSelectionWidget:default'),
          ('eea.workflow', 'profile-eea.workflow:default'),
+         ('eea.dataservice', 'profile-eea.dataservice:default'),
          ('eea.relations', 'profile-eea.relations:a'),
          ('eea.relations', 'profile-eea.relations:b'),
-        )
+    )
 
 ##/code-section config-bottom
 
