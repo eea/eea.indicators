@@ -82,9 +82,10 @@ CODES = [
         ]
 
 # These are the profiles that installed as dependencies on install
+#True = QuickInstaller, False: GenericSetup
 PROFILE_DEPENDENCIES = (
-         ('Products.DataGridField', 'profile-Products.DataGridField:default_25x', True),
-         ('Products.UserAndGroupSelectionWidget',  'profile-Products.UserAndGroupSelectionWidget:default', False),
+         ('DataGridField', 'profile-Products.DataGridField:default_25x', True),
+         ('UserAndGroupSelectionWidget',  'profile-Products.UserAndGroupSelectionWidget:default', False),
          ('eea.workflow', 'profile-eea.workflow:default', False),
          ('eea.dataservice', 'profile-eea.dataservice:default', True),
          ('eea.relations', 'profile-eea.relations:a', True),
