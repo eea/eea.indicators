@@ -21,4 +21,35 @@ applied (of course, with the eea.indicators profile activated):
 	* Possible Relations Settings
 
 
+Dependencies
+------------
 
+We have several dependencies that need to be installed. Let's test that they are installed.
+
+	>>> from Products.CMFCore.utils import getToolByName
+
+First, we depend on eea.relations:
+
+	>>> relations = getToolByName(portal, 'portal_relations')
+
+Also on eea.dataservice:
+
+	>>> typestools = getToolByName(portal, 'portal_types')
+	>>> types = typestools.listContentTypes()
+	>>> ('EEAFigure' in types) and ('Data' in types) 
+	True
+
+We depend on Products.DataGridField:
+
+	>>> print portal.datagridwidget
+	<FSPageTemplate at datagridwidget>
+
+Products.UserAndGroupSelectionWidget:
+
+	>>> print portal.userandgroupselect
+	<FSPageTemplate at userandgroupselect>
+
+eea.workflow:
+
+	>>> print portal.portlet_readiness
+	<FSPageTemplate at portlet_readiness>
