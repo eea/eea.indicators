@@ -129,4 +129,10 @@ def setup_vocabularies(context):
     for key in CODES:
         vocab.invokeFactory('SimpleVocabularyTerm', key)
         vocab[key].setTitle(key)
+
+def setup_misc(context):
+    """ Stub step to enable setting dependent steps """
+
+    return
+
 ##/code-section FOOT
