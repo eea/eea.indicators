@@ -20,7 +20,6 @@ from eea.indicators.config import DEPENDENCIES
 import os
 from Products.CMFCore.utils import getToolByName
 import transaction
-
 ##code-section HEAD
 from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
 from eea.indicators.config import CODES, PROFILE_DEPENDENCIES
@@ -52,6 +51,8 @@ def installQIDependencies(context):
                 logger.info("   QI dependency %s not installable" % dependency)
                 raise "   QI dependency %s not installable" % dependency
     logger.info("installQIDependencies finished")
+
+
 
 def updateRoleMappings(context):
     """after workflow changed update the roles mapping. this is like pressing
@@ -110,6 +111,8 @@ def postInstall(context):
     new_ctypes.extend(ctypes)
     redirection_tool.setRedirectionAllowedForTypes(new_ctypes)
     logger.info("Redirection tool enabled for eea.indicators content types.")
+
+
 
 ##code-section FOOT
 def setup_vocabularies(context):

@@ -217,16 +217,6 @@ schema = Schema((
         description="A unique sequence of characters that is shared by all the specifications which are versions of each other",
         searchable=True,
     ),
-    StringField(
-        name='old_id',
-        widget=StringField._properties['widget'](
-            visible={'view':'invisible', 'edit':'invisible'},
-            label='Old_id',
-            label_msgid='indicators_label_old_id',
-            i18n_domain='indicators',
-        ),
-        searchable=True,
-    ),
     TextField(
         name='definition',
         widget=RichWidget(
