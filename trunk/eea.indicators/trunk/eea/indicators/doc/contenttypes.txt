@@ -9,7 +9,7 @@ We have several main content types. The most important are the Specification and
 	>>> from Products.CMFCore.utils import getToolByName
 	>>> setuptool = getToolByName(portal, 'portal_setup')
 	>>> setuptool.setImportContext('profile-eea.indicators:default')
-	>>> #log = setuptool.runAllImportSteps()
+	>>> log = setuptool.runAllImportSteps()
 
 Containments
 ------------
@@ -71,9 +71,12 @@ Installing the eea.indicators package will execute a setup step that installs ne
 objects in the portal_relations tools:
 
 	>>> relations = getToolByName(portal, 'portal_relations')
-	>>> print relations.objectValues()
-
-TODO: fix this part
+	>>> ids = set(relations.objectIds())
+	>>> our_ids = set(['specification', 'eea-data', 
+	...								 'policy-document-reference', 'specification-eea-data', 
+	...								 'specification-policy-document-reference'])
+	>>> ids.intersection(our_ids) == our_ids
+	True
 
 Versioning and utility views
 ----------------------------
