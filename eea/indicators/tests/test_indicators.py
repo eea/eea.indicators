@@ -8,10 +8,9 @@ def test_suite():
     from unittest import TestSuite
     from Testing.ZopeTestCase.zopedoctest import ZopeDocFileSuite
 
-    s1 = ZopeDocFileSuite('overview.txt',
+    s1 = ZopeDocFileSuite('install.txt',
                          package='eea.indicators.doc',
                          test_class=BaseIndicatorsTestCase)
-    s1.layer = PloneSite
 
     s2 = ZopeDocFileSuite('contenttypes.txt',
                          package='eea.indicators.doc',

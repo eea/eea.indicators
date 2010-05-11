@@ -31,6 +31,7 @@
  </import-step>
 
 <!-- ##code-section ADDITIONALSTEPS -->
+
  <import-step 
     id="indicators-vocabularies" 
     handler="eea.indicators.setuphandlers.setup_vocabularies"
@@ -38,6 +39,14 @@
     version="2010-03-16T07:52:11.806169">
    <dependency step="indicators-QI-dependencies"/>
  </import-step>
+ <import-step 
+    id="indicators-misc" 
+    handler="eea.indicators.setuphandlers.setup_misc"
+    title="eea.indicators: Setup various"
+    version="2010-03-16T07:52:11.806169">
+   <dependency step="possible_relations"/>
+ </import-step>
+
 <!-- ##/code-section ADDITIONALSTEPS -->
 
 </import-steps>

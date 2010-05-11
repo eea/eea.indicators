@@ -3,11 +3,12 @@ Instalation
 
 This product is installable from the Plone Control Panel / Add/Remove Products page. In the case of a 
 busy website with a large catalog, it is advisable that the following portal_setup steps are manually 
-applied (select the eea.indicators profile as active before):
+applied (of course, with the eea.indicators profile activated):
 
 	* Dependend QI installables for indicators
 	* manual coded post-install for indicators
 	* eea.indicators: Install vocabularies with ATVocabularyManager
+	* eea.indicators: Setup various
 	* Update Workflow role mappings for indicators
 	* Role / Permission Map
 	* Skins Tool
@@ -17,4 +18,7 @@ applied (select the eea.indicators profile as active before):
 	* Javascript registry
 	* Catalog Tool
 	* Stylesheet registry
+	* Possible Relations Settings
+
+
 
