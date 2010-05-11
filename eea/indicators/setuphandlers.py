@@ -30,7 +30,7 @@ def isNotindicatorsProfile(context):
 
 def installQIDependencies(context):
     """This is for old-style products using QuickInstaller"""
-    if isNotindicatorsProfile(context): return 
+    if isNotindicatorsProfile(context): return
     logger.info("installQIDependencies starting")
     site = context.getSite()
     qi = getToolByName(site, 'portal_quickinstaller')
@@ -57,7 +57,7 @@ def installQIDependencies(context):
 def updateRoleMappings(context):
     """after workflow changed update the roles mapping. this is like pressing
     the button 'Update Security Setting' and portal_workflow"""
-    if isNotindicatorsProfile(context): return 
+    if isNotindicatorsProfile(context): return
     wft = getToolByName(context.getSite(), 'portal_workflow')
     wft.updateRoleMappings()
 
@@ -69,11 +69,19 @@ def postInstall(context):
 
     #install dependencies available as GS profiles
 
-    setuptool = getToolByName(site, 'portal_setup')
-    for name, importcontext in PROFILE_DEPENDENCIES:
-        setuptool.setImportContext(importcontext)
-        setuptool.runAllImportSteps()
-        logger.info("Installed dependency %s" % name)
+    qtool = getToolByName(site, 'portal_quickinstaller')
+    installed = [package['id'] for package in qtool.listInstalledProducts()]
+    for name, importcontext, install in PROFILE_DEPENDENCIES:
+        if install:
+            if name not in installed:
+                qtool.installProduct(name)
+                logger.info("Installed dependency %s" % name)
+            else:
+                logger.info("Skip %s, already installed" % name)
+        else:
+            setuptool.setImportContext(importcontext)
+            setuptool.runAllImportSteps()
+            logger.info("Run all import steps for %s" % name)
 
     # DCWorkflowDump doesn't yet support the 'manager_bypass'
     wf_id = 'indicators_workflow'
