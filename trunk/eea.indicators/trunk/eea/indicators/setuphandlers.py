@@ -138,4 +138,9 @@ def setup_misc(context):
 
     return
 
+
+def updateRoleMappings(context):
+    """We don't need this actually, so we rewrite it"""
+    return
+
 ##/code-section FOOT

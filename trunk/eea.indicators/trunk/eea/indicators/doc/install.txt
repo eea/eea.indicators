@@ -32,12 +32,13 @@ First, we depend on eea.relations:
 
 	>>> relations = getToolByName(portal, 'portal_relations')
 
-Also on eea.dataservice:
+We also depend on eea.dataservice, but we don't want to override the customizations in the live
+site, so we won't actually dependend on it.
 
-	>>> typestools = getToolByName(portal, 'portal_types')
-	>>> types = typestools.listContentTypes()
-	>>> ('EEAFigure' in types) and ('Data' in types) 
-	True
+#>>> typestools = getToolByName(portal, 'portal_types')
+#>>> types = typestools.listContentTypes()
+#>>> ('EEAFigure' in types) and ('Data' in types) 
+#True
 
 We depend on Products.DataGridField:
 
@@ -53,3 +54,9 @@ eea.workflow:
 
 	>>> print portal.portlet_readiness
 	<FSPageTemplate at portlet_readiness>
+
+eea.versions:
+
+	>>> print portal.portlet_versions
+	<FSPageTemplate at portlet_versions>
+
