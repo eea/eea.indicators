@@ -33,7 +33,7 @@ First, we depend on eea.relations:
 	>>> relations = getToolByName(portal, 'portal_relations')
 
 We also depend on eea.dataservice, but we don't want to override the customizations in the live
-site, so we won't actually dependend on it.
+site, so we won't actually dependend on it. Also eea.facetednavigation, ATVocabularyManager and RedirectionTool.
 
 #>>> typestools = getToolByName(portal, 'portal_types')
 #>>> types = typestools.listContentTypes()

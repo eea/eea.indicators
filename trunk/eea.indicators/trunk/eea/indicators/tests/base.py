@@ -42,7 +42,6 @@ def setup_indicators():
     for product in PRODUCTS:
         PloneTestCase.installProduct(product)
 
-
 setup_indicators()
 PRODUCTS.append('eea.indicators')
 PloneTestCase.setupPloneSite(   

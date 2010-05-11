@@ -80,5 +80,11 @@ objects in the portal_relations tools:
 	>>> ids.intersection(our_ids) == our_ids
 	True
 
+
 Versioning and utility views
 ----------------------------
+
+Editing the IMS should be done through a modified Edit form, which aggregates 
+all content into a single view, to make editing the tree of objects easier.
+
+
