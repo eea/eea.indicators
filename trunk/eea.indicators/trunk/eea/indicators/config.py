@@ -89,7 +89,7 @@ PROFILE_DEPENDENCIES = (
          ('eea.workflow', 'profile-eea.workflow:default', False),
          ('eea.dataservice', 'profile-eea.dataservice:default', True),
          ('eea.relations', 'profile-eea.relations:a', True),
-         ('eea.relations', 'profile-eea.relations:b', True),
+         #('eea.relations', 'profile-eea.relations:b', True),
          ('eea.versions', 'profile-eea.versions:default', False),
     )
 
