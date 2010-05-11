@@ -89,6 +89,7 @@ PROFILE_DEPENDENCIES = (
          #('eea.dataservice', 'profile-eea.dataservice:default'),
          ('eea.relations', 'profile-eea.relations:a'),
          ('eea.relations', 'profile-eea.relations:b'),
+         ('eea.versions', 'profile-eea.versions:default'),
     )
 
 ##/code-section config-bottom
