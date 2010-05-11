@@ -83,13 +83,13 @@ CODES = [
 
 # These are the profiles that installed as dependencies on install
 PROFILE_DEPENDENCIES = (
-         ('Products.DataGridField', 'profile-Products.DataGridField:default_25x'),
-         ('Products.UserAndGroupSelectionWidget',  'profile-Products.UserAndGroupSelectionWidget:default'),
-         ('eea.workflow', 'profile-eea.workflow:default'),
-         #('eea.dataservice', 'profile-eea.dataservice:default'),
-         ('eea.relations', 'profile-eea.relations:a'),
-         ('eea.relations', 'profile-eea.relations:b'),
-         ('eea.versions', 'profile-eea.versions:default'),
+         ('Products.DataGridField', 'profile-Products.DataGridField:default_25x', True),
+         ('Products.UserAndGroupSelectionWidget',  'profile-Products.UserAndGroupSelectionWidget:default', False),
+         ('eea.workflow', 'profile-eea.workflow:default', False),
+         ('eea.dataservice', 'profile-eea.dataservice:default', True),
+         ('eea.relations', 'profile-eea.relations:a', True),
+         ('eea.relations', 'profile-eea.relations:b', True),
+         ('eea.versions', 'profile-eea.versions:default', False),
     )
 
 ##/code-section config-bottom
