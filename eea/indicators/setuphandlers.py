@@ -79,8 +79,9 @@ def postInstall(context):
             else:
                 logger.info("Skip %s, already installed" % name)
         else:
-            qtool.setImportContext(importcontext)
-            qtool.runAllImportSteps()
+            setuptool = getToolByName(site, 'portal_setup')
+            setuptool.setImportContext(importcontext)
+            setuptool.runAllImportSteps()
             logger.info("Run all import steps for %s" % name)
 
     # DCWorkflowDump doesn't yet support the 'manager_bypass'
