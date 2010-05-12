@@ -156,6 +156,7 @@ class AssessmentPart(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory
             themes = []
 
         figure.setThemes(themes)
+        return figure
 
 
 

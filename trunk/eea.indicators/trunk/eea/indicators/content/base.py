@@ -131,8 +131,13 @@ class CustomizedObjectFactory(object):
         """Create an object according to special rules for that object """
 
         type_name = self.REQUEST['type_name']
-        factory = getattr(self, 'factory_' + type_name)
+        factory_name = 'factory_' + type_name
+        factory = getattr(self, factory_name, None)
+        if factory is None:
+            raise ValueError("The object %s has no such method: %s" % (self, factory_name))
+
         obj = factory()
+
         return """
 <div class='metadata'>
     <div class='object_edit_url'>%s/schemata_edit</div>
