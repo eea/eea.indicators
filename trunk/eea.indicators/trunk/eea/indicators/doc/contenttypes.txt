@@ -184,4 +184,170 @@ EEAFigures inside an assessment cannot be versioned via the Plone GUI. Only when
 create a new Assessment new version of Figures are made and done by code (see above). 
 
 When creating a new Assessment for a Specification, the Assessment should already contain
-AssessmentParts created for all the PolicyQuestions
+AssessmentParts created for all the PolicyQuestions - this is already demonstrated above.
+
+
+Catalog Indexes
+---------------
+
+We index the codes of a Specification using the get_codes index. First, let's 
+test if it's installed:
+
+    >>> catalog = getToolByName(portal, 'portal_catalog')
+    >>> 'get_codes' in catalog.indexes()
+    True
+
+There is some cleanup done for codes input in Specification.setCodes():
+
+    >>> spec.setCodes([{}])
+    >>> spec.getCodes()
+    ()
+    >>> spec.setCodes([{'set':'CSI', 'code':'001'}])
+    >>> spec.getCodes()
+    ({'code': '001', 'set': 'CSI'},)
+    >>> spec.setCodes([{'set':'CSI', 'code':''}])
+    >>> spec.getCodes()
+    ()
+    >>> spec.setCodes([{'set':'CSI', 'code':'001'}, {'set':'TERM', 'code':'002'}])
+    >>> spec.getCodes()
+    ({'code': '001', 'set': 'CSI'}, {'code': '002', 'set': 'TERM'})
+
+Specification.get_codes() will return a structure that can be used to find Specs in 
+catalog searches based on either the full code or the Set code:
+
+    >>> spec.get_codes()
+    ['CSI', 'CSI001', 'TERM', 'TERM002']
+
+
+Readiness for publication
+-------------------------
+
+We have a system that uses eea.workflow to decide if a Specification is ready to be published.
+
+	>>> spec = ims[ims.invokeFactory("Specification", 'spec3')]
+
+First, we have a portlet that shows the readiness state for a Specification:
+
+    >>> "Total number of fields" in spec.portlet_readiness()
+    True
+
+This portlet uses a special view that is registered on objects that 
+implement eea.workflow.interfaces.IHasMandatoryWorkflowFields: 
+
+    >>> view = spec.unrestrictedTraverse('@@get_readiness')
+    >>> info = view.get_info_for('published')
+
+A specification has 24 fields. From these, 10 are required to be able to transition to 
+'published'. The call to get_info_for returns a mapping with the 
+keys 'done', 'required', 'publishing', 'optional', 'total', '' 
+
+'done' tells us the percentage of the content that is required for the desired state. Because
+no content has been entered in the spec, it is at 0:
+
+    >>> info['done']
+    0
+
+'required' is the number of fields that have content filled in and are required for that state
+
+    >>> info['required']
+    0 
+
+'publishing' is the number of fields that are required to be filled in for that state.
+
+    >>> info['publishing']
+    10
+
+'optional' is the number of fields that are not required for that state and don't have a value.
+
+    >>> info['optional']
+    14
+
+This makes the number of field that are optional, but have a value is now 0.
+
+    >>> info['total'] - info['optional'] - info['publishing']
+    0
+
+This is the id, locallyAllowedTypes (which is not marked as metadata)
+
+'total' is the grand total number of fields.
+
+    >>> info['total']
+    24
+
+Filling up the title, which is one of the required fields, will change the statistics:
+Now the spec is at 10% readiness (the 'done' value) and one of the 'required' fields is
+filled in.
+
+    >>> spec.setTitle('Some title')
+    >>> info = spec.unrestrictedTraverse('@@get_readiness').get_info_for('published')
+    >>> info['done']
+    10
+    >>> info['required']
+    1
+
+Let's fill in another field, this time 'codes':
+
+    >>> spec.setCodes([{'set':'CSI', 'code':'001'}, {'set':'TERM', 'code':'002'}])
+    >>> view = spec.unrestrictedTraverse('@@get_readiness')
+    >>> info = view.get_info_for('published')
+    >>> info['done']
+    20
+    >>> info['required']
+    2
+
+The get_readiness view can also tell us if the object is ready for publishing:
+
+    >>> view.is_ready_for('published')
+    False
+
+Let's make this spec ready for publishing:
+
+    >>> spec.setDpsir('D')
+    >>> spec.setTypology('A')
+    >>> spec.setRationale_justification(u'something')
+    >>> spec.setPolicy_context_description(u'something')
+    >>> spec.setDefinition(u'something')
+    >>> spec.setUnits(u'something')
+    >>> spec.setMethodology(u'something')
+
+Now we should be at 90%:
+
+    >>> info = spec.unrestrictedTraverse('@@get_readiness').get_info_for('published')
+    >>> info['done']
+    90
+    >>> info['required']
+    9
+
+Let's try to finish it:
+
+    >>> spec.setManager_user_id(u'something')
+    >>> view = spec.unrestrictedTraverse('@@get_readiness')
+    >>> info = view.get_info_for('published')
+    >>> info['done']
+    100
+    >>> info['required']
+    10
+    >>> view.is_ready_for('published')
+    False
+
+It's not yet ready for published because there's an override for get_readiness that adds a
+few extra checks: we need to have at least one main policy question and some related items:
+
+	>>> spec.setRelatedItems([ims['dt'], ims['eds'], ims['pdr']])
+	>>> id = spec.invokeFactory("PolicyQuestion", 'pq')
+    >>> pq = spec.objectValues('PolicyQuestion')[0]
+    >>> pq.setIs_key_question(True)
+    >>> spec.unrestrictedTraverse('@@get_readiness').is_ready_for('published')
+    True
+
+
+title
+codes
+dpsir
+typology
+rationale_justification
+policy_context_description
+definition
+units
+methodology
+manager_user_id
