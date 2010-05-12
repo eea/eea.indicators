@@ -24,39 +24,45 @@ applied (of course, with the eea.indicators profile activated):
 Dependencies
 ------------
 
-We have several dependencies that need to be installed. Let's test that they are installed.
-
-	>>> from Products.CMFCore.utils import getToolByName
-
-First, we depend on eea.relations:
-
-	>>> relations = getToolByName(portal, 'portal_relations')
-
-We also depend on eea.dataservice, but we don't want to override the customizations in the live
-site, so we won't actually dependend on it. Also eea.facetednavigation, ATVocabularyManager and RedirectionTool.
+Soft dependencies
+~~~~~~~~~~~~~~~~~
+The following products are dependencies for eea.indicators, but are not installed in the
+install process. They are assumed to be already installed.
+    * eea.dataservice
+    * eea.facetednavigation
+    * ATVocabularyManager
+    * RedirectionTool
 
 #>>> typestools = getToolByName(portal, 'portal_types')
 #>>> types = typestools.listContentTypes()
 #>>> ('EEAFigure' in types) and ('Data' in types) 
 #True
 
-We depend on Products.DataGridField:
+Hard dependencies
+~~~~~~~~~~~~~~~~~
+We have several dependencies that need to be installed. Let's test that they are installed.
+We depend on:
 
+    * eea.relations
+    * Products.DataGridField
+    * Products.UserAndGroupSelectionWidget
+    * eea.workflow
+    * eea.versions
+
+	>>> from Products.CMFCore.utils import getToolByName
+	>>> relations = getToolByName(portal, 'portal_relations')
 	>>> print portal.datagridwidget
 	<FSPageTemplate at datagridwidget>
-
-Products.UserAndGroupSelectionWidget:
-
 	>>> print portal.userandgroupselect
 	<FSPageTemplate at userandgroupselect>
-
-eea.workflow:
-
 	>>> print portal.portlet_readiness
 	<FSPageTemplate at portlet_readiness>
-
-eea.versions:
-
 	>>> print portal.portlet_versions
 	<FSPageTemplate at portlet_versions>
 
+
+If eea.facetednavigation is not installed
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Change profile to EEA Faceted Navigation, import CSS and JS registries
+In portal css must be erased @@faceted_view.css and @@faceted_edit.css
+In portal js must be erased @@faceted_edit.js and @@faceted_view.js

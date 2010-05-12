@@ -13,6 +13,19 @@ We have several main content types. The most important are the Specification and
 	>>> setuptool.setImportContext('profile-eea.indicators:default')
 	>>> log = setuptool.runAllImportSteps()
 
+    >>> from Products.Five.testbrowser import Browser
+    >>> from Products.PloneTestCase import PloneTestCase
+    >>> browser = Browser()
+    >>> browser.handleErrors = False
+    >>> self.portal.error_log._ignored_exceptions = ()
+    >>> browser.addHeader('Authorization',
+    ...                   'Basic %s:%s' % (PloneTestCase.portal_owner,
+    ...                                    PloneTestCase.default_password))
+    >>> def types_in_container(container):
+    ...     types = [t.__class__.__name__ for t in container.objectValues()]
+    ...     return sorted(types)
+    >>>
+
 Containments
 ------------
 The Specifications are implicitly addable. It is the duty of the portal manager to 
@@ -87,4 +100,88 @@ Versioning and utility views
 Editing the IMS should be done through a modified Edit form, which aggregates 
 all content into a single view, to make editing the tree of objects easier.
 
+	>>> spec = ims[ims.invokeFactory("Specification", 'spec2')]
+    >>> spec_url = spec.absolute_url()
 
+Object factories
+~~~~~~~~~~~~~~~~
+One important feature are the object factories: this is a concept were we
+customize the process of creating an object. 
+
+Note: these object factories are not the same as the ones from Plone. 
+
+The following objects are created in the Edit view of Specification through object factories:
+
+    >>> browser.open("%s/object_factory?type_name=RationaleReference" % spec_url)
+    >>> browser.open("%s/object_factory?type_name=WorkItem" % spec_url)
+    >>> browser.open("%s/object_factory?type_name=MethodologyReference" % spec_url)
+    >>> browser.open("%s/object_factory?type_name=PolicyQuestion" % spec_url)
+    >>> browser.open("%s/object_factory?type_name=Assessment" % spec_url)
+    >>> print types_in_container(spec)
+    ['Assessment', 'MethodologyReference', 'PolicyQuestion', 'RationaleReference', 'WorkItem']
+    
+An newly created Assessment should already have an AssessmentPart created, linked to the already 
+created PolicyQuestion.
+
+    >>> ast = spec.objectValues('Assessment')[0]
+    >>> ast.objectValues()
+    [<AssessmentPart at ...>]
+    >>> ap = ast.objectValues('AssessmentPart')[0]
+    >>> pq = spec.objectValues('PolicyQuestion')[0]
+    >>> ap.getRelatedItems()[0] == pq
+    True
+
+Versioning
+~~~~~~~~~~
+
+Specifications have versions; a version of a specification is a new revision of the Spec; 
+it is a completely restructured specification, with new format for Assessments. This is implemented
+with eea.versions
+ 
+Assessments have versions, each year the specifications gets new assessments. 
+
+When creating a new version of a Specification, the new specification is a copy of the old, 
+with the following exceptions:
+
+ * none of the assessments are copied
+ * the work items are not copied
+ * the rest of the contained content items are copied
+
+    >>> v_url = spec.unrestrictedTraverse('@@createVersion')()
+    >>> print v_url
+    http://nohost/plone/ims/spec2-1
+    >>> v_spec = ims[v_url.split('/')[-1]]
+    >>> print types_in_container(v_spec)
+    ['MethodologyReference', 'PolicyQuestion', 'RationaleReference']
+
+When creating a new version of an Assessment, the new assessment is a copy of the old, 
+with the following exceptions:
+
+ * All the EEAFigures contained inside are copy of the ones in the previous assessment 
+   but must be linked as new versions of the figures in the older assessment.
+
+    >>> spec = ims['spec2']
+    >>> ast = spec.objectValues('Assessment')[0]
+    >>> ap = ast.objectValues('AssessmentPart')[0]
+    >>> browser.open('%s/object_factory?type_name=EEAFigure' % ap.absolute_url())
+    >>> figure_1 = ap.objectValues('EEAFigure')[0]
+    >>> print figure_1
+    <EEAFigure at ...> 
+    >>> v_ast = spec[ast.unrestrictedTraverse('@@createVersion')().split('/')[-1]]
+    >>> print v_ast
+    <Assessment at ...>
+    >>> ap = v_ast.objectValues('AssessmentPart')[0]
+    >>> figure_2 = ap.objectValues('EEAFigure')[0]
+    >>> versions = figure_1.unrestrictedTraverse('@@getVersions')().values()
+    >>> figure_1 in versions
+    True
+    >>> figure_2 in versions
+    True
+
+Adding a new Assessment will already create it as a version of the previous one.
+
+EEAFigures inside an assessment cannot be versioned via the Plone GUI. Only when a user 
+create a new Assessment new version of Figures are made and done by code (see above). 
+
+When creating a new Assessment for a Specification, the Assessment should already contain
+AssessmentParts created for all the PolicyQuestions

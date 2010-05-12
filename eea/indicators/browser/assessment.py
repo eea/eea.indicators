@@ -101,9 +101,16 @@ def get_figures_for_pq_in_assessment(pq, assessment):
 
     assessment_part = None
     for part in assessment.objectValues('AssessmentPart'):
-        if part.getRelatedItems().getPhysicalPath() == path:   #TODO: check if the part points to pq
+        pq = part.getRelatedItems()
+        if pq:
+            pq = pq[0]
+        else:
+            continue
+
+        if pq.getPhysicalPath() == path:
             assessment_part = part
             break
+
     if assessment_part is not None:
         return assessment_part.objectValues('EEAFigure')
 
