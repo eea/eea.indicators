@@ -262,13 +262,6 @@ no content has been entered in the spec, it is at 0:
     >>> info['optional']
     14
 
-This makes the number of field that are optional, but have a value is now 0.
-
-    >>> info['total'] - info['optional'] - info['publishing']
-    0
-
-This is the id, locallyAllowedTypes (which is not marked as metadata)
-
 'total' is the grand total number of fields.
 
     >>> info['total']
@@ -340,14 +333,3 @@ few extra checks: we need to have at least one main policy question and some rel
     >>> spec.unrestrictedTraverse('@@get_readiness').is_ready_for('published')
     True
 
-
-title
-codes
-dpsir
-typology
-rationale_justification
-policy_context_description
-definition
-units
-methodology
-manager_user_id
