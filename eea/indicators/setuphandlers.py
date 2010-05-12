@@ -84,13 +84,13 @@ def postInstall(context):
             setuptool.runAllImportSteps()
             logger.info("Run all import steps for %s" % name)
 
-    # DCWorkflowDump doesn't yet support the 'manager_bypass'
-    wf_id = 'indicators_workflow'
-    wf_tool = getToolByName(site, 'portal_workflow')
-    if wf_id in wf_tool.objectIds():
-        wfobj = wf_tool.getWorkflowById(wf_id)
-        wfobj.manager_bypass = 1
-        logger.info("Set 'Manager role bypasses guards' to True for 'indicators_workflow'")
+    ## DCWorkflowDump doesn't yet support the 'manager_bypass'
+    #wf_id = 'indicators_workflow'
+    #wf_tool = getToolByName(site, 'portal_workflow')
+    #if wf_id in wf_tool.objectIds():
+        #wfobj = wf_tool.getWorkflowById(wf_id)
+        #wfobj.manager_bypass = 1
+        #logger.info("Set 'Manager role bypasses guards' to True for 'indicators_workflow'")
 
     # Enable portal_factory for given types
     factory_tool = getToolByName(site, 'portal_factory')
