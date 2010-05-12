@@ -27,11 +27,8 @@ from eea.indicators.config import *
 from Products.ATContentTypes.content.folder import ATFolder, ATFolderSchema
 
 ##code-section module-header #fill in your manual code here
-try:
-    from Products.OrderableReferenceField._field import OrderableReferenceField
-except ImportError:
-    from Products.Archetypes.atapi import ReferenceField as OrderableReferenceField
-from eea.relations.widget.referencewidget import EEAReferenceBrowserWidget
+from eea.relations.field import EEAReferenceField
+from eea.relations.widget import EEAReferenceBrowserWidget
 ##/code-section module-header
 
 schema = Schema((
@@ -141,7 +138,7 @@ schema = Schema((
         ),
         vocabulary=[('None', ''), ('D', 'Driving forces'), ('P', 'Pressures'), ('S', 'States'), ('I', 'Impacts'), ('R', 'Reactions')],
     ),
-    OrderableReferenceField('relatedItems',
+    EEAReferenceField('relatedItems',
             relationship='relatesTo',
             multivalued=True,
             isMetadata=False,
