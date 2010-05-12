@@ -4,20 +4,43 @@
 <!-- ##/code-section workflowobjects -->
 <!-- ##code-section workflowbindings -->
  <object name="indicators_workflow" meta_type="Workflow"/>
- <bindings>
- <type type_id="Specification">
-  <bound-workflow workflow_id="indicators_workflow" />
- </type>
- <type type_id="Assessment">
-  <bound-workflow workflow_id="indicators_workflow" />
- </type>
- <type type_id="AssessmentPart" />
- <type type_id="ExternalDataSpec"/>
- <type type_id="MethodologyReference"/>
- <type type_id="PolicyDocumentReference"/>
- <type type_id="PolicyQuestion"/>
- <type type_id="RationaleReference"/>
- <type type_id="WorkItem"/>
-<!-- ##/code-section workflowbindings -->
- </bindings>
+  <bindings>
+   <type type_id="Specification">
+    <bound-workflow workflow_id="indicators_workflow" />
+   </type>
+   <type type_id="Assessment">
+    <bound-workflow workflow_id="indicators_workflow" />
+   </type>
+   <type type_id="AssessmentPart">
+    <bound-workflow workflow_id="" />
+   </type>
+   <type type_id="ExternalDataSpec">
+    <bound-workflow workflow_id="" />
+   </type>
+   <type type_id="MethodologyReference">
+    <bound-workflow workflow_id="" />
+   </type>
+   <type type_id="PolicyDocumentReference">
+    <bound-workflow workflow_id="" />
+   </type>
+   <type type_id="PolicyQuestion">
+    <bound-workflow workflow_id="" />
+   </type>
+   <type type_id="RationaleReference">
+    <bound-workflow workflow_id="" />
+   </type>
+   <type type_id="WorkItem">
+    <bound-workflow workflow_id="" />
+   </type>
+   <type type_id="FactSheetDocument">
+    <bound-workflow workflow_id="eea_default_workflow" />
+   </type>
+   <type type_id="IndicatorFactSheet">
+    <bound-workflow workflow_id="eea_default_workflow" />
+   </type>
+   <type type_id="KeyMessage">
+    <bound-workflow workflow_id="eea_default_workflow" />
+   </type>
+  <!-- ##/code-section workflowbindings -->
+  </bindings>
 </object>
