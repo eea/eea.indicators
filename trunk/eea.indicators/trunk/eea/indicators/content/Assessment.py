@@ -3,7 +3,7 @@
 # $Id$
 #
 # Copyright (c) 2010 by ['Tiberiu Ichim']
-# Generator: ArchGenXML 
+# Generator: ArchGenXML
 #            http://plone.org/products/archgenxml
 #
 # GNU General Public License (GPL)
@@ -33,11 +33,8 @@ from eea.dataservice.vocabulary import DatasetYears
 from eea.dataservice.widgets.ManagementPlanWidget import ManagementPlanWidget
 from eea.indicators import msg_factory as _
 from eea.indicators.content.base import ModalFieldEditableAware, CustomizedObjectFactory
-try:
-    from Products.OrderableReferenceField._field import OrderableReferenceField
-except ImportError:
-    from Products.Archetypes.atapi import ReferenceField as OrderableReferenceField
-from eea.relations.widget.referencewidget import EEAReferenceBrowserWidget
+from eea.relations.field import EEAReferenceField
+from eea.relations.widget import EEAReferenceBrowserWidget
 ##/code-section module-header
 
 schema = Schema((
@@ -104,7 +101,7 @@ Assessment_schema['management_plan'] = ManagementPlanField(
         )
     )
 
-Assessment_schema['relatedItems'] = OrderableReferenceField('relatedItems',
+Assessment_schema['relatedItems'] = EEAReferenceField('relatedItems',
         relationship='relatesTo',
         multivalued=True,
         isMetadata=False,

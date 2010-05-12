@@ -3,7 +3,7 @@
 # $Id$
 #
 # Copyright (c) 2010 by ['Tiberiu Ichim']
-# Generator: ArchGenXML 
+# Generator: ArchGenXML
 #            http://plone.org/products/archgenxml
 #
 # GNU General Public License (GPL)
@@ -52,11 +52,9 @@ from zope.app.event import objectevent
 import datetime
 import logging
 
-try:
-    from Products.OrderableReferenceField._field import OrderableReferenceField
-except ImportError:
-    from Products.Archetypes.atapi import ReferenceField as OrderableReferenceField
-from eea.relations.widget.referencewidget import EEAReferenceBrowserWidget
+from eea.relations.field import EEAReferenceField
+from eea.relations.widget import EEAReferenceBrowserWidget
+
 
 ONE_YEAR = datetime.timedelta(weeks=52)
 ##/code-section module-header
@@ -360,7 +358,7 @@ Specification_schema = ATFolderSchema.copy() + \
 ##code-section after-schema #fill in your manual code here
 Specification_schema = Specification_schema + ThemeTaggable_schema.copy()
 
-Specification_schema['relatedItems'] = OrderableReferenceField('relatedItems',
+Specification_schema['relatedItems'] = EEAReferenceField('relatedItems',
         schemata='DataSpecs',
         relationship='relatesTo',
         multivalued=True,
