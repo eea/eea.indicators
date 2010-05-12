@@ -52,8 +52,6 @@ def installQIDependencies(context):
                 raise "   QI dependency %s not installable" % dependency
     logger.info("installQIDependencies finished")
 
-
-
 def updateRoleMappings(context):
     """after workflow changed update the roles mapping. this is like pressing
     the button 'Update Security Setting' and portal_workflow"""
@@ -84,14 +82,6 @@ def postInstall(context):
             setuptool.runAllImportSteps()
             logger.info("Run all import steps for %s" % name)
 
-    ## DCWorkflowDump doesn't yet support the 'manager_bypass'
-    #wf_id = 'indicators_workflow'
-    #wf_tool = getToolByName(site, 'portal_workflow')
-    #if wf_id in wf_tool.objectIds():
-        #wfobj = wf_tool.getWorkflowById(wf_id)
-        #wfobj.manager_bypass = 1
-        #logger.info("Set 'Manager role bypasses guards' to True for 'indicators_workflow'")
-
     # Enable portal_factory for given types
     factory_tool = getToolByName(site, 'portal_factory')
     factory_types = [
@@ -104,24 +94,14 @@ def postInstall(context):
 
     # Enable aliases (redirects) for eea.indicators content types
     redirection_tool = getToolByName(site, 'portal_redirection')
-    ctypes = ["IndicatorFactSheet",
-              "KeyMessage",
-              "FactSheetDocument",
-              "Specification",
-              "Assessment",
-              "AssessmentPart",
+    ctypes = ["PolicyDocumentReference",
               "ExternalDataSpec",
-              "MethodologyReference",
-              "PolicyDocumentReference",
-              "PolicyQuestion",
-              "RationaleReference",
-              "WorkItem"]
+              "Specification",
+              "IndicatorFactSheet"]
     new_ctypes = redirection_tool.getRedirectionAllowedForTypes()
     new_ctypes.extend(ctypes)
     redirection_tool.setRedirectionAllowedForTypes(new_ctypes)
     logger.info("Redirection tool enabled for eea.indicators content types.")
-
-
 
 ##code-section FOOT
 def setup_vocabularies(context):
@@ -146,7 +126,6 @@ def setup_misc(context):
     """ Stub step to enable setting dependent steps """
 
     return
-
 
 def updateRoleMappings(context):
     """We don't need this actually, so we rewrite it"""
