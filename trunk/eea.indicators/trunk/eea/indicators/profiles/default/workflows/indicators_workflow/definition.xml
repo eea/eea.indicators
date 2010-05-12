@@ -191,8 +191,8 @@
   <description>Content still available via direct link, but hidden in listings and searches.</description>
   <action url="" category="workflow">Hide item from search and listings</action>
   <guard>
-   <guard-role>Owner</guard-role>
    <guard-role>Manager</guard-role>
+   <guard-role>Owner</guard-role>
   </guard>
  </transition>
  <transition transition_id="publish" title="Publish"
@@ -200,6 +200,7 @@
              before_script="" after_script="">
   <action url="" category="workflow">Publish</action>
   <guard>
+   <guard-role>Manager</guard-role>
    <guard-role>WebReviewer</guard-role>
   </guard>
  </transition>
@@ -209,6 +210,7 @@
              before_script="" after_script="">
   <action url="" category="workflow">Publish Eionet</action>
   <guard>
+   <guard-role>Manager</guard-role>
    <guard-role>Reviewer</guard-role>
   </guard>
  </transition>
@@ -217,6 +219,7 @@
              before_script="" after_script="">
   <action url="" category="workflow">Publish</action>
   <guard>
+   <guard-role>Manager</guard-role>
    <guard-role>Reviewer</guard-role>
   </guard>
  </transition>
@@ -246,7 +249,8 @@
   <description>This will make the item visible with direct link, but not show up in listings.</description>
   <action url="" category="workflow">Make visible only via direct link, still hidden in listings/search</action>
   <guard>
-   <guard-role>WebReviewer, Manager</guard-role>
+   <guard-role>Manager</guard-role>
+   <guard-role>WebReviewer</guard-role>
   </guard>
  </transition>
  <transition transition_id="submitContentReview"
@@ -256,6 +260,7 @@
   <action url="%(content_url)s/content_submit_form"
           category="workflow">Submit for internal review</action>
   <guard>
+   <guard-role>Manager</guard-role>
    <guard-role>Editor</guard-role>
    <guard-expression>python: here.portal_type in  ['Data', 'EEAFigure'] and here.Language() == 'en'</guard-expression>
   </guard>
