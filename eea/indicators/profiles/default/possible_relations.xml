@@ -18,6 +18,11 @@
 		<property name="ct_type">PolicyDocumentReference</property>
 		<property name="ct_interface"></property>
 	</object>
+	<object name="external-data-spec" meta_type="EEARelationsContentType">
+		<property name="title">External Data Spec</property>
+		<property name="ct_type">ExternalDataSpec</property>
+		<property name="ct_interface"></property>
+	</object>
 
 	Possible relationships
 	<object name="specification-eea-data" meta_type="EEAPossibleRelation">
@@ -30,6 +35,12 @@
 		<property name="title">Specification -&gt; Policy Document Reference</property>
 		<property name="from">specification</property>
 		<property name="to">policy-document-reference</property>
+		<property name="required">True</property>
+	</object>
+	<object name="specification-external-data-spec" meta_type="EEAPossibleRelation">
+		<property name="title">Specification -&gt; External Data Spec</property>
+		<property name="from">specification</property>
+		<property name="to">external-data-spec</property>
 		<property name="required">True</property>
 	</object>
 </object>
