@@ -75,7 +75,7 @@ The name of the region fragment that will be updated;
 	tal:define="widget nocall:field/widget;
 	widget_dom_id string:active_field-$fieldName;
 	realFieldName realFieldName|fieldName;
-	default_selected_tab string:generic" >
+	default_selected_tab default_selected_tab|string:generic" >
 
 	<div class="active_field" tal:attributes="id widget_dom_id"> 
 		<div class="content">
