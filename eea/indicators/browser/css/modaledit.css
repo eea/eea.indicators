@@ -102,154 +102,151 @@
   padding-bottom: 0.3em;
 }
 
-/* Active fields
+/* Active fields 
  * ==========================*/
 
 #dialog-inner {
-  /* height:500px; */
-  /* overflow:auto; */
+	/* height:500px; */
+	/* overflow:auto; */
 }
 
 #dialog-inner .cancel-btn {
-  padding-left:2em;
+	padding-left:2em;
 }
 #dialog-inner .field {
-  /* margin:2em 2em 0 0; */
-  background-color:inherit !important;
-  padding:inherit !important;
-  margin:0 1em 0 0 !important;
+	/* margin:2em 2em 0 0; */
+	background-color:inherit !important;
+	padding:inherit !important;
+	margin:0 1em 0 0 !important;
 }
 #dialog-inner label {
-  /* display:none; */
+	/* display:none; */
 }
 #dialog-inner .fieldTextFormat {
-  display:none;
+	display:none;
 }
 .widgets-area {
-  /* max-height:400px; */
-  /* overflow:auto; */
+	/* max-height:400px; */
+	/* overflow:auto; */
 }
 
 .widgets-area .widgets-list {
-  display:none;
+	display:none;
 }
 .specification-loading {
-  /* Ajax activity visual cue */
+	/* Ajax activity visual cue */
   background-image:url(./++resource++faceted_images/ajax-loader.gif);
   background-repeat:no-repeat;
-  position:absolute;
-  opacity:1;
-  height:100px;
-  width:100px;
-  z-index:1200;
+	position:absolute;
+	opacity:1;
+	height:100px;
+	width:100px;
+	z-index:1200;
 }
 
-/* Active fields styling
+/* Active fields styling 
  * ========================*/
 .active_region {
-  /* padding:1em 0; */
+		/* padding:1em 0; */
 }
 
 .active_field .metadata, .active_field_hovered .metadata, .active_region .metadata {
-  display:none;
+	display:none;
 }
 
 .active_field .control {
-  /* display:none; */
+	/* display:none; */
 }
 
 .active_field_hovered {
-  background-color:#F3F3F3;
+	background-color:#F3F3F3;
 }
 
 .active_field .control, .active_field_hovered .control {
-  display:block !important;
-  float:right;
-  padding:4px;
-  /* background-color:#79AE59; */
-  background:none repeat scroll 0 0 #F5821F;
-  border-color:#FFCC99 #663300 #333300 #FF9966;
-  border-style:solid;
-  border-width:1px;
-  /* position:relative; */
-  /* top:3px; */
-  /* right:3px; */
+	display:block !important;
+	float:right;
+	padding:4px;
+	/* background-color:#79AE59; */
+	background:none repeat scroll 0 0 #F5821F;
+	border-color:#FFCC99 #663300 #333300 #FF9966;
+	border-style:solid;
+	border-width:1px;
+	/* position:relative; */
+	/* top:3px; */
+	/* right:3px; */
 }
 .active_field .control a, .active_field_hovered .control a {
-  color:white;
-  font-weight:bold;
-  text-decoration:none;
+	color:white;
+	font-weight:bold;
+	text-decoration:none;
 }
 .active_field {
-  border:1px dotted black;
-  padding:1em;
-  /* min-height:20px; */
+	border:1px dotted black;
+	padding:1em;
+	/* min-height:20px; */
 }
 .active_field h5 {
-  margin-top:0;
+	margin-top:0;
 }
 .active_region .placeholder {
-  background-color:#FFEB9B;
-  padding:1em;
-  text-align:center;
+	background-color:#FFEB9B;
+	padding:1em;
+	text-align:center;
 }
 
 a.object_creator {
-  /* float:right; */
-  padding:3px;
-  background-color:#CEE2A8;
-  border-bottom:1px solid #AAA;
-  color:black;
-  display:block;
-  margin-bottom:6px;
-  text-align:center;
-  text-decoration:none;
+	/* float:right; */
+	padding:3px;
+	background-color:#CEE2A8;
+	border-bottom:1px solid #AAA;
+	color:black;
+	display:block;
+	margin-bottom:6px;
+	text-align:center;
+	text-decoration:none;
 }
 a.object_creator:hover {
-  /* background-color:#79AE59; */
-  background:none repeat scroll 0 0 #F5821F;
-  border-color:#FFCC99 #663300 #333300 #FF9966;
-  border-style:solid;
-  border-width:1px;
-  color:white;
-  border-bottom:1px solid #AAA;
+	/* background-color:#79AE59; */
+	background:none repeat scroll 0 0 #F5821F;
+	border-color:#FFCC99 #663300 #333300 #FF9966;
+	border-style:solid;
+	border-width:1px;
+	color:white;
+	border-bottom:1px solid #AAA;
 }
 a.object_creator-disabled {
-  display:none;
+	display:none;
 }
 
 a.schemata_edit, a.object_delete {
-  padding:1px 6px;
-  background-color:#CEE2A8;
-  color:black;
-  text-decoration:none;
-  display:block;
-  float:left;
-  margin-right:1em;
-  border-bottom:1px solid #AAA;
+	padding:1px 6px;
+	background-color:#CEE2A8;
+	color:black;
+	text-decoration:none;
+	display:block;
+	float:left;
+	margin-right:1em;
+	border-bottom:1px solid #AAA;
 }
 a.schemata_edit:hover, a.object_delete:hover {
-  /* background-color:#79AE59; */
-  background:none repeat scroll 0 0 #F5821F;
-  border-color:#FFCC99 #663300 #333300 #FF9966;
-  border-style:solid;
-  border-width:1px;
-  color:white;
-  border:none;
+	/* background-color:#79AE59; */
+	background:none repeat scroll 0 0 #F5821F;
+	border-color:#FFCC99 #663300 #333300 #FF9966;
+	border-style:solid;
+	border-width:1px;
+	color:white;
+	border:none;
 }
 
 
 /* Kupu and calendar fixes for modal edit
  * ======================================*/
-.forcekupu {
-  display: none;
-}
 .calendar {
-  z-index:1100;
+	z-index:1100;
 }
 iframe.kupu-editor-iframe {
-  height:280px;
+	height:280px;		
 }
 div.kupu-fulleditor-zoomed .kupu-editor-iframe {
-  height:none;
+	height:none;
 }
