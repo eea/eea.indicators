@@ -67,6 +67,7 @@ schema = Schema((
         ),
         schemata="default",
         searchable=True,
+        default="Untitled specification",
         required=True,
         accessor="getTitle",
         required_for_published=True,
