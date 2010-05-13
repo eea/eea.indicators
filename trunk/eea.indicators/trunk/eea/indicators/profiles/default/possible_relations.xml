@@ -42,5 +42,8 @@
 		<property name="from">specification</property>
 		<property name="to">external-data-spec</property>
 		<property name="required">False</property>
+		<property name="required_for">
+			<element value="published"/>
+		</property>
 	</object>
 </object>
