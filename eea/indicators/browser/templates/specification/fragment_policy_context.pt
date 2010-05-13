@@ -52,7 +52,9 @@
 					<tal:def tal:define="
 						fieldName string:relatedItems;
 						field python:context.schema[fieldName];
-						value python:related_view.get_uids('PolicyDocumentReference');">
+						value python:related_view.get_uids('PolicyDocumentReference');
+						default_selected_tab string:policy-document-reference;
+						">
 
 						<div metal:use-macro="context/indicators_macros/macros/active_relation_field" />
 
