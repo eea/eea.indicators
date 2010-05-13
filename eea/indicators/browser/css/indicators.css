@@ -125,7 +125,7 @@ dl.toc {
   border-left:1px solid lightblue;
   padding-left:6px;
 }
-.work_item {}
+.work_item {margin-bottom:5px}
 .work_item h5 {margin:0}
 .work_item h6 {margin:0}
 .grouped_field {
