@@ -250,3 +250,6 @@ iframe.kupu-editor-iframe {
 div.kupu-fulleditor-zoomed .kupu-editor-iframe {
 	height:none;
 }
+.forcekupu {
+	display:none;
+}
