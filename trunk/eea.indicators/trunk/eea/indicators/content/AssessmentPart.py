@@ -30,6 +30,7 @@ from eea.indicators.content.interfaces import ISpecification
 from eea.indicators.content.utils import get_specific_parent
 from eea.relations.field import EEAReferenceField
 from eea.relations.widget import EEAReferenceBrowserWidget
+from eea.indicators.content.base import ModalFieldEditableAware
 ##/code-section module-header
 
 schema = Schema((

@@ -258,7 +258,7 @@ function closer(fieldname, active_region){
     var region = $(fieldname).parents('.active_region').get();
   }
 
-  console.log("Closing & reloading region", region);
+  // console.log("Closing & reloading region", region);
   reload_region(region);
 
 	// $(fieldname).html(text);   // 2
