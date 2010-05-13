@@ -202,6 +202,7 @@
   <guard>
    <guard-role>Manager</guard-role>
    <guard-role>WebReviewer</guard-role>
+    <guard-expression>python:path('here/@@get_readiness').is_ready_for('published')</guard-expression>
   </guard>
  </transition>
  <transition transition_id="publishEionet"
@@ -221,6 +222,7 @@
   <guard>
    <guard-role>Manager</guard-role>
    <guard-role>Reviewer</guard-role>
+    <guard-expression>python:path('here/@@get_readiness').is_ready_for('published')</guard-expression>
   </guard>
  </transition>
  <transition transition_id="reject"
