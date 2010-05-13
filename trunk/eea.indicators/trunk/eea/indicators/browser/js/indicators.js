@@ -6,23 +6,60 @@ function change_kupu_styles(){
 	$(".kupu-tb-styles option[value='h3|']").remove();
 }
 
+function block_ui(){
+  var scr_x = jQuery(window).scrollLeft();
+  var scr_y = jQuery(window).scrollTop();
+  var dim_x = jQuery(window).width();
+  var dim_y = jQuery(window).height();
+
+  var overlay = jQuery('<div>');
+  overlay.addClass('specification-overlay');
+
+  var loading = jQuery('<div>');
+  loading.addClass('specification-loading');
+
+  loading.css({
+      'top':dim_y/2-50 + scr_y + 'px',
+      'left':dim_x/2-50 + scr_x + 'px',
+      'z-index':2001
+      });
+  overlay.css({
+    'top':scr_y+'px',
+    'left':scr_x+'px',
+    'z-index':2000,
+    'width':dim_x+'px',
+    'height':dim_y+'px',
+    // 'background-color':'white',
+    position:'absolute'
+  });
+  
+  jQuery('body').append(overlay);
+  jQuery('body').append(loading);
+  overlay.show();
+  loading.show();
+}
+function unblock_ui(){
+  jQuery('.specification-overlay').remove();
+  jQuery('.specification-loading').remove();
+}
+
 $(document).ready(function () {
 		
-		$(window).ajaxStart(function(){
-      $('body').append("<div class='specification-loading'></div>");
-      var dim = get_dimmensions();
-      var scr = get_scrollXY();
-      $('.specification-loading').css({
-          'top':dim.height/2-50 + scr.y + 'px',
-          'left':dim.width/2-50 + scr.x + 'px'
-          });
-      return false;
-		});
-    $(window).ajaxComplete(function(){
-				$('.specification-loading').remove();
-				return false;
-			}
-    );
+		// $(window).ajaxStart(function(){
+      // $('body').append("<div class='specification-loading'></div>");
+      // var dim = get_dimmensions();
+      // var scr = get_scrollXY();
+      // $('.specification-loading').css({
+      //     'top':dim.height/2-50 + scr.y + 'px',
+      //     'left':dim.width/2-50 + scr.x + 'px'
+      //     });
+      // return false;
+		// });
+    // $(window).ajaxComplete(function(){
+			// 	$('.specification-loading').remove();
+			// 	return false;
+			// }
+    // );
 
 		set_editors();
 		set_actives();
@@ -85,11 +122,13 @@ function set_sortables() {
             $(neworder).each(function(){
               data += "&order:list=" + this;
               });
+            block_ui();
             $.ajax({
               'url':handler,
               'type':'POST',
               'data':data,
               'success':function(){
+                unblock_ui()
               }
             });
           }
@@ -103,6 +142,7 @@ function set_editors(){
 	// Set handlers for Edit (full schemata) buttons
 	
 	$('a.schemata_edit').live('click', function(){
+      block_ui();
 			var link = $(this).attr('href');
 			var title = $(this).text();
 			var region = $(this).parents(".active_region")[0];
@@ -114,6 +154,7 @@ function set_editors(){
 
 			dialog_edit(link, title, function(text, status, xhr){
           schemata_ajaxify($("#dialog-inner"), active_region);
+          unblock_ui();
 				}, 
         options);
 
@@ -126,6 +167,7 @@ function set_edit_buttons() {
   
   $('.active_field a').disableSelection();
 	$('.active_field a').live('click', function(){
+      block_ui();
 			var link = $(this).attr('href');
 			var title = $(this).text();
 			var region = $(this).parents(".active_region")[0];
@@ -146,6 +188,7 @@ function set_edit_buttons() {
       dialog_edit(link, title, function(text, status, xhr){
 				// schemata_ajaxify($("#dialog-inner"), fieldname);
         ajaxify($("#dialog-inner"), fieldname);
+        unblock_ui();
         }, options);
       return false;
   });
@@ -155,6 +198,7 @@ function set_creators(){
 	// Set handlers for Create buttons
 	
 	$('a.object_creator').live('click', function(){
+      block_ui();
 			var link = $(this).attr('href');
 			var region = $(this).parents(".active_region")[0];
       var title = "Edit";
@@ -167,7 +211,8 @@ function set_creators(){
           type:'GET',
           // timeout: 2000,
           error: function() {
-              alert("Failed to update!");
+            unblock_ui();
+            alert("Failed to update!");
           },
           success: function(r) { 
             reload_region($(region));
@@ -176,9 +221,12 @@ function set_creators(){
               var edit_link = info.text();
               dialog_edit(edit_link, title, function(text, status, xhr){
                 schemata_ajaxify($("#dialog-inner"), $(region).attr('id'));
+                unblock_ui();
                 }, 
                 options
               );
+            } else {
+                unblock_ui();
             }
             return false;
           }
@@ -192,6 +240,7 @@ function set_deleters(){
 	// Set handlers for Delete buttons
 
 	$('a.object_delete').live('click', function(){
+      block_ui();
 			var link = $(this).attr('href');
 			var region = $(this).parents(".active_region")[0];
 			$.ajax({
@@ -211,6 +260,7 @@ function set_deleters(){
 }
 
 function reload_region(el){
+  block_ui();
 	var update_handler = $(".metadata .region_update_handler", el).text();
   var also_reload = $(".metadata .also_reload", el);
   if (also_reload) {
@@ -237,11 +287,12 @@ function reload_region(el){
             $(new_el).effect('highlight');
             // $(new_el).animate({backgroundColor:'#e1e1e1'}, 1000)
             //         .animate({backgroundColor:'transparent'}, 1500);
+            unblock_ui();
             return false;
         }
         });
 
-return false;
+  return false;
 }
 
 function closer(fieldname, active_region){
@@ -290,6 +341,7 @@ function schemata_ajaxify(el, active_region){
 		
 	$("form", el).submit(
 			function(e){
+      block_ui();
 			var form = this;
 
 			var inputs = [];
@@ -315,6 +367,7 @@ function schemata_ajaxify(el, active_region){
                 success: function(r) { 
                     $(el).html(r);
                     schemata_ajaxify(el, active_region);
+                    unblock_ui();
                     return false;
                 }
 								});
@@ -325,6 +378,7 @@ function schemata_ajaxify(el, active_region){
 function dialog_edit(url, title, callback, options){
 	// Opens a modal dialog with the given title
   
+  block_ui();
 	options = options || {
 		'height':null,
 			'width':800,
@@ -387,43 +441,6 @@ function close_dialog(region){
 }
 
 
-function get_dimmensions() {
-  var myWidth = 0, myHeight = 0;
-  if( typeof( window.innerWidth ) == 'number' ) {
-    //Non-IE
-    myWidth = window.innerWidth;
-    myHeight = window.innerHeight;
-  } else if( document.documentElement && ( document.documentElement.clientWidth || document.documentElement.clientHeight ) ) {
-    //IE 6+ in 'standards compliant mode'
-    myWidth = document.documentElement.clientWidth;
-    myHeight = document.documentElement.clientHeight;
-  } else if( document.body && ( document.body.clientWidth || document.body.clientHeight ) ) {
-    //IE 4 compatible
-    myWidth = document.body.clientWidth;
-    myHeight = document.body.clientHeight;
-  }
-  return {'width':myWidth, 'height':myHeight}
-}
-
-function get_scrollXY() {
-  var scrOfX = 0, scrOfY = 0;
-  if( typeof( window.pageYOffset ) == 'number' ) {
-    //Netscape compliant
-    scrOfY = window.pageYOffset;
-    scrOfX = window.pageXOffset;
-  } else if( document.body && ( document.body.scrollLeft || document.body.scrollTop ) ) {
-    //DOM compliant
-    scrOfY = document.body.scrollTop;
-    scrOfX = document.body.scrollLeft;
-  } else if( document.documentElement && ( document.documentElement.scrollLeft || document.documentElement.scrollTop ) ) {
-    //IE6 standards compliant mode
-    scrOfY = document.documentElement.scrollTop;
-    scrOfX = document.documentElement.scrollLeft;
-  }
-  return {x: scrOfX, y:scrOfY };
-}
-
-
 function get_kupu_editor(editorId) {
 	// initializes a kupu editor and returns it. 
 	// This is needed to make up for the lack of proper API:
@@ -482,6 +499,7 @@ function ajaxify(el, fieldname){
 	
 	$("form", el).submit(
 			function(e){
+        block_ui();
         var form = this;
         save_kupu_values(form);
 				var data = ($(form).serialize() + "&form_submit=Save&form.submitted=1");
@@ -496,6 +514,7 @@ function ajaxify(el, fieldname){
 									success: function(r) { 
 											$(el).html(r);
 											ajaxify(el);
+                      unblock_ui();
 											return false;
 									}
                 });

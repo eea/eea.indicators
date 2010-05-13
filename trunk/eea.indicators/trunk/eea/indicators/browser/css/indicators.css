@@ -198,3 +198,6 @@ h1 {
   background: transparent url(IMSDescription.gif) no-repeat scroll 0 8px;
   padding: 10px 0 6px 30px;
 }
+.specification-overlay {
+	background-image:url("../../++resource++jquery.ui.theme/images/ui-bg_flat_0_aaaaaa_40x100.png");
+}
