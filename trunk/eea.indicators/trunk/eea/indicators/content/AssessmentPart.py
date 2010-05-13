@@ -25,15 +25,11 @@ from eea.indicators.config import *
 from Products.ATContentTypes.content.folder import ATFolder, ATFolderSchema
 
 ##code-section module-header #fill in your manual code here
-from eea.indicators.content.utils import get_specific_parent
-from eea.indicators.content.interfaces import ISpecification
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema
-from eea.relations.widget.referencewidget import EEAReferenceBrowserWidget
-from eea.indicators.content.base import ModalFieldEditableAware, CustomizedObjectFactory
-try:
-    from Products.OrderableReferenceField._field import OrderableReferenceField
-except ImportError:
-    from Products.Archetypes.atapi import ReferenceField as OrderableReferenceField
+from eea.indicators.content.interfaces import ISpecification
+from eea.indicators.content.utils import get_specific_parent
+from eea.relations.field import EEAReferenceField
+from eea.relations.widget import EEAReferenceBrowserWidget
 ##/code-section module-header
 
 schema = Schema((
@@ -88,7 +84,7 @@ AssessmentPart_schema = ATFolderSchema.copy() + \
 
 ##code-section after-schema #fill in your manual code here
 AssessmentPart_schema.moveField('relatedItems', pos=0)
-AssessmentPart_schema['relatedItems'] = OrderableReferenceField('relatedItems',
+AssessmentPart_schema['relatedItems'] = EEAReferenceField('relatedItems',
         relationship='relatesTo',
         required=True,
         multiValued=False,

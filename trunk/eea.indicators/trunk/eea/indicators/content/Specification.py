@@ -42,21 +42,16 @@ from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 from Products.UserAndGroupSelectionWidget import UserAndGroupSelectionWidget
 from eea.dataservice.vocabulary import Organisations
 from eea.indicators import msg_factory as _
-#from eea.indicators.content.interfaces import IIndicatorAssessment
 from eea.indicators.browser.assessment import create_version as create_assessment_version
 from eea.indicators.content.base import ModalFieldEditableAware, CustomizedObjectFactory
 from eea.indicators.content.utils import get_dgf_value
+from eea.relations.field import EEAReferenceField
+from eea.relations.widget import EEAReferenceBrowserWidget
 from zope import event
 from zope.app.event import objectevent
 
 import datetime
 import logging
-
-try:
-    from Products.OrderableReferenceField._field import OrderableReferenceField
-except ImportError:
-    from Products.Archetypes.atapi import ReferenceField as OrderableReferenceField
-from eea.relations.widget.referencewidget import EEAReferenceBrowserWidget
 
 ONE_YEAR = datetime.timedelta(weeks=52)
 ##/code-section module-header
@@ -360,7 +355,7 @@ Specification_schema = ATFolderSchema.copy() + \
 ##code-section after-schema #fill in your manual code here
 Specification_schema = Specification_schema + ThemeTaggable_schema.copy()
 
-Specification_schema['relatedItems'] = OrderableReferenceField('relatedItems',
+Specification_schema['relatedItems'] = EEAReferenceField('relatedItems',
         schemata='DataSpecs',
         relationship='relatesTo',
         multivalued=True,
