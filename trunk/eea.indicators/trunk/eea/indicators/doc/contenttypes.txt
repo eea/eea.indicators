@@ -333,3 +333,20 @@ few extra checks: we need to have at least one main policy question and some rel
     >>> spec.unrestrictedTraverse('@@get_readiness').is_ready_for('published')
     True
 
+
+Simple field editing and schemata editing
+-----------------------------------------
+
+In the new aggregated edit view we use two types of editing dialog boxes:
+
+ * one where we edit just one field
+ * another one where we edit a full schemata
+
+Single field dialog edit
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+    >>> baseurl = spec.absolute_url()
+    >>> browser.open(baseurl + '/simple_edit?fieldset=default&specific_field=title')
+    >>> print browser.contents  #doctest: +NORMALIZE_WHITESPACE
+    <... <form ... id="specification-base-edit"...
+    >>> 
