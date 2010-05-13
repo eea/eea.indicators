@@ -23,7 +23,7 @@
 							</metal:slot>
 							<metal:slot metal:fill-slot="extra-metadata">
 								<div class="width">800</div>
-								<div class="height">600</div>
+								<div class="height">435</div>
 							</metal:slot>
 						</metal:macro>
 					</tal:def>
@@ -41,7 +41,7 @@
 							</metal:slot>
 							<metal:slot metal:fill-slot="extra-metadata">
 								<div class="width">800</div>
-								<div class="height">600</div>
+								<div class="height">435</div>
 							</metal:slot>
 						</metal:macro>
 					</tal:def>
