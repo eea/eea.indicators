@@ -3,7 +3,7 @@
 # $Id$
 #
 # Copyright (c) 2010 by ['Tiberiu Ichim']
-# Generator: ArchGenXML 
+# Generator: ArchGenXML
 #            http://plone.org/products/archgenxml
 #
 # GNU General Public License (GPL)
@@ -67,7 +67,7 @@ schema = Schema((
         ),
         schemata="default",
         searchable=True,
-        default="Untitled specification",
+        default="Untitled indicator",
         required=True,
         accessor="getTitle",
         required_for_published=True,
