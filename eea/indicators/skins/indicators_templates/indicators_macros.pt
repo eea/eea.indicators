@@ -105,9 +105,6 @@ The name of the region fragment that will be updated;
 					</metal:slot>
 					<div metal:fill-slot="script">
 						<script type="text/javascript" tal:content="string:
-							Faceted.Cleanup();;
-							jQuery('.popup-tabs #faceted-form').remove();;
-
 							var options = {
 								tabs: {
 									selected:'$default_selected_tab'
