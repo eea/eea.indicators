@@ -44,22 +44,6 @@ function unblock_ui(){
 }
 
 $(document).ready(function () {
-		
-		// $(window).ajaxStart(function(){
-      // $('body').append("<div class='specification-loading'></div>");
-      // var dim = get_dimmensions();
-      // var scr = get_scrollXY();
-      // $('.specification-loading').css({
-      //     'top':dim.height/2-50 + scr.y + 'px',
-      //     'left':dim.width/2-50 + scr.x + 'px'
-      //     });
-      // return false;
-		// });
-    // $(window).ajaxComplete(function(){
-			// 	$('.specification-loading').remove();
-			// 	return false;
-			// }
-    // );
 
 		set_editors();
 		set_actives();
@@ -538,49 +522,6 @@ function save_kupu_values(el) {
     }
   });
 }
-
-//
-// (function($) {
-//  $.fn.make_editable = function() {
-//  // Set an ajax/dialog handler for "active fields"
-//  // An active field, in its current implementation, is a sort of inline edit
-//  // for a field: hovering over the field will change the background color
-//  // and make the special controls appear (for example, an Edit button)
-//  // Clicking the edit button will make a modal dialog popup where an edit form
-//  // is presented, with just that field. Saving the form reloads the field in the 
-//  // original view
-// 
-//  return this.each(function() {
-//      var content = $('.content', this).get();
-// 
-//      var metadata = $('.metadata', this);
-//      var fieldname = $('.metadata > .fieldname', this).text();
-// 
-//      var width = Number($('.metadata > .width', this).text()) || 700;
-//      var height = Number($('.metadata > .height', this).text()) || null;
-// 
-//      var id_to_fill = 'active_field-' + fieldname
-//      $(content).attr('id', id_to_fill);
-// 
-//      var controls = $('.control a', this);
-//      controls.disableSelection();
-//      controls.click(function(e){
-//          var title = $(this).text();
-//          var link = $(this).attr('href');
-//          var options = {
-//             'width':width,
-//             'height':height
-//          }
-//          var region_id = null;
-// 
-//          dialog_edit(link, title, function(text, status, xhr){
-//              ajaxify($("#dialog-inner"), fieldname);
-// 				 }, options);
-//          return false;
-//      });
-//  });
-//  };
-// })(jQuery);
 
 // vim: set sw=2 ts=2 et:
 //
