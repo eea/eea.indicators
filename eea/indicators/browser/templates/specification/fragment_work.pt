@@ -8,8 +8,8 @@
 				<h2 id="further_work">Further work</h2>
 
 				<div class="grouped_field">
-					<tal:def tal:define="works context/get_work; 
-						short works/short; 
+					<tal:def tal:define="works context/get_work;
+						short works/short;
 						long works/long;
 						incomplete works/incomplete">
 						<a href='./object_factory?type_name=WorkItem' class="object_creator">+ Work Item</a>
@@ -17,12 +17,12 @@
 						<div class="col3">
 							<h4>Short term work (to be completed within 1 year from now.)</h4>
 							<div tal:repeat="work short" class="work_item">
-								<a href="" 
+								<a href=""
 									class="schemata_edit spec_control"
 									tal:attributes="href string:${work/absolute_url}/schemata_edit?fieldset=default">Edit</a>
-								<a href="" 
+								<a href=""
 									class="object_delete spec_control"
-									tal:attributes="href string:${work/aq_parent/absolute_url}/delete_object?id=${work/getId}">Delete</a>
+									tal:attributes="href string:${work/aq_parent/absolute_url}/object_delete?id=${work/getId}">Delete</a>
 								<h5 tal:content="work/Title" />
 
 								<!-- <h6>Work description</h6> -->
@@ -39,12 +39,12 @@
 						<div class="col3">
 							<h4>Long term work</h4>
 							<div tal:repeat="work long" class="work_item">
-								<a href="" 
+								<a href=""
 									class="schemata_edit spec_control"
 									tal:attributes="href string:${work/absolute_url}/schemata_edit?fieldset=default">Edit</a>
-								<a href="" 
+								<a href=""
 									class="object_delete spec_control"
-									tal:attributes="href string:${work/aq_parent/absolute_url}/delete_object?id=${work/getId}">Delete</a>
+									tal:attributes="href string:${work/aq_parent/absolute_url}/object_delete?id=${work/getId}">Delete</a>
 
 								<h5 tal:content="work/Title" />
 								<p tal:replace="structure work/Description"></p>
@@ -56,10 +56,10 @@
 						<div class="col3">
 							<h4>Unclassified work</h4>
 							<div tal:repeat="work incomplete" class="work_item">
-								<a href="" 
+								<a href=""
 									class="schemata_edit spec_control"
 									tal:attributes="href string:${work/absolute_url}/schemata_edit?fieldset=default">Edit</a>
-								<a href="" 
+								<a href=""
 									class="object_delete spec_control"
 									tal:attributes="href string:${work/aq_parent/absolute_url}/object_delete?id=${work/getId}">Delete</a>
 								<h5 tal:content="work/Title" />
