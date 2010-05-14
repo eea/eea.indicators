@@ -43,7 +43,7 @@
 
                                 <h5 tal:content="work/Title" />
                                 <p tal:replace="structure work/Description"></p>
-                                <h5>Resource needs</h5>
+                                <h6>Resource needs</h6>
                                 <p tal:replace="structure work/getNeeds"></p>
                             </div>
                         </div>
