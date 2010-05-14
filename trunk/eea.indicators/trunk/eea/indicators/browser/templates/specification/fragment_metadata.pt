@@ -14,7 +14,7 @@
 					<div class='headed-box'>
 						<h5>Responsability and ownership</h5>
 
-						<h6>EEA Contact Info:</h6>
+						<h6>EEA Contact Info</h6>
 						<tal:def tal:define="fieldname string:contact; fieldset string:Responsability">
 							<metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
 								<metal:slot metal:fill-slot="content">
