@@ -244,8 +244,8 @@ keys 'done', 'required', 'publishing', 'optional', 'total', ''
 'done' tells us the percentage of the content that is required for the desired state. 
 By default the title is filled in, so we will be at 9%:
 
-    >>> info['done']
-    9
+    >>> print str(info['done']) + '%'
+    9%
 
 'required' is the number of fields that have content filled in and are required for that state
 
@@ -273,8 +273,8 @@ Let's fill in another field, this time 'codes':
     >>> spec.setCodes([{'set':'CSI', 'code':'001'}, {'set':'TERM', 'code':'002'}])
     >>> view = spec.unrestrictedTraverse('@@get_readiness')
     >>> info = view.get_info_for('published')
-    >>> info['done']
-    18
+    >>> print str(info['done']) + '%'
+    18%
     >>> info['required']
     2
 
@@ -294,11 +294,11 @@ Let's make this spec ready for publishing:
     >>> spec.setMethodology(u'something')
     >>> spec.setManager_user_id(u'something')
 
-Now we should be at 81%:
+Now we should be at 90%:
 
     >>> info = spec.unrestrictedTraverse('@@get_readiness').get_info_for('published')
-    >>> info['done']
-    90
+    >>> print str(info['done']) + '%'
+    90%
     >>> info['required']
     10
 
@@ -307,8 +307,8 @@ Let's try to finish it:
 		>>> spec.setRelatedItems([ims['dt'], ims['eds'], ims['pdr']])
     >>> view = spec.unrestrictedTraverse('@@get_readiness')
     >>> info = view.get_info_for('published')
-    >>> info['done']
-    100
+    >>> print str(info['done']) + '%'
+    100%
     >>> info['required']
     11
     >>> view.is_ready_for('published')
@@ -339,4 +339,4 @@ Single field dialog edit
     >>> browser.open(baseurl + '/simple_edit?fieldset=default&specific_field=title')
     >>> print browser.contents  #doctest: +NORMALIZE_WHITESPACE
     <... <form ... id="specification-base-edit"...
-    >>> 
+    >>> browser.getControl()

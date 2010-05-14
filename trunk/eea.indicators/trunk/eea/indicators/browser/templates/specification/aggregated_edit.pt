@@ -44,6 +44,7 @@
 			<div tal:replace="structure context/fragment_methodology" />
 			<div tal:replace="structure context/fragment_data_specifications" />
 			<div tal:replace="structure context/fragment_uncertainties" />
+			<div tal:replace="structure context/fragment_relateditems" />
 			<div tal:replace="structure context/fragment_metadata" />
 			<div tal:replace="structure context/fragment_work" />
 

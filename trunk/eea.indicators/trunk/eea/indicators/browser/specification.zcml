@@ -46,11 +46,6 @@
            class=".specification.ContactInfo"
            permission="zope2.View" />
 
-  <browser:page name="related_items"
-           for="eea.indicators.content.interfaces.ISpecification"
-           class=".specification.RelatedItems"
-           permission="zope2.View" />
-
 	<!-- Specification Versioning -->
 	<browser:page
 		for="eea.indicators.content.interfaces.ISpecification"
@@ -131,6 +126,12 @@
 		for="eea.indicators.content.interfaces.ISpecification"
 		name="fragment_metadata"
 		template="templates/specification/fragment_metadata.pt"
+		permission="zope2.View"
+		/>
+	<browser:page
+		for="eea.indicators.content.interfaces.ISpecification"
+		name="fragment_relateditems"
+		template="templates/specification/fragment_relateditems.pt"
 		permission="zope2.View"
 		/>
 
