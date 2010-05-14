@@ -196,7 +196,7 @@ function set_creators(){
           // timeout: 2000,
           error: function() {
             unblock_ui();
-            alert("Failed to update!");
+            alert("ERROR: There was an error communicating with the server. Please reload this page.");
           },
           success: function(r) { 
             reload_region($(region));
@@ -232,7 +232,8 @@ function set_deleters(){
                 type:'GET',
                 // timeout: 2000,
                 error: function() {
-                    alert("Failed to update!");
+                  unblock_ui();
+                  alert("ERROR: There was an error communicating with the server. Please reload this page.");
                 },
                 success: function(r) { 
                     reload_region($(region));
@@ -261,7 +262,8 @@ function reload_region(el){
         type:'GET',
         // timeout: 2000,
         error: function() {
-            alert("Failed to update!");
+          unblock_ui();
+          alert("ERROR: There was an error communicating with the server. Please reload this page.");
         },
         success: function(r) { 
             var id = $(el).attr('id');
@@ -346,7 +348,8 @@ function schemata_ajaxify(el, active_region){
                 type:'POST',
                 // timeout: 2000,
                 error: function() {
-                    alert("Failed to submit");
+                  unblock_ui();
+                  alert("Failed to submit");
                 },
                 success: function(r) { 
                     $(el).html(r);
@@ -493,7 +496,8 @@ function ajaxify(el, fieldname){
 									type:'POST',
 									// timeout: 2000,
 									error: function() {
-											alert("Failed to submit");
+                    unblock_ui();
+                    alert("Failed to submit");
 									},
 									success: function(r) { 
 											$(el).html(r);
