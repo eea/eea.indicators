@@ -12,11 +12,11 @@
 	</metal:jsslot>
 
 	<metal:cssslot fill-slot="css_slot">
-		<link media="screen" type="text/css" rel="stylesheet" 
-			tal:attributes="href string:${context/++resource++jquery.ui.theme/jquery-ui-1.7.custom.css}" 
+		<link media="screen" type="text/css" rel="stylesheet"
+			tal:attributes="href string:${context/++resource++jquery.ui.theme/jquery-ui-1.7.custom.css}"
 				/>
-		<link media="screen" type="text/css" rel="stylesheet" 
-			tal:attributes="href string:${context/++resource++modaledit.css}" 
+		<link media="screen" type="text/css" rel="stylesheet"
+			tal:attributes="href string:${context/++resource++modaledit.css}"
 				/>
 	</metal:cssslot>
 
@@ -78,11 +78,11 @@
 						</div>
 					</div>
 					<strong>Specification</strong>
-					<div>Link: <a href="" tal:attributes="href context/absolute_url" 
+					<div>Link: <a href="" tal:attributes="href context/absolute_url"
 							tal:content="context/getId">ISpecification1235</a>
 					</div>
 					<div>
-						Version id: <span tal:content="context/getVersion_id" />
+						Version id: <!-- #TODO: add getter -->
 					</div>
 
 					<div>

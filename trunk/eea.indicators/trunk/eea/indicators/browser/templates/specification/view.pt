@@ -323,7 +323,7 @@
                             tal:content="context/getId">ISpecification1235</a>
               </div>
               <div>
-                      Version id: <span tal:content="context/getVersion_id" />
+                      Version id: <!-- #TODO: add getter -->
               </div>
 
               <div>
