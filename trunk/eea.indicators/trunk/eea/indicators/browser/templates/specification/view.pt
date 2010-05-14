@@ -246,7 +246,7 @@
           <div class='headed-box'>
             <h3>Responsability and ownership</h3>
 
-            <h4>EEA Contact Info:</h4>
+            <h4>EEA Contact Info</h4>
             <tal:contact define="manager_id context/getManager_user_id;
                                  contact context/getContact">
               <tal:manager condition="manager_id">
