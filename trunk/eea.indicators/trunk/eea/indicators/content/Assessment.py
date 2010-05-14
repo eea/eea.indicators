@@ -3,7 +3,7 @@
 # $Id$
 #
 # Copyright (c) 2010 by ['Tiberiu Ichim']
-# Generator: ArchGenXML 
+# Generator: ArchGenXML
 #            http://plone.org/products/archgenxml
 #
 # GNU General Public License (GPL)
@@ -106,6 +106,7 @@ Assessment_schema['relatedItems'] = EEAReferenceField('relatedItems',
         multivalued=True,
         isMetadata=False,
         widget=EEAReferenceBrowserWidget(
+            visible={'view':'invisible', 'edit':'invisible'},
             label='Related Item(s)',
             description='Specify related item(s).',
             ))
