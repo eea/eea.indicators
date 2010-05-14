@@ -200,19 +200,6 @@ schema = Schema((
         schemata="PolicyContext",
         default_output_type="text/x-html-safe",
     ),
-    StringField(
-        name='version_id',
-        widget=StringField._properties['widget'](
-            label="Version ID",
-            visible={'view':'invisible', 'edit':'invisible'},
-            label_msgid='indicators_label_version_id',
-            i18n_domain='indicators',
-        ),
-        required=True,
-        schemata="Classification",
-        description="A unique sequence of characters that is shared by all the specifications which are versions of each other",
-        searchable=True,
-    ),
     TextField(
         name='definition',
         widget=RichWidget(
@@ -401,7 +388,7 @@ _field_order = [
             },
         {
             'name':'Classification',
-            'fields':['codes', 'dpsir', 'typology', 'version_id', 'themes']
+            'fields':['codes', 'dpsir', 'typology', 'themes']
             },
         {
             'name':'Responsability',

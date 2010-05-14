@@ -11,7 +11,7 @@
 
 			<h2>Assessment versions</h2>
 
-			<div tal:define="assessments context/get_assessments; 
+			<div tal:define="assessments context/get_assessments;
 				key nocall:assessments/key;
 				secondary assessments/secondary; "
 				>
@@ -53,8 +53,8 @@
 			</div>
 
 			<h2>Methodology, data sources and references</h2>
-			<p>See this <a href="..">indicator specification</a> for methodology, 
-				data sources, rationale and more relevant details. 
+			<p>See this <a href="..">indicator specification</a> for methodology,
+				data sources, rationale and more relevant details.
 			</p>
 
 
@@ -73,11 +73,11 @@
 				</ul>
 
 				<h4>EEA Management Plan</h4>
-				<a href="" 
+				<a href=""
 					tal:attributes="href python:'http://applications/managementplan/showProject.asp?year=%s&code=%s' % context.getManagement_plan()"
 					tal:content="python:'%s %s' % context.getManagement_plan()">
 
-					</a>(note: EEA internal system) 
+					</a>(note: EEA internal system)
 			</div>
 
 			<div class='headed-box'>
@@ -99,12 +99,12 @@
 					</div>
 
 					<strong>Specification</strong>
-					<div>Link: <a href="" tal:attributes="href context/absolute_url" 
+					<div>Link: <a href="" tal:attributes="href context/absolute_url"
 							tal:content="context/getId">ISpecification1235</a>
 					</div>
 
 					<div>
-						Version id: <span tal:content="context/getVersion_id" />
+						Version id: <!-- #TODO: add getter -->
 					</div>
 
 					<div>

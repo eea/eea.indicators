@@ -14,11 +14,11 @@
 					<div class='headed-box'>
 						<h5>Responsability and ownership</h5>
 
-						<h6>EEA Contact Info:</h6> 
+						<h6>EEA Contact Info:</h6>
 						<tal:def tal:define="fieldname string:contact; fieldset string:Responsability">
 							<metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
 								<metal:slot metal:fill-slot="content">
-									<div tal:condition="python:not imsutils.field_has_value(fieldname, context)" 
+									<div tal:condition="python:not imsutils.field_has_value(fieldname, context)"
 										class="placeholder">
 										Please fill in
 									</div>
@@ -32,7 +32,7 @@
 						</tal:def>
 
 						<h6>Ownership</h6>
-						<tal:def tal:define="fieldname string:ownership; fieldset string:Responsability; 
+						<tal:def tal:define="fieldname string:ownership; fieldset string:Responsability;
 							owners context/getOwnership">
 							<metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
 							<metal:slot metal:fill-slot="content">
@@ -75,7 +75,7 @@
 							</metal:macro>
 						</tal:def>
 
-						<strong>Typology</strong> 
+						<strong>Typology</strong>
 						<tal:def tal:define="fieldname string:typology; fieldset string:Classification;
 							typology context/getTypology">
 							<metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
@@ -91,7 +91,7 @@
 								</metal:slot>
 							</metal:macro>
 						</tal:def>
-						
+
 
 						<strong>EEA Themes</strong>:
 						<tal:def tal:define="fieldname string:themes; fieldset string:Classification;
@@ -142,11 +142,11 @@
 
 							</div>
 							<strong>Specification</strong>
-							<div>Link: <a href="" tal:attributes="href context/absolute_url" 
+							<div>Link: <a href="" tal:attributes="href context/absolute_url"
 									tal:content="context/getId">ISpecification1235</a>
 							</div>
 							<div>
-								Version id: <span tal:content="context/getVersion_id" />
+								Version id: <!-- #TODO: add getter -->
 							</div>
 
 							<div>
