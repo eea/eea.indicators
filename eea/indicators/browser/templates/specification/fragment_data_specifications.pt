@@ -9,7 +9,7 @@
 
 	field python:context.schema['relatedItems'];
 	value python:related_view.get_uids(['Data', 'ExternalDataSpec']);
-	fieldName string:relatedItemsData;
+	fieldName string:relatedItems;
 	realFieldName string:relatedItems;
 	default_selected_tab string:eea-data;
 	">
@@ -26,7 +26,16 @@
 					You need to reference at least one Data Spec
 				</div>
 
-				<div metal:use-macro="context/indicators_macros/macros/active_relation_field" />
+				<ul>
+					<li tal:repeat="data related_view">
+						<a href="" tal:attributes="href data/absolute_url">
+							<span tal:replace="data/Title" />
+						</a>
+					</li>
+				</ul>
+
+				<a href="" 
+					tal:attributes="onclick string:return open_relations_widget('active_field-$fieldName')">Edit</a>
 
 			</div>
 		</metal:slot>

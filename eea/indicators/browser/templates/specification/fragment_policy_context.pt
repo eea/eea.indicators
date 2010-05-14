@@ -56,7 +56,15 @@
 						default_selected_tab string:policy-document-reference;
 						">
 
-						<div metal:use-macro="context/indicators_macros/macros/active_relation_field" />
+						<ul>
+							<li tal:repeat="ref related_view">
+								<a href="" tal:attributes="href ref/absolute_url">
+									<span tal:replace="ref/Title" />
+								</a>
+							</li>
+						</ul>
+
+						<a href="">Edit</a>
 
 					</tal:def>
 

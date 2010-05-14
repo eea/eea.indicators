@@ -527,5 +527,14 @@ function save_kupu_values(el) {
   });
 }
 
+function open_relations_widget(widget_dom_id){
+  var widget = $("#"+widget_dom_id).get(0)._widget;
+  widget.popup_open();
+  return false;
+  //
+  // console.log("Opening ", fieldname, widget_dom_id, default_tab);
+  // console.log(widget);
+}
+
 // vim: set sw=2 ts=2 et:
 //
