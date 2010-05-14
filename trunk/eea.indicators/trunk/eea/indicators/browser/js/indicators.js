@@ -32,7 +32,7 @@ function block_ui(){
     // 'background-color':'white',
     position:'absolute'
   });
-  
+
   jQuery('body').append(overlay);
   jQuery('body').append(loading);
   overlay.show();
@@ -50,11 +50,11 @@ $(document).ready(function () {
 		set_creators();
 		set_deleters();
     set_edit_buttons();
-		
+
 		// setTimeout('change_kupu_styles()', '2000');
 
 		on_load_dom();
-    
+
     // styling tweak for relations widget edit button
     $(".eea-widget-referencebrowser").each(function(){
       var parent = $(this).parent();
@@ -65,33 +65,33 @@ $(document).ready(function () {
 
 function on_load_dom() {
 	// executed whenever the regions are reloaded
-	
+
 	set_sortables();
 }
 
 function set_actives(){
 	// adds effects for active fields; this should be executed whenever the DOM is reloaded
-	
+
 	// make the Cancel link from dialogs close the form
 	$("#dialog-inner .cancel-btn").live('click', function(e){
 			$("#dialog-inner").dialog("close");
 			return false;
-			});     
+			});
 
 	// make the controls appear on the active fields, on hover
 	$(".active_field").live('mouseover', function(e){
-			$(this).addClass("active_field_hovered");   
+			$(this).addClass("active_field_hovered");
 			return false;
 			});
 	$(".active_field").live('mouseout', function(e){
-			$(this).removeClass("active_field_hovered");    
+			$(this).removeClass("active_field_hovered");
 			return false;
 			});
 }
 
 function set_sortables() {
 	// make certain DOM elements sortable with jquery UI sortable
-	
+
 	$('.sortable_spec').each(function(){
       var handler = $(".metadata .handler", this).text();
       $(this).sortable({
@@ -116,15 +116,15 @@ function set_sortables() {
               }
             });
           }
-        });	
+        });
       $('.sortable_spec').disableSelection();
-      
+
       });
 }
 
 function set_editors(){
 	// Set handlers for Edit (full schemata) buttons
-	
+
 	$('a.schemata_edit').live('click', function(){
       block_ui();
 			var link = $(this).attr('href');
@@ -139,7 +139,7 @@ function set_editors(){
 			dialog_edit(link, title, function(text, status, xhr){
           schemata_ajaxify($("#dialog-inner"), active_region);
           unblock_ui();
-				}, 
+				},
         options);
 
       return false;
@@ -148,7 +148,7 @@ function set_editors(){
 
 function set_edit_buttons() {
   // activate single active fields
-  
+
   $('.active_field a').disableSelection();
 	$('.active_field a').live('click', function(){
       block_ui();
@@ -164,7 +164,7 @@ function set_edit_buttons() {
       var fieldname = $('.metadata > .fieldname', field).text();
 
 			var options = { 'width':800, 'height':600 }
-      options.height = Number($('.metadata > .height', field).text()) || options.height; 
+      options.height = Number($('.metadata > .height', field).text()) || options.height;
       options.width = Number($('.metadata > .width', field).text()) || options.width;
 
       var id_to_fill = 'active_field-' + fieldname
@@ -180,7 +180,7 @@ function set_edit_buttons() {
 
 function set_creators(){
 	// Set handlers for Create buttons
-	
+
 	$('a.object_creator').live('click', function(){
       block_ui();
 			var link = $(this).attr('href');
@@ -196,9 +196,9 @@ function set_creators(){
           // timeout: 2000,
           error: function() {
             unblock_ui();
-            alert("ERROR: There was an error communicating with the server. Please reload this page.");
+            alert("ERROR: There was a problem communicating with the server. Please reload this page.");
           },
-          success: function(r) { 
+          success: function(r) {
             reload_region($(region));
             var info = $(r).children('.object_edit_url');
             if (info) {
@@ -206,7 +206,7 @@ function set_creators(){
               dialog_edit(edit_link, title, function(text, status, xhr){
                 schemata_ajaxify($("#dialog-inner"), $(region).attr('id'));
                 unblock_ui();
-                }, 
+                },
                 options
               );
             } else {
@@ -233,9 +233,9 @@ function set_deleters(){
                 // timeout: 2000,
                 error: function() {
                   unblock_ui();
-                  alert("ERROR: There was an error communicating with the server. Please reload this page.");
+                  alert("ERROR: There was a problem communicating with the server. Please reload this page.");
                 },
-                success: function(r) { 
+                success: function(r) {
                     reload_region($(region));
                     return false;
                 }
@@ -251,8 +251,8 @@ function reload_region(el){
   if (also_reload) {
     $(also_reload).children().each(function(){
         var region = $(this).text();
-        if (region) { 
-          reload_region($("#"+region)) 
+        if (region) {
+          reload_region($("#"+region))
         }
     });
   }
@@ -263,9 +263,9 @@ function reload_region(el){
         // timeout: 2000,
         error: function() {
           unblock_ui();
-          alert("ERROR: There was an error communicating with the server. Please reload this page.");
+          alert("ERROR: There was a problem communicating with the server. Please reload this page.");
         },
-        success: function(r) { 
+        success: function(r) {
             var id = $(el).attr('id');
             $(el).replaceWith(r);
             on_load_dom();
@@ -283,11 +283,11 @@ function reload_region(el){
 
 function closer(fieldname, active_region){
   // reloads a region and closes the dialog based on an active field name
-  
-  //TODO: check that these 3 commented lines don't break anything; 
+
+  //TODO: check that these 3 commented lines don't break anything;
   //they don't seem to be needed if we reload the region
 	// var text = $('#value_response').html(); // 1
-  
+
   if (active_region) {
     var region = $("#" + active_region).get();
   } else {
@@ -300,7 +300,7 @@ function closer(fieldname, active_region){
 
 	// $(fieldname).html(text);   // 2
 	// $('#value_response').remove(); // 3
-  
+
 	$("#dialog-inner").dialog("close");
 	return false;
 }
@@ -309,11 +309,11 @@ function closer(fieldname, active_region){
 function schemata_ajaxify(el, active_region){
 
 	set_actives();
-	
+
 	// TODO: this is a _temporary_ hack to make kupu work properly
 	// the problem is probably that not all the DOM is loaded when the kupu editor
 	// is initiated and so it freezes the editor
-	// A proper fix would be to see if it's possible to delay the kupu load when it is 
+	// A proper fix would be to see if it's possible to delay the kupu load when it is
 	// loaded through AJAX
 	// This fix has one problem: it loads a frame (emptypage.html) that might not be completely
 	// loaded in the timeout interval, and when that happens it throws an error
@@ -324,7 +324,7 @@ function schemata_ajaxify(el, active_region){
 				initPloneKupu(kupu_id);
         }, 1000);
 		});
-		
+
 	$("form", el).submit(
 			function(e){
       block_ui();
@@ -351,7 +351,7 @@ function schemata_ajaxify(el, active_region){
                   unblock_ui();
                   alert("Failed to submit");
                 },
-                success: function(r) { 
+                success: function(r) {
                     $(el).html(r);
                     schemata_ajaxify(el, active_region);
                     unblock_ui();
@@ -364,7 +364,7 @@ function schemata_ajaxify(el, active_region){
 
 function dialog_edit(url, title, callback, options){
 	// Opens a modal dialog with the given title
-  
+
   block_ui();
 	options = options || {
 		'height':null,
@@ -375,16 +375,16 @@ function dialog_edit(url, title, callback, options){
 	$(target).append("<div id='dialog-inner'></div>");
   window.onbeforeunload = null; // disable form unloaders
 	$("#dialog-inner").dialog({
-        modal:true, 
-        width:options.width, 
-        minWidth:options.width, 
+        modal:true,
+        width:options.width,
+        minWidth:options.width,
         height:options.height,
         minHeight:options.height,
         'title':title,
         closeOnEscape:true,
 				buttons: {
 					'Save':function(e){
-						var button = e.target;	
+						var button = e.target;
 						var form = $("#dialog-inner form").get(0);
 						var e = document.createEvent("HTMLEvents");	// TODO: replace with jquery's trigger()
 						e.initEvent('submit', true, true);
@@ -400,7 +400,7 @@ function dialog_edit(url, title, callback, options){
             beforeunloadtool = window.onbeforeunload && window.onbeforeunload.tool;
             save_kupu_values(form);
             var res = beforeunloadtool.isAnyFormChanged();
-            
+
             beforeunloadtool.removeForms(form);
             return true;    // TODO: fix this so that the form unload alert works properly
 
@@ -412,7 +412,7 @@ function dialog_edit(url, title, callback, options){
             //     return false;
             //   } else {
             //     return true;
-            //   }; 
+            //   };
             // }
           }
 				});
@@ -429,11 +429,11 @@ function close_dialog(region){
 
 
 function get_kupu_editor(editorId) {
-	// initializes a kupu editor and returns it. 
+	// initializes a kupu editor and returns it.
 	// This is needed to make up for the lack of proper API:
 	// we can't get the kupu editor back from just the iframe or whatever
 	// The content here is taken from initPloneKupu()
-	
+
 	var prefix = '#'+editorId+' ';
 
 	var iframe = getFromSelector(prefix+'iframe.kupu-editor-iframe');
@@ -483,7 +483,7 @@ function ajaxify(el, fieldname){
 				initPloneKupu(kupu_id);
 				}, 1000);
 		});
-	
+
 	$("form", el).submit(
 			function(e){
         block_ui();
@@ -499,7 +499,7 @@ function ajaxify(el, fieldname){
                     unblock_ui();
                     alert("Failed to submit");
 									},
-									success: function(r) { 
+									success: function(r) {
 											$(el).html(r);
 											ajaxify(el);
                       unblock_ui();
