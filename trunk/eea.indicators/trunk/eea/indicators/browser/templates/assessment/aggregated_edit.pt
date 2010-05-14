@@ -97,7 +97,9 @@
 						</div>
 
 						<div>
-							Version id: <!-- #TODO: add getter -->
+							Version id: <tal:version_id define="getVersions nocall:context/@@getVersions;
+											    version_number getVersions/version_number"
+										    content="version_number" />
 						</div>
 
 						<div>

@@ -488,13 +488,8 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
         if not has_versions:
             return self.getTitle()
 
-        version = 0 #avoids problem in create new version
-        versions = self.unrestrictedTraverse('@@getVersions')()
-
-        for k,v in versions.items():    #this is a dict {1:<Spec>, 2:<Spec>}
-            if v.getPhysicalPath() == self.getPhysicalPath():
-                version = k
-                break
+        getVersions = self.unrestrictedTraverse('@@getVersions')
+        version = getVersions.version_number()
 
         msg = _(u"specification_title_msg",
                 default=u"${title} (version ${version})",

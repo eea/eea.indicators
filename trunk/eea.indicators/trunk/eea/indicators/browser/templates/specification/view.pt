@@ -16,6 +16,9 @@
         <metal:use_header use-macro="header_macro" />
 
         <metal:versions use-macro="here/portlet_versions/macros/versions">
+          <metal:new fill-slot="old" />
+        </metal:versions>
+        <metal:versions use-macro="here/portlet_versions/macros/versions">
           <metal:new fill-slot="new" />
         </metal:versions>
         <div metal:use-macro="here/portlet_themes_object/macros/portlet" />
@@ -24,10 +27,6 @@
              class="system-message"
              tal:condition="context/getMore_updates_on"
              tal:content="structure context/getMore_updates_on" />
-
-        <metal:versions use-macro="here/portlet_versions/macros/versions">
-          <metal:new fill-slot="old" />
-        </metal:versions>
 
         <tal:assessment_versions define="assessments context/@@assessment_versions;
                                          published python:assessments['published'];
@@ -323,7 +322,9 @@
                             tal:content="context/getId">ISpecification1235</a>
               </div>
               <div>
-                      Version id: <!-- #TODO: add getter -->
+                      Version id: <tal:version_id define="getVersions nocall:context/@@getVersions;
+                                                          version_number getVersions/version_number"
+                                                  content="version_number" />
               </div>
 
               <div>
