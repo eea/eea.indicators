@@ -1,6 +1,7 @@
-from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import normalizeString
 from Products.Five import BrowserView
+from eea.workflow.interfaces import IValueProvider
+from zope.component import getMultiAdapter
 from zope.interface import Interface, implements
 import logging
 
@@ -42,9 +43,10 @@ class IndicatorUtils(BrowserView):
 
     def field_has_value(self, fieldname, context):
         """This is a dumb implementation that assumes only richtext for now"""
-        convert = getToolByName(self.context, 'portal_transforms').convert
-        value = context.schema[fieldname].getAccessor(context)()
-        return convert('html_to_text', value).getData()
+
+        field = context.schema[fieldname]
+        vp = getMultiAdapter((context, field), IValueProvider)
+        return vp.has_value()
 
 
 class ObjectDelete(BrowserView):

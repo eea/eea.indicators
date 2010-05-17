@@ -127,6 +127,7 @@ class WorkflowStateReadiness(ObjectReadiness):
         else:
             return super(WorkflowStateReadiness, self).is_ready_for(state_name)
 
+
 class AssessmentVersions(BrowserView):
     """ Return contained Assessments divided by 'published' and 'draft' sorted
         by publish_date and creation_date

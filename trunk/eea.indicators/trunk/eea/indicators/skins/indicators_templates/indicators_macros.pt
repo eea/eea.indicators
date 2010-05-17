@@ -32,13 +32,15 @@
 <!-- Active field macro -->
 <div metal:define-macro="active_field" class="active_field" 
 	tal:define="thiscontext nocall:thiscontext|context">
-	<div class="control">
-		<a href="" 
-			tal:attributes="href 
-			string:${thiscontext/absolute_url}/${submit_handler}?fieldset=${fieldset}&specific_field=$fieldname">
-			edit...
-		</a>
-	</div>
+	<metal:slot metal:define-slot="control">
+		<div class="control">
+			<a href="" 
+				tal:attributes="href 
+				string:${thiscontext/absolute_url}/${submit_handler}?fieldset=${fieldset}&specific_field=$fieldname">
+				edit...
+			</a>
+		</div>
+	</metal:slot>
 	<div class="content">
 		<metal:slot metal:define-slot="content"></metal:slot>
 	</div>
@@ -112,9 +114,9 @@ The name of the region fragment that will be updated;
 							}
 
 							var popup = new EEAReferenceBrowser.Widget('$fieldName', options);;
-							// popup.popup_open();
 
-							$$('#' + '$widget_dom_id').get(0)._widget = popup;
+							// popup.popup_open();
+							// $$('#' + '$widget_dom_id').get(0)._widget = popup;
 
 							$$(popup.events).bind(popup.events.SAVED, function(evt){
 								ajaxify($$('#$widget_dom_id'), '$realFieldName');

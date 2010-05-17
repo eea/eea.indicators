@@ -6,43 +6,6 @@ function change_kupu_styles(){
 	$(".kupu-tb-styles option[value='h3|']").remove();
 }
 
-function block_ui(){
-  var scr_x = jQuery(window).scrollLeft();
-  var scr_y = jQuery(window).scrollTop();
-  var dim_x = jQuery(window).width();
-  var dim_y = jQuery(window).height();
-
-  var overlay = jQuery('<div>');
-  overlay.addClass('specification-overlay');
-
-  var loading = jQuery('<div>');
-  loading.addClass('specification-loading');
-
-  loading.css({
-      'top':dim_y/2-50 + scr_y + 'px',
-      'left':dim_x/2-50 + scr_x + 'px',
-      'z-index':2001
-      });
-  overlay.css({
-    'top':scr_y+'px',
-    'left':scr_x+'px',
-    'z-index':2000,
-    'width':dim_x+'px',
-    'height':dim_y+'px',
-    // 'background-color':'white',
-    position:'absolute'
-  });
-
-  jQuery('body').append(overlay);
-  jQuery('body').append(loading);
-  overlay.show();
-  loading.show();
-}
-function unblock_ui(){
-  jQuery('.specification-overlay').remove();
-  jQuery('.specification-loading').remove();
-}
-
 $(document).ready(function () {
 
 		set_editors();
@@ -151,6 +114,12 @@ function set_edit_buttons() {
 
   $('.active_field a').disableSelection();
 	$('.active_field a').live('click', function(){
+      
+      // check if this handler is not disabled through metadata
+      if ($(this).parents('.active_field').children('.metadata .disable_handler')){
+        return true;
+      }
+
       block_ui();
 			var link = $(this).attr('href');
 			var title = $(this).text();
@@ -528,12 +497,45 @@ function save_kupu_values(el) {
 }
 
 function open_relations_widget(widget_dom_id){
-  var widget = $("#"+widget_dom_id).get(0)._widget;
-  widget.popup_open();
+  $("#" + widget_dom_id + " :input").trigger('click');
   return false;
-  //
-  // console.log("Opening ", fieldname, widget_dom_id, default_tab);
-  // console.log(widget);
+}
+
+function block_ui(){
+  var scr_x = jQuery(window).scrollLeft();
+  var scr_y = jQuery(window).scrollTop();
+  var dim_x = jQuery(window).width();
+  var dim_y = jQuery(window).height();
+
+  var overlay = jQuery('<div>');
+  overlay.addClass('specification-overlay');
+
+  var loading = jQuery('<div>');
+  loading.addClass('specification-loading');
+
+  loading.css({
+      'top':dim_y/2-50 + scr_y + 'px',
+      'left':dim_x/2-50 + scr_x + 'px',
+      'z-index':2001
+      });
+  overlay.css({
+    'top':scr_y+'px',
+    'left':scr_x+'px',
+    'z-index':2000,
+    'width':dim_x+'px',
+    'height':dim_y+'px',
+    // 'background-color':'white',
+    position:'absolute'
+  });
+
+  jQuery('body').append(overlay);
+  jQuery('body').append(loading);
+  overlay.show();
+  loading.show();
+}
+function unblock_ui(){
+  jQuery('.specification-overlay').remove();
+  jQuery('.specification-loading').remove();
 }
 
 // vim: set sw=2 ts=2 et:
