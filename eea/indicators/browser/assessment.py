@@ -120,6 +120,7 @@ def get_figures_for_pq_in_assessment(pq, assessment):
 class WorkflowStateReadiness(ObjectReadiness):
 
     def field_has_value(self, fieldname, context):
+        import pdb; pdb.set_trace()
         convert = getToolByName(self.context, 'portal_transforms').convert
         value = context.schema[fieldname].getAccessor(context)()
         return convert('html_to_text', value).getData()
@@ -127,8 +128,8 @@ class WorkflowStateReadiness(ObjectReadiness):
     def is_ready_for(self, state_name):
         if state_name == 'published':
             #check that all the questions are answered
-            ap = self.objectValues("AssessmentPart")
-            missing = [p for p in ap if not self.field_has_value('assessment', self.context)]
+            ap = self.context.objectValues("AssessmentPart")
+            missing = [p for p in ap if not self.field_has_value('assessment', ap)]
             if missing:
                 return False
             #check that the parent Specification is published
