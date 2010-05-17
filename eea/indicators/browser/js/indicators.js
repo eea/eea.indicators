@@ -496,7 +496,7 @@ function save_kupu_values(el) {
   });
 }
 
-function open_relations_widget(widget_dom_id){
+function open_relations_widget(widget_dom_id, selected_tab){
   $("#" + widget_dom_id + " :input").trigger('click');
   return false;
 }
