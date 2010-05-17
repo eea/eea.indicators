@@ -15,6 +15,13 @@
 		permission="zope2.View"	class=".assessment.WorkflowStateReadiness"
 		allowed_interface="eea.workflow.interfaces.IObjectReadiness" />
 
+	<browser:page
+		for="eea.indicators.content.interfaces.IAssessment"
+		name="fragment_metadata"
+		template="templates/assessment/fragment_metadata.pt"
+		permission="zope2.View"
+		/>
+
 	<!-- Assessment Versioning -->
 	<browser:page name="createVersion" 
 		for="eea.indicators.content.interfaces.IAssessment" 
