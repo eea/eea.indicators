@@ -1,4 +1,4 @@
-<tal:defs 
+<tal:defs
 	tal:define="region_name string:methodology_area;
 	region_update_handler string:fragment_methodology;
 	submit_handler string:simple_edit;
@@ -14,7 +14,7 @@
 				<tal:def tal:define="fieldname string:methodology; fieldset string:Methodology">
 					<metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
 						<metal:slot metal:fill-slot="content">
-							<div tal:condition="python:not imsutils.field_has_value('methodology', context)" 
+							<div tal:condition="python:not imsutils.field_has_value('methodology', context)"
 								class="placeholder">
 								Please fill in
 							</div>
@@ -31,7 +31,7 @@
 				<tal:def tal:define="fieldname string:methodology_gapfilling; fieldset string:Methodology">
 					<metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
 						<metal:slot metal:fill-slot="content">
-							<div tal:condition="python:not imsutils.field_has_value('methodology_gapfilling', context)" 
+							<div tal:condition="python:not imsutils.field_has_value('methodology_gapfilling', context)"
 								class="placeholder">
 								Please fill in
 							</div>
@@ -47,20 +47,21 @@
 				<h3 tal:define="tooltip string:Here comes methodology reference description">
 					<span metal:use-macro="context/indicators_macros/macros/tooltip" />Methodology references</h3>
 				<div class="grouped_field">
-					<a href='./object_factory?type_name=MethodologyReference' 
+					<a href='./object_factory?type_name=MethodologyReference'
 						class="object_creator">+ Methodology Reference</a>
-					<div id="methodology_references" class="sortable_spec" 
+					<div id="methodology_references" class="sortable_spec"
 						tal:define="refs python:context.objectValues('MethodologyReference')">
 						<div class="metadata">
-							<span class="handler" 
+							<span class="handler"
 								tal:content="string:${context/absolute_url}/change_order"></span>
 						</div>
 						<div tal:repeat="ref refs" class="list-item" tal:attributes="id ref/getId">
-							<span class="handler ui-icon ui-icon-arrowthick-2-n-s"></span>
-							<a href="" 
+							<span title="Drag & drop to set order"
+							      class="handler ui-icon ui-icon-arrowthick-2-n-s"></span>
+							<a href=""
 								class="schemata_edit spec_control"
 								tal:attributes="href string:${ref/absolute_url}/schemata_edit?fieldset=default">Edit</a>
-							<a href="" 
+							<a href=""
 								class="object_delete spec_control"
 								tal:attributes="href string:${ref/aq_parent/absolute_url}/@@object_delete?id=${ref/getId}">Delete</a>
 							<a href="" tal:attributes="href ref/getRemoteUrl"><strong tal:content="ref/Title">Ref</strong></a>

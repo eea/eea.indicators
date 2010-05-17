@@ -12,7 +12,7 @@
 					<tal:def tal:define="fieldname string:rationale_justification; fieldset string:Rationale">
 						<metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
 							<metal:slot metal:fill-slot="content">
-								<div tal:condition="python:not imsutils.field_has_value(fieldname, context)" 
+								<div tal:condition="python:not imsutils.field_has_value(fieldname, context)"
 									class="placeholder">
 									Please fill in
 								</div>
@@ -32,11 +32,12 @@
 						<a href='./object_factory?type_name=RationaleReference' class="object_creator">+ Scientific Reference</a>
 						<ul tal:define="refs python:context.objectValues('RationaleReference')" class="sortable_spec scientific_references">
 							<li tal:repeat="ref refs" class="list-item">
-								<span class="handler ui-icon ui-icon-arrowthick-2-n-s"></span>
-								<a href="" 
+								<span title="Drag & drop to set order"
+								      class="handler ui-icon ui-icon-arrowthick-2-n-s"></span>
+								<a href=""
 									class="schemata_edit"
 									tal:attributes="href string:${ref/absolute_url}/schemata_edit?fieldset=default">Edit</a>
-								<a href="" 
+								<a href=""
 									class="object_delete"
 									tal:attributes="href string:${ref/aq_parent/absolute_url}/delete_object?id=${ref/getId}">Delete</a>
 								<a href="" tal:attributes="href ref/getRemoteUrl" tal:content="ref/Title">Ref title</a>
