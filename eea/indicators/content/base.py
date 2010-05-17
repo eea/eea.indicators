@@ -23,22 +23,12 @@ class ModalFieldEditableAware(object):
         else:
             form = request.form
 
-        fieldset = form.get('fieldset', None)
-        schema = self.Schema()
-        schemata = self.Schemata()
-        fields = []
-
-        fieldname = None
-        for name in form.keys():
-            if name in self.schema.keys():
-                fieldname = name
-
+        fieldname = form.get('specific_field')
         if not fieldname:
-            raise ValueError("Field is not found")
+            raise ValueError("Please provide a specific field")
             return
 
         field = self.schema[fieldname]
-
         result = field.widget.process_form(self, field, form,
                                            empty_marker=_marker)
         try:
@@ -79,11 +69,7 @@ class ModalFieldEditableAware(object):
         form = REQUEST.form
         instance = self
 
-        fieldname = None
-        for name in form.keys():
-            if name in self.schema.keys():
-                fieldname = name
-                break
+        fieldname = form.get('specific_field')
         if not fieldname:
             raise ValueError("Could not get valid field from the request")
 

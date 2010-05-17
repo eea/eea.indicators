@@ -22,7 +22,8 @@ try:
 except AttributeError:
     # Fallback for AT + plain CMF where we don't have a portal_factory
     new_context = context
-new_context.simpleProcessForm()
+
+new_context.simpleProcessForm(REQUEST=REQUEST)
 
 # Get the current language and put it in request/LANGUAGE
 form = REQUEST.form

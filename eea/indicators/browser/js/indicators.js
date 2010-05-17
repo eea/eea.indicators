@@ -116,7 +116,9 @@ function set_edit_buttons() {
 	$('.active_field a').live('click', function(){
       
       // check if this handler is not disabled through metadata
-      if ($(this).parents('.active_field').children('.metadata .disable_handler')){
+      var meta_disable = $(this).parents('.active_field').children('.metadata .disable_handler').length;
+
+      if (meta_disable){
         return true;
       }
 
