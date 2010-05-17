@@ -347,6 +347,8 @@
             <strong>Typology</strong>: <span tal:replace="context/getTypology" /><br/>
           </div>
 
+          <metal:macro use-macro="here/eea_relateditems/macros/relatedItemsWithThumbs" />
+
       </metal:main_macro>
     </div>
   </body>
