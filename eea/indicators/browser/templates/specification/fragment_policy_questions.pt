@@ -9,7 +9,7 @@
 				<tal:defs tal:define="
 					check_question python:lambda o:o.getIs_key_question();
 					main_question python:filter(check_question, questions)">
-					<div class="portalMessage"  
+					<div class="portalMessage"
 						tal:condition="python:not((main_question and questions) or main_question)">
 						You need to have at least one main Policy Question
 					</div>
@@ -20,16 +20,17 @@
 
 					<div id="policy_questions" class="sortable_spec" tal:condition="questions">
 						<div class="metadata">
-							<span class="handler" 
+							<span class="handler"
 								tal:content="string:${context/absolute_url}/change_order"></span>
 						</div>
 						<div tal:repeat="question questions"
 							class="list-item" tal:attributes="id question/getId">
-							<span class="handler ui-icon ui-icon-arrowthick-2-n-s"></span>
-							<a href="" 
+							<span title="Drag & drop to set order"
+							      class="handler ui-icon ui-icon-arrowthick-2-n-s"></span>
+							<a href=""
 								class="schemata_edit spec_control"
 								tal:attributes="href string:${question/absolute_url}/schemata_edit?fieldset=default">Edit</a>
-							<a href="" 
+							<a href=""
 								class="object_delete spec_control"
 								tal:attributes="href string:${question/aq_parent/absolute_url}/@@object_delete?id=${question/getId}">Delete</a>
 							<strong tal:content="question/Title">Question title</strong>
