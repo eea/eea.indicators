@@ -34,7 +34,7 @@
 					</li>
 				</ul>
 
-				<a href="" 
+				<a class="control" href="" 
 					tal:attributes="onclick string:return open_relations_widget('active_field-$fieldName')">Edit</a>
 
 			</div>
