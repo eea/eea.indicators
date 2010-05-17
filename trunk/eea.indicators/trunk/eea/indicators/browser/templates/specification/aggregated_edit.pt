@@ -37,6 +37,7 @@
 			</metal:versions>
 
 			<div tal:replace="structure context/fragment_assessments" />
+			<div tal:replace="structure context/fragment_info" />
 			<div tal:replace="structure context/fragment_scientific_references" />
 			<div tal:replace="structure context/fragment_definition" />
 			<div tal:replace="structure context/fragment_policy_questions" />

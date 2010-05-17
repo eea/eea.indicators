@@ -70,6 +70,12 @@
 		/>
 	<browser:page
 		for="eea.indicators.content.interfaces.ISpecification"
+		name="fragment_info"
+		template="templates/specification/fragment_info.pt"
+		permission="zope2.View"
+		/>
+	<browser:page
+		for="eea.indicators.content.interfaces.ISpecification"
 		name="fragment_data_specifications"
 		template="templates/specification/fragment_data_specifications.pt"
 		permission="zope2.View"
