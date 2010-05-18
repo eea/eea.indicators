@@ -600,11 +600,16 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
     def factory_Assessment(self):
         type_name = 'Assessment'
 
+        #drop with error if no PolicyQuestions are created
+        if not self.objectValues('PolicyQuestion'):
+            return self.error("You need to create first a Policy Question")
+
         #create a version if we already have an Assessment
         assessments = self.objectValues(type_name)
         if assessments:
             original = assessments[-1]  #we assume the latest object is the last one
-            return create_assessment_version(original)
+            ast = create_assessment_version(original)
+            return {'obj':ast, 'subview':'@@edit_aggregated', 'direct_edit':True}
 
         #create a new Assessment from scratch
         id = self.generateUniqueId(type_name)
@@ -626,7 +631,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
             ap.setRelatedItems(pq)
             ap.reindexObject()
 
-        return ast
+        return {'obj':ast, 'subview':'@@edit_aggregated', 'direct_edit':True}
 
 
 

@@ -107,9 +107,22 @@ class CustomizedObjectFactory(object):
     """Content classes subclassing this want to customize how contained objects are created
 
     These object factories are used in the Specification Aggregated Edit View
+    The main method is object_factory, which reads the request to look for a type_name
+    parameter. It returns a html structure with info about the newly created object.
     """
 
     security = ClassSecurityInfo()
+
+    def _error(self, error):
+        return u"<div class='metadata'><div class='error'>" + error + "</div></div>"
+
+    def _success(self, **kw):
+        obj = kw['obj']
+        subview = kw.get('subview', 'schemata_edit')
+        url = obj.absolute_url() + '/' + subview
+        f = kw.get('direct_edit') and "<div class='direct_edit' />" or ''
+
+        return "<div class='metadata'>" + f + "<div class='object_edit_url'>" + url + "</div></div>" 
 
     #TODO: change permission to 'Add portal content'
     security.declareProtected(permissions.ModifyPortalContent, 'object_factory')
@@ -120,15 +133,14 @@ class CustomizedObjectFactory(object):
         factory_name = 'factory_' + type_name
         factory = getattr(self, factory_name, None)
         if factory is None:
-            raise ValueError("The object %s has no such method: %s" % (self, factory_name))
+            return self._error("Don't know how to create object of type %s" % type_name)
 
-        obj = factory()
+        info = factory()
+        error = info.get('error')
+        if error:
+            return self._error(error)
 
-        return """
-<div class='metadata'>
-    <div class='object_edit_url'>%s/schemata_edit</div>
-</div>
-""" % obj.absolute_url()
+        return self._success(**info)
 
     def _generic_factory(self, type_name):
         id = self.generateUniqueId(type_name)
@@ -142,4 +154,4 @@ class CustomizedObjectFactory(object):
                     ))
         
         ref = self[new_id]
-        return ref
+        return {'obj':ref, 'error':'', 'subview':'schemata_edit', 'direct_edit':False}
