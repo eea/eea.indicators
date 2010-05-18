@@ -5,16 +5,18 @@ The Indicators Database
 
 We have several main content types. The most important are the Specification and their Assessments.
 
-	>>> self.loginAsPortalOwner()
-	>>> from Products.CMFCore.utils import getToolByName
-	>>> setuptool = getToolByName(portal, 'portal_setup')
-	>>> setuptool.setImportContext('profile-eea.dataservice:default')
-	>>> log = setuptool.runAllImportSteps()
-	>>> setuptool.setImportContext('profile-eea.indicators:default')
-	>>> log = setuptool.runAllImportSteps()
-
+    >>> import urllib
     >>> from Products.Five.testbrowser import Browser
     >>> from Products.PloneTestCase import PloneTestCase
+
+    >>> self.loginAsPortalOwner()
+    >>> from Products.CMFCore.utils import getToolByName
+    >>> setuptool = getToolByName(portal, 'portal_setup')
+    >>> setuptool.setImportContext('profile-eea.dataservice:default')
+    >>> log = setuptool.runAllImportSteps()
+    >>> setuptool.setImportContext('profile-eea.indicators:default')
+    >>> log = setuptool.runAllImportSteps()
+
     >>> browser = Browser()
     >>> browser.handleErrors = False
     >>> self.portal.error_log._ignored_exceptions = ()
@@ -31,37 +33,37 @@ Containments
 The Specifications are implicitly addable. It is the duty of the portal manager to 
 create a special folder to store them. 
 
-	>>> id = self.portal.invokeFactory('Folder', 'ims')
-	>>> ims = portal[id]
+    >>> id = self.portal.invokeFactory('Folder', 'ims')
+    >>> ims = portal[id]
 
 Inside this folder we will add Specifications:
 
-	>>> id = ims.invokeFactory("Specification", 'spec1')
-	>>> spec = ims[id]
+    >>> id = ims.invokeFactory("Specification", 'spec1')
+    >>> spec = ims[id]
 
 Specifications are containers for several types of objects: 
 
-	>>> id = spec.invokeFactory("PolicyQuestion", 'pq')
-	>>> id = spec.invokeFactory("MethodologyReference", "mr")
-	>>> id = spec.invokeFactory("RationaleReference", "rr")
-	>>> id = spec.invokeFactory("WorkItem", "wi")
-	>>> id = spec.invokeFactory("Assessment", 'as')
+    >>> id = spec.invokeFactory("PolicyQuestion", 'pq')
+    >>> id = spec.invokeFactory("MethodologyReference", "mr")
+    >>> id = spec.invokeFactory("RationaleReference", "rr")
+    >>> id = spec.invokeFactory("WorkItem", "wi")
+    >>> id = spec.invokeFactory("Assessment", 'as')
 
 An Assessment can contain AssessmentParts:
 
-	>>> as = spec['as']
-	>>> id = as.invokeFactory("AssessmentPart", 'ap')
+    >>> as = spec['as']
+    >>> id = as.invokeFactory("AssessmentPart", 'ap')
 
 An AssessmentPart can contain EEAFigures:
 
-	>>> ap = as['ap']
-	>>> id = ap.invokeFactory("EEAFigure", 'ef')
+    >>> ap = as['ap']
+    >>> id = ap.invokeFactory("EEAFigure", 'ef')
 
 Inside the ims folder, where the Specification was created, we will also create several
 other objects that can be referenced from the Specification.
 
-	>>> id = ims.invokeFactory("ExternalDataSpec", 'eds')
-	>>> id = ims.invokeFactory("PolicyDocumentReference", 'pdr')
+    >>> id = ims.invokeFactory("ExternalDataSpec", 'eds')
+    >>> id = ims.invokeFactory("PolicyDocumentReference", 'pdr')
 
 
 Relationships
@@ -69,29 +71,29 @@ Relationships
 The IMS uses the relatedItems field to store all relationships. We use the eea.relations 
 widget and infrastructure to be able to specify which object a relation can contain.
 
-	>>> reltool = portal['portal_relations']
+    >>> reltool = portal['portal_relations']
 
 Specifications can point to  PolicyDocumentReferences, ExternalDataSpecs and Data 
 (from eea.dataservice).
 
-	>>> id = ims.invokeFactory("Data", 'dt')
-	>>> spec.setRelatedItems([ims['dt'], ims['eds'], ims['pdr']])
+    >>> id = ims.invokeFactory("Data", 'dt')
+    >>> spec.setRelatedItems([ims['dt'], ims['eds'], ims['pdr']])
 
 AssessmentParts point to the answered PolicyQuestion (but the relatedItems field here
 is not multiValued):
 
-	>>> ap.setRelatedItems(spec['pq'])
+    >>> ap.setRelatedItems(spec['pq'])
 
 Installing the eea.indicators package will execute a setup step that installs new
 objects in the portal_relations tools:
 
-	>>> relations = getToolByName(portal, 'portal_relations')
-	>>> ids = set(relations.objectIds())
-	>>> our_ids = set(['specification', 'eea-data', 
-	...								 'policy-document-reference', 'specification-eea-data', 
-	...								 'specification-policy-document-reference'])
-	>>> ids.intersection(our_ids) == our_ids
-	True
+    >>> relations = getToolByName(portal, 'portal_relations')
+    >>> ids = set(relations.objectIds())
+    >>> our_ids = set(['specification', 'eea-data', 
+    ...                              'policy-document-reference', 'specification-eea-data', 
+    ...                              'specification-policy-document-reference'])
+    >>> ids.intersection(our_ids) == our_ids
+    True
 
 
 Versioning and utility views
@@ -100,7 +102,7 @@ Versioning and utility views
 Editing the IMS should be done through a modified Edit form, which aggregates 
 all content into a single view, to make editing the tree of objects easier.
 
-	>>> spec = ims[ims.invokeFactory("Specification", 'spec2')]
+    >>> spec = ims[ims.invokeFactory("Specification", 'spec2')]
     >>> spec_url = spec.absolute_url()
 
 Object factories
@@ -224,7 +226,7 @@ Readiness for publication
 
 We have a system that uses eea.workflow to decide if a Specification is ready to be published.
 
-	>>> spec = ims[ims.invokeFactory("Specification", 'spec4')]
+    >>> spec = ims[ims.invokeFactory("Specification", 'spec3')]
 
 First, we have a portlet that shows the readiness state for a Specification:
 
@@ -260,13 +262,12 @@ By default the title is filled in, so we will be at 9%:
 'optional' is the number of fields that are not required for that state and don't have a value.
 
     >>> info['optional']
-    13
+    12
 
 'total' is the grand total number of fields.
 
     >>> info['total']
-    24
-
+    23
 
 Let's fill in another field, this time 'codes':
 
@@ -304,7 +305,7 @@ Now we should be at 90%:
 
 Let's try to finish it:
 
-		>>> spec.setRelatedItems([ims['dt'], ims['eds'], ims['pdr']])
+    >>> spec.setRelatedItems([ims['dt'], ims['eds'], ims['pdr']])
     >>> view = spec.unrestrictedTraverse('@@get_readiness')
     >>> info = view.get_info_for('published')
     >>> print str(info['done']) + '%'
@@ -317,11 +318,16 @@ Let's try to finish it:
 It's not yet ready for published because there's an override for get_readiness that adds a
 few extra checks: we need to have at least one main policy question and some related items:
 
-		>>> id = spec.invokeFactory("PolicyQuestion", 'pq')
-		>>> pq = spec.objectValues('PolicyQuestion')[0]
-		>>> pq.setIs_key_question(True)
-		>>> spec.unrestrictedTraverse('@@get_readiness').is_ready_for('published')
-		True
+    >>> id = spec.invokeFactory("PolicyQuestion", 'pq')
+    >>> pq = spec.objectValues('PolicyQuestion')[0]
+    >>> pq.setIs_key_question(True)
+    >>> spec.unrestrictedTraverse('@@get_readiness').is_ready_for('published')
+    True
+
+We'll reindex this object because we need it later for some entries in the catalog.
+
+    >>> catalog = getToolByName(portal, 'portal_catalog')
+    >>> catalog.reindexObject(spec)
 
 
 Simple field editing and schemata editing
@@ -335,8 +341,91 @@ In the new aggregated edit view we use two types of editing dialog boxes:
 Single field dialog edit
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
+Single field edit forms are based on a modified base_edit.cpt template that presents a 
+single field.
+
     >>> baseurl = spec.absolute_url()
     >>> browser.open(baseurl + '/simple_edit?fieldset=default&specific_field=title')
     >>> print browser.contents  #doctest: +NORMALIZE_WHITESPACE
     <... <form ... id="specification-base-edit"...
-    >>> browser.getControl()
+
+Inside we will have the field:
+
+    >>> title = browser.getControl(name='title')
+
+The submit button is created by javascript, through the jQuery UI framework. 
+Submiting the form, if the form is properly validated, will return a small Javascript
+fragment that closes the dialog and reloads the region to which that field belongs:
+
+    >>> req = {'specific_field':'title', 'fieldset':'default', 'title':'Some title', 
+    ...        'form.submitted':'1', 'form_submit':'Save'}
+    >>> data = urllib.urlencode(req)
+    >>> browser.open(baseurl + '/simple_edit', data=data)
+    >>> print browser.contents  #doctest: +NORMALIZE_WHITESPACE
+    <script>...closer(...'title'...)...</script>
+
+Schemata dialog edit
+~~~~~~~~~~~~~~~~~~~~
+
+TODO: test schemata dialog edit
+
+
+Specification.codes validation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The Specification.codes are unique for a Specification across the IMS, unless the 
+objects are versions of each other.
+
+We already have a specification with codes [{'set':'CSI', 'code':'001'}, {'set':'TERM', 'code':'002'}]
+Let's create another and try to duplicate the code:
+
+    >>> spec = ims[ims.invokeFactory("Specification", 'spec4')]
+    >>> baseurl = spec.absolute_url()
+    >>> req = (
+    ...     ('codes.set:records','CSI'),
+    ...     ('codes.code:records','001'),
+    ...     ('codes.orderindex_:records','1'),
+    ...     ('codes.set:records','TERM'),
+    ...     ('codes.code:records','002'),
+    ...     ('codes.orderindex_:records','2'),
+    ...     ('codes.set:records','APE'),
+    ...     ('codes.code:records',''),
+    ...     ('codes.orderindex_:records','template_row_marker'),
+    ... 
+    ...     ('fieldset','Classification'),
+    ...     ('form.submitted','1'), 
+    ...     ('form_submit','Save'),
+    ...     ('specific_field','codes'),
+    ... )
+    >>> data = urllib.urlencode(req)
+    >>> browser.open(baseurl + '/simple_edit', data=data)
+
+This edit will fail validation:
+
+    >>> 'closer(' in browser.contents
+    False
+    >>> print browser.contents  #doctest: +NORMALIZE_WHITESPACE
+    <...Validation failed, there is already another Specification with code CSI001...
+
+Setting another code will result in a successful edit:
+
+    >>> req = (
+    ...     ('codes.set:records','CSI'),
+    ...     ('codes.code:records','123'),
+    ...     ('codes.orderindex_:records','1'),
+    ...     ('codes.set:records','TERM'),
+    ...     ('codes.code:records','321'),
+    ...     ('codes.orderindex_:records','2'),
+    ...     ('codes.set:records','APE'),
+    ...     ('codes.code:records',''),
+    ...     ('codes.orderindex_:records','template_row_marker'),
+    ... 
+    ...     ('fieldset','Classification'),
+    ...     ('form.submitted','1'), 
+    ...     ('form_submit','Save'),
+    ...     ('specific_field','codes'),
+    ... )
+    >>> data = urllib.urlencode(req)
+    >>> browser.open(baseurl + '/simple_edit', data=data)
+    >>> print browser.contents  #doctest: +NORMALIZE_WHITESPACE
+    <script>...closer(...'codes'...)...</script>

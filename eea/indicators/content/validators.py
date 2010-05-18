@@ -77,6 +77,7 @@ class UniqueSpecificationCode:
         request = kwargs['REQUEST']
         spec_id = context.getId()
         versions = getMultiAdapter((context, request), name='getVersions')().values()
+        versions += [context]
         cat = getToolByName(kwargs['instance'], 'portal_catalog')
 
         field = context.schema['codes']
