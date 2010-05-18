@@ -3,7 +3,7 @@
 # $Id$
 #
 # Copyright (c) 2010 by ['Tiberiu Ichim']
-# Generator: ArchGenXML 
+# Generator: ArchGenXML
 #            http://plone.org/products/archgenxml
 #
 # GNU General Public License (GPL)
@@ -12,10 +12,11 @@
 __author__ = """Tiberiu Ichim <unknown>"""
 __docformat__ = 'plaintext'
 
-from AccessControl import ClassSecurityInfo
-from Products.Archetypes.atapi import *
-from zope.interface import implements
 import interfaces
+from zope.interface import implements
+from Products.Archetypes.atapi import *
+from Products.CMFCore import permissions
+from AccessControl import ClassSecurityInfo
 from Products.ATContentTypes.content.link import ATLink
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 
@@ -98,6 +99,11 @@ class MethodologyReference(ATLink, BrowserDefaultMixin):
         convert = getToolByName(self, 'portal_transforms').convert
         return convert('html_to_text', self.getDescription()).getData()
 
+    security.declareProtected(permissions.View, 'getUrl')
+    def getUrl(self):
+        """ """
+        field = self.getField('remoteUrl')
+        return field.getAccessor(self)()
 
 
 registerType(MethodologyReference, PROJECTNAME)
