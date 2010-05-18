@@ -22,7 +22,7 @@
           <metal:new fill-slot="new" />
         </metal:versions>
         <div metal:use-macro="here/portlet_themes_object/macros/portlet" />
-        <tal:block define="queryString string:h2, h3, h4">
+        <tal:block define="queryString string:h2">
             <metal:toc use-macro="here/portlet_toc/macros/portlet"/>
         </tal:block>
         <div id="content-more-updates-on"
