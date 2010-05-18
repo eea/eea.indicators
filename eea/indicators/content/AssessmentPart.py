@@ -153,7 +153,7 @@ class AssessmentPart(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory
             themes = []
 
         figure.setThemes(themes)
-        return figure
+        return {'obj':figure, 'subview':'edit', 'direct_edit':True}
 
 
 

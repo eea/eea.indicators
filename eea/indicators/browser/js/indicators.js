@@ -171,15 +171,31 @@ function set_creators(){
         alert("ERROR: There was a problem communicating with the server. Please reload this page.");
       },
       success: function(r) {
-        reload_region($(region));
+
+        // In case there's an error, show it in a dialog and abort
+        var error = $(r).children('.error');
+        if (error) {
+          $(error).dialog({
+            buttons: { 
+              "Ok": function() { 
+                $(this).dialog("close"); 
+                unblock_ui();
+                return false;
+              }
+            }
+          })
+        }
+
+        is_direct_edit = $(r).children('direct_edit').length || is_direct_edit;
         var info = $(r).children('.object_edit_url');
         if (info) {
           var edit_link = info.text();
           if (is_direct_edit) {
-            unblock_ui();
-            return false;
             document.location = edit_link;
+            // unblock_ui();
+            return false;
           } else {
+            reload_region($(region));
             dialog_edit(edit_link, title, function(text, status, xhr){
               schemata_ajaxify($("#dialog-inner"), $(region).attr('id'));
               unblock_ui();
@@ -188,6 +204,7 @@ function set_creators(){
             );
           }
         } else {
+          reload_region($(region));
           unblock_ui();
         }
         return false;
