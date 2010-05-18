@@ -155,6 +155,7 @@ function set_creators(){
   $('a.object_creator').live('click', function(){
     block_ui();
     var link = $(this).attr('href');
+    var is_direct_edit = $(this).hasClass('direct_edit');
     var region = $(this).parents(".active_region")[0];
     var title = "Edit";
     var options = {
@@ -174,12 +175,18 @@ function set_creators(){
         var info = $(r).children('.object_edit_url');
         if (info) {
           var edit_link = info.text();
-          dialog_edit(edit_link, title, function(text, status, xhr){
-            schemata_ajaxify($("#dialog-inner"), $(region).attr('id'));
+          if (is_direct_edit) {
             unblock_ui();
-          },
-          options
-        );
+            return false;
+            document.location = edit_link;
+          } else {
+            dialog_edit(edit_link, title, function(text, status, xhr){
+              schemata_ajaxify($("#dialog-inner"), $(region).attr('id'));
+              unblock_ui();
+            },
+            options
+            );
+          }
         } else {
           unblock_ui();
         }
