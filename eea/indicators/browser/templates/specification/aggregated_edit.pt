@@ -16,8 +16,8 @@
 		<!-- <link media="screen" type="text/css" rel="stylesheet"  -->
 		<!-- 	tal:attributes="href string:${context/++resource++jquery.ui.theme/jquery-ui-1.7.custom.css}"  -->
 		<!-- 		/> -->
-		<link media="screen" type="text/css" rel="stylesheet" 
-			tal:attributes="href string:${context/++resource++modaledit.css}" 
+		<link media="screen" type="text/css" rel="stylesheet"
+			tal:attributes="href string:${context/++resource++modaledit.css}"
 				/>
 	</metal:cssslot>
 
@@ -30,7 +30,9 @@
 			<div tal:replace="structure context/fragment_title" />
 
 			<!-- <div metal:use-macro="here/portlet_themes_object/macros/portlet" /> -->
-			<div metal:use-macro="here/portlet_toc/macros/portlet" />
+			<tal:block define="queryString string:h2, h3, h4">
+			    <metal:toc use-macro="here/portlet_toc/macros/portlet"/>
+			</tal:block>
 
 			<metal:versions use-macro="here/portlet_versions/macros/versions">
 				<metal:new fill-slot="old" />
