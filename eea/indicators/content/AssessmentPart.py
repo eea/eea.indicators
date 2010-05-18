@@ -3,7 +3,7 @@
 # $Id$
 #
 # Copyright (c) 2010 by ['Tiberiu Ichim']
-# Generator: ArchGenXML 
+# Generator: ArchGenXML
 #            http://plone.org/products/archgenxml
 #
 # GNU General Public License (GPL)
@@ -123,7 +123,7 @@ class AssessmentPart(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory
             q = self.getRelatedItems()
         except AttributeError:  #reference_catalog is not found at creation
             q = None
-        if not q:
+        if (not q) or (q == [None]):
             return "Answer to unknown question"
 
         #return u"Answer for: %s" % q.Title()
