@@ -19,7 +19,7 @@
 
 						<a href='./object_factory?type_name=Assessment' 
 							class="object_creator" 
-							tal:attributes="class string:object_creator${can_add}">+ Indicator Assessment</a>
+							tal:attributes="class string:object_creator${can_add} direct_edit">+ Indicator Assessment</a>
 
 						<div style="width:49%; float:left">
 							<h5>Published (reviewed and quality assured)</h5>

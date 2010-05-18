@@ -34,7 +34,7 @@
 				<div tal:attributes="class python:figures and ' ' or 'placeholder'">
 					<a href='./object_factory?type_name=EEAFigure' 
 						tal:attributes="href string:${context/absolute_url}/object_factory?type_name=EEAFigure"
-						class="object_creator">+ EEA Figure</a>
+						class="object_creator direct_edit">+ EEA Figure</a>
 					<span tal:condition="not:figures">Please add at least one EEAFigure</span>
 				</div>
 
