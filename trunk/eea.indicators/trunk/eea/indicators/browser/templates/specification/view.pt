@@ -215,7 +215,7 @@
               <h4>Status</h4>
               <tal:status define="status work/getStatus">
                 <p tal:condition="status" tal:replace="structure status"></p>
-                <p tal:condition="status">No status has been specified</p>
+                <p tal:condition="not:status">No status has been specified</p>
               </tal:status>
               <h4>Deadline</h4>
               <p tal:replace="structure work/getDue_date"></p>
@@ -298,13 +298,15 @@
                                        mcode python:value[1];
                                        status python: myear and mcode">
                     <li tal:condition="status">
+                        <strong tal:content="assessment/Title" />
                         <span>year:</span>
                         <tal:block content="myear" />,
                         <span>code:</span>
                         <tal:block content="mcode" />
                     </li>
                     <li tal:condition="not:status">
-                       unplanned as usual :D
+                       <strong tal:content="assessment/Title" />
+                       <span>unplanned as usual :D</span>
                     </li>
                     </tal:block>
                 </tal:assessment>
