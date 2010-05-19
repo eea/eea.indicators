@@ -144,7 +144,8 @@ class AssessmentPart(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory
 
     def factory_EEAFigure(self):
         type_name = 'EEAFigure'
-        figure = self._generic_factory(type_name)
+        info = self._generic_factory(type_name)
+        figure = info['obj']
 
         try:
             spec = get_specific_parent(self, lambda o:ISpecification.providedBy(o))
