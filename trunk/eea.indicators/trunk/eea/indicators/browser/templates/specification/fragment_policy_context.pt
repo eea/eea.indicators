@@ -3,6 +3,7 @@
 		region_update_handler string:fragment_policy_context;
 		imsutils nocall:context/@@indicator_utils;
 		related_view nocall:context/@@related_items;
+		also_reload python:['relateditems_area','data_spec_area'];
 		">
 
 		<metal:macro metal:use-macro="context/indicators_macros/macros/active_region">

@@ -1,11 +1,12 @@
 <tal:defs
-	tal:define="region_name string:data_spec;
+	tal:define="region_name string:data_spec_area;
 	region_update_handler string:fragment_data_specifications;
 	submit_handler string:simple_edit;
 	imsutils nocall:context/@@indicator_utils;
 	tooltip_macro context/indicators_macros/macros/tooltip;
 	portal_url context/portal_url;
 	related_view nocall:context/@@related_items;
+	also_reload python:['relateditems_area','policy_context_area'];
 
 	values python:related_view(['Data', 'ExternalDataSpec']);
 	fieldname string:relatedItems;
