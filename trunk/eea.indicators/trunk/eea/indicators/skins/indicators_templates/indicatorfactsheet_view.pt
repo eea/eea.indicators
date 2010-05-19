@@ -79,7 +79,7 @@
                 href string:${file/absolute_url}/at_download/file;">
                 <img tal:condition="icon" src=""
                      tal:attributes="src string:${context/portal_url}/$icon"/>
-                <span tal:content="filename" />
+                <span tal:content="file/Title" />
             </a>
             (<span tal:content="python:file.lookupMime(field.getContentType())">ContentType</span>
             <tal:size define="displaySize nocall:context/displaySize"
