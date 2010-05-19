@@ -66,29 +66,32 @@
 <h2>Assessment</h2>
 <div tal:content="structure context/getAssessment" />
 
-<h2>Download detailed information and factsheets</h2>
-<!-- #TODO: there was also a display of "complete_report_link" -->
-<ul>
-    <tal:block repeat="file context/@@fact_sheet_documents">
-        <li tal:define="field python:file.getFile();
-                        icon field/getBestIcon | nothing;
-                        filename field/filename | nothing;
-                        size field/get_size;">
-            <a tal:attributes="
-                id file/UID;
-                href string:${file/absolute_url}/at_download/file;">
-                <img tal:condition="icon" src=""
-                     tal:attributes="src string:${context/portal_url}/$icon"/>
-                <span tal:content="file/Title" />
-            </a>
-            (<span tal:content="python:file.lookupMime(field.getContentType())">ContentType</span>
-            <tal:size define="displaySize nocall:context/displaySize"
-                      content="python:displaySize(size)"
-                      condition="size">0Kb</tal:size>)
-            <br />
-        </li>
-    </tal:block>
-</ul>
+<tal:factSheetDocuments define="documents context/@@fact_sheet_documents"
+                        condition="documents">
+  <h2>Download detailed information and factsheets</h2>
+  <!-- #TODO: there was also a display of "complete_report_link" -->
+  <ul>
+      <tal:block repeat="file documents">
+          <li tal:define="field python:file.getFile();
+                          icon field/getBestIcon | nothing;
+                          filename field/filename | nothing;
+                          size field/get_size;">
+              <a tal:attributes="
+                  id file/UID;
+                  href string:${file/absolute_url}/at_download/file;">
+                  <img tal:condition="icon" src=""
+                       tal:attributes="src string:${context/portal_url}/$icon"/>
+                  <span tal:content="file/Title" />
+              </a>
+              (<span tal:content="python:file.lookupMime(field.getContentType())">ContentType</span>
+              <tal:size define="displaySize nocall:context/displaySize"
+                        content="python:displaySize(size)"
+                        condition="size">0Kb</tal:size>)
+              <br />
+          </li>
+      </tal:block>
+  </ul>
+</tal:factSheetDocuments>
 
 <!-- #TODO: <dtml-var show_related_indicators> -->
 
