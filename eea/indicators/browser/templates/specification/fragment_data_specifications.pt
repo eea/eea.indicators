@@ -39,7 +39,7 @@
 						</ul>
 					</metal:slot>
 					<metal:slot metal:fill-slot="control">
-						<div class="control">
+						<div class="control-special-handler">
 							<a href="" 
 								tal:attributes="onclick string:return open_relations_widget('active_field-$fieldname', 
 								'$selected_tab')">edit...</a>

@@ -112,8 +112,8 @@ function set_editors(){
 function set_edit_buttons() {
   // activate single active fields
 
-  $('.active_field a').disableSelection();
-  $('.active_field a').live('click', function(){
+  $('.active_field .control a').disableSelection();
+  $('.active_field .control a').live('click', function(){
 
     // check if this handler is not disabled through metadata
     var meta_disable = $(this).parents('.active_field').children('.metadata .disable_handler').length;

@@ -141,26 +141,30 @@
 								</tal:def>
 
 							</div>
+
 							<strong>Specification</strong>
-							<div>Link: <a href="" tal:attributes="href context/absolute_url"
-									tal:content="context/getId">ISpecification1235</a>
-							</div>
-							<div>
-								Version id: <tal:version_id define="getVersions nocall:context/@@getVersions;
-												    version_number getVersions/version_number"
-											    content="version_number" />
+							<div class="active_field">
+								<div>Link: <a href="" tal:attributes="href context/absolute_url"
+										tal:content="context/getId">ISpecification1235</a>
+								</div>
+								<div>
+									Version id: <tal:version_id define="getVersions nocall:context/@@getVersions;
+										version_number getVersions/version_number"
+										content="version_number" />
+								</div>
+
+								<div>
+									First draft created: <span tal:content="context/creation_date">creation date</span>
+								</div>
+
+								<div>
+									Publish date: <span tal:content="context/effective_date">effective date</span>
+								</div>
+								<div>
+									Last modified: <span tal:content="context/modified">Modified date</span>
+								</div>
 							</div>
 
-							<div>
-								First draft created: <span tal:content="context/creation_date">creation date</span>
-							</div>
-
-							<div>
-								Publish date: <span tal:content="context/effective_date">effective date</span>
-							</div>
-							<div>
-								Last modified: <span tal:content="context/modified">Modified date</span>
-							</div>
 						</div>
 					</div>
 
