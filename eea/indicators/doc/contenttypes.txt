@@ -2,6 +2,7 @@ The Indicators Database
 =======================
 
 :vim: set ft=doctest:
+:vim: set sw=4 ts=4 et
 
 We have several main content types. The most important are the Specification and their Assessments.
 
@@ -239,8 +240,8 @@ implement eea.workflow.interfaces.IHasMandatoryWorkflowFields:
     >>> view = spec.unrestrictedTraverse('@@get_readiness')
     >>> info = view.get_info_for('published')
 
-A specification has 24 fields. From these, 11 are required to be able to transition to 
-'published'. The call to get_info_for returns a mapping with the 
+A specification has 23 fields. From these, 11 are required to be able to transition to 
+'published'. The call to get_info_for() returns a mapping with the 
 keys 'done', 'required', 'publishing', 'optional', 'total', '' 
 
 'done' tells us the percentage of the content that is required for the desired state. 
@@ -284,7 +285,7 @@ The get_readiness view can also tell us if the object is ready for publishing:
     >>> view.is_ready_for('published')
     False
 
-Let's make this spec ready for publishing:
+Let's move on making this spec ready for publishing:
 
     >>> spec.setDpsir('D')
     >>> spec.setTypology('A')
@@ -315,8 +316,9 @@ Let's try to finish it:
     >>> view.is_ready_for('published')
     False
 
-It's not yet ready for published because there's an override for get_readiness that adds a
-few extra checks: we need to have at least one main policy question and some related items:
+It's not yet ready for published because there's an override to the default provided eea.workflow
+get_readiness that adds a few extra checks: we need to have at least one 
+main policy question and some related items:
 
     >>> id = spec.invokeFactory("PolicyQuestion", 'pq')
     >>> pq = spec.objectValues('PolicyQuestion')[0]
@@ -367,7 +369,11 @@ fragment that closes the dialog and reloads the region to which that field belon
 Schemata dialog edit
 ~~~~~~~~~~~~~~~~~~~~
 
-TODO: test schemata dialog edit
+Several content types can be edited from the aggregated edit view in a full popup edit form.
+They are: WorkItems, MethodologyReferences, RationaleReferences and PolicyQuestions
+
+	>>> id = spec.invokeFactory("PolicyQuestion", 'pq')
+	>>> pq = spec.objectValues('PolicyQuestion')[0]
 
 
 Specification.codes validation
@@ -429,3 +435,7 @@ Setting another code will result in a successful edit:
     >>> browser.open(baseurl + '/simple_edit', data=data)
     >>> print browser.contents  #doctest: +NORMALIZE_WHITESPACE
     <script>...closer(...'codes'...)...</script>
+
+
+Work Items classification
+-------------------------

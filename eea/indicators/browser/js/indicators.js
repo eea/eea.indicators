@@ -240,6 +240,7 @@ function set_deleters(){
 }
 
 function reload_region(el){
+  console.log("Reloading region ", el);
   block_ui();
   var update_handler = $(".metadata .region_update_handler", el).text();
   var also_reload = $(".metadata .also_reload", el);

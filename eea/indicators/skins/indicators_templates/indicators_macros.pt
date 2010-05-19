@@ -115,12 +115,13 @@ The name of the region fragment that will be updated;
 
 							var popup = new EEAReferenceBrowser.Widget('$fieldName', options);;
 
-							// popup.popup_open();
-							// $$('#' + '$widget_dom_id').get(0)._widget = popup;
+							// popup.popup_open();;
+							// $$('#' + '$widget_dom_id').get(0)._widget = popup;;
 
 							$$(popup.events).bind(popup.events.SAVED, function(evt){
-								ajaxify($$('#$widget_dom_id'), '$realFieldName');
-								$$('#$widget_dom_id form').trigger('submit');
+								console.log('Doing save');;
+								ajaxify($$('#$widget_dom_id'), '$realFieldName');;
+								$$('#$widget_dom_id form').trigger('submit');;
 							});
 							"></script>
 					</div>

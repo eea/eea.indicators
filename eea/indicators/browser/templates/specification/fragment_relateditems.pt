@@ -1,10 +1,11 @@
 <tal:def tal:define="submit_handler string:simple_edit; ">
-	<tal:def tal:define="region_name string:scientific_references_area;
-		region_update_handler string:fragment_scientific_references;
+	<tal:def tal:define="region_name string:relateditems_area;
+		region_update_handler string:fragment_relateditems;
 		imsutils nocall:context/@@indicator_utils;
 		portal_url context/portal_url;
 		tooltip_macro context/indicators_macros/macros/tooltip;
 		related_view nocall:context/@@related_items;
+		also_reload python:['data_spec_area','policy_context_area'];
 
 		field python:context.schema['relatedItems'];
 		value python:related_view.get_uids();
