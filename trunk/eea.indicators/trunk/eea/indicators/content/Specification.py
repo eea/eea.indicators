@@ -351,6 +351,7 @@ Specification_schema['relatedItems'] = EEAReferenceField('relatedItems',
         widget=EEAReferenceBrowserWidget(
             label='Related Item(s)',
             description='Specify related item(s).',
+            macro="indicatorsrelationwidget",
             ))
 
 Specification_schema['manager_user_id'].widget = UserAndGroupSelectionWidget(

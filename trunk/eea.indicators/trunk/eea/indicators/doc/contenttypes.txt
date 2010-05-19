@@ -372,9 +372,12 @@ Schemata dialog edit
 Several content types can be edited from the aggregated edit view in a full popup edit form.
 They are: WorkItems, MethodologyReferences, RationaleReferences and PolicyQuestions
 
-	>>> id = spec.invokeFactory("PolicyQuestion", 'pq')
 	>>> pq = spec.objectValues('PolicyQuestion')[0]
-
+	>>> url = pq.absolute_url()
+	>>> browser.open(url + '/schemata_edit?fieldset=default')
+	>>> browser.getControl(name="title").value = 'First question'
+	>>> browser.getForm(name="edit_form").submit()
+	>>> print browser.contents
 
 Specification.codes validation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

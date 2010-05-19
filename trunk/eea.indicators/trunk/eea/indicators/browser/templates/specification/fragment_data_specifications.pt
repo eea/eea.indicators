@@ -6,7 +6,6 @@
 	tooltip_macro context/indicators_macros/macros/tooltip;
 	portal_url context/portal_url;
 	related_view nocall:context/@@related_items;
-	also_reload python:['relateditems_area','policy_context_area'];
 
 	values python:related_view(['Data', 'ExternalDataSpec']);
 	fieldname string:relatedItems;
@@ -56,4 +55,4 @@
 		</metal:slot>
 	</metal:macro>
 </tal:defs>
-
+<!-- also_reload python:['relateditems_area','policy_context_area']; -->
