@@ -123,10 +123,12 @@
                                        all_questions python:policy_questions['all'];
                                        key_questions python:policy_questions['key_questions'];
                                        questions python:policy_questions['questions']">
-          <tal:question repeat="question all_questions">
-            <h2 class="policy_question" tal:condition="question/getIs_key_question">Key policy question</h2>
-            <h2 class="policy_question" tal:condition="not:question/getIs_key_question">Specific policy question</h2>
-
+          <tal:key_question repeat="question key_questions">
+            <h2 class="policy_question">Key policy question</h2>
+            <h3 tal:content="question/Title">Question title</h3>
+          </tal:key_question>
+          <tal:question repeat="question questions">
+            <h2 class="policy_question">Specific policy question</h2>
             <h3 tal:content="question/Title">Question title</h3>
           </tal:question>
           </tal:policy_question>
