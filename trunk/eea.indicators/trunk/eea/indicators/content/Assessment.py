@@ -158,7 +158,7 @@ class Assessment(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory, Br
             return u"Untitled"  #the object has not finished its creation process
 
         if info['review_state'] == "published":
-            time = info['time']
+            time = self.getEffectiveDate()
             msg = _("assessment-title-published",
                     default=u"Assessment published ${date}",
                     mapping={'date':u"%s %s" %
@@ -167,7 +167,7 @@ class Assessment(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory, Br
                     )
             return self.translate(msg)
         else:
-            time = info['time']
+            time = self.getEffectiveDate()
             msg = _("assessment-title-draft",
                     default=u"Assessment DRAFT created ${date}",
                     mapping={'date':u"%s %s" %

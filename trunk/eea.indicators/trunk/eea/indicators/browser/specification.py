@@ -135,19 +135,18 @@ class AssessmentVersions(BrowserView):
 
     def sort_assessments(self, data):
         """ """
-        wftool = getToolByName(self.context, 'portal_workflow')
         assessments = {}
 
         for assessment in data:
             try:
-                info = wftool.getStatusOf('indicators_workflow', assessment)
-                time = info['time']
+                time = assessment.getEffectiveDate()
                 assessments[time] = assessment
             except Exception, err:
                 logger.exception('Exception: %s ', err)
 
         res = assessments.keys()
         res.sort()
+        res.reverse()
 
         return [assessments[k] for k in res]
 
