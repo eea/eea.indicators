@@ -154,28 +154,20 @@
 	display:none;
 }
 
-.active_field .control {
-	/* display:none; */
-}
-
 .active_field_hovered {
 	background-color:#F3F3F3;
 }
 
-.active_field .control, .active_field_hovered .control {
+.active_field .control, .active_field_hovered .control, .active_field .control-special-handler {
 	display:block !important;
 	float:right;
 	padding:4px;
-	/* background-color:#79AE59; */
 	background:none repeat scroll 0 0 #F5821F;
 	border-color:#FFCC99 #663300 #333300 #FF9966;
 	border-style:solid;
 	border-width:1px;
-	/* position:relative; */
-	/* top:3px; */
-	/* right:3px; */
 }
-.active_field .control a, .active_field_hovered .control a {
+.active_field .control a, .active_field_hovered .control a, .active_field .control-special-handler a {
 	color:white;
 	font-weight:bold;
 	text-decoration:none;
