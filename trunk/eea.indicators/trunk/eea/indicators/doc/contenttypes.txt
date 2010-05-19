@@ -378,6 +378,7 @@ They are: WorkItems, MethodologyReferences, RationaleReferences and PolicyQuesti
 	>>> browser.getControl(name="title").value = 'First question'
 	>>> browser.getForm(name="edit_form").submit()
 	>>> print browser.contents
+	...close_dialog...
 
 Specification.codes validation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
