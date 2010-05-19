@@ -92,6 +92,7 @@ The name of the region fragment that will be updated;
 				<input type="hidden" name="active_region" tal:attributes="value region_name" />
 
 				<metal:macro metal:use-macro="here/eeareferencebrowser/macros/popup" >
+
 					<metal:slot fill-slot="edit">
 						<input type="hidden" value=""
 							tal:condition="multiVal"
@@ -105,6 +106,7 @@ The name of the region fragment that will be updated;
 							</tal:uids>
 						</select>
 					</metal:slot>
+
 					<div metal:fill-slot="script">
 						<script type="text/javascript" tal:content="string:
 							var options = {
