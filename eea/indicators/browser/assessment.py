@@ -133,7 +133,7 @@ class WorkflowStateReadiness(ObjectReadiness):
                 return False
             #check that the parent Specification is published
             parent = self.context.aq_parent
-            wftool = getToolByName('portal_workflow')
+            wftool = getToolByName(self.context, 'portal_workflow')
             state = wftool.getInfoFor(parent, 'review_state')
             if state != "published":
                 return False
