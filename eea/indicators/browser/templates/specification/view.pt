@@ -332,7 +332,6 @@
                                                           version_number getVersions/version_number"
                                                   content="version_number" />
               </div>
-
               <div>
                       First draft created: <span tal:content="context/creation_date">creation date</span>
               </div>
@@ -342,6 +341,28 @@
               </div>
               <div>
                       Last modified: <span tal:content="context/modified">Modified date</span>
+              </div>
+              <div>
+                Primary theme:<br />
+                <tal:block define="themesView here/@@themes-object|nothing;
+                                   themes themesView/full_items;
+                                   primaryTheme python:themes and themes[0] or None">
+
+                    <tal:primaryTheme condition="primaryTheme">
+                        <a href="" title="" style="text-decoration: none"
+                           tal:attributes="href theme_url;
+                                           title theme_title"
+                           tal:define="theme_title python:primaryTheme['title'];
+                                       theme_url python:primaryTheme['url'];
+                                       theme_image python:primaryTheme['image']">
+                            <img alt="" src=""
+                                 tal:attributes="alt theme_title;
+                                                 src theme_image" />
+                            <tal:block replace="theme_title" />
+                        </a>
+                    </tal:primaryTheme>
+
+                </tal:block>
               </div>
             </div>
           </div>
