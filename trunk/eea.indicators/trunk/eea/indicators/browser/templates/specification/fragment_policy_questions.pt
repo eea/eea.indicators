@@ -26,7 +26,7 @@
 						<div tal:repeat="question questions"
 							class="list-item" tal:attributes="id question/getId">
 							<span title="Drag & drop to set order"
-							      class="handler ui-icon ui-icon-arrowthick-2-n-s"></span>
+								class="handler ui-icon ui-icon-arrowthick-2-n-s"></span>
 							<a href=""
 								class="schemata_edit spec_control"
 								tal:attributes="href string:${question/absolute_url}/schemata_edit?fieldset=default">Edit</a>
@@ -34,6 +34,7 @@
 								class="object_delete spec_control"
 								tal:attributes="href string:${question/aq_parent/absolute_url}/@@object_delete?id=${question/getId}">Delete</a>
 							<strong tal:content="question/Title">Question title</strong>
+							<span tal:condition="question/getIs_key_question">(Main question)</span>
 						</div>
 					</div>
 

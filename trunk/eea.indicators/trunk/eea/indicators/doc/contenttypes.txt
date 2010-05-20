@@ -2,7 +2,7 @@ The Indicators Database
 =======================
 
 :vim: set ft=doctest:
-:vim: set sw=4 ts=4 et
+:vim: set sw=4 ts=4 et:
 
 We have several main content types. The most important are the Specification and their Assessments.
 
@@ -377,8 +377,18 @@ They are: WorkItems, MethodologyReferences, RationaleReferences and PolicyQuesti
 	>>> browser.open(url + '/schemata_edit?fieldset=default')
 	>>> browser.getControl(name="title").value = 'First question'
 	>>> browser.getForm(name="edit_form").submit()
-	>>> print browser.contents
-	...close_dialog...
+	>>> print browser.contents		#doctest: +NORMALIZE_WHITESPACE
+	<script>...close_dialog...</script>
+
+If the form that was submited fails validation, it is redisplayed. Because we have edited
+the title, the PolicyQuestion's id was changed, so let's get it again.
+
+	>>> url = pq.absolute_url()
+	>>> browser.open(url + '/schemata_edit?fieldset=default')
+	>>> browser.getControl(name="title").value = ''
+	>>> browser.getForm(name="edit_form").submit()
+	>>> print browser.contents		#doctest: +NORMALIZE_WHITESPACE
+	<...form...>
 
 Specification.codes validation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -443,3 +453,35 @@ Setting another code will result in a successful edit:
 
 Work Items classification
 -------------------------
+
+Work items are shown on the aggregated edit splitted in 3 categories:
+ * those that need to be finished in the far future (over a year from now)
+ * those that need to be finished in a year
+ * unclassified, without a deadline
+
+We have a special method, Specification.get_work() which returns a mapping
+with its work items classified:
+
+	>>> _ = spec.invokeFactory("WorkItem", 'w1')
+	>>> _ = spec.invokeFactory("WorkItem", 'w2')
+	>>> _ = spec.invokeFactory("WorkItem", 'w3')
+	>>> _ = spec.invokeFactory("WorkItem", 'w4')
+	>>> import datetime
+	>>> now = datetime.datetime.now()
+	>>> one_year = datetime.timedelta(days=365)
+	>>> one_month = datetime.timedelta(days=30)
+	>>> spec['w1'].setDue_date(str(now + one_month))
+	>>> spec['w2'].setDue_date(str(now + one_year))
+	>>> spec['w3'].setDue_date(str(now + one_month + one_year))
+	>>> works = spec.get_work()
+	>>> print len(works['short']), len(works['long']), len(works['incomplete'])
+	1 2 1
+
+Work that is due in the past appears, for the moment, in the 'short term' category.
+This may be change in the future.
+
+	>>> _ = spec.invokeFactory("WorkItem", 'w5')
+	>>> spec['w5'].setDue_date('2009-05-20')
+	>>> works = spec.get_work()
+	>>> print len(works['short']), len(works['long']), len(works['incomplete'])
+	2 2 1
