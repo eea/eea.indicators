@@ -286,8 +286,7 @@
             </tal:ownership>
 
             <tal:management_plan define="assessments python:context.getFolderContents(
-                                             contentFilter={'portal_type':'Assessment',
-                                                            'review_state':'published',},
+                                             contentFilter={'portal_type':'Assessment'},
                                              full_objects = True)"
                                  condition="not:portal/portal_membership/isAnonymousUser">
               <h4>EEA Management Plan</h4>
