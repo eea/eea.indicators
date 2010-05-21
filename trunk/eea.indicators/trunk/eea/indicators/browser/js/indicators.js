@@ -525,6 +525,7 @@ function save_kupu_values(el) {
 
 function open_relations_widget(widget_dom_id, selected_tab){
   var widget = $("#"+widget_dom_id).get(0)._widget; 
+  window._selected_tab = selected_tab;// will be read by the relations widget and set as selected tab
 
   $("#" + widget_dom_id + " :input").trigger('click');
   return false;
