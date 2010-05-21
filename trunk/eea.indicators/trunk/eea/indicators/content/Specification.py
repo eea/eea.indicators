@@ -533,6 +533,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
                 'optional':_optional,
                 'total':_total,
                 }
+
     security.declarePublic('left_slots')
     def left_slots(self):
         _slot = 'here/portlet_readiness/macros/portlet'
@@ -570,6 +571,16 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
                     "%s%s" % (code['set'], code['code'])]
                     )
         return res
+
+    #security.declareProtected("Modify portal content", 'setTitle')
+    #def setTitle(self, value):
+    #    is_new_object = self.checkCreationFlag()
+    #    self._processForm(data=data, metadata=metadata,
+    #                      REQUEST=REQUEST, values=values)
+    #    self.unmarkCreationFlag()
+    #    if self._at_rename_after_creation and is_new_object:
+    #        self._renameAfterCreation(check_auto_id=True)
+
 
     security.declareProtected("Modify portal content", 'setCodes')
     def setCodes(self, value):

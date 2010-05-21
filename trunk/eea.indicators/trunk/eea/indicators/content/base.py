@@ -16,6 +16,8 @@ class ModalFieldEditableAware(object):
 
         #customized to process a single field instead of multiple fields
 
+        is_new_object = self.checkCreationFlag()
+
         request = REQUEST or self.REQUEST
         _marker = []
         if values:
@@ -50,9 +52,18 @@ class ModalFieldEditableAware(object):
         mapply(mutator, result[0], **result[1])
 
         self.reindexObject()
-        self.at_post_edit_script()
-        event.notify(objectevent.ObjectModifiedEvent(self))
 
+        self.unmarkCreationFlag()
+        if self._at_rename_after_creation and is_new_object:
+            self._renameAfterCreation(check_auto_id=True)
+
+        # Post create/edit hooks
+        if is_new_object:
+            self.at_post_create_script()
+        else:
+            self.at_post_edit_script()
+
+        event.notify(objectevent.ObjectModifiedEvent(self))
         logging.info("SimpleProcessForm done")
         return
 
