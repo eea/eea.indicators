@@ -524,6 +524,8 @@ function save_kupu_values(el) {
 }
 
 function open_relations_widget(widget_dom_id, selected_tab){
+  var widget = $("#"+widget_dom_id).get(0)._widget; 
+
   $("#" + widget_dom_id + " :input").trigger('click');
   return false;
 }

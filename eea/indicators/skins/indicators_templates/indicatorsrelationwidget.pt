@@ -29,8 +29,11 @@
 				</metal:slot>
 
 				<metal:slot fill-slot="script">
-					<script type="text/javascript" tal:content="string:
+					<script type="text/javascript" 
+						tal:define="widget_dom_id string:active_field-$fieldName;" 
+						tal:content="string:
 							var popup = new EEAReferenceBrowser.Widget('$fieldName', {});;
+							$$('#' + '$widget_dom_id').get(0)._widget = popup;;
 
 							$$(popup.events).bind(popup.events.SAVED, function(evt){
 								console.log('Doing save from initial widget');;

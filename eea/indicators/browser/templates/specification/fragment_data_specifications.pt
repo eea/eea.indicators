@@ -9,7 +9,7 @@
 
 	values python:related_view(['Data', 'ExternalDataSpec']);
 	fieldname string:relatedItems;
-	selected_tab string:eea-data;
+	selected_tab string:$fieldname-eea-data;
 	">
 
 	<metal:macro metal:use-macro="context/indicators_macros/macros/active_region">
