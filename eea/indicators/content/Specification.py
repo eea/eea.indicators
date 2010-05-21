@@ -535,7 +535,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
                 }
     security.declarePublic('left_slots')
     def left_slots(self):
-        _slot = ['here/portlet_readiness/macros/portlet']
+        _slot = 'here/portlet_readiness/macros/portlet'
         #_assigned = self.getProperty('left_slots') or []
 
         parent = self.aq_parent
@@ -543,7 +543,9 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
         if callable(base_slots):
             base_slots = base_slots()
 
-        return list(base_slots) + _slot
+        base_slots = list(base_slots)
+        base_slots.insert(0, _slot)
+        return base_slots
 
     def get_indicator_codes(self):
         atvm = getToolByName(self, ATVOCABULARYTOOL)
