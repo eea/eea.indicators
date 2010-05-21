@@ -76,8 +76,7 @@ The name of the region fragment that will be updated;
 <metal:macro metal:define-macro="active_relation_field" 
 	tal:define="widget nocall:field/widget;
 	widget_dom_id string:active_field-$fieldName;
-	realFieldName realFieldName|fieldName;
-	default_selected_tab default_selected_tab|string:generic" >
+	realFieldName realFieldName|fieldName;" >
 
 	<div class="active_field" tal:attributes="id widget_dom_id"> 
 		<div class="content">
@@ -109,16 +108,10 @@ The name of the region fragment that will be updated;
 
 					<div metal:fill-slot="script">
 						<script type="text/javascript" tal:content="string:
-							var options = {
-								tabs: {
-									selected:'$default_selected_tab'
-								}
-							}
-
-							var popup = new EEAReferenceBrowser.Widget('$fieldName', options);;
+							var popup = new EEAReferenceBrowser.Widget('$fieldName');;
+							$$('#' + '$widget_dom_id').get(0)._widget = popup;;
 
 							// popup.popup_open();;
-							// $$('#' + '$widget_dom_id').get(0)._widget = popup;;
 
 							$$(popup.events).bind(popup.events.SAVED, function(evt){
 								console.log('Doing save');;
