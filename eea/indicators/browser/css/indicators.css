@@ -200,7 +200,7 @@ h1 {
 }
 #related_items {
   background: transparent url(Relations.png) no-repeat scroll 0 8px;
-  padding: 10px 0 6px 30px;
+  padding: 13px 0 6px 35px;
 }
 .specification-overlay {
   background-image:url("../../++resource++jquery.ui.theme/images/ui-bg_flat_0_aaaaaa_40x100.png");
