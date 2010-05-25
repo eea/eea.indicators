@@ -58,4 +58,7 @@ class IIndicatorAssessment(Interface):
     """Marker interface for objects that provide assessments: ISpecification and IIndicatorFactSheet
     """
 
+class IIndicatorsDatabase(Interface):
+    """Marker interface for folders storing a bunch of indicators
+    """
 ##/code-section FOOT

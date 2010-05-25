@@ -7,6 +7,14 @@
 	<include file="indicatorfactsheet.zcml" />
 
 	<browser:page
+		for="eea.indicators.content.interfaces.IIndicatorsDatabase"
+		name="permissions_overview"
+		class="eea.indicators.browser.IndicatorsPermissionsOverview"
+		permission="zope2.View"
+		allowed_interface="eea.indicators.browser.interfaces.IIndicatorsPermissionsOverview"
+		/>
+
+	<browser:page
 		for="eea.indicators.content.interfaces.IAssessmentPart"
 		name="view"
 		template="templates/assessmentpart_view.pt"
