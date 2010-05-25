@@ -93,6 +93,9 @@ PROFILE_DEPENDENCIES = (
          ('eea.versions', 'profile-eea.versions:default', False),
     )
 
+
+#this is the role that people need to receive to become a manager over a specification
+MANAGER_ROLE = 'SpecificationManager'
 ##/code-section config-bottom
 
 

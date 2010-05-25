@@ -136,7 +136,7 @@ schema = Schema((
         name='contact',
         allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
         widget=RichWidget(
-            label="ID of manager user",
+            label="Specification manager contact details",
             label_msgid='indicators_label_contact',
             i18n_domain='indicators',
         ),
@@ -572,15 +572,9 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
                     )
         return res
 
-    #security.declareProtected("Modify portal content", 'setTitle')
-    #def setTitle(self, value):
-    #    is_new_object = self.checkCreationFlag()
-    #    self._processForm(data=data, metadata=metadata,
-    #                      REQUEST=REQUEST, values=values)
-    #    self.unmarkCreationFlag()
-    #    if self._at_rename_after_creation and is_new_object:
-    #        self._renameAfterCreation(check_auto_id=True)
-
+    #security.declareProtected("Modify portal content", 'setManager_user_id')
+    #def setManager_user_id(self, value):
+    #    pass
 
     security.declareProtected("Modify portal content", 'setCodes')
     def setCodes(self, value):

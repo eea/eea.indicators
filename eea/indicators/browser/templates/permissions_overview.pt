@@ -1,0 +1,67 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+	metal:use-macro="here/main_template/macros/master"
+	i18n:domain="indicators">
+	<head>
+		<title>Permissions Overview for Indicators Database</title>
+	</head>
+	<body>
+		<div metal:fill-slot="main">
+			<h1>Permissions Overview for Indicators Database</h1>
+			<table class="listing" tal:define="users view/get_users_map">
+				<thead>
+					<tr>
+						<th>User ID</th>
+						<th>Role</th>
+						<th>Specification</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr tal:repeat="user users">
+						<td tal:content="user">Username</td>
+						<td>
+							<div tal:repeat="entry python:users[user]">
+								<span tal:content="python:','.join(entry['role'])" />
+							</div>
+						</td>
+						<td>
+							<div tal:repeat="entry python:users[user]">
+								<a href="" tal:attributes="href python:entry['specid']" 
+									tal:content="python:entry['spectitle']">Spec title
+								</a>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<table class="listing" tal:define="specs view/get_specs_map">
+				<thead>
+					<tr>
+						<th>Specification</th>
+						<th>User ID</th>
+						<th>Role</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr tal:repeat="key specs">
+						<td>
+							<a href="" 
+								tal:attributes="href python:'./' + key[0]" 
+								tal:content="python:key[1]">Specification</a>
+						</td>
+						<td>
+							<div tal:repeat="entry python:specs[key]">
+								<span tal:content="entry/userid" />
+							</div>
+						</td>
+						<td >
+							<div tal:repeat="entry python:specs[key]">
+								<span tal:content="entry/role" />
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</body>
+</html>
