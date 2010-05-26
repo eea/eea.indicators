@@ -129,7 +129,6 @@ function on_load_dom() {
 }
 
 function reload_region(el){
-  console.log("Reloading region ", el);
   block_ui();
   var update_handler = $(".metadata .region_update_handler", el).text();
   var also_reload = $(".metadata .also_reload", el);
@@ -427,7 +426,6 @@ function closer(fieldname, active_region, url){
     region = $(field).parents('.active_region').get();
   }
 
-  // console.log("Closing & reloading region", region);
   reload_region(region);
 
   // $(fieldname).html(text);   // 2

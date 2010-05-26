@@ -107,19 +107,19 @@ The name of the region fragment that will be updated;
 					</metal:slot>
 
 					<div metal:fill-slot="script">
-						<script type="text/javascript" tal:content="string:
-							var popup = new EEAReferenceBrowser.Widget('$fieldName');;
-							$$('#' + '$widget_dom_id').get(0)._widget = popup;;
-
-							$$(popup.events).bind(popup.events.SAVED, function(evt){
-								ajaxify($$('#$widget_dom_id'), '$realFieldName');;
-								$$('#$widget_dom_id form').trigger('submit');;
-							});
-							"></script>
 					</div>
 				</metal:macro>
 			</form>
 
 		</div>
 	</div>
+	<script type="text/javascript" tal:content="string:
+		var popup = new EEAReferenceBrowser.Widget('$fieldName');;
+		$$('#' + '$widget_dom_id').get(0)._widget = popup;;
+
+		$$(popup.events).bind(popup.events.SAVED, function(evt){
+			ajaxify($$('#$widget_dom_id'), '$realFieldName');;
+			$$('#$widget_dom_id form').trigger('submit');;
+		});
+		"></script>
 </metal:macro>
