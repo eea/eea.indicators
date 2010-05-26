@@ -12,15 +12,6 @@
 		<script type="text/javascript" tal:attributes="src string:${context/portal_url}/eeareferencebrowser.js"></script>
 	</metal:jsslot>
 
-	<metal:cssslot fill-slot="css_slot">
-		<!-- <link media="screen" type="text/css" rel="stylesheet"  -->
-		<!-- 	tal:attributes="href string:${context/++resource++jquery.ui.theme/jquery-ui-1.7.custom.css}"  -->
-		<!-- 		/> -->
-		<link media="screen" type="text/css" rel="stylesheet"
-			tal:attributes="href string:${context/++resource++modaledit.css}"
-				/>
-	</metal:cssslot>
-
 	<body>
 		<div metal:fill-slot="main">
 			<div id="dialog_edit_target">

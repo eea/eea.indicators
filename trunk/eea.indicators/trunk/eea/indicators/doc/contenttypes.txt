@@ -1,8 +1,7 @@
 The Indicators Database
 =======================
-
-:vim: set ft=doctest:
-:vim: set sw=4 ts=4 et:
+# vim: ft=doctest:
+# vim: sw=4 ts=4 et:
 
 We have several main content types. The most important are the Specification and their Assessments.
 
@@ -485,3 +484,5 @@ This may be change in the future.
 	>>> works = spec.get_work()
 	>>> print len(works['short']), len(works['long']), len(works['incomplete'])
 	2 2 1
+
+

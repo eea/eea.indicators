@@ -1,5 +1,5 @@
 .headed-box {
-  border:1px solid LightBlue;
+  border:1px solid #31B4FF;
   padding:6px;
   clear:both;
   margin-top:20px;
@@ -146,7 +146,7 @@ dl.toc {
 
 /* Specification view */
 .documentContent th {
-  background-color: LightBlue;
+  background-color: #31B4FF;
   font-weight: bold;
   font-size: 1.2em;
 }

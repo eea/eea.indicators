@@ -494,10 +494,11 @@ function dialog_edit(url, title, callback, options){
     buttons: {
       'Save':function(e){
         var button = e.target;
-        var form = $("#dialog-inner form").get(0);
-        var ev = document.createEvent("HTMLEvents");	// TODO: replace with jquery's trigger()
-        ev.initEvent('submit', true, true);
-        form.dispatchEvent(ev);	// TODO: need to check compatibility with IE
+        $("#dialog-inner form").trigger('submit');
+        // var form = $("#dialog-inner form").get(0);
+        // var ev = document.createEvent("HTMLEvents");	// TODO: replace with jquery's trigger()
+        // ev.initEvent('submit', true, true);
+        // form.dispatchEvent(ev);	// TODO: need to check compatibility with IE
       },
       'Cancel':function(e){
         $("#dialog-inner").dialog("close");

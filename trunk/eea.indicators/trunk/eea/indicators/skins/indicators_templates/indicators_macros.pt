@@ -84,7 +84,7 @@ The name of the region fragment that will be updated;
 				Please fill in
 			</div>
 
-			<form method="POST" action="" 
+			<form method="post" action="" 
 				tal:attributes="action string:${context/absolute_url}/simple_edit">
 				<input type="hidden" name="specific_field" tal:attributes="value realFieldName" />
 				<input type="hidden" name="fieldset" tal:attributes="value field/schemata" />

@@ -16,5 +16,10 @@ def test_suite():
                          package='eea.indicators.doc',
                          test_class=BaseIndicatorsTestCase)
     s2.layer = PloneSite
-    return TestSuite((s1,s2))
+
+    s3 = ZopeDocFileSuite('permissions.txt',
+                         package='eea.indicators.doc',
+                         test_class=BaseIndicatorsTestCase)
+    s3.layer = PloneSite
+    return TestSuite((s1, s2, s3))
 
