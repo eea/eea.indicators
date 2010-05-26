@@ -109,6 +109,7 @@ function set_sortables() {
         $.ajax({
           'url':handler,
           'type':'POST',
+          'cache':false,
           'data':data,
           'success':function(){
             unblock_ui();
@@ -144,6 +145,7 @@ function reload_region(el){
   $.ajax({
     url: update_handler,
     type:'GET',
+    cache:false,
     // timeout: 2000,
     error: function() {
       unblock_ui();
@@ -225,6 +227,7 @@ function schemata_ajaxify(el, active_region){
         "data": data,
         url: this.action,
         type:'POST',
+        cache:false,
         // timeout: 2000,
         error: function() {
           unblock_ui();
@@ -322,6 +325,7 @@ function set_creators(){
     $.ajax({
       url: link,
       type:'GET',
+      cache:false,
       // timeout: 2000,
       error: function() {
         unblock_ui();
@@ -382,6 +386,7 @@ function set_deleters(){
     $.ajax({
       url: link,
       type:'GET',
+      cache:false,
       // timeout: 2000,
       error: function() {
         unblock_ui();
@@ -453,6 +458,7 @@ function ajaxify(el, fieldname){
         "data": data,
         url: this.action,
         type:'POST',
+        cache:false,
         // timeout: 2000,
         error: function() {
           unblock_ui();
@@ -527,7 +533,16 @@ function dialog_edit(url, title, callback, options){
     }
   });
 
-  $("#dialog-inner").load(url, callback);
+  $.ajax({
+    'url':url,
+    'type':'GET',
+    'cache':false,
+    'success': function(r){
+      $("#dialog-inner").html(r);
+      callback();
+    }
+  });
+  // $("#dialog-inner").load(url, callback);
   change_kupu_styles();
 }
 

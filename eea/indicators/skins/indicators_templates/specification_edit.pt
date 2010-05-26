@@ -11,12 +11,8 @@
 				tal:attributes="src string:${context/portal_url}/eeareferencebrowser.js">
 			</script>
 		</metal:slot>
-		<metal:slot metal:define-macro="css">
-			<!-- <style type="text/css" -->
-			<!-- 	media="all" -->
-			<!-- 	tal:content="structure string:<!-- @import url(${context/++resource++indicators.css}); -->"> -->
-			<!-- </style> -->
-		</metal:slot>
+
+		<metal:slot metal:define-macro="css"></metal:slot>
 	</head>
 	<body />
 </html>

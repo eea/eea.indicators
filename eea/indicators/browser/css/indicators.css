@@ -205,4 +205,5 @@ h1 {
 .specification-overlay {
   background-image:url("../../++resource++jquery.ui.theme/images/ui-bg_flat_0_aaaaaa_40x100.png");
   opacity:0.3;
+	FILTER: Alpha(Opacity=30);
 }
