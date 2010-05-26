@@ -176,9 +176,9 @@ function set_creators(){
         var error = $(r).children('.error');
         if (error) {
           $(error).dialog({
-            buttons: { 
-              "Ok": function() { 
-                $(this).dialog("close"); 
+            buttons: {
+              "Ok": function() {
+                $(this).dialog("close");
                 unblock_ui();
                 return false;
               }
@@ -285,7 +285,7 @@ function closer(fieldname, active_region, url){
   // var text = $('#value_response').html(); // 1
 
   var fieldname = "#active_field-"+fieldname;
-  
+
   // we check if the field wants to reload the entire page
   var parent = $(fieldname).parent();
   var reload_page = $('.reload_page', parent);
@@ -374,8 +374,8 @@ function dialog_edit(url, title, callback, options){
   block_ui();
   options = options || {
     'height':null,
-    'width':800,
-  }
+    'width':800
+  };
   var target = $('#dialog_edit_target');
   $("#dialog-inner").remove();     // temporary, apply real fix
   $(target).append("<div id='dialog-inner'></div>");
@@ -534,7 +534,7 @@ function save_kupu_values(el) {
 }
 
 function open_relations_widget(widget_dom_id, selected_tab){
-  var widget = $("#"+widget_dom_id).get(0)._widget; 
+  var widget = $("#"+widget_dom_id).get(0)._widget;
   window._selected_tab = selected_tab;// will be read by the relations widget and set as selected tab
 
   $("#" + widget_dom_id + " :input").trigger('click');
