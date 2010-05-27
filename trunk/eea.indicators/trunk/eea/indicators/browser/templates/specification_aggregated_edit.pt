@@ -74,7 +74,7 @@
 				<h5>Identification</h5>
 				<div class="wrapper" >
 					<div tal:define="codes context/getCodes">
-						<strong>CSI Code</strong>
+						<strong>Indicator code</strong>
 						<div tal:repeat="code codes" tal:content="string:${code/set} ${code/code}">
 							CSI 001
 						</div>

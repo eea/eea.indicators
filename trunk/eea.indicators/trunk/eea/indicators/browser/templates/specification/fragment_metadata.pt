@@ -121,7 +121,7 @@
 						<div class="wrapper" >
 							<div tal:define="codes context/getCodes">
 
-								<strong>CSI Code</strong>
+								<strong>Indicator code</strong>
 								<tal:def tal:define="fieldname string:codes; fieldset string:Classification;
 									dpsir context/getDpsir">
 									<metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
