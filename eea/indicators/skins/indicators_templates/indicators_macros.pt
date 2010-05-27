@@ -78,7 +78,12 @@ The name of the region fragment that will be updated;
 	widget_dom_id string:active_field-$fieldName;
 	realFieldName realFieldName|fieldName;" >
 
-	<div class="active_field" tal:attributes="id widget_dom_id"> 
+	<div class="active_field indicators_relations_widget" tal:attributes="id widget_dom_id"> 
+		<div class="metadata">
+			<div class="widget_dom_id" tal:content="widget_dom_id"></div>
+			<div class="fieldName" tal:content="fieldName"></div>
+			<div class="realFieldName" tal:content="realFieldName"></div>
+		</div>
 		<div class="content">
 			<div tal:condition="python:not value" class="placeholder">
 				Please fill in
@@ -106,20 +111,19 @@ The name of the region fragment that will be updated;
 						</select>
 					</metal:slot>
 
-					<div metal:fill-slot="script">
-					</div>
+					<div metal:fill-slot="script"></div>
 				</metal:macro>
 			</form>
 
 		</div>
 	</div>
-	<script type="text/javascript" tal:content="string:
-		var popup = new EEAReferenceBrowser.Widget('$fieldName');;
-		$$('#' + '$widget_dom_id').get(0)._widget = popup;;
+	<!-- <script type="text/javascript" tal:content="string: -->
+	<!-- 	var popup = new EEAReferenceBrowser.Widget('$fieldName');; -->
+	<!-- 	$$('#' + '$widget_dom_id').get(0)._widget = popup;; -->
 
-		$$(popup.events).bind(popup.events.SAVED, function(evt){
-			ajaxify($$('#$widget_dom_id'), '$realFieldName');;
-			$$('#$widget_dom_id form').trigger('submit');;
-		});
-		"></script>
+	<!-- 	$$(popup.events).bind(popup.events.SAVED, function(evt){ -->
+	<!-- 		ajaxify($$('#$widget_dom_id'), '$realFieldName');; -->
+	<!-- 		$$('#$widget_dom_id form').trigger('submit');; -->
+	<!-- 	}); -->
+	<!-- 	"></script> -->
 </metal:macro>

@@ -122,10 +122,36 @@ function set_sortables() {
   });
 }
 
+function set_relation_widgets() {
+  // activates the relation widgets
+  
+  $(".indicators_relations_widget").each(function(){
+    var fieldname = $(".metadata .fieldName", this).text();
+    var realfieldname = $(".metadata .realFieldName", this).text();
+    var widget_dom_id = $(".metadata .widget_dom_id", this).text();
+    if (!widget_dom_id) {
+      return false;
+    }
+
+    var popup = new EEAReferenceBrowser.Widget(fieldname);
+    try {
+      $('#' + widget_dom_id).get(0)._widget = popup;
+      $(popup.events).bind(popup.events.SAVED, function(evt){ 
+        ajaxify($('#'+widget_dom_id), realfieldname); 
+        $('#' + widget_dom_id + ' form').trigger('submit');
+      }); 
+    } catch (e) {
+      // for some reasons this behaves as if the DOM is not fully loaded.
+      // Probably the calling script should be made smarter
+    }
+
+  });
+}
 
 function on_load_dom() {
   // executed whenever the regions are reloaded
   set_sortables();
+  set_relation_widgets();
 }
 
 function reload_region(el){
@@ -153,11 +179,11 @@ function reload_region(el){
     success: function(r) {
       var id = $(el).attr('id');
       $(el).replaceWith(r);
-      on_load_dom();
       var new_el = $("#"+id);
       $(new_el).effect('highlight');
       // $(new_el).animate({backgroundColor:'#e1e1e1'}, 1000)
       //         .animate({backgroundColor:'transparent'}, 1500);
+      on_load_dom();
       unblock_ui();
       return false;
     }
@@ -578,6 +604,7 @@ function open_relations_widget(widget_dom_id, selected_tab){
   $("#" + widget_dom_id + " :input").trigger('click');
   return false;
 }
+
 
 $(document).ready(function () {
 
