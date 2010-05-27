@@ -21,7 +21,7 @@
              cookable="True"
              enabled="1"
              expression="python:object.meta_type in ['Specification', 'Assessment']"
-             id="++resource++indicators.css"
+             id="indicators.css"
              media="all"
              rel="stylesheet"
              rendering="import"/>

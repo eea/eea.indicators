@@ -51,3 +51,21 @@ class IndicatorsPermissionsOverview(BrowserView):
 
         return specsmap
 
+    def get_codes_map(self):
+        specs = self.context.objectValues("Specification")
+
+        codes = {}
+        for spec in specs:
+            key = (specid, title) = spec.getId(), spec.Title()
+            roles = spec.computeRoleMap()
+            for role in roles:
+                userid = role['id']
+                if role['local']:
+                    for local in role['local']:
+                        info = [{'userid':userid,
+                                'role':local,
+                                }]
+                        specsmap[key] = specsmap.get(key, []) + info
+
+        return specsmap
+        
