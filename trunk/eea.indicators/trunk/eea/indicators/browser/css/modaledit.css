@@ -135,11 +135,11 @@
 }
 .specification-loading {
 	/* Ajax activity visual cue */
-  background-image:url(./++resource++faceted_images/ajax-loader.gif);
+  background-image:url(../../++resource++faceted_images/ajax-loader.gif);
   background-repeat:no-repeat;
 	position:absolute;
 	opacity:1;
-	FILTER: Alpha(Opacity=100);
+	/* FILTER: Alpha(Opacity=100); */
 	height:100px;
 	width:100px;
 	z-index:1200;
