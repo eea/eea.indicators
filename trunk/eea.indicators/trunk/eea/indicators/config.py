@@ -33,26 +33,18 @@ PROJECTNAME = "indicators"
 DEFAULT_ADD_CONTENT_PERMISSION = "Add portal content"
 setDefaultRoles(DEFAULT_ADD_CONTENT_PERMISSION, ('Manager', 'Owner', 'Contributor'))
 ADD_CONTENT_PERMISSIONS = {
-    'PolicyQuestion': 'indicators: Add PolicyQuestion',
-    'ExternalDataSpec': 'indicators: Add ExternalDataSpec',
-    'MethodologyReference': 'indicators: Add MethodologyReference',
-    'Specification': 'indicators: Add Specification',
-    'Assessment': 'indicators: Add Assessment',
-    'RationaleReference': 'indicators: Add RationaleReference',
-    'AssessmentPart': 'indicators: Add AssessmentPart',
-    'PolicyDocumentReference': 'indicators: Add PolicyDocumentReference',
-    'WorkItem': 'indicators: Add WorkItem',
+    'PolicyQuestion': 'Add portal content',
+    'ExternalDataSpec': 'Add portal content',
+    'MethodologyReference': 'Add portal content',
+    'Specification': 'Add portal content',
+    'Assessment': 'Add portal content',
+    'RationaleReference': 'Add portal content',
+    'AssessmentPart': 'Add portal content',
+    'PolicyDocumentReference': 'Add portal content',
+    'WorkItem': 'Add portal content',
 }
 
-setDefaultRoles('indicators: Add PolicyQuestion', ('Manager','Owner'))
-setDefaultRoles('indicators: Add ExternalDataSpec', ('Manager','Owner'))
-setDefaultRoles('indicators: Add MethodologyReference', ('Manager','Owner'))
-setDefaultRoles('indicators: Add Specification', ('Manager','Owner'))
-setDefaultRoles('indicators: Add Assessment', ('Manager','Owner'))
-setDefaultRoles('indicators: Add RationaleReference', ('Manager','Owner'))
-setDefaultRoles('indicators: Add AssessmentPart', ('Manager','Owner'))
-setDefaultRoles('indicators: Add PolicyDocumentReference', ('Manager','Owner'))
-setDefaultRoles('indicators: Add WorkItem', ('Manager','Owner'))
+setDefaultRoles('Add portal content', ('Manager','Owner'))
 
 product_globals = globals()
 
@@ -95,7 +87,7 @@ PROFILE_DEPENDENCIES = (
 
 
 #this is the role that people need to receive to become a manager over a specification
-MANAGER_ROLE = 'SpecificationManager'
+MANAGER_ROLE = 'ContentManager'
 ##/code-section config-bottom
 
 

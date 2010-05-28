@@ -18,7 +18,8 @@ We have several main content types. The most important are the Specification and
     >>> log = setuptool.runAllImportSteps()
 
     >>> browser = Browser()
-    >>> browser.handleErrors = False
+    >>> browser.handleErrors = True
+    >>> browser.raiseHttpErrors = False
     >>> self.portal.error_log._ignored_exceptions = ()
     >>> browser.addHeader('Authorization',
     ...                   'Basic %s:%s' % (PloneTestCase.portal_owner,
@@ -26,6 +27,8 @@ We have several main content types. The most important are the Specification and
     >>> def types_in_container(container):
     ...     types = [t.__class__.__name__ for t in container.objectValues()]
     ...     return sorted(types)
+    >>> print browser.headers
+    >>> print browser.contents
     >>>
 
 Containments

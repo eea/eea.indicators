@@ -3,7 +3,7 @@
 # $Id$
 #
 # Copyright (c) 2010 by ['Tiberiu Ichim']
-# Generator: ArchGenXML
+# Generator: ArchGenXML 
 #            http://plone.org/products/archgenxml
 #
 # GNU General Public License (GPL)
@@ -533,7 +533,6 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
                 'optional':_optional,
                 'total':_total,
                 }
-
     security.declarePublic('left_slots')
     def left_slots(self):
         _slot = 'here/portlet_readiness/macros/portlet'
@@ -571,10 +570,6 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
                     "%s%s" % (code['set'], code['code'])]
                     )
         return res
-
-    #security.declareProtected("Modify portal content", 'setManager_user_id')
-    #def setManager_user_id(self, value):
-    #    pass
 
     security.declareProtected("Modify portal content", 'setCodes')
     def setCodes(self, value):
