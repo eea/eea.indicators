@@ -430,10 +430,6 @@ function set_deleters(){
 function closer(fieldname, active_region, url){
   // reloads a region and closes the dialog based on an active field name
 
-  //TODO: check that these 3 commented lines don't break anything;
-  //they don't seem to be needed if we reload the region
-  // var text = $('#value_response').html(); // 1
-
   var field = "#active_field-"+fieldname;
 
   // we check if the field wants to reload the entire page
@@ -453,9 +449,6 @@ function closer(fieldname, active_region, url){
   }
 
   reload_region(region);
-
-  // $(fieldname).html(text);   // 2
-  // $('#value_response').remove(); // 3
 
   $("#dialog-inner").dialog("close");
   return false;

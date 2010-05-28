@@ -3,7 +3,7 @@
 # $Id$
 #
 # Copyright (c) 2010 by ['Tiberiu Ichim']
-# Generator: ArchGenXML
+# Generator: ArchGenXML 
 #            http://plone.org/products/archgenxml
 #
 # GNU General Public License (GPL)
@@ -12,11 +12,10 @@
 __author__ = """Tiberiu Ichim <unknown>"""
 __docformat__ = 'plaintext'
 
-import interfaces
-from zope.interface import implements
-from Products.Archetypes.atapi import *
-from Products.CMFCore import permissions
 from AccessControl import ClassSecurityInfo
+from Products.Archetypes.atapi import *
+from zope.interface import implements
+import interfaces
 from Products.ATContentTypes.content.link import ATLink
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 
@@ -26,8 +25,9 @@ from eea.indicators.config import *
 from Products.ATContentTypes.content.link import ATLink, ATLinkSchema
 
 ##code-section module-header #fill in your manual code here
-from Products.CMFPlone.utils import getToolByName
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema
+from Products.CMFCore import permissions
+from Products.CMFPlone.utils import getToolByName
 ##/code-section module-header
 
 schema = Schema((
@@ -104,6 +104,7 @@ class MethodologyReference(ATLink, BrowserDefaultMixin):
         """ """
         field = self.getField('remoteUrl')
         return field.getAccessor(self)()
+
 
 
 registerType(MethodologyReference, PROJECTNAME)
