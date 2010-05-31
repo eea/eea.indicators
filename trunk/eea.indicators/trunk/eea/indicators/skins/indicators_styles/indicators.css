@@ -17,6 +17,13 @@
   margin:15px 0 0;
 }
 
+/* Completeness status portlet */
+#readiness-status .percentage, #readiness-status .missingRequiredNr{
+  font-size: 250%;
+  color:red;
+}
+
+
 /* Fields that are required for publication */
 #assessment-base-edit #archetypes-fieldname-key_message,
 #externaldataspec-base-edit #archetypes-fieldname-provider_name,
