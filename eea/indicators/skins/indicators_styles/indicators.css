@@ -48,9 +48,11 @@
 #specification-base-edit #archetypes-fieldname-manager_user_id,
 #specification-base-edit #archetypes-fieldname-themes,
 #policyquestion-base-edit #archetypes-fieldname-title {
-  background-color:#FF4444;
-  padding:1em 1em 2em;
+  background:url(Warning.png) no-repeat scroll 0 0 transparent;
+  color:black;
+  padding:3em 0 2em;
 }
+
 #datagridwidget-table-codes {
   width:auto !important;
 }
