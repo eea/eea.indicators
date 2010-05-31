@@ -6,62 +6,45 @@
 	</head>
 	<body>
 		<div metal:fill-slot="main">
-			<h1>Permissions Overview for Indicators Database</h1>
-			<table class="listing" tal:define="users view/get_users_map">
-				<thead>
-					<tr>
-						<th>User ID</th>
-						<th>Role</th>
-						<th>Specification</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr tal:repeat="user users">
-						<td tal:content="user">Username</td>
-						<td>
-							<div tal:repeat="entry python:users[user]">
-								<span tal:content="python:','.join(entry['role'])" />
-							</div>
-						</td>
-						<td>
-							<div tal:repeat="entry python:users[user]">
-								<a href="" tal:attributes="href python:entry['specid']" 
-									tal:content="python:entry['spectitle']">Spec title
-								</a>
-							</div>
-						</td>
-					</tr>
-				</tbody>
-			</table>
 
-			<table class="listing" tal:define="specs view/get_specs_map">
-				<thead>
-					<tr>
-						<th>Specification</th>
-						<th>User ID</th>
-						<th>Role</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr tal:repeat="key specs">
-						<td>
-							<a href="" 
-								tal:attributes="href python:'./' + key[0]" 
-								tal:content="python:key[1]">Specification</a>
-						</td>
-						<td>
-							<div tal:repeat="entry python:specs[key]">
-								<span tal:content="entry/userid" />
-							</div>
-						</td>
-						<td >
-							<div tal:repeat="entry python:specs[key]">
-								<span tal:content="entry/role" />
-							</div>
-						</td>
-					</tr>
-				</tbody>
-			</table>
+			<h1>Permissions Overview for Indicators Database</h1>
+
+
+
+			<div tal:define="setcodes view/get_setcodes_map">
+				<div tal:repeat="set setcodes">
+					<h2 tal:content="set | string:Indicators without codes" />
+					<table class="listing">
+						<thead>
+							<tr>
+								<th>code</th>
+								<th>indicator</th>
+								<th>indicator manager</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr tal:repeat="entry python:setcodes[set]">
+								<td tal:define="codes entry/spec/getCodes">
+									<span tal:condition="codes" 
+										tal:define="info python:[code for code in codes if code['set'] == set][0]" 
+										tal:content="string:${info/set}${info/code}">CSI 001</span>
+								</td>
+								<td>
+									<a href="" 
+										tal:attributes="href spec/absolute_url" 
+										tal:define="spec python:entry['spec']" 
+										tal:content="spec/Title">Spec title</a>
+								</td>
+								<td >
+									<span tal:repeat="uid entry/userids" tal:content="uid" />
+									<!-- <span tal:content="entry/rolemap" /> -->
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
 		</div>
+
 	</body>
 </html>

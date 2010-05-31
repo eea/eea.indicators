@@ -185,6 +185,11 @@ with the following exceptions:
 
 Adding a new Assessment will already create it as a version of the previous one.
 
+TODO: test the following sentence
+
+When creating a new Assessment in a Specification that is versioned, that assessments
+needs to have the same versionid (group id) as the previous assessments.
+
 EEAFigures inside an assessment cannot be versioned via the Plone GUI. Only when a user 
 create a new Assessment new version of Figures are made and done by code (see above). 
 
