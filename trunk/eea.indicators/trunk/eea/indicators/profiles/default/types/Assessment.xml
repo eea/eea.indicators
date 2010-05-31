@@ -45,7 +45,7 @@
  <action title="Edit" 
          action_id="edit"
          category="object" 
-         condition_expr="python:1"
+         
          url_expr="string:${object_url}/@@edit_aggregated" 
          visible="True">
   <permission value="Modify portal content"/>
@@ -53,7 +53,7 @@
  <action title="Advanced edit" 
          action_id="advanced_edit"
          category="object" 
-         condition_expr="python:1"
+         
          url_expr="string:${object_url}/base_edit" 
          visible="True">
   <permission value="Modify portal content"/>

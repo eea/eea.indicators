@@ -2,6 +2,7 @@ from Products.CMFPlone.utils import getToolByName
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from eea.indicators.browser.interfaces import IIndicatorsPermissionsOverview
+from eea.indicators.config import MANAGER_ROLE
 from zope.interface import implements
 
 
@@ -50,21 +51,32 @@ class IndicatorsPermissionsOverview(BrowserView):
 
         return specsmap
 
-    def get_codes_map(self):
+    def get_setcodes_map(self):
+        #TODO: sort the results according to the code part of the setcode
+
+        result = {}
         specs = self.context.objectValues("Specification")
 
-        codes = {}
         for spec in specs:
-            key = (specid, title) = spec.getId(), spec.Title()
+            sets = [s['set'] for s in spec.getCodes()] 
             roles = spec.computeRoleMap()
-            for role in roles:
-                userid = role['id']
-                if role['local']:
-                    for local in role['local']:
-                        info = [{'userid':userid,
-                                'role':local,
-                                }]
-                        specsmap[key] = specsmap.get(key, []) + info
 
-        return specsmap
-        
+            userids = []
+
+            for role in roles:
+                if MANAGER_ROLE in role['local']:
+                    userids.append(role['id'])
+
+            for s in sets:
+                info = {
+                        'spec':spec,
+                        'userids':userids,
+                        'role':MANAGER_ROLE,
+                        'rolemap':roles,
+                        }
+                if s in result.keys():
+                    result[s].append(info)
+                else:
+                    result[s] = [info]
+
+        return result
