@@ -15,9 +15,6 @@
 		<link media="screen" type="text/css" rel="stylesheet"
 			tal:attributes="href string:${context/++resource++jquery.ui.theme/jquery-ui-1.7.custom.css}"
 				/>
-		<link media="screen" type="text/css" rel="stylesheet"
-			tal:attributes="href string:${context/++resource++modaledit.css}"
-				/>
 	</metal:cssslot>
 
 	<body>
