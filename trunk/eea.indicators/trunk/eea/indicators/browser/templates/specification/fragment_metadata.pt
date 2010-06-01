@@ -64,7 +64,7 @@
 							<metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
 								<metal:slot metal:fill-slot="content">
 									<div tal:condition="python:not dpsir" class="placeholder">
-										Please fill in
+										<span class="required">Please fill in</span>
 									</div>
 									<span tal:replace="dpsir" />
 								</metal:slot>
@@ -81,7 +81,7 @@
 							<metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
 								<metal:slot metal:fill-slot="content">
 									<div tal:condition="python:not typology" class="placeholder">
-										Please fill in
+										<span class="required">Please fill in</span>
 									</div>
 									<span tal:replace="typology" />
 								</metal:slot>
@@ -102,7 +102,7 @@
 							<metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
 								<metal:slot metal:fill-slot="content">
 									<div tal:condition="python:not themes" class="placeholder">
-										Please fill in
+										<span class="required">Please fill in</span>
 									</div>
 									<ul tal:condition="python:themes">
 										<li tal:repeat="theme themes" tal:content="theme" />
@@ -121,13 +121,15 @@
 						<div class="wrapper" >
 							<div tal:define="codes context/getCodes">
 
+								<div class="required-field"></div> 
 								<strong>Indicator code</strong>
-								<tal:def tal:define="fieldname string:codes; fieldset string:Classification;
-									dpsir context/getDpsir">
+								<tal:def tal:define="fieldname string:codes; fieldset string:Classification">
 									<metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
 										<metal:slot metal:fill-slot="content">
 											<div tal:condition="python:not codes" class="placeholder">
-												Please fill in
+												<span class="required">
+													Please fill in
+												</span>
 											</div>
 											<div tal:repeat="code codes" tal:content="string:${code/set} ${code/code}">
 												CSI 001
