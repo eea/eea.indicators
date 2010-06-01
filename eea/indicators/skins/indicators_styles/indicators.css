@@ -23,6 +23,12 @@
   color:red;
 }
 
+.required-field {
+  background:url(Warning.png) no-repeat scroll 0 0 transparent;
+  color:black;
+  padding:0 0 0 2.5em;
+	line-height:2em;
+}
 
 /* Fields that are required for publication */
 #assessment-base-edit #archetypes-fieldname-key_message,
@@ -405,6 +411,13 @@ h1 {
 .active_region .placeholder {
 	background-color:#FFEB9B;
 	padding:1em;
+	text-align:center;
+}
+
+.active_region .placeholder span.required {
+  background:url(Warning.png) no-repeat scroll 3px 3px  #FFEB9B;
+	padding:10px 0 10px 4em;
+	line-height:20px;
 	text-align:center;
 }
 

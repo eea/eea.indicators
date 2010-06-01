@@ -17,7 +17,7 @@
 							<metal:slot metal:fill-slot="content">
 								<div tal:condition="python:not imsutils.field_has_value('policy_context_description', context)"
 									class="placeholder">
-									Please fill in
+									<span class="required">Please fill in</span>
 								</div>
 								<p tal:replace="structure context/getPolicy_context_description"></p>
 							</metal:slot>
