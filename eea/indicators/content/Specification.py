@@ -62,6 +62,7 @@ schema = Schema((
         name='title',
         widget=StringField._properties['widget'](
             label="Title",
+            description="The generic title of the indicator which is stable over a long period. It is short enough to explain the tracked issue and it does not contain specific dates.",
             label_msgid='indicators_label_title',
             i18n_domain='indicators',
         ),
@@ -76,6 +77,7 @@ schema = Schema((
         name='codes',
         widget=DataGridWidget(
             label="Specification identification codes",
+            description="Codes are short names used to identify the indicator in question. Code is made up of a SET-ID and an CODE-NR, e.g. TERM 002. Multiple codes are allowed, since same indicator can be re-used in other indicators' sets.",
             columns={'set':SelectColumn("Set ID", vocabulary="get_indicator_codes"), "code":Column("Code number")},
             auto_insert=True,
             label_msgid='indicators_label_codes',
@@ -90,7 +92,8 @@ schema = Schema((
         name='more_updates_on',
         allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
         widget=RichWidget(
-            label="More updates on",
+            label="Message info on updates",
+            description="This information is used to display warning messages to the users on top of the indicator page.",
             label_msgid='indicators_label_more_updates_on',
             i18n_domain='indicators',
         ),
@@ -102,23 +105,25 @@ schema = Schema((
     StringField(
         name='dpsir',
         widget=SelectionWidget(
-            label="DPSIR",
+            label="Position in DPSIR framework",
+            description="DPSIR is a causal framework for describing the interactions between society and the environment. Adopted by the European Environment Agency, it is an extension of the pressure-state-response model developed by OECD.",
             label_msgid='indicators_label_dpsir',
             i18n_domain='indicators',
         ),
         schemata="Classification",
-        vocabulary=[("None", ""), ('D', 'Driving forces'), ('P', 'Pressures'), ('S', 'States'), ('I', 'Impacts'), ('R', 'Reactions')],
+        vocabulary=[("None", ""), ('D', 'Driving force'), ('P', 'Pressure'), ('S', 'State'), ('I', 'Impact'), ('R', 'Response')],
         required_for_published=True,
     ),
     StringField(
         name='typology',
         widget=SelectionWidget(
             label="Typology",
+            description="Typology is a categorisation based on a simple set of questions: what is happening (A) is this relevant (B) can we make progress in improving the way we do things (C), are the undertaken policy measures effective (Type D) and does this contribute to our overall welfare (E)?, led to a first typology of indicators. The typology was used to demonstrate that (in",
             label_msgid='indicators_label_typology',
             i18n_domain='indicators',
         ),
         schemata="Classification",
-        vocabulary=[['None', ''], ['A', 'A'], ['B', 'B'], ['C', 'C'], ['D', 'D'], ['E', 'E']],
+        vocabulary=[['None', ''], ['A', 'Descriptive indicator (Type A – What is happening to the environment and to humans?)'], ['B', 'Performance indicator (Type B – Does it matter?)'], ['C', 'Efficiency indicator (Type C – Are we improving?)'], ['D', 'Policy-effectiveness indicator (Type D)'], ['E', 'Total welfare indicator (Type E – Are we on whole better off?)']],
         required_for_published=True,
     ),
     LinesField(
@@ -131,19 +136,8 @@ schema = Schema((
         ),
         schemata="Responsability",
         vocabulary=Organisations(),
-    ),
-    TextField(
-        name='contact',
-        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
-        widget=RichWidget(
-            label="Specification manager contact details",
-            label_msgid='indicators_label_contact',
-            i18n_domain='indicators',
-        ),
-        default_content_type="text/html",
-        searchable=True,
-        schemata="Responsability",
-        default_output_type="text/x-html-safe",
+        required=True,
+        required_for_published=True,
     ),
     TextField(
         name='rationale_justification',
