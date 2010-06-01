@@ -14,23 +14,6 @@
 					<div class='headed-box'>
 						<h5>Responsability and ownership</h5>
 
-						<h6>EEA Contact Info</h6>
-						<tal:def tal:define="fieldname string:contact; fieldset string:Responsability">
-							<metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
-								<metal:slot metal:fill-slot="content">
-									<div tal:condition="python:not imsutils.field_has_value(fieldname, context)"
-										class="placeholder">
-										Please fill in
-									</div>
-									<div tal:replace="structure context/getContact">...</div>
-								</metal:slot>
-								<metal:slot metal:fill-slot="extra-metadata">
-									<div class="width">800</div>
-									<div class="height">435</div>
-								</metal:slot>
-							</metal:macro>
-						</tal:def>
-
 						<h6>Ownership</h6>
 						<tal:def tal:define="fieldname string:ownership; fieldset string:Responsability;
 							owners context/getOwnership">
@@ -121,7 +104,7 @@
 						<div class="wrapper" >
 							<div tal:define="codes context/getCodes">
 
-								<div class="required-field"></div> 
+								<div class="required-field"></div>
 								<strong>Indicator code</strong>
 								<tal:def tal:define="fieldname string:codes; fieldset string:Classification">
 									<metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
