@@ -106,7 +106,7 @@ schema = Schema((
         name='dpsir',
         widget=SelectionWidget(
             label="Position in DPSIR framework",
-            description="The work of the EEA is built around a conceptual framework know as the DPSIR assessment framework. DPSIR stands for ‘driving forces, pressures, states, impacts and responses’. DPSIR builds on the existing OECD model and offers a basis for analysing the interrelated factors that impact on the environment.",
+            description="The work of the EEA is built around a conceptual framework known as the DPSIR assessment framework. DPSIR stands for ‘driving forces, pressures, states, impacts and responses’. DPSIR builds on the existing OECD model and offers a basis for analysing the interrelated factors that impact on the environment.",
             label_msgid='indicators_label_dpsir',
             i18n_domain='indicators',
         ),
