@@ -64,9 +64,6 @@
 			<div class='headed-box'>
 				<h3>Responsability and ownership</h3>
 
-				<h4>EEA Contact Info:</h4>
-				<div tal:content="structure context/getContact">...</div>
-
 				<h4>Ownership</h4>
 				<ul>
 					<li tal:repeat="info context/getOwnership" >

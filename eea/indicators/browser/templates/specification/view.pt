@@ -250,8 +250,7 @@
             <h3>Responsability and ownership</h3>
 
             <h4>EEA Contact Info</h4>
-            <tal:contact define="manager_id context/getManager_user_id;
-                                 contact context/getContact">
+            <tal:contact define="manager_id context/getManager_user_id">
               <tal:manager condition="manager_id">
                 <tal:block define="manager_ob context/@@indicator_contact_info">
                   <a href=""
@@ -266,7 +265,7 @@
                 </tal:block>
               </tal:manager>
               <tal:contact condition="not:manager_id">
-                <p tal:content="contact" />
+                <p>no contact info</p>
               </tal:contact>
             </tal:contact>
 
@@ -372,7 +371,7 @@
             <strong>DPSIR</strong>: <span tal:replace="context/getDpsir" /><br/>
             <strong>Typology</strong>: <span tal:replace="context/getTypology" /><br/>
           </div>
-          
+
           <metal:macro use-macro="here/eea_relateditems/macros/relatedItemsWithThumbs" />
 
       </metal:main_macro>
