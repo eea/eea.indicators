@@ -228,6 +228,9 @@ function schemata_ajaxify(el, active_region){
     var kupu_id = $(this).attr('id');
     setTimeout(function(){
       initPloneKupu(kupu_id);
+      $("#kupu-bold-button").trigger('click');
+      $("#kupu-bold-button").trigger('click');
+      // $("#kupu-bold-button").trigger('click');
     }, 1000);
   });
 
@@ -462,6 +465,8 @@ function ajaxify(el, fieldname){
     var kupu_id = $(this).attr('id');
     setTimeout(function(){
       initPloneKupu(kupu_id);
+      $("#kupu-bold-button").trigger('click');
+      $("#kupu-bold-button").trigger('click');
     }, 1000);
   });
 
