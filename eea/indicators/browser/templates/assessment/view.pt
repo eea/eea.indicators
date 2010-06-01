@@ -64,6 +64,26 @@
 			<div class='headed-box'>
 				<h3>Responsability and ownership</h3>
 
+				<h4>EEA Contact Info</h4>
+				<tal:contact define="manager_id context/getManager_user_id">
+				  <tal:manager condition="manager_id">
+				    <tal:block define="manager_ob context/@@indicator_contact_info">
+				      <a href=""
+					 tal:condition="manager_ob"
+					 title="Contact indicator manager"
+					 tal:attributes="href string:http://www.eionet.europa.eu/sitedirsearch?name=${manager_ob/uid}"
+					 tal:content="manager_ob/cn">Contact</a>
+				      <p tal:condition="not:manager_ob">
+					<span>User not found:</span>
+					<tal:manager_id tal:content="manager_id" />
+				      </p>
+				    </tal:block>
+				  </tal:manager>
+				  <tal:contact condition="not:manager_id">
+				    <p>no contact info</p>
+				  </tal:contact>
+				</tal:contact>
+
 				<h4>Ownership</h4>
 				<ul>
 					<li tal:repeat="info context/getOwnership" >
