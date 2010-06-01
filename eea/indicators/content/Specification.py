@@ -106,7 +106,7 @@ schema = Schema((
         name='dpsir',
         widget=SelectionWidget(
             label="Position in DPSIR framework",
-            description="DPSIR is a causal framework for describing the interactions between society and the environment. Adopted by the European Environment Agency, it is an extension of the pressure-state-response model developed by OECD.",
+            description="The work of the EEA is built around a conceptual framework know as the DPSIR assessment framework. DPSIR stands for ‘driving forces, pressures, states, impacts and responses’. DPSIR builds on the existing OECD model and offers a basis for analysing the interrelated factors that impact on the environment.",
             label_msgid='indicators_label_dpsir',
             i18n_domain='indicators',
         ),
@@ -129,7 +129,8 @@ schema = Schema((
     LinesField(
         name='ownership',
         widget=MultiSelectionWidget(
-            label="Owner",
+            label="Owners",
+            description="One or several institutions/organisations sharing ownership for this indicator.",
             macro="organisations_widget",
             label_msgid='indicators_label_ownership',
             i18n_domain='indicators',
@@ -142,7 +143,8 @@ schema = Schema((
     TextField(
         name='rationale_justification',
         widget=RichWidget(
-            label="Rationale justification",
+            label="Rationale for indicator selection",
+            description="Explanation and justification of indicator selection.",
             label_msgid='indicators_label_rationale_justification',
             i18n_domain='indicators',
         ),
@@ -170,6 +172,7 @@ schema = Schema((
         name='policy_context_description',
         widget=RichWidget(
             label="Policy context",
+            description="Policy context is the main driving force for presentation of indicator and its assessments.",
             label_msgid='indicators_label_policy_context_description',
             i18n_domain='indicators',
         ),
@@ -186,6 +189,7 @@ schema = Schema((
         allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
         widget=RichWidget(
             label="Targets for the policy context",
+            description="A quantitative value which usually underpins a European Union or other international policy objective. The target usually has a time deadline that should be met through the design and implementation of measures by countries.",
             label_msgid='indicators_label_policy_context_targets',
             i18n_domain='indicators',
         ),
@@ -198,6 +202,7 @@ schema = Schema((
         name='definition',
         widget=RichWidget(
             label="Definition",
+            description="Provide short textual definition of the indicator. Provide units and list of parameters, sectors, media, processes used in indicator. A definition is a statement of the precise meaning of something. Often includes specific examples of what is and is not included in particular categories. ",
             label_msgid='indicators_label_definition',
             i18n_domain='indicators',
         ),
@@ -227,7 +232,8 @@ schema = Schema((
     TextField(
         name='methodology',
         widget=RichWidget(
-            label="Methodology",
+            label="Methodology for indicator calculation",
+            description="Guidelines for calculating the indicator, including exact formulas and/or links to more explanatory methodological description",
             label_msgid='indicators_label_methodology',
             i18n_domain='indicators',
         ),
@@ -269,7 +275,7 @@ schema = Schema((
         name='methodology_gapfilling',
         allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
         widget=RichWidget(
-            label="Methodology gapfilling",
+            label="Methodology for gap filling",
             label_msgid='indicators_label_methodology_gapfilling',
             i18n_domain='indicators',
         ),
@@ -283,6 +289,7 @@ schema = Schema((
         widget=TextAreaWidget(
             visible={'view':'invisible', 'edit':'invisible'},
             label='Description',
+            description='A short and concise description about this indicator.',
             label_msgid='indicators_label_description',
             i18n_domain='indicators',
         ),
@@ -301,7 +308,8 @@ schema = Schema((
     StringField(
         name='manager_user_id',
         widget=StringField._properties['widget'](
-            label="Indicator Manager User",
+            label="EEA Indicator Manager",
+            description="Central contact point for this indicator, mainly responsible for the indicator update and its further development.",
             label_msgid='indicators_label_manager_user_id',
             i18n_domain='indicators',
         ),
@@ -311,9 +319,9 @@ schema = Schema((
     ReferenceField(
         name='relatedItems',
         widget=ReferenceBrowserWidget(
-            label="External data sets",
+            label="External data references",
             addable=True,
-            description="Here comes Dataspec description",
+            description="References to external data sets, available on other websites or via other organisations' communication channels.",
             label_msgid='indicators_label_relatedItems',
             description_msgid='indicators_help_relatedItems',
             i18n_domain='indicators',
