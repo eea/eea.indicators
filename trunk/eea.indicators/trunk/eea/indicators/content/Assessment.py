@@ -3,7 +3,7 @@
 # $Id$
 #
 # Copyright (c) 2010 by ['Tiberiu Ichim']
-# Generator: ArchGenXML 
+# Generator: ArchGenXML
 #            http://plone.org/products/archgenxml
 #
 # GNU General Public License (GPL)
@@ -147,6 +147,7 @@ class Assessment(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory, Br
                 'key':key,
                 'secondary':secondary
                 }
+
     security.declarePublic("Title")
     def Title(self):
         try:
@@ -180,8 +181,6 @@ class Assessment(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory, Br
     security.declarePublic('getThemes')
     def getThemes(self):
         return self.aq_parent.getThemes()
-
-
 
 registerType(Assessment, PROJECTNAME)
 # end of class Assessment
