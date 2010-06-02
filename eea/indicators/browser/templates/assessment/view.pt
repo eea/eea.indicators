@@ -43,14 +43,14 @@
       <p>
         <strong>Note: </strong>
         <span tal:condition="figure_description" tal:content="figure_description" />
-        <span tal:condition="not:figure_description">N/A</>
+        <span tal:condition="not:figure_description">N/A</span>
       </p>
     </tal:description>
 
     <tal:dataSource define="figure_dataSource figure/getDataSource">
       <p>
         <strong>Data source: </strong>
-        <span tal:condition="not:figure_dataSource">N/A</>
+        <span tal:condition="not:figure_dataSource">N/A</span>
       </p>
       <p tal:condition="figure_dataSource" tal:content="figure_dataSource" />
     </tal:dataSource>
@@ -89,14 +89,14 @@
       <p>
         <strong>Note: </strong>
         <span tal:condition="figure_description" tal:content="figure_description" />
-        <span tal:condition="not:figure_description">N/A</>
+        <span tal:condition="not:figure_description">N/A</span>
       </p>
     </tal:description>
 
     <tal:dataSource define="figure_dataSource figure/getDataSource">
       <p>
         <strong>Data source: </strong>
-        <span tal:condition="not:figure_dataSource">N/A</>
+        <span tal:condition="not:figure_dataSource">N/A</span>
       </p>
       <p tal:condition="figure_dataSource" tal:content="figure_dataSource" />
     </tal:dataSource>
