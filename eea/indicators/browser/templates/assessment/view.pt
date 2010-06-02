@@ -52,7 +52,7 @@
         <strong>Data source: </strong>
         <span tal:condition="not:figure_dataSource">N/A</span>
       </p>
-      <p tal:condition="figure_dataSource" tal:content="figure_dataSource" />
+      <p tal:condition="figure_dataSource" tal:content="structure figure_dataSource" />
     </tal:dataSource>
 
     <a tal:attributes="href figure/absolute_url">Downloads and more info</a>
@@ -99,7 +99,7 @@
         <strong>Data source: </strong>
         <span tal:condition="not:figure_dataSource">N/A</span>
       </p>
-      <p tal:condition="figure_dataSource" tal:content="figure_dataSource" />
+      <p tal:condition="figure_dataSource" tal:content="structure figure_dataSource" />
     </tal:dataSource>
 
     <a tal:attributes="href figure/absolute_url">Downloads and more info</a>
