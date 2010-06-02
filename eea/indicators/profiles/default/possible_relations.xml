@@ -13,6 +13,11 @@
 		<property name="ct_type">Data</property>
 		<property name="ct_interface"></property>
 	</object>
+	<object name="eeafigure" meta_type="EEARelationsContentType">
+		<property name="title">EEAFigure</property>
+		<property name="ct_type">EEAFigure</property>
+		<property name="ct_interface"></property>
+	</object>
 	<object name="policy-document-reference" meta_type="EEARelationsContentType">
 		<property name="title">Policy Document Reference</property>
 		<property name="ct_type">PolicyDocumentReference</property>
@@ -21,6 +26,16 @@
 	<object name="external-data-spec" meta_type="EEARelationsContentType">
 		<property name="title">External Data Spec</property>
 		<property name="ct_type">ExternalDataSpec</property>
+		<property name="ct_interface"></property>
+	</object>
+	<object name="assessmentpart" meta_type="EEARelationsContentType">
+		<property name="title">Assessment Part</property>
+		<property name="ct_type">AssessmentPart</property>
+		<property name="ct_interface"></property>
+	</object>
+	<object name="policyquestion" meta_type="EEARelationsContentType">
+		<property name="title">Policy Question</property>
+		<property name="ct_type">PolicyQuestion</property>
 		<property name="ct_interface"></property>
 	</object>
 
@@ -41,6 +56,24 @@
 		<property name="title">Specification -&gt; External Data Spec</property>
 		<property name="from">specification</property>
 		<property name="to">external-data-spec</property>
+		<property name="required">False</property>
+		<property name="required_for">
+			<element value="published"/>
+		</property>
+	</object>
+	<object name="assessmentpart-policyquestion" meta_type="EEAPossibleRelation">
+		<property name="title">AssessmentPart -&gt; PolicyQuestion</property>
+		<property name="from">assessmentpart</property>
+		<property name="to">policyquestion</property>
+		<property name="required">True</property>
+		<property name="required_for">
+			<element value="published"/>
+		</property>
+	</object>
+	<object name="assessmentpart-eeafigure" meta_type="EEAPossibleRelation">
+		<property name="title">AssessmentPart -&gt; EEAFigure</property>
+		<property name="from">assessmentpart</property>
+		<property name="to">eeafigure</property>
 		<property name="required">False</property>
 		<property name="required_for">
 			<element value="published"/>
