@@ -44,6 +44,7 @@ schema = Schema((
         allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
         widget=RichWidget(
             label="Key message",
+            description="A short message listing the assessment's key findings. It works as a summary/abstract for the entire indicator assessment.",
             label_msgid='indicators_label_key_message',
             i18n_domain='indicators',
         ),
@@ -56,6 +57,7 @@ schema = Schema((
         name='management_plan',
         widget=ManagementPlanField._properties['widget'](
             label='Management_plan',
+            description="Internal EEA project line code, used to assign an EEA product output to a specific EEA project number in the management plan.",
             label_msgid='indicators_label_management_plan',
             i18n_domain='indicators',
         ),
@@ -94,7 +96,7 @@ Assessment_schema['management_plan'] = ManagementPlanField(
         widget = ManagementPlanWidget(
             format="select",
             label="EEA Management Plan",
-            description = ("EEA Management plan code."),
+            description = ("EEA Management plan code. Internal EEA project line code, used to assign an EEA product output to a specific EEA project number in the management plan."),
             label_msgid='dataservice_label_eea_mp',
             description_msgid='dataservice_help_eea_mp',
             i18n_domain='eea.dataservice',
