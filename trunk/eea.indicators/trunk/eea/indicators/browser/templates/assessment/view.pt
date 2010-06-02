@@ -25,7 +25,7 @@
                                         eea_figures python:relatedItems('EEAFigure')">
 
 <div tal:repeat="figure eea_figures" class="indicator-figure-plus-container">
-  <div class="indicator-figure-plus" tal:sttributes="id figure/getId">
+  <div class="indicator-figure-plus" tal:attributes="id figure/getId">
     <div class="indicator-figure-image">
       <a title="Downloads and more info"
          href=""
@@ -71,7 +71,7 @@
                                         eea_figures python:relatedItems('EEAFigure')">
 
 <div tal:repeat="figure eea_figures" class="indicator-figure-plus-container">
-  <div class="indicator-figure-plus" tal:sttributes="id figure/getId">
+  <div class="indicator-figure-plus" tal:attributes="id figure/getId">
     <div class="indicator-figure-image">
       <a title="Downloads and more info"
          href=""
