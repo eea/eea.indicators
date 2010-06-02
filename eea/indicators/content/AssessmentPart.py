@@ -3,7 +3,7 @@
 # $Id$
 #
 # Copyright (c) 2010 by ['Tiberiu Ichim']
-# Generator: ArchGenXML 
+# Generator: ArchGenXML
 #            http://plone.org/products/archgenxml
 #
 # GNU General Public License (GPL)
@@ -88,7 +88,7 @@ AssessmentPart_schema.moveField('relatedItems', pos=0)
 AssessmentPart_schema['relatedItems'] = EEAReferenceField('relatedItems',
         relationship='relatesTo',
         required=True,
-        multiValued=False,
+        multiValued=True,
         validators=('one_assessment_per_question',),
         widget=EEAReferenceBrowserWidget(
             label="Answers to policy question",
@@ -117,24 +117,35 @@ class AssessmentPart(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory
 
     # Manually created methods
 
+    def get_related_question(self):
+        question = None
+        try:
+            relations = self.getRelatedItems()
+        except AttributeError:
+            relations = [] #reference_catalog is not found at creation
+        for ob in relations:
+            if ob.portal_type == 'PolicyQuestion':
+                question = ob
+                break
+        return question
+
     security.declarePublic('Title')
     def Title(self):
-        try:
-            q = self.getRelatedItems()
-        except AttributeError:  #reference_catalog is not found at creation
-            q = None
-        if (not q) or (q == [None]):
-            return "Answer to unknown question"
+        question = self.get_related_question()
 
-        #return u"Answer for: %s" % q.Title()
-        return q[0].Title()
+        if question:
+            return question.Title()
+        else:
+            return "Answer to unknown question"
 
     security.declarePublic('is_key_message')
     def is_key_message(self):
-        q = self.getRelatedItems()
-        if not q:
+        question = self.get_related_question()
+
+        if question:
+            return question.getIs_key_question()
+        else:
             return False
-        return q[0].getIs_key_question()
 
     security.declarePublic('get_specification_path')
     def get_specification_path(self):
