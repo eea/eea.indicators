@@ -18,8 +18,11 @@
 				secondary assessments/secondary; "
 				>
 				<div tal:condition="key" >
-					<h2 tal:content="key/Title">Question here</h2>
-					<div tal:replace="structure python:key.getAssessment()">Question here</div>
+					<h2 tal:content="key/Title" class="policy_question">Question here</h2>
+					<div class="keyMessage">
+						<h3>Key message</h3>
+						<p tal:content="structure context/getKey_message" />
+					</div>
 
           <tal:policy_documents define="relatedItems nocall:key/@@related_items;
                                         eea_figures python:relatedItems('EEAFigure')">
@@ -62,11 +65,12 @@
 </div>
           </tal:policy_documents>
 
+					<h3>Key assessment</h3>
+					<div tal:replace="structure python:key.getAssessment()">Question here</div>
 				</div>
 
 				<tal:parts repeat="part secondary">
-					<h2 tal:content="part/Title">Question here</h2>
-					<div tal:replace="structure part/assessment">Question here</div>
+					<h2 tal:content="part/Title" class="policy_question">Question here</h2>
 
           <tal:policy_documents define="relatedItems nocall:part/@@related_items;
                                         eea_figures python:relatedItems('EEAFigure')">
@@ -109,6 +113,8 @@
 </div>
           </tal:policy_documents>
 
+					<h3>Specific assessment</h3>
+					<div tal:replace="structure part/assessment">Question here</div>
 				</tal:parts>
 			</div>
 

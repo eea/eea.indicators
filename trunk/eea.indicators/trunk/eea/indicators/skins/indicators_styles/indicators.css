@@ -17,7 +17,8 @@
   margin:15px 0 0;
 }
 
-/* Completeness status portlet */
+/* Completeness status portlet
+============================== */
 #readiness-status .percentage, #readiness-status .missingRequiredNr{
   font-size: 250%;
   color:red;
@@ -30,7 +31,8 @@
 	line-height:2em;
 }
 
-/* Fields that are required for publication */
+/* Fields that are required for publication
+=========================================== */
 #assessment-base-edit #archetypes-fieldname-key_message,
 #externaldataspec-base-edit #archetypes-fieldname-provider_name,
 #externaldataspec-base-edit #archetypes-fieldname-provider_url,
@@ -79,14 +81,16 @@
 	display:hidden;
 }
 
-/* Temporary overrides */
+/* Temporary overrides
+====================== */
 dl.toc {
   /* TODO: temporary override, because of conflict with kupu styling
    * Per Thulin has a ticket to fix this */
   display:inherit !important;
 }
 
-/* Active field stuff */
+/* Active field stuff
+===================== */
 .sortable_spec {
   margin: 0;
   padding: 0;
@@ -162,7 +166,8 @@ dl.toc {
 	font-size:inherit;
 }
 
-/* Specification view */
+/* Specification view
+===================== */
 .documentContent th {
   background-color: #31B4FF;
   font-weight: bold;
@@ -228,8 +233,16 @@ h1 {
   opacity:0.3;
 	FILTER: Alpha(Opacity=30);
 }
+.keyMessage {
+  background-color: #DEE7EC;
+  border: 1px dashed #8CACBB;
+  color: Black;
+  font-size: 120%;
+  margin: 1em;
+}
+
 /* Update ui images path
-*/
+======================== */
 .ui-icon-show {
   background-image: url(../../++resource++faceted_images/show.png) ! important;
 }
@@ -333,7 +346,7 @@ h1 {
 }
 
 /* Active fields
- * ==========================*/
+ * ========================== */
 
 #dialog-inner {
 	/* height:500px; */
@@ -376,7 +389,7 @@ h1 {
 }
 
 /* Active fields styling
- * ========================*/
+ * ======================== */
 .active_region {
 		/* padding:1em 0; */
 }
@@ -470,7 +483,7 @@ a.schemata_edit:hover, a.object_delete:hover {
 
 
 /* Kupu and calendar fixes for modal edit
- * ======================================*/
+ * ====================================== */
 .calendar {
 	z-index:1100;
 }
@@ -485,7 +498,7 @@ div.kupu-fulleditor-zoomed .kupu-editor-iframe {
 }
 
 /* EEAFigures display
- * ===================*/
+ * =================== */
 .indicator-figure-plus-container {
   border: 1px solid #A9A9A9;
   margin: 1em 0;
