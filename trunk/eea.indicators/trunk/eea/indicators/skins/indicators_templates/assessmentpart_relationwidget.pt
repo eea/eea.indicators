@@ -29,8 +29,10 @@ It may be that we can collapse the changes into the regular indicatorsrelations.
 			domid string:$fieldName-${context/UID};
 			"
 			tal:attributes="id string:${domid}-widget"
-			class="relations-widget eea-widget-referencebrowser"
+			class="eea-widget-referencebrowser"
 			>
+
+			<!-- class="relations-widget"  -->
 			<div class="metadata">
 				<div class="fieldname" tal:content="fieldName" />
 				<div class="domid" tal:content="domid" />
