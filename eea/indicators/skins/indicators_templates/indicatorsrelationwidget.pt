@@ -36,7 +36,6 @@
 							$$('#' + '$widget_dom_id').get(0)._widget = popup;;
 
 							$$(popup.events).bind(popup.events.SAVED, function(evt){
-								console.log('Doing save from initial widget');;
 								ajaxify($$('#active_field-$fieldName'), '$fieldName');;
 								$$('#active_field-$fieldName form').trigger('submit');;
 							});
@@ -60,4 +59,3 @@
 
 	</body>
 </html>
-
