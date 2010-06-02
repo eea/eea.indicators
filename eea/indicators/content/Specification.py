@@ -351,8 +351,10 @@ Specification_schema['relatedItems'] = EEAReferenceField('relatedItems',
         multivalued=True,
         isMetadata=False,
         widget=EEAReferenceBrowserWidget(
-            label='Related Item(s)',
-            description='Specify related item(s).',
+            label='External data references',
+            description="References to external data sets, available on other websites or via other organisations' communication channels.",
+            label_msgid='indicators_label_specRelatedItems',
+            description_msgid='indicators_help_specRelatedItems',
             macro="indicatorsrelationwidget",
             ))
 

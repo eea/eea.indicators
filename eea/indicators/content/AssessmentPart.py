@@ -91,7 +91,7 @@ AssessmentPart_schema['relatedItems'] = EEAReferenceField('relatedItems',
         multiValued=True,
         validators=('one_assessment_per_question',),
         widget=EEAReferenceBrowserWidget(
-            label="Answers to policy question",
+            label="Answers to policy question and related EEAFigures",
             label_msgid='indicators_label_question_answered',
             i18n_domain='indicators',
             ))
