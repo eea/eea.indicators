@@ -603,6 +603,17 @@ function open_relations_widget(widget_dom_id, selected_tab){
   return false;
 }
 
+function bootstrap_relations_widgets(){
+  $('.relations-widget').each(
+    function(){
+      var fieldname = $(".metadata .fieldname", this).text();
+      var domid = $(".metadata .domid", this).text();    //$(this).attr('id');
+      var popup = new EEAReferenceBrowser.Widget(domid, {'fieldname':fieldname});;
+      // console.log("Initialized widget ", fieldname, 'with', domid);
+    }
+  );
+}
+
 
 $(document).ready(function () {
 
@@ -611,6 +622,7 @@ $(document).ready(function () {
   set_creators();
   set_deleters();
   set_edit_buttons();
+  bootstrap_relations_widgets();
 
   // setTimeout('change_kupu_styles()', '2000');
 
