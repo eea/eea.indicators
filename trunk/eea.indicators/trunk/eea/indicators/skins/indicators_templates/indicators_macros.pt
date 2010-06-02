@@ -51,8 +51,15 @@
 	</div>
 </div>
 
-<!-- Active reference field macro -->
-<!--  
+<!-- Active reference field macro 
+
+This field macro wraps the relations widget with info and metadata
+that allow integration with the aggregated edit views.
+The dom element that renders the popup macro is replaced,
+in case the form validation fails (for example), with the widget
+that is rendered by the schema (in this case, 
+the one in indicatorsrelationwidet.pt)
+
 Parameters:
 
 @@param realFieldName: optional
@@ -117,13 +124,4 @@ The name of the region fragment that will be updated;
 
 		</div>
 	</div>
-	<!-- <script type="text/javascript" tal:content="string: -->
-	<!-- 	var popup = new EEAReferenceBrowser.Widget('$fieldName');; -->
-	<!-- 	$$('#' + '$widget_dom_id').get(0)._widget = popup;; -->
-
-	<!-- 	$$(popup.events).bind(popup.events.SAVED, function(evt){ -->
-	<!-- 		ajaxify($$('#$widget_dom_id'), '$realFieldName');; -->
-	<!-- 		$$('#$widget_dom_id form').trigger('submit');; -->
-	<!-- 	}); -->
-	<!-- 	"></script> -->
 </metal:macro>
