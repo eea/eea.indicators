@@ -71,7 +71,6 @@ class RelatedItems(BrowserView):
         return [rel for rel in self.context.getRelatedItems()
                     if rel.portal_type in ctype]
 
-
     def get_uids(self, ctype=None):
         if ctype == None:
             return self.context.getRawRelatedItems()
@@ -79,6 +78,6 @@ class RelatedItems(BrowserView):
         if type(ctype) not in (list, tuple):
             ctype = [ctype]
 
-        return [rel.UID() for rel in self.context.getRelatedItems() 
+        return [rel.UID() for rel in self.context.getRelatedItems()
                 if rel.portal_type in ctype]
 

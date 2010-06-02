@@ -50,7 +50,7 @@
 		/>
 
 	<browser:page name="related_items"
-		for="eea.indicators.content.interfaces.ISpecification"
+		for="*"
 		class=".utils.RelatedItems"
 		permission="zope2.View" />
 

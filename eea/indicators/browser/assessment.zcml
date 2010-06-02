@@ -10,7 +10,7 @@
 		for="eea.indicators.content.interfaces.IAssessment"
 		class=".assessment.AggregatedEditPage" permission="zope2.View" />
 
-	<browser:page 
+	<browser:page
 		name="get_readiness" for="eea.indicators.content.interfaces.IAssessment"
 		permission="zope2.View"	class=".assessment.WorkflowStateReadiness"
 		allowed_interface="eea.workflow.interfaces.IObjectReadiness" />
@@ -36,17 +36,22 @@
 		permission="zope2.View"
 		/>
 
+	<browser:page name="indicator_contact_info"
+		for="eea.indicators.content.interfaces.IAssessment"
+		class=".specification.ContactInfo"
+		permission="zope2.View" />
+
 	<!-- Assessment Versioning -->
-	<browser:page name="createVersion" 
-		for="eea.indicators.content.interfaces.IAssessment" 
+	<browser:page name="createVersion"
+		for="eea.indicators.content.interfaces.IAssessment"
 		permission="cmf.ModifyPortalContent" class=".assessment.CreateVersion" />
 
-	<browser:menuItem title="Create new version" 
+	<browser:menuItem title="Create new version"
 		for="eea.indicators.content.interfaces.IAssessment"
-		menu="object_buttons" action="@@createVersion" 
+		menu="object_buttons" action="@@createVersion"
 		description="Create a new version" permission="cmf.ModifyPortalContent" />
 
-	<browser:menuItem title="Revoke version" 
+	<browser:menuItem title="Revoke version"
 		for="eea.indicators.content.interfaces.IAssessment"
 		menu="object_buttons" action="@@revokeVersion"
 		description="Revoke a version" permission="cmf.ModifyPortalContent" />
@@ -54,5 +59,5 @@
 	<!-- <browser:page name="wizards" -->
 	<!-- 	for="eea.indicators.content.interfaces.IAssessment" -->
 	<!-- 	template="templates/assessment/wizards.pt" permission="zope2.View" /> -->
-		
+
 </configure>
