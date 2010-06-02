@@ -94,6 +94,7 @@ AssessmentPart_schema['relatedItems'] = EEAReferenceField('relatedItems',
             label="Answers to policy question and related EEAFigures",
             label_msgid='indicators_label_question_answered',
             i18n_domain='indicators',
+            macro="assessmentpart_relationwidget",
             ))
 finalizeATCTSchema(AssessmentPart_schema)
 ##/code-section after-schema
