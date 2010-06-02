@@ -33,7 +33,7 @@
            <img alt="" title="" src=""
                 tal:attributes="alt figure/Title;
                                 title figure/Title;
-                                src string:${portal_url}/@@getimg?gid=${figure/UID}&image=bigthumb.png" />
+                                src string:${figure/absolute_url}/image_preview" />
       </a>
     </div>
 
@@ -56,6 +56,7 @@
     </tal:dataSource>
 
     <a tal:attributes="href figure/absolute_url">Downloads and more info</a>
+    <br clear="all"/>
 
   </div>
 </div>
@@ -79,7 +80,7 @@
            <img alt="" title="" src=""
                 tal:attributes="alt figure/Title;
                                 title figure/Title;
-                                src string:${portal_url}/@@getimg?gid=${figure/UID}&image=bigthumb.png" />
+                                src string:${figure/absolute_url}/image_preview" />
       </a>
     </div>
 
@@ -102,6 +103,7 @@
     </tal:dataSource>
 
     <a tal:attributes="href figure/absolute_url">Downloads and more info</a>
+    <br clear="all"/>
 
   </div>
 </div>
