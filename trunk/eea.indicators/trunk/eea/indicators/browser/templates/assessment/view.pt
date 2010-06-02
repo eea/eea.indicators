@@ -11,7 +11,34 @@
 			    <metal:toc use-macro="here/portlet_toc/macros/portlet"/>
 			</tal:block>
 
-			<h2>Assessment versions</h2>
+        <tal:assessment_versions define="parent python:context.getParentNode();
+                                         assessments parent/@@assessment_versions;
+                                         published python:assessments['published'];
+                                         draft python:assessments['draft']">
+          <a name="versions"></a>
+          <h2 id="assessment_versions">Assessment versions</h2>
+          <h5>Published (reviewed and quality assured)</h5>
+          <ul>
+            <li tal:condition="not:published">No published assessments</li>
+            <li tal:repeat="assessment published">
+              <a tal:attributes="href assessment/absolute_url" tal:content="assessment/Title">
+                Assessment title here
+              </a>
+            </li>
+          </ul>
+
+          <tal:draft_versions condition="python:not portal.portal_membership.isAnonymousUser()">
+           <h5>Draft (not yet published - not quality assured)</h5>
+           <ul>
+             <li tal:condition="not:draft">No drafts available</li>
+             <li tal:repeat="assessment draft">
+              <a tal:attributes="href assessment/absolute_url" tal:content="assessment/Title">
+                Assessment title here
+              </a>
+             </li>
+            </ul>
+           </tal:draft_versions>
+        </tal:assessment_versions>
 
 			<div tal:define="assessments context/get_assessments;
 				key nocall:assessments/key;
