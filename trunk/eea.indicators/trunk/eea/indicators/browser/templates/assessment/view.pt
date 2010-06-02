@@ -4,6 +4,26 @@
 	<head>
 		<title tal:content="context/Title"></title>
 	</head>
+
+	<metal:javascript fill-slot="javascript_head_slot">
+	  <script language="javascript" type="text/javascript">
+	    function figures_number() {
+	      var figures = jQuery(".figure-title");
+	      var count = 1;
+
+	      jQuery.each(figures, function(i, figure) {
+		var figure_title = figure.innerHTML;
+		figure.innerHTML = 'Fig. ' + count + ' ' +figure_title;
+		count += 1;
+	      })
+	    }
+
+	    jQuery(document).ready(function () {
+		figures_number();
+	    });
+	  </script>
+	</metal:javascript>
+
 	<body>
 		<div metal:fill-slot="main">
 			<h1 tal:content="context/Title">Title here</h1>
@@ -210,7 +230,7 @@
 
 					<strong>Specification</strong>
 					<div>Link: <a href="" tal:attributes="href context/absolute_url"
-							tal:content="context/getId">ISpecification1235</a>
+							tal:content="context/Title">Assessment</a>
 					</div>
 
 					<div>
