@@ -22,6 +22,20 @@
 		permission="zope2.View"
 		/>
 
+	<browser:page
+		for="eea.indicators.content.interfaces.IAssessment"
+		name="fragment_keymessage"
+		template="templates/assessment/fragment_keymessage.pt"
+		permission="zope2.View"
+		/>
+
+	<browser:page
+		for="eea.indicators.content.interfaces.IAssessmentPart"
+		name="fragment_assessment_part"
+		template="templates/assessment/fragment_assessment_part.pt"
+		permission="zope2.View"
+		/>
+
 	<!-- Assessment Versioning -->
 	<browser:page name="createVersion" 
 		for="eea.indicators.content.interfaces.IAssessment" 
