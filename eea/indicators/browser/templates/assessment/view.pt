@@ -13,7 +13,7 @@
 
 	      jQuery.each(figures, function(i, figure) {
 		var figure_title = figure.innerHTML;
-		figure.innerHTML = 'Fig. ' + count + ': ' +figure_title;
+		figure.innerHTML = 'Fig. ' + count + ': ' + figure_title;
 		count += 1;
 	      })
 	    }
