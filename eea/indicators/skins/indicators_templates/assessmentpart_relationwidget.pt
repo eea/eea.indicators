@@ -10,10 +10,6 @@ It may be that we can collapse the changes into the regular indicatorsrelations.
 
 	<body>
 
-		<metal:view_macro define-macro="view">
-			<div metal:use-macro="here/eeareferencebrowser/macros/view" />
-		</metal:view_macro>
-
 		<!-- the relations-widget class was added to do initializations that don't interfere with -->
 		<!-- other initializations -->
 		<div metal:define-macro="popup" 
@@ -38,46 +34,50 @@ It may be that we can collapse the changes into the regular indicatorsrelations.
 				<div class="domid" tal:content="domid" />
 			</div>
 
+			<metal:slot define-slot="edit">
 				<input type="hidden" value=""
 					tal:condition="multiVal"
 					tal:attributes="name string:$fieldName:default" />
 				<select style="display:none" tal:attributes="
 					multiple python:multiVal and 'multiple' or None;
-					name string:$fieldName:list; id fieldName;">
+					name string:$fieldName:list; id domid;">
 					<tal:uids repeat="uid uids">
 						<option selected="selected"
 							tal:condition="uid" tal:attributes="value uid" tal:content="uid" />
 					</tal:uids>
 				</select>
+			</metal:slot>
 
-        <div class="eea-ref-selecteditems eea-ref-selecteditems-box"
-          tal:define="popup_view nocall:here/@@eeareferencebrowser-popup-selecteditems.html"
-          tal:content="structure python:popup_view(field=fieldName, uids=uids)" />
+			<metal:slot define-slot="view">
+				<div class="eea-ref-selecteditems eea-ref-selecteditems-box"
+					tal:define="popup_view nocall:here/@@eeareferencebrowser-popup-selecteditems.html"
+					tal:content="structure python:popup_view(field=fieldName, uids=uids)" />
+			</metal:slot>
 
-        <div tal:attributes="
-          title python:widget and 'Edit %s' % widget.Label(here) or 'Edit';
-          id string:$fieldName-popup">
-          <tal:popup define="popup_view nocall:here/@@eeareferencebrowser-popup.html"
-            replace="structure python:popup_view(field=fieldName, uids=uids)" />
-        </div>
+			<metal:slot define-slot="popup">
+				<div tal:attributes="
+					title python:widget and 'Edit %s' % widget.Label(here) or 'Edit';
+					id string:$domid-popup">	
+					<!-- XXX: changed the id from fieldname to domid -->
+					<tal:popup define="popup_view nocall:here/@@eeareferencebrowser-popup.html"
+						replace="structure python:popup_view(field=fieldName, uids=uids)" />
+				</div>
+			</metal:slot>
 
-        <input class="searchButton eea-ref-popup-button" type="button"
-          value="Edit..." i18n:attributes="value"/>
+			<metal:slot define-slot="button">
+				<input class="searchButton eea-ref-popup-button" type="button"
+					value="Edit..." i18n:attributes="value"/>
+			</metal:slot>
 
-				<!-- <script type="text/javascript"  -->
-				<!-- 	tal:define="widget_dom_id string:active_field-$fieldName;"  -->
-				<!-- 	tal:content="string: -->
-				<!-- 	var popup = new EEAReferenceBrowser.Widget('$fieldName', {});; -->
-				<!-- 	$$('#' + '$widget_dom_id').get(0)._widget = popup;; -->
-
-				<!-- 	$$(popup.events).bind(popup.events.SAVED, function(evt){ -->
-				<!-- 	ajaxify($$('#active_field-$fieldName'), '$fieldName');; -->
-				<!-- 	$$('#active_field-$fieldName form').trigger('submit');; -->
-				<!-- 	}); -->
-				<!-- 	"> -->
-				<!-- </script> -->
+			<metal:slot define-slot="script"></metal:slot>
 
 		</div>
+
+		<metal:view_macro define-macro="view">
+			<metal:slot define-slot="body">
+				<div metal:use-macro="here/eeareferencebrowser/macros/view" />
+			</metal:slot>
+		</metal:view_macro>
 
 		<metal:edit_macro define-macro='edit'>
 			<metal:use use-macro="field_macro | here/widgets/field/macros/edit">
