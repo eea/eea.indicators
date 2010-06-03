@@ -13,7 +13,7 @@
 
 	      jQuery.each(figures, function(i, figure) {
 		var figure_title = figure.innerHTML;
-		figure.innerHTML = 'Fig. ' + count + ' ' +figure_title;
+		figure.innerHTML = 'Fig. ' + count + ': ' +figure_title;
 		count += 1;
 	      })
 	    }
@@ -31,6 +31,14 @@
 			    <metal:toc use-macro="here/portlet_toc/macros/portlet"/>
 			</tal:block>
 
+
+        <metal:versions use-macro="here/portlet_versions/macros/versions">
+          <metal:new fill-slot="old" />
+        </metal:versions>
+        <metal:versions use-macro="here/portlet_versions/macros/versions">
+          <metal:new fill-slot="new" />
+        </metal:versions>			
+			
         <tal:assessment_versions define="parent python:context.getParentNode();
                                          assessments parent/@@assessment_versions;
                                          published python:assessments['published'];
