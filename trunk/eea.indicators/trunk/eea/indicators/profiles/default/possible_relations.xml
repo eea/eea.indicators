@@ -1,89 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
 <object name="portal_relations" meta_type="EEARelationsTool">
-
-
-	Content type definitions
-	<object name="specification" meta_type="EEARelationsContentType">
-		<property name="title">Indicator Specification</property>
-		<property name="ct_type">Specification</property>
-		<property name="ct_interface"></property>
-	</object>
-	<object name="eea-data" meta_type="EEARelationsContentType">
-		<property name="title">EEA Data</property>
-		<property name="ct_type">Data</property>
-		<property name="ct_interface"></property>
-	</object>
-	<object name="eeafigure" meta_type="EEARelationsContentType">
-		<property name="title">EEA Figure</property>
-		<property name="ct_type">EEAFigure</property>
-		<property name="ct_interface"></property>
-	</object>
-	<object name="policy-document-reference" meta_type="EEARelationsContentType">
-		<property name="title">Policy Document Reference</property>
-		<property name="ct_type">PolicyDocumentReference</property>
-		<property name="ct_interface"></property>
-	</object>
-	<object name="external-data-spec" meta_type="EEARelationsContentType">
-		<property name="title">External Data Reference</property>
-		<property name="ct_type">ExternalDataSpec</property>
-		<property name="ct_interface"></property>
-	</object>
-	<object name="assessmentpart" meta_type="EEARelationsContentType">
-		<property name="title">Indicator Assessment Part</property>
-		<property name="ct_type">AssessmentPart</property>
-		<property name="ct_interface"></property>
-	</object>
-	<object name="policyquestion" meta_type="EEARelationsContentType">
-		<property name="title">Policy Question</property>
-		<property name="ct_type">PolicyQuestion</property>
-		<property name="ct_interface"></property>
-	</object>
-
-	Possible relationships
-	<object name="specification-eea-data" meta_type="EEAPossibleRelation">
-		<property name="title">Indicator Specification -&gt; EEA Data</property>
-		<property name="from">specification</property>
-		<property name="to">eea-data</property>
-		<property name="required">False</property>
-	</object>
-	<object name="specification-policy-document-reference" meta_type="EEAPossibleRelation">
-		<property name="title">Indicator Specification -&gt; Policy Document Reference</property>
-		<property name="from">specification</property>
-		<property name="to">policy-document-reference</property>
-		<property name="required">False</property>
-	</object>
-	<object name="specification-external-data-spec" meta_type="EEAPossibleRelation">
-		<property name="title">Indicator Specification -&gt; External Data Reference</property>
-		<property name="from">specification</property>
-		<property name="to">external-data-spec</property>
-		<property name="required">False</property>
-		<property name="required_for">
-			<element value="published"/>
-		</property>
-	</object>
-	<object name="assessmentpart-policyquestion" meta_type="EEAPossibleRelation">
-		<property name="title">Indicator Assessment Part -&gt; Policy Question</property>
-		<property name="from">assessmentpart</property>
-		<property name="to">policyquestion</property>
-		<property name="required">True</property>
-		<property name="required_for">
-			<element value="published"/>
-		</property>
-	</object>
-	<object name="assessmentpart-eeafigure" meta_type="EEAPossibleRelation">
-		<property name="title">Indicator Assessment Part -&gt; EEA Figure</property>
-		<property name="from">assessmentpart</property>
-		<property name="to">eeafigure</property>
-		<property name="required">False</property>
-		<property name="required_for">
-			<element value="published"/>
-		</property>
-	</object>
-	<object name="indicator-specification-indicator-specification" meta_type="EEAPossibleRelation">
-                <property name="title">Indicator Specification -&gt; Indicator Specification</property>
-		<property name="from">specification</property>
-		<property name="to">specification</property>
-		<property name="required">False</property>
-		<property name="required_for"/>
-	</object>
+ <object name="generic" meta_type="EEARelationsContentType">
+  <property name="title">Generic</property>
+  <property name="ct_type"></property>
+  <property
+     name="ct_interface">Products.Archetypes.interfaces._base.IBaseObject</property>
+ </object>
+ <object name="generic-to-generic-relation" meta_type="EEAPossibleRelation">
+  <property name="title">Generic -&gt; Generic</property>
+  <property name="from">generic</property>
+  <property name="to">generic</property>
+  <property name="required">False</property>
+  <property name="required_for"/>
+ </object>
+ <object name="indicator-specification" meta_type="EEARelationsContentType">
+  <property name="title">Indicator Specification</property>
+  <property name="ct_type">Specification</property>
+  <property name="ct_interface"></property>
+ </object>
+ <object name="eea-data" meta_type="EEARelationsContentType">
+  <property name="title">EEA Data</property>
+  <property name="ct_type">Data</property>
+  <property name="ct_interface"></property>
+ </object>
+ <object name="eea-figure" meta_type="EEARelationsContentType">
+  <property name="title">EEA Figure</property>
+  <property name="ct_type">EEAFigure</property>
+  <property name="ct_interface"></property>
+ </object>
+ <object name="policy-document-reference" meta_type="EEARelationsContentType">
+  <property name="title">Policy Document Reference</property>
+  <property name="ct_type">PolicyDocumentReference</property>
+  <property name="ct_interface"></property>
+ </object>
+ <object name="external-data-reference" meta_type="EEARelationsContentType">
+  <property name="title">External Data Reference</property>
+  <property name="ct_type">ExternalDataSpec</property>
+  <property name="ct_interface"></property>
+ </object>
+ <object name="indicator-assessment-part" meta_type="EEARelationsContentType">
+  <property name="title">Indicator Assessment Part</property>
+  <property name="ct_type">AssessmentPart</property>
+  <property name="ct_interface"></property>
+ </object>
+ <object name="policy-question" meta_type="EEARelationsContentType">
+  <property name="title">Policy Question</property>
+  <property name="ct_type">PolicyQuestion</property>
+  <property name="ct_interface"></property>
+ </object>
+ <object name="indicator-specification-eea-data" meta_type="EEAPossibleRelation">
+  <property name="title">Indicator Specification -&gt; EEA Data</property>
+  <property name="from">indicator-specification</property>
+  <property name="to">eea-data</property>
+  <property name="required">False</property>
+  <property name="required_for"/>
+ </object>
+ <object name="indicator-specification-policy-document-reference"
+    meta_type="EEAPossibleRelation">
+  <property
+     name="title">Indicator Specification -&gt; Policy Document Reference</property>
+  <property name="from">indicator-specification</property>
+  <property name="to">policy-document-reference</property>
+  <property name="required">False</property>
+  <property name="required_for"/>
+ </object>
+ <object name="indicator-specification-external-data-reference"
+    meta_type="EEAPossibleRelation">
+  <property name="title">Indicator Specification -&gt; External Data Reference</property>
+  <property name="from">indicator-specification</property>
+  <property name="to">external-data-reference</property>
+  <property name="required">False</property>
+  <property name="required_for">
+   <element value="published"/>
+  </property>
+ </object>
+ <object name="indicator-assessment-part-policy-question"
+    meta_type="EEAPossibleRelation">
+  <property name="title">Indicator Assessment Part -&gt; Policy Question</property>
+  <property name="from">indicator-assessment-part</property>
+  <property name="to">policy-question</property>
+  <property name="required">True</property>
+  <property name="required_for">
+   <element value="published"/>
+  </property>
+ </object>
+ <object name="indicator-assessment-part-generic" meta_type="EEAPossibleRelation">
+  <property name="title">Indicator Assessment Part -&gt; EEA Figure</property>
+  <property name="from">indicator-assessment-part</property>
+  <property name="to">eea-figure</property>
+  <property name="required">False</property>
+  <property name="required_for">
+   <element value="published"/>
+  </property>
+ </object>
+ <object name="indicator-fact-sheet" meta_type="EEARelationsContentType">
+  <property name="title">Indicator Fact Sheet</property>
+  <property name="ct_type">IndicatorFactSheet</property>
+  <property name="ct_interface"></property>
+ </object>
+ <object name="indicator-fact-sheet-eea-figure"
+    meta_type="EEAPossibleRelation">
+  <property name="title">Indicator Fact Sheet -&gt; EEA Figure</property>
+  <property name="from">indicator-fact-sheet</property>
+  <property name="to">eea-figure</property>
+  <property name="required">False</property>
+  <property name="required_for"/>
+ </object>
 </object>

@@ -537,6 +537,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
                 'optional':_optional,
                 'total':_total,
                 }
+
     security.declarePublic('left_slots')
     def left_slots(self):
         _slot = 'here/portlet_readiness/macros/portlet'
