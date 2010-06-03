@@ -59,8 +59,9 @@ It may be that we can collapse the changes into the regular indicatorsrelations.
 					title python:widget and 'Edit %s' % widget.Label(here) or 'Edit';
 					id string:$domid-popup">	
 					<!-- XXX: changed the id from fieldname to domid -->
+					<!-- XXX: changed the field argument from fieldname to domid -->
 					<tal:popup define="popup_view nocall:here/@@eeareferencebrowser-popup.html"
-						replace="structure python:popup_view(field=fieldName, uids=uids)" />
+						replace="structure python:popup_view(field=domid, uids=uids)" />
 				</div>
 			</metal:slot>
 
