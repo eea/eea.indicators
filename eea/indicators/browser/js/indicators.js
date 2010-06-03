@@ -97,7 +97,7 @@ function set_sortables() {
       'handle':'.handler',
       'items':'.list-item',
       placeholder: 'ui-state-highlight',
-      // containment: 'parent'	// has a bug in UI, sometimes it's impossible to move #2 to #1
+      // containment: 'parent'    // has a bug in UI, sometimes it's impossible to move #2 to #1
       'update':function(event, ui){
         var sortable = event.target;
         var neworder = $(sortable).sortable('toArray');
@@ -124,7 +124,7 @@ function set_sortables() {
 
 function set_relation_widgets() {
   // activates the relation widgets
-  
+
   $(".indicators_relations_widget").each(function(){
     var fieldname = $(".metadata .fieldName", this).text();
     var realfieldname = $(".metadata .realFieldName", this).text();
@@ -152,6 +152,7 @@ function on_load_dom() {
   // executed whenever the regions are reloaded
   set_sortables();
   set_relation_widgets();
+  bootstrap_relations_widgets();
 }
 
 function reload_region(el){
@@ -390,7 +391,7 @@ function set_creators(){
               unblock_ui();
             },
             options
-            );
+          );
           }
         } else {
           reload_region($(region));
@@ -433,22 +434,24 @@ function set_deleters(){
 function closer(fieldname, active_region, url){
   // reloads a region and closes the dialog based on an active field name
 
+  var region = null;
+  if (active_region) {
+    region = $("#" + active_region).get();
+  } else {
+    region = $(field).parents('.active_region').get();
+  }
+  console.log("Got region from closing ", region);
+
   var field = "#active_field-"+fieldname;
 
   // we check if the field wants to reload the entire page
   var parent = $(field).parent();
   var reload_page = $('.reload_page', parent);
   if (reload_page.length) {
+    alert("Reloading page");
     $("#dialog-inner").dialog("close");
     document.location = url;
     return false;
-  }
-
-  var region = null;
-  if (active_region) {
-    region = $("#" + active_region).get();
-  } else {
-    region = $(field).parents('.active_region').get();
   }
 
   reload_region(region);
@@ -524,9 +527,9 @@ function dialog_edit(url, title, callback, options){
         var button = e.target;
         $("#dialog-inner form").trigger('submit');
         // var form = $("#dialog-inner form").get(0);
-        // var ev = document.createEvent("HTMLEvents");	// TODO: replace with jquery's trigger()
+        // var ev = document.createEvent("HTMLEvents"); // TODO: replace with jquery's trigger()
         // ev.initEvent('submit', true, true);
-        // form.dispatchEvent(ev);	// TODO: need to check compatibility with IE
+        // form.dispatchEvent(ev);  // TODO: need to check compatibility with IE
       },
       'Cancel':function(e){
         $("#dialog-inner").dialog("close");
@@ -606,11 +609,34 @@ function open_relations_widget(widget_dom_id, selected_tab){
 function bootstrap_relations_widgets(){
   $('.eea-widget-referencebrowser').each(
     function(){
-      if (!$(".metadata", this).length) { return false }; // this test for old style widgets vs new style
+      console.log("Bootstrapping widget", this);
+      // If it has a metadata then it's a widget from assessmentpart. 
+      // At this moment it's the only one that has that.
+      
+      if (!$(".metadata", this).length) { return false }; 
+
+      var widget = this;
+      var active_field = $(widget).parents('.active_field').get(0);
+
       var fieldname = $(".metadata .fieldname", this).text();
       var domid = $(".metadata .domid", this).text();    //$(this).attr('id');
       var popup = new EEAReferenceBrowser.Widget(domid, {'fieldname':fieldname});;
-      console.log("Initialized widget ", fieldname, 'with', domid);
+      var region = $(this).parents('.active_region');
+
+      console.log("Fieldname", fieldname);
+      console.log("Region ", region);
+      console.log("Poppup ", popup);
+
+      try {
+        $(popup.events).bind(popup.events.SAVED, function(evt){ 
+          ajaxify(active_field, domid); 
+          $(widget).parents('form').trigger('submit');
+          console.log('Done save.');
+        }); 
+      } catch (e) {
+        // for some reasons this behaves as if the DOM is not fully loaded.
+        // Probably the calling script should be made smarter
+      }
     }
   );
 }
@@ -623,7 +649,6 @@ $(document).ready(function () {
   set_creators();
   set_deleters();
   set_edit_buttons();
-  bootstrap_relations_widgets();
 
   // setTimeout('change_kupu_styles()', '2000');
 
@@ -637,4 +662,4 @@ $(document).ready(function () {
 
 });
 
-// vim: set sw=2 ts=2 et:
+// vim: set sw=2 ts=2 softtabstop=2 et:
