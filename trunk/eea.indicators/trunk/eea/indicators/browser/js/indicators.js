@@ -604,12 +604,13 @@ function open_relations_widget(widget_dom_id, selected_tab){
 }
 
 function bootstrap_relations_widgets(){
-  $('.relations-widget').each(
+  $('.eea-widget-referencebrowser').each(
     function(){
+      if (!$(".metadata", this).length) { return false }; // this test for old style widgets vs new style
       var fieldname = $(".metadata .fieldname", this).text();
       var domid = $(".metadata .domid", this).text();    //$(this).attr('id');
       var popup = new EEAReferenceBrowser.Widget(domid, {'fieldname':fieldname});;
-      // console.log("Initialized widget ", fieldname, 'with', domid);
+      console.log("Initialized widget ", fieldname, 'with', domid);
     }
   );
 }

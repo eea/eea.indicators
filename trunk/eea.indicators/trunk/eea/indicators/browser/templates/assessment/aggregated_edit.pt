@@ -8,6 +8,7 @@
 
 	<metal:jsslot fill-slot="javascript_head_slot">
 		<script type="text/javascript" tal:attributes="src context/++resource++jquery.ui-1.7.js"></script>
+		<!-- <script type="text/javascript" tal:attributes="src string:${context/portal_url}/eeareferencebrowser.js"></script> -->
 		<script type="text/javascript" tal:attributes="src context/++resource++indicators.js"></script>
 	</metal:jsslot>
 
