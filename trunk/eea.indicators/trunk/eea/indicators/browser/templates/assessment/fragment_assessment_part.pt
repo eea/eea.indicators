@@ -30,80 +30,31 @@
 					</metal:macro>
 				</tal:def>
 			</div>
+
+			<!-- <div class="logic_group" tal:define="errors context/REQUEST/errors|options/errors|python:{}"> -->
+			<!-- 	<div metal:use-macro="python:context.widget('relatedItems', mode='edit')" /> -->
+			<!-- </div> -->
+
 			<div class="logic_group" tal:define="errors context/REQUEST/errors|options/errors|python:{}">
 				<h2 i18n:translate="publication_maps_and_graphs">Maps and graphs</h2>
-				<div metal:use-macro="python:context.widget('relatedItems', mode='edit')" />
-				<!-- <div tal:define="field nocall:here/schema/relatedItems"> -->
-				<!-- 	<div tal:content="python:field.widget('edit', context)" /> -->
-				<!-- </div> -->
+				<div class="active_field"> 
+
+					<div class="content">
+						<!-- TODO: fill in the condition below -->
+						<div tal:condition="python:False" class="placeholder">
+							Please fill in
+						</div>
+
+						<form method="post" tal:attributes="action string:${context/absolute_url}/simple_edit">
+							<input type="hidden" name="specific_field" tal:attributes="value string:relatedItems" />
+							<input type="hidden" name="fieldset" tal:attributes="value string:default" />
+							<input type="hidden" name="active_region" tal:attributes="value region_name" />
+							<div metal:use-macro="python:context.widget('relatedItems', mode='edit')" />
+						</form>
+
+					</div>
+				</div>			
 			</div>
-
-			<!-- <div class="logic_group"> -->
-			<!-- 	<h2 i18n:translate="publication_maps_and_graphs">Maps and graphs</h2> -->
-			<!-- 	<div tal:attributes="class python:figures and ' ' or 'placeholder'"> -->
-			<!-- 		<a href='./object_factory?type_name=EEAFigure'  -->
-			<!-- 			tal:attributes="href string:${context/absolute_url}/object_factory?type_name=EEAFigure" -->
-			<!-- 			class="object_creator direct_edit">+ EEA Figure</a> -->
-			<!-- 		<span tal:condition="not:figures">Please add at least one EEAFigure</span> -->
-			<!-- 	</div> -->
-
-			<!-- 	<tal:mapsandgraphs tal:condition="figures" tal:define="portal_url context/portal_url"> -->
-			<!-- 		<div class="map-photo-album" -->
-			<!-- 			tal:define="Batch python:modules['Products.CMFPlone'].Batch; -->
-			<!-- 			figure_context python:True; -->
-			<!-- 			b_start python:request.get('b_start', 0); -->
-			<!-- 			template_id string:; -->
-			<!-- 			folderContents python:Batch(figures, 12, int(b_start), orphan=1)"> -->
-			<!-- 			<h4 id="maps-and-graphs" style="display: none">EEA Figure</h4> -->
-
-			<!-- 			<div tal:replace="nothing"> -->
-			<!-- 				<!-- Code lifted from atct_album_listing --> -->
-			<!-- 			</div> -->
-
-			<!-- 			<tal:repeat tal:repeat="brain figures"> -->
-			<!-- 				<tal:entry tal:define=" -->
-			<!-- 					obj brain/getObject; -->
-			<!-- 					display obj/@@imgview/display|nothing; -->
-			<!-- 					urlview obj/@@url; -->
-			<!-- 					listing_url urlview/listing_url;"> -->
-			<!-- 					<div class='photoAlbumEntry photoAlbumFolder'> -->
-			<!-- 						<div class="figure_edit_control"> -->
-			<!-- 							<a href="" tal:attributes="href string:${listing_url}/edit">Edit</a> -->
-			<!-- 						</div> -->
-
-			<!-- 						<div class="figure_edit_control object_delete" style="margin-top:80px"> -->
-			<!-- 							<a class="object_delete" href="" tal:attributes="href  -->
-			<!-- 								string:${obj/aq_parent/absolute_url}/@@object_delete?id=${obj/getId}">Delete</a> -->
-			<!-- 						</div> -->
-			<!-- 						<a tal:condition="display" tal:attributes=" -->
-			<!-- 							href listing_url; -->
-			<!-- 							title obj/pretty_title_or_id"> -->
-			<!-- 							<span class="photoAlbumEntryWrapper"> -->
-			<!-- 								<img style="border: none" tal:attributes=" -->
-			<!-- 									title obj/pretty_title_or_id; -->
-			<!-- 									alt obj/pretty_title_or_id; -->
-			<!-- 									src string:${obj/absolute_url}/image_thumb"/> -->
-			<!-- 							</span> -->
-			<!-- 							<span class="photoAlbumEntryTitle" tal:content="obj/pretty_title_or_id" /> -->
-			<!-- 						</a> -->
-			<!-- 						<a tal:condition="not:display" tal:attributes=" -->
-			<!-- 							href listing_url; -->
-			<!-- 							title obj/pretty_title_or_id"> -->
-			<!-- 							<span class="photoAlbumEntryWrapper"> -->
-			<!-- 								<img style="border: none" tal:attributes=" -->
-			<!-- 									title obj/pretty_title_or_id; -->
-			<!-- 									alt obj/pretty_title_or_id; -->
-			<!-- 									src string:${portal_url}/atct_album_blank.jpg"/> -->
-			<!-- 							</span> -->
-			<!-- 							<span class="photoAlbumEntryTitle" tal:content="obj/pretty_title_or_id" /> -->
-			<!-- 						</a> -->
-			<!-- 					</div> -->
-			<!-- 				</tal:entry> -->
-			<!-- 			</tal:repeat> -->
-
-			<!-- 		</div> -->
-			<!-- 	</tal:mapsandgraphs> -->
-			<!-- </div> -->
 
 		</metal:slot>
 	</metal:macro>
