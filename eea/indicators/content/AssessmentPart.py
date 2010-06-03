@@ -107,7 +107,7 @@ class AssessmentPart(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory
     implements(interfaces.IAssessmentPart)
 
     meta_type = 'AssessmentPart'
-    _at_rename_after_creation = True
+    _at_rename_after_creation = False
 
     schema = AssessmentPart_schema
 
