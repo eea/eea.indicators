@@ -1,30 +1,30 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
-	metal:use-macro="here/main_template/macros/master"
-	i18n:domain="indicators">
-	<head>
-		<title tal:content="context/Title"></title>
-	</head>
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="indicators">
+  <head>
+  <title tal:content="context/Title"></title>
+  </head>
 
-	<metal:javascript fill-slot="javascript_head_slot">
-	  <script language="javascript" type="text/javascript">
-	    function figures_number() {
-	      var figures = jQuery(".figure-title");
-	      var count = 1;
+  <metal:javascript fill-slot="javascript_head_slot">
+    <script language="javascript" type="text/javascript">
+      function figures_number() {
+        var figures = jQuery(".figure-title");
+        var count = 1;
 
-	      jQuery.each(figures, function(i, figure) {
-		var figure_title = figure.innerHTML;
-		figure.innerHTML = 'Fig. ' + count + ': ' + figure_title;
-		count += 1;
-	      })
-	    }
+        jQuery.each(figures, function(i, figure) {
+          var figure_title = figure.innerHTML;
+          figure.innerHTML = 'Fig. ' + count + ': ' + figure_title;
+          count += 1;
+        })
+      }
 
-	    jQuery(document).ready(function () {
-		figures_number();
-	    });
-	  </script>
-	</metal:javascript>
+      jQuery(document).ready(function () {
+          figures_number();
+      });
+    </script>
+  </metal:javascript>
 
-	<body>
+  <body>
 		<div metal:fill-slot="main">
 			<h1 tal:content="context/Title">Title here</h1>
 			<tal:block define="queryString string:h2">
@@ -37,36 +37,7 @@
         </metal:versions>
         <metal:versions use-macro="here/portlet_versions/macros/versions">
           <metal:new fill-slot="new" />
-        </metal:versions>			
-			
-        <tal:assessment_versions define="parent python:context.getParentNode();
-                                         assessments parent/@@assessment_versions;
-                                         published python:assessments['published'];
-                                         draft python:assessments['draft']">
-          <a name="versions"></a>
-          <h2 id="assessment_versions">Assessment versions</h2>
-          <h5>Published (reviewed and quality assured)</h5>
-          <ul>
-            <li tal:condition="not:published">No published assessments</li>
-            <li tal:repeat="assessment published">
-              <a tal:attributes="href assessment/absolute_url" tal:content="assessment/Title">
-                Assessment title here
-              </a>
-            </li>
-          </ul>
-
-          <tal:draft_versions condition="python:not portal.portal_membership.isAnonymousUser()">
-           <h5>Draft (not yet published - not quality assured)</h5>
-           <ul>
-             <li tal:condition="not:draft">No drafts available</li>
-             <li tal:repeat="assessment draft">
-              <a tal:attributes="href assessment/absolute_url" tal:content="assessment/Title">
-                Assessment title here
-              </a>
-             </li>
-            </ul>
-           </tal:draft_versions>
-        </tal:assessment_versions>
+        </metal:versions>
 
 			<div tal:define="assessments context/get_assessments;
 				key nocall:assessments/key;
