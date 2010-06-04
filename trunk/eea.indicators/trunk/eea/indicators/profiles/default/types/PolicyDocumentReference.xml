@@ -9,15 +9,15 @@
  <property name="content_meta_type">PolicyDocumentReference</property>
  <property name="product">eea.indicators</property>
  <property name="factory">addPolicyDocumentReference</property>
- <property name="immediate_view">base_view</property>
+ <property name="immediate_view">policy_doc_view</property>
  <property name="global_allow">True</property>
  <property name="filter_content_types">False</property>
  <property name="allowed_content_types">
  </property>
  <property name="allow_discussion">False</property>
- <property name="default_view">base_view</property>
+ <property name="default_view">policy_doc_view</property>
  <property name="view_methods">
-  <element value="base_view"/>
+  <element value="policy_doc_view"/>
  </property>
  <property name="default_view_fallback">False</property>
  <alias from="(Default)" to="(dynamic view)"/>
