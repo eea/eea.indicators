@@ -29,7 +29,12 @@
                  content="python:context.toLocalizedTime(value, long_format=0)" /></i>]
 </h1>
 
-<!-- #TODO: version info -->
+<metal:versions use-macro="here/portlet_versions/macros/versions">
+  <metal:new fill-slot="old" />
+</metal:versions>
+<metal:versions use-macro="here/portlet_versions/macros/versions">
+  <metal:new fill-slot="new" />
+</metal:versions>
 
 <tal:policy_question define="policy_question context/getPolicy_question"
                      condition="policy_question">
