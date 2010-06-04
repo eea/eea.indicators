@@ -1,31 +1,60 @@
-<configure xmlns="http://namespaces.zope.org/zope" 
-           xmlns:browser="http://namespaces.zope.org/browser" 
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:browser="http://namespaces.zope.org/browser"
            xmlns:five="http://namespaces.zope.org/five"
            xmlns:i18n="http://namespaces.zope.org/i18n"
            i18n_domain="indicators">
-  
-  <i18n:registerTranslations directory="locales" />
 
-  <include file="profiles.zcml" />
+    <i18n:registerTranslations directory="locales" />
 
+    <include file="profiles.zcml" />
 
+    <!-- ##code-section configure.zcml -->
 
-  <!-- ##code-section configure.zcml -->
-  <five:registerPackage package="." initialize=".initialize" />
-  <include package=".browser" />
+    <five:registerPackage package="." initialize=".initialize" />
+    <include package=".browser" />
 
-	<five:implements class=".content.Specification.Specification"
-		interface="eea.workflow.interfaces.IHasMandatoryWorkflowFields" />
+    <five:implements class=".content.Specification.Specification"
+        interface="eea.workflow.interfaces.IHasMandatoryWorkflowFields" />
 
-	<five:implements class=".content.Specification.Specification"
-		interface="eea.indicators.content.interfaces.IIndicatorAssessment" />
+    <five:implements class=".content.Specification.Specification"
+        interface="eea.indicators.content.interfaces.IIndicatorAssessment" />
 
-  <!-- <subscriber handler=".events.delegate_manager" -->
-  <!--   for="eea.indicators.content.interfaces.ISpecification -->
-  <!--        zope.app.event.interfaces.IObjectModifiedEvent" /> -->
+   <!-- <subscriber handler=".events.delegate_manager" -->
+   <!--     for="eea.indicators.content.interfaces.ISpecification -->
+   <!--          zope.app.event.interfaces.IObjectModifiedEvent" /> -->
 
-	<interface interface="eea.indicators.content.interfaces.IIndicatorsDatabase" />
+    <interface interface="eea.indicators.content.interfaces.IIndicatorsDatabase" />
 
-  <!-- ##/code-section configure.zcml -->
+    <subscriber
+         for=".content.interfaces.ISpecification
+              zope.app.event.interfaces.IObjectCreatedEvent"
+         handler="eea.dataservice.content.Data.versionIdHandler" />
+
+    <subscriber
+         for=".content.interfaces.ISpecification
+              zope.app.event.interfaces.IObjectModifiedEvent"
+         handler="eea.dataservice.content.Data.versionIdHandler" />
+
+    <subscriber
+         for=".content.interfaces.IAssessment
+              zope.app.event.interfaces.IObjectCreatedEvent"
+         handler="eea.dataservice.content.Data.versionIdHandler" />
+
+    <subscriber
+         for=".content.interfaces.IAssessment
+              zope.app.event.interfaces.IObjectModifiedEvent"
+         handler="eea.dataservice.content.Data.versionIdHandler" />
+
+    <subscriber
+         for=".content.interfaces.IIndicatorFactSheet
+              zope.app.event.interfaces.IObjectCreatedEvent"
+         handler="eea.dataservice.content.Data.versionIdHandler" />
+
+    <subscriber
+         for=".content.interfaces.IIndicatorFactSheet
+              zope.app.event.interfaces.IObjectModifiedEvent"
+         handler="eea.dataservice.content.Data.versionIdHandler" />
+
+    <!-- ##/code-section configure.zcml -->
 
 </configure>
