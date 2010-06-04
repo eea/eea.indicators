@@ -78,7 +78,7 @@
   text-transform:lowercase;
 }
 #archetypes-fieldname-due_date a {
-	display:hidden;
+	visibility:hidden;
 }
 
 /* Temporary overrides
