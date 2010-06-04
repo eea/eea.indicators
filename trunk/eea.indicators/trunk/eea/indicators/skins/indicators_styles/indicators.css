@@ -188,6 +188,10 @@ h1 {
   background: transparent url(Assessment.gif) no-repeat scroll 0 8px;
   padding: 10px 0 6px 30px;
 }
+#assessment_title {
+  background: transparent url(Assessment.gif) no-repeat scroll 0 8px;
+  padding: 10px 0 6px 30px;
+}
 #rationale {
   background: transparent url(RationaleReference.gif) no-repeat scroll 0 8px;
   padding: 10px 0 6px 30px;
