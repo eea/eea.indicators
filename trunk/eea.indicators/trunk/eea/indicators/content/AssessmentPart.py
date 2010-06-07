@@ -125,9 +125,10 @@ class AssessmentPart(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory
         except AttributeError:
             relations = [] #reference_catalog is not found at creation
         for ob in relations:
-            if ob.portal_type == 'PolicyQuestion':
-                question = ob
-                break
+            if ob is not None:
+                if ob.portal_type == 'PolicyQuestion':
+                    question = ob
+                    break
         return question
 
     security.declarePublic('Title')
