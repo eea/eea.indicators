@@ -156,7 +156,6 @@ function on_load_dom() {
 }
 
 function reload_region(el){
-  console.log("Reloading regions" , el);
   block_ui();
   var update_handler = $(".metadata .region_update_handler", el).text();
   var also_reload = $(".metadata .also_reload", el);
@@ -442,7 +441,6 @@ function closer(fieldname, active_region, url){
   } else {
     region = $(field).parents('.active_region').get();
   }
-  console.log("Got region from closing ", region);
 
 
   // we check if the field wants to reload the entire page
@@ -610,7 +608,6 @@ function open_relations_widget(widget_dom_id, selected_tab){
 function bootstrap_relations_widgets(){
   $('.eea-widget-referencebrowser').each(
     function(){
-      console.log("Bootstrapping widget", this);
       // If it has a metadata then it's a widget from assessmentpart. 
       // At this moment it's the only one that has that.
       
@@ -624,15 +621,10 @@ function bootstrap_relations_widgets(){
       var popup = new EEAReferenceBrowser.Widget(domid, {'fieldname':fieldname});;
       var region = $(this).parents('.active_region');
 
-      console.log("Fieldname", fieldname);
-      console.log("Region ", region);
-      console.log("Poppup ", popup);
-
       try {
         $(popup.events).bind(popup.events.SAVED, function(evt){ 
           ajaxify(active_field, domid); 
           $(widget).parents('form').trigger('submit');
-          console.log('Done save.');
         }); 
       } catch (e) {
         // for some reasons this behaves as if the DOM is not fully loaded.
