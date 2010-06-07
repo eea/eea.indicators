@@ -77,8 +77,10 @@
 
 
 						<strong>EEA Themes</strong>:
-						<tal:def tal:define="fieldname string:themes; fieldset string:Classification;
-							themes context/getThemes">
+						<tal:def tal:define="fieldname string:themes; 
+																 fieldset string:Classification;
+																 vocab python:context.Vocabulary(fieldname);
+																 themes context/getThemes">
 							<div class="portalMessage" tal:condition="not:themes">
 								You need to assign a primary theme
 							</div>
@@ -87,9 +89,24 @@
 									<div tal:condition="python:not themes" class="placeholder">
 										<span class="required">Please fill in</span>
 									</div>
-									<ul tal:condition="python:themes">
-										<li tal:repeat="theme themes" tal:content="theme" />
-									</ul>
+
+
+									<div tal:define="view_name string:themes-object;
+										proxy context/@@proxy;
+										view python: proxy.real_view(view_name);
+										items view/short_items;
+										title title|view/title"
+										tal:condition="items"
+										tal:omit-tag="">
+
+										<dt class="portletItem" tal:repeat="item items">
+											<a href="" tal:attributes="href item/url">
+												<img src="" alt="Theme image"
+													tal:attributes="src string:${item/image}; alt item/title" /> <span tal:replace="item/title">Item title</span>
+											</a>
+										</dt>
+									</div>
+
 								</metal:slot>
 								<metal:slot metal:fill-slot="extra-metadata">
 									<div class="width">800</div>
