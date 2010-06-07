@@ -34,6 +34,16 @@ def create_version(original, request=None):
     obj_title = original.Title()
     obj_type = original.portal_type
     spec = parent(original)
+
+    #we want all Assessments for all spec versions to have the 
+    #same version id.
+    #if the parent Specification has versions, then the Assessment
+    #needs to be a version of those assessments
+
+    parent_as = spec.objectValues('Assessment')
+    ast = parent_as[0]  #NOTE: we rely on the oldest assessment being first
+    version_id = IVersionControl(ast).versionId
+
     if request is None:
         request = original.REQUEST
 
@@ -79,6 +89,8 @@ def create_version(original, request=None):
 
         figures = get_figures_for_pq_in_assessment(pq, original)
         #now create versions of figures
+        #TODO: EEAFigures no longer sit here
+        #TODO: all assessments share the same version id between a specification version
         for fig in figures:
             version = base_create_version(fig)
             _parent = fig.aq_parent
@@ -88,6 +100,7 @@ def create_version(original, request=None):
         ap.reindexObject()
 
     # Set new state
+    IVersionControl(ver).setVersionId(version_id)   #setting the version ID to the assessments group version id
     ver.reindexObject()
     original.reindexObject()    # _reindex(original)  #some indexed values of the context may depend on versions
 
