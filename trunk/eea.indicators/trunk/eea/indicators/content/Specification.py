@@ -47,8 +47,10 @@ from eea.indicators.content.base import ModalFieldEditableAware, CustomizedObjec
 from eea.indicators.content.utils import get_dgf_value
 from eea.relations.field import EEAReferenceField
 from eea.relations.widget import EEAReferenceBrowserWidget
+from eea.versions.interfaces import IVersionControl, IVersionEnhanced
 from zope import event
 from zope.app.event import objectevent
+from zope.interface import alsoProvides
 
 import datetime
 import logging
@@ -619,6 +621,18 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
             ast = create_assessment_version(original)
             return {'obj':ast, 'subview':'@@edit_aggregated', 'direct_edit':True}
 
+        #we want to make this assessment a version of a previous assessment
+        #if this Specification is already versioned, so we try get a versionId
+
+        version_id = None
+        spec_versions = self.unrestrictedTraverse('@@getVersions')().values()
+        for spec in spec_versions:
+            asts = spec.objectValues("Assessment")
+            if asts:
+                original = asts[0]
+                version_id = IVersionControl(original).versionId
+                break
+
         #create a new Assessment from scratch
         id = self.generateUniqueId(type_name)
         new_id = self.invokeFactory(type_name=type_name,
@@ -630,6 +644,10 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
                     mapping={'type_name':type_name},
                     ))
         ast = self[new_id]
+
+        if version_id:
+            IVersionControl(ast).setVersionId(version_id)
+            alsoProvides(ast, IVersionEnhanced)
 
         #create assessment parts for each policy question
         for pq in self.objectValues("PolicyQuestion"):

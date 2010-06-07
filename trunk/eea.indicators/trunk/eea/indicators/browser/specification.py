@@ -100,7 +100,6 @@ class CreateVersion(BaseCreateVersion):
         new_spec.manage_delObjects(ids=new_spec.objectIds('Assessment'))
         new_spec.manage_delObjects(ids=new_spec.objectIds('WorkItem'))
 
-
         # Set new state
         ver.reindexObject()
         _reindex(self.context)  #some indexed values of the context may depend on versions

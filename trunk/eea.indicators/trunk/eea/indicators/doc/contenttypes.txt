@@ -19,7 +19,6 @@ We have several main content types. The most important are the Specification and
 
     >>> browser = Browser()
     >>> browser.handleErrors = True
-    >>> browser.raiseHttpErrors = False
     >>> self.portal.error_log._ignored_exceptions = ()
     >>> browser.addHeader('Authorization',
     ...                   'Basic %s:%s' % (PloneTestCase.portal_owner,
@@ -27,16 +26,15 @@ We have several main content types. The most important are the Specification and
     >>> def types_in_container(container):
     ...     types = [t.__class__.__name__ for t in container.objectValues()]
     ...     return sorted(types)
-    >>> print browser.headers
-    >>> print browser.contents
     >>>
+
 
 Containments
 ------------
 The Specifications are implicitly addable. It is the duty of the portal manager to 
 create a special folder to store them. 
 
-    >>> id = self.portal.invokeFactory('Folder', 'ims')
+    >>> id = portal.invokeFactory('Folder', 'ims')
     >>> ims = portal[id]
 
 Inside this folder we will add Specifications:
@@ -55,18 +53,17 @@ Specifications are containers for several types of objects:
 An Assessment can contain AssessmentParts:
 
     >>> as = spec['as']
-    >>> id = as.invokeFactory("AssessmentPart", 'ap')
-
-An AssessmentPart can contain EEAFigures:
-
-    >>> ap = as['ap']
-    >>> id = ap.invokeFactory("EEAFigure", 'ef')
+    >>> ap = as[as.invokeFactory("AssessmentPart", 'ap')]
 
 Inside the ims folder, where the Specification was created, we will also create several
 other objects that can be referenced from the Specification.
 
     >>> id = ims.invokeFactory("ExternalDataSpec", 'eds')
     >>> id = ims.invokeFactory("PolicyDocumentReference", 'pdr')
+
+EEAFigures sit in a separate folder, not under the IMS control:
+
+    >>> ef = portal[portal.invokeFactory("EEAFigure", 'ef')]
 
 
 Relationships
@@ -82,19 +79,21 @@ Specifications can point to  PolicyDocumentReferences, ExternalDataSpecs and Dat
     >>> id = ims.invokeFactory("Data", 'dt')
     >>> spec.setRelatedItems([ims['dt'], ims['eds'], ims['pdr']])
 
-AssessmentParts point to the answered PolicyQuestion (but the relatedItems field here
-is not multiValued):
+AssessmentParts point to the answered PolicyQuestion and to various EEAFigures:
 
-    >>> ap.setRelatedItems(spec['pq'])
+    >>> ap.setRelatedItems([spec['pq'], ef])
 
 Installing the eea.indicators package will execute a setup step that installs new
 objects in the portal_relations tools:
 
+TODO: add new contnet from updated possible_relations.xml
+
     >>> relations = getToolByName(portal, 'portal_relations')
     >>> ids = set(relations.objectIds())
     >>> our_ids = set(['specification', 'eea-data', 
-    ...                              'policy-document-reference', 'specification-eea-data', 
-    ...                              'specification-policy-document-reference'])
+    ...                'policy-document-reference', 
+    ...                'specification-eea-data', 
+    ...                'specification-policy-document-reference'])
     >>> ids.intersection(our_ids) == our_ids
     True
 
@@ -185,10 +184,16 @@ with the following exceptions:
 
 Adding a new Assessment will already create it as a version of the previous one.
 
-TODO: test the following sentence
-
 When creating a new Assessment in a Specification that is versioned, that assessments
 needs to have the same versionid (group id) as the previous assessments.
+
+TODO: at this moment we need to use the special object factory to achieve this.
+In the future it would be good to be able to use the regular invokeFactory call.
+
+    >>> browser.open("%s/object_factory?type_name=Assessment" % v_url)
+    >>> ast = v_spec.objectValues("Assessment")[0]
+    >>> versions = ast.unrestrictedTraverse('@@getVersions')().values()
+    >>> assert len(versions) > 1
 
 EEAFigures inside an assessment cannot be versioned via the Plone GUI. Only when a user 
 create a new Assessment new version of Figures are made and done by code (see above). 
@@ -238,8 +243,8 @@ We have a system that uses eea.workflow to decide if a Specification is ready to
 
 First, we have a portlet that shows the readiness state for a Specification:
 
-    >>> "Total number of fields" in spec.portlet_readiness()
-    True
+    >>> spec.portlet_readiness()
+    '<html>...id="readiness-status"...</html>...'
 
 This portlet uses a special view that is registered on objects that 
 implement eea.workflow.interfaces.IHasMandatoryWorkflowFields: 
@@ -247,15 +252,15 @@ implement eea.workflow.interfaces.IHasMandatoryWorkflowFields:
     >>> view = spec.unrestrictedTraverse('@@get_readiness')
     >>> info = view.get_info_for('published')
 
-A specification has 23 fields. From these, 11 are required to be able to transition to 
+A specification has 22 fields. From these, 12 are required to be able to transition to 
 'published'. The call to get_info_for() returns a mapping with the 
 keys 'done', 'required', 'publishing', 'optional', 'total', '' 
 
 'done' tells us the percentage of the content that is required for the desired state. 
-By default the title is filled in, so we will be at 9%:
+By default the title is filled in, so we will be at 8%:
 
     >>> print str(info['done']) + '%'
-    9%
+    8%
 
 'required' is the number of fields that have content filled in and are required for that state
 
@@ -265,17 +270,17 @@ By default the title is filled in, so we will be at 9%:
 'publishing' is the number of fields that are required to be filled in for that state.
 
     >>> info['publishing']
-    11
+    12
 
 'optional' is the number of fields that are not required for that state and don't have a value.
 
     >>> info['optional']
-    12
+    10
 
 'total' is the grand total number of fields.
 
     >>> info['total']
-    23
+    22
 
 Let's fill in another field, this time 'codes':
 
@@ -283,7 +288,7 @@ Let's fill in another field, this time 'codes':
     >>> view = spec.unrestrictedTraverse('@@get_readiness')
     >>> info = view.get_info_for('published')
     >>> print str(info['done']) + '%'
-    18%
+    16%
     >>> info['required']
     2
 
@@ -302,14 +307,17 @@ Let's move on making this spec ready for publishing:
     >>> spec.setUnits(u'something')
     >>> spec.setMethodology(u'something')
     >>> spec.setManager_user_id(u'something')
+    >>> spec.setDescription(u'something')
+    >>> spec.setOwnership([u'something'])
+    >>> spec.setThemes([u'something'])
 
-Now we should be at 90%:
+Now we should be at 91% (round(11*100/12)):
 
     >>> info = spec.unrestrictedTraverse('@@get_readiness').get_info_for('published')
     >>> print str(info['done']) + '%'
-    90%
+    91%
     >>> info['required']
-    10
+    11
 
 Let's try to finish it:
 
@@ -319,7 +327,7 @@ Let's try to finish it:
     >>> print str(info['done']) + '%'
     100%
     >>> info['required']
-    11
+    12
     >>> view.is_ready_for('published')
     False
 
