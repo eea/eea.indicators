@@ -73,6 +73,7 @@ schema = Schema((
         required=False,
         accessor="Title",
         searchable=True,
+        default=u'Assessment',
     ),
 
 ),
@@ -123,7 +124,7 @@ class Assessment(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory, Br
     implements(interfaces.IAssessment)
 
     meta_type = 'Assessment'
-    _at_rename_after_creation = True
+    _at_rename_after_creation = False
 
     schema = Assessment_schema
 

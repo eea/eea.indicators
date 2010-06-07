@@ -187,13 +187,13 @@ Adding a new Assessment will already create it as a version of the previous one.
 When creating a new Assessment in a Specification that is versioned, that assessments
 needs to have the same versionid (group id) as the previous assessments.
 
-TODO: at this moment we need to use the special object factory to achieve this.
-In the future it would be good to be able to use the regular invokeFactory call.
-
     >>> browser.open("%s/object_factory?type_name=Assessment" % v_url)
     >>> ast = v_spec.objectValues("Assessment")[0]
     >>> versions = ast.unrestrictedTraverse('@@getVersions')().values()
     >>> assert len(versions) > 1
+
+TODO: at this moment we need to use the special object factory to achieve this.
+In the future it would be good to be able to use the regular invokeFactory call.
 
 EEAFigures inside an assessment cannot be versioned via the Plone GUI. Only when a user 
 create a new Assessment new version of Figures are made and done by code (see above). 
