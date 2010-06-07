@@ -156,6 +156,7 @@ function on_load_dom() {
 }
 
 function reload_region(el){
+  console.log("Reloading regions" , el);
   block_ui();
   var update_handler = $(".metadata .region_update_handler", el).text();
   var also_reload = $(".metadata .also_reload", el);
@@ -434,6 +435,7 @@ function set_deleters(){
 function closer(fieldname, active_region, url){
   // reloads a region and closes the dialog based on an active field name
 
+  var field = "#active_field-"+fieldname;
   var region = null;
   if (active_region) {
     region = $("#" + active_region).get();
@@ -442,7 +444,6 @@ function closer(fieldname, active_region, url){
   }
   console.log("Got region from closing ", region);
 
-  var field = "#active_field-"+fieldname;
 
   // we check if the field wants to reload the entire page
   var parent = $(field).parent();
