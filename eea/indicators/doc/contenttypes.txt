@@ -86,7 +86,7 @@ AssessmentParts point to the answered PolicyQuestion and to various EEAFigures:
 Installing the eea.indicators package will execute a setup step that installs new
 objects in the portal_relations tools:
 
-TODO: add new contnet from updated possible_relations.xml
+TODO: add new content from updated possible_relations.xml
 
     >>> relations = getToolByName(portal, 'portal_relations')
     >>> ids = set(relations.objectIds())

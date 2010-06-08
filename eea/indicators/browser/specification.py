@@ -108,6 +108,29 @@ class CreateVersion(BaseCreateVersion):
 
 
 class WorkflowStateReadiness(ObjectReadiness):
+
+    def get_info_for(self, state_name):
+        #TODO: translate messages here
+        info = ObjectReadiness.get_info_for(self, state_name)
+        extras = []
+
+        if not self.context.getRelatedItems():
+            extras.append(("error", "You need to point to at least one EEAData or ExternalData"))
+
+        pqs = self.context.objectValues("PolicyQuestion")
+        if not pqs:
+            extras.append(("error", "You need to add at least one main Policy Question"))
+
+        if not [pq for pq in pqs if pq.getIs_key_question()]:
+            extras.append(("error", "At least one PolicyQuestion needs to be main policy question"))
+
+        if not self.context.getThemes():
+            extras.append(("error", "You need to specify one primary theme"))
+
+
+        info['extra'] = extras
+        return info
+
     def is_ready_for(self, state_name):
         if state_name == 'published':
             #check if there's at least one reference to a DataSpec
