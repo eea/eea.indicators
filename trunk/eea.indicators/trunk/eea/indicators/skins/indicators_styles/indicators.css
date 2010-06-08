@@ -24,6 +24,10 @@
   color:red;
 }
 
+#readiness-status .error {
+  width: 90%;
+}
+
 .required-field {
   background:url(Warning.png) no-repeat scroll 0 0 transparent;
   color:black;
