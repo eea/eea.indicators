@@ -617,7 +617,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
         #create a version if we already have an Assessment
         assessments = self.objectValues(type_name)
         if assessments:
-            original = assessments[-1]  #we assume the latest object is the last one
+            original = assessments[-1]  #NOTE: we assume the latest object is the last one
             ast = create_assessment_version(original)
             return {'obj':ast, 'subview':'@@edit_aggregated', 'direct_edit':True}
 
@@ -634,7 +634,8 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
                 break
 
         #create a new Assessment from scratch
-        id = self.generateUniqueId(type_name)
+        #id = self.generateUniqueId(type_name)
+        id = make_id('assessment', self.objectIds())
         new_id = self.invokeFactory(type_name=type_name,
                 id=id,
                 title=self.translate(
@@ -670,6 +671,27 @@ registerType(Specification, PROJECTNAME)
 _titlemsg = _('label-newly-created-type',
         default="Newly created ${type_name}",
         )
+
+
+def make_id(BASE, names):
+    """Useful in making a unique id in a container
+
+    Given a BASE such as 'assessment' and a list of ids, it returns
+    the first string such as assessmenet-10 that is not found in the list of ids
+    """
+    x = 1
+    name = None
+
+    if BASE not in names:
+        name = BASE
+    else:
+        while True:
+            name = "%s-%s" % (BASE, x)
+            if name not in names:
+                break
+            x += 1
+
+    return name
 
 ##/code-section module-footer
 
