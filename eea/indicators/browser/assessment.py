@@ -153,3 +153,21 @@ class WorkflowStateReadiness(ObjectReadiness):
             return True
         else:
             return super(WorkflowStateReadiness, self).is_ready_for(state_name)
+
+    def get_info_for(self, state_name):
+        info = ObjectReadiness.get_info_for(self, state_name)
+        #TODO: translate messages
+
+        ap = self.context.objectValues("AssessmentPart")
+        missing = [p for p in ap if not self.field_has_value('assessment', p)]
+        if missing:
+            info['extra'].append(('error', 'You need to fill in the assessments for all the questions'))
+
+        #check that the parent Specification is published
+        parent = self.context.aq_inner.aq_parent
+        wftool = getToolByName(self.context, 'portal_workflow')
+        state = wftool.getInfoFor(parent, 'review_state')
+        if state != "published":
+            info['extra'].append(('error', 'The parent Specification needs to be published'))
+
+        return info
