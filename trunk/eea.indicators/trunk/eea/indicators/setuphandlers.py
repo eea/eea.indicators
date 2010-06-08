@@ -30,7 +30,7 @@ def isNotindicatorsProfile(context):
 
 def installQIDependencies(context):
     """This is for old-style products using QuickInstaller"""
-    if isNotindicatorsProfile(context): return 
+    if isNotindicatorsProfile(context): return
     logger.info("installQIDependencies starting")
     site = context.getSite()
     qi = getToolByName(site, 'portal_quickinstaller')
@@ -57,7 +57,7 @@ def installQIDependencies(context):
 def updateRoleMappings(context):
     """after workflow changed update the roles mapping. this is like pressing
     the button 'Update Security Setting' and portal_workflow"""
-    if isNotindicatorsProfile(context): return 
+    if isNotindicatorsProfile(context): return
     wft = getToolByName(context.getSite(), 'portal_workflow')
     wft.updateRoleMappings()
 
@@ -84,16 +84,6 @@ def postInstall(context):
             setuptool.runAllImportSteps()
             logger.info("Run all import steps for %s" % name)
 
-    # Enable portal_factory for given types
-    factory_tool = getToolByName(site, 'portal_factory')
-    factory_types = [
-        "IndicatorFactSheet",
-        "KeyMessage",
-        "FactSheetDocument",
-        ] + factory_tool.getFactoryTypes().keys()
-    factory_tool.manage_setPortalFactoryTypes(listOfTypeIds=factory_types)
-    logger.info("Factory tool enabled for IndicatorFactSheet, KeyMessage and FactSheetDocument")
-
     # Enable aliases (redirects) for eea.indicators content types
     redirection_tool = getToolByName(site, 'portal_redirection')
     ctypes = ["PolicyDocumentReference",
@@ -104,8 +94,6 @@ def postInstall(context):
     new_ctypes.extend(ctypes)
     redirection_tool.setRedirectionAllowedForTypes(new_ctypes)
     logger.info("Redirection tool enabled for eea.indicators content types.")
-
-
 
 ##code-section FOOT
 def setup_vocabularies(context):
