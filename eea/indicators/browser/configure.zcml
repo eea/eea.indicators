@@ -58,7 +58,7 @@
   <browser:page
     for="..content.interfaces.IAssessment"
     name="imgview"
-    class=".app.imgview.ImageViewAssessment"
+    class=".imgview.ImageViewAssessment"
     permission="zope.Public"
     allowed_interface="valentine.imagescales.browser.interfaces.IImageView"
     />
