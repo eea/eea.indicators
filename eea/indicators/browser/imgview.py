@@ -12,28 +12,24 @@ class ImageViewAssessment(BrowserView):
     implements(IImageView)
 
     def __init__(self, context, request):
-        wftool = getToolByName(self.context, 'portal_workflow')
+        wftool = getToolByName(context, 'portal_workflow')
 
         super(ImageViewAssessment, self).__init__(context, request)
 
-        # AssP of the main Q -> first publiched/draft related eeafigure
-          #if none, get First AssP and its first published/draft eeafigure
-
         eeafile = None
-        assessments = self.context.get_assessments()
+        assessments = context.get_assessments()
         assessments_list = []
         assessments_list.append(assessments['key'])
         assessments_list.extend(assessments['secondary'])
 
         for assessment in assessments_list:
-            for rel_ob in assessment.relatedItems():
+            for rel_ob in assessment.getRelatedItems():
                 if rel_ob.portal_type == 'EEAFigure':
                     state = wftool.getInfoFor(rel_ob, 'review_state', '(Unknown)')
                     if state in ['published', 'visible']:
                         eeafile = rel_ob
                         break
 
-        #TODO: check if eeafile has thumb
         self.img = queryMultiAdapter((eeafile, request), name=u'imgview')
 
     def display(self, scalename='thumb'):
