@@ -1,86 +1,95 @@
 <configure xmlns="http://namespaces.zope.org/zope"
-	xmlns:browser="http://namespaces.zope.org/browser"
-	xmlns:five="http://namespaces.zope.org/five">
+           xmlns:browser="http://namespaces.zope.org/browser"
+           xmlns:five="http://namespaces.zope.org/five">
 
-	<include file="specification.zcml" />
-	<include file="assessment.zcml" />
-	<include file="indicatorfactsheet.zcml" />
+  <include file="specification.zcml" />
+  <include file="assessment.zcml" />
+  <include file="indicatorfactsheet.zcml" />
 
-	<browser:page
-		for="eea.indicators.content.interfaces.IIndicatorsDatabase"
-		name="permissions_overview"
-		class="eea.indicators.browser.IndicatorsPermissionsOverview"
-		permission="zope2.View"
-		allowed_interface="eea.indicators.browser.interfaces.IIndicatorsPermissionsOverview"
-		/>
+  <browser:page
+    for="eea.indicators.content.interfaces.IIndicatorsDatabase"
+    name="permissions_overview"
+    class="eea.indicators.browser.IndicatorsPermissionsOverview"
+    permission="zope2.View"
+    allowed_interface="eea.indicators.browser.interfaces.IIndicatorsPermissionsOverview"
+    />
 
-	<browser:page
-		for="eea.indicators.content.interfaces.IAssessmentPart"
-		name="view"
-		template="templates/assessmentpart_view.pt"
-		permission="zope2.View"
-		/>
+  <browser:page
+    for="eea.indicators.content.interfaces.IAssessmentPart"
+    name="view"
+    template="templates/assessmentpart_view.pt"
+    permission="zope2.View"
+    />
 
-	<browser:page
-		for="eea.indicators.content.interfaces.IExternalDataSpec"
-		name="view"
-		template="templates/externaldataspec_view.pt"
-		permission="zope2.View"
-		/>
+  <browser:page
+    for="eea.indicators.content.interfaces.IExternalDataSpec"
+    name="view"
+    template="templates/externaldataspec_view.pt"
+    permission="zope2.View"
+    />
 
-	<browser:page
-		for="eea.indicators.content.interfaces.IMethodologyReference"
-		name="view"
-		template="templates/methodologyreference_view.pt"
-		permission="zope2.View"
-		/>
+  <browser:page
+    for="eea.indicators.content.interfaces.IMethodologyReference"
+    name="view"
+    template="templates/methodologyreference_view.pt"
+    permission="zope2.View"
+    />
 
-	<browser:page
-		for="eea.indicators.content.interfaces.IPolicyQuestion"
-		name="view"
-		template="templates/policyquestion_view.pt"
-		permission="zope2.View"
-		/>
+  <browser:page
+    for="eea.indicators.content.interfaces.IPolicyQuestion"
+    name="view"
+    template="templates/policyquestion_view.pt"
+    permission="zope2.View"
+    />
 
-	<browser:page
-		for="eea.indicators.content.interfaces.IRationaleReference"
-		name="view"
-		template="templates/rationalereference_view.pt"
-		permission="zope2.View"
-		/>
+  <browser:page
+    for="eea.indicators.content.interfaces.IRationaleReference"
+    name="view"
+    template="templates/rationalereference_view.pt"
+    permission="zope2.View"
+    />
 
-	<browser:page name="related_items"
-		for="*"
-		class=".utils.RelatedItems"
-		permission="zope2.View" />
+  <browser:page name="related_items"
+    for="*"
+    class=".utils.RelatedItems"
+    permission="zope2.View" />
 
-	<!-- subviews -->
+  <!-- imgview -->
+  <browser:page
+    for="..content.interfaces.IAssessment"
+    name="imgview"
+    class=".app.imgview.ImageViewAssessment"
+    permission="zope.Public"
+    allowed_interface="valentine.imagescales.browser.interfaces.IImageView"
+    />
 
-	<browser:page name="fulldetail"
-		for="eea.indicators.content.interfaces.IPolicyQuestion"
-		template="templates/policyquestion_fulldetail.pt"
-		permission="zope2.View" />
+  <!-- subviews -->
 
-	<browser:page name="indicator_utils" for="zope.interface.Interface"
-		class=".utils.IndicatorUtils" permission="zope2.View"
-		allowed_interface=".utils.IIndicatorUtils"
-		/>
+  <browser:page name="fulldetail"
+    for="eea.indicators.content.interfaces.IPolicyQuestion"
+    template="templates/policyquestion_fulldetail.pt"
+    permission="zope2.View" />
 
-	<browser:page name="object_delete" for="zope.interface.Interface"
-		class=".utils.ObjectDelete" permission="zope2.View" />	TODO: change permission here
+  <browser:page name="indicator_utils" for="zope.interface.Interface"
+    class=".utils.IndicatorUtils" permission="zope2.View"
+    allowed_interface=".utils.IIndicatorUtils"
+    />
 
-	<!-- Resources -->
+  <browser:page name="object_delete" for="zope.interface.Interface"
+    class=".utils.ObjectDelete" permission="zope2.View" />  TODO: change permission here
 
-	<!-- <browser:resource -->
-	<!-- 	name='indicators.css' -->
-	<!-- 	file='css/indicators.css' /> -->
+  <!-- Resources -->
 
-	<!-- <browser:resource -->
-	<!-- 	name='modaledit.css' -->
-	<!-- 	file='css/modaledit.css' /> -->
+  <!-- <browser:resource -->
+  <!--   name='indicators.css' -->
+  <!--   file='css/indicators.css' /> -->
 
-	<browser:resource
-		name='indicators.js'
-		file='js/indicators.js' />
+  <!-- <browser:resource -->
+  <!--   name='modaledit.css' -->
+  <!--   file='css/modaledit.css' /> -->
+
+  <browser:resource
+    name='indicators.js'
+    file='js/indicators.js' />
 
 </configure>
