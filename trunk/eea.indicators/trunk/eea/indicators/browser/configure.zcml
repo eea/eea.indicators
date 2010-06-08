@@ -63,6 +63,14 @@
     allowed_interface="valentine.imagescales.browser.interfaces.IImageView"
     />
 
+  <browser:page
+    for="..content.interfaces.IIndicatorFactSheet"
+    name="imgview"
+    class=".imgview.ImageViewIndicatorFactSheet"
+    permission="zope.Public"
+    allowed_interface="valentine.imagescales.browser.interfaces.IImageView"
+    />
+
   <!-- subviews -->
 
   <browser:page name="fulldetail"
