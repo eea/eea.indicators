@@ -250,6 +250,17 @@ h1 {
   padding: 0 1em;
 }
 
+/* Assessment view
+================== */
+#indicator-metadata-more {
+  padding: 0.3em;
+  border: 1px solid #ccc;
+  background-color: #f0f0f0;
+}
+#indicator-metadata-info {
+  display: none;
+}
+
 /* Update ui images path
 ======================== */
 .ui-icon-show {
