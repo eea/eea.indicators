@@ -634,8 +634,8 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
                 break
 
         #create a new Assessment from scratch
-        id = self.generateUniqueId(type_name)
-        #id = make_id('assessment', self.objectIds())
+        #id = self.generateUniqueId(type_name)
+        id = make_id('assessment', self.objectIds())
         new_id = self.invokeFactory(type_name=type_name,
                 id=id,
                 title=self.translate(
@@ -660,10 +660,10 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
 
         return {'obj':ast, 'subview':'@@edit_aggregated', 'direct_edit':True}
 
-    def generateUniqueId(self, typename):
-        names = self.objectIds()
+    #def generateUniqueId(self, typename):
+    #    names = self.objectIds()
 
-        return make_id(typename, names)
+    #    return make_id(typename, names)
 
 
 registerType(Specification, PROJECTNAME)
