@@ -188,6 +188,10 @@ h1 {
   background: transparent url(Specification.gif) no-repeat scroll 0 8px;
   padding: 10px 0 6px 30px;
 }
+.specification {
+  background: transparent url(Specification.gif) no-repeat scroll 0 8px;
+  padding: 10px 0 6px 30px;
+}
 #assessment_versions {
   background: transparent url(Assessment.gif) no-repeat scroll 0 8px;
   padding: 10px 0 6px 30px;
@@ -239,7 +243,7 @@ h1 {
 .specification-overlay {
   background-image:url("../../++resource++jquery.ui.theme/images/ui-bg_flat_0_aaaaaa_40x100.png");
   opacity:0.3;
-	FILTER: Alpha(Opacity=30);
+  FILTER: Alpha(Opacity=30);
 }
 .keyMessage {
   background-color: #DEE7EC;
@@ -253,12 +257,23 @@ h1 {
 /* Assessment view
 ================== */
 #indicator-metadata-more {
-  padding: 0.3em;
-  border: 1px solid #ccc;
-  background-color: #f0f0f0;
+  padding: 0.3em 0.3em 0.3em 1.5em;
+  background-image: url(bullet_add.png);
+  background-position: left center;
+  background-repeat: no-repeat;
+  font-weight: bold;
+  cursor: pointer;
 }
 #indicator-metadata-info {
   display: none;
+}
+#indicator-metadata-info #hide-specification-info {
+  background-image: url(bullet_delete.png);
+  background-position: left center;
+  background-repeat: no-repeat;
+  font-weight: bold;
+  padding-left: 1.5em;
+  cursor: pointer;
 }
 
 /* Update ui images path
