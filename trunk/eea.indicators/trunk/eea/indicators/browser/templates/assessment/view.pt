@@ -19,19 +19,20 @@
       }
 
       function setIndicatorsBtn() {
-        jQuery("#indicator-metadata-more").click(function () { showIndicatorMetadata("more") });
-        jQuery("#indicator-metadata-info").click(function () { showIndicatorMetadata("info") });
+        jQuery(".indicator-metadata-more").click(function () { showIndicatorMetadata("more") });
+        jQuery(".indicator-metadata-info").click(function () { showIndicatorMetadata("info") });
       };
 
       function showIndicatorMetadata(event) {
         if (event == "more") {
-          jQuery("#indicator-metadata-more").fadeOut("slow", function() {
-              jQuery("#indicator-metadata-info").fadeIn("slow");
+          jQuery(".indicator-metadata-more").fadeOut("slow", function() {
+              jQuery(".indicator-metadata-info").fadeIn("slow");
                 });
+
       };
         if (event == "info") {
-          jQuery("#indicator-metadata-info").fadeOut("slow", function() {
-              jQuery("#indicator-metadata-more").fadeIn("slow");
+          jQuery(".indicator-metadata-info").fadeOut("slow", function() {
+              jQuery(".indicator-metadata-more").fadeIn("slow");
                 });
       };
       }
@@ -49,7 +50,10 @@
 			<tal:block define="queryString string:h2">
 			    <metal:toc use-macro="here/portlet_toc/macros/portlet"/>
 			</tal:block>
-
+			<div class="indicator-metadata-more">Switch to full indicator view </div>
+			<div class="indicator-metadata-info">
+			 <span class="hide-specification-info">Switch to short indicator view</span>
+			</div>
 
         <metal:versions use-macro="here/portlet_versions/macros/versions">
           <metal:new fill-slot="old" />
@@ -162,20 +166,27 @@
 					<div tal:replace="structure part/assessment">Question here</div>
 				</tal:parts>
 			</div>
-
+			<h2>Data sources used for this indicator</h2>
+			<div class="indicator-metadata-more">Switch to full indicator view </div>
+			<div class="indicator-metadata-info">
+			 <span class="hide-specification-info">Switch to short indicator view</span>
+			    Data sources are available at ....
+			</div>
 			<h2 id="methodology">Methodology, data sources and references</h2>
 			<p>See this <a href="..">indicator specification</a> for methodology,
 				data sources, rationale and more relevant details.
 			</p>
 
+
   <h2 class="specification">Specification metadata</h2>
-  <div id="indicator-metadata-more">Click to read more</div>
-  <div id="indicator-metadata-info"
+  <div class="indicator-metadata-more">Click to read more</div>
+  <div class="indicator-metadata-info"
        tal:define="specification context/getParentNode">
-    <span id="hide-specification-info">Hide metadata</span>
+    <span class="hide-specification-info">Hide metadata</span>
     <h4 tal:content="specification/Title" />
     <p>TODO: Add the correxponding metadata from its parent specification.</p>
   </div>
+
 
 			<h2 id="general_metadata">General metadata</h2>
 			<div class='headed-box'>
