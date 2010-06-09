@@ -58,10 +58,9 @@
            </tal:draft_versions>
         </tal:assessment_versions>
 
-          <a name="rationale"></a>
-          <h2 id="rationale">Rationale</h2>
+        <div id="justification-and-references" metal:define-macro="justification-and-references">
+          <h2>Justification for indicator selection</h2>
           <tal:justification define="rationale_justification context/rationale_justification">
-            <h3>Justification for indicator selection:</h3>
             <p tal:replace="structure rationale_justification"
                tal:condition="rationale_justification">Rationale justification</p>
             <p tal:condition="not:rationale_justification">No rationale/justification has been specified</p>
@@ -75,9 +74,10 @@
               <p tal:replace="structure ref/Description" />
             </li>
           </ul>
-
-          <a name="definition"></a>
-          <h2 id="indicator_definition">Indicator definition</h2>
+        </div>        
+          
+          <div id="definition-and-units" metal:define-macro="definition-and-units">
+          <h2>Indicator definition</h2>
           <tal:definition define="definition context/getDefinition">
             <p tal:condition="not:definition">No definition has been specified</p>
             <p tal:condition="definition" tal:replace="structure definition"></p>
@@ -88,8 +88,9 @@
             <p tal:condition="not:units">No units have been specified</p>
             <p tal:condition="units" tal:replace="structure units"></p>
           </tal:units>
-
-          <a name="policy_context"></a>
+          </div>
+          
+          
           <h2 id="policy_context">Policy Context and targets</h2>
 
           <h3>Context description</h3>
@@ -118,7 +119,6 @@
             <p tal:condition="not:policy_documents">No related policy documents have been specified</p>
           </tal:policy_documents>
 
-          <a name="policy_questions"></a>
           <tal:policy_question define="policy_questions context/@@policy_questions;
                                        all_questions python:policy_questions['all'];
                                        key_questions python:policy_questions['key_questions'];
@@ -133,7 +133,6 @@
           </tal:question>
           </tal:policy_question>
 
-          <a name="methodology"></a>
           <h2 id="methodology">Methodology</h2>
 
           <tal:methodology define="methodology context/getMethodology">
@@ -161,7 +160,6 @@
             <p tal:condition="not:references">No methodology references available.</p>
           </tal:methodology_references>
 
-          <a name="dataspecs"></a>
           <!-- TODO: #3273 -->
           <h2 id="data_specifications">Data specifications</h2>
           <ul tal:define="datasetsView nocall:context/@@related_items;
@@ -174,7 +172,6 @@
             </li>
           </ul>
 
-          <a name="uncertainties"></a>
           <h2 id="uncertainties">Uncertainties</h2>
 
           <h3>Methodology uncertainty</h3>
@@ -195,7 +192,6 @@
             <p tal:condition="not:rationale_uncertainty">No uncertainty has been specified</p>
           </tal:rationale_uncertainty>
 
-          <a name="further_work"></a>
           <h2 id="further_work">Further work</h2>
 
           <tal:def tal:define="works context/get_work; short works/short; long works/long">
@@ -243,7 +239,6 @@
             </div>
           </tal:def>
 
-          <a name="metadata"></a>
           <h2 id="general_metadata">General metadata</h2>
 
           <div class='headed-box'>

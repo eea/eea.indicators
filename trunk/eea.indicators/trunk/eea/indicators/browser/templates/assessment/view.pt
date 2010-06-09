@@ -45,16 +45,23 @@
   </metal:javascript>
 
   <body>
-		<div metal:fill-slot="main">
-			<h1 id="assessment_title" tal:content="context/Title">Title here</h1>
-			<tal:block define="queryString string:h2">
-			    <metal:toc use-macro="here/portlet_toc/macros/portlet"/>
-			</tal:block>
-			<div class="indicator-metadata-more">Switch to full indicator view </div>
-			<div class="indicator-metadata-info">
-			 <span class="hide-specification-info">Switch to short indicator view</span>
-			</div>
+    <div metal:fill-slot="main" tal:define="specification context/getParentNode">
+	  <h1 id="assessment_title" tal:content="context/Title">Title here</h1>
+	  <tal:block define="queryString string:h2">
+	    <metal:toc use-macro="here/portlet_toc/macros/portlet"/>
+	  </tal:block>
+	  
+    <div class="indicator-metadata-more">Switch to full indicator view </div>
+    <div class="indicator-metadata-info">
+      <span class="hide-specification-info">Switch to short indicator view</span>
+    </div>
+    
 
+    <div class="indicator-metadata-info">
+      <metal:definition-and-units use-macro="specification/@@view/macros/definition-and-units" />
+    </div>
+        
+  
         <metal:versions use-macro="here/portlet_versions/macros/versions">
           <metal:new fill-slot="old" />
         </metal:versions>
@@ -166,26 +173,23 @@
 					<div tal:replace="structure part/assessment">Question here</div>
 				</tal:parts>
 			</div>
-			<h2>Data sources used for this indicator</h2>
-			<div class="indicator-metadata-more">Switch to full indicator view </div>
-			<div class="indicator-metadata-info">
-			 <span class="hide-specification-info">Switch to short indicator view</span>
-			    Data sources are available at ....
-			</div>
-			<h2 id="methodology">Methodology, data sources and references</h2>
-			<p>See this <a href="..">indicator specification</a> for methodology,
-				data sources, rationale and more relevant details.
+          <!-- TODO: #3273 -->
+          <h2 id="data_specifications">Data sources</h2>
+          <ul tal:define="datasetsView nocall:specification/@@related_items;
+                          datasets python:datasetsView('Data')">
+            <li tal:condition="not:datasets">No datasets have been specifed yet.</li>
+            <li tal:repeat="data datasets" tal:condition="datasets">
+              <a href=""
+                 tal:attributes="href string:${context/portal_url}/data-and-maps/data/ds_resolveuid/${data/@@getLatestVersionLink}"
+                 tal:content="data/@@getLatestVersionLink">Dataset title</a>
+            </li>
+          </ul>
+	  <div class="indicator-metadata-info">
+	      <metal:justification use-macro="specification/@@view/macros/justification-and-references" />
+	  </div>
+			<h2 id="methodology">More information about this indicator</h2>
+			<p>See this <a href="..">indicator specification</a> more relevant details.
 			</p>
-
-
-  <h2 class="specification">Specification metadata</h2>
-  <div class="indicator-metadata-more">Click to read more</div>
-  <div class="indicator-metadata-info"
-       tal:define="specification context/getParentNode">
-    <span class="hide-specification-info">Hide metadata</span>
-    <h4 tal:content="specification/Title" />
-    <p>TODO: Add the correxponding metadata from its parent specification.</p>
-  </div>
 
 
 			<h2 id="general_metadata">General metadata</h2>
