@@ -263,6 +263,8 @@ h1 {
   background-repeat: no-repeat;
   font-weight: bold;
   cursor: pointer;
+  float:right;
+  font-size: 130%;
 }
 .indicator-metadata-info {
   display: none;
@@ -274,6 +276,8 @@ h1 {
   font-weight: bold;
   padding-left: 1.5em;
   cursor: pointer;
+  float:right;
+  font-size: 130%;
 }
 
 /* Update ui images path
