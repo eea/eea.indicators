@@ -4,7 +4,9 @@
 
 	<browser:page name="view"
 		for="eea.indicators.content.interfaces.IAssessment"
-		template="templates/assessment/view.pt" permission="zope2.View" />
+		template="templates/assessment/view.pt"
+		class=".assessment.IndexPage"
+		permission="zope2.View" />
 
 	<browser:page name="edit_aggregated"
 		for="eea.indicators.content.interfaces.IAssessment"
