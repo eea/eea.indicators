@@ -256,7 +256,7 @@ h1 {
 
 /* Assessment view
 ================== */
-#indicator-metadata-more {
+.indicator-metadata-more {
   padding: 0.3em 0.3em 0.3em 1.5em;
   background-image: url(bullet_add.png);
   background-position: left center;
@@ -264,10 +264,10 @@ h1 {
   font-weight: bold;
   cursor: pointer;
 }
-#indicator-metadata-info {
+.indicator-metadata-info {
   display: none;
 }
-#indicator-metadata-info #hide-specification-info {
+.indicator-metadata-info .hide-specification-info {
   background-image: url(bullet_delete.png);
   background-position: left center;
   background-repeat: no-repeat;
