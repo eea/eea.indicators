@@ -4,7 +4,9 @@
 
 	<browser:page name="view"
 		for="eea.indicators.content.interfaces.ISpecification"
-		class=".specification.IndexPage" permission="zope2.View" />
+		class=".specification.IndexPage"
+		template="templates/specification/view.pt"
+		permission="zope2.View" />
 
 	<browser:page name="edit_aggregated"
 		for="eea.indicators.content.interfaces.ISpecification"

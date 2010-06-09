@@ -20,10 +20,7 @@ import logging
 logger = logging.getLogger('eea.indicators')
 
 class IndexPage(BrowserView):
-    template = ViewPageTemplateFile('templates/specification/view.pt')
-
-    __call__ = template
-
+    """ """
 
 class AggregatedEditPage(BrowserView):
     template = ViewPageTemplateFile('templates/specification/aggregated_edit.pt')

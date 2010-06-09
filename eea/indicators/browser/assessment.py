@@ -11,11 +11,13 @@ from zope.component import getMultiAdapter
 from zope.interface import alsoProvides
 
 
+class IndexPage(BrowserView):
+    """ """
+
 class AggregatedEditPage(BrowserView):
     template = ViewPageTemplateFile('templates/assessment/aggregated_edit.pt')
 
     __call__ = template
-
 
 class CreateVersion(BaseCreateVersion):
     """Create new version customizations for eea.versions """
@@ -35,7 +37,7 @@ def create_version(original, request=None):
     obj_type = original.portal_type
     spec = parent(original)
 
-    #we want all Assessments for all spec versions to have the 
+    #we want all Assessments for all spec versions to have the
     #same version id.
     #if the parent Specification has versions, then the Assessment
     #needs to be a version of those assessments
