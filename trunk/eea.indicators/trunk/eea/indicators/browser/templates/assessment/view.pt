@@ -174,15 +174,14 @@
 					<div tal:replace="structure part/assessment">Question here</div>
 				</tal:parts>
 			</div>
-          <!-- TODO: #3273 -->
-          <h2 id="data_specifications">Data sources</h2>
+          <h2>Data sources</h2>
           <ul tal:define="datasetsView nocall:specification/@@related_items;
                           datasets python:datasetsView('Data')">
             <li tal:condition="not:datasets">No datasets have been specifed yet.</li>
             <li tal:repeat="data datasets" tal:condition="datasets">
               <a href=""
                  tal:attributes="href string:${context/portal_url}/data-and-maps/data/ds_resolveuid/${data/@@getLatestVersionLink}"
-                 tal:content="data/@@getLatestVersionLink">Dataset title</a>
+                 tal:content="data/title">Dataset title</a>
             </li>
           </ul>
 	  <div class="indicator-metadata-info">
