@@ -161,16 +161,18 @@
           </tal:methodology_references>
 
           <!-- TODO: #3273 -->
-          <h2 id="data_specifications">Data specifications</h2>
-          <ul tal:define="datasetsView nocall:context/@@related_items;
+          <div id="data-specifications" metal:define-macro="data-specifications">
+          <h2>Data specifications</h2>
+          <ul tal:define="datasetsView nocall:here/@@related_items;
                           datasets python:datasetsView('Data')">
             <li tal:condition="not:datasets">No datasets have been specifed yet.</li>
             <li tal:repeat="data datasets" tal:condition="datasets">
               <a href=""
                  tal:attributes="href string:${context/portal_url}/data-and-maps/data/ds_resolveuid/${data/@@getLatestVersionLink}"
-                 tal:content="data/@@getLatestVersionLink">Dataset title</a>
+                 tal:content="data/title">Dataset title</a>
             </li>
           </ul>
+          </div>
 
           <h2 id="uncertainties">Uncertainties</h2>
 
