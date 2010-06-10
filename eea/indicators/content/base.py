@@ -54,7 +54,18 @@ class ModalFieldEditableAware(object):
         self.reindexObject()
 
         self.unmarkCreationFlag()
-        if self._at_rename_after_creation and is_new_object:
+        #NOTE: at the moment, this is not very elegant
+        #the problem is that the objects, when are editing
+        #in a composite manner with the aggregated edit view,
+        #will change their ids after the first save. For example
+        #when editing the title for a Specification, it will 
+        #change its id. This means that all the URLs that are
+        #already on the page (for example adding a PolicyQuestion)
+        #will be invalid. To solve this particular case we make
+        #the page reload after editing the Title. In all other cases
+        #we want to either skip this behaviour or make those objects
+        #have their _at_rename_after_creation set to False
+        if self._at_rename_after_creation and is_new_object and fieldname == 'title':
             self._renameAfterCreation(check_auto_id=True)
 
         # Post create/edit hooks

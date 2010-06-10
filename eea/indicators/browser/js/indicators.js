@@ -447,7 +447,6 @@ function closer(fieldname, active_region, url){
   var parent = $(field).parent();
   var reload_page = $('.reload_page', parent);
   if (reload_page.length) {
-    alert("Reloading page");
     $("#dialog-inner").dialog("close");
     document.location = url;
     return false;
