@@ -7,7 +7,7 @@
 
   <metal:javascript fill-slot="javascript_head_slot">
     <script language="javascript" type="text/javascript">
-      function figures_number() {
+      function figuresNumber() {
         var figures = jQuery(".figure-title");
         var count = 1;
 
@@ -18,29 +18,29 @@
         })
       }
 
-      function setIndicatorsBtn() {
-        jQuery(".indicator-metadata-more").click(function () { showIndicatorMetadata("more") });
-        jQuery(".indicator-metadata-info").click(function () { showIndicatorMetadata("info") });
+      function setMetadataSwitchBtn() {
+        jQuery(".metadata-switch").click(function () { showMetadata() });
       };
 
-      function showIndicatorMetadata(event) {
-        if (event == "more") {
-          jQuery(".indicator-metadata-more").fadeOut("slow", function() {
-              jQuery(".indicator-metadata-info").fadeIn("slow");
-              jQuery(".hide-specification-info").fadeIn("slow");
+      function showMetadata() {
+        if (jQuery('.metadata-switch').hasClass('metadata-switch-show')) {
+          jQuery(".metadata-info-switchable").fadeOut("slow", function() {
+              jQuery('.metadata-switch').addClass('metadata-switch-hide');
+              jQuery('.metadata-switch').innerHTML('Switch to short indicator view');
               });
+        };
+
+        if (jQuery('.metadata-switch').hasClass('metadata-switch-hide')) {
+          jQuery(".metadata-info-switchable").fadeIn("slow", function() {
+              jQuery('.metadata-switch').addClass('metadata-switch-show');
+              jQuery('.metadata-switch').innerHTML('Switch to full indicator view');
+              });
+        };
       };
-        if (event == "info") {
-          jQuery(".indicator-metadata-info").fadeOut("slow", function() {
-              jQuery(".indicator-metadata-more").fadeIn("slow");
-              jQuery(".hide-specification-info").fadeOut("slow");
-                });
-      };
-      }
 
       jQuery(document).ready(function () {
-          figures_number();
-          setIndicatorsBtn();
+          figuresNumber();
+          setMetadataSwitchBtn();
       });
     </script>
   </metal:javascript>
@@ -52,11 +52,11 @@
         <metal:toc use-macro="here/portlet_toc/macros/portlet"/>
       </tal:block>
 
-    <div class="indicator-metadata-more">Switch to full indicator view </div>
-    <div class="indicator-metadata-info">
-      <span class="hide-specification-info">Switch to short indicator view</span>
-    </div>
 
+    <div class="metadata-switch metadata-switch-show">Switch to full indicator view</div> <!-- Switch to short indicator view -->
+    <div class="metadata-info-switchable">
+      <metal:definition-and-units use-macro="specification/@@view/macros/definition-and-units" />
+    </div>
 
     <div class="indicator-metadata-info">
       <metal:definition-and-units use-macro="specification/@@view/macros/definition-and-units" />
