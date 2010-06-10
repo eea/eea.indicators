@@ -121,7 +121,8 @@ class Assessment(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory, Br
     """
     security = ClassSecurityInfo()
 
-    implements(interfaces.IAssessment)
+    implements(interfaces.IAssessment,
+               interfaces.IIndicatorAssessment)
 
     meta_type = 'Assessment'
     _at_rename_after_creation = False

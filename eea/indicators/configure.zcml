@@ -16,8 +16,8 @@
     <five:implements class=".content.Specification.Specification"
         interface="eea.workflow.interfaces.IHasMandatoryWorkflowFields" />
 
-    <five:implements class=".content.Specification.Specification"
-        interface="eea.indicators.content.interfaces.IIndicatorAssessment" />
+    <!-- five:implements class=".content.Specification.Specification"
+        interface="eea.indicators.content.interfaces.IIndicatorAssessment" / -->
 
    <!-- <subscriber handler=".events.delegate_manager" -->
    <!--     for="eea.indicators.content.interfaces.ISpecification -->
@@ -54,7 +54,7 @@
          for=".content.interfaces.IIndicatorFactSheet
               zope.app.event.interfaces.IObjectModifiedEvent"
          handler="eea.dataservice.content.Data.versionIdHandler" />
-         
+
 
 
     <!-- ##/code-section configure.zcml -->
