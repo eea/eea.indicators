@@ -162,7 +162,7 @@
 
           <!-- TODO: #3273 -->
           <div id="data-specifications" metal:define-macro="data-specifications">
-          <h2>Data specifications</h2>
+          <h2 id="data_specifications">Data specifications</h2>
           <ul tal:define="datasetsView nocall:here/@@related_items;
                           datasets python:datasetsView('Data')">
             <li tal:condition="not:datasets">No datasets have been specifed yet.</li>
