@@ -611,14 +611,14 @@ function bootstrap_relations_widgets(){
       // If it has a metadata then it's a widget from assessmentpart. 
       // At this moment it's the only one that has that.
       
-      if (!$(".metadata", this).length) { return false }; 
+      if (!$(".metadata", this).length) { return false; } 
 
       var widget = this;
       var active_field = $(widget).parents('.active_field').get(0);
 
       var fieldname = $(".metadata .fieldname", this).text();
       var domid = $(".metadata .domid", this).text();    //$(this).attr('id');
-      var popup = new EEAReferenceBrowser.Widget(domid, {'fieldname':fieldname});;
+      var popup = new EEAReferenceBrowser.Widget(domid, {'fieldname':fieldname});
       var region = $(this).parents('.active_region');
 
       try {
