@@ -26,13 +26,14 @@
       function showIndicatorMetadata(event) {
         if (event == "more") {
           jQuery(".indicator-metadata-more").fadeOut("slow", function() {
-              jQuery(".indicator-metadata-info").fadeIn("slow");
-                });
-
+	      jQuery(".indicator-metadata-info").fadeIn("slow");
+	      jQuery(".hide-specification-info").fadeIn("slow");
+	      });
       };
         if (event == "info") {
           jQuery(".indicator-metadata-info").fadeOut("slow", function() {
               jQuery(".indicator-metadata-more").fadeIn("slow");
+	      jQuery(".hide-specification-info").fadeOut("slow");
                 });
       };
       }
