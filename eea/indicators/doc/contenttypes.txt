@@ -127,16 +127,26 @@ The following objects are created in the Edit view of Specification through obje
 An newly created Assessment should already have an AssessmentPart created, linked to the already 
 created PolicyQuestion.
 
-    >>> ast = spec.objectValues('Assessment')[0]
-    >>> ast.objectValues()
+    >>> assessment = spec.objectValues('Assessment')[0]
+    >>> assessment.objectValues()
     [<AssessmentPart at ...>]
-    >>> ap = ast.objectValues('AssessmentPart')[0]
+    >>> ap = assessment.objectValues('AssessmentPart')[0]
     >>> pq = spec.objectValues('PolicyQuestion')[0]
     >>> ap.getRelatedItems()[0] == pq
     True
 
 Versioning
 ~~~~~~~~~~
+
+We need a specification whose assessment contain links to EEAFigures, so let's 
+setup that.
+
+    >>> figures = portal[portal.invokeFactory("Folder", 'figures')]
+    >>> figure_1 = figures[figures.invokeFactory("EEAFigure", 'f1')]
+    >>> print figure_1
+    <EEAFigure at ...> 
+    >>> related = ap.getRelatedItems()
+    >>> ap.setRelatedItems(related + [figure_1])
 
 Specifications have versions; a version of a specification is a new revision of the Spec; 
 it is a completely restructured specification, with new format for Assessments. This is implemented
@@ -151,44 +161,37 @@ with the following exceptions:
  * the work items are not copied
  * the rest of the contained content items are copied
 
-    >>> v_url = spec.unrestrictedTraverse('@@createVersion')()
-    >>> print v_url
+    >>> version_url = spec.unrestrictedTraverse('@@createVersion')()
+    >>> print version_url
     http://nohost/plone/ims/spec2-1
-    >>> v_spec = ims[v_url.split('/')[-1]]
-    >>> print types_in_container(v_spec)
+    >>> versioned_spec = ims[version_url.split('/')[-1]]
+    >>> print types_in_container(versioned_spec)
     ['MethodologyReference', 'PolicyQuestion', 'RationaleReference']
 
 When creating a new version of an Assessment, the new assessment is a copy of the old, 
 with the following exceptions:
 
- * All the EEAFigures contained inside are copy of the ones in the previous assessment 
+ * The EEAFigures that are referenced are copy of the ones in the previous assessment 
    but must be linked as new versions of the figures in the older assessment.
 
-    >>> spec = ims['spec2']
-    >>> ast = spec.objectValues('Assessment')[0]
-    >>> ap = ast.objectValues('AssessmentPart')[0]
-    >>> browser.open('%s/object_factory?type_name=EEAFigure' % ap.absolute_url())
-    >>> figure_1 = ap.objectValues('EEAFigure')[0]
-    >>> print figure_1
-    <EEAFigure at ...> 
-    >>> v_ast = spec[ast.unrestrictedTraverse('@@createVersion')().split('/')[-1]]
-    >>> print v_ast
+    >>> versioned_assessment = spec[assessment.unrestrictedTraverse('@@createVersion')().split('/')[-1]]
+    >>> print versioned_assessment
     <Assessment at ...>
-    >>> ap = v_ast.objectValues('AssessmentPart')[0]
-    >>> figure_2 = ap.objectValues('EEAFigure')[0]
+    >>> assessment_part = versioned_assessment.objectValues('AssessmentPart')[0]
+    >>> print assessment_part.getRelatedItems()
+    [<PolicyQuestion at ...>, <EEAFigure at ...>]
+    >>> figure_2 = filter(lambda x:x.meta_type=='EEAFigure', assessment_part.getRelatedItems())[0]
     >>> versions = figure_1.unrestrictedTraverse('@@getVersions')().values()
-    >>> figure_1 in versions
-    True
-    >>> figure_2 in versions
-    True
+    >>> figure_1 in versions, figure_2 in versions
+    (True, True)
 
 Adding a new Assessment will already create it as a version of the previous one.
 
 When creating a new Assessment in a Specification that is versioned, that assessments
 needs to have the same versionid (group id) as the previous assessments.
 
-    >>> browser.open("%s/object_factory?type_name=Assessment" % v_url)
-    >>> ast = v_spec.objectValues("Assessment")[0]
+    >>> browser.open("%s/object_factory?type_name=Assessment" % version_url)
+    >>> ast = versioned_spec.objectValues("Assessment")[0]
     >>> versions = ast.unrestrictedTraverse('@@getVersions')().values()
     >>> assert len(versions) > 1
 

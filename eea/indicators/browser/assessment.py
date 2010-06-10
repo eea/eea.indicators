@@ -87,18 +87,14 @@ def create_version(original, request=None):
         id = assessment.invokeFactory(type_name="AssessmentPart",
                 id=assessment.generateUniqueId("AssessmentPart"),)
         ap = assessment[id]
-        ap.setRelatedItems(pq)
 
+        related = [pq]
         figures = get_figures_for_pq_in_assessment(pq, original)
-        #now create versions of figures
-        #TODO: EEAFigures no longer sit here
-        #TODO: all assessments share the same version id between a specification version
-        for fig in figures:
+        for fig in figures: #now we create versions of figures
             version = base_create_version(fig)
-            _parent = fig.aq_parent
-            cp = _parent.manage_cutObjects(ids=[version.getId()])
-            res = ap.manage_pasteObjects(cp)
+            related.append(version)
 
+        ap.setRelatedItems(related)
         ap.reindexObject()
 
     # Set new state
@@ -116,7 +112,8 @@ def get_figures_for_pq_in_assessment(pq, assessment):
 
     assessment_part = None
     for part in assessment.objectValues('AssessmentPart'):
-        pq = part.getRelatedItems()
+        related = part.getRelatedItems()
+        pq = filter(lambda x:x.meta_type=='PolicyQuestion', related)
         if pq:
             pq = pq[0]
         else:
@@ -127,7 +124,9 @@ def get_figures_for_pq_in_assessment(pq, assessment):
             break
 
     if assessment_part is not None:
-        return assessment_part.objectValues('EEAFigure')
+        related = assessment_part.getRelatedItems()
+        figures = filter(lambda x:x.meta_type=='EEAFigure', related)
+        return figures
 
     return []
 
