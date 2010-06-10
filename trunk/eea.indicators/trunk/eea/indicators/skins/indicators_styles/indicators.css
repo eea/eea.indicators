@@ -256,28 +256,23 @@ h1 {
 
 /* Assessment view
 ================== */
-.indicator-metadata-more {
-  padding: 0.3em 0.3em 0.3em 1.5em;
-  background-image: url(bullet_add.png);
-  background-position: left center;
-  background-repeat: no-repeat;
-  font-weight: bold;
-  cursor: pointer;
-  float:right;
-  font-size: 130%;
-}
-.indicator-metadata-info {
-  display: none;
-}
-.indicator-metadata-info .hide-specification-info {
-  background-image: url(bullet_delete.png);
-  background-position: left center;
-  background-repeat: no-repeat;
-  font-weight: bold;
+.metadata-switch {
   padding-left: 1.5em;
+  background-position: left center;
+  background-repeat: no-repeat;
+  font-weight: bold;
   cursor: pointer;
   float:right;
   font-size: 130%;
+}
+.metadata-switch-show {
+  background-image: url(bullet_add.png);
+}
+.metadata-switch-hide {
+  background-image: url(bullet_delete.png);
+}
+.metadata-info-switchable {
+  display: none;
 }
 
 /* Update ui images path
