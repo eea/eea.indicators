@@ -172,7 +172,7 @@
           </tal:parts>
         </div>
 
-          <h2>Data sources</h2>
+          <h2 id="data_specifications">Data sources</h2>
           <ul tal:define="datasetsView nocall:specification/@@related_items;
                           datasets python:datasetsView('Data')">
             <li tal:condition="not:datasets">No datasets have been specifed yet.</li>
