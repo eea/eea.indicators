@@ -3,7 +3,7 @@
 # $Id$
 #
 # Copyright (c) 2010 by ['Tiberiu Ichim']
-# Generator: ArchGenXML 
+# Generator: ArchGenXML
 #            http://plone.org/products/archgenxml
 #
 # GNU General Public License (GPL)
@@ -23,7 +23,7 @@ from eea.indicators.config import *
 
 # additional imports from tagged value 'import'
 from Products.ATContentTypes.content.base import ATCTContent, ATContentTypeSchema
-from eea.dataservice.vocabulary import Organisations
+from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
 
 ##code-section module-header #fill in your manual code here
 from Products.CMFPlone.utils import getToolByName
@@ -125,7 +125,7 @@ schema = Schema((
             i18n_domain='indicators',
         ),
         required=False,
-        vocabulary= [["None", ""], ['DataUseCategory_01','Main dataset'],['DataUseCategory_02','Dataset for gapfilling'],['DataUseCategory_03','Dataset for normalizing'],['DataUseCategory_04','Indicator dataset']],
+        vocabulary=NamedVocabulary("indicator_category_of_use"),
     ),
     TextField(
         name='description',
