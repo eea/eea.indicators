@@ -630,10 +630,10 @@ $(document).ready(function () {
   on_load_dom();
 
   // styling tweak for relations widget edit button
-  $(".eea-widget-referencebrowser").each(function(){
-    var parent = $(this).parent();
-    $(parent).prepend(this);
-  });
+  // $(".eea-widget-referencebrowser").each(function(){
+  //   var parent = $(this).parent();
+  //   $(parent).prepend(this);
+  // });
 
 });
 
