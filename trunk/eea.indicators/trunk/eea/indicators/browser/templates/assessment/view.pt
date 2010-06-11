@@ -24,18 +24,18 @@
 
       function showMetadata() {
         if (jQuery('.metadata-switch').hasClass('metadata-switch-show')) {
-          jQuery(".metadata-info-switchable").fadeOut("slow", function() {
+          jQuery(".metadata-info-switchable").fadeIn("slow", function() {
               jQuery('.metadata-switch').removeClass('metadata-switch-show');
               jQuery('.metadata-switch').addClass('metadata-switch-hide');
-              jQuery('.metadata-switch').innerHTML = 'Switch to short indicator view';
+              jQuery('.metadata-switch').html('Switch to short indicator view');
               });
-        };
-
+        }
+        else
         if (jQuery('.metadata-switch').hasClass('metadata-switch-hide')) {
-          jQuery(".metadata-info-switchable").fadeIn("slow", function() {
+          jQuery(".metadata-info-switchable").fadeOut("slow", function() {
               jQuery('.metadata-switch').removeClass('metadata-switch-hide');
               jQuery('.metadata-switch').addClass('metadata-switch-show');
-              jQuery('.metadata-switch').innerHTML = 'Switch to full indicator view';
+              jQuery('.metadata-switch').html('Switch to full indicator view');
               });
         };
       };
