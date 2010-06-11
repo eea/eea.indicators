@@ -74,7 +74,7 @@ CODES = [
         ]
 
 DPSIR = [
-    ('None', ''),
+    ('None', 'N/A'),
     ('D', 'Driving force'),
     ('P', 'Pressure'),
     ('S', 'State'),
@@ -83,7 +83,7 @@ DPSIR = [
     ]
 
 TYPOLOGY = [
-    ('None', ''),
+    ('None', 'N/A'),
     ('A', 'Descriptive indicator (Type A – What is happening to the environment and to humans?)'),
     ('B', 'Performance indicator (Type B – Does it matter?)'),
     ('C', 'Efficiency indicator (Type C – Are we improving?)'),
@@ -92,7 +92,7 @@ TYPOLOGY = [
     ]
 
 CATEGORY_OF_USE = [
-     ("None", ""),
+     ("None", "N/A"),
      ('DataUseCategory_01','Main dataset'),
      ('DataUseCategory_02','Dataset for gapfilling'),
      ('DataUseCategory_03','Dataset for normalizing'),
