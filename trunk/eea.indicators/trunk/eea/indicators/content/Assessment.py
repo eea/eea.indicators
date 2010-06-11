@@ -172,7 +172,7 @@ class Assessment(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory, Br
                         (time.Mon(), time.year())
                         }
                     )
-            return spec_title + u' — ' + self.translate(msg)
+            return spec_title + ' - ' + self.translate(msg)
         else:
             if time is None:
                 time = self.creation_date
@@ -182,11 +182,17 @@ class Assessment(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory, Br
                         (time.Mon(), time.year())
                         }
                     )
-            return spec_title + u' — ' + self.translate(msg)
+            return spec_title + ' - ' + self.translate(msg)
 
     security.declarePublic('getThemes')
     def getThemes(self):
         return self.aq_parent.getThemes()
+    
+    
+    security.declarePublic("Description")
+    def Description(self):
+        convert = getToolByName(self, 'portal_transforms').convert
+        return convert('html_to_text', self.getKey_message()).getData()
 
 registerType(Assessment, PROJECTNAME)
 # end of class Assessment
