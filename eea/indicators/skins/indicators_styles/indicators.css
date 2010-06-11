@@ -1,9 +1,23 @@
 .headed-box {
-  border:1px solid #31B4FF;
-  padding:6px;
+  border:1px solid #E9EFCD;
   clear:both;
   margin-top:20px;
+  padding:6px;
 }
+
+#box-classification {
+  border:1px solid #E9EFCD;
+  clear:both;
+  float:right;
+  margin-top:20px;
+  padding:6px;
+  width:20em;
+}
+
+#box-classification h3 {
+ margin: 0;
+}
+
 .headed-box h5 {
   background-color:white;
   float:left;
