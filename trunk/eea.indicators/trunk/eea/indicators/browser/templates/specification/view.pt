@@ -74,8 +74,8 @@
               <p tal:replace="structure ref/Description" />
             </li>
           </ul>
-        </div>        
-          
+        </div>
+
           <div id="definition-and-units" metal:define-macro="definition-and-units">
           <h2>Indicator definition</h2>
           <tal:definition define="definition context/getDefinition">
@@ -89,8 +89,8 @@
             <p tal:condition="units" tal:replace="structure units"></p>
           </tal:units>
           </div>
-          
-          
+
+
           <h2 id="policy_context">Policy Context and targets</h2>
 
           <h3>Context description</h3>
@@ -365,8 +365,12 @@
           <div class='headed-box'>
             <h3>Classification</h3>
             <div class="visualClear"><!-- --></div>
-            <strong>DPSIR</strong>: <span tal:replace="context/getDpsir" /><br/>
-            <strong>Typology</strong>: <span tal:replace="context/getTypology" /><br/>
+            <strong>DPSIR</strong>: <span tal:define="dpsirLabel nocall:context/@@dpsir_label"
+                                          tal:replace="python:dpsirLabel(context.getDpsir())" />
+            <br/>
+            <strong>Typology</strong>: <span tal:define="typologyLabel nocall:context/@@typology_label"
+                                             tal:replace="python:typologyLabel(context.getTypology())" />
+            <br/>
           </div>
 
           <metal:macro use-macro="here/eea_relateditems/macros/relatedItemsWithThumbs" />

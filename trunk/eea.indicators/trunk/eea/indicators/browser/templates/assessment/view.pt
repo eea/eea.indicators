@@ -269,8 +269,12 @@
             <div class='headed-box'>
               <h3>Classification</h3>
               <div class="visualClear"><!-- --></div>
-              <strong>DPSIR</strong>: <span tal:replace="context/getDpsir" /><br/>
-              <strong>Typology</strong>: <span tal:replace="context/getTypology" /><br/>
+              <strong>DPSIR</strong>: <span tal:define="dpsirLabel nocall:context/@@dpsir_label"
+                                            tal:replace="python:dpsirLabel(context.getDpsir())" />
+              <br/>
+              <strong>Typology</strong>: <span tal:define="typologyLabel nocall:context/@@typology_label"
+                                               tal:replace="python:typologyLabel(context.getTypology())" />
+              <br/>
               <strong>EEA Themes</strong>:
               <ul>
                 <li tal:repeat="theme context/getThemes" tal:content="theme" />

@@ -54,6 +54,21 @@
     class=".utils.RelatedItems"
     permission="zope2.View" />
 
+  <browser:page name="dpsir_label"
+    for="*"
+    class=".utils.DpsirLabel"
+    permission="zope2.View" />
+
+  <browser:page name="typology_label"
+    for="*"
+    class=".utils.TypologyLabel"
+    permission="zope2.View" />
+
+  <browser:page name="category_label"
+    for="*"
+    class=".utils.CategoryLabel"
+    permission="zope2.View" />
+
   <!-- imgview -->
   <browser:page
     for="..content.interfaces.IAssessment"

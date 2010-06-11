@@ -3,6 +3,8 @@ from Products.Five import BrowserView
 from eea.workflow.interfaces import IValueProvider
 from zope.component import getMultiAdapter
 from zope.interface import Interface, implements
+from Products.CMFCore.utils import getToolByName
+from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
 import logging
 
 
@@ -81,3 +83,29 @@ class RelatedItems(BrowserView):
         return [rel.UID() for rel in self.context.getRelatedItems()
                 if rel.portal_type in ctype]
 
+class DpsirLabel(BrowserView):
+    """ Return value from DPSIR vocabulary based on key
+    """
+
+    def __call__(self, value=None):
+        atvm = getToolByName(self, ATVOCABULARYTOOL)
+        vocab = getattr(atvm, 'indicator_dpsir')
+        return vocab[value].Title()
+
+class TypologyLabel(BrowserView):
+    """ Return value from Typology vocabulary based on key
+    """
+
+    def __call__(self, value=None):
+        atvm = getToolByName(self, ATVOCABULARYTOOL)
+        vocab = getattr(atvm, 'indicator_typology')
+        return vocab[value].Title()
+
+class CategoryLabel(BrowserView):
+    """ Return value from Category of use vocabulary based on key
+    """
+
+    def __call__(self, value=None):
+        atvm = getToolByName(self, ATVOCABULARYTOOL)
+        vocab = getattr(atvm, 'indicator_category_of_use')
+        return vocab[value].Title()
