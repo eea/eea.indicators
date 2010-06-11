@@ -29,7 +29,7 @@ from Products.DataGridField.Column import Column
 from Products.DataGridField.SelectColumn import SelectColumn
 from Products.ATContentTypes.content.folder import ATFolder, ATFolderSchema
 from Products.Archetypes.atapi import MultiSelectionWidget
-from Products.ATVocabularyManager import NamedVocabulary
+from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
 
 ##code-section module-header #fill in your manual code here
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema
@@ -113,7 +113,7 @@ schema = Schema((
             i18n_domain='indicators',
         ),
         schemata="Classification",
-        vocabulary=[("None", ""), ('D', 'Driving force'), ('P', 'Pressure'), ('S', 'State'), ('I', 'Impact'), ('R', 'Response')],
+        vocabulary=NamedVocabulary("indicator_dpsir"),
         required_for_published=True,
     ),
     StringField(
@@ -125,7 +125,7 @@ schema = Schema((
             i18n_domain='indicators',
         ),
         schemata="Classification",
-        vocabulary=[['None', ''], ['A', 'Descriptive indicator (Type A – What is happening to the environment and to humans?)'], ['B', 'Performance indicator (Type B – Does it matter?)'], ['C', 'Efficiency indicator (Type C – Are we improving?)'], ['D', 'Policy-effectiveness indicator (Type D)'], ['E', 'Total welfare indicator (Type E – Are we on whole better off?)']],
+        vocabulary=NamedVocabulary("indicator_typology"),
         required_for_published=True,
     ),
     LinesField(

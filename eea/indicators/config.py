@@ -73,6 +73,24 @@ CODES = [
         'CSI',
         ]
 
+DPSIR = [
+    ('None', ''),
+    ('D', 'Driving force'),
+    ('P', 'Pressure'),
+    ('S', 'State'),
+    ('I', 'Impact'),
+    ('R', 'Response')
+    ]
+
+TYPOLOGY = [
+    ('None', ''),
+    ('A', 'Descriptive indicator (Type A – What is happening to the environment and to humans?)'),
+    ('B', 'Performance indicator (Type B – Does it matter?)'),
+    ('C', 'Efficiency indicator (Type C – Are we improving?)'),
+    ('D', 'Policy-effectiveness indicator (Type D)'),
+    ('E', 'Total welfare indicator (Type E – Are we on whole better off?)')
+    ]
+
 # These are the profiles that installed as dependencies on install
 #True = QuickInstaller, False: GenericSetup
 PROFILE_DEPENDENCIES = (
