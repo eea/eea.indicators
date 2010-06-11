@@ -58,6 +58,7 @@
     <div class="metadata-info-switchable">
       <metal:definition-and-units use-macro="specification/@@view/macros/definition-and-units" />
     </div>
+    <br class="visualClear" />
 
         <metal:versions use-macro="here/portlet_versions/macros/versions">
           <metal:new fill-slot="old" />
