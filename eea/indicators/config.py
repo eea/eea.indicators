@@ -91,6 +91,14 @@ TYPOLOGY = [
     ('E', 'Total welfare indicator (Type E – Are we on whole better off?)')
     ]
 
+CATEGORY_OF_USE = [
+     ("None", ""),
+     ('DataUseCategory_01','Main dataset'),
+     ('DataUseCategory_02','Dataset for gapfilling'),
+     ('DataUseCategory_03','Dataset for normalizing'),
+     ('DataUseCategory_04','Indicator dataset')
+    ]
+
 # These are the profiles that installed as dependencies on install
 #True = QuickInstaller, False: GenericSetup
 PROFILE_DEPENDENCIES = (

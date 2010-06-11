@@ -26,6 +26,7 @@ from eea.indicators.config import (
     CODES,
     DPSIR,
     TYPOLOGY,
+    CATEGORY_OF_USE,
     PROFILE_DEPENDENCIES
 )
 ##/code-section HEAD
@@ -133,6 +134,15 @@ def setup_vocabularies(context):
         atvm.invokeFactory('SimpleVocabulary', vkey)
         vocab = atvm[vkey]
         for val in TYPOLOGY:
+            vocab.invokeFactory('SimpleVocabularyTerm', val[0])
+            vocab[key].setTitle(val[1])
+
+    # Vocabulary of indicator category of use
+    vkey = 'indicator_category_of_use'
+    if not hasattr(atvm, vkey):
+        atvm.invokeFactory('SimpleVocabulary', vkey)
+        vocab = atvm[vkey]
+        for val in CATEGORY_OF_USE:
             vocab.invokeFactory('SimpleVocabularyTerm', val[0])
             vocab[key].setTitle(val[1])
 
