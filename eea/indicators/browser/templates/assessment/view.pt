@@ -25,15 +25,17 @@
       function showMetadata() {
         if (jQuery('.metadata-switch').hasClass('metadata-switch-show')) {
           jQuery(".metadata-info-switchable").fadeOut("slow", function() {
+              jQuery('.metadata-switch').removeClass('metadata-switch-show');
               jQuery('.metadata-switch').addClass('metadata-switch-hide');
-              jQuery('.metadata-switch').innerHTML('Switch to short indicator view');
+              jQuery('.metadata-switch').innerHTML = 'Switch to short indicator view';
               });
         };
 
         if (jQuery('.metadata-switch').hasClass('metadata-switch-hide')) {
           jQuery(".metadata-info-switchable").fadeIn("slow", function() {
+              jQuery('.metadata-switch').removeClass('metadata-switch-hide');
               jQuery('.metadata-switch').addClass('metadata-switch-show');
-              jQuery('.metadata-switch').innerHTML('Switch to full indicator view');
+              jQuery('.metadata-switch').innerHTML = 'Switch to full indicator view';
               });
         };
       };
@@ -52,16 +54,10 @@
         <metal:toc use-macro="here/portlet_toc/macros/portlet"/>
       </tal:block>
 
-
-    <div class="metadata-switch metadata-switch-show">Switch to full indicator view</div> <!-- Switch to short indicator view -->
+    <div class="metadata-switch metadata-switch-show">Switch to full indicator view</div>
     <div class="metadata-info-switchable">
       <metal:definition-and-units use-macro="specification/@@view/macros/definition-and-units" />
     </div>
-
-    <div class="indicator-metadata-info">
-      <metal:definition-and-units use-macro="specification/@@view/macros/definition-and-units" />
-    </div>
-
 
         <metal:versions use-macro="here/portlet_versions/macros/versions">
           <metal:new fill-slot="old" />
