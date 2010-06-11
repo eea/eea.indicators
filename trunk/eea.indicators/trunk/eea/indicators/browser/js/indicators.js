@@ -511,7 +511,7 @@ function dialog_edit(url, title, callback, options){
   var target = $('#dialog_edit_target');
   $("#dialog-inner").remove();     // temporary, apply real fix
   $(target).append("<div id='dialog-inner'></div>");
-  window.onbeforeunload = null; // disable form unloaders
+  window.onbeforeunload = null; // this disables the form unloaders
   $("#dialog-inner").dialog({
     modal:true,
     width:options.width,
@@ -524,10 +524,6 @@ function dialog_edit(url, title, callback, options){
       'Save':function(e){
         var button = e.target;
         $("#dialog-inner form").trigger('submit');
-        // var form = $("#dialog-inner form").get(0);
-        // var ev = document.createEvent("HTMLEvents"); // TODO: replace with jquery's trigger()
-        // ev.initEvent('submit', true, true);
-        // form.dispatchEvent(ev);  // TODO: need to check compatibility with IE
       },
       'Cancel':function(e){
         $("#dialog-inner").dialog("close");
@@ -535,24 +531,6 @@ function dialog_edit(url, title, callback, options){
     },
     beforeclose:function(event, ui){
       return true;
-      // var form = $("#dialog-inner form").get(0);
-      // beforeunloadtool = window.onbeforeunload && window.onbeforeunload.tool;
-      // save_kupu_values(form);
-      // var res = beforeunloadtool.isAnyFormChanged();
-
-      // beforeunloadtool.removeForms(form);
-      // return true;    // TODO: fix this so that the form unload alert works properly
-
-      // if (beforeunloadtool) {
-        //   save_kupu_values(form);
-        //   if (beforeunloadtool.isAnyFormChanged()) {
-          //      // the problem is that it falsely detects changed content;
-          //     alert(window.onbeforeunload.tool.execute());
-          //     return false;
-    //   } else {
-      //     return true;
-    //   };
-    // }
     }
   });
 
@@ -562,10 +540,15 @@ function dialog_edit(url, title, callback, options){
     'cache':false,
     'success': function(r){
       $("#dialog-inner").html(r);
+
+      // this is a workaround for the following bug:
+      // after editing with Kupu in one of the popup dialogs,
+      // it is not possible to click inside the text inputs anymore
+      // surprisingly, clicking on their label activates the fields
+      $("#dialog-inner label").trigger('click');
       callback();
     }
   });
-  // $("#dialog-inner").load(url, callback);
   change_kupu_styles();
 }
 
