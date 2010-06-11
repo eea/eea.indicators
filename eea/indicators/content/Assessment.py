@@ -155,7 +155,7 @@ class Assessment(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory, Br
     security.declarePublic("Title")
     def Title(self):
         """ return title based on parent specification title"""
-        spec_title = self.aq_parent.getTitle()
+        spec_title = self.aq_inner.aq_parent.getTitle()
         try:
             wftool = getToolByName(self, 'portal_workflow')
         except AttributeError:
@@ -187,8 +187,8 @@ class Assessment(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory, Br
     security.declarePublic('getThemes')
     def getThemes(self):
         return self.aq_parent.getThemes()
-    
-    
+
+
     security.declarePublic("Description")
     def Description(self):
         convert = getToolByName(self, 'portal_transforms').convert
