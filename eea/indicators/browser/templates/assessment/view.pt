@@ -50,6 +50,7 @@
   <body>
     <div metal:fill-slot="main" tal:define="specification context/getParentNode">
       <h1 id="assessment_title" tal:content="context/Title">Title here</h1>
+
       <tal:block define="queryString string:h2">
         <metal:toc use-macro="here/portlet_toc/macros/portlet"/>
       </tal:block>
@@ -71,7 +72,7 @@
                          key nocall:assessments/key;
                          secondary assessments/secondary;">
           <div tal:condition="key" >
-            <h2 tal:content="key/Title" class="policy_question">Question here</h2>
+            <h2 class="policy_question">Key policy question: <span tal:replace="key/Title" /></h2>
             <div class="keyMessage">
               <h3>Key message</h3>
               <p tal:content="structure context/getKey_message" />
@@ -122,7 +123,7 @@
           </div>
 
           <tal:parts repeat="part secondary">
-            <h2 tal:content="part/Title" class="policy_question">Question here</h2>
+            <h2 class="policy_question">Specific policy question: <span tal:replace="part/Title" /></h2>
 
             <tal:policy_documents define="relatedItems nocall:part/@@related_items;
                                           eea_figures python:relatedItems('EEAFigure')">
