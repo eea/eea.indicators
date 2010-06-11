@@ -20,6 +20,7 @@ from Products.ATContentTypes.content.folder import ATFolder
 from Products.CMFCore.permissions import ModifyPortalContent
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 from Products.ATReferenceBrowserWidget.ATReferenceBrowserWidget import ReferenceBrowserWidget
+from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
 
 from eea.indicators.config import *
 
@@ -136,7 +137,7 @@ schema = Schema((
             label_msgid='indicators_label_dpsir',
             i18n_domain='indicators',
         ),
-        vocabulary=[('None', ''), ('D', 'Driving forces'), ('P', 'Pressures'), ('S', 'States'), ('I', 'Impacts'), ('R', 'Reactions')],
+        vocabulary=NamedVocabulary("indicator_dpsir"),
     ),
     EEAReferenceField('relatedItems',
             relationship='relatesTo',
