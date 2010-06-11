@@ -113,38 +113,42 @@ def setup_vocabularies(context):
     # Vocabulary of indicator sets
     vkey = 'indicator_codes'
     if not hasattr(atvm, vkey):
+        logger.info("adding Vocabulary of indicator sets")
         atvm.invokeFactory('SimpleVocabulary', vkey)
         vocab = atvm[vkey]
         for val in CODES:
             vocab.invokeFactory('SimpleVocabularyTerm', val)
-            vocab[key].setTitle(val)
+            vocab[val].setTitle(val)
 
     # Vocabulary of indicator DPSIR
     vkey = 'indicator_dpsir'
     if not hasattr(atvm, vkey):
+        logger.info("adding Vocabulary of indicator DPSIR")
         atvm.invokeFactory('SimpleVocabulary', vkey)
         vocab = atvm[vkey]
         for val in DPSIR:
             vocab.invokeFactory('SimpleVocabularyTerm', val[0])
-            vocab[key].setTitle(val[1])
+            vocab[val].setTitle(val[1])
 
     # Vocabulary of indicator typology
     vkey = 'indicator_typology'
     if not hasattr(atvm, vkey):
+        logger.info("adding Vocabulary of indicator typology")
         atvm.invokeFactory('SimpleVocabulary', vkey)
         vocab = atvm[vkey]
         for val in TYPOLOGY:
             vocab.invokeFactory('SimpleVocabularyTerm', val[0])
-            vocab[key].setTitle(val[1])
+            vocab[val].setTitle(val[1])
 
     # Vocabulary of indicator category of use
     vkey = 'indicator_category_of_use'
     if not hasattr(atvm, vkey):
+        logger.info("adding Vocabulary of indicator category of use")
         atvm.invokeFactory('SimpleVocabulary', vkey)
         vocab = atvm[vkey]
         for val in CATEGORY_OF_USE:
             vocab.invokeFactory('SimpleVocabularyTerm', val[0])
-            vocab[key].setTitle(val[1])
+            vocab[val].setTitle(val[1])
 
 def setup_misc(context):
     """ Stub step to enable setting dependent steps """
