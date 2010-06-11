@@ -154,13 +154,15 @@ class Assessment(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory, Br
 
     security.declarePublic("Title")
     def Title(self):
+        """ return title based on parent specification title"""
+        spec_title = self.aq_parent.getTitle()
         try:
             wftool = getToolByName(self, 'portal_workflow')
         except AttributeError:
-            return u"Untitled"  #the object has not finished its creation process
+            return spec_title + ' - newly created assessment' #the object has not finished its creation process
         info = wftool.getStatusOf('indicators_workflow', self)
         if not info:
-            return u"Untitled"  #the object has not finished its creation process
+            return spec_title + ' - newly created assessment'  #the object has not finished its creation process
 
         time = self.getEffectiveDate()
         if info['review_state'] == "published":
@@ -170,7 +172,7 @@ class Assessment(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory, Br
                         (time.Mon(), time.year())
                         }
                     )
-            return self.translate(msg)
+            return spec_title + u' — ' + self.translate(msg)
         else:
             if time is None:
                 time = self.creation_date
@@ -180,7 +182,7 @@ class Assessment(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory, Br
                         (time.Mon(), time.year())
                         }
                     )
-            return self.translate(msg)
+            return spec_title + u' — ' + self.translate(msg)
 
     security.declarePublic('getThemes')
     def getThemes(self):
