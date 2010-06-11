@@ -60,10 +60,29 @@
               <strong>Typology</strong>: <span tal:define="typologyLabel nocall:context/@@typology_label"
                                                tal:replace="python:typologyLabel(context.getTypology())" />
               <br/>
-              <strong>EEA Themes</strong>:
-              <ul>
-                <li tal:repeat="theme context/getThemes" tal:content="theme" />
-              </ul>
+ 
+              <div>
+                <h4>Topics</h4>
+                <tal:block define="themesView specification/@@themes-object|nothing;
+                                   themes themesView/full_items;
+                                   primaryTheme python:themes and themes[0] or None">
+
+                    <tal:primaryTheme repeat="theme themes" condition="primaryTheme">
+                        <a href="" title="" style="text-decoration: none"
+                           tal:attributes="href theme_url;
+                                           title theme_title"
+                           tal:define="theme_title python:theme['title'];
+                                       theme_url python:theme['url'];
+                                       theme_image python:theme['image']">
+                            <img alt="" src=""
+                                 tal:attributes="alt theme_title;
+                                                 src theme_image" />
+                            <tal:block replace="theme_title" />
+                        </a> <span tal:condition="python:theme == themes[0]">(Primary theme)</span>
+                        <br /><br />
+                    </tal:primaryTheme>
+                </tal:block>
+              </div>
               <h4>Identification</h4>
               <div tal:define="codes context/getCodes">
                 <strong>Indicator codes</strong>
