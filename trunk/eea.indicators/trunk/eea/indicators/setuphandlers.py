@@ -128,7 +128,7 @@ def setup_vocabularies(context):
         vocab = atvm[vkey]
         for val in DPSIR:
             vocab.invokeFactory('SimpleVocabularyTerm', val[0])
-            vocab[val].setTitle(val[1])
+            vocab[val[0]].setTitle(val[1])
 
     # Vocabulary of indicator typology
     vkey = 'indicator_typology'
@@ -138,7 +138,7 @@ def setup_vocabularies(context):
         vocab = atvm[vkey]
         for val in TYPOLOGY:
             vocab.invokeFactory('SimpleVocabularyTerm', val[0])
-            vocab[val].setTitle(val[1])
+            vocab[val[0]].setTitle(val[1])
 
     # Vocabulary of indicator category of use
     vkey = 'indicator_category_of_use'
@@ -148,7 +148,7 @@ def setup_vocabularies(context):
         vocab = atvm[vkey]
         for val in CATEGORY_OF_USE:
             vocab.invokeFactory('SimpleVocabularyTerm', val[0])
-            vocab[val].setTitle(val[1])
+            vocab[val[0]].setTitle(val[1])
 
 def setup_misc(context):
     """ Stub step to enable setting dependent steps """
