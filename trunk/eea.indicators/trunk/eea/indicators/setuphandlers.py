@@ -22,7 +22,12 @@ from Products.CMFCore.utils import getToolByName
 import transaction
 ##code-section HEAD
 from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
-from eea.indicators.config import CODES, PROFILE_DEPENDENCIES
+from eea.indicators.config import (
+    CODES,
+    DPSIR,
+    TYPOLOGY,
+    PROFILE_DEPENDENCIES
+)
 ##/code-section HEAD
 
 def isNotindicatorsProfile(context):
@@ -104,15 +109,32 @@ def setup_vocabularies(context):
     if atvm is None:
         raise ValueError("Could not find the ATVocabularyManager")
 
+    # Vocabulary of indicator sets
     vkey = 'indicator_codes'
-    if hasattr(atvm, vkey):
-        return
+    if not hasattr(atvm, vkey):
+        atvm.invokeFactory('SimpleVocabulary', vkey)
+        vocab = atvm[vkey]
+        for val in CODES:
+            vocab.invokeFactory('SimpleVocabularyTerm', val)
+            vocab[key].setTitle(val)
 
-    atvm.invokeFactory('SimpleVocabulary', vkey)
-    vocab = atvm[vkey]
-    for key in CODES:
-        vocab.invokeFactory('SimpleVocabularyTerm', key)
-        vocab[key].setTitle(key)
+    # Vocabulary of indicator DPSIR
+    vkey = 'indicator_dpsir'
+    if not hasattr(atvm, vkey):
+        atvm.invokeFactory('SimpleVocabulary', vkey)
+        vocab = atvm[vkey]
+        for val in DPSIR:
+            vocab.invokeFactory('SimpleVocabularyTerm', val[0])
+            vocab[key].setTitle(val[1])
+
+    # Vocabulary of indicator typology
+    vkey = 'indicator_typology'
+    if not hasattr(atvm, vkey):
+        atvm.invokeFactory('SimpleVocabulary', vkey)
+        vocab = atvm[vkey]
+        for val in TYPOLOGY:
+            vocab.invokeFactory('SimpleVocabularyTerm', val[0])
+            vocab[key].setTitle(val[1])
 
 def setup_misc(context):
     """ Stub step to enable setting dependent steps """
