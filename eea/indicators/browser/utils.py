@@ -90,7 +90,11 @@ class DpsirLabel(BrowserView):
     def __call__(self, value=None):
         atvm = getToolByName(self, ATVOCABULARYTOOL)
         vocab = getattr(atvm, 'indicator_dpsir')
-        return vocab[value].Title()
+        value = vocab.get(value)
+        if value:
+            return value.Title()
+        else:
+            return ""
 
 class TypologyLabel(BrowserView):
     """ Return value from Typology vocabulary based on key
@@ -99,7 +103,11 @@ class TypologyLabel(BrowserView):
     def __call__(self, value=None):
         atvm = getToolByName(self, ATVOCABULARYTOOL)
         vocab = getattr(atvm, 'indicator_typology')
-        return vocab[value].Title()
+        value = vocab.get(value)
+        if value:
+            return value.Title()
+        else:
+            return ""
 
 class CategoryLabel(BrowserView):
     """ Return value from Category of use vocabulary based on key
@@ -108,4 +116,8 @@ class CategoryLabel(BrowserView):
     def __call__(self, value=None):
         atvm = getToolByName(self, ATVOCABULARYTOOL)
         vocab = getattr(atvm, 'indicator_category_of_use')
-        return vocab[value].Title()
+        value = vocab.get(value)
+        if value:
+            return value.Title()
+        else:
+            return ""
