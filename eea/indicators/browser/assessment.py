@@ -159,10 +159,12 @@ class WorkflowStateReadiness(ObjectReadiness):
         info = ObjectReadiness.get_info_for(self, state_name)
         #TODO: translate messages
 
+        #TODO: add the required fields and info from the assessment parts
         ap = self.context.objectValues("AssessmentPart")
+        
         missing = [p for p in ap if not self.field_has_value('assessment', p)]
         if missing:
-            info['extra'].append(('error', 'You need to fill in the assessments for all the questions'))
+            info['extra'].append(('error', 'You need to fill in the assessments for all the policy questions'))
 
         #check that the parent Specification is published
         parent = self.context.aq_inner.aq_parent
