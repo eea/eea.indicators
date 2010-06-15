@@ -442,7 +442,6 @@ function closer(fieldname, active_region, url){
     region = $(field).parents('.active_region').get();
   }
 
-
   // we check if the field wants to reload the entire page
   var parent = $(field).parent();
   var reload_page = $('.reload_page', parent);
@@ -637,4 +636,56 @@ $(document).ready(function () {
 
 });
 
+// this.contentWindow.focus();//this should solve the problem that requires pressing the bold button
+
+KupuZoomTool.prototype.commandfunc = function(button, editor) {
+  // we rewrite the KupuZoomTool because we want to scroll the page 
+  /* Toggle zoom state */
+  var zoom = button.pressed;
+  this.zoomed = zoom;
+
+  var zoomClass = 'kupu-fulleditor-zoomed';
+  var iframe = editor.getDocument().getEditable();
+
+  var body = document.body;
+  var html = document.getElementsByTagName('html')[0];
+  var doc = editor.getInnerDocument();
+  
+  if (zoom) {
+    this.scrolled = jQuery(window).scrollTop();
+    html.style.overflow = 'hidden';
+    window.scrollTo(0, 0);
+    editor.setClass(zoomClass);
+    body.className += ' '+zoomClass;
+    doc.body.className += ' '+zoomClass;
+    this.onresize();
+  } else {
+    html.style.overflow = '';
+    var fulleditor = iframe.parentNode;
+    fulleditor.style.width = '';
+    body.className = body.className.replace(/ *kupu-fulleditor-zoomed/, '');
+    doc.body.className = doc.body.className.replace(/ *kupu-fulleditor-zoomed/, '');
+    editor.clearClass(zoomClass);
+
+    iframe.style.width = '';
+    iframe.style.height = '';
+
+    var sourcetool = editor.getTool('sourceedittool');
+    var sourceArea = sourcetool?sourcetool.getSourceArea():null;
+    if (sourceArea) {
+      sourceArea.style.width = '';
+      sourceArea.style.height = '';
+    };
+    var scrolled = this.scrolled;
+    setTimeout(function(){
+      window.scrollTo(0, scrolled);
+    }, 200);
+  }
+  // Mozilla needs this. Yes, really!
+  doc.designMode=doc.designMode;
+
+  window.scrollTo(0, iframe.offsetTop);
+  editor.focusDocument();
+};
+//
 // vim: set sw=2 ts=2 softtabstop=2 et:
