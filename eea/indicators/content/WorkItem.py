@@ -128,9 +128,9 @@ class WorkItem(ATCTContent, BrowserDefaultMixin):
 
         duedate = self.toLocalizedTime(self.getDue_date(), long_format=0)
         title = _("work-work-aggregated",
-                default="Work ${status} due ${due}",
+                default="Work due ${due}",  #${status} 
                 mapping = {
-                    'status':self.getStatus(),
+                    #'status':self.getStatus(),
                     'due':duedate,
                     }
                 )
