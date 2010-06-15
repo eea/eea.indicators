@@ -679,7 +679,7 @@ KupuZoomTool.prototype.commandfunc = function(button, editor) {
     var scrolled = this.scrolled;
     setTimeout(function(){
       window.scrollTo(0, scrolled);
-    }, 200);
+    }, 200);    // TODO: this fix is a hack. Try to replace it.
   }
   // Mozilla needs this. Yes, really!
   doc.designMode=doc.designMode;

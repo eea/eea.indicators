@@ -79,6 +79,7 @@ def create_version(original, request=None):
     # but must be linked as new versions of the figures in the older assessment.
     # To achieve this, we must recreate all assessment parts and figures
 
+    #TODO: skip the object deletion, #3443
     assessment = ver
     assessment.manage_delObjects(ids=ver.objectIds('AssessmentPart'))
 

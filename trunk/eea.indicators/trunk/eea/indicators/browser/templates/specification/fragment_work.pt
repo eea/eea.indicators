@@ -1,72 +1,34 @@
 <tal:def tal:define="region_name string:work_area;
-                     region_update_handler string:fragment_work;">
+	region_update_handler string:fragment_work;">
 
-    <metal:macro metal:use-macro="context/indicators_macros/macros/active_region">
-        <metal:slot metal:fill-slot="content">
+	<metal:macro metal:use-macro="context/indicators_macros/macros/active_region">
+		<metal:slot metal:fill-slot="content">
 
-            <div class="logic_group">
-                <h2 id="further_work">Further work</h2>
+			<div class="logic_group">
+				<h2 id="further_work">Further work</h2>
 
-                <div class="grouped_field">
-                    <tal:def tal:define="works context/get_work;
-                                         short works/short;
-                                         long works/long;
-                                         incomplete works/incomplete">
-                        <a href='./object_factory?type_name=WorkItem' class="object_creator">+ Work Item</a>
+				<div tal:define="works python:context.objectValues('WorkItem');">
+					<a href='./object_factory?type_name=WorkItem' class="object_creator">+ Work Item</a>
 
-                        <div class="col3">
-                            <h4>Short term work (to be completed within 1 year from now.)</h4>
-                            <div tal:repeat="work short" class="work_item">
-                                <a href=""
-                                   class="schemata_edit spec_control"
-                                   tal:attributes="href string:${work/absolute_url}/schemata_edit?fieldset=default">Edit</a>
-                                <a href=""
-                                   class="object_delete spec_control"
-                                   tal:attributes="href string:${work/aq_parent/absolute_url}/object_delete?id=${work/getId}">Delete</a>
+					<div tal:repeat="work works" class="work_item">
+						<a href=""
+							class="schemata_edit spec_control"
+							tal:attributes="href string:${work/absolute_url}/schemata_edit?fieldset=default">Edit</a>
+						<a href=""
+							class="object_delete spec_control"
+							tal:attributes="href string:${work/aq_parent/absolute_url}/object_delete?id=${work/getId}">Delete</a>
 
-                                <h5 tal:content="work/Title" />
-                                <p tal:replace="structure work/Description"></p>
-                                <h6>Resource needs</h6>
-                                <p tal:replace="structure work/getNeeds"></p>
-                            </div>
-                        </div>
+						<h5 tal:content="work/Title" />
+						<p tal:replace="structure work/Description"></p>
+						<h6>Resource needs</h6>
+						<p tal:replace="structure work/getNeeds"></p>
+					</div>
 
-                        <div class="col3">
-                            <h4>Long term work</h4>
-                            <div tal:repeat="work long" class="work_item">
-                                <a href=""
-                                   class="schemata_edit spec_control"
-                                   tal:attributes="href string:${work/absolute_url}/schemata_edit?fieldset=default">Edit</a>
-                                <a href=""
-                                   class="object_delete spec_control"
-                                   tal:attributes="href string:${work/aq_parent/absolute_url}/object_delete?id=${work/getId}">Delete</a>
+					<div class="visualClear"><!-- --></div>
+				</div>
+			</div>
 
-                                <h5 tal:content="work/Title" />
-                                <p tal:replace="structure work/Description"></p>
-                                <h6>Resource needs</h6>
-                                <p tal:replace="structure work/getNeeds"></p>
-                            </div>
-                        </div>
-
-                        <div class="col3">
-                            <h4>Unclassified work</h4>
-                            <div tal:repeat="work incomplete" class="work_item">
-                                <a href=""
-                                   class="schemata_edit spec_control"
-                                   tal:attributes="href string:${work/absolute_url}/schemata_edit?fieldset=default">Edit</a>
-                                <a href=""
-                                   class="object_delete spec_control"
-                                   tal:attributes="href string:${work/aq_parent/absolute_url}/object_delete?id=${work/getId}">Delete</a>
-                                <h5 tal:content="work/Title" />
-                            </div>
-                        </div>
-
-                    </tal:def>
-                    <div class="visualClear"><!-- --></div>
-                </div>
-            </div>
-
-        </metal:slot>
-    </metal:macro>
+		</metal:slot>
+	</metal:macro>
 
 </tal:def>
