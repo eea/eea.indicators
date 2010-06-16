@@ -1,4 +1,6 @@
+from Acquisition import aq_base, aq_inner, aq_parent
 from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
+
 
 def get_dgf_value(field, value):
     """Cleanup the value returned for a DataGridField from a form post """
@@ -46,6 +48,7 @@ def get_dgf_value(field, value):
 
     return value
 
+
 def get_specific_parent(startobj, criteria):
     """Finds a specific parent for the startobj
 
@@ -59,7 +62,7 @@ def get_specific_parent(startobj, criteria):
     find = None
     while not criteria(parent):
         try:
-            parent = parent.aq_parent
+            parent = aq_parent(aq_inner(parent))
         except AttributeError:
             raise ValueError
         if IPloneSiteRoot.providedBy(parent):

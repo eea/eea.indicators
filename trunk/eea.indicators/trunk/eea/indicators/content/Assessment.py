@@ -35,6 +35,8 @@ from eea.indicators import msg_factory as _
 from eea.indicators.content.base import ModalFieldEditableAware, CustomizedObjectFactory
 from eea.relations.field import EEAReferenceField
 from eea.relations.widget import EEAReferenceBrowserWidget
+from Acquisition import aq_base, aq_inner, aq_parent
+
 ##/code-section module-header
 
 schema = Schema((
@@ -155,7 +157,12 @@ class Assessment(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory, Br
     security.declarePublic("Title")
     def Title(self):
         """ return title based on parent specification title"""
-        spec_title = self.aq_inner.aq_parent.getTitle()
+        parent = aq_parent(aq_inner(self))
+        if parent:  #the parent seems to be missing in tests
+            spec_title = parent.getTitle()
+        else:
+            spec_title = "Missing parent"
+
         try:
             wftool = getToolByName(self, 'portal_workflow')
         except AttributeError:
@@ -186,7 +193,8 @@ class Assessment(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory, Br
 
     security.declarePublic('getThemes')
     def getThemes(self):
-        return self.aq_parent.getThemes()
+        parent = aq_parent(aq_inner(self))
+        return parent.getThemes()
 
 
     security.declarePublic("Description")

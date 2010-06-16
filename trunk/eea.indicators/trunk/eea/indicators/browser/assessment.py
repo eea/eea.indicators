@@ -1,3 +1,4 @@
+from Acquisition import aq_base, aq_inner, aq_parent
 from DateTime import DateTime
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.utils import parent
@@ -147,7 +148,7 @@ class WorkflowStateReadiness(ObjectReadiness):
             if missing:
                 return False
             #check that the parent Specification is published
-            parent = self.context.aq_inner.aq_parent
+            parent = aq_parent(aq_inner(self.context))
             wftool = getToolByName(self.context, 'portal_workflow')
             state = wftool.getInfoFor(parent, 'review_state')
             if state != "published":
@@ -168,7 +169,7 @@ class WorkflowStateReadiness(ObjectReadiness):
             info['extra'].append(('error', 'You need to fill in the assessments for all the policy questions'))
 
         #check that the parent Specification is published
-        parent = self.context.aq_inner.aq_parent
+        parent = aq_parent(aq_inner(self.context))
         wftool = getToolByName(self.context, 'portal_workflow')
         state = wftool.getInfoFor(parent, 'review_state')
         if state != "published":

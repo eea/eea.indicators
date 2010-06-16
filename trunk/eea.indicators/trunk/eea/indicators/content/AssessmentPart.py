@@ -25,12 +25,13 @@ from eea.indicators.config import *
 from Products.ATContentTypes.content.folder import ATFolder, ATFolderSchema
 
 ##code-section module-header #fill in your manual code here
+from Acquisition import aq_base, aq_inner, aq_parent
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema
+from eea.indicators.content.base import ModalFieldEditableAware, CustomizedObjectFactory
 from eea.indicators.content.interfaces import ISpecification
 from eea.indicators.content.utils import get_specific_parent
 from eea.relations.field import EEAReferenceField
 from eea.relations.widget import EEAReferenceBrowserWidget
-from eea.indicators.content.base import ModalFieldEditableAware, CustomizedObjectFactory
 ##/code-section module-header
 
 schema = Schema((
@@ -152,7 +153,7 @@ class AssessmentPart(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory
     security.declarePublic('get_specification_path')
     def get_specification_path(self):
         #returns the path to the specification, used by the ReferenceWidget
-        spec = self.aq_parent.aq_parent #Specification -> Assessment -> AssessmentPart
+        spec = aq_parent(aq_inner(self)) #Specification -> Assessment -> AssessmentPart
         return spec.getPhysicalPath()
 
     def factory_EEAFigure(self):
