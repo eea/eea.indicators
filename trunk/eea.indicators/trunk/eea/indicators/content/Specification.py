@@ -50,8 +50,8 @@ from eea.relations.widget import EEAReferenceBrowserWidget
 from eea.versions.interfaces import IVersionControl, IVersionEnhanced
 from zope import event
 from zope.app.event import objectevent
+from zope.component import getMultiAdapter
 from zope.interface import alsoProvides
-
 import datetime
 import logging
 
@@ -660,10 +660,15 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
 
         return {'obj':ast, 'subview':'@@edit_aggregated', 'direct_edit':True}
 
-    #def generateUniqueId(self, typename):
-    #    names = self.objectIds()
+    def has_newer_version(self):
+        versions = getMultiAdapter((self, self.REQUEST), name="getVersions")
+        has_versions = getMultiAdapter((self, self.REQUEST), name="getVersions")()
 
-    #    return make_id(typename, names)
+        newest = versions.newest()
+        if has_versions and newest:
+            return True
+
+        return False
 
 
 registerType(Specification, PROJECTNAME)
@@ -698,6 +703,3 @@ def make_id(BASE, names):
     return name
 
 ##/code-section module-footer
-
-
-
