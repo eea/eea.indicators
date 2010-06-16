@@ -142,7 +142,11 @@ class WorkflowStateReadiness(ObjectReadiness):
             if not mains:
                 return False
 
+            if not self.context.getThemes():
+                return False
+
             return True
+
         else:
             return super(WorkflowStateReadiness, self).is_ready_for(state_name)
 
