@@ -9,6 +9,7 @@
  <state state_id="content_pending"
         title="Pending (internal review)">
   <description>Content pending internal review before publishing.</description>
+  <exit-transition transition_id="fake_publish"/>
   <exit-transition transition_id="publish"/>
   <exit-transition transition_id="publishEionet"/>
   <exit-transition transition_id="reject"/>
@@ -90,6 +91,7 @@
  <state state_id="published_eionet"
         title="Published for Eionet (Circa login)">
   <description>This state will make the content available to visitor with Eionet/Circa login.</description>
+  <exit-transition transition_id="fake_publish"/>
   <exit-transition transition_id="publish"/>
   <exit-transition transition_id="retract"/>
   <exit-transition transition_id="show"/>
@@ -152,6 +154,7 @@
  <state state_id="visible"
         title="Visible with direct link (hidden in listings)">
   <description>Item still visible with direct link, but hidden is searches and listings on the site. Usable for external light reviews with no login required.</description>
+  <exit-transition transition_id="fake_publish"/>
   <exit-transition transition_id="publish"/>
   <exit-transition transition_id="publishEionet"/>
   <permission-map name="Access contents information"
@@ -184,6 +187,16 @@
    <guard-role>Manager</guard-role>
   </guard>
  </transition>
+ <transition transition_id="fake_publish"
+             title="Publish (f)" new_state="" trigger="USER"
+             before_script="fake_transition" after_script="">
+  <action url="" category="workflow">Publish</action>
+  <guard>
+   <guard-role>Manager</guard-role>
+   <guard-role>WebReviewer</guard-role>
+   <guard-expression>python:not path('here/@@get_readiness').is_ready_for('published')</guard-expression>
+  </guard>
+ </transition>
  <transition transition_id="hide"
              title="Hide item from search and listings"
              new_state="visible" trigger="USER"
@@ -202,7 +215,7 @@
   <guard>
    <guard-role>Manager</guard-role>
    <guard-role>WebReviewer</guard-role>
-    <guard-expression>python:path('here/@@get_readiness').is_ready_for('published')</guard-expression>
+   <guard-expression>python:path('here/@@get_readiness').is_ready_for('published')</guard-expression>
   </guard>
  </transition>
  <transition transition_id="publishEionet"
@@ -222,7 +235,7 @@
   <guard>
    <guard-role>Manager</guard-role>
    <guard-role>Reviewer</guard-role>
-    <guard-expression>python:path('here/@@get_readiness').is_ready_for('published')</guard-expression>
+   <guard-expression>python:path('here/@@get_readiness').is_ready_for('published')</guard-expression>
   </guard>
  </transition>
  <transition transition_id="reject"
@@ -343,6 +356,9 @@
   <guard>
   </guard>
  </variable>
+ <script script_id="fake_transition" type="External Method"
+         filename="" module="eea.workflow.workflow_scripts"
+         function="fake_transition"/>
  <script script_id="publish" type="External Method"
          filename=""
          module="EEAContentTypes.frontpage_workflow_scripts"
