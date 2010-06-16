@@ -32,6 +32,7 @@ from Products.Archetypes.atapi import MultiSelectionWidget
 from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
 
 ##code-section module-header #fill in your manual code here
+from Acquisition import aq_base, aq_inner, aq_parent
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema
 from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
 from Products.Archetypes.utils import mapply
@@ -545,7 +546,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
         _slot = 'here/portlet_readiness/macros/portlet'
         #_assigned = self.getProperty('left_slots') or []
 
-        parent = self.aq_parent
+        parent = aq_parent(aq_inner(self))
         base_slots=getattr(parent,'left_slots', [])
         if callable(base_slots):
             base_slots = base_slots()

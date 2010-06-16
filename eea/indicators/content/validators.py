@@ -4,6 +4,7 @@ __author__ = """European Environment Agency (EEA)"""
 __docformat__ = 'plaintext'
 __credits__ = """contributions: Alec Ghica, Tiberiu Ichim"""
 
+from Acquisition import aq_base, aq_inner, aq_parent
 from Products.CMFPlone.utils import getToolByName
 from Products.validation import validation
 from Products.validation.interfaces.IValidator import IValidator
@@ -149,7 +150,7 @@ class OneAssessmentPartPerQuestionValidator:
         q_path = pq.getPhysicalPath()
         path = instance.getPhysicalPath()
 
-        for ap in instance.aq_parent.objectValues('AssessmentPart'):
+        for ap in aq_parent(aq_inner(instance)).objectValues('AssessmentPart'):
             if ap.getPhysicalPath() == path:    #same object
                 continue
 
