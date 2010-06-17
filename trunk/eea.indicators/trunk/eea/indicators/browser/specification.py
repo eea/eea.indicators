@@ -9,7 +9,6 @@ from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone import utils
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from eea.indicators.content.Specification import required_for_publication
 from eea.versions.interfaces import IVersionControl, IVersionEnhanced
 from eea.versions.versions import CreateVersion as BaseCreateVersion, generateNewId
 from eea.versions.versions import _get_random, _reindex
@@ -35,15 +34,13 @@ class SchemataCounts(BrowserView):
     """
 
     def __call__(self):
-        fields = required_for_publication   #TODO: rename this to required_for_published
-
         schematas = {}
         for field in self.context.schema.fields():
             if not field.schemata in schematas:
                 schematas[field.schemata] = []
             req = getattr(field, 'required_for_published', False)
             if req:
-                #TODO: text fields should be stripped of HTML to see if they really have content
+                #TODO: use the IValueProvider adaptors here
                 if not field.getAccessor(self.context)():  #we assume that the value return is something not empty
                     schematas[field.schemata].append(field.__name__)
 
@@ -90,7 +87,8 @@ class CreateVersion(BaseCreateVersion):
         new_spec = parent[new_id]
 
         # Set effective date today
-        ver.setEffectiveDate(None)  #DateTime()
+        ver.setEffectiveDate(None)
+        ver.setCreationDate(DateTime())
 
         #set back the related items. They are lost on copy
 

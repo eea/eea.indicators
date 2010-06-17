@@ -32,7 +32,7 @@ schema = Schema((
 
     StringField(
         name='title',
-        required_for_publication=True,
+        required_for_published=True,
         widget=StringField._properties['widget'](
             label='Title',
             label_msgid='indicators_label_title',
@@ -43,7 +43,7 @@ schema = Schema((
     ),
     TextField(
         name='description',
-        required_for_publication=True,
+        required_for_published=True,
         widget=TextAreaWidget(
             label='Description',
             label_msgid='indicators_label_description',
@@ -102,6 +102,3 @@ registerType(FactSheetDocument, PROJECTNAME)
 
 ##code-section module-footer #fill in your manual code here
 ##/code-section module-footer
-
-
-
