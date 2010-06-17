@@ -14,9 +14,10 @@ We have several main content types. The most important are the Specification and
     >>> setuptool = getToolByName(portal, 'portal_setup')
     >>> setuptool.setImportContext('profile-eea.dataservice:default')
     >>> log = setuptool.runAllImportSteps()
+    adding ...
     >>> setuptool.setImportContext('profile-eea.indicators:default')
     >>> log = setuptool.runAllImportSteps()
-
+    adding ...
     >>> browser = Browser()
     >>> browser.handleErrors = True
     >>> self.portal.error_log._ignored_exceptions = ()
@@ -321,9 +322,6 @@ Now we should be at 91% (round(11*100/12)):
 
 Let's try to finish it:
 
-    >>> #the relatedItems seems not be a required for publication field anymore
-    >>> #spec.setRelatedItems([ims['dt'], ims['eds'], ims['pdr']])
-
     >>> spec.setOwnership([u'something'])
     >>> spec.setThemes([u'something'])
     >>> view = spec.unrestrictedTraverse('@@get_readiness')
@@ -342,6 +340,7 @@ main policy question and some related items:
     >>> id = spec.invokeFactory("PolicyQuestion", 'pq')
     >>> pq = spec.objectValues('PolicyQuestion')[0]
     >>> pq.setIs_key_question(True)
+    >>> spec.setRelatedItems([ims['dt'], ims['eds'], ims['pdr']])
     >>> spec.unrestrictedTraverse('@@get_readiness').is_ready_for('published')
     True
 
@@ -468,41 +467,3 @@ Setting another code will result in a successful edit:
     >>> browser.open(baseurl + '/simple_edit', data=data)
     >>> print browser.contents  #doctest: +NORMALIZE_WHITESPACE
     <script>...closer(...'codes'...)...</script>
-
-
-Work Items classification
--------------------------
-
-Work items are shown on the aggregated edit splitted in 3 categories:
- * those that need to be finished in the far future (over a year from now)
- * those that need to be finished in a year
- * unclassified, without a deadline
-
-We have a special method, Specification.get_work() which returns a mapping
-with its work items classified:
-
-	>>> _ = spec.invokeFactory("WorkItem", 'w1')
-	>>> _ = spec.invokeFactory("WorkItem", 'w2')
-	>>> _ = spec.invokeFactory("WorkItem", 'w3')
-	>>> _ = spec.invokeFactory("WorkItem", 'w4')
-	>>> import datetime
-	>>> now = datetime.datetime.now()
-	>>> one_year = datetime.timedelta(days=365)
-	>>> one_month = datetime.timedelta(days=30)
-	>>> spec['w1'].setDue_date(str(now + one_month))
-	>>> spec['w2'].setDue_date(str(now + one_year))
-	>>> spec['w3'].setDue_date(str(now + one_month + one_year))
-	>>> works = spec.get_work()
-	>>> print len(works['short']), len(works['long']), len(works['incomplete'])
-	1 2 1
-
-Work that is due in the past appears, for the moment, in the 'short term' category.
-This may be change in the future.
-
-	>>> _ = spec.invokeFactory("WorkItem", 'w5')
-	>>> spec['w5'].setDue_date('2009-05-20')
-	>>> works = spec.get_work()
-	>>> print len(works['short']), len(works['long']), len(works['incomplete'])
-	2 2 1
-
-

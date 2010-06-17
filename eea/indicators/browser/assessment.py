@@ -13,12 +13,14 @@ from zope.interface import alsoProvides
 
 
 class IndexPage(BrowserView):
-    """ """
+    """The Assessment index page"""
+
 
 class AggregatedEditPage(BrowserView):
     template = ViewPageTemplateFile('templates/assessment/aggregated_edit.pt')
 
     __call__ = template
+
 
 class CreateVersion(BaseCreateVersion):
     """Create new version customizations for eea.versions """
@@ -74,29 +76,23 @@ def create_version(original, request=None):
     spec.manage_renameObject(id=id, new_id=new_id)
 
     # Set effective date today
-    ver.setEffectiveDate(DateTime())
+    ver.setEffectiveDate(None)  #DateTime()
 
-    # All the EEAFigures contained inside are copy of the ones in the previous assessment
-    # but must be linked as new versions of the figures in the older assessment.
-    # To achieve this, we must recreate all assessment parts and figures
-
-    #TODO: skip the object deletion, #3443
+    #The EEAFigures need to be recreated as versions and relinked to AssessmentParts
     assessment = ver
-    assessment.manage_delObjects(ids=ver.objectIds('AssessmentPart'))
 
-    for pq in spec.objectValues('PolicyQuestion'):
+    for ap in assessment.objectValues("AssessmentPart"):
+        rels = []
+        for o in ap.getRelatedItems():
+            if o.meta_type != "EEAFigure":
+                rels.append(o)
+                continue
 
-        id = assessment.invokeFactory(type_name="AssessmentPart",
-                id=assessment.generateUniqueId("AssessmentPart"),)
-        ap = assessment[id]
+            figure = o
+            version = base_create_version(figure)
+            rels.append(version)
 
-        related = [pq]
-        figures = get_figures_for_pq_in_assessment(pq, original)
-        for fig in figures: #now we create versions of figures
-            version = base_create_version(fig)
-            related.append(version)
-
-        ap.setRelatedItems(related)
+        ap.setRelatedItems(rels)
         ap.reindexObject()
 
     # Set new state
@@ -106,34 +102,9 @@ def create_version(original, request=None):
 
     return ver
 
-def get_figures_for_pq_in_assessment(pq, assessment):
-    """Given a PolicyQuestion from a Specification and an Assessment, returns all EEAFigures
-    contained in the AssessmentPart that answers to that PolicyQuestion"""
-
-    path = pq.getPhysicalPath()
-
-    assessment_part = None
-    for part in assessment.objectValues('AssessmentPart'):
-        related = part.getRelatedItems()
-        pq = filter(lambda x:x.meta_type=='PolicyQuestion', related)
-        if pq:
-            pq = pq[0]
-        else:
-            continue
-
-        if pq.getPhysicalPath() == path:
-            assessment_part = part
-            break
-
-    if assessment_part is not None:
-        related = assessment_part.getRelatedItems()
-        figures = filter(lambda x:x.meta_type=='EEAFigure', related)
-        return figures
-
-    return []
-
 
 class WorkflowStateReadiness(ObjectReadiness):
+    """ObjectReadiness customizations"""
 
     def field_has_value(self, fieldname, context):
         convert = getToolByName(self.context, 'portal_transforms').convert
@@ -176,3 +147,30 @@ class WorkflowStateReadiness(ObjectReadiness):
             info['extra'].append(('error', 'The parent Specification needs to be published'))
 
         return info
+
+
+#def get_figures_for_pq_in_assessment(pq, assessment):
+#    """Given a PolicyQuestion from a Specification and an Assessment, returns all EEAFigures
+#    contained in the AssessmentPart that answers to that PolicyQuestion"""
+#
+#    path = pq.getPhysicalPath()
+#
+#    assessment_part = None
+#    for part in assessment.objectValues('AssessmentPart'):
+#        related = part.getRelatedItems()
+#        pq = filter(lambda x:x.meta_type=='PolicyQuestion', related)
+#        if pq:
+#            pq = pq[0]
+#        else:
+#            continue
+#
+#        if pq.getPhysicalPath() == path:
+#            assessment_part = part
+#            break
+#
+#    if assessment_part is not None:
+#        related = assessment_part.getRelatedItems()
+#        figures = filter(lambda x:x.meta_type=='EEAFigure', related)
+#        return figures
+#
+#    return []

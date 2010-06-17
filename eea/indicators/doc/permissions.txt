@@ -9,8 +9,10 @@ Permissions and security in IMS
     >>> setuptool = getToolByName(portal, 'portal_setup')
     >>> setuptool.setImportContext('profile-eea.dataservice:default')
     >>> log = setuptool.runAllImportSteps()
+    adding ...
     >>> setuptool.setImportContext('profile-eea.indicators:default')
     >>> log = setuptool.runAllImportSteps()
+    adding ...
 
     >>> browser = Browser()
     >>> browser.handleErrors = False

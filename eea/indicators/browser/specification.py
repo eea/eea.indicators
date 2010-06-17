@@ -90,7 +90,9 @@ class CreateVersion(BaseCreateVersion):
         new_spec = parent[new_id]
 
         # Set effective date today
-        ver.setEffectiveDate(DateTime())
+        ver.setEffectiveDate(None)  #DateTime()
+
+        #set back the related items. They are lost on copy
 
         #Delete assessments and work items
         #new_spec._delOb(id) #shouldn't send IObjectRemovedEvent
@@ -106,47 +108,40 @@ class CreateVersion(BaseCreateVersion):
 
 class WorkflowStateReadiness(ObjectReadiness):
 
+    #TODO: translate messages here
+    checks = (
+            (
+                lambda o: not bool(o.getRelatedItems()),
+                "You need to point to at least one EEAData or ExternalData"),
+                #TODO: check if, for real, a EEAData or an ExternalData is there
+            (
+                lambda o:not bool(o.objectValues("PolicyQuestion")),
+                "You need to add at least one Policy Question"),
+            (
+                lambda o:not filter(lambda x:x.getIs_key_question(), o.objectValues('PolicyQuestion')),
+                "At least one PolicyQuestion needs to be main policy question"),
+            (
+                lambda o:not bool(o.getThemes()),
+                "You need to specify one primary theme" ),
+            )
+
     def get_info_for(self, state_name):
-        #TODO: translate messages here
         info = ObjectReadiness.get_info_for(self, state_name)
         extras = []
 
-        if not self.context.getRelatedItems():
-            extras.append(("error", "You need to point to at least one EEAData or ExternalData"))
-
-        pqs = self.context.objectValues("PolicyQuestion")
-        if not pqs:
-            extras.append(("error", "You need to add at least one main Policy Question"))
-
-        if not [pq for pq in pqs if pq.getIs_key_question()]:
-            extras.append(("error", "At least one PolicyQuestion needs to be main policy question"))
-
-        if not self.context.getThemes():
-            extras.append(("error", "You need to specify one primary theme"))
-
+        for checker, error in self.checks:
+            if checker(self.context):
+                extras.append(('error', error))
 
         info['extra'] = extras
         return info
 
     def is_ready_for(self, state_name):
         if state_name == 'published':
-            #check if there's at least one reference to a DataSpec
-            #TODO: this checks for relationship to ExternalDataSpec
-            #when the ExternalDataSpec + EEADATA is unified, check that this works
-            if not self.context.getRelatedItems():
-                return False
-
-            #check if there's at least one main policy question
-            pq = self.context.objectValues("PolicyQuestion")
-            mains = [q for q in pq if q.getIs_key_question() == True]
-            if not mains:
-                return False
-
-            if not self.context.getThemes():
-                return False
-
-            return True
-
+            for checker, error in self.checks:
+                if checker(self.context):
+                    return False
+                return True
         else:
             return super(WorkflowStateReadiness, self).is_ready_for(state_name)
 

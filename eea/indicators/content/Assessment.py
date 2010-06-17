@@ -41,6 +41,19 @@ from Acquisition import aq_base, aq_inner, aq_parent
 
 schema = Schema((
 
+    StringField(
+        name='title',
+        widget=StringField._properties['widget'](
+            visible={'view':'invisible', 'edit':'invisible'},
+            label='Title',
+            label_msgid='indicators_label_title',
+            i18n_domain='indicators',
+            ),
+        required=False,
+        accessor="Title",
+        searchable=True,
+        default=u'Assessment',
+        ),
     TextField(
         name='key_message',
         allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
@@ -49,12 +62,12 @@ schema = Schema((
             description="A short message listing the assessment's key findings. It works as a summary/abstract for the entire indicator assessment.",
             label_msgid='indicators_label_key_message',
             i18n_domain='indicators',
-        ),
+            ),
         default_content_type="text/html",
         searchable=True,
         default_output_type="text/x-html-safe",
         required_for_published=True,
-    ),
+        ),
     ManagementPlanField(
         name='management_plan',
         widget=ManagementPlanField._properties['widget'](
@@ -62,34 +75,9 @@ schema = Schema((
             description="Internal EEA project line code, used to assign an EEA product output to a specific EEA project number in the management plan.",
             label_msgid='indicators_label_management_plan',
             i18n_domain='indicators',
+            ),
         ),
-    ),
-    StringField(
-        name='title',
-        widget=StringField._properties['widget'](
-            visible={'view':'invisible', 'edit':'invisible'},
-            label='Title',
-            label_msgid='indicators_label_title',
-            i18n_domain='indicators',
-        ),
-        required=False,
-        accessor="Title",
-        searchable=True,
-        default=u'Assessment',
-    ),
-
-),
-)
-
-##code-section after-local-schema #fill in your manual code here
-##/code-section after-local-schema
-
-Assessment_schema = ATFolderSchema.copy() + \
-    getattr(ATFolder, 'schema', Schema(())).copy() + \
-    schema.copy()
-
-##code-section after-schema #fill in your manual code here
-Assessment_schema['management_plan'] = ManagementPlanField(
+    ManagementPlanField(
         name='management_plan',
         languageIndependent=True,
         required=False,
@@ -103,18 +91,31 @@ Assessment_schema['management_plan'] = ManagementPlanField(
             label_msgid='dataservice_label_eea_mp',
             description_msgid='dataservice_help_eea_mp',
             i18n_domain='eea.dataservice',
-        )
-    )
+            )
+        ),
+    EEAReferenceField(
+            name='relatedItems',
+            isMetadata=False,
+            keepReferencesOnCopy=True,
+            multivalued=True,
+            relationship='relatesTo',
+            widget=EEAReferenceBrowserWidget(
+                visible={'view':'invisible', 'edit':'invisible'},
+                label='Related Item(s)',
+                description='Specify related item(s).',
+                )
+            ),
+    ),
+)
 
-Assessment_schema['relatedItems'] = EEAReferenceField('relatedItems',
-        relationship='relatesTo',
-        multivalued=True,
-        isMetadata=False,
-        widget=EEAReferenceBrowserWidget(
-            visible={'view':'invisible', 'edit':'invisible'},
-            label='Related Item(s)',
-            description='Specify related item(s).',
-            ))
+##code-section after-local-schema #fill in your manual code here
+##/code-section after-local-schema
+
+Assessment_schema = ATFolderSchema.copy() + \
+        getattr(ATFolder, 'schema', Schema(())).copy() + \
+        schema.copy()
+
+##code-section after-schema #fill in your manual code here
 finalizeATCTSchema(Assessment_schema)
 ##/code-section after-schema
 
@@ -124,7 +125,7 @@ class Assessment(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory, Br
     security = ClassSecurityInfo()
 
     implements(interfaces.IAssessment,
-               interfaces.IIndicatorAssessment)
+            interfaces.IIndicatorAssessment)
 
     meta_type = 'Assessment'
     _at_rename_after_creation = False
@@ -154,7 +155,7 @@ class Assessment(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory, Br
                 'secondary':secondary
                 }
 
-    security.declarePublic("Title")
+        security.declarePublic("Title")
     def Title(self):
         """ return title based on parent specification title"""
         parent = aq_parent(aq_inner(self))
