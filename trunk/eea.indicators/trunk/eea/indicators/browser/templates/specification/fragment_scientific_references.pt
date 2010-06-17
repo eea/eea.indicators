@@ -1,6 +1,7 @@
 <tal:def tal:define="submit_handler string:simple_edit; ">
 	<tal:def tal:define="region_name string:scientific_references_area;
 		region_update_handler string:fragment_scientific_references;
+		also_reload python:['object_readiness'];
 		imsutils nocall:context/@@indicator_utils;">
 
 		<metal:macro metal:use-macro="context/indicators_macros/macros/active_region">

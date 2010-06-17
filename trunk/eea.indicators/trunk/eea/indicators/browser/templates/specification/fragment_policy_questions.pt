@@ -1,6 +1,6 @@
 <tal:def tal:define="region_name string:policy_questions_area;
 	region_update_handler string:fragment_policy_questions;
-	also_reload python:['assessments_area'];">
+	also_reload python:['object_readiness', 'assessments_area'];">
 
 	<metal:macro metal:use-macro="context/indicators_macros/macros/active_region">
 		<metal:slot metal:fill-slot="content" tal:define="questions python:here.objectValues('PolicyQuestion')" >

@@ -1,6 +1,7 @@
 <tal:def tal:define="submit_handler string:simple_edit; ">
 	<tal:def tal:define="region_name string:metadata_area;
 		region_update_handler string:fragment_metadata;
+		also_reload python:['object_readiness'];
 		imsutils nocall:context/@@indicator_utils;">
 
 		<!-- <div tal:content="python:path('context/@@get_readiness').get_info_for('published')" /> -->
