@@ -42,14 +42,14 @@ schema = Schema((
             label='Assessment',
             label_msgid='indicators_label_assessment',
             i18n_domain='indicators',
-        ),
+            ),
         default_content_type="text/html",
         searchable=True,
         required=True,
         required_for_published=True,
         allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
         default_output_type="text/x-html-safe",
-    ),
+        ),
     StringField(
         name='title',
         widget=StringField._properties['widget'](
@@ -57,10 +57,10 @@ schema = Schema((
             label='Title',
             label_msgid='indicators_label_title',
             i18n_domain='indicators',
-        ),
+            ),
         required=False,
         accessor="Title",
-    ),
+        ),
     TextField(
         name='description',
         default="",
@@ -69,12 +69,25 @@ schema = Schema((
             label='Description',
             label_msgid='indicators_label_description',
             i18n_domain='indicators',
-        ),
+            ),
         accessor="Description",
         searchable=True,
+        ),
+    EEAReferenceField(
+        name="relatedItems",
+        keepReferencesOnCopy=True,
+        multiValued=True,
+        relationship='relatesTo',
+        required=True,
+        validators=('one_assessment_per_question',),
+        widget=EEAReferenceBrowserWidget(
+            label="Answers to policy question and related EEAFigures",
+            label_msgid='indicators_label_question_answered',
+            i18n_domain='indicators',
+            macro="assessmentpart_relationwidget",
+            )
+        ),
     ),
-
-),
 )
 
 ##code-section after-local-schema #fill in your manual code here
@@ -86,17 +99,6 @@ AssessmentPart_schema = ATFolderSchema.copy() + \
 
 ##code-section after-schema #fill in your manual code here
 AssessmentPart_schema.moveField('relatedItems', pos=0)
-AssessmentPart_schema['relatedItems'] = EEAReferenceField('relatedItems',
-        relationship='relatesTo',
-        required=True,
-        multiValued=True,
-        validators=('one_assessment_per_question',),
-        widget=EEAReferenceBrowserWidget(
-            label="Answers to policy question and related EEAFigures",
-            label_msgid='indicators_label_question_answered',
-            i18n_domain='indicators',
-            macro="assessmentpart_relationwidget",
-            ))
 finalizeATCTSchema(AssessmentPart_schema)
 ##/code-section after-schema
 
@@ -171,12 +173,8 @@ class AssessmentPart(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory
         return {'obj':figure, 'subview':'edit', 'direct_edit':True}
 
 
-
 registerType(AssessmentPart, PROJECTNAME)
 # end of class AssessmentPart
 
 ##code-section module-footer #fill in your manual code here
 ##/code-section module-footer
-
-
-

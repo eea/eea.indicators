@@ -328,6 +328,7 @@ schema = Schema((
             label_msgid='indicators_label_relatedItems',
             description_msgid='indicators_help_relatedItems',
             i18n_domain='indicators',
+            keepReferencesOnCopy=True,
         ),
         allowed_types=('ExternalDataSpec',),
         schemata="DataSpecs",
