@@ -39,6 +39,7 @@ from Products.Archetypes.utils import mapply
 from Products.CMFCore import permissions
 from Products.CMFCore.utils import getToolByName
 from Products.EEAContentTypes.content.ThemeTaggable import ThemeTaggable, ThemeTaggable_schema
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 from Products.UserAndGroupSelectionWidget import UserAndGroupSelectionWidget
 from eea.dataservice.vocabulary import Organisations
@@ -671,6 +672,10 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
             return True
 
         return False
+
+    #security.declarePublic('portlet_readiness')
+    #def portlet_readiness(self):
+    portlet_readiness = ViewPageTemplateFile('../browser/templates/portlet_readiness.pt')
 
 
 registerType(Specification, PROJECTNAME)

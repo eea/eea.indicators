@@ -2,6 +2,7 @@
 	<tal:def tal:define="region_name string:policy_context_area;
 		region_update_handler string:fragment_policy_context;
 		imsutils nocall:context/@@indicator_utils;
+		also_reload python:['object_readiness'];
 		related_view nocall:context/@@related_items;
 		">
 

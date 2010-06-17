@@ -1,6 +1,7 @@
 <tal:def tal:define="submit_handler string:simple_edit; ">
 	<tal:def tal:define="region_name string:uncertainties_area;
 		region_update_handler string:fragment_uncertainties;
+		also_reload python:['object_readiness'];
 		imsutils nocall:context/@@indicator_utils;">
 
 		<div class="logic_group">

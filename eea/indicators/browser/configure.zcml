@@ -7,6 +7,13 @@
   <include file="indicatorfactsheet.zcml" />
 
   <browser:page
+    for="*"
+    name="portlet_readiness_live"
+		template="templates/portlet_readiness_live.pt"
+    permission="zope2.View"
+    />
+
+  <browser:page
     for="eea.indicators.content.interfaces.IIndicatorsDatabase"
     name="permissions_overview"
     class="eea.indicators.browser.IndicatorsPermissionsOverview"

@@ -1,6 +1,7 @@
 <tal:defs
 	tal:define="region_name string:methodology_area;
 	region_update_handler string:fragment_methodology;
+	also_reload python:['object_readiness'];
 	submit_handler string:simple_edit;
 	imsutils nocall:context/@@indicator_utils;
 	portal_url context/portal_url;">

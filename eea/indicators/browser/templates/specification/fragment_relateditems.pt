@@ -5,7 +5,7 @@
 		portal_url context/portal_url;
 		tooltip_macro context/indicators_macros/macros/tooltip;
 		related_view nocall:context/@@related_items;
-		also_reload python:['data_spec_area','policy_context_area'];
+		also_reload python:['data_spec_area', 'policy_context_area', 'object_readiness'];
 
 		field python:context.schema['relatedItems'];
 		value python:related_view.get_uids();
