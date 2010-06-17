@@ -245,10 +245,15 @@ We have a system that uses eea.workflow to decide if a Specification is ready to
 
     >>> spec = ims[ims.invokeFactory("Specification", 'spec3')]
 
-First, we have a portlet that shows the readiness state for a Specification:
+First, we have a portlet that shows the readiness state for a Specification. This portlet
+overrides and includes the same portlet from eea.workflow and the main difference is that
+it is an AJAX reloadable version of the original. For the AJAX call we use portlet_readiness_live
+(we couldn't use portlet_readiness because of the way it is defined at the level of 
+the Specification class)
 
-    >>> spec.portlet_readiness()
-    '<html>...id="readiness-status"...</html>...'
+    >>> res = spec.unrestrictedTraverse("portlet_readiness_live")()   #+NORMALIZE_WHITESPACE
+    >>> "object_readiness" in res
+    True
 
 This portlet uses a special view that is registered on objects that 
 implement eea.workflow.interfaces.IHasMandatoryWorkflowFields: 
@@ -264,7 +269,7 @@ keys 'done', 'required', 'publishing', 'optional', 'total', ''
 By default the title is filled in, so we will be at 8%:
 
     >>> print str(info['done']) + '%'
-    9%
+    8%
 
 'required' is the number of fields that have content filled in and are required for that state
 
@@ -274,12 +279,12 @@ By default the title is filled in, so we will be at 8%:
 'publishing' is the number of fields that are required to be filled in for that state.
 
     >>> info['publishing']
-    11
+    12
 
 'optional' is the number of fields that are not required for that state and don't have a value.
 
     >>> info['optional']
-    10
+    9
 
 'total' is the grand total number of fields.
 
@@ -292,7 +297,7 @@ Let's fill in another field, this time 'codes':
     >>> view = spec.unrestrictedTraverse('@@get_readiness')
     >>> info = view.get_info_for('published')
     >>> print str(info['done']) + '%'
-    18%
+    16%
     >>> info['required']
     2
 
@@ -311,25 +316,25 @@ Let's move on making this spec ready for publishing:
     >>> spec.setUnits(u'something')
     >>> spec.setMethodology(u'something')
     >>> spec.setManager_user_id(u'something')
+    >>> spec.setThemes([u'something'])
 
 Now we should be at 91% (round(11*100/12)):
 
     >>> info = spec.unrestrictedTraverse('@@get_readiness').get_info_for('published')
     >>> print str(info['done']) + '%'
-    90%
+    91%
     >>> info['required']
-    10
+    11
 
 Let's try to finish it:
 
     >>> spec.setOwnership([u'something'])
-    >>> spec.setThemes([u'something'])
     >>> view = spec.unrestrictedTraverse('@@get_readiness')
     >>> info = view.get_info_for('published')
     >>> print str(info['done']) + '%'
     100%
     >>> info['required']
-    11
+    12
     >>> view.is_ready_for('published')
     False
 

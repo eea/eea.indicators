@@ -76,7 +76,8 @@ def create_version(original, request=None):
     spec.manage_renameObject(id=id, new_id=new_id)
 
     # Set effective date today
-    ver.setEffectiveDate(None)  #DateTime()
+    ver.setEffectiveDate(None)
+    ver.setCreationDate(DateTime())
 
     #The EEAFigures need to be recreated as versions and relinked to AssessmentParts
     assessment = ver

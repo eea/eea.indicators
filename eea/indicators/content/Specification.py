@@ -20,7 +20,7 @@ from Products.ATContentTypes.content.folder import ATFolder
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 
 from Products.ATReferenceBrowserWidget.ATReferenceBrowserWidget import \
-    ReferenceBrowserWidget
+        ReferenceBrowserWidget
 from eea.indicators.config import *
 
 # additional imports from tagged value 'import'
@@ -69,14 +69,14 @@ schema = Schema((
             description="The generic title of the indicator which is stable over a long period. It is short enough to explain the tracked issue and it does not contain specific dates.",
             label_msgid='indicators_label_title',
             i18n_domain='indicators',
-        ),
+            ),
         schemata="default",
         searchable=True,
         default="Untitled indicator",
         required=True,
         accessor="getTitle",
         required_for_published=True,
-    ),
+        ),
     DataGridField(
         name='codes',
         widget=DataGridWidget(
@@ -86,12 +86,12 @@ schema = Schema((
             auto_insert=True,
             label_msgid='indicators_label_codes',
             i18n_domain='indicators',
-        ),
+            ),
         schemata="Classification",
         columns=("set", "code"),
         required_for_published=True,
         validators=('unique_specification_code',),
-    ),
+        ),
     TextField(
         name='more_updates_on',
         allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
@@ -100,12 +100,12 @@ schema = Schema((
             description="This information is used to display warning messages to the users on top of the indicator page.",
             label_msgid='indicators_label_more_updates_on',
             i18n_domain='indicators',
-        ),
+            ),
         default_content_type="text/html",
         searchable=True,
         schemata="default",
         default_output_type="text/x-html-safe",
-    ),
+        ),
     StringField(
         name='dpsir',
         widget=SelectionWidget(
@@ -113,272 +113,266 @@ schema = Schema((
             description="The work of the EEA is built around a conceptual framework known as the DPSIR assessment framework. DPSIR stands for ‘driving forces, pressures, states, impacts and responses’. DPSIR builds on the existing OECD model and offers a basis for analysing the interrelated factors that impact on the environment.",
             label_msgid='indicators_label_dpsir',
             i18n_domain='indicators',
-        ),
+            ),
         schemata="Classification",
         vocabulary=NamedVocabulary("indicator_dpsir"),
         required_for_published=True,
-    ),
-    StringField(
-        name='typology',
-        widget=SelectionWidget(
-            label="Typology",
-            description="Typology is a categorisation based on a simple set of questions: what is happening (A) is this relevant (B) can we make progress in improving the way we do things (C), are the undertaken policy measures effective (Type D) and does this contribute to our overall welfare (E)?, led to a first typology of indicators. The typology was used to demonstrate that (in",
-            label_msgid='indicators_label_typology',
-            i18n_domain='indicators',
         ),
-        schemata="Classification",
-        vocabulary=NamedVocabulary("indicator_typology"),
-        required_for_published=True,
-    ),
+    StringField(
+            name='typology',
+            widget=SelectionWidget(
+                label="Typology",
+                description="Typology is a categorisation based on a simple set of questions: what is happening (A) is this relevant (B) can we make progress in improving the way we do things (C), are the undertaken policy measures effective (Type D) and does this contribute to our overall welfare (E)?, led to a first typology of indicators. The typology was used to demonstrate that (in",
+                label_msgid='indicators_label_typology',
+                i18n_domain='indicators',
+                ),
+            schemata="Classification",
+            vocabulary=NamedVocabulary("indicator_typology"),
+            required_for_published=True,
+            ),
     LinesField(
-        name='ownership',
-        widget=MultiSelectionWidget(
-            label="Owners",
-            description="One or several institutions/organisations sharing ownership for this indicator.",
-            macro="organisations_widget",
-            label_msgid='indicators_label_ownership',
-            i18n_domain='indicators',
-        ),
-        schemata="Responsability",
-        vocabulary=Organisations(),
-        required=True,
-        required_for_published=True,
-    ),
+            name='ownership',
+            widget=MultiSelectionWidget(
+                label="Owners",
+                description="One or several institutions/organisations sharing ownership for this indicator.",
+                macro="organisations_widget",
+                label_msgid='indicators_label_ownership',
+                i18n_domain='indicators',
+                ),
+            schemata="Responsability",
+            vocabulary=Organisations(),
+            required=True,
+            required_for_published=True,
+            ),
     TextField(
-        name='rationale_justification',
-        widget=RichWidget(
-            label="Rationale for indicator selection",
-            description="Explanation and justification of indicator selection.",
-            label_msgid='indicators_label_rationale_justification',
-            i18n_domain='indicators',
-        ),
-        default_content_type="text/html",
-        searchable=True,
-        required_for_published=True,
-        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
-        schemata="Rationale",
-        default_output_type="text/x-html-safe",
-    ),
+            name='rationale_justification',
+            widget=RichWidget(
+                label="Rationale for indicator selection",
+                description="Explanation and justification of indicator selection.",
+                label_msgid='indicators_label_rationale_justification',
+                i18n_domain='indicators',
+                ),
+            default_content_type="text/html",
+            searchable=True,
+            required_for_published=True,
+            allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+            schemata="Rationale",
+            default_output_type="text/x-html-safe",
+            ),
     TextField(
-        name='rationale_uncertainty',
-        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
-        widget=RichWidget(
-            label="Rationale uncertainty",
-            label_msgid='indicators_label_rationale_uncertainty',
-            i18n_domain='indicators',
-        ),
-        default_content_type="text/html",
-        searchable=True,
-        schemata="Rationale",
-        default_output_type="text/x-html-safe",
-    ),
+            name='rationale_uncertainty',
+            allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+            widget=RichWidget(
+                label="Rationale uncertainty",
+                label_msgid='indicators_label_rationale_uncertainty',
+                i18n_domain='indicators',
+                ),
+            default_content_type="text/html",
+            searchable=True,
+            schemata="Rationale",
+            default_output_type="text/x-html-safe",
+            ),
     TextField(
-        name='policy_context_description',
-        widget=RichWidget(
-            label="Policy context",
-            description="Policy context is the main driving force for presentation of indicator and its assessments.",
-            label_msgid='indicators_label_policy_context_description',
-            i18n_domain='indicators',
-        ),
-        default_content_type="text/html",
-        searchable=True,
-        required=True,
-        required_for_published=True,
-        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
-        schemata="PolicyContext",
-        default_output_type="text/x-html-safe",
-    ),
+            name='policy_context_description',
+            widget=RichWidget(
+                label="Policy context",
+                description="Policy context is the main driving force for presentation of indicator and its assessments.",
+                label_msgid='indicators_label_policy_context_description',
+                i18n_domain='indicators',
+                ),
+            default_content_type="text/html",
+            searchable=True,
+            required=True,
+            required_for_published=True,
+            allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+            schemata="PolicyContext",
+            default_output_type="text/x-html-safe",
+            ),
     TextField(
-        name='policy_context_targets',
-        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
-        widget=RichWidget(
-            label="Targets for the policy context",
-            description="A quantitative value which usually underpins a European Union or other international policy objective. The target usually has a time deadline that should be met through the design and implementation of measures by countries.",
-            label_msgid='indicators_label_policy_context_targets',
-            i18n_domain='indicators',
-        ),
-        default_content_type="text/html",
-        searchable=True,
-        schemata="PolicyContext",
-        default_output_type="text/x-html-safe",
-    ),
+            name='policy_context_targets',
+            allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+            widget=RichWidget(
+                label="Targets for the policy context",
+                description="A quantitative value which usually underpins a European Union or other international policy objective. The target usually has a time deadline that should be met through the design and implementation of measures by countries.",
+                label_msgid='indicators_label_policy_context_targets',
+                i18n_domain='indicators',
+                ),
+            default_content_type="text/html",
+            searchable=True,
+            schemata="PolicyContext",
+            default_output_type="text/x-html-safe",
+            ),
     TextField(
-        name='definition',
-        widget=RichWidget(
-            label="Definition",
-            description="Provide short textual definition of the indicator. Provide units and list of parameters, sectors, media, processes used in indicator. A definition is a statement of the precise meaning of something. Often includes specific examples of what is and is not included in particular categories. ",
-            label_msgid='indicators_label_definition',
-            i18n_domain='indicators',
-        ),
-        default_content_type="text/html",
-        searchable=True,
-        required=False,
-        required_for_published=True,
-        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
-        schemata="default",
-        default_output_type="text/x-html-safe",
-    ),
+            name='definition',
+            widget=RichWidget(
+                label="Definition",
+                description="Provide short textual definition of the indicator. Provide units and list of parameters, sectors, media, processes used in indicator. A definition is a statement of the precise meaning of something. Often includes specific examples of what is and is not included in particular categories. ",
+                label_msgid='indicators_label_definition',
+                i18n_domain='indicators',
+                ),
+            default_content_type="text/html",
+            searchable=True,
+            required=False,
+            required_for_published=True,
+            allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+            schemata="default",
+            default_output_type="text/x-html-safe",
+            ),
     TextField(
-        name='units',
-        widget=RichWidget(
-            label="Units",
-            label_msgid='indicators_label_units',
-            i18n_domain='indicators',
-        ),
-        default_content_type="text/html",
-        searchable=True,
-        required=False,
-        required_for_published=True,
-        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
-        schemata="default",
-        default_output_type="text/x-html-safe",
-    ),
+            name='units',
+            widget=RichWidget(
+                label="Units",
+                label_msgid='indicators_label_units',
+                i18n_domain='indicators',
+                ),
+            default_content_type="text/html",
+            searchable=True,
+            required=False,
+            required_for_published=True,
+            allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+            schemata="default",
+            default_output_type="text/x-html-safe",
+            ),
     TextField(
-        name='methodology',
-        widget=RichWidget(
-            label="Methodology for indicator calculation",
-            description="Guidelines for calculating the indicator, including exact formulas and/or links to more explanatory methodological description",
-            label_msgid='indicators_label_methodology',
-            i18n_domain='indicators',
-        ),
-        default_content_type="text/html",
-        searchable=True,
-        required=False,
-        required_for_published=True,
-        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
-        schemata="Methodology",
-        default_output_type="text/x-html-safe",
-    ),
+            name='methodology',
+            widget=RichWidget(
+                label="Methodology for indicator calculation",
+                description="Guidelines for calculating the indicator, including exact formulas and/or links to more explanatory methodological description",
+                label_msgid='indicators_label_methodology',
+                i18n_domain='indicators',
+                ),
+            default_content_type="text/html",
+            searchable=True,
+            required=False,
+            required_for_published=True,
+            allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+            schemata="Methodology",
+            default_output_type="text/x-html-safe",
+            ),
     TextField(
-        name='methodology_uncertainty',
-        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
-        widget=RichWidget(
-            label="Methodology uncertainty",
-            label_msgid='indicators_label_methodology_uncertainty',
-            i18n_domain='indicators',
-        ),
-        default_content_type="text/html",
-        searchable=True,
-        schemata="Methodology",
-        default_output_type="text/x-html-safe",
-    ),
+            name='methodology_uncertainty',
+            allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+            widget=RichWidget(
+                label="Methodology uncertainty",
+                label_msgid='indicators_label_methodology_uncertainty',
+                i18n_domain='indicators',
+                ),
+            default_content_type="text/html",
+            searchable=True,
+            schemata="Methodology",
+            default_output_type="text/x-html-safe",
+            ),
     TextField(
-        name='data_uncertainty',
-        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
-        widget=RichWidget(
-            label="Data uncertainty",
-            label_msgid='indicators_label_data_uncertainty',
-            i18n_domain='indicators',
-        ),
-        default_content_type="text/html",
-        searchable=True,
-        schemata="DataSpecs",
-        default_output_type="text/x-html-safe",
-    ),
+            name='data_uncertainty',
+            allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+            widget=RichWidget(
+                label="Data uncertainty",
+                label_msgid='indicators_label_data_uncertainty',
+                i18n_domain='indicators',
+                ),
+            default_content_type="text/html",
+            searchable=True,
+            schemata="DataSpecs",
+            default_output_type="text/x-html-safe",
+            ),
     TextField(
-        name='methodology_gapfilling',
-        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
-        widget=RichWidget(
-            label="Methodology for gap filling",
-            label_msgid='indicators_label_methodology_gapfilling',
-            i18n_domain='indicators',
-        ),
-        default_content_type="text/html",
-        searchable=True,
-        schemata="Methodology",
-        default_output_type="text/x-html-safe",
-    ),
+            name='methodology_gapfilling',
+            allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+            widget=RichWidget(
+                label="Methodology for gap filling",
+                label_msgid='indicators_label_methodology_gapfilling',
+                i18n_domain='indicators',
+                ),
+            default_content_type="text/html",
+            searchable=True,
+            schemata="Methodology",
+            default_output_type="text/x-html-safe",
+            ),
     TextField(
-        name='description',
-        widget=TextAreaWidget(
-            visible={'view':'invisible', 'edit':'invisible'},
-            label='Description',
-            description='A short and concise description about this indicator.',
-            label_msgid='indicators_label_description',
-            i18n_domain='indicators',
-        ),
-        accessor="Description",
-    ),
+            name='description',
+            widget=TextAreaWidget(
+                visible={'view':'invisible', 'edit':'invisible'},
+                label='Description',
+                description='A short and concise description about this indicator.',
+                label_msgid='indicators_label_description',
+                i18n_domain='indicators',
+                ),
+            accessor="Description",
+            ),
     StringField(
-        name='related_external_indicator',
-        widget=StringField._properties['widget'](
-            label="Related external indicator",
-            label_msgid='indicators_label_related_external_indicator',
-            i18n_domain='indicators',
-        ),
-        required=False,
-        schemata="default",
-    ),
+            name='related_external_indicator',
+            widget=StringField._properties['widget'](
+                label="Related external indicator",
+                label_msgid='indicators_label_related_external_indicator',
+                i18n_domain='indicators',
+                ),
+            required=False,
+            schemata="default",
+            ),
     StringField(
-        name='manager_user_id',
-        widget=StringField._properties['widget'](
-            label="EEA Indicator Manager",
-            description="Central contact point for this indicator, mainly responsible for the indicator update and its further development.",
-            label_msgid='indicators_label_manager_user_id',
-            i18n_domain='indicators',
-        ),
-        schemata="default",
-        required_for_published=True,
-    ),
+            name='manager_user_id',
+            widget= UserAndGroupSelectionWidget(
+                label="The manager of this Indicator Specification",
+                usersOnly=True,
+                label_msgid='indicators_label_manager_user_id',
+                i18n_domain='indicators',
+                ),
+            schemata="default",
+            required_for_published=True,
+            ),
     ReferenceField(
-        name='relatedItems',
-        widget=ReferenceBrowserWidget(
-            label="External data references",
-            addable=True,
-            description="References to external data sets, available on other websites or via other organisations' communication channels.",
-            label_msgid='indicators_label_relatedItems',
-            description_msgid='indicators_help_relatedItems',
-            i18n_domain='indicators',
-            keepReferencesOnCopy=True,
-        ),
-        allowed_types=('ExternalDataSpec',),
-        schemata="DataSpecs",
-        multiValued=1,
-        relationship='specification_relateditems',
-    ),
-
-),
+            name='relatedItems',
+            widget=ReferenceBrowserWidget(
+                label="External data references",
+                addable=True,
+                description="References to external data sets, available on other websites or via other organisations' communication channels.",
+                label_msgid='indicators_label_relatedItems',
+                description_msgid='indicators_help_relatedItems',
+                i18n_domain='indicators',
+                keepReferencesOnCopy=True,
+                ),
+            allowed_types=('ExternalDataSpec',),
+            schemata="DataSpecs",
+            multiValued=1,
+            relationship='specification_relateditems',
+            ),
+    EEAReferenceField('relatedItems',
+            schemata='DataSpecs',
+            relationship='relatesTo',
+            multivalued=True,
+            isMetadata=False,
+            widget=EEAReferenceBrowserWidget(
+                label='External data references',
+                description="References to external data sets, available on other websites or via other organisations' communication channels.",
+                label_msgid='indicators_label_specRelatedItems',
+                description_msgid='indicators_help_specRelatedItems',
+                macro="indicatorsrelationwidget",
+                )),
+            ),
 )
 
 ##code-section after-local-schema #fill in your manual code here
 ##/code-section after-local-schema
 
 Specification_schema = ATFolderSchema.copy() + \
-    getattr(ATFolder, 'schema', Schema(())).copy() + \
-    schema.copy()
+        getattr(ATFolder, 'schema', Schema(())).copy() + \
+        schema.copy()
 
 ##code-section after-schema #fill in your manual code here
+
 Specification_schema = Specification_schema + ThemeTaggable_schema.copy()
-
-Specification_schema['relatedItems'] = EEAReferenceField('relatedItems',
-        schemata='DataSpecs',
-        relationship='relatesTo',
-        multivalued=True,
-        isMetadata=False,
-        widget=EEAReferenceBrowserWidget(
-            label='External data references',
-            description="References to external data sets, available on other websites or via other organisations' communication channels.",
-            label_msgid='indicators_label_specRelatedItems',
-            description_msgid='indicators_help_specRelatedItems',
-            macro="indicatorsrelationwidget",
-            ))
-
-Specification_schema['manager_user_id'].widget = UserAndGroupSelectionWidget(
-            label="The manager of this Indicator Specification",
-            usersOnly=True,
-            label_msgid='indicators_label_manager_user_id',
-            i18n_domain='indicators',
-        )
-
 Specification_schema['themes'].schemata = 'Classification'
+Specification_schema['themes'].required_for_published = True
+
 #batch reorder of the fields
 #this is created like this because we want explicit control over how the schemata fields
 #are ordered and changing this in the UML modeler is just too time consuming
+#TODO: get rid of this, we no longer use the UML modeler
 _field_order = [
         {
             'name':'default',
             'fields':[  'title', 'description', 'more_updates_on', 'definition',
-                        'units', 'related_external_indicator', 'manager_user_id']
+                'units', 'related_external_indicator', 'manager_user_id']
             },
         {
             'name':'Rationale',
@@ -416,24 +410,8 @@ for name in old_order:  #add fields that are not in our specified list at the en
         new_order.append(name)
 
 Specification_schema._names = new_order
-Specification_schema['themes'].required_for_publication = True
 finalizeATCTSchema(Specification_schema)
 
-required_for_publication = [
-                            "title",
-                            "codes",
-                            "dpsir",
-                            "typology",
-                            "rationale_justification",
-                            "policy_context_description",
-                            "definition",
-                            "units",
-                            "methodology",
-                            "manager_user_id",
-                            "themes",
-                            ]
-
-##/code-section after-schema
 
 class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  CustomizedObjectFactory, BrowserDefaultMixin):
     """
@@ -452,6 +430,8 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
     #this template is customized to expose the number of remaining
     #unfilled fields that are mandatory for publishing
     edit_macros = PageTemplateFile('edit_macros.pt', templates_dir)
+
+    portlet_readiness = ViewPageTemplateFile('../browser/templates/portlet_readiness.pt')
 
     ##/code-section class-header
 
@@ -487,7 +467,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
         res = None
         cat = getToolByName(self, 'portal_catalog')
         brains = cat.searchResults({'portal_type' : 'Organisation',
-                                    'getUrl': url})
+            'getUrl': url})
         if brains: res = brains[0]
         return res
 
@@ -511,37 +491,6 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
     def Description(self):
         convert = getToolByName(self, 'portal_transforms').convert
         return convert('html_to_text', self.getDefinition()).getData()
-
-    security.declarePublic('get_completeness')
-    def get_completeness(self):
-
-        _done           = 0 #the percentage of fields required for publication that are filled in
-        _optional       = 0 #fields that are not required for publication that are not filled in
-        _required       = 0 #the fields required for publication that are filled in
-        _total_required = 0 #the number of fields that are required for publication
-        _total          = 0 #the grand total of fields
-
-        for field in self.schema.fields():
-            _total += 1
-            has_value = bool(field.getAccessor(self)())  #we assume that the return value is something not empty
-
-            if getattr(field, 'required_for_publication', False):
-                _total_required += 1
-                if has_value:
-                    _required += 1
-            else:
-                if not has_value:
-                    _optional += 1
-
-        _done = int(float(_required) / float(_total_required) * 100.0)
-
-        return {
-                'done':_done,
-                'required':_required,
-                'publishing':_total_required,
-                'optional':_optional,
-                'total':_total,
-                }
 
     security.declarePublic('left_slots')
     def left_slots(self):
@@ -572,13 +521,14 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
         but also for the full code (ex:SETB009)
         """
         codes = self.getCodes()
+
         res = []
         for code in codes:
             if code:
                 res.extend(
-                    [code['set'],
-                    "%s%s" % (code['set'], code['code'])]
-                    )
+                        [code['set'],
+                            "%s%s" % (code['set'], code['code'])]
+                        )
         return res
 
     security.declareProtected("Modify portal content", 'setCodes')
@@ -656,7 +606,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
         #create assessment parts for each policy question
         for pq in self.objectValues("PolicyQuestion"):
             id = ast.invokeFactory(type_name="AssessmentPart",
-                                   id=ast.generateUniqueId("AssessmentPart"),)
+                    id=ast.generateUniqueId("AssessmentPart"),)
             ap = ast[id]
             ap.setRelatedItems(pq)
             ap.reindexObject()
@@ -672,10 +622,6 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
             return True
 
         return False
-
-    #security.declarePublic('portlet_readiness')
-    #def portlet_readiness(self):
-    portlet_readiness = ViewPageTemplateFile('../browser/templates/portlet_readiness.pt')
 
 
 registerType(Specification, PROJECTNAME)

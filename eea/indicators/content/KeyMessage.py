@@ -32,7 +32,7 @@ schema = Schema((
     TextField(
         name='message',
         allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
-        required_for_publication=True,
+        required_for_published=True,
         widget=RichWidget(
             label="Key message",
             label_msgid='indicators_label_message',
@@ -41,7 +41,6 @@ schema = Schema((
         default_output_type='text/html',
         searchable=True,
     ),
-
 ),
 )
 
