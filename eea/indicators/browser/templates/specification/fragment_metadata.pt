@@ -32,6 +32,7 @@
 							<metal:slot metal:fill-slot="extra-metadata">
 								<div class="width">800</div>
 								<div class="height">435</div>
+								<div class="dialog_title">Edit Responsability and Ownership</div>
 							</metal:slot>
 						</metal:macro>
 					</tal:def>
@@ -56,6 +57,7 @@
 								<metal:slot metal:fill-slot="extra-metadata">
 									<div class="width">800</div>
 									<div class="height">435</div>
+								<div class="dialog_title">Edit Classification</div>
 								</metal:slot>
 							</metal:macro>
 						</tal:def>
@@ -74,6 +76,7 @@
 								<metal:slot metal:fill-slot="extra-metadata">
 									<div class="width">800</div>
 									<div class="height">435</div>
+									<div class="dialog_title">Edit Typology</div>
 								</metal:slot>
 							</metal:macro>
 						</tal:def>
@@ -92,8 +95,6 @@
 									<div tal:condition="python:not themes" class="placeholder">
 										<span class="required">Please fill in</span>
 									</div>
-
-
 									<div tal:define="view_name string:themes-object;
 										proxy context/@@proxy;
 										view python: proxy.real_view(view_name);
@@ -114,6 +115,7 @@
 								<metal:slot metal:fill-slot="extra-metadata">
 									<div class="width">800</div>
 									<div class="height">435</div>
+									<div class="dialog_title">Edit EEA Themes</div>
 								</metal:slot>
 							</metal:macro>
 						</tal:def>
@@ -141,6 +143,7 @@
 										<metal:slot metal:fill-slot="extra-metadata">
 											<div class="width">800</div>
 											<div class="height">435</div>
+											<div class="dialog_title">Edit Codes</div>
 										</metal:slot>
 									</metal:macro>
 								</tal:def>

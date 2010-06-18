@@ -22,6 +22,7 @@
 							<metal:slot metal:fill-slot="extra-metadata">
 								<div class="width">800</div>
 								<div class="height">435</div>
+								<div class="dialog_title">Edit Rationale</div>
 							</metal:slot>
 						</metal:macro>
 					</tal:def>
@@ -37,6 +38,8 @@
 								      class="handler ui-icon ui-icon-arrowthick-2-n-s"></span>
 								<a href=""
 									class="schemata_edit"
+									title="Edit Scientific Reference"
+									i18n:attributes="title"
 									tal:attributes="href string:${ref/absolute_url}/schemata_edit?fieldset=default">Edit</a>
 								<a href=""
 									class="object_delete"

@@ -31,7 +31,7 @@
 
 <!-- Active field macro -->
 <div metal:define-macro="active_field" class="active_field" 
-	tal:define="thiscontext nocall:thiscontext|context">
+	tal:define="thiscontext nocall:thiscontext|context;">
 	<metal:slot metal:define-slot="control">
 		<div class="control">
 			<a href="" 

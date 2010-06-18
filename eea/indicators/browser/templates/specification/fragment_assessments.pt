@@ -27,6 +27,7 @@
 							<metal:slot metal:fill-slot="extra-metadata">
 								<div class="width">800</div>
 								<div class="height">435</div>
+								<div class="dialog_title">Edit more updates information</div>
 							</metal:slot>
 						</metal:macro>
 					</tal:def>

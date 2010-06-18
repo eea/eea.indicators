@@ -280,8 +280,10 @@ function set_editors(){
   $('a.schemata_edit').live('click', function(){
     block_ui();
     var link = $(this).attr('href');
-    var title = $(this).text();
+    var title = $(this).attr('title');
     var region = $(this).parents(".active_region")[0];
+
+    // rewrite this to take advantage of metadata
     var options = {
       'width':800,
       'height':600
@@ -313,7 +315,6 @@ function set_edit_buttons() {
 
     block_ui();
     var link = $(this).attr('href');
-    var title = $(this).text();
     var region = $(this).parents(".active_region")[0];
     var field = $(this).parents('.active_field')[0];
 
@@ -322,6 +323,7 @@ function set_edit_buttons() {
     var content = $('.content', field).get();
     var metadata = $('.metadata', field);
     var fieldname = $('.metadata > .fieldname', field).text();
+    var title = $('.metadata > .dialog_title', field).text();
 
     var options = { 'width':800, 'height':600 };
     options.height = Number($('.metadata > .height', field).text()) || options.height;
@@ -501,7 +503,7 @@ function set_inout(el){
   if (!el.length) { return false; }
   var divs = $("div div", el);
   var last_div = divs.get(divs.length-1);
-  $("<div style='float:left'><input type='button' value='&uarr;' class='context up-btn'/><br/><input value='&darr;' type='button' class='context down-btn'/></div>").insertBefore($(last_div));
+  $("<div style='float:left; padding-top:18px'><input type='button' value='&uarr;' class='context up-btn'/><br/><input value='&darr;' type='button' class='context down-btn'/></div>").insertBefore($(last_div));
   var select = $("select", divs.get(1)).get(0);
 
   var up_btn = $(".up-btn", el);
