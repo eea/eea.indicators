@@ -21,6 +21,7 @@
 							<metal:slot metal:fill-slot="extra-metadata">
 								<div class="width">800</div>
 								<div class="height">435</div>
+								<div class="dialog_title">Edit Related External Indicator</div>
 							</metal:slot>
 						</metal:macro>
 					</tal:def>
@@ -39,6 +40,7 @@
 							<metal:slot metal:fill-slot="extra-metadata">
 								<div class="width">800</div>
 								<div class="height">435</div>
+								<div class="dialog_title">Edit Manager User Id</div>
 							</metal:slot>
 						</metal:macro>
 					</tal:def>

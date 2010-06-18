@@ -25,6 +25,7 @@
 							<metal:slot metal:fill-slot="extra-metadata">
 								<div class="width">800</div>
 								<div class="height">435</div>
+								<div class="dialog_title">Edit Policy Context Description</div>
 							</metal:slot>
 						</metal:macro>
 					</tal:def>
@@ -43,6 +44,7 @@
 							<metal:slot metal:fill-slot="extra-metadata">
 								<div class="width">800</div>
 								<div class="height">435</div>
+								<div class="dialog_title">Edit Targets</div>
 							</metal:slot>
 						</metal:macro>
 					</tal:def>
@@ -78,6 +80,7 @@
 							</metal:slot>
 							<metal:slot metal:fill-slot="extra-metadata">
 								<div class="disable_handler">true</div>
+								<div class="dialog_title">Edit Policy Documents</div>
 							</metal:slot>
 							
 						</metal:macro>
@@ -89,4 +92,3 @@
 
 	</tal:def>
 </tal:def>
-<!-- also_reload python:['relateditems_area','data_spec_area']; -->

@@ -13,6 +13,8 @@
 					<div tal:repeat="work works" class="work_item">
 						<a href=""
 							class="schemata_edit spec_control"
+							title="Edit Work Item"
+							i18n:attributes='title'
 							tal:attributes="href string:${work/absolute_url}/schemata_edit?fieldset=default">Edit</a>
 						<a href=""
 							class="object_delete spec_control"
