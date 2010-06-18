@@ -18,20 +18,23 @@
             view_macros python:path('here/%s/macros|nothing' % view_template);
             header_macro view_macros/header | header_macro | base_macros/header;">
 
-            <metal:use_header use-macro="header_macro" />
 
-<!-- #TODO: i18n:translate -->
+           <h1 tal:content="context/title_or_id" class="documentFirstHeading">
+                Title or id
+            </h1>
 
-<h1>
-  Indicator:
-  <tal:block content="context/title_or_id" />
-  [<i><tal:block define="value context/getAssessment_date"
-                 content="python:context.toLocalizedTime(value, long_format=0)" /></i>]
-</h1>
+            <p class="documentDescription">
+                Assessment made on <tal:block define="value context/getAssessment_date"
+                content="python:context.toLocalizedTime(value, long_format=0)" />
+            </p>
 
-<metal:versions use-macro="here/portlet_versions/macros/versions">
-  <metal:new fill-slot="old" />
-</metal:versions>
+            <p class="documentDescription"
+               tal:content="here/Description"
+               tal:condition="here/Description">
+                Description
+            </p>
+
+
 <metal:versions use-macro="here/portlet_versions/macros/versions">
   <metal:new fill-slot="new" />
 </metal:versions>
@@ -97,6 +100,10 @@
       </tal:block>
   </ul>
 </tal:factSheetDocuments>
+
+<metal:versions use-macro="here/portlet_versions/macros/versions">
+  <metal:new fill-slot="old" />
+</metal:versions>
 
 <!-- #TODO: <dtml-var show_related_indicators> -->
 
