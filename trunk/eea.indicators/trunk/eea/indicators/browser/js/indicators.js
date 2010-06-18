@@ -497,7 +497,63 @@ function ajaxify(el, fieldname){
     });
 }
 
+function set_inout(el){
+  if (!el.length) { return false; }
+  var divs = $("div div", el);
+  var last_div = divs.get(divs.length-1);
+  $("<div style='float:left'><input type='button' value='&uarr;' class='context up-btn'/><br/><input value='&darr;' type='button' class='context down-btn'/></div>").insertBefore($(last_div));
+  var select = $("select", divs.get(1)).get(0);
 
+  var up_btn = $(".up-btn", el);
+  var down_btn = $(".down-btn", el);
+  $(up_btn).click(function(){
+    var ix = select.selectedIndex;
+    if (ix === 0) {
+      return false;
+    }
+
+    var opt = $(select).children().get(ix);
+    var arr = new Array();
+    for (i=0; i<select.options.length; i++) {
+      arr.push(select.options[i]);
+    }
+
+    // move position above to the selected position
+    arr[ix] = select.options[ix-1];
+    arr[ix-1] = opt;
+
+    var len = select.options.length;
+    select.options.length = 0;
+
+    for (i=0; i<len; i++) {
+      select.options[i] = arr[i];
+    }
+  });
+
+  $(down_btn).click(function(){
+    var ix = select.selectedIndex;
+    if (ix === select.options.length-1) {
+      return false;
+    }
+
+    var opt = $(select).children().get(ix);
+    var arr = new Array();
+    for (i=0; i<select.options.length; i++) {
+      arr.push(select.options[i]);
+    }
+
+    // move position below the selected position
+    arr[ix] = select.options[ix+1];
+    arr[ix+1] = opt;
+
+    var len = select.options.length;
+    select.options.length = 0;
+
+    for (i=0; i<len; i++) {
+      select.options[i] = arr[i];
+    }
+  });
+}
 
 function dialog_edit(url, title, callback, options){
   // Opens a modal dialog with the given title
@@ -544,7 +600,9 @@ function dialog_edit(url, title, callback, options){
       // after editing with Kupu in one of the popup dialogs,
       // it is not possible to click inside the text inputs anymore
       // surprisingly, clicking on their label activates the fields
+      // this happens only in Internet Explorer
       $("#dialog-inner label").trigger('click');
+      set_inout($("#archetypes-fieldname-themes"));
       callback();
     }
   });
