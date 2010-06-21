@@ -16,9 +16,6 @@
 		<script type="text/javascript" tal:attributes="src string:${portal_url}/widgets/js/inandout.js"></script>
 		<script type="text/javascript" tal:attributes="src string:${portal_url}/datagridwidget.js"></script>
 	</metal:jsslot>
-	<metal:cssslot fill-slot="css_slot">
-		<link rel="stylesheet" type='text/css' href='' tal:attributes='href string:$portal_url/datagridwidget.css'/>
-	</metal:cssslot>
 
 	<body>
 		<div metal:fill-slot="main">
