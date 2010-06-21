@@ -91,6 +91,7 @@ schema = Schema((
         columns=("set", "code"),
         required_for_published=True,
         validators=('unique_specification_code',),
+        #allow_empty_rows=True,
         ),
     TextField(
         name='more_updates_on',
