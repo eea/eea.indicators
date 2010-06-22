@@ -161,7 +161,7 @@
           </tal:methodology_references>
 
           <!-- TODO: #3273 -->
-          <!-- TODO: add listing of ExternalDateSets -->
+          <!-- TODO: add listing of ExternalDateSets and other data sources info #3452 -->
           <div id="data-specifications" metal:define-macro="data-specifications">
           <h2 id="data_specifications">Data specifications</h2>
           <ul tal:define="datasetsView nocall:here/@@related_items;
