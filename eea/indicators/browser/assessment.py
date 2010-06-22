@@ -6,7 +6,7 @@ from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from eea.versions.interfaces import IVersionControl, IVersionEnhanced
 from eea.versions.versions import CreateVersion as BaseCreateVersion, create_version as base_create_version
-from eea.versions.versions import _get_random, _reindex, generateNewId
+from eea.versions.versions import _get_random, _reindex, generateNewId, get_versions_api
 from eea.workflow.readiness import ObjectReadiness
 from zope.component import getMultiAdapter
 from zope.interface import alsoProvides
@@ -79,19 +79,22 @@ def create_version(original, request=None):
     ver.setEffectiveDate(None)
     ver.setCreationDate(DateTime())
 
-    #The EEAFigures need to be recreated as versions and relinked to AssessmentParts
+    #The links to EEAFigures are updated to point to their latest version
+
     assessment = ver
 
     for ap in assessment.objectValues("AssessmentPart"):
         rels = []
         for o in ap.getRelatedItems():
-            if o.meta_type != "EEAFigure":
+            if o.meta_type == "EEAFigure":
+                api = get_versions_api(o)
+                new = api.latest_version()
+                if new:
+                    rels.append(new)
+                else:
+                    rels.append(o)
+            else:
                 rels.append(o)
-                continue
-
-            figure = o
-            version = base_create_version(figure)
-            rels.append(version)
 
         ap.setRelatedItems(rels)
         ap.reindexObject()
