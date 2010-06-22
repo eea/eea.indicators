@@ -7,7 +7,7 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from eea.versions.interfaces import IVersionControl, IVersionEnhanced
 from eea.versions.versions import CreateVersion as BaseCreateVersion, create_version as base_create_version
 from eea.versions.versions import _get_random, _reindex, generateNewId, get_versions_api
-from eea.workflow.readiness import ObjectReadiness
+from eea.workflow.readiness import ObjectReadinessView
 from zope.component import getMultiAdapter
 from zope.interface import alsoProvides
 
@@ -107,49 +107,47 @@ def create_version(original, request=None):
     return ver
 
 
-class WorkflowStateReadiness(ObjectReadiness):
+class WorkflowStateReadiness(ObjectReadinessView):
     """ObjectReadiness customizations"""
 
-    def field_has_value(self, fieldname, context):
-        convert = getToolByName(self.context, 'portal_transforms').convert
-        value = context.schema[fieldname].getAccessor(context)()
-        return convert('html_to_text', value).getData()
+    #TODO: translate messages
+
+    checks = (
+        (lambda o:filter(lambda p: not IValueProvider(p, 
+                                                      p.schema['assessment']).has_value(),
+                         o.objectValues("AssessmentPart")),
+         'You need to fill in the assessments for all the policy questions'),
+
+        (lambda o:filter(lambda p: not IObjectReadiness(p).is_ready_for('published'),
+                                    o.objectValues("AssessmentPart")),
+         'You need to meet the publishing requirements for all assessment parts'),
+        
+        (lambda o: 'published' != getToolByName(o, 'portal_workflow').getInfoFor(aq_parent(aq_inner(o)), 'review_state'),
+        "The parent Specification needs to be published"
+        ),
+    )
 
     def is_ready_for(self, state_name):
         if state_name == 'published':
-            #check that all the questions are answered
-            ap = self.context.objectValues("AssessmentPart")
-            missing = [p for p in ap if not self.field_has_value('assessment', p)]
-            if missing:
-                return False
-            #check that the parent Specification is published
-            parent = aq_parent(aq_inner(self.context))
-            wftool = getToolByName(self.context, 'portal_workflow')
-            state = wftool.getInfoFor(parent, 'review_state')
-            if state != "published":
-                return False
-            return True
+            for checker, error in self.checks:
+                if checker(self.context):
+                    return False
+                return True
         else:
             return super(WorkflowStateReadiness, self).is_ready_for(state_name)
 
     def get_info_for(self, state_name):
-        info = ObjectReadiness.get_info_for(self, state_name)
-        #TODO: translate messages
+        info = ObjectReadinessView.get_info_for(self, state_name)
 
         #TODO: add the required fields and info from the assessment parts
-        ap = self.context.objectValues("AssessmentPart")
-        
-        missing = [p for p in ap if not self.field_has_value('assessment', p)]
-        if missing:
-            info['extra'].append(('error', 'You need to fill in the assessments for all the policy questions'))
 
-        #check that the parent Specification is published
-        parent = aq_parent(aq_inner(self.context))
-        wftool = getToolByName(self.context, 'portal_workflow')
-        state = wftool.getInfoFor(parent, 'review_state')
-        if state != "published":
-            info['extra'].append(('error', 'The parent Specification needs to be published'))
+        extras = []
 
+        for checker, error in self.checks:
+            if checker(self.context):
+                extras.append(('error', error))
+
+        info['extra'] = extras
         return info
 
 

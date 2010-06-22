@@ -12,7 +12,7 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from eea.versions.interfaces import IVersionControl, IVersionEnhanced
 from eea.versions.versions import CreateVersion as BaseCreateVersion, generateNewId
 from eea.versions.versions import _get_random, _reindex
-from eea.workflow.readiness import ObjectReadiness
+from eea.workflow.readiness import ObjectReadinessView
 from zope.interface import alsoProvides, directlyProvides, directlyProvidedBy
 
 import logging
@@ -104,7 +104,7 @@ class CreateVersion(BaseCreateVersion):
         return self.request.RESPONSE.redirect(ver.absolute_url())
 
 
-class WorkflowStateReadiness(ObjectReadiness):
+class WorkflowStateReadiness(ObjectReadinessView):
 
     #TODO: translate messages here
     checks = (
@@ -124,7 +124,7 @@ class WorkflowStateReadiness(ObjectReadiness):
             )
 
     def get_info_for(self, state_name):
-        info = ObjectReadiness.get_info_for(self, state_name)
+        info = ObjectReadinessView.get_info_for(self, state_name)
         extras = []
 
         for checker, error in self.checks:
@@ -182,6 +182,7 @@ class AssessmentVersions(BrowserView):
         res['draft'] = self.sort_assessments(assessments)
 
         return res
+
 
 class PolicyQuestions(BrowserView):
     """ Return contained PolicyQuestions divided by 'is_key_question' property
