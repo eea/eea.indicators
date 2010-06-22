@@ -161,11 +161,12 @@
           </tal:methodology_references>
 
           <!-- TODO: #3273 -->
-          <!-- TODO: add listing of ExternalDateSets and other data sources info #3452 -->
-          <div id="data-specifications" metal:define-macro="data-specifications">
+          <!-- TODO: add extra info from datasets like owner/provider/processor-->
+          <div id="data-specifications" metal:define-macro="data-specifications" 
+               tal:define="datasetsView nocall:here/@@related_items;">
           <h2 id="data_specifications">Data specifications</h2>
-          <ul tal:define="datasetsView nocall:here/@@related_items;
-                          datasets python:datasetsView('Data')">
+          <h3>EEA data references</h3>
+          <ul tal:define="datasets python:datasetsView('Data')">
             <li tal:condition="not:datasets">No datasets have been specifed yet.</li>
             <li tal:repeat="data datasets" tal:condition="datasets">
               <a href=""
@@ -173,6 +174,15 @@
                  tal:content="data/title">Dataset title</a>
             </li>
           </ul>
+          <h3>External data references</h3>
+          <ul tal:define="datasets python:datasetsView('ExternalDataSpec')">
+            <li tal:condition="not:datasets">No datasets have been specifed yet.</li>
+            <li tal:repeat="data datasets" tal:condition="datasets">
+              <a href="" tal:attributes="href data/absolute_url"
+                 tal:content="data/title">Dataset title</a>
+            </li>
+          </ul>
+          <!-- TODO: to show other data sources coming from figures source field #3452 -->
           </div>
 
           <h2 id="uncertainties">Uncertainties</h2>
