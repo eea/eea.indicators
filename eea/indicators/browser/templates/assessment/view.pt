@@ -112,7 +112,7 @@
           <div tal:condition="key" >
             <h2 class="policy_question">Key policy question: <span tal:replace="key/Title" /></h2>
             <div class="keyMessage">
-              <h3>Key message</h3>
+              <h3>Key messages</h3>
               <p tal:content="structure context/getKey_message" />
             </div>
 
