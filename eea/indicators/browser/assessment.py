@@ -8,7 +8,7 @@ from eea.versions.interfaces import IVersionControl, IVersionEnhanced
 from eea.versions.versions import CreateVersion as BaseCreateVersion, create_version as base_create_version
 from eea.versions.versions import _get_random, _reindex, generateNewId, get_versions_api
 from eea.workflow.readiness import ObjectReadinessView
-from eea.workflow.interfaces import IValueProvider
+from eea.workflow.interfaces import IValueProvider, IObjectReadiness
 from zope.component import getMultiAdapter
 from zope.interface import alsoProvides
 
@@ -114,7 +114,7 @@ class WorkflowStateReadiness(ObjectReadinessView):
     #TODO: translate messages
 
     checks = (
-        (lambda o:filter(lambda p: not IValueProvider(p, 
+        (lambda o:filter(lambda p: not IValueProvider(p,
                                                       p.schema['assessment']).has_value(),
                          o.objectValues("AssessmentPart")),
          'You need to fill in the assessments for all the policy questions'),
@@ -122,7 +122,7 @@ class WorkflowStateReadiness(ObjectReadinessView):
         (lambda o:filter(lambda p: not IObjectReadiness(p).is_ready_for('published'),
                                     o.objectValues("AssessmentPart")),
          'You need to meet the publishing requirements for all assessment parts'),
-        
+
         (lambda o: 'published' != getToolByName(o, 'portal_workflow').getInfoFor(aq_parent(aq_inner(o)), 'review_state'),
         "The parent Specification needs to be published"
         ),
