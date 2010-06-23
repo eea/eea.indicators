@@ -10,19 +10,23 @@
 
   <browser:page name="edit_aggregated"
            for="eea.indicators.content.interfaces.ISpecification"
-           class=".specification.AggregatedEditPage" permission="zope2.View" />
+           class=".specification.AggregatedEditPage"
+           permission="zope2.View" />
 
   <browser:page name="get_schemata_count"
            for="eea.indicators.content.interfaces.ISpecification"
-           class=".specification.SchemataCounts" permission="zope2.View" />
+           class=".specification.SchemataCounts"
+           permission="zope2.View" />
 
   <browser:page name="wizards"
            for="eea.indicators.content.interfaces.ISpecification"
-           template="templates/specification/wizards.pt" permission="zope2.View" />
+           template="templates/specification/wizards.pt"
+           permission="zope2.View" />
 
   <browser:page name="change_order"
            for="eea.indicators.content.interfaces.ISpecification"
-           class=".utils.Sorter" permission="zope2.View" />
+           class=".utils.Sorter"
+           permission="zope2.View" />
 
   <browser:page
            name="get_readiness"
@@ -51,23 +55,33 @@
   <!-- Specification Versioning -->
   <browser:page
            for="eea.indicators.content.interfaces.ISpecification"
-           name="createVersion" permission="cmf.ModifyPortalContent"
+           name="createVersion"
+           permission="cmf.ModifyPortalContent"
            class=".specification.CreateVersion" />
 
   <browser:menuItem
            for="eea.indicators.content.interfaces.ISpecification"
-           menu="object_buttons" title="Create new version" action="@@createVersion"
-           description="Create a new version" permission="cmf.ModifyPortalContent" />
+           menu="object_buttons"
+           title="Create new version"
+           action="@@createVersion"
+           description="Create a new version"
+           permission="cmf.ModifyPortalContent" />
 
   <browser:menuItem
            for="eea.indicators.content.interfaces.ISpecification"
-           menu="object_buttons" title="Revoke version" action="@@revokeVersion"
-           description="Revoke a version" permission="cmf.ModifyPortalContent" />
+           menu="object_buttons"
+           title="Revoke version"
+           action="@@revokeVersion"
+           description="Revoke a version"
+           permission="cmf.ModifyPortalContent" />
 
   <browser:menuItem
            for="eea.indicators.content.interfaces.ISpecification"
-           menu="object_buttons" title="Re-assign version" action="@@assignVersion"
-           description="Re-assign to another version ID" permission="cmf.ModifyPortalContent" />
+           menu="object_buttons"
+           title="Re-assign version"
+           action="@@assignVersion"
+           description="Re-assign to another version ID"
+           permission="cmf.ModifyPortalContent" />
 
   <!-- Fragments used in aggregated edit -->
   <browser:page
