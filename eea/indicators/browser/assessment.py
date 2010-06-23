@@ -8,6 +8,7 @@ from eea.versions.interfaces import IVersionControl, IVersionEnhanced
 from eea.versions.versions import CreateVersion as BaseCreateVersion, create_version as base_create_version
 from eea.versions.versions import _get_random, _reindex, generateNewId, get_versions_api
 from eea.workflow.readiness import ObjectReadinessView
+from eea.workflow.interfaces import IValueProvider
 from zope.component import getMultiAdapter
 from zope.interface import alsoProvides
 
