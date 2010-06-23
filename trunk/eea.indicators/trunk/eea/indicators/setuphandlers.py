@@ -35,7 +35,7 @@ def isNotindicatorsProfile(context):
     return context.readDataFile("indicators_marker.txt") is None
 
 def installQIDependencies(context):
-    """This is for old-style products using QuickInstaller"""
+    """ This is for old-style products using QuickInstaller. """
     if isNotindicatorsProfile(context): return
     logger.info("installQIDependencies starting")
     site = context.getSite()
@@ -58,23 +58,20 @@ def installQIDependencies(context):
                 raise "   QI dependency %s not installable" % dependency
     logger.info("installQIDependencies finished")
 
-
-
 def updateRoleMappings(context):
-    """after workflow changed update the roles mapping. this is like pressing
-    the button 'Update Security Setting' and portal_workflow"""
+    """ After workflow changed update the roles mapping. this is like pressing
+        the button 'Update Security Setting' and portal_workflow. """
     if isNotindicatorsProfile(context): return
     wft = getToolByName(context.getSite(), 'portal_workflow')
     wft.updateRoleMappings()
 
 def postInstall(context):
-    """Called as at the end of the setup process. """
+    """ Called as at the end of the setup process. """
     # the right place for your custom code
     if isNotindicatorsProfile(context): return
     site = context.getSite()
 
     #install dependencies available as GS profiles
-
     qtool = getToolByName(site, 'portal_quickinstaller')
     installed = [package['id'] for package in qtool.listInstalledProducts()]
     for name, importcontext, install in PROFILE_DEPENDENCIES:
@@ -103,7 +100,7 @@ def postInstall(context):
 
 ##code-section FOOT
 def setup_vocabularies(context):
-    """Setup ATVocabularyManager vocabularies"""
+    """ Setup ATVocabularyManager vocabularies. """
 
     site = context.getSite()
     atvm = getToolByName(site, ATVOCABULARYTOOL, None)
@@ -151,12 +148,11 @@ def setup_vocabularies(context):
             vocab[val[0]].setTitle(val[1])
 
 def setup_misc(context):
-    """ Stub step to enable setting dependent steps """
-
+    """ Stub step to enable setting dependent steps. """
     return
 
 def updateRoleMappings(context):
-    """We don't need this actually, so we rewrite it"""
+    """ We don't need this actually, so we rewrite it. """
     return
 
 ##/code-section FOOT
