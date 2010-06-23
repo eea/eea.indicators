@@ -54,7 +54,11 @@
          for=".content.interfaces.IIndicatorFactSheet
               zope.app.event.interfaces.IObjectModifiedEvent"
          handler="eea.dataservice.content.Data.versionIdHandler" />
-
+         
+    <adapter
+         for="eea.indicators.content.interfaces.ISpecification"
+         provides="eea.relations.interfaces.IAutoRelations"
+        factory=".autorelations.DatasetsFromFigures"/>
 
 
     <!-- ##/code-section configure.zcml -->

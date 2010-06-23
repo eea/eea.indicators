@@ -163,7 +163,8 @@
           <!-- TODO: #3273 -->
           <!-- TODO: add extra info from datasets like owner/provider/processor-->
           <div id="data-specifications" metal:define-macro="data-specifications" 
-               tal:define="datasetsView nocall:here/@@related_items;">
+               tal:define="datasetsView nocall:here/@@related_items;
+	       auto_relations nocall:here/@@auto-relations.html">
           <h2 id="data_specifications">Data specifications</h2>
           <h3>EEA data references</h3>
           <ul tal:define="datasets python:datasetsView('Data')">
@@ -183,6 +184,8 @@
             </li>
           </ul>
           <!-- TODO: to show other data sources coming from figures source field #3452 -->
+          
+	  
           </div>
 
           <h2 id="uncertainties">Uncertainties</h2>

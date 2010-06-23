@@ -44,17 +44,14 @@
   <h2 tal:content="policy_question" />
 </tal:policy_question>
 
+
 <tal:key_messages define="key_messages context/@@key_messages"
                   condition="key_messages">
-  <div class="roundedBox lightBGC">
    <div class="keyMessage">
-    <h4>Key messages</h4>
-    <ul>
-       <li tal:repeat="message key_messages"
-           tal:content="structure message/getMessage" />
-    </ul>
+    <h3>Key messages</h3>
+    <ul><li tal:repeat="message key_messages" tal:content="structure message/getMessage"></li></ul>
    </div>
-  </div>
+
 </tal:key_messages>
 
 <tal:mapsandgraphs tal:define="figures context/@@figures_for_album"
