@@ -16,8 +16,11 @@
     <five:implements class=".content.Specification.Specification"
         interface="eea.workflow.interfaces.IHasMandatoryWorkflowFields" />
 
-    <!-- five:implements class=".content.Specification.Specification"
-        interface="eea.indicators.content.interfaces.IIndicatorAssessment" / -->
+    <five:implements class=".content.Assessment.Assessment"
+        interface="eea.workflow.interfaces.IHasMandatoryWorkflowFields" />
+
+    <five:implements class=".content.AssessmentPart.AssessmentPart"
+        interface="eea.workflow.interfaces.IHasMandatoryWorkflowFields" />
 
    <!-- <subscriber handler=".events.delegate_manager" -->
    <!--     for="eea.indicators.content.interfaces.ISpecification -->
