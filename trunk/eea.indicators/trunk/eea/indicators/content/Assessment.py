@@ -124,8 +124,7 @@ class Assessment(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory, Br
     """
     security = ClassSecurityInfo()
 
-    implements(interfaces.IAssessment,
-            interfaces.IIndicatorAssessment)
+    implements(interfaces.IAssessment, interfaces.IIndicatorAssessment)
 
     meta_type = 'Assessment'
     _at_rename_after_creation = False
@@ -208,6 +207,3 @@ registerType(Assessment, PROJECTNAME)
 
 ##code-section module-footer #fill in your manual code here
 ##/code-section module-footer
-
-
-

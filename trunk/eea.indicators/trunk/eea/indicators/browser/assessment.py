@@ -114,8 +114,8 @@ class WorkflowStateReadiness(ObjectReadinessView):
     #TODO: translate messages
 
     checks = (
-        (lambda o:filter(lambda p: not IValueProvider(p,
-                                                      p.schema['assessment']).has_value(),
+        (lambda o:filter(lambda p: not getMultiAdapter((p,
+                                                      p.schema['assessment']), IValueProvider).has_value(),
                          o.objectValues("AssessmentPart")),
          'You need to fill in the assessments for all the policy questions'),
 
