@@ -13,7 +13,9 @@ from eea.versions.interfaces import IVersionControl, IVersionEnhanced
 from eea.versions.versions import CreateVersion as BaseCreateVersion, generateNewId
 from eea.versions.versions import _get_random, _reindex
 from eea.workflow.readiness import ObjectReadinessView
+from eea.workflow.interfaces import IFieldIsRequiredForState
 from zope.interface import alsoProvides, directlyProvides, directlyProvidedBy
+from zope.component import getMultiAdapter
 
 import logging
 logger = logging.getLogger('eea.indicators')
@@ -38,10 +40,9 @@ class SchemataCounts(BrowserView):
         for field in self.context.schema.fields():
             if not field.schemata in schematas:
                 schematas[field.schemata] = []
-            req = getattr(field, 'required_for_published', False)
+            req = getMultiAdapter((self.context, field), IFieldIsRequiredForState)('published')
             if req:
-                #TODO: use the IValueProvider adaptors here
-                if not field.getAccessor(self.context)():  #we assume that the value return is something not empty
+                if not getMultiAdapter((self.context, field), IValueProvider).has_value():
                     schematas[field.schemata].append(field.__name__)
 
         return schematas
