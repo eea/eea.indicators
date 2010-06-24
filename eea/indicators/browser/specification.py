@@ -13,7 +13,7 @@ from eea.versions.interfaces import IVersionControl, IVersionEnhanced
 from eea.versions.versions import CreateVersion as BaseCreateVersion, generateNewId
 from eea.versions.versions import _get_random, _reindex
 from eea.workflow.readiness import ObjectReadinessView
-from eea.workflow.interfaces import IFieldIsRequiredForState
+from eea.workflow.interfaces import IFieldIsRequiredForState, IValueProvider
 from zope.interface import alsoProvides, directlyProvides, directlyProvidedBy
 from zope.component import getMultiAdapter
 
