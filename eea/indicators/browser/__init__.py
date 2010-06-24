@@ -56,6 +56,7 @@ class IndicatorsPermissionsOverview(BrowserView):
 
         result = {}
         specs = self.context.objectValues("Specification")
+        wftool = getToolByName(self.context, 'portal_workflow')
 
         for spec in specs:
             sets = [s['set'] for s in spec.getCodes()] 
@@ -73,6 +74,7 @@ class IndicatorsPermissionsOverview(BrowserView):
                         'userids':userids,
                         'role':MANAGER_ROLE,
                         'rolemap':roles,
+                        'state':wftool.getInfoFor(spec, 'review_state', '(Unknown)'),
                         }
                 if s in result.keys():
                     result[s].append(info)

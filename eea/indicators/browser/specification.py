@@ -42,7 +42,8 @@ class SchemataCounts(BrowserView):
                 schematas[field.schemata] = []
             req = getMultiAdapter((self.context, field), IFieldIsRequiredForState)('published')
             if req:
-                if not getMultiAdapter((self.context, field), IValueProvider).has_value():
+                adapter = getMultiAdapter((self.context, field), IValueProvider)
+                if not adapter.has_value():
                     schematas[field.schemata].append(field.__name__)
 
         return schematas
