@@ -31,33 +31,33 @@
     <subscriber
          for=".content.interfaces.ISpecification
               zope.app.event.interfaces.IObjectCreatedEvent"
-         handler="eea.dataservice.content.Data.versionIdHandler" />
+         handler="eea.versions.versions.versionIdHandler" />
 
     <subscriber
          for=".content.interfaces.ISpecification
               zope.app.event.interfaces.IObjectModifiedEvent"
-         handler="eea.dataservice.content.Data.versionIdHandler" />
+         handler="eea.versions.versions.versionIdHandler" />
 
     <subscriber
          for=".content.interfaces.IAssessment
               zope.app.event.interfaces.IObjectCreatedEvent"
-         handler="eea.dataservice.content.Data.versionIdHandler" />
+         handler="eea.versions.versions.versionIdHandler" />
 
     <subscriber
          for=".content.interfaces.IAssessment
               zope.app.event.interfaces.IObjectModifiedEvent"
-         handler="eea.dataservice.content.Data.versionIdHandler" />
+         handler="eea.versions.versions.versionIdHandler" />
 
     <subscriber
          for=".content.interfaces.IIndicatorFactSheet
               zope.app.event.interfaces.IObjectCreatedEvent"
-         handler="eea.dataservice.content.Data.versionIdHandler" />
+         handler="eea.versions.versions.versionIdHandler" />
 
     <subscriber
          for=".content.interfaces.IIndicatorFactSheet
               zope.app.event.interfaces.IObjectModifiedEvent"
-         handler="eea.dataservice.content.Data.versionIdHandler" />
-         
+         handler="eea.versions.versions.versionIdHandler" />
+
     <adapter
          for="eea.indicators.content.interfaces.ISpecification"
          provides="eea.relations.interfaces.IAutoRelations"
