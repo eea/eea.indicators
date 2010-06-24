@@ -108,15 +108,6 @@
   <browser:page name="object_delete" for="zope.interface.Interface"
     class=".utils.ObjectDelete" permission="zope2.View" />  TODO: change permission here
 
-  <!-- Resources -->
-
-  <!-- <browser:resource -->
-  <!--   name='indicators.css' -->
-  <!--   file='css/indicators.css' /> -->
-
-  <!-- <browser:resource -->
-  <!--   name='modaledit.css' -->
-  <!--   file='css/modaledit.css' /> -->
 
   <browser:resource
     name='indicators.js'
