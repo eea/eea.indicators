@@ -19,7 +19,7 @@
 
 			<div tal:define="setcodes view/get_setcodes_map">
 				<div tal:repeat="set setcodes">
-					<h2 tal:content="set | string:Indicators without codes" />
+					<h2 tal:define="set python:set or 'Indicators without set codes'" tal:content="set"/>
 					<table class="listing">
 						<thead>
 							<tr>
