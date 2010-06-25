@@ -50,6 +50,9 @@
   <body>
     <div metal:fill-slot="main" tal:define="specification context/getParentNode">
       <h1 id="assessment_title" tal:content="context/Title">Title here</h1>
+      <metal:versions use-macro="here/portlet_versions/macros/versions">
+          <metal:new fill-slot="old" />
+      </metal:versions>
       <div id="box-classification">
               <h3 id="general_metadata">Generic metadata</h3>
               <h4>Classification</h4>
@@ -101,9 +104,7 @@
     </div>
     <br class="visualClear" />
 
-        <metal:versions use-macro="here/portlet_versions/macros/versions">
-          <metal:new fill-slot="old" />
-        </metal:versions>
+
 
 
         <div tal:define="assessments context/get_assessments;
