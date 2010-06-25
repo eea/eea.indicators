@@ -217,6 +217,21 @@ class Assessment(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory, Br
                             result[val] = val
         return list(result.keys())
 
+    security.declarePublic("getTemporalCoverage")
+    def getTemporalCoverage(self):
+        """ """
+        result = {}
+        wftool = getToolByName(self, 'portal_workflow')
+
+        for assessment_part in self.objectValues('AssessmentPart'):
+            for ob in assessment_part.getRelatedItems():
+                if ob.portal_type == 'EEAFigure':
+                    state = wftool.getInfoFor(ob, 'review_state', '(Unknown)')
+                    if state in ['published', 'visible']:
+                        for val in ob.getTemporalCoverage():
+                            result[val] = val
+        return list(result.keys())
+
 registerType(Assessment, PROJECTNAME)
 # end of class Assessment
 
