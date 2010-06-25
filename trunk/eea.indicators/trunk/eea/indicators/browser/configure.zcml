@@ -15,8 +15,8 @@
 
   <browser:page
     for="eea.indicators.content.interfaces.IIndicatorsDatabase"
-    name="permissions_overview"
-    class="eea.indicators.browser.IndicatorsPermissionsOverview"
+    name="ims_overview"
+    class="eea.indicators.browser.ims.IndicatorsOverview"
     permission="zope2.View"
     allowed_interface="eea.indicators.browser.interfaces.IIndicatorsPermissionsOverview"
     />
