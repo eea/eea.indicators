@@ -172,19 +172,47 @@
             <li tal:repeat="data datasets" tal:condition="datasets">
               <a href=""
                  tal:attributes="href string:${context/portal_url}/data-and-maps/data/ds_resolveuid/${data/@@getLatestVersionLink}"
-                 tal:content="data/title">Dataset title</a>
+                 tal:content="data/title">Dataset title</a><!-- TODO: to show title from latest dataset version -->
             </li>
           </ul>
-          <h3>External data references</h3>
-          <ul tal:define="datasets python:datasetsView('ExternalDataSpec')">
-            <li tal:condition="not:datasets">No datasets have been specifed yet.</li>
+
+          <tal:external define="datasets python:datasetsView('ExternalDataSpec')">
+	  <h3 tal:condition="datasets">External data references</h3>
+	  <ul tal:condition="datasets">
             <li tal:repeat="data datasets" tal:condition="datasets">
               <a href="" tal:attributes="href data/absolute_url"
                  tal:content="data/title">Dataset title</a>
             </li>
           </ul>
-          <!-- TODO: to show other data sources coming from figures source field #3452 -->
+	  </tal:external>
+          
+	  <!-- TODO: to show other data sources coming from figures related dataset field #3452 -->
 
+	  <tal:auto define="tabs python:auto_relations.tabs">
+	    <h3>Data sources in latest figures</h3>
+	    <div class="visualNoMarker">
+	     <tal:tab repeat="tab tabs">
+	      <tal:def define="label python:tab[0]; related python:tab[1]">
+	      <tal:figures condition="python:label=='Latest figures'">
+	       <tal:related tal:repeat="item related">
+		<dl class="tileItem visualIEFloatFix vevent" tal:define="
+		    item item/getObject | nocall:item;
+		    title item/title_or_id;
+		    description item/description;
+		    url item/absolute_url;
+		    thumb item/image_thumb | nothing;
+		    source_info item/dataSource | nocall:title;
+		    ">
+		    <dt tal:content="structure source_info"></dt>
+		    <dd>Used in figure <a tal:attributes="href url;" tal:content="title"></a></dd>
+		</dl>
+	      </tal:related>
+	      </tal:figures>
+	    </tal:def>
+	    </tal:tab>
+	  </div>
+	</tal:auto>
+	  
 
           </div>
 

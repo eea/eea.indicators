@@ -1,8 +1,8 @@
 from zope.component import getMultiAdapter                                                                                                                              
 
 
-class DatasetsFromFigures(object):                                                                                                                                      
-    """ Return datasets used in the latest figures of an assessment for a specification.                                                                                
+class LatestFigures(object):                                                                                                                                      
+    """ Return the latest figures from latest assessment for a specification.                                                                                
     """                                                                                                                                                                 
     def __init__(self, context):                                                                                                                                        
         self.context = context                                                                                                                                          
@@ -17,7 +17,7 @@ class DatasetsFromFigures(object):
         all_assessments = assessments()                                                                                                                                 
         published_assessments = all_assessments['published']                                                                                                            
         if len(published_assessments) > 0 :                                                                                                                             
-            latest_assessment = published_assessments[-1]                                                                                                               
+            latest_assessment = published_assessments[0]                                                                                                               
         else:                                                                                                                                                           
             latest_assessment = None                                                                                                                                    
                                                                                                                                                                         
@@ -28,9 +28,6 @@ class DatasetsFromFigures(object):
             part = latest_assessment.objectValues('AssessmentPart')[-1]                                                                                                 
             related_items = getMultiAdapter((part, self.request),                                                                                                       
                                    name=u'related_items')                                                                                                               
-            figs = related_items('EEAFigures')                                                                                                                          
-                                                                                                                                                                        
-        #TODO: get any related data on each figure                                                                                                                      
-        return [('Data used in figures',figs),                                                                                                                          
-                ('published assessments',published_assessments),] 
-
+            figs = related_items('EEAFigure')                                                                                                                          
+                                                                                                                                                                                                                                                                                          
+        return [('Latest figures',figs)] 
