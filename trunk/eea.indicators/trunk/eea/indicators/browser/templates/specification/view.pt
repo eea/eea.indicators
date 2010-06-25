@@ -162,7 +162,7 @@
 
           <!-- TODO: #3273 -->
           <!-- TODO: add extra info from datasets like owner/provider/processor-->
-          <div id="data-specifications" metal:define-macro="data-specifications" 
+          <div id="data-specifications" metal:define-macro="data-specifications"
                tal:define="datasetsView nocall:here/@@related_items;
 	       auto_relations nocall:here/@@auto-relations.html">
           <h2 id="data_specifications">Data specifications</h2>
@@ -184,8 +184,8 @@
             </li>
           </ul>
           <!-- TODO: to show other data sources coming from figures source field #3452 -->
-          
-	  
+
+
           </div>
 
           <h2 id="uncertainties">Uncertainties</h2>
@@ -281,7 +281,7 @@
             </tal:contact>
 
             <h4>Ownership</h4>
-            <tal:ownership define="urls context/getOwnership">
+            <tal:ownership define="urls context/getDataOwner">
                 <tal:block repeat="url urls" condition="urls">
                     <tal:block define="value python:context.getOrganisationName(url)"
                                condition="value">

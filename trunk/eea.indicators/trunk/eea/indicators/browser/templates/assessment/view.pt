@@ -60,7 +60,7 @@
               <strong>Typology</strong>: <span tal:define="typologyLabel nocall:context/@@typology_label"
                                                tal:replace="python:typologyLabel(context.getTypology())" />
               <br/>
- 
+
               <div>
                 <h4>Topics</h4>
                 <tal:block define="themesView specification/@@themes-object|nothing;
@@ -250,7 +250,7 @@
 
             <h4>Ownership</h4>
             <ul>
-              <li tal:repeat="info context/getOwnership" >
+              <li tal:repeat="info context/getDataOwner" >
                 <a tal:content="python:context.getOrganisationName(info).Title" tal:attributes="href info">EEA</a>
               </li>
             </ul>

@@ -32,8 +32,8 @@ We have several main content types. The most important are the Specification and
 
 Containments
 ------------
-The Specifications are implicitly addable. It is the duty of the portal manager to 
-create a special folder to store them. 
+The Specifications are implicitly addable. It is the duty of the portal manager to
+create a special folder to store them.
 
     >>> id = portal.invokeFactory('Folder', 'ims')
     >>> ims = portal[id]
@@ -43,7 +43,7 @@ Inside this folder we will add Specifications:
     >>> id = ims.invokeFactory("Specification", 'spec1')
     >>> spec = ims[id]
 
-Specifications are containers for several types of objects: 
+Specifications are containers for several types of objects:
 
     >>> id = spec.invokeFactory("PolicyQuestion", 'pq')
     >>> id = spec.invokeFactory("MethodologyReference", "mr")
@@ -69,12 +69,12 @@ EEAFigures sit in a separate folder, not under the IMS control:
 
 Relationships
 -------------
-The IMS uses the relatedItems field to store all relationships. We use the eea.relations 
+The IMS uses the relatedItems field to store all relationships. We use the eea.relations
 widget and infrastructure to be able to specify which object a relation can contain.
 
     >>> reltool = portal['portal_relations']
 
-Specifications can point to  PolicyDocumentReferences, ExternalDataSpecs and Data 
+Specifications can point to  PolicyDocumentReferences, ExternalDataSpecs and Data
 (from eea.dataservice).
 
     >>> id = ims.invokeFactory("Data", 'dt')
@@ -91,9 +91,9 @@ TODO: add new content from updated possible_relations.xml
 
     >>> relations = getToolByName(portal, 'portal_relations')
     >>> ids = set(relations.objectIds())
-    >>> our_ids = set(['specification', 'eea-data', 
-    ...                'policy-document-reference', 
-    ...                'specification-eea-data', 
+    >>> our_ids = set(['specification', 'eea-data',
+    ...                'policy-document-reference',
+    ...                'specification-eea-data',
     ...                'specification-policy-document-reference'])
     >>> ids.intersection(our_ids) == our_ids
     True
@@ -102,7 +102,7 @@ TODO: add new content from updated possible_relations.xml
 Versioning and utility views
 ----------------------------
 
-Editing the IMS should be done through a modified Edit form, which aggregates 
+Editing the IMS should be done through a modified Edit form, which aggregates
 all content into a single view, to make editing the tree of objects easier.
 
     >>> spec = ims[ims.invokeFactory("Specification", 'spec2')]
@@ -111,9 +111,9 @@ all content into a single view, to make editing the tree of objects easier.
 Object factories
 ~~~~~~~~~~~~~~~~
 One important feature are the object factories: this is a concept were we
-customize the process of creating an object. 
+customize the process of creating an object.
 
-Note: these object factories are not the same as the ones from Plone. 
+Note: these object factories are not the same as the ones from Plone.
 
 The following objects are created in the Edit view of Specification through object factories:
 
@@ -124,8 +124,8 @@ The following objects are created in the Edit view of Specification through obje
     >>> browser.open("%s/object_factory?type_name=Assessment" % spec_url)
     >>> print types_in_container(spec)
     ['Assessment', 'MethodologyReference', 'PolicyQuestion', 'RationaleReference', 'WorkItem']
-    
-An newly created Assessment should already have an AssessmentPart created, linked to the already 
+
+An newly created Assessment should already have an AssessmentPart created, linked to the already
 created PolicyQuestion.
 
     >>> assessment = spec.objectValues('Assessment')[0]
@@ -139,24 +139,24 @@ created PolicyQuestion.
 Versioning
 ~~~~~~~~~~
 
-We need a specification with assessments that link to EEAFigures, so let's 
+We need a specification with assessments that link to EEAFigures, so let's
 make sure we have some.
 
     >>> figures = portal[portal.invokeFactory("Folder", 'figures')]
     >>> figure_1 = figures[figures.invokeFactory("EEAFigure", 'f1')]
     >>> print figure_1
-    <EEAFigure at ...> 
+    <EEAFigure at ...>
     >>> related = ap.getRelatedItems()
     >>> ap.setRelatedItems(related + [figure_1])
 
-Specifications have versions; a version of a specification is a new revision 
-of the Spec; it is a completely restructured specification, with new format 
+Specifications have versions; a version of a specification is a new revision
+of the Spec; it is a completely restructured specification, with new format
 for Assessments. This is implemented with eea.versions
- 
-Assessments have versions, for example, each year the specifications might 
-get new assessments. 
 
-When creating a new version of a Specification, the new specification is 
+Assessments have versions, for example, each year the specifications might
+get new assessments.
+
+When creating a new version of a Specification, the new specification is
 a copy of the old, with the following exceptions:
 
  * none of the assessments are copied
@@ -170,11 +170,11 @@ a copy of the old, with the following exceptions:
     >>> print types_in_container(versioned_spec)
     ['MethodologyReference', 'PolicyQuestion', 'RationaleReference']
 
-When creating a new version of an Assessment, the new assessment is a copy of the old, 
+When creating a new version of an Assessment, the new assessment is a copy of the old,
 with the following exceptions:
 
  * The new AssessmentParts will point to the latest version of the EEAFigures that
-   were referenced by the old AssessmentParts 
+   were referenced by the old AssessmentParts
 
     >>> versioned_figure = figures[figure_1.unrestrictedTraverse('@@createVersion')().split('/')[-1]]
     >>> versioned_assessment = spec[assessment.unrestrictedTraverse('@@createVersion')().split('/')[-1]]
@@ -187,7 +187,7 @@ with the following exceptions:
     >>> figure_2.absolute_url() == versioned_figure.absolute_url()
     True
 
-Versioning again the new assessment will result in the EEAFigure being preserved, 
+Versioning again the new assessment will result in the EEAFigure being preserved,
 as there is no more another newer version:
 
     >>> versioned_assessment_2 = spec[versioned_assessment.unrestrictedTraverse('@@createVersion')().split('/')[-1]]
@@ -216,7 +216,7 @@ AssessmentParts created for all the PolicyQuestions - this is already demonstrat
 Catalog Indexes
 ---------------
 
-We index the codes of a Specification using the get_codes index. First, let's 
+We index the codes of a Specification using the get_codes index. First, let's
 test if it's installed:
 
     >>> catalog = getToolByName(portal, 'portal_catalog')
@@ -238,7 +238,7 @@ There is some cleanup done for codes input in Specification.setCodes():
     >>> spec.getCodes()
     ({'code': '001', 'set': 'CSI'}, {'code': '002', 'set': 'TERM'})
 
-Specification.get_codes() will return a structure that can be used to find Specs in 
+Specification.get_codes() will return a structure that can be used to find Specs in
 catalog searches based on either the full code or the Set code:
 
     >>> spec.get_codes()
@@ -255,24 +255,24 @@ We have a system that uses eea.workflow to decide if a Specification is ready to
 First, we have a portlet that shows the readiness state for a Specification. This portlet
 overrides and includes the same portlet from eea.workflow and the main difference is that
 it is an AJAX reloadable version of the original. For the AJAX call we use portlet_readiness_live
-(we couldn't use portlet_readiness because of the way it is defined at the level of 
+(we couldn't use portlet_readiness because of the way it is defined at the level of
 the Specification class)
 
     >>> res = spec.unrestrictedTraverse("portlet_readiness_live")()   #+NORMALIZE_WHITESPACE
     >>> "object_readiness" in res
     True
 
-This portlet uses a special view that is registered on objects that 
-implement eea.workflow.interfaces.IHasMandatoryWorkflowFields: 
+This portlet uses a special view that is registered on objects that
+implement eea.workflow.interfaces.IHasMandatoryWorkflowFields:
 
     >>> view = spec.unrestrictedTraverse('@@get_readiness')
     >>> info = view.get_info_for('published')
 
-A specification has 22 fields. From these, 11 are required to be able to transition to 
-'published'. The call to get_info_for() returns a mapping with the 
-keys 'done', 'required', 'publishing', 'optional', 'total', '' 
+A specification has 22 fields. From these, 11 are required to be able to transition to
+'published'. The call to get_info_for() returns a mapping with the
+keys 'done', 'required', 'publishing', 'optional', 'total', ''
 
-'done' tells us the percentage of the content that is required for the desired state. 
+'done' tells us the percentage of the content that is required for the desired state.
 By default the title is filled in, so we will be at 8%:
 
     >>> print str(info['done']) + '%'
@@ -281,7 +281,7 @@ By default the title is filled in, so we will be at 8%:
 'required' is the number of fields that have content filled in and are required for that state
 
     >>> info['required']
-    1 
+    1
 
 'publishing' is the number of fields that are required to be filled in for that state.
 
@@ -335,7 +335,7 @@ Now we should be at 91% (round(11*100/12)):
 
 Let's try to finish it:
 
-    >>> spec.setOwnership([u'something'])
+    >>> spec.setDataOwner([u'something'])
     >>> view = spec.unrestrictedTraverse('@@get_readiness')
     >>> info = view.get_info_for('published')
     >>> print str(info['done']) + '%'
@@ -346,7 +346,7 @@ Let's try to finish it:
     False
 
 It's not yet ready for published because there's an override to the default provided eea.workflow
-get_readiness that adds a few extra checks: we need to have at least one 
+get_readiness that adds a few extra checks: we need to have at least one
 main policy question and some related items:
 
     >>> id = spec.invokeFactory("PolicyQuestion", 'pq')
@@ -373,7 +373,7 @@ In the new aggregated edit view we use two types of editing dialog boxes:
 Single field dialog edit
 ~~~~~~~~~~~~~~~~~~~~~~~~
 
-Single field edit forms are based on a modified base_edit.cpt template that presents a 
+Single field edit forms are based on a modified base_edit.cpt template that presents a
 single field.
 
     >>> baseurl = spec.absolute_url()
@@ -385,11 +385,11 @@ Inside we will have the field:
 
     >>> title = browser.getControl(name='title')
 
-The submit button is created by javascript, through the jQuery UI framework. 
+The submit button is created by javascript, through the jQuery UI framework.
 Submiting the form, if the form is properly validated, will return a small Javascript
 fragment that closes the dialog and reloads the region to which that field belongs:
 
-    >>> req = {'specific_field':'title', 'fieldset':'default', 'title':'Some title', 
+    >>> req = {'specific_field':'title', 'fieldset':'default', 'title':'Some title',
     ...        'form.submitted':'1', 'form_submit':'Save'}
     >>> data = urllib.urlencode(req)
     >>> browser.open(baseurl + '/simple_edit', data=data)
@@ -423,7 +423,7 @@ the title, the PolicyQuestion's id was changed, so let's get it again.
 Specification.codes validation
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-The Specification.codes are unique for a Specification across the IMS, unless the 
+The Specification.codes are unique for a Specification across the IMS, unless the
 objects are versions of each other.
 
 We already have a specification with codes [{'set':'CSI', 'code':'001'}, {'set':'TERM', 'code':'002'}]
@@ -441,9 +441,9 @@ Let's create another and try to duplicate the code:
     ...     ('codes.set:records','APE'),
     ...     ('codes.code:records',''),
     ...     ('codes.orderindex_:records','template_row_marker'),
-    ... 
+    ...
     ...     ('fieldset','Classification'),
-    ...     ('form.submitted','1'), 
+    ...     ('form.submitted','1'),
     ...     ('form_submit','Save'),
     ...     ('specific_field','codes'),
     ... )
@@ -469,9 +469,9 @@ Setting another code will result in a successful edit:
     ...     ('codes.set:records','APE'),
     ...     ('codes.code:records',''),
     ...     ('codes.orderindex_:records','template_row_marker'),
-    ... 
+    ...
     ...     ('fieldset','Classification'),
-    ...     ('form.submitted','1'), 
+    ...     ('form.submitted','1'),
     ...     ('form_submit','Save'),
     ...     ('specific_field','codes'),
     ... )
