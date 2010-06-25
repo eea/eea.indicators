@@ -5,7 +5,6 @@
              initial_state="draft">
  <permission>Access contents information</permission>
  <permission>Modify portal content</permission>
- <permission>Manage properties</permission>
  <permission>View</permission>
  <state state_id="content_pending"
         title="Pending (internal review)">
@@ -24,11 +23,6 @@
    <permission-role>WebReviewer</permission-role>
   </permission-map>
   <permission-map name="Modify portal content"
-                  acquired="False">
-   <permission-role>Manager</permission-role>
-   <permission-role>Reviewer</permission-role>
-  </permission-map>
-  <permission-map name="Manage properties"
                   acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>Reviewer</permission-role>
@@ -56,13 +50,6 @@
    <permission-role>WebReviewer</permission-role>
    <permission-role>ContentManager</permission-role>
   </permission-map>
-  <permission-map name="Manage properties"
-                  acquired="False">
-   <permission-role>Editor</permission-role>
-   <permission-role>Manager</permission-role>
-   <permission-role>Owner</permission-role>
-   <permission-role>ContentManager</permission-role>
-  </permission-map>
   <permission-map name="Modify portal content"
                   acquired="False">
    <permission-role>Editor</permission-role>
@@ -86,16 +73,6 @@
   <permission-map name="Access contents information"
                   acquired="True">
    <permission-role>Anonymous</permission-role>
-  </permission-map>
-  <permission-map name="Manage properties"
-                  acquired="False">
-   <permission-role>ContentManager</permission-role>
-   <permission-role>Editor</permission-role>
-   <permission-role>Manager</permission-role>
-   <permission-role>Owner</permission-role>
-   <permission-role>ProofReader</permission-role>
-   <permission-role>Reviewer</permission-role>
-   <permission-role>WebReviewer</permission-role>
   </permission-map>
   <permission-map name="Modify portal content"
                   acquired="False">
@@ -121,16 +98,6 @@
   <permission-map name="Access contents information"
                   acquired="True">
   </permission-map>
-  <permission-map name="Manage properties"
-                  acquired="False">
-   <permission-role>ContentManager</permission-role>
-   <permission-role>Editor</permission-role>
-   <permission-role>Manager</permission-role>
-   <permission-role>Owner</permission-role>
-   <permission-role>ProofReader</permission-role>
-   <permission-role>Reviewer</permission-role>
-   <permission-role>WebReviewer</permission-role>
-  </permission-map>
   <permission-map name="Modify portal content"
                   acquired="False">
    <permission-role>ContentManager</permission-role>
@@ -151,11 +118,6 @@
   <permission-map name="Access contents information"
                   acquired="False">
    <permission-role>CommonEditor</permission-role>
-   <permission-role>Manager</permission-role>
-   <permission-role>Owner</permission-role>
-  </permission-map>
-  <permission-map name="Manage properties"
-                  acquired="False">
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
   </permission-map>
@@ -200,16 +162,6 @@
    <permission-role>Anonymous</permission-role>
    <permission-role>Authenticated</permission-role>
    <permission-role>Manager</permission-role>
-  </permission-map>
-  <permission-map name="Manage properties"
-                  acquired="False">
-   <permission-role>ContentManager</permission-role>
-   <permission-role>Editor</permission-role>
-   <permission-role>Manager</permission-role>
-   <permission-role>Owner</permission-role>
-   <permission-role>ProofReader</permission-role>
-   <permission-role>Reviewer</permission-role>
-   <permission-role>WebReviewer</permission-role>
   </permission-map>
   <permission-map name="Modify portal content"
                   acquired="False">
