@@ -681,6 +681,14 @@ div.ArchetypesDataGridWidget table td select {
 }
 
 /* end datagrid widget */
+
+.ims-overview-spec, .ims-overview-assessment {
+	font-size:110%;
+}
+.ims-overview-assessment {
+	padding-left:2em !important;
+}
+
 /* 
   </dtml-with>  (end of loaded base_properties variables)
 */

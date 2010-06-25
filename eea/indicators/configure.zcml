@@ -22,9 +22,9 @@
     <five:implements class=".content.AssessmentPart.AssessmentPart"
         interface="eea.workflow.interfaces.IHasMandatoryWorkflowFields" />
 
-   <subscriber handler=".events.delegate_manager"
-       for="eea.indicators.content.interfaces.ISpecification
-            zope.app.event.interfaces.IObjectModifiedEvent" />
+   <!-- <subscriber handler=".events.delegate_manager" -->
+   <!--     for="eea.indicators.content.interfaces.ISpecification -->
+   <!--          zope.app.event.interfaces.IObjectModifiedEvent" /> -->
 
     <interface interface="eea.indicators.content.interfaces.IIndicatorsDatabase" />
 
