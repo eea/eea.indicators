@@ -281,7 +281,7 @@
             </tal:contact>
 
             <h4>Ownership</h4>
-            <tal:ownership define="urls context/getDataOwner">
+            <tal:ownership define="urls context/getOwnership">
                 <tal:block repeat="url urls" condition="urls">
                     <tal:block define="value python:context.getOrganisationName(url)"
                                condition="value">

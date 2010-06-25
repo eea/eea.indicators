@@ -132,7 +132,7 @@ schema = Schema((
             required_for_published=True,
             ),
     LinesField(
-            name='dataOwner',
+            name='ownership',
             widget=MultiSelectionWidget(
                 label="Owners",
                 description="One or several institutions/organisations sharing ownership for this indicator.",
@@ -397,7 +397,7 @@ _field_order = [
             },
         {
             'name':'Responsability',
-            'fields':['dataOwner']
+            'fields':['ownership']
             },
         ]
 

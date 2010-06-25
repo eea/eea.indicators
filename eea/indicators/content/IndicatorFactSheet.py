@@ -1,14 +1,3 @@
-# -*- coding: utf-8 -*-
-#
-# $Id$
-#
-# Copyright (c) 2010 by ['Tiberiu Ichim']
-# Generator: ArchGenXML
-#            http://plone.org/products/archgenxml
-#
-# GNU General Public License (GPL)
-#
-
 __author__ = """Tiberiu Ichim <unknown>"""
 __docformat__ = 'plaintext'
 
@@ -21,16 +10,10 @@ from Products.CMFCore.permissions import ModifyPortalContent
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 from Products.ATReferenceBrowserWidget.ATReferenceBrowserWidget import ReferenceBrowserWidget
 from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
-
 from eea.indicators.config import *
-
-# additional imports from tagged value 'import'
 from Products.ATContentTypes.content.folder import ATFolder, ATFolderSchema
-
-##code-section module-header #fill in your manual code here
 from eea.relations.field import EEAReferenceField
 from eea.relations.widget import EEAReferenceBrowserWidget
-##/code-section module-header
 
 schema = Schema((
 
@@ -150,16 +133,11 @@ schema = Schema((
 ),
 )
 
-##code-section after-local-schema #fill in your manual code here
-##/code-section after-local-schema
-
 IndicatorFactSheet_schema = ATFolderSchema.copy() + \
     getattr(ATFolder, 'schema', Schema(())).copy() + \
     schema.copy()
 IndicatorFactSheet_schema.moveField('relatedItems', after='dpsir')
 
-##code-section after-schema #fill in your manual code here
-##/code-section after-schema
 
 class IndicatorFactSheet(ATFolder, BrowserDefaultMixin):
     """
@@ -174,17 +152,9 @@ class IndicatorFactSheet(ATFolder, BrowserDefaultMixin):
 
     schema = IndicatorFactSheet_schema
 
-    ##code-section class-header #fill in your manual code here
-    ##/code-section class-header
-
-    # Methods
-
+    security.declarePublic("getGeographicCoverage")
+    def getGeographicCoverage(self):
+        """ """
+        return ''
 
 registerType(IndicatorFactSheet, PROJECTNAME)
-# end of class IndicatorFactSheet
-
-##code-section module-footer #fill in your manual code here
-##/code-section module-footer
-
-
-
