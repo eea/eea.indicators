@@ -61,7 +61,7 @@
     <adapter
          for="eea.indicators.content.interfaces.ISpecification"
          provides="eea.relations.interfaces.IAutoRelations"
-        factory=".autorelations.DatasetsFromFigures"/>
+         factory=".autorelations.LatestFigures"/>
 
 
     <!-- ##/code-section configure.zcml -->
