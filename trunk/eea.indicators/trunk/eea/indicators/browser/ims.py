@@ -29,11 +29,14 @@ class IndicatorsOverview(BrowserView):
 
         result = {}
         specs = self.context.objectValues("Specification")
+
         wftool = getToolByName(self.context, 'portal_workflow')
         get_state = lambda a:wftool.getInfoFor(a, 'review_state', '(Unknown)')
 
         for spec in specs:
             sets = [s['set'] for s in spec.getCodes()] 
+            if not sets:
+                sets = [None]
             assessments = [(a, get_state(a)) for a in spec.objectValues("Assessment")]
 
             for s in sets:
