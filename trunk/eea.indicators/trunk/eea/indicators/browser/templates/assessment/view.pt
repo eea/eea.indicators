@@ -251,7 +251,7 @@
 
             <h4>Ownership</h4>
             <ul>
-              <li tal:repeat="info context/getDataOwner" >
+              <li tal:repeat="info context/getOwnership" >
                 <a tal:content="python:context.getOrganisationName(info).Title" tal:attributes="href info">EEA</a>
               </li>
             </ul>

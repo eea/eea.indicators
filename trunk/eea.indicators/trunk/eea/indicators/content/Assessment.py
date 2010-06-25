@@ -154,7 +154,7 @@ class Assessment(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory, Br
                 'secondary':secondary
                 }
 
-        security.declarePublic("Title")
+    security.declarePublic("Title")
     def Title(self):
         """ return title based on parent specification title"""
         parent = aq_parent(aq_inner(self))
@@ -201,6 +201,11 @@ class Assessment(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory, Br
     def Description(self):
         convert = getToolByName(self, 'portal_transforms').convert
         return convert('html_to_text', self.getKey_message()).getData()
+
+    security.declarePublic("getGeographicCoverage")
+    def getGeographicCoverage(self):
+        """ """
+        return ''
 
 registerType(Assessment, PROJECTNAME)
 # end of class Assessment

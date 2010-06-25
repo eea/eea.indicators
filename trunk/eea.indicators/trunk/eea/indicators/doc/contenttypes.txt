@@ -335,7 +335,7 @@ Now we should be at 91% (round(11*100/12)):
 
 Let's try to finish it:
 
-    >>> spec.setDataOwner([u'something'])
+    >>> spec.setOwnership([u'something'])
     >>> view = spec.unrestrictedTraverse('@@get_readiness')
     >>> info = view.get_info_for('published')
     >>> print str(info['done']) + '%'

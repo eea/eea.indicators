@@ -16,8 +16,8 @@
 						<h5>Responsability and ownership</h5>
 
 						<h6>Ownership</h6>
-						<tal:def tal:define="fieldname string:dataOwner; fieldset string:Responsability;
-							owners context/getDataOwner">
+						<tal:def tal:define="fieldname string:ownership; fieldset string:Responsability;
+							owners context/getOwnership">
 							<metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
 							<metal:slot metal:fill-slot="content">
 								<div tal:condition="python:not owners" class="placeholder">
