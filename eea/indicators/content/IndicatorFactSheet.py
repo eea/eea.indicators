@@ -5,6 +5,7 @@ import interfaces
 from zope.interface import implements
 from Products.Archetypes.atapi import *
 from AccessControl import ClassSecurityInfo
+from Products.CMFCore.utils import getToolByName
 from Products.ATContentTypes.content.folder import ATFolder
 from Products.CMFCore.permissions import ModifyPortalContent
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
@@ -155,6 +156,15 @@ class IndicatorFactSheet(ATFolder, BrowserDefaultMixin):
     security.declarePublic("getGeographicCoverage")
     def getGeographicCoverage(self):
         """ """
-        return ''
+        result = {}
+        wftool = getToolByName(self, 'portal_workflow')
+
+        for ob in self.getRelatedItems():
+            if ob.portal_type == 'EEAFigure':
+                state = wftool.getInfoFor(ob, 'review_state', '(Unknown)')
+                if state in ['published', 'visible']:
+                    for val in ob.getGeographicCoverage():
+                        result[val] = val
+        return list(result.keys())
 
 registerType(IndicatorFactSheet, PROJECTNAME)
