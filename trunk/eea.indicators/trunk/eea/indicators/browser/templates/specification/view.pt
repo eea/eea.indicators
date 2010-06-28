@@ -185,7 +185,7 @@
             </li>
           </ul>
 	  </tal:external>
-          
+
 	  <!-- TODO: to show other data sources coming from figures related dataset field #3452 -->
 
 	  <tal:auto define="tabs python:auto_relations.tabs">
@@ -212,7 +212,7 @@
 	    </tal:tab>
 	  </div>
 	</tal:auto>
-	  
+
 
           </div>
 
@@ -295,8 +295,8 @@
                   <a href=""
                      tal:condition="manager_ob"
                      title="Contact indicator manager"
-                     tal:attributes="href string:http://www.eionet.europa.eu/sitedirsearch?name=${manager_ob/uid}"
-                     tal:content="manager_ob/cn">Contact</a>
+                     tal:attributes="href string:http://www.eionet.europa.eu/sitedirsearch?name=${manager_ob/username}"
+                     tal:content="manager_ob/fullname">Contact</a>
                   <p tal:condition="not:manager_ob">
                     <span>User not found:</span>
                     <tal:manager_id tal:content="manager_id" />
