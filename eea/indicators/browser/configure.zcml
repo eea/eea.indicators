@@ -22,6 +22,14 @@
     />
 
   <browser:page
+    for="eea.indicators.content.interfaces.IIndicatorsDatabase"
+    name="ims_timeline"
+    class="eea.indicators.browser.ims.IndicatorsTimeline"
+		template="templates/timeline.pt"
+    permission="zope2.View"
+    />
+
+  <browser:page
     for="eea.indicators.content.interfaces.IAssessmentPart"
     name="view"
     template="templates/assessmentpart_view.pt"

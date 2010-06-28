@@ -65,3 +65,57 @@ class IndicatorsOverview(BrowserView):
 
         return codeset
 
+
+class IndicatorsTimeline(BrowserView):
+    """Presents a timeline based structure for Assessments
+    """
+    def get_timeline(self):
+        specs = self.context.objectValues("Specification")
+        wftool = getToolByName(self.context, 'portal_workflow')
+        get_state = lambda a:wftool.getInfoFor(a, 'review_state', '(Unknown)')
+
+        result = {
+                #'TERM':{
+                #    '001':{
+                #        '1998':[('n', None)], #no specification for that year
+                #        '1999':[('a', href)], #assessment at link href
+                #        'published':('p', href),    #assessment in Publication href
+                #        'future':[('f', href)],    #assessment has no effective date
+                #        }
+                #    }
+                }
+
+        earliest_year = 0
+        latest_year = 0
+        for spec in specs:
+            assessments = spec.objectValues("Assessment")
+            for codeset in spec.getCodes():
+                set, code = codeset['set'], codeset['code']
+                if not set in result:
+                    result[set] = {}
+
+                if not code in result[set]:
+                    result[set][code] = {'future':[],}
+
+                for a in assessments:
+                    d = a.getEffectiveDate()
+                    if not d:
+                        print "adding a for future", a
+                        result[set][code]['future'] = [('f', a.absolute_url()),]
+                        continue
+                    year = d.year()
+                    if year < earliest_year:
+                        earliest_year = year
+                    if year > latest_year:
+                        latest_year = year
+                        if earliest_year == 0:
+                            earliest_year = year
+
+                    #TODO: use .append to return lists instead of overriding. 
+                    #TODO: see if there's a related EEAPublication to the Specification
+                    #pseudocode
+                    #if published(a):
+                    #    result[set][code]['p'] = [(p, p.absolute_url())]
+                    result[set][code][year] = [('a', a.absolute_url()),]
+
+        return ((earliest_year, latest_year), result)
