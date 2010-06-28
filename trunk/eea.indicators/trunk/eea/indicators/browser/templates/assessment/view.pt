@@ -117,7 +117,7 @@
               <p tal:content="structure context/getKey_message" />
             </div>
 
-            <tal:policy_documents define="relatedItems nocall:key/@@related_items;
+            <tal:figures define="relatedItems nocall:key/@@related_items;
                                           eea_figures python:relatedItems('EEAFigure')">
               <div tal:repeat="figure eea_figures" class="indicator-figure-plus-container">
                 <div class="indicator-figure-plus" tal:attributes="id figure/getId">
@@ -151,11 +151,11 @@
                   </tal:dataSource>
 
                   <a tal:attributes="href figure/absolute_url">Downloads and more info</a>
-                  <br clear="all"/>
+                  <div class="visualClear"><!-- --></div>
 
                 </div>
               </div>
-            </tal:policy_documents>
+            </tal:figures>
 
             <h3>Key assessment</h3>
             <div tal:replace="structure python:key.getAssessment()">Question here</div>
@@ -164,7 +164,7 @@
           <tal:parts repeat="part secondary">
             <h2 class="policy_question">Specific policy question: <span tal:replace="part/Title" /></h2>
 
-            <tal:policy_documents define="relatedItems nocall:part/@@related_items;
+            <tal:figures define="relatedItems nocall:part/@@related_items;
                                           eea_figures python:relatedItems('EEAFigure')">
               <div tal:repeat="figure eea_figures" class="indicator-figure-plus-container">
                 <div class="indicator-figure-plus" tal:attributes="id figure/getId">
@@ -198,11 +198,11 @@
                   </tal:dataSource>
 
                   <a tal:attributes="href figure/absolute_url">Downloads and more info</a>
-                  <br clear="all"/>
+                  <div class="visualClear"><!-- --></div>
 
                 </div>
               </div>
-            </tal:policy_documents>
+            </tal:figures>
 
             <h3>Specific assessment</h3>
             <div tal:replace="structure part/assessment">Question here</div>
