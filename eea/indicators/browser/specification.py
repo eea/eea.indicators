@@ -214,9 +214,4 @@ class ContactInfo(BrowserView):
     def __call__(self):
         manager_id = self.context.getManager_user_id()
         mtool = getToolByName(self.context, 'portal_membership')
-
-        manager_ob = mtool.getMemberInfo(manager_id)
-        if manager_ob:
-            return manager_ob['fullname']
-
-        return None
+        return mtool.getMemberInfo(manager_id)
