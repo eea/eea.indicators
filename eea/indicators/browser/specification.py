@@ -212,15 +212,11 @@ class ContactInfo(BrowserView):
     """
 
     def __call__(self):
-        manager_ob = None
         manager_id = self.context.getManager_user_id()
+        mtool = getToolByName(self.context, 'portal_membership')
 
-        # Get LDAP user
-        try:
-            #TODO: #3292
-            manager_ob = self.context.acl_users.EIONETLDAPNEW.acl_users.getUser(manager_id)
-        except Exception, err:
-            logger.exception('Exception: %s ', err)
+        manager_ob = mtool.getMemberInfo(manager_id)
+        if manager_ob:
+            return manager_ob['fullname']
 
-        return manager_ob
-
+        return None
