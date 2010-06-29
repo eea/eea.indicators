@@ -36,7 +36,7 @@
 
 
 <metal:versions use-macro="here/portlet_versions/macros/versions">
-  <metal:new fill-slot="new" />
+  <metal:old fill-slot="old" />
 </metal:versions>
 
 <tal:policy_question define="policy_question context/getPolicy_question"
@@ -99,7 +99,7 @@
 </tal:factSheetDocuments>
 
 <metal:versions use-macro="here/portlet_versions/macros/versions">
-  <metal:new fill-slot="old" />
+  <metal:new fill-slot="new" />
 </metal:versions>
 
 <!-- #TODO: <dtml-var show_related_indicators> -->
