@@ -28,7 +28,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr tal:repeat="code python:timeline[set]">
+						<tr tal:repeat="code python:sorted(timeline[set].keys())">
 							<td tal:content="code">Timeline </td>
 							<td tal:repeat="year python:years" >
 								<div tal:condition="python:timeline[set][code].get('missing') and not timeline[set][code].get(year)" 
