@@ -6,15 +6,11 @@ __credits__ = """contributions: Alec Ghica, Tiberiu Ichim"""
 
 from DateTime import DateTime
 from Products.CMFCore.utils import getToolByName
-from Products.CMFPlone import utils
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from eea.versions.interfaces import IVersionControl, IVersionEnhanced
-from eea.versions.versions import CreateVersion as BaseCreateVersion, generateNewId
-from eea.versions.versions import _get_random, _reindex
+from eea.versions.versions import create_version, CreateVersion as BaseCreateVersion
 from eea.workflow.readiness import ObjectReadinessView
 from eea.workflow.interfaces import IFieldIsRequiredForState, IValueProvider
-from zope.interface import alsoProvides, directlyProvides, directlyProvidedBy
 from zope.component import getMultiAdapter
 
 import logging
@@ -32,7 +28,7 @@ class AggregatedEditPage(BrowserView):
 class SchemataCounts(BrowserView):
     """Provides a dictionary of fields that are required for publishing grouped by schematas
 
-    TODO: see if able to move this to eea.workflow
+    TODO: see if able/worthy to move this to eea.workflow
     """
 
     def __call__(self):
@@ -52,58 +48,24 @@ class SchemataCounts(BrowserView):
 class CreateVersion(BaseCreateVersion):
     """Create new version customizations for eea.versions """
 
-    #TODO: take out duplicate code that is now found in
-    #eea.versions.versions.create_version
-
     def __call__(self):
-        pu = getToolByName(self.context, 'plone_utils')
-        #obj_uid = self.context.UID()
-        obj_id = self.context.getId()
-        #obj_title = self.context.Title()
-        #obj_type = self.context.portal_type
-        parent = utils.parent(self.context)
-
-        # Adapt version parent (if case)
-        if not IVersionEnhanced.providedBy(self.context):
-            alsoProvides(self.context, IVersionEnhanced)
-        verparent = IVersionControl(self.context)
-        verId = verparent.getVersionId()
-        if not verId:
-            verId = _get_random(10)
-            verparent.setVersionId(verId)
-            _reindex(self.context)
-
-        # Create version object
-        clipb = parent.manage_copyObjects(ids=[obj_id])
-        res = parent.manage_pasteObjects(clipb)
-        new_id = res[0]['new_id']
-
-        ver = getattr(parent, new_id)
-
-        # Fixes the generated id: remove copy_of from ID
-        #TODO: add -vX sufix to the ids
-        id = ver.getId()
-        new_id = id.replace('copy_of_', '')
-        new_id = generateNewId(parent, new_id, ver.UID())
-        parent.manage_renameObject(id=id, new_id=new_id)
-        new_spec = parent[new_id]
-
-        # Set effective date today
-        ver.setEffectiveDate(None)
-        ver.setCreationDate(DateTime())
-
-        #set back the related items. They are lost on copy
+        
+        new_spec = create_version(self.context, False)
+        new_spec.setEffectiveDate(None)
 
         #Delete assessments and work items
-        #new_spec._delOb(id) #shouldn't send IObjectRemovedEvent
         new_spec.manage_delObjects(ids=new_spec.objectIds('Assessment'))
         new_spec.manage_delObjects(ids=new_spec.objectIds('WorkItem'))
 
-        # Set new state
-        ver.reindexObject()
-        _reindex(self.context)  #some indexed values of the context may depend on versions
+        #TODO: should we reindex the objects here?
+        for obj in new_spec.objectValues():
+            obj.setEffectiveDate(None)
+            obj.setCreationDate(DateTime())
 
-        return self.request.RESPONSE.redirect(ver.absolute_url())
+        new_spec.reindexObject()
+        self.context.reindexObject() #some indexed values of the context may depend on versions
+
+        return self.request.RESPONSE.redirect(new_spec.absolute_url())
 
 
 class WorkflowStateReadiness(ObjectReadinessView):

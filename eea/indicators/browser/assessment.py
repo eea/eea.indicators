@@ -80,6 +80,11 @@ def create_version(original, request=None):
     ver.setEffectiveDate(None)
     ver.setCreationDate(DateTime())
 
+    #TODO: should we reindex the objects here?
+    for obj in ver.objectValues():
+        obj.setEffectiveDate(None)
+        obj.setCreationDate(DateTime())
+
     #The links to EEAFigures are updated to point to their latest version
 
     assessment = ver
@@ -112,6 +117,7 @@ class WorkflowStateReadiness(ObjectReadinessView):
     """ObjectReadiness customizations"""
 
     #TODO: translate messages
+    #TODO: optimize this class, it should at least memoize the results of calling the checks
 
     checks = (
         (lambda o:filter(lambda p: not getMultiAdapter((p,
@@ -150,30 +156,3 @@ class WorkflowStateReadiness(ObjectReadinessView):
 
         info['extra'] = extras
         return info
-
-
-#def get_figures_for_pq_in_assessment(pq, assessment):
-#    """Given a PolicyQuestion from a Specification and an Assessment, returns all EEAFigures
-#    contained in the AssessmentPart that answers to that PolicyQuestion"""
-#
-#    path = pq.getPhysicalPath()
-#
-#    assessment_part = None
-#    for part in assessment.objectValues('AssessmentPart'):
-#        related = part.getRelatedItems()
-#        pq = filter(lambda x:x.meta_type=='PolicyQuestion', related)
-#        if pq:
-#            pq = pq[0]
-#        else:
-#            continue
-#
-#        if pq.getPhysicalPath() == path:
-#            assessment_part = part
-#            break
-#
-#    if assessment_part is not None:
-#        related = assessment_part.getRelatedItems()
-#        figures = filter(lambda x:x.meta_type=='EEAFigure', related)
-#        return figures
-#
-#    return []
