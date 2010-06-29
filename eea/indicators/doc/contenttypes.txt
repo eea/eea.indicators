@@ -184,7 +184,7 @@ with the following exceptions:
     >>> print assessment_part.getRelatedItems()
     [<PolicyQuestion at ...>, <EEAFigure at ...>]
     >>> figure_2 = filter(lambda x:x.meta_type=='EEAFigure', assessment_part.getRelatedItems())[0]
-    >>> figure_2.absolute_url() != versioned_figure.absolute_url()
+    >>> figure_2.absolute_url() == versioned_figure.absolute_url()
     True
 
 Versioning again the new assessment will result in the EEAFigure being preserved,
@@ -193,7 +193,7 @@ as there is no more another newer version:
     >>> versioned_assessment_2 = spec[versioned_assessment.unrestrictedTraverse('@@createVersion')().split('/')[-1]]
     >>> assessment_part = versioned_assessment_2.objectValues('AssessmentPart')[0]
     >>> figure_2 = filter(lambda x:x.meta_type=='EEAFigure', assessment_part.getRelatedItems())[0]
-    >>> figure_2.absolute_url() != versioned_figure.absolute_url()
+    >>> figure_2.absolute_url() == versioned_figure.absolute_url()
     True
 
 Adding a new Assessment will already create it as a version of the previous one.
