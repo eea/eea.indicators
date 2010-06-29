@@ -103,13 +103,14 @@ class IndicatorsTimeline(BrowserView):
                     #pseudocode
                     #if published(a):
                     #    result[set][code]['p'] = [(p, p.absolute_url())]
-                    result[set][code]['missing'] = [('m', spec.absolute_url())].extend(result[set][code].get('missing', []))
+                    #else:
+                    result[set][code]['missing'] = [('m', spec.absolute_url())] + result[set][code].get('missing', [])
 
                 for a in assessments:
                     d = a.getEffectiveDate()
                     if not d:
                         print "adding a for future", a
-                        result[set][code]['future'] = [('f', a.absolute_url())].extend(result[set][code].get('future'))
+                        result[set][code]['future'] = [('f', a.absolute_url())] + result[set][code].get('future', [])
                         continue
                     year = d.year()
                     if year < earliest_year:
@@ -119,7 +120,6 @@ class IndicatorsTimeline(BrowserView):
                         if earliest_year == 0:
                             earliest_year = year
 
-                    #TODO: use .append to return lists instead of overriding. 
-                    result[set][code][year] = [('a', a.absolute_url()),]
+                    result[set][code][year] = [('a', a.absolute_url())] + result[set][code].get(year, []) 
 
         return ((earliest_year, latest_year), result)
