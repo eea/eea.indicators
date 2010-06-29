@@ -15,6 +15,7 @@
 			start python: info[0][0]; 
 			end python:info[0][1];
 			years python:range(start, end+1)">
+			<!-- <div tal:content="timeline" /> -->
 			<h1>Indicators database</h1>
 			<tal:rep tal:repeat="set timeline">
 				<h2 tal:content="set">CSI</h2>
