@@ -18,6 +18,8 @@ from eea.relations.widget import EEAReferenceBrowserWidget
 from Products.DataGridField import DataGridField, DataGridWidget
 from Products.DataGridField.Column import Column
 from Products.DataGridField.SelectColumn import SelectColumn
+from eea.indicators.content.utils import get_dgf_value
+from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
 
 schema = Schema((
 
@@ -63,18 +65,16 @@ schema = Schema((
     DataGridField(
         name='codes',
         widget=DataGridWidget(
-            label="Specification identification codes",
+            label="Identification codes",
             description="Codes are short names used to identify the indicator in question. Code is made up of a SET-ID and an CODE-NR, e.g. TERM 002. Multiple codes are allowed, since same indicator can be re-used in other indicators' sets.",
             columns={'set':SelectColumn("Set ID", vocabulary="get_indicator_codes"), "code":Column("Code number")},
             auto_insert=True,
-            label_msgid='indicators_label_codes',
+            label_msgid='indicatorsfactsheet_label_codes',
             i18n_domain='indicators',
             ),
-        schemata="Classification",
         columns=("set", "code"),
         required_for_published=True,
         validators=('unique_specification_code',),
-        #allow_empty_rows=True,
         ),
     StringField(
         name='source_code',
@@ -200,6 +200,11 @@ class IndicatorFactSheet(ATFolder, BrowserDefaultMixin):
                         result[val] = val
         return list(result.keys())
 
+    def get_indicator_codes(self):
+        atvm = getToolByName(self, ATVOCABULARYTOOL)
+        vocab = getattr(atvm, 'indicator_codes')
+        return vocab.getDisplayList(self)
+
     security.declarePublic('get_codes')
     def get_codes(self):
         """Returns a list of indicator codes, for indexing.
@@ -219,5 +224,18 @@ class IndicatorFactSheet(ATFolder, BrowserDefaultMixin):
                             "%s%s" % (code['set'], code['code'])]
                         )
         return res
+
+    security.declareProtected("Modify portal content", 'setCodes')
+    def setCodes(self, value):
+        #we want to filter rows that don't have a number filled in
+        field = self.schema['codes']
+        instance = self
+        value = get_dgf_value(field, value)
+        for row in value:
+            try:
+                row['code'] = "%03d" % int(row['code'])
+            except ValueError:
+                continue
+        field.getStorage(instance).set(field.getName(), instance, value)
 
 registerType(IndicatorFactSheet, PROJECTNAME)
