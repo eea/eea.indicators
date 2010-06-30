@@ -71,6 +71,7 @@ CODES = [
         'TERM',
         'WBSCI',
         'CSI',
+        'IRENA',
         ]
 
 DPSIR = [
