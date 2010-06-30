@@ -15,6 +15,9 @@ from eea.indicators.config import *
 from Products.ATContentTypes.content.folder import ATFolder, ATFolderSchema
 from eea.relations.field import EEAReferenceField
 from eea.relations.widget import EEAReferenceBrowserWidget
+from Products.DataGridField import DataGridField, DataGridWidget
+from Products.DataGridField.Column import Column
+from Products.DataGridField.SelectColumn import SelectColumn
 
 schema = Schema((
 
@@ -57,6 +60,22 @@ schema = Schema((
             i18n_domain='indicators',
         ),
     ),
+    DataGridField(
+        name='codes',
+        widget=DataGridWidget(
+            label="Specification identification codes",
+            description="Codes are short names used to identify the indicator in question. Code is made up of a SET-ID and an CODE-NR, e.g. TERM 002. Multiple codes are allowed, since same indicator can be re-used in other indicators' sets.",
+            columns={'set':SelectColumn("Set ID", vocabulary="get_indicator_codes"), "code":Column("Code number")},
+            auto_insert=True,
+            label_msgid='indicators_label_codes',
+            i18n_domain='indicators',
+            ),
+        schemata="Classification",
+        columns=("set", "code"),
+        required_for_published=True,
+        validators=('unique_specification_code',),
+        #allow_empty_rows=True,
+        ),
     StringField(
         name='source_code',
         widget=StringField._properties['widget'](
@@ -180,5 +199,25 @@ class IndicatorFactSheet(ATFolder, BrowserDefaultMixin):
                     for val in ob.getTemporalCoverage():
                         result[val] = val
         return list(result.keys())
+
+    security.declarePublic('get_codes')
+    def get_codes(self):
+        """Returns a list of indicator codes, for indexing.
+
+        Indexes the codes of this specification in the form of
+        a KeywordIndex with ['SETA', "SETA001", "SETB", "SETB009"]
+        the idea is to be able to search for set code (ex: SETB)
+        but also for the full code (ex:SETB009)
+        """
+        codes = self.getCodes()
+
+        res = []
+        for code in codes:
+            if code:
+                res.extend(
+                        [code['set'],
+                            "%s%s" % (code['set'], code['code'])]
+                        )
+        return res
 
 registerType(IndicatorFactSheet, PROJECTNAME)

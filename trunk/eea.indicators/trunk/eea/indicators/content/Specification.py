@@ -514,7 +514,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
 
     security.declarePublic('get_codes')
     def get_codes(self):
-        """Returns a list of specification codes, for indexing.
+        """Returns a list of indicator codes, for indexing.
 
         Indexes the codes of this specification in the form of
         a KeywordIndex with ['SETA', "SETA001", "SETB", "SETB009"]

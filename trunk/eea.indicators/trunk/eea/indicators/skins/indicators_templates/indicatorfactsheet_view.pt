@@ -71,6 +71,14 @@
 <h2>Assessment</h2>
 <div tal:content="structure context/getAssessment" />
 
+<tal:codes define="codes context/getCodes"
+           condition="codes">
+  <h2>Indicator code</h2>
+  <div tal:repeat="code codes" tal:content="string:${code/set} ${code/code}">
+          CSI 001
+  </div>
+</tal:codes>
+
 <tal:factSheetDocuments define="documents context/@@fact_sheet_documents"
                         condition="documents">
   <h2>Download detailed information and factsheets</h2>
