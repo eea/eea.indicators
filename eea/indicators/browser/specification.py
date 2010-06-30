@@ -68,14 +68,20 @@ class CreateVersion(BaseCreateVersion):
         return self.request.RESPONSE.redirect(new_spec.absolute_url())
 
 
+def has_one_of(has, in_list):
+    for obj in in_list:
+        if obj.meta_type in has:
+            return True
+    return False
+
+
 class WorkflowStateReadiness(ObjectReadinessView):
 
     #TODO: translate messages here
     checks = (
             (
-                lambda o: not bool(o.getRelatedItems()),
+                lambda o: not has_one_of(('EEAData', 'ExternalDataSpec'), o.getRelatedItems()),
                 "You need to point to at least one EEAData or ExternalData"),
-                #TODO: check if, for real, a EEAData or an ExternalData is there
             (
                 lambda o:not bool(o.objectValues("PolicyQuestion")),
                 "You need to add at least one Policy Question"),
