@@ -63,6 +63,12 @@
          provides="eea.relations.interfaces.IAutoRelations"
          factory=".autorelations.LatestFigures"/>
 
+    <adapter
+         for="eea.indicators.content.interfaces.IAssessment"
+         provides="eea.themecentre.interfaces.IThemeTagging"
+         factory=".themes.AssessmentThemes"/>
+
+
 
     <!-- ##/code-section configure.zcml -->
 
