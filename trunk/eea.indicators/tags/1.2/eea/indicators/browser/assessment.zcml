@@ -1,0 +1,82 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:browser="http://namespaces.zope.org/browser"
+           xmlns:five="http://namespaces.zope.org/five">
+
+  <browser:page name="view"
+           for="eea.indicators.content.interfaces.IAssessment"
+           template="templates/assessment/view.pt"
+           class=".assessment.IndexPage"
+           permission="zope2.View" />
+
+  <browser:page name="edit_aggregated"
+           for="eea.indicators.content.interfaces.IAssessment"
+           class=".assessment.AggregatedEditPage"
+           permission="zope2.View" />
+
+  <browser:page
+           name="get_readiness"
+           for="eea.indicators.content.interfaces.IAssessment"
+           permission="zope2.View"
+           class=".assessment.WorkflowStateReadiness"
+           allowed_interface="eea.workflow.interfaces.IObjectReadiness" />
+
+  <browser:page
+           for="eea.indicators.content.interfaces.IAssessment"
+           name="fragment_metadata"
+           template="templates/assessment/fragment_metadata.pt"
+           permission="zope2.View"
+           />
+
+  <browser:page
+           for="eea.indicators.content.interfaces.IAssessment"
+           name="fragment_keymessage"
+           template="templates/assessment/fragment_keymessage.pt"
+           permission="zope2.View"
+           />
+
+  <browser:page
+           for="eea.indicators.content.interfaces.IAssessmentPart"
+           name="fragment_assessment_part"
+           template="templates/assessment/fragment_assessment_part.pt"
+           permission="zope2.View"
+           />
+
+  <browser:page name="indicator_contact_info"
+           for="eea.indicators.content.interfaces.IAssessment"
+           class=".specification.ContactInfo"
+           permission="zope2.View" />
+
+  <!-- Assessment Versioning -->
+  <browser:page name="createVersion"
+           for="eea.indicators.content.interfaces.IAssessment"
+           permission="cmf.ModifyPortalContent"
+           class=".assessment.CreateVersion" />
+
+  <browser:menuItem title="Create new version"
+           for="eea.indicators.content.interfaces.IAssessment"
+           menu="object_buttons"
+           action="@@createVersion"
+           description="Create a new version"
+           permission="cmf.ModifyPortalContent" />
+
+  <browser:menuItem title="Revoke version"
+           for="eea.indicators.content.interfaces.IAssessment"
+           menu="object_buttons"
+           action="@@revokeVersion"
+           description="Revoke a version"
+           permission="cmf.ModifyPortalContent" />
+
+  <browser:menuItem
+           for="eea.indicators.content.interfaces.IAssessment"
+           menu="object_buttons"
+           title="Re-assign version"
+           action="@@assignVersion"
+           description="Re-assign to another version ID"
+           permission="cmf.ModifyPortalContent" />
+
+  <!-- <browser:page name="wizards" -->
+  <!--   for="eea.indicators.content.interfaces.IAssessment" -->
+  <!--   template="templates/assessment/wizards.pt" -->
+  <!--   permission="zope2.View" /> -->
+
+</configure>

@@ -1,0 +1,14 @@
+Changelog
+=========
+
+1.2 - (2010-07-01)
+------------------
+* Removed empty folder 'locales' [ghicaale]
+
+1.1 - (2010-07-01)
+------------------
+* Fix indexing of themes on Assessments [#3458 ghicaale]
+
+1.0 - (2010-07-01)
+------------------
+* Initial release [ghicaale]
