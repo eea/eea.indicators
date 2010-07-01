@@ -1,6 +1,9 @@
 Changelog
 =========
 
+1.2 - (Unreleased)
+------------------
+
 1.1 - (2010-07-01)
 ------------------
 * Fix indexing of themes on Assessments [#3458 ghicaale]
