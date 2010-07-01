@@ -1,0 +1,116 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+	metal:use-macro="here/main_template/macros/master"
+	i18n:domain="indicators">
+
+	<metal:baseslot fill-slot="base">
+		<base href="" tal:attributes="href request/URL" />
+	</metal:baseslot>
+
+	<metal:jsslot fill-slot="javascript_head_slot">
+		<script type="text/javascript" tal:attributes="src context/++resource++jquery.ui-1.7.js"></script>
+		<script type="text/javascript" tal:attributes="src context/++resource++indicators.js"></script>
+	</metal:jsslot>
+
+	<metal:cssslot fill-slot="css_slot">
+		<link media="screen" type="text/css" rel="stylesheet"
+			tal:attributes="href string:${context/++resource++jquery.ui.theme/jquery-ui-1.7.custom.css}"
+				/>
+	</metal:cssslot>
+
+	<body>
+		<div metal:fill-slot="main">
+			<div id="dialog_edit_target">
+				<!-- This div is used by active field editing -->
+			</div>
+
+			<div tal:replace="structure context/fragment_title" />
+
+			<div metal:use-macro="here/portlet_themes_object/macros/portlet" />
+			<tal:block define="queryString string:h2">
+			    <metal:toc use-macro="here/portlet_toc/macros/portlet"/>
+			</tal:block>
+
+			<metal:versions use-macro="here/portlet_versions/macros/versions">
+				<metal:new fill-slot="old" />
+			</metal:versions>
+
+			<div tal:replace="structure context/fragment_assessments" />
+			<div tal:replace="structure context/fragment_scientific_references" />
+			<div tal:replace="structure context/fragment_definition" />
+			<div tal:replace="structure context/fragment_policy_questions" />
+			<div tal:replace="structure context/fragment_policy_context" />
+			<div tal:replace="structure context/fragment_methodology" />
+			<div tal:replace="structure context/fragment_data_specifications" />
+			<div tal:replace="structure context/fragment_uncertainties" />
+
+			<h2 class="further_work">Further work</h2>
+			<div tal:replace="structure context/fragment_work" />
+
+			<metal:versions use-macro="here/portlet_versions/macros/versions">
+				<metal:new fill-slot="new" />
+			</metal:versions>
+
+			<h2 class="metadata">General metadata</h2>
+
+			<div class='headed-box'>
+				<h5>Responsability and ownership</h5>
+
+				<h6>Ownership</h6>
+				<ul>
+					<li tal:repeat="info context/getOwnership" >
+						<a tal:content="python:context.getOrganisationName(info).Title" tal:attributes="href info">EEA</a>
+					</li>
+				</ul>
+
+			</div>
+
+			<div class='headed-box'>
+				<h5>Identification</h5>
+				<div class="wrapper" >
+					<div tal:define="codes context/getCodes">
+						<strong>Indicator code</strong>
+						<div tal:repeat="code codes" tal:content="string:${code/set} ${code/code}">
+							CSI 001
+						</div>
+					</div>
+					<strong>Specification</strong>
+					<div>Link: <a href="" tal:attributes="href context/absolute_url"
+							tal:content="context/getId">ISpecification1235</a>
+					</div>
+					<div>
+						Version id: <tal:version_id define="getVersions nocall:context/@@getVersions;
+										    version_number getVersions/version_number"
+									    content="version_number" />
+					</div>
+
+					<div>
+						First draft created: <span tal:content="context/creation_date">creation date</span>
+					</div>
+
+					<div>
+						Publish date: <span tal:content="context/effective_date">effective date</span>
+					</div>
+					<div>
+						Last modified: <span tal:content="context/modified">Modified date</span>
+					</div>
+				</div>
+			</div>
+
+			<div class='headed-box'>
+				<h5>Classification</h5>
+				<div class="visualClear"><!-- --></div>
+				<strong>DPSIR</strong>: <span tal:define="dpsirLabel nocall:context/@@dpsir_label"
+							      tal:replace="python:dpsirLabel(context.getDpsir())" />
+				<br/>
+				<strong>Typology</strong>: <span tal:define="typologyLabel nocall:context/@@typology_label"
+								 tal:replace="python:typologyLabel(context.getTypology())" />
+				<br/>
+				<!-- <strong>EEA Themes</strong>: -->
+				<!-- <ul> -->
+					<!-- 	<li tal:repeat="theme context/getThemes" tal:content="theme" /> -->
+					<!-- </ul> -->
+			</div>
+
+		</div>
+	</body>
+</html>
