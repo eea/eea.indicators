@@ -1,8 +1,9 @@
 Changelog
 =========
 
-1.2 - (Unreleased)
+1.2 - (2010-07-01)
 ------------------
+* Removed empty folder 'locales' [ghicaale]
 
 1.1 - (2010-07-01)
 ------------------
