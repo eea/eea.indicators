@@ -65,8 +65,11 @@
          for="eea.indicators.content.interfaces.IAssessment"
          provides="eea.themecentre.interfaces.IThemeTagging"
          factory=".themes.AssessmentThemes"/>
-
-
+         
+    <adapter
+         for="eea.indicators.content.interfaces.ISpecification"
+         provides="zope.app.traversing.interfaces.ITraversable"
+         factory=".traverse.SpecificationTraverser"/>
 
     <!-- ##/code-section configure.zcml -->
 
