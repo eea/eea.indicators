@@ -10,24 +10,24 @@ ANNO_MARKER = '__ims_migration__'
 
 class SpecificationTraverser(FiveTraversable):
     """ traversal adapter to get an assessment based on its
-        old ID after the migration from ims.eionet.europa.eu 
+        old ID after the migration from ims.eionet.europa.eu
     """
     implements(ITraversable)
     adapts(ISpecification)
-    
+
     def fallback(self, name, furtherPath):
-	return super(SpecificationTraverser, self).traverse(name, furtherPath)
-    
+        return super(SpecificationTraverser, self).traverse(name, furtherPath)
+
     def traverse(self, name, furtherPath):
         context = self._subject
-        
-        if name.startswith('IAssessment'):        
-    	    assessments = context.objectValues('Assessment')
-    	    for assessment in assessments:
-    	        anno = IAnnotations(assessment)
-    	        anno_url = anno.get(ANNO_MARKER)
-    	        old_url = anno_url[ANNO_MARKER]
-    	        if name in old_url:
-    	            return assessment
-        
-        return self.faccback(name, furtherPath)
+
+        if name.startswith('IAssessment'):
+            assessments = context.objectValues('Assessment')
+            for assessment in assessments:
+                anno = IAnnotations(assessment)
+                anno_url = anno.get(ANNO_MARKER)
+                old_url = anno_url[ANNO_MARKER]
+                if name in old_url:
+                    return assessment
+
+        return self.fallback(name, furtherPath)
