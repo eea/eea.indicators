@@ -3,6 +3,8 @@ Changelog
 
 1.4 - (Unreleased)
 ------------------
+* Make "codes" available under SearchableText index for Specification,
+  Assessment and IndicatorFactSheet [ghicaale]
 * Marked more fields on Indicator Fact Sheet as searchable [demarant]
 * Fix: typo in traverse.py [ghicaale]
 

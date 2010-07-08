@@ -79,6 +79,7 @@ schema = Schema((
         ),
     DataGridField(
         name='codes',
+        searchable=True,
         widget=DataGridWidget(
             label="Specification identification codes",
             description="Codes are short names used to identify the indicator in question. Code is made up of a SET-ID and an CODE-NR, e.g. TERM 002. Multiple codes are allowed, since same indicator can be re-used in other indicators' sets.",
@@ -545,6 +546,14 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
                 continue
         field.getStorage(instance).set(field.getName(), instance, value)
 
+    security.declarePublic('SearchableText')
+    def SearchableText(self):
+	""" """
+	searchable_text = super(Specification, self).SearchableText()
+	for code in self.get_codes():
+	    searchable_text += '%s ' % code
+	return searchable_text
+	
     def factory_RationaleReference(self):
         type_name = 'RationaleReference'
         return self._generic_factory(type_name)
