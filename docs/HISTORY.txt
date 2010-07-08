@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.4 - (Unreleased)
+1.4 - (2010-07-08)
 ------------------
 * Make "codes" available under SearchableText index for Specification,
   Assessment and IndicatorFactSheet [ghicaale]
