@@ -196,15 +196,15 @@ class Assessment(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory, Br
         parent = aq_parent(aq_inner(self))
         return parent.getThemes()
 
-    security.declarePublic('SearchableText')                                                                                                                            
-    def SearchableText(self):                                                                                                                                           
-        """ """                           
-        searchable_text = super(Assessment, self).SearchableText()                                                                                                   
-        for code in self.get_codes():                                                                                                                                   
-            searchable_text += '%s ' % code   
+    security.declarePublic('SearchableText')
+    def SearchableText(self):
+        """ """
+        searchable_text = super(Assessment, self).SearchableText()
+        for code in self.get_codes():
+            searchable_text += '%s ' % code
         for code in self.getCodes():
-    	    if code:
-    		searchable_text += '%s ' % code['code']
+            if code:
+                searchable_text += '%s ' % code['code']
         return searchable_text
 
     security.declarePublic("Description")
