@@ -137,7 +137,6 @@ schema = Schema((
             label_msgid='indicators_label_policy_question',
             i18n_domain='indicators',
         ),
-        searchable=True,
     ),
     StringField(
         name='dpsir',
