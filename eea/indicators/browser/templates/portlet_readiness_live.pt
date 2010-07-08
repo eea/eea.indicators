@@ -1,4 +1,5 @@
-<metal:macro metal:define-macro="portlet">
+<metal:macro metal:define-macro="portlet" tal:define="portal_type python:here.getPortalTypeName().lower().replace(' ', '_')">
+<tal:block condition="python:not portal.portal_membership.isAnonymousUser()">
 	<metal:block use-macro="here/global_defines/macros/defines" />
 	<div tal:define="
 		region_name string:object_readiness;
@@ -15,4 +16,5 @@
 			</metal:slot>
 		</metal:macro>
 	</div>
+</tal:block>
 </metal:macro>
