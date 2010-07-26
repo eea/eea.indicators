@@ -201,10 +201,10 @@ class Assessment(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory, Br
         """ """
         searchable_text = super(Assessment, self).SearchableText()
         for code in self.get_codes():
-            searchable_text += '%s ' % code
+            searchable_text += '%s ' % code.encode('utf-8')
         for code in self.getCodes():
             if code:
-                searchable_text += '%s ' % code['code']
+                searchable_text += '%s ' % code['code'].encode('utf-8')
         return searchable_text
 
     security.declarePublic("Description")
