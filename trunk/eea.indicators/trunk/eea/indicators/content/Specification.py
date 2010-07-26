@@ -548,12 +548,12 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
 
     security.declarePublic('SearchableText')
     def SearchableText(self):
-	""" """
-	searchable_text = super(Specification, self).SearchableText()
-	for code in self.get_codes():
-	    searchable_text += '%s ' % code
-	return searchable_text
-	
+        """ """
+        searchable_text = super(Specification, self).SearchableText()
+        for code in self.get_codes():
+            searchable_text += '%s ' % code.encode('utf-8')
+        return searchable_text
+
     def factory_RationaleReference(self):
         type_name = 'RationaleReference'
         return self._generic_factory(type_name)

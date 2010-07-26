@@ -242,13 +242,13 @@ class IndicatorFactSheet(ATFolder, BrowserDefaultMixin):
             except ValueError:
                 continue
         field.getStorage(instance).set(field.getName(), instance, value)
-        
+
     security.declarePublic('SearchableText')
     def SearchableText(self):
         """ """
-        searchable_text = super(Specification, self).SearchableText()
+        searchable_text = super(IndicatorFactSheet, self).SearchableText()
         for code in self.get_codes():
-            searchable_text += '%s ' % code
+            searchable_text += '%s ' % code.encode('utf-8')
         return searchable_text
 
 registerType(IndicatorFactSheet, PROJECTNAME)
