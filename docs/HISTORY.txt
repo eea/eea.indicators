@@ -3,8 +3,8 @@ Changelog
 
 1.5 - (Unreleased)
 ------------------
-* Fix: unicode error in Specification.SearchableText and
-       IndicatorFactSheet.SearchableText [ghicaale]
+* Fix: unicode error in Specification.SearchableText,
+       Assessment.SearchableText and IndicatorFactSheet.SearchableText [ghicaale]
 
 1.4 - (2010-07-08)
 ------------------
