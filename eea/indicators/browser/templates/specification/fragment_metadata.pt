@@ -21,7 +21,7 @@
 							<metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
 							<metal:slot metal:fill-slot="content">
 								<div tal:condition="python:not owners" class="placeholder">
-									Please fill in
+									<span class="required">Please fill in</span>
 								</div>
 								<ul tal:condition="owners">
 									<li tal:repeat="info owners" >
