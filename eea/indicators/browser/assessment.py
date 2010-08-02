@@ -34,49 +34,15 @@ class CreateVersion(BaseCreateVersion):
 def create_version(original, request=None):
     """Creates a new version of an Assessment. Returns the new version object
     """
-    pu = getToolByName(original, 'plone_utils')
-    obj_uid = original.UID()
-    obj_id = original.getId()
-    obj_title = original.Title()
-    obj_type = original.portal_type
-    spec = parent(original)
 
+    #TODO: check if the following is still applied. It is true in any case
     #we want all Assessments for all spec versions to have the
     #same version id.
-    #if the parent Specification has versions, then the Assessment
+    #>>>if the parent Specification has versions, then the Assessment
     #needs to be a version of those assessments
+    ver = base_create_version(original, reindex=False)
 
-    parent_as = spec.objectValues('Assessment')
-    ast = parent_as[0]  #NOTE: we rely on the oldest assessment being first
-    version_id = IVersionControl(ast).versionId
-
-    if request is None:
-        request = original.REQUEST
-
-    # Adapt version parent (if case)
-    if not IVersionEnhanced.providedBy(original):
-        alsoProvides(original, IVersionEnhanced)
-    verparent = IVersionControl(original)
-    verId = verparent.getVersionId()
-    if not verId:
-        verId = _get_random(10)
-        verparent.setVersionId(verId)
-        _reindex(original)
-
-    # Create version object
-    cp = spec.manage_copyObjects(ids=[obj_id])
-    res = spec.manage_pasteObjects(cp)
-    new_id = res[0]['new_id']
-
-    ver = getattr(spec, new_id)
-
-    # Remove copy_of from ID
-    id = ver.getId()
-    new_id = id.replace('copy_of_', '')
-    new_id = generateNewId(spec, new_id, ver.UID())
-    spec.manage_renameObject(id=id, new_id=new_id)
-
-    # Set effective date today
+    # The assessment is no longer effective
     ver.setEffectiveDate(None)
     ver.setCreationDate(DateTime())
 
@@ -106,7 +72,7 @@ def create_version(original, request=None):
         ap.reindexObject()
 
     # Set new state
-    IVersionControl(ver).setVersionId(version_id)   #setting the version ID to the assessments group version id
+    #IVersionControl(ver).setVersionId(version_id)   #setting the version ID to the assessments group version id
     ver.reindexObject()
     original.reindexObject()    # _reindex(original)  #some indexed values of the context may depend on versions
 
