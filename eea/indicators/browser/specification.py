@@ -52,40 +52,23 @@ class AssessmentVersions(BrowserView):
         by publish_date and creation_date
     """
 
-#    def sort_assessments(self, data):
-#        """ """
-#        assessments = {}
-#
-#        for assessment in data:
-#            try:
-#                time = assessment.getEffectiveDate()
-#                assessments[time] = assessment
-#            except Exception, err:
-#                logger.exception('Exception: %s ', err)
-#
-#        res = assessments.keys()
-#        res.sort()
-#        res.reverse()
-#
-#        return [assessments[k] for k in res]
-
     def __call__(self):
         res = {'published': [], 'draft': []}
+
+        get = lambda o:o.effective_date or o.creation_date
 
         assessments = self.context.getFolderContents(
                              contentFilter={'review_state':'published',
                                             'portal_type':'Assessment'},
                              full_objects = True)
-        #res['published'] = self.sort_assessments(assessments)
-        res['published'] = sorted(assessments, key=lambda o:o.getEffectiveDate())
+        res['published'] = sorted(assessments, key=get)
 
         assessments = self.context.getFolderContents(
                              contentFilter={'review_state':'draft',
                                             'portal_type':'Assessment'},
                              full_objects = True)
 
-        #res['draft'] = self.sort_assessments(assessments)
-        res['draft'] = sorted(assessments, key=lambda o:o.getEffectiveDate())
+        res['draft'] = sorted(assessments, key=get)
 
         return res
 
