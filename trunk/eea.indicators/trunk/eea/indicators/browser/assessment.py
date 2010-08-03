@@ -1,16 +1,16 @@
-from Acquisition import aq_base, aq_inner, aq_parent
+from Acquisition import aq_inner, aq_parent
 from DateTime import DateTime
 from Products.CMFCore.utils import getToolByName
-from Products.CMFPlone.utils import parent
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from eea.versions.interfaces import IVersionControl, IVersionEnhanced
 from eea.versions.versions import CreateVersion as BaseCreateVersion, create_version as base_create_version
-from eea.versions.versions import _get_random, _reindex, generateNewId, get_versions_api
+from eea.versions.versions import get_versions_api
 from eea.workflow.readiness import ObjectReadinessView
 from eea.workflow.interfaces import IValueProvider, IObjectReadiness
 from zope.component import getMultiAdapter
-from zope.interface import alsoProvides
+
+import logging
+logger = logging.getLogger('eea.indicators')
 
 
 class IndexPage(BrowserView):
@@ -122,3 +122,4 @@ class WorkflowStateReadiness(ObjectReadinessView):
 
         info['extra'] = extras
         return info
+
