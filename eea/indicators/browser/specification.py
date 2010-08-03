@@ -16,8 +16,10 @@ from zope.component import getMultiAdapter
 import logging
 logger = logging.getLogger('eea.indicators')
 
+
 class IndexPage(BrowserView):
     """ """
+
 
 class AggregatedEditPage(BrowserView):
     template = ViewPageTemplateFile('templates/specification/aggregated_edit.pt')
@@ -43,6 +45,49 @@ class SchemataCounts(BrowserView):
                     schematas[field.schemata].append(field.__name__)
 
         return schematas
+
+
+class AssessmentVersions(BrowserView):
+    """ Return contained Assessments divided by 'published' and 'draft' sorted
+        by publish_date and creation_date
+    """
+
+#    def sort_assessments(self, data):
+#        """ """
+#        assessments = {}
+#
+#        for assessment in data:
+#            try:
+#                time = assessment.getEffectiveDate()
+#                assessments[time] = assessment
+#            except Exception, err:
+#                logger.exception('Exception: %s ', err)
+#
+#        res = assessments.keys()
+#        res.sort()
+#        res.reverse()
+#
+#        return [assessments[k] for k in res]
+
+    def __call__(self):
+        res = {'published': [], 'draft': []}
+
+        assessments = self.context.getFolderContents(
+                             contentFilter={'review_state':'published',
+                                            'portal_type':'Assessment'},
+                             full_objects = True)
+        #res['published'] = self.sort_assessments(assessments)
+        res['published'] = sorted(assessments, key=lambda o:o.getEffectiveDate())
+
+        assessments = self.context.getFolderContents(
+                             contentFilter={'review_state':'draft',
+                                            'portal_type':'Assessment'},
+                             full_objects = True)
+
+        #res['draft'] = self.sort_assessments(assessments)
+        res['draft'] = sorted(assessments, key=lambda o:o.getEffectiveDate())
+
+        return res
 
 
 class CreateVersion(BaseCreateVersion):
@@ -114,46 +159,6 @@ class WorkflowStateReadiness(ObjectReadinessView):
             return super(WorkflowStateReadiness, self).is_ready_for(state_name)
 
 
-class AssessmentVersions(BrowserView):
-    """ Return contained Assessments divided by 'published' and 'draft' sorted
-        by publish_date and creation_date
-    """
-
-    def sort_assessments(self, data):
-        """ """
-        assessments = {}
-
-        for assessment in data:
-            try:
-                time = assessment.getEffectiveDate()
-                assessments[time] = assessment
-            except Exception, err:
-                logger.exception('Exception: %s ', err)
-
-        res = assessments.keys()
-        res.sort()
-        res.reverse()
-
-        return [assessments[k] for k in res]
-
-    def __call__(self):
-        res = {'published': [], 'draft': []}
-
-        assessments = self.context.getFolderContents(
-                             contentFilter={'review_state':'published',
-                                            'portal_type':'Assessment'},
-                             full_objects = True)
-        res['published'] = self.sort_assessments(assessments)
-
-        assessments = self.context.getFolderContents(
-                             contentFilter={'review_state':'draft',
-                                            'portal_type':'Assessment'},
-                             full_objects = True)
-        res['draft'] = self.sort_assessments(assessments)
-
-        return res
-
-
 class PolicyQuestions(BrowserView):
     """ Return contained PolicyQuestions divided by 'is_key_question' property
     """
@@ -183,3 +188,4 @@ class ContactInfo(BrowserView):
         manager_id = self.context.getManager_user_id()
         mtool = getToolByName(self.context, 'portal_membership')
         return mtool.getMemberInfo(manager_id)
+

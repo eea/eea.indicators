@@ -5,7 +5,7 @@ from zope.component import getMultiAdapter
 from zope.interface import Interface, implements
 from Products.CMFCore.utils import getToolByName
 from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
-import logging
+#import logging
 
 
 class Sorter(BrowserView):
@@ -83,6 +83,7 @@ class RelatedItems(BrowserView):
         return [rel.UID() for rel in self.context.getRelatedItems()
                 if rel.portal_type in ctype]
 
+
 class DpsirLabel(BrowserView):
     """ Return value from DPSIR vocabulary based on key
     """
@@ -96,6 +97,7 @@ class DpsirLabel(BrowserView):
         else:
             return ""
 
+
 class TypologyLabel(BrowserView):
     """ Return value from Typology vocabulary based on key
     """
@@ -108,6 +110,7 @@ class TypologyLabel(BrowserView):
             return value.Title()
         else:
             return ""
+
 
 class CategoryLabel(BrowserView):
     """ Return value from Category of use vocabulary based on key
