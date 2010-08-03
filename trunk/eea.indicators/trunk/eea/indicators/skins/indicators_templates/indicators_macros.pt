@@ -17,7 +17,7 @@
 		<div class="content">
 			<metal:slot metal:define-slot="content"></metal:slot>
 		</div>
-		<div class="metadata" tal:define="also_reload also_reload|nothing">
+		<div class="metadata" style="display:none" tal:define="also_reload also_reload|nothing">
 			<div class="region_update_handler" 
 				tal:content="region_update_handler"></div>
 			<div class="also_reload" tal:condition="also_reload">
@@ -44,7 +44,7 @@
 	<div class="content">
 		<metal:slot metal:define-slot="content"></metal:slot>
 	</div>
-	<div class="metadata">
+	<div class="metadata" style="display:none">
 		<div class="fieldname" tal:content="fieldname" />
 		<div class="submit_handler" tal:content="submit_handler" />
 		<metal:slot metal:define-slot="extra-metadata"></metal:slot>
