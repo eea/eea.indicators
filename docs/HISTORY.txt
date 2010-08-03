@@ -5,6 +5,11 @@ Changelog
 ------------------
 * Fix: unicode error in Specification.SearchableText,
        Assessment.SearchableText and IndicatorFactSheet.SearchableText [ghicaale]
+* Hide metadata divs from display in active_field and active_region macros [tiberich]
+* Fix display and sorting of Assessments for a Specification agg edit. [tiberich]
+* Add custom AssessmentPart edit template, to make it include eea.relations JS scripts
+* Mark Ownership field as mandatory in agg edit
+* Code cleanup in browser/assessment.py to eliminate duplicated code from eea.versions
 
 1.4 - (2010-07-08)
 ------------------
