@@ -3,6 +3,7 @@ Changelog
 
 1.5 - (Unreleased)
 ------------------
+* Consistent order of fields under aggregated edit of assessment as in the view. [demarant]
 * Fix: unicode error in Specification.SearchableText,
        Assessment.SearchableText and IndicatorFactSheet.SearchableText [ghicaale]
 * Hide metadata divs from display in active_field and active_region macros [tiberich]

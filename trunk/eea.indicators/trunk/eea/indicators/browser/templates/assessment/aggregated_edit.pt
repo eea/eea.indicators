@@ -28,7 +28,6 @@
 			</metal:versions>
 
 			<div tal:replace="structure context/fragment_keymessage" />
-			<div tal:replace="structure context/fragment_metadata" />
 
 			<div tal:define="
 				assessments context/get_assessments;
@@ -38,6 +37,7 @@
 					<div tal:replace="structure part/fragment_assessment_part" tal:condition="part" />
 				</tal:parts>
 			</div>
+			<div tal:replace="structure context/fragment_metadata" />
 
 		</div>
 	</body>
