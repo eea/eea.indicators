@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.5 - (Unreleased)
+1.5 - (2010-08-04)
 ------------------
 * Fixed missing "More updates info box" in assessment and adjusted design and position on both [demarant]
 * Consistent order of fields under aggregated edit of assessment as in the view. [demarant]
