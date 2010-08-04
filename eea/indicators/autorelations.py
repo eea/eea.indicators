@@ -15,7 +15,7 @@ class LatestFigures(object):
         assessments = getMultiAdapter((self.context, self.request),                                                                                                     
                                    name=u'assessment_versions')                                                                                                         
         all_assessments = assessments()                                                                                                                                 
-        published_assessments = all_assessments['published']                                                                                                            
+        published_assessments = all_assessments['published']
         if len(published_assessments) > 0 :                                                                                                                             
             latest_assessment = published_assessments[0]                                                                                                               
         else:                                                                                                                                                           
