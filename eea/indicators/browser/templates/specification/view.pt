@@ -15,6 +15,11 @@
 
         <metal:use_header use-macro="header_macro" />
 
+        <div id="content-more-updates-on"
+             class="system-message warningMessage"
+             tal:condition="context/getMore_updates_on"
+             tal:content="structure context/getMore_updates_on" />
+
         <metal:versions use-macro="here/portlet_versions/macros/versions">
           <metal:new fill-slot="old" />
         </metal:versions>
@@ -25,10 +30,6 @@
         <tal:block define="queryString string:h2">
             <metal:toc use-macro="here/portlet_toc/macros/portlet"/>
         </tal:block>
-        <div id="content-more-updates-on"
-             class="system-message"
-             tal:condition="context/getMore_updates_on"
-             tal:content="structure context/getMore_updates_on" />
 
         <tal:assessment_versions define="assessments context/@@assessment_versions;
                                          published python:assessments['published'];

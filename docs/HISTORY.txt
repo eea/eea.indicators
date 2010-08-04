@@ -3,6 +3,7 @@ Changelog
 
 1.5 - (Unreleased)
 ------------------
+* Fixed missing "More updates info box" in assessment and adjusted design and position on both [demarant]
 * Consistent order of fields under aggregated edit of assessment as in the view. [demarant]
 * Fix: unicode error in Specification.SearchableText,
        Assessment.SearchableText and IndicatorFactSheet.SearchableText [ghicaale]
