@@ -22,7 +22,7 @@ from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 from eea.indicators.config import *
 
 # additional imports from tagged value 'import'
-from Products.ATContentTypes.content.folder import ATFolder, ATFolderSchema
+from Products.ATContentTypes.content.folder import ATFolderSchema
 from eea.dataservice.fields.ManagementPlanField import ManagementPlanField
 
 ##code-section module-header #fill in your manual code here
@@ -35,7 +35,7 @@ from eea.indicators import msg_factory as _
 from eea.indicators.content.base import ModalFieldEditableAware, CustomizedObjectFactory
 from eea.relations.field import EEAReferenceField
 from eea.relations.widget import EEAReferenceBrowserWidget
-from Acquisition import aq_base, aq_inner, aq_parent
+from Acquisition import aq_inner, aq_parent
 
 ##/code-section module-header
 

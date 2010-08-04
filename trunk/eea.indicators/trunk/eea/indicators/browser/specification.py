@@ -61,14 +61,14 @@ class AssessmentVersions(BrowserView):
                              contentFilter={'review_state':'published',
                                             'portal_type':'Assessment'},
                              full_objects = True)
-        res['published'] = reversed(sorted(assessments, key=get))
+        res['published'] = list(reversed(sorted(assessments, key=get)))
 
         assessments = self.context.getFolderContents(
                              contentFilter={'review_state':'draft',
                                             'portal_type':'Assessment'},
                              full_objects = True)
 
-        res['draft'] = reversed(sorted(assessments, key=get))
+        res['draft'] = list(reversed(sorted(assessments, key=get)))
 
         return res
 
