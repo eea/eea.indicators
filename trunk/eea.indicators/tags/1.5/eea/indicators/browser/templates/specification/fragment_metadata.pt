@@ -1,0 +1,184 @@
+<tal:def tal:define="submit_handler string:simple_edit; ">
+	<tal:def tal:define="region_name string:metadata_area;
+		region_update_handler string:fragment_metadata;
+		also_reload python:['object_readiness'];
+		imsutils nocall:context/@@indicator_utils;">
+
+		<!-- <div tal:content="python:path('context/@@get_readiness').get_info_for('published')" /> -->
+		<!-- <div tal:content="python:path('context/@@get_readiness').is_ready_for('published')" /> -->
+
+		<metal:macro metal:use-macro="context/indicators_macros/macros/active_region">
+			<metal:slot metal:fill-slot="content">
+				<div class="logic_group">
+					<h2 id="general_metadata">General metadata</h2>
+
+					<div class='headed-box'>
+						<h5>Responsability and ownership</h5>
+
+						<h6>Ownership</h6>
+						<tal:def tal:define="fieldname string:ownership; fieldset string:Responsability;
+							owners context/getOwnership">
+							<metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
+							<metal:slot metal:fill-slot="content">
+								<div tal:condition="python:not owners" class="placeholder">
+									<span class="required">Please fill in</span>
+								</div>
+								<ul tal:condition="owners">
+									<li tal:repeat="info owners" >
+										<a tal:content="python:context.getOrganisationName(info).Title" tal:attributes="href info">EEA</a>
+									</li>
+								</ul>
+							</metal:slot>
+							<metal:slot metal:fill-slot="extra-metadata">
+								<div class="width">800</div>
+								<div class="height">435</div>
+								<div class="dialog_title">Edit Responsability and Ownership</div>
+							</metal:slot>
+						</metal:macro>
+					</tal:def>
+
+					</div>
+
+					<div class='headed-box'>
+						<h5>Classification</h5>
+						<div class="visualClear"><!-- --></div>
+
+						<strong>DPSIR</strong>
+						<tal:def tal:define="fieldname string:dpsir; fieldset string:Classification;
+							dpsir context/getDpsir">
+							<metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
+								<metal:slot metal:fill-slot="content">
+									<div tal:condition="python:not dpsir" class="placeholder">
+										<span class="required">Please fill in</span>
+									</div>
+									<span tal:define="dpsirLabel nocall:context/@@dpsir_label"
+									      tal:replace="python:dpsirLabel(dpsir)" />
+								</metal:slot>
+								<metal:slot metal:fill-slot="extra-metadata">
+									<div class="width">800</div>
+									<div class="height">435</div>
+								<div class="dialog_title">Edit Classification</div>
+								</metal:slot>
+							</metal:macro>
+						</tal:def>
+
+						<strong>Typology</strong>
+						<tal:def tal:define="fieldname string:typology; fieldset string:Classification;
+							typology context/getTypology">
+							<metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
+								<metal:slot metal:fill-slot="content">
+									<div tal:condition="python:not typology" class="placeholder">
+										<span class="required">Please fill in</span>
+									</div>
+									<span tal:define="typologyLabel nocall:context/@@typology_label"
+									      tal:replace="python:typologyLabel(typology)"/>
+								</metal:slot>
+								<metal:slot metal:fill-slot="extra-metadata">
+									<div class="width">800</div>
+									<div class="height">435</div>
+									<div class="dialog_title">Edit Typology</div>
+								</metal:slot>
+							</metal:macro>
+						</tal:def>
+
+
+						<strong>EEA Themes</strong>:
+						<tal:def tal:define="fieldname string:themes;
+																 fieldset string:Classification;
+																 vocab python:context.Vocabulary(fieldname);
+																 themes context/getThemes">
+							<div class="portalMessage" tal:condition="not:themes">
+								You need to assign a primary theme
+							</div>
+							<metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
+								<metal:slot metal:fill-slot="content">
+									<div tal:condition="python:not themes" class="placeholder">
+										<span class="required">Please fill in</span>
+									</div>
+									<div tal:define="view_name string:themes-object;
+										proxy context/@@proxy;
+										view python: proxy.real_view(view_name);
+										items view/short_items;
+										title title|view/title"
+										tal:condition="items"
+										tal:omit-tag="">
+
+										<dt class="portletItem" tal:repeat="item items">
+											<a href="" tal:attributes="href item/url">
+												<img src="" alt="Theme image"
+													tal:attributes="src string:${item/image}; alt item/title" /> <span tal:replace="item/title">Item title</span>
+											</a>
+										</dt>
+									</div>
+
+								</metal:slot>
+								<metal:slot metal:fill-slot="extra-metadata">
+									<div class="width">800</div>
+									<div class="height">435</div>
+									<div class="dialog_title">Edit EEA Themes</div>
+								</metal:slot>
+							</metal:macro>
+						</tal:def>
+					</div>
+
+					<div class='headed-box'>
+						<h5>Identification</h5>
+						<div class="wrapper" >
+							<div tal:define="codes context/getCodes">
+
+								<div class="required-field"></div>
+								<strong>Indicator code</strong>
+								<tal:def tal:define="fieldname string:codes; fieldset string:Classification">
+									<metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
+										<metal:slot metal:fill-slot="content">
+											<div tal:condition="python:not codes" class="placeholder">
+												<span class="required">
+													Please fill in
+												</span>
+											</div>
+											<div tal:repeat="code codes" tal:content="string:${code/set} ${code/code}">
+												CSI 001
+											</div>
+										</metal:slot>
+										<metal:slot metal:fill-slot="extra-metadata">
+											<div class="width">800</div>
+											<div class="height">435</div>
+											<div class="dialog_title">Edit Codes</div>
+										</metal:slot>
+									</metal:macro>
+								</tal:def>
+
+							</div>
+
+							<strong>Specification</strong>
+							<div class="active_field">
+								<div>Link: <a href="" tal:attributes="href context/absolute_url"
+										tal:content="context/getId">ISpecification1235</a>
+								</div>
+								<div>
+									Version id: <tal:version_id define="getVersions nocall:context/@@getVersions;
+										version_number getVersions/version_number"
+										content="version_number" />
+								</div>
+
+								<div>
+									First draft created: <span tal:content="context/creation_date">creation date</span>
+								</div>
+
+								<div>
+									Publish date: <span tal:content="context/effective_date">effective date</span>
+								</div>
+								<div>
+									Last modified: <span tal:content="context/modified">Modified date</span>
+								</div>
+							</div>
+
+						</div>
+					</div>
+
+				</div>
+			</metal:slot>
+		</metal:macro>
+
+	</tal:def>
+</tal:def>
