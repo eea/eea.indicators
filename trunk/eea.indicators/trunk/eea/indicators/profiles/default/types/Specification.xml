@@ -58,7 +58,7 @@
          action_id="advanced_edit"
          category="object" 
          
-         url_expr="string:${object_url}/base_edit" 
+         url_expr="string:${object_url}/advanced_base_edit" 
          visible="True">
   <permission value="Modify portal content"/>
  </action>
