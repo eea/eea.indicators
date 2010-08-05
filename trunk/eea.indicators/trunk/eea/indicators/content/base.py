@@ -75,7 +75,6 @@ class ModalFieldEditableAware(object):
             self.at_post_edit_script()
 
         event.notify(objectevent.ObjectModifiedEvent(self))
-        logging.info("SimpleProcessForm done")
         return
 
     security.declareProtected(permissions.View, 'simple_validate')
