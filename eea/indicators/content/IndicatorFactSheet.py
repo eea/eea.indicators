@@ -47,7 +47,7 @@ schema = Schema((
         name='assessment',
         allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
         widget=RichWidget(
-            label="More updates on",
+            label="Assessment",
             label_msgid='indicators_label_assessment',
             i18n_domain='indicators',
         ),
@@ -57,7 +57,8 @@ schema = Schema((
     DateTimeField(
         name='assessment_date',
         widget=DateTimeField._properties['widget'](
-            label="Assessment Date",
+            label="Assessment date",
+            description="Date when the assessment analysis was made. This does not necesserly coincide with the underline data time coverage which can be older.",
             label_msgid='indicators_label_assessment_date',
             i18n_domain='indicators',
         ),
@@ -82,6 +83,7 @@ schema = Schema((
         searchable = True,
         widget=StringField._properties['widget'](
             label="Source code",
+            description="another code who may indentify this indicator in other source databases.",
             label_msgid='indicators_label_source_code',
             i18n_domain='indicators',
         ),
@@ -90,7 +92,7 @@ schema = Schema((
         name='data_source_providers',
         searchable = True,
         widget=StringField._properties['widget'](
-            label="Data Source Providers",
+            label="Data source providers",
             label_msgid='indicators_label_data_source_providers',
             i18n_domain='indicators',
         ),
@@ -98,7 +100,7 @@ schema = Schema((
     StringField(
         name='EEA_responsible',
         widget=StringField._properties['widget'](
-            label="Owner",
+            label="EEA main responsible person",
             label_msgid='indicators_label_EEA_responsible',
             i18n_domain='indicators',
         ),
@@ -106,7 +108,7 @@ schema = Schema((
     StringField(
         name='DEV_responsible',
         widget=StringField._properties['widget'](
-            label="ID of manager user",
+            label="Indicator development responsible",
             label_msgid='indicators_label_DEV_responsible',
             i18n_domain='indicators',
         ),
