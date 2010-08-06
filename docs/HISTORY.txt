@@ -4,6 +4,7 @@ Changelog
 1.6 - (unreleased)
 -----------------
 
+ * removed custom Title function, we do not need to show version info in title for specifications [demarant]
  * fixed wrong label on IndicatorFactSheet for assessment text, adjusted more fields labels and 
 descriptions [demarant]
 
