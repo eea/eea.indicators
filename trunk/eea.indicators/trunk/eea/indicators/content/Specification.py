@@ -473,22 +473,6 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
         if brains: res = brains[0]
         return res
 
-    security.declarePublic("Title")
-    def Title(self):
-        has_versions = self.unrestrictedTraverse('@@hasVersions')()
-
-        if not has_versions:
-            return self.getTitle()
-
-        getVersions = self.unrestrictedTraverse('@@getVersions')
-        version = getVersions.version_number()
-
-        msg = _(u"specification_title_msg",
-                default=u"${title} (version ${version})",
-                mapping={'title':self.getTitle(), 'version':version})
-
-        return self.translate(msg)
-
     security.declarePublic("Description")
     def Description(self):
         convert = getToolByName(self, 'portal_transforms').convert
