@@ -4,6 +4,9 @@ Changelog
 1.6 - (unreleased)
 -----------------
 
+ * fixed wrong label on IndicatorFactSheet for assessment text, adjusted more fields labels and 
+descriptions [demarant]
+
 1.5 - (2010-08-04)
 ------------------
 * Fixed missing "More updates info box" in assessment and adjusted design and position on both [demarant]
