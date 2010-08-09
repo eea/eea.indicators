@@ -4,6 +4,7 @@ Changelog
 1.6 - (unreleased)
 -----------------
 
+ * Fix wrong check for EEA Data metatype [tiberich #3541]
  * Fixed indicator code validator. Now an IndicatorFachtSheet validate its code
    upon Assessments [ghicaale #3491]
  * Fixed versions display of assessments on same Specification versioning set [ghicaale #3491]
