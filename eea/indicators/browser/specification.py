@@ -108,8 +108,8 @@ class WorkflowStateReadiness(ObjectReadinessView):
     #TODO: translate messages here
     checks = (
             (
-                lambda o: not has_one_of(('EEAData', 'ExternalDataSpec'), o.getRelatedItems()),
-                "You need to point to at least one EEAData or ExternalData"),
+                lambda o: not has_one_of(('Data', 'ExternalDataSpec'), o.getRelatedItems()),
+                "You need to point to at least one EEA Data or ExternalData"),
             (
                 lambda o:not bool(o.objectValues("PolicyQuestion")),
                 "You need to add at least one Policy Question"),
