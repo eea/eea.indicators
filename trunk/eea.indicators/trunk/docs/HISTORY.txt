@@ -4,8 +4,9 @@ Changelog
 1.6 - (unreleased)
 -----------------
 
- * removed custom Title function, we do not need to show version info in title for specifications [demarant]
- * fixed wrong label on IndicatorFactSheet for assessment text, adjusted more fields labels and 
+ * Fixed versions display of assessments on same Specification versioning set [ghicaale #3491]
+ * Removed custom Title function, we do not need to show version info in title for specifications [demarant]
+ * Fixed wrong label on IndicatorFactSheet for assessment text, adjusted more fields labels and
 descriptions [demarant]
 
 1.5 - (2010-08-04)
@@ -16,10 +17,10 @@ descriptions [demarant]
        Assessment.SearchableText and IndicatorFactSheet.SearchableText [ghicaale]
 * Hide metadata divs from display in active_field and active_region macros [tiberich]
 * Fix display and sorting of Assessments for a Specification agg edit. [tiberich]
-* Add custom AssessmentPart edit template, to make it include 
+* Add custom AssessmentPart edit template, to make it include
   eea.relations JS scripts [tiberich]
 * Mark Ownership field as mandatory in agg edit [tiberich]
-* Code cleanup in browser/assessment.py to eliminate duplicated code 
+* Code cleanup in browser/assessment.py to eliminate duplicated code
   from eea.versions [tiberich]
 
 1.4 - (2010-07-08)
