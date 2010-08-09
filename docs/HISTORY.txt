@@ -3,14 +3,16 @@ Changelog
 
 1.6 - (unreleased)
 -----------------
-
+ * When set versionId on adding an assessment, also look for IndicatorFactSheets
+   with same indicator set [ghicaale #3491]
+ * Reindex child assessment objects when saving 'codes' on a specification [ghicaale #3491]
  * Fix wrong check for EEA Data metatype [tiberich #3541]
  * Fixed indicator code validator. Now an IndicatorFachtSheet validate its code
    upon Assessments [ghicaale #3491]
  * Fixed versions display of assessments on same Specification versioning set [ghicaale #3491]
  * Removed custom Title function, we do not need to show version info in title for specifications [demarant]
  * Fixed wrong label on IndicatorFactSheet for assessment text, adjusted more fields labels and
-descriptions [demarant]
+   descriptions [demarant]
 
 1.5 - (2010-08-04)
 ------------------
