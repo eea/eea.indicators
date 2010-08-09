@@ -605,6 +605,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
             ap.setRelatedItems(pq)
             ap.reindexObject()
 
+        ast.reindexObject()
         return {'obj':ast, 'subview':'@@edit_aggregated', 'direct_edit':True}
 
     def has_newer_version(self):
