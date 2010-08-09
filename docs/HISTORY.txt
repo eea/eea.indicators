@@ -4,6 +4,8 @@ Changelog
 1.6 - (unreleased)
 -----------------
 
+ * Fixed indicator code validator. Now an IndicatorFachtSheet validate its code
+   upon Assessments [ghicaale #3491]
  * Fixed versions display of assessments on same Specification versioning set [ghicaale #3491]
  * Removed custom Title function, we do not need to show version info in title for specifications [demarant]
  * Fixed wrong label on IndicatorFactSheet for assessment text, adjusted more fields labels and
