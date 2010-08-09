@@ -530,6 +530,10 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
                 continue
         field.getStorage(instance).set(field.getName(), instance, value)
 
+        #reindex all child assessment objects
+        for assessment in self.objectValues('Assessment'):
+            assessment.reindexObject()
+
     security.declarePublic('SearchableText')
     def SearchableText(self):
         """ """
@@ -579,6 +583,16 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
                 original = asts[0]
                 version_id = IVersionControl(original).versionId
                 break
+
+        # if there are no other assessments in this version set we look
+        # for other IndicatorFactSheet objects with same indicator code
+        # to get the versionId
+
+        if not version_id:
+            codes = self.get_codes()
+            #3491
+            #TODO: search for IndiactorFactSheets
+            #TODO: get versionID
 
         #create a new Assessment from scratch
         #id = self.generateUniqueId(type_name)
