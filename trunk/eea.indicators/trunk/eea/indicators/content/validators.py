@@ -110,9 +110,18 @@ class UniqueSpecificationCode:
             #To do this, we retrieve a list of all specifications with the same
             #code and we filter out those that are versions or identical objs
 
-            brains = cat(portal_type='Specification', get_codes=[code])
+
+            if context.portal_type == 'Specification':
+                search_type = 'Specification'
+            elif context.portal_type == 'IndicatorFactSheet':
+                search_type = 'Assessment'
+            else:
+                search_type = context.portal_type
+
+            brains = cat(portal_type=search_type, get_codes=[code])
             objs = [b.getObject() for b in brains]
             not_same = []
+
             for obj in objs:
                 path = obj.getPhysicalPath()
 
