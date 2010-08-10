@@ -512,6 +512,11 @@ a.object_creator:hover {
 a.object_creator-disabled {
 	display:none;
 }
+.object_creator_options {
+	text-align:center;
+	background-color:transparent;
+	margin-bottom:5px
+}
 
 a.schemata_edit, a.object_delete {
 	padding:1px 6px;

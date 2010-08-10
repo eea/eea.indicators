@@ -44,6 +44,10 @@
 						<a href='./object_factory?type_name=Assessment'
 							class="object_creator"
 							tal:attributes="class string:object_creator${can_add} direct_edit">+ Indicator Assessment</a>
+						<!-- <div class="object_creator_options"> -->
+						<!-- 	<input type="radio" name="create_in_new" value="true" onclick="toggle_creator_option(this)"/>Create in latest Specification &nbsp; -->
+						<!-- 	<input type="radio" name="create_in_new" value="false" checked="checked" onclick="toggle_creator_option(this)"/>Create here -->
+						<!-- </div> -->
 
 						<div style="width:49%; float:left">
 							<h5>Published (reviewed and quality assured)</h5>

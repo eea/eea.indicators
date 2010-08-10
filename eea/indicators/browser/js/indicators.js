@@ -747,5 +747,14 @@ KupuZoomTool.prototype.commandfunc = function(button, editor) {
   window.scrollTo(0, iframe.offsetTop);
   editor.focusDocument();
 };
-//
+function toggle_creator_option(el){
+  var a = $(el).parent().parent().children('a.object_creator').get(0);
+  var href = $(a).attr('href');
+  if (!a.original_href) {
+    a.original_href = href;
+  }
+  $(a).attr('href', a.original_href + "&create_in_latest_spec=" + $(el).attr('value'));
+  console.log(a);
+}
+
 // vim: set sw=2 ts=2 softtabstop=2 et:

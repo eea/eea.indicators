@@ -561,6 +561,13 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
     def factory_Assessment(self):
         type_name = 'Assessment'
 
+        create = self.REQUEST.form.get('create_in_latest_spec')
+        if create == 'true':
+            info = IGetVersions(self)
+            latest = info.latest_version()
+            if latest.UID() != self.UID():
+                return latest.factory_Assessment()
+            
         #drop with error if no PolicyQuestions are created
         if not self.objectValues('PolicyQuestion'):
             return self.error("You need to create first a Policy Question")
