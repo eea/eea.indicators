@@ -584,15 +584,18 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
                 version_id = IVersionControl(original).versionId
                 break
 
-        # if there are no other assessments in this version set we look
-        # for other IndicatorFactSheet objects with same indicator code
-        # to get the versionId
-
+        # if there are no other assessments in this version set we look for other
+        # IndicatorFactSheet objects with same indicator code to get the versionId
         if not version_id:
             codes = self.get_codes()
-            #3491
-            #TODO: search for IndiactorFactSheets
-            #TODO: get versionID
+            cat = getToolByName(self, 'portal_catalog')
+            for code in codes[1::2]:
+                brains = cat.searchResults({'portal_type' : 'IndicatorFactSheet',
+                                            'get_codes': code})
+                if brains:
+                    break
+            if brains:
+                version_id = IVersionControl(brains[0].getObject()).versionId
 
         #create a new Assessment from scratch
         #id = self.generateUniqueId(type_name)
