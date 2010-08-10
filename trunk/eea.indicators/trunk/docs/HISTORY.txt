@@ -3,7 +3,7 @@ Changelog
 
 1.6 - (unreleased)
 -----------------
- * Add one_state_workflow and the @@migrate_to_one_state_workflow 
+ * Add one_state_workflow and the @@migrate_to_one_state_workflow  [tiberich #3152]
  * When set versionId on adding an assessment, also look for IndicatorFactSheets
    with same indicator set [ghicaale #3491]
  * Reindex child assessment objects when saving 'codes' on a specification [ghicaale #3491]
