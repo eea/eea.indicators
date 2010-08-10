@@ -17,8 +17,9 @@ class MigrateToOneStateWorkflow(BrowserView):
         try:
             self.wf.updateRoleMappingsFor(ob)
         except Exception, e:
-            return
-        ob.reindexObject(idxs=['allowedRolesAndUsers'])
+            pass
+        ob.reindexObject()  #idxs=['allowedRolesAndUsers']
+        logging.info("Reindexed %s", ob)
 
     def __call__(self):
 
