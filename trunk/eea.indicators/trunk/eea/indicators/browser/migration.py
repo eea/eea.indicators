@@ -1,8 +1,8 @@
-from Acquisition import aq_base, aq_inner, aq_parent
 from Products.CMFCore.utils import getToolByName
 from Products.Five import BrowserView
 from StringIO import StringIO
 
+import transaction
 import logging
 logger = logging.getLogger('eea.indicators')
 
@@ -41,8 +41,12 @@ class MigrateToOneStateWorkflow(BrowserView):
         self.wf = wftool[wf_name]
 
         for type_ in types:
-            res = catalog.searchResults(portal_type=type_)
-            map(self._update_ob, res)
+            i = 0
+            for ob in catalog.searchResults(portal_type=type_):
+                self._update_ob(ob)
+                i += 1
+                if (i % 20) == 0:
+                    transaction.commit()
 
             msg = "Updated %s of type %s" % (len(res), type_)
             logging.info(msg)
