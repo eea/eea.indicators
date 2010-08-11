@@ -9,7 +9,7 @@
   <browser:page
     for="*"
     name="portlet_readiness_live"
-		template="templates/portlet_readiness_live.pt"
+    template="templates/portlet_readiness_live.pt"
     permission="zope2.View"
     />
 
@@ -25,15 +25,8 @@
     for="eea.indicators.content.interfaces.IIndicatorsDatabase"
     name="ims_timeline"
     class="eea.indicators.browser.ims.IndicatorsTimeline"
-		template="templates/timeline.pt"
+    template="templates/timeline.pt"
     permission="zope2.View"
-    />
-
-  <browser:page
-    for="*"
-    name="migrate_to_one_state_workflow"
-    class="eea.indicators.browser.migration.MigrateToOneStateWorkflow"
-    permission="cmf.ManagePortal"
     />
 
   <browser:page

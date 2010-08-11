@@ -597,7 +597,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
             codes = self.get_codes()
             cat = getToolByName(self, 'portal_catalog')
             for code in codes[1::2]:
-                brains = cat.searchResults({'portal_type' : 'IndicatorFactSheet',
+                brains = cat.searchResults({'portal_type': 'IndicatorFactSheet',
                                             'get_codes': code})
                 if brains:
                     break
