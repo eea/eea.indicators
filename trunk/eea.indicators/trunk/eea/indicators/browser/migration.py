@@ -42,7 +42,8 @@ class MigrateToOneStateWorkflow(BrowserView):
 
         for type_ in types:
             i = 0
-            for ob in catalog.searchResults(portal_type=type_):
+            res = catalog.searchResults(portal_type=type_)
+            for ob in res:
                 self._update_ob(ob)
                 i += 1
                 if (i % 20) == 0:
