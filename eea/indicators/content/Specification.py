@@ -567,7 +567,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
             latest = info.latest_version()
             if latest.UID() != self.UID():
                 return latest.factory_Assessment()
-            
+
         #drop with error if no PolicyQuestions are created
         if not self.objectValues('PolicyQuestion'):
             return self.error("You need to create first a Policy Question")
@@ -594,6 +594,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
         # if there are no other assessments in this version set we look for other
         # IndicatorFactSheet objects with same indicator code to get the versionId
         if not version_id:
+            brains = []
             codes = self.get_codes()
             cat = getToolByName(self, 'portal_catalog')
             for code in codes[1::2]:
