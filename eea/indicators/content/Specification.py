@@ -50,6 +50,7 @@ from eea.indicators.content.utils import get_dgf_value
 from eea.relations.field import EEAReferenceField
 from eea.relations.widget import EEAReferenceBrowserWidget
 from eea.versions.interfaces import IVersionControl, IVersionEnhanced
+from eea.versions.versions import has_versions, get_versions_api
 from zope import event
 from zope.app.event import objectevent
 from zope.component import getMultiAdapter
@@ -634,14 +635,21 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
         return {'obj':ast, 'subview':'@@edit_aggregated', 'direct_edit':True}
 
     def has_newer_version(self):
-        versions = getMultiAdapter((self, self.REQUEST), name="getVersions")
-        has_versions = getMultiAdapter((self, self.REQUEST), name="getVersions")()
-
+        versions = get_versions_api(self)
         newest = versions.newest()
-        if has_versions and newest:
-            return True
 
+        if has_versions(self) and newest:
+            return True
         return False
+
+        #versions = getMultiAdapter((self, self.REQUEST), name="getVersions")
+        #has_versions = getMultiAdapter((self, self.REQUEST), name="getVersions")()
+
+        #newest = versions.newest()
+        #if has_versions and newest:
+        #    return True
+
+        #return False
 
 
 registerType(Specification, PROJECTNAME)
