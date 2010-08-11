@@ -47,18 +47,19 @@ schema = Schema((
     StringField(
         name='provider_name',
         widget=StringField._properties['widget'](
+            visible={'view':'visible', 'edit':'visible'},
             label="Dataset provider name",
             label_msgid='indicators_label_provider_name',
             i18n_domain='indicators',
         ),
-        required=True,
+        required=False,
         searchable=True,
-        required_for_published="True",
     ),
     LinesField(
         name='provider_url',
         widget=MultiSelectionWidget(
-            label="Provider URL",
+            label="Dataset provider",
+            description="Organisation providing access to this dataset.",
             macro="organisations_widget",
             label_msgid='indicators_label_provider_url',
             i18n_domain='indicators',
@@ -76,14 +77,27 @@ schema = Schema((
             i18n_domain='indicators',
         ),
         required=True,
-        required_for_published="True",
+        required_for_published="False",
         vocabulary=Organisations(),
+    ),
+    StringField(
+        name='data_url',
+        widget=StringField._properties['widget'](
+            visible={'view':'hidden', 'edit':'visible'},
+            label="URL where this dataset can be found",
+            label_msgid='indicators_label_data_url',
+            i18n_domain='indicators',
+        ),
+	required=True,
+        searchable=True,
+        required_for_published="True",
     ),
     TextField(
         name='dataset_path',
         allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
         widget=RichWidget(
             label="Dataset path",
+            description="Further information and details needed to get the dataset.",
             label_msgid='indicators_label_dataset_path',
             i18n_domain='indicators',
         ),
@@ -149,6 +163,7 @@ schema = Schema((
 ##code-section after-local-schema #fill in your manual code here
 schema['provider_url'].validators=('isURL',)
 schema['dataset_url'].validators=('isURL',)
+schema['data_url'].validators=('isURL',)
 ##/code-section after-local-schema
 
 ExternalDataSpec_schema = ATContentTypeSchema.copy() + \
