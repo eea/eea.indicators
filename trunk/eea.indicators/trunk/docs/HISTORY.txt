@@ -3,6 +3,7 @@ Changelog
 
 1.6 - (unreleased)
 -----------------
+ * Customize assessment/@@createVersion to allow choosing the destination of that version [tiberich #3539]
  * Add "one_state_workflow" [tiberich #3152]
  * When set versionId on adding an assessment, also look for IndicatorFactSheets
    with same indicator set [ghicaale #3491]

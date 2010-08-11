@@ -26,9 +26,35 @@ class AggregatedEditPage(BrowserView):
 class CreateVersion(BaseCreateVersion):
     """Create new version customizations for eea.versions """
 
+    template = ViewPageTemplateFile('templates/assessment/create_version.pt')
+    newer_spec = None
+
     def __call__(self):
-        version = create_version(self.context)
-        return self.request.RESPONSE.redirect(version.absolute_url())
+        spec = aq_parent(aq_inner(self.context))
+        latest = get_versions_api(spec).latest_version()
+
+        if spec.UID() == latest.UID():
+            version = create_version(self.context)
+            return self.request.RESPONSE.redirect(version.absolute_url())
+
+        self.spec_title = latest.Title()
+        self.spec_url = latest.absolute_url()
+        self.date = latest.effective_date or latest.creation_date
+        if "submit" not in self.request.form:
+            return self.template()
+
+        choice = self.request.form.get("choice")
+
+        if choice == "here":
+            version = create_version(self.context)
+            return self.request.RESPONSE.redirect(version.absolute_url())
+
+        if choice == "newest":
+            version = latest.factory_Assessment()['obj']
+            return self.request.RESPONSE.redirect(version.absolute_url())
+
+        raise ValueError("Unknown option for field choice")
+        return
 
 
 def create_version(original, request=None):
