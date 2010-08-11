@@ -6,6 +6,7 @@
  <permission>Access contents information</permission>
  <permission>Modify portal content</permission>
  <permission>View</permission>
+ <permission>Delete objects</permission>
  <state state_id="content_pending"
         title="Pending (internal review)">
   <description>Content pending internal review before publishing.</description>
@@ -42,20 +43,24 @@
   <exit-transition transition_id="submitContentReview"/>
   <permission-map name="Access contents information"
                   acquired="False">
+   <permission-role>ContentManager</permission-role>
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
    <permission-role>ProofReader</permission-role>
    <permission-role>Reviewer</permission-role>
    <permission-role>WebReviewer</permission-role>
+  </permission-map>
+  <permission-map name="Delete objects" acquired="True">
    <permission-role>ContentManager</permission-role>
+   <permission-role>Reviewer</permission-role>
   </permission-map>
   <permission-map name="Modify portal content"
                   acquired="False">
+   <permission-role>ContentManager</permission-role>
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
-   <permission-role>ContentManager</permission-role>
   </permission-map>
   <permission-map name="View" acquired="False">
    <permission-role>ContentManager</permission-role>
@@ -157,6 +162,7 @@
   <exit-transition transition_id="fake_publish"/>
   <exit-transition transition_id="publish"/>
   <exit-transition transition_id="publishEionet"/>
+  <exit-transition transition_id="submitContentReview"/>
   <permission-map name="Access contents information"
                   acquired="False">
    <permission-role>Anonymous</permission-role>
@@ -188,8 +194,9 @@
   </guard>
  </transition>
  <transition transition_id="fake_publish"
-             title="Publish (f)" new_state="" trigger="USER"
-             before_script="fake_transition" after_script="">
+             title="Pre-publish check" new_state=""
+             trigger="USER" before_script="fake_transition"
+             after_script="">
   <action url="" category="workflow">Publish</action>
   <guard>
    <guard-role>Manager</guard-role>
@@ -198,19 +205,20 @@
   </guard>
  </transition>
  <transition transition_id="hide"
-             title="Hide item from search and listings"
+             title="Hide item from search and listings (Unpublish)"
              new_state="visible" trigger="USER"
              before_script="" after_script="">
   <description>Content still available via direct link, but hidden in listings and searches.</description>
-  <action url="" category="workflow">Hide item from search and listings</action>
+  <action url="" category="workflow">Hide item from search and listings (Unpublish)</action>
   <guard>
+   <guard-role>Reviewer</guard-role>
    <guard-role>Manager</guard-role>
-   <guard-role>Owner</guard-role>
   </guard>
  </transition>
  <transition transition_id="publish" title="Publish"
              new_state="published" trigger="USER"
-             before_script="" after_script="">
+             before_script=""
+             after_script="sendWorkflowEmail">
   <action url="" category="workflow">Publish</action>
   <guard>
    <guard-role>Manager</guard-role>
@@ -219,13 +227,15 @@
   </guard>
  </transition>
  <transition transition_id="publishEionet"
-             title="Publish Eionet"
+             title="Restrict to Eionet members (login required)"
              new_state="published_eionet" trigger="USER"
-             before_script="" after_script="">
-  <action url="" category="workflow">Publish Eionet</action>
+             before_script=""
+             after_script="sendWorkflowEmail">
+  <action url="" category="workflow">Restrict to Eionet members (login required)</action>
   <guard>
-   <guard-role>Manager</guard-role>
+   <guard-role>ContentManager</guard-role>
    <guard-role>Reviewer</guard-role>
+   <guard-role>Manager</guard-role>
   </guard>
  </transition>
  <transition transition_id="quickPublish" title="Publish"
@@ -240,13 +250,12 @@
  </transition>
  <transition transition_id="reject"
              title="Back for revision" new_state="draft"
-             trigger="USER" before_script="" after_script="">
+             trigger="USER" before_script=""
+             after_script="sendWorkflowEmail">
   <action url="" category="workflow">Back for revision</action>
   <guard>
    <guard-role>Manager</guard-role>
-   <guard-role>WebReviewer</guard-role>
    <guard-role>Reviewer</guard-role>
-   <guard-role>Editor</guard-role>
   </guard>
  </transition>
  <transition transition_id="retract" title="Retract"
@@ -260,24 +269,37 @@
  <transition transition_id="show"
              title="Make visible only via direct link, still hidden in listings/search"
              new_state="visible" trigger="USER"
-             before_script="" after_script="">
+             before_script=""
+             after_script="sendWorkflowEmail">
   <description>This will make the item visible with direct link, but not show up in listings.</description>
   <action url="" category="workflow">Make visible only via direct link, still hidden in listings/search</action>
   <guard>
+   <guard-role>ContentManager</guard-role>
+   <guard-role>Reviewer</guard-role>
    <guard-role>Manager</guard-role>
-   <guard-role>WebReviewer</guard-role>
+  </guard>
+ </transition>
+ <transition transition_id="simpleSubmit"
+             title="Submit for final publishing"
+             new_state="" trigger="USER" before_script=""
+             after_script="sendWorkflowEmail">
+  <description>This workflow action will not change state. It will just notify for publishing.</description>
+  <action url="" category="workflow">Submit for final publishing</action>
+  <guard>
+   <guard-role>ContentManager</guard-role>
+   <guard-expression>python: here.portal_type in  ['Assessment', 'Specification'] and here.Language() == 'en'</guard-expression>
   </guard>
  </transition>
  <transition transition_id="submitContentReview"
-             title="Submit for internal review"
+             title="Submit for internal peer review"
              new_state="content_pending" trigger="USER"
-             before_script="" after_script="">
+             before_script=""
+             after_script="sendWorkflowEmail">
   <action url="%(content_url)s/content_submit_form"
-          category="workflow">Submit for internal review</action>
+          category="workflow">Submit for internal peer review</action>
   <guard>
-   <guard-role>Manager</guard-role>
-   <guard-role>Editor</guard-role>
-   <guard-expression>python: here.portal_type in  ['Data', 'EEAFigure'] and here.Language() == 'en'</guard-expression>
+   <guard-role>ContentManager</guard-role>
+   <guard-expression>python: here.portal_type in  ['Assessment', 'Specification'] and here.Language() == 'en'</guard-expression>
   </guard>
  </transition>
  <worklist worklist_id="contentReview" title="">
