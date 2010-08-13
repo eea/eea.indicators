@@ -3,17 +3,19 @@ Changelog
 
 1.6 - (unreleased)
 -----------------
- * Customize assessment/@@createVersion to allow choosing the destination of that version [tiberich #3539]
- * Add "one_state_workflow" [tiberich #3152]
- * When set versionId on adding an assessment, also look for IndicatorFactSheets
+ * Feature: tags/keywords for an assessment is now calculated dynamically 
+       by its related content. better view of tags and metadata [demarant]
+ * Feature: customize assessment/@@createVersion to allow choosing the destination of that version [tiberich #3539]
+ * Bug fix: Add "one_state_workflow" [tiberich #3152]
+ * Bug fix: When set versionId on adding an assessment, also look for IndicatorFactSheets
    with same indicator set [ghicaale #3491]
- * Reindex child assessment objects when saving 'codes' on a specification [ghicaale #3491]
- * Fix wrong check for EEA Data metatype [tiberich #3541]
- * Fixed indicator code validator. Now an IndicatorFachtSheet validate its code
+ * Bug fix: Reindex child assessment objects when saving 'codes' on a specification [ghicaale #3491]
+ * Bug fix: Fix wrong check for EEA Data metatype [tiberich #3541]
+ * Bug fix: Fixed indicator code validator. Now an IndicatorFachtSheet validate its code
    upon Assessments [ghicaale #3491]
- * Fixed versions display of assessments on same Specification versioning set [ghicaale #3491]
- * Removed custom Title function, we do not need to show version info in title for specifications [demarant]
- * Fixed wrong label on IndicatorFactSheet for assessment text, adjusted more fields labels and
+ * Bug fix: Fixed versions display of assessments on same Specification versioning set [ghicaale #3491]
+ * Change: Removed custom Title function, we do not need to show version info in title for specifications [demarant]
+ * Bug fix/Change: Fixed wrong label on IndicatorFactSheet for assessment text, adjusted more fields labels and
    descriptions [demarant]
 
 1.5 - (2010-08-04)
