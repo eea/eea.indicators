@@ -224,13 +224,12 @@ class IndicatorFactSheet(ATFolder, BrowserDefaultMixin):
         #append indicator codes
         result.extend(self.get_codes())
 
-        #append themes, they are tags as well
-        result.extend(self.getThemes())
+        #TODO: append themes, they are tags as well
+        #result.extend(self.getThemes())
 
-        for assessment_part in self.objectValues('AssessmentPart'):
-            for ob in assessment_part.getRelatedItems():
-                if ob.portal_type == 'EEAFigure':
-                     result.extend(ob.Subject())
+        for ob in self.getRelatedItems():
+            if ob.portal_type == 'EEAFigure':
+                result.extend(ob.Subject())
 
         #return results list without duplicates
         return list(set(result))
