@@ -191,6 +191,37 @@ class Assessment(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory, Br
                     )
             return spec_title + ' - ' + self.translate(msg)
 
+
+    security.declarePublic('Subject')
+    def Subject(self):
+        """Overwrite standard Subject method to dynamically get all 
+           keywords from other objects used in this assessment. """
+        result = []
+
+        #append assessment own subjects
+        result.extend(self.schema['subject'].getRaw(self))
+
+       	#append	indicator codes
+       	result.extend(self.get_codes())
+
+        #append themes, they are tags as well
+        result.extend(self.getThemes())
+
+        for assessment_part in self.objectValues('AssessmentPart'):
+            for ob in assessment_part.getRelatedItems():
+                if ob.portal_type == 'EEAFigure':
+                     result.extend(ob.Subject())
+
+        #TODO: keywords from datasets, work but needs to be double checked with content experts
+        #spec = aq_parent(aq_inner(self))
+        #for ob in spec.getRelatedItems():
+        #       if ob.portal_type == 'Data':
+        #           result.extend(ob.Subject())
+
+        #return results list without duplicates
+        return list(set(result))
+
+
     security.declarePublic('getThemes')
     def getThemes(self):
         parent = aq_parent(aq_inner(self))
