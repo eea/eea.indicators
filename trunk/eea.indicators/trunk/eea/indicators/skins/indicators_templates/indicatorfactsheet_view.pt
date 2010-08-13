@@ -35,20 +35,69 @@
             </p>
 
 
-<metal:versions use-macro="here/portlet_versions/macros/versions">
-  <metal:old fill-slot="old" />
-</metal:versions>
+            <metal:versions use-macro="here/portlet_versions/macros/versions">
+               <metal:old fill-slot="old" />
+            </metal:versions>
+
+      
+ <div class="visualClear"><!-- --></div>
+
+      <div id="box-classification">
+              <h3 id="general_metadata">Generic metadata</h3>
+              <h4>Classification</h4>
+               <tal:block define="themesView here/@@themes-object|nothing;
+                                   themes themesView/full_items;
+                                   primaryTheme python:themes and themes[0] or None">
+
+                    <tal:primaryTheme repeat="theme themes" condition="primaryTheme">
+                        <a href="" title="" style="text-decoration: none"
+                           tal:attributes="href theme_url;
+                                           title theme_title"
+                           tal:define="theme_title python:theme['title'];
+                                       theme_url python:theme['url'];
+                                       theme_image python:theme['image']">
+                            <img alt="" src=""
+                                 tal:attributes="alt theme_title;
+                                                 src theme_image" />
+                            <tal:block replace="theme_title" />
+                        </a> <span tal:condition="python:theme == themes[0]">(Primary theme)</span>
+                        <br /><br />
+                    </tal:primaryTheme>
+                </tal:block>
+                <tal:tags define="facetId string:c9">
+                   <metal:related use-macro="here/dataset_view/macros/tags" />
+                </tal:tags>
+              <strong>DPSIR</strong>: <span tal:define="dpsirLabel nocall:context/@@dpsir_label"
+                                             tal:replace="python:dpsirLabel(context.getDpsir())" />
+              <br/>
+              <h4>Identification</h4>
+              <div tal:define="codes context/getCodes">
+                <strong>Indicator codes</strong>
+                <ul>
+                 <li tal:repeat="code codes" tal:content="string:${code/set} ${code/code}">CSI 001</li>
+                </ul>
+              </div>
+     </div>
+
+     <tal:block define="queryString string:h2:not(.notoc)">
+        <metal:toc use-macro="here/portlet_toc/macros/portlet"/>
+      </tal:block>
+
+
+
+ <div class="visualClear"><!-- --></div>
+
 
 <tal:policy_question define="policy_question context/getPolicy_question"
                      condition="policy_question">
-  <h2 tal:content="policy_question" />
+  <h2>Policy issue: <span tal:replace="policy_question" /></h2>
 </tal:policy_question>
 
 
 <tal:key_messages define="key_messages context/@@key_messages"
                   condition="key_messages">
    <div class="keyMessage">
-    <h3>Key messages</h3>
+    <h2>Key messages</h2>
     <ul><li tal:repeat="message key_messages" tal:content="structure message/getMessage"></li></ul>
    </div>
 
@@ -68,16 +117,8 @@
   </div>
 </tal:mapsandgraphs>
 
-<h2>Assessment</h2>
+<h2>Key assessment</h2>
 <div tal:content="structure context/getAssessment" />
-
-<tal:codes define="codes context/getCodes"
-           condition="codes">
-  <h2>Indicator code</h2>
-  <div tal:repeat="code codes" tal:content="string:${code/set} ${code/code}">
-          CSI 001
-  </div>
-</tal:codes>
 
 <tal:factSheetDocuments define="documents context/@@fact_sheet_documents"
                         condition="documents">
