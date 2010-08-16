@@ -3,8 +3,9 @@ Changelog
 
 1.6 - (unreleased)
 -----------------
- * Change: show TOC and generic metadata section on indicator factsheet as in assessments 
- * Feature: tags/keywords for an assessment is now calculated dynamically 
+ * Bug fix: only published datasets to be listed under "Data sources" [ghicaale #3558]
+ * Change: show TOC and generic metadata section on indicator factsheet as in assessments
+ * Feature: tags/keywords for an assessment is now calculated dynamically
        by its related content. better view of tags and metadata [demarant]
  * Feature: customize assessment/@@createVersion to allow choosing the destination of that version [tiberich #3539]
  * Bug fix: Add "one_state_workflow" [tiberich #3152]
