@@ -108,7 +108,7 @@
 				</tal:policy_targets>
 
 				<tal:policy_documents define="policyDocuments nocall:context/@@related_items;
-					policy_documents python:policyDocuments('PolicyDocumentReference', 'published')">
+					policy_documents python:policyDocuments('PolicyDocumentReference')">
 					<h3>Related policy documents</h3>
 					<ul tal:condition="policy_documents">
 						<li tal:repeat="doc policy_documents">
@@ -169,7 +169,7 @@
 					auto_relations nocall:here/@@auto-relations.html">
 					<h2 id="data_specifications">Data specifications</h2>
 					<h3>EEA data references</h3>
-					<ul tal:define="datasets python:datasetsView('Data', 'published')">
+					<ul tal:define="datasets python:datasetsView('Data')">
 						<li tal:condition="not:datasets">No datasets have been specifed yet.</li>
 						<li tal:repeat="data datasets" tal:condition="datasets">
 							<a href=""
@@ -178,7 +178,7 @@
 						</li>
 					</ul>
 
-					<tal:external define="datasets python:datasetsView('ExternalDataSpec', 'published')">
+					<tal:external define="datasets python:datasetsView('ExternalDataSpec')">
 						<h3 tal:condition="datasets">External data references</h3>
 						<ul tal:condition="datasets">
 							<li tal:repeat="data datasets" tal:condition="datasets">
