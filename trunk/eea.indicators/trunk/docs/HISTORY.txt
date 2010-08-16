@@ -3,6 +3,7 @@ Changelog
 
 1.6 - (unreleased)
 -----------------
+ * Show indicator codes in title [demarant]
  * Change: show TOC and generic metadata section on indicator factsheet as in assessments
  * Feature: tags/keywords for an assessment is now calculated dynamically
        by its related content. better view of tags and metadata [demarant]

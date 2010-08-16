@@ -479,6 +479,21 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
         convert = getToolByName(self, 'portal_transforms').convert
         return convert('html_to_text', self.getDefinition()).getData()
 
+    security.declarePublic("getTitle")
+    def getTitle(self):
+        """ Return title with codes.  """
+        codes = self.getCodes()
+
+        res = ''
+        for code in codes:
+            if code:
+                res = res + "%s %s/" % (code['set'], code['code'])
+        if res:
+           res = self.title + ' (' + res[:-1] + ')'
+        else:
+           res = self.title
+        return res
+
     security.declarePublic('left_slots')
     def left_slots(self):
         _slot = 'here/portlet_readiness/macros/portlet'
@@ -537,11 +552,24 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
 
     security.declarePublic('SearchableText')
     def SearchableText(self):
-        """ """
-        searchable_text = super(Specification, self).SearchableText()
-        for code in self.get_codes():
+         """ """
+         searchable_text = super(Specification, self).SearchableText()
+         for code in self.get_codes():
             searchable_text += '%s ' % code.encode('utf-8')
-        return searchable_text
+         return searchable_text
+
+    security.declarePublic('getMainCode')
+    def getMainCode(self):
+        """Returns the main code for this indicator (the first in the list of codes).
+           Used for display purposed, like in title / description.
+        """
+	codes = self.getCodes()
+
+        res = ''
+        if len(codes)>0:
+           code = codes[0]
+           res = "%s %s" % (code['set'], code['code'])
+        return res
 
     def factory_RationaleReference(self):
         type_name = 'RationaleReference'

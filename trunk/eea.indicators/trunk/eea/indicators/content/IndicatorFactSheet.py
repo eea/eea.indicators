@@ -234,6 +234,21 @@ class IndicatorFactSheet(ATFolder, BrowserDefaultMixin):
         #return results list without duplicates
         return list(set(result))
 
+    security.declarePublic("getTitle")
+    def getTitle(self):
+        """ Return title with codes.  """
+        codes = self.getCodes()
+
+        res = ''
+        for code in codes:
+            if code:
+               	res = res + "%s %s/" % (code['set'], code['code'])
+        if res:
+           res = self.title + ' (' + res[:-1] + ')'
+        else:
+           res = self.title
+        return res
+
     security.declarePublic('get_codes')
     def get_codes(self):
         """Returns a list of indicator codes, for indexing.
