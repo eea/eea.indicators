@@ -64,14 +64,20 @@ class RelatedItems(BrowserView):
     """ Return filtered related items
     """
 
-    def __call__(self, ctype=None):
+    def __call__(self, ctype=None, state=None):
         if ctype == None:
             return self.context.getRelatedItems()
         if type(ctype) not in (list, tuple):
             ctype = [ctype]
 
-        return [rel for rel in self.context.getRelatedItems()
+        res = [rel for rel in self.context.getRelatedItems()
                     if rel.portal_type in ctype]
+
+        if state:
+            wf_tool = getToolByName(self, 'portal_workflow')
+            return [rel for rel in res
+                         if wf_tool.getInfoFor(rel, 'review_state') in state]
+        return res
 
     def get_uids(self, ctype=None):
         if ctype == None:

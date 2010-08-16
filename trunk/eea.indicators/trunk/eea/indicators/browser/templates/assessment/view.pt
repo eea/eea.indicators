@@ -132,7 +132,7 @@
           </div>
 
           <tal:figures define="relatedItems nocall:key/@@related_items;
-            eea_figures python:relatedItems('EEAFigure')">
+            eea_figures python:relatedItems('EEAFigure', 'published')">
             <div tal:repeat="figure eea_figures" class="indicator-figure-plus-container">
               <div class="indicator-figure-plus" tal:attributes="id figure/getId">
                 <div class="indicator-figure-image">
@@ -179,7 +179,7 @@
           <h2 class="policy_question">Specific policy question: <span tal:replace="part/Title" /></h2>
 
           <tal:figures define="relatedItems nocall:part/@@related_items;
-            eea_figures python:relatedItems('EEAFigure')">
+            eea_figures python:relatedItems('EEAFigure', 'published')">
             <div tal:repeat="figure eea_figures" class="indicator-figure-plus-container">
               <div class="indicator-figure-plus" tal:attributes="id figure/getId">
                 <div class="indicator-figure-image">
@@ -225,7 +225,7 @@
 
       <h2 id="data_specifications">Data sources</h2>
       <ul tal:define="datasetsView nocall:specification/@@related_items;
-        datasets python:datasetsView('Data')">
+        datasets python:datasetsView('Data', 'published')">
         <li tal:condition="not:datasets">No datasets have been specifed yet.</li>
         <li tal:repeat="data datasets" tal:condition="datasets">
           <a href=""
