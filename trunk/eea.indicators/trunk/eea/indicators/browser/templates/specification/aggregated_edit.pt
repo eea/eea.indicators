@@ -15,6 +15,7 @@
 		<script type="text/javascript" tal:attributes="src string:${portal_url}/userandgroupselect.js"></script>
 		<script type="text/javascript" tal:attributes="src string:${portal_url}/widgets/js/inandout.js"></script>
 		<script type="text/javascript" tal:attributes="src string:${portal_url}/datagridwidget.js"></script>
+		<script type="text/javascript" tal:attributes="src string:${portal_url}/multiselectautocomplete_widget.js"></script>
 	</metal:jsslot>
 
 	<body>
