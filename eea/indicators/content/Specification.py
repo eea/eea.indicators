@@ -139,6 +139,7 @@ schema = Schema((
                 label="Owners",
                 description="One or several institutions/organisations sharing ownership for this indicator.",
                 macro="organisations_widget",
+                helper_js=("multiselectautocomplete_widget.js", ),
                 label_msgid='indicators_label_ownership',
                 i18n_domain='indicators',
                 ),
