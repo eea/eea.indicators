@@ -1,57 +1,57 @@
 /*
-  <dtml-with base_properties> 
-  <dtml-call "REQUEST.set('portal_url', portal_url())">
-	*/
+<dtml-with base_properties> 
+<dtml-call "REQUEST.set('portal_url', portal_url())">
+ */
 
 .headed-box {
-  border:1px solid #E9EFCD;
-  clear:both;
-  margin-top:20px;
-  padding:6px;
+    border:1px solid #E9EFCD;
+    clear:both;
+    margin-top:20px;
+    padding:6px;
 }
 
 #box-classification {
-  border:1px solid #E9EFCD;
-  clear:both;
-  float:right;
-  margin-top:20px;
-  padding:6px;
-  width:20em;
+    border:1px solid #E9EFCD;
+    clear:both;
+    float:right;
+    margin-top:20px;
+    padding:6px;
+    width:20em;
 }
 
 #box-classification h3 {
- margin: 0;
+    margin: 0;
 }
 
 .headed-box h5 {
-  background-color:white;
-  float:left;
-  top:-14px;
-  padding:0 6px;
-  position:relative;
-  margin:0 0 0 20px;
+    background-color:white;
+    float:left;
+    top:-14px;
+    padding:0 6px;
+    position:relative;
+    margin:0 0 0 20px;
 }
 .headed-box p, .headed-box h6, .headed-box div.wrapper {
-  padding-top:0px;
-  margin:15px 0 0;
+    padding-top:0px;
+    margin:15px 0 0;
 }
 
 /* Completeness status portlet
 ============================== */
 #readiness-status .percentage, #readiness-status .missingRequiredNr{
-  font-size: 250%;
-  color:red;
+    font-size: 250%;
+    color:red;
 }
 
 #readiness-status .error {
-  width: 90%;
+    width: 90%;
 }
 
 .required-field {
-  background:url(Warning.png) no-repeat scroll 0 0 transparent;
-  color:black;
-  padding:0 0 0 2.5em;
-	line-height:2em;
+    background:url(Warning.png) no-repeat scroll 0 0 transparent;
+    color:black;
+    padding:0 0 0 2.5em;
+    line-height:2em;
 }
 
 /* Fields that are required for publication
@@ -79,26 +79,26 @@
 #specification-base-edit #archetypes-fieldname-manager_user_id,
 #specification-base-edit #archetypes-fieldname-themes,
 #policyquestion-base-edit #archetypes-fieldname-title {
-  background:url(Warning.png) no-repeat scroll 0 0 transparent;
-  color:black;
-  padding:3em 0 2em;
+    background:url(Warning.png) no-repeat scroll 0 0 transparent;
+    color:black;
+    padding:3em 0 2em;
 }
 
 #datagridwidget-table-codes {
-  width:auto !important;
+    width:auto !important;
 }
 #datagridwidget-add-button {
-  float:none;
-  background:none repeat scroll 0 0 #F5821F;
-  border-color:#FFCC99 #663300 #333300 #FF9966;
-  border-style:solid;
-  border-width:1px;
-  color:white;
-  cursor:pointer;
-  font:bold 0.9em verdana,sans-serif;
-  padding:0.2em 0.3em;
-  text-decoration:none;
-  text-transform:lowercase;
+    float:none;
+    background:none repeat scroll 0 0 #F5821F;
+    border-color:#FFCC99 #663300 #333300 #FF9966;
+    border-style:solid;
+    border-width:1px;
+    color:white;
+    cursor:pointer;
+    font:bold 0.9em verdana,sans-serif;
+    padding:0.2em 0.3em;
+    text-decoration:none;
+    text-transform:lowercase;
 }
 #archetypes-fieldname-due_date a {
     visibility:hidden;
@@ -107,480 +107,480 @@
 /* Temporary overrides
 ====================== */
 dl.toc {
-  /* TODO: temporary override, because of conflict with kupu styling
-   * Per Thulin has a ticket to fix this */
-  display:inherit !important;
+    /* TODO: temporary override, because of conflict with kupu styling
+     * Per Thulin has a ticket to fix this */
+display:inherit !important;
 }
 
 /* Active field stuff
 ===================== */
 .sortable_spec {
-  margin: 0;
-  padding: 0;
-  width: 100%;
+    margin: 0;
+    padding: 0;
+    width: 100%;
 }
 .sortable_spec .handler {
-  /* position: absolute; margin-left: -1.3em;  */
-  float:left;
-  margin-right:1em;
-  display:block;
+    /* position: absolute; margin-left: -1.3em;  */
+    float:left;
+    margin-right:1em;
+    display:block;
 }
 .sortable_spec .ui-state-highlight {
-  height:40px;
+    height:40px;
 }
 .sortable_spec .ui-sortable-helper .spec_control {
-  /* display:none; */
+    /* display:none; */
 }
 .ui-sortable-helper {
-  width:inherit !important;
+    width:inherit !important;
 }
 .scientific_references {
-  list-style-type:none;
-  list-style-image:none;
-  line-height:inherit;
+    list-style-type:none;
+    list-style-image:none;
+    line-height:inherit;
 }
 .list-item {
-  /* #policy_questions  */
-  margin:6px 0;
+    /* #policy_questions  */
+    margin:6px 0;
 }
 .logic_group {
-  padding:1em;
+    padding:1em;
 }
 .figure_edit_control {
-  position:absolute;
-  margin-top:40px;
-  margin-left:50px;
+    position:absolute;
+    margin-top:40px;
+    margin-left:50px;
 }
 .figure_edit_control a {
-  /* background-color:#79AE59; */
-	background:none repeat scroll 0 0 #F5821F;
-	border-color:#FFCC99 #663300 #333300 #FF9966;
-	border-style:solid;
-	border-width:1px;
-  color:white;
-  font-size:inherit;
-  height:inherit;
-  width:inherit;
-  padding:4px;
-  font-weight:bold;
+    /* background-color:#79AE59; */
+    background:none repeat scroll 0 0 #F5821F;
+    border-color:#FFCC99 #663300 #333300 #FF9966;
+    border-style:solid;
+    border-width:1px;
+    color:white;
+    font-size:inherit;
+    height:inherit;
+    width:inherit;
+    padding:4px;
+    font-weight:bold;
 }
 .col3 {
-  float:left;
-  width:30%;
-  border-left:1px solid lightblue;
-  padding-left:6px;
+    float:left;
+    width:30%;
+    border-left:1px solid #4F7BFF;
+    padding-left:6px;
 }
 .work_item {margin-bottom:5px}
 .work_item h5 {margin:0}
 .work_item h6 {margin:0}
 .grouped_field {
-  border:1px dotted black;
-  padding:1em;
+    border:1px dotted black;
+    padding:1em;
 }
 .active_region h5 {
-  margin-top:0;
+    margin-top:0;
 }
 #relatedItems-widget {
-	/* float:right; */
+    /* float:right; */
 }
 #relatedItems-widget .searchButton {
-	/* background-color:#79AE59; */
-	/* border:none; */
-	font-size:inherit;
+    /* background-color:#79AE59; */
+    /* border:none; */
+    font-size:inherit;
 }
 
 /* Specification view
 ===================== */
 .documentContent th {
-  background-color: #31B4FF;
-  font-weight: bold;
-  font-size: 1.2em;
+    background-color: #31B4FF;
+    font-weight: bold;
+    font-size: 1.2em;
 }
 #content-more-updates-on {
-  background-color: #d0df86;
-  margin-right: 25em;
+    background-color: #d0df86;
+    margin-right: 25em;
 }
 #headline-assessment {
-  background: transparent url(Assessment.gif) no-repeat scroll 0 8px;
+    background: transparent url(Assessment.gif) no-repeat scroll 0 8px;
 }
 h1 {
-  background: transparent url(Specification.gif) no-repeat scroll 0 8px;
-  padding: 10px 0 6px 30px;
+    background: transparent url(Specification.gif) no-repeat scroll 0 8px;
+    padding: 10px 0 6px 30px;
 }
 .specification {
-  background: transparent url(Specification.gif) no-repeat scroll 0 8px;
-  padding: 10px 0 6px 30px;
+    background: transparent url(Specification.gif) no-repeat scroll 0 8px;
+    padding: 10px 0 6px 30px;
 }
 #assessment_versions {
-  background: transparent url(Assessment.gif) no-repeat scroll 0 8px;
-  padding: 10px 0 6px 30px;
+    background: transparent url(Assessment.gif) no-repeat scroll 0 8px;
+    padding: 10px 0 6px 30px;
 }
 #assessment_title {
-  background: transparent url(Assessment.gif) no-repeat scroll 0 8px;
-  padding: 10px 0 6px 30px;
+    background: transparent url(Assessment.gif) no-repeat scroll 0 8px;
+    padding: 10px 0 6px 30px;
 }
 #rationale {
-  background: transparent url(RationaleReference.gif) no-repeat scroll 0 8px;
-  padding: 10px 0 6px 30px;
+    background: transparent url(RationaleReference.gif) no-repeat scroll 0 8px;
+    padding: 10px 0 6px 30px;
 }
 #indicator_definition {
-  background: transparent url(IMSDefinition.gif) no-repeat scroll 0 8px;
-  padding: 10px 0 6px 30px;
+    background: transparent url(IMSDefinition.gif) no-repeat scroll 0 8px;
+    padding: 10px 0 6px 30px;
 }
 #policy_context {
-  background: transparent url(PolicyContext.gif) no-repeat scroll 0 8px;
-  padding: 10px 0 6px 30px;
+    background: transparent url(PolicyContext.gif) no-repeat scroll 0 8px;
+    padding: 10px 0 6px 30px;
 }
 .policy_question {
-  background: transparent url(PolicyQuestion.gif) no-repeat scroll 0 8px;
-  padding: 10px 0 6px 30px;
+    background: transparent url(PolicyQuestion.gif) no-repeat scroll 0 8px;
+    padding: 10px 0 6px 30px;
 }
 #methodology {
-  background: transparent url(MethodologyReference.gif) no-repeat scroll 0 8px;
-  padding: 10px 0 6px 30px;
+    background: transparent url(MethodologyReference.gif) no-repeat scroll 0 8px;
+    padding: 10px 0 6px 30px;
 }
 #data_specifications {
-  background: transparent url(DataSpecification.gif) no-repeat scroll 0 8px;
-  padding: 10px 0 6px 30px;
+    background: transparent url(DataSpecification.gif) no-repeat scroll 0 8px;
+    padding: 10px 0 6px 30px;
 }
 #uncertainties {
-  background: transparent url(IMSUncertainties.gif) no-repeat scroll 0 8px;
-  padding: 10px 0 6px 30px;
+    background: transparent url(IMSUncertainties.gif) no-repeat scroll 0 8px;
+    padding: 10px 0 6px 30px;
 }
 #further_work {
-  background: transparent url(WorkItem.gif) no-repeat scroll 0 8px;
-  padding: 10px 0 6px 30px;
+    background: transparent url(WorkItem.gif) no-repeat scroll 0 8px;
+    padding: 10px 0 6px 30px;
 }
 #general_metadata {
-  background: transparent url(IMSDescription.gif) no-repeat scroll 0 8px;
-  padding: 10px 0 6px 30px;
+    background: transparent url(IMSDescription.gif) no-repeat scroll 0 8px;
+    padding: 10px 0 6px 30px;
 }
 #related_items {
-  background: transparent url(Relations.png) no-repeat scroll 0 8px;
-  padding: 13px 0 6px 35px;
+    background: transparent url(Relations.png) no-repeat scroll 0 8px;
+    padding: 13px 0 6px 35px;
 }
 .specification-overlay {
-  background-image:url("../../++resource++jquery.ui.theme/images/ui-bg_flat_0_aaaaaa_40x100.png");
-  opacity:0.3;
-  FILTER: Alpha(Opacity=30);
+    background-image:url("../../++resource++jquery.ui.theme/images/ui-bg_flat_0_aaaaaa_40x100.png");
+    opacity:0.3;
+    FILTER: Alpha(Opacity=30);
 }
 .keyMessage {
-  background-color: #ECF3D0;
-  border: 1px solid #8CACBB;
-  color: Black;
-  font-size: 120%;
-  padding: 0 0.5em 1em 1em;
+    background-color: #ECF3D0;
+    border: 1px solid #8CACBB;
+    color: Black;
+    font-size: 120%;
+    padding: 0 0.5em 1em 1em;
 }
 
 /* Assessment view
 ================== */
 .metadata-switch {
-  padding-left: 1.5em;
-  background-position: left center;
-  background-repeat: no-repeat;
-  font-weight: bold;
-  cursor: pointer;
-  float:right;
-  font-size: 130%;
+    padding-left: 1.5em;
+    background-position: left center;
+    background-repeat: no-repeat;
+    font-weight: bold;
+    cursor: pointer;
+    float:right;
+    font-size: 130%;
 }
 .metadata-switch-show {
-  background-image: url(bullet_add.png);
+    background-image: url(bullet_add.png);
 }
 .metadata-switch-hide {
-  background-image: url(bullet_delete.png);
+    background-image: url(bullet_delete.png);
 }
 .metadata-info-switchable {
-  display: none;
+    display: none;
 }
 
 /* Update ui images path
 ======================== */
 .ui-icon-show {
-  background-image: url(../../++resource++faceted_images/show.png) ! important;
+    background-image: url(../../++resource++faceted_images/show.png) ! important;
 }
 
 .ui-icon-hide {
-  background-image: url(../../++resource++faceted_images/hide.png) ! important;
+    background-image: url(../../++resource++faceted_images/hide.png) ! important;
 }
 
 .ui-icon, .ui-widget-content .ui-icon, .ui-widget-header .ui-icon {
-  background-image: url(../../++resource++jquery.ui.theme/images/ui-icons_222222_256x240.png);
-  cursor: pointer;
+    background-image: url(../../++resource++jquery.ui.theme/images/ui-icons_222222_256x240.png);
+    cursor: pointer;
 }
 
 .ui-state-default .ui-icon {
-  background-image: url(../../++resource++jquery.ui.theme/images/ui-icons_888888_256x240.png);
-  cursor: pointer;
+    background-image: url(../../++resource++jquery.ui.theme/images/ui-icons_888888_256x240.png);
+    cursor: pointer;
 }
 
 .ui-state-hover .ui-icon, .ui-state-focus .ui-icon, .ui-state-active .ui-icon {
-  background-image: url(../../++resource++jquery.ui.theme/images/ui-icons_454545_256x240.png);
-  cursor: pointer;
+    background-image: url(../../++resource++jquery.ui.theme/images/ui-icons_454545_256x240.png);
+    cursor: pointer;
 }
 .ui-state-highlight .ui-icon {
-  background-image: url(../../++resource++jquery.ui.theme/images/ui-icons_2e83ff_256x240.png);
-  cursor: pointer;
+    background-image: url(../../++resource++jquery.ui.theme/images/ui-icons_2e83ff_256x240.png);
+    cursor: pointer;
 }
 
 .ui-state-error .ui-icon, .ui-state-error-text .ui-icon {
-  background-image: url(../../++resource++jquery.ui.theme/images/ui-icons_cd0a0a_256x240.png);
-  cursor: pointer;
+    background-image: url(../../++resource++jquery.ui.theme/images/ui-icons_cd0a0a_256x240.png);
+    cursor: pointer;
 }
 
 .ui-widget-content {
-  background-image: url(../../++resource++jquery.ui.theme/images/ui-bg_flat_75_ffffff_40x100.png);
+    background-image: url(../../++resource++jquery.ui.theme/images/ui-bg_flat_75_ffffff_40x100.png);
 }
 
 .ui-widget-header {
-  background-image: url(../../++resource++jquery.ui.theme/images/ui-bg_highlight-soft_75_cccccc_1x100.png);
+    background-image: url(../../++resource++jquery.ui.theme/images/ui-bg_highlight-soft_75_cccccc_1x100.png);
 }
 
 .ui-state-default, .ui-widget-content .ui-state-default {
-  background-image: url(../../++resource++jquery.ui.theme/images/ui-bg_glass_75_e6e6e6_1x400.png);
+    background-image: url(../../++resource++jquery.ui.theme/images/ui-bg_glass_75_e6e6e6_1x400.png);
 }
 
 .ui-state-hover, .ui-widget-content .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus {
-  background-image: url(../../++resource++jquery.ui.theme/images/ui-bg_glass_75_dadada_1x400.png);
+    background-image: url(../../++resource++jquery.ui.theme/images/ui-bg_glass_75_dadada_1x400.png);
 }
 
 .ui-state-active, .ui-widget-content .ui-state-active {
-  background-image: url(../../++resource++jquery.ui.theme/images/ui-bg_glass_65_ffffff_1x400.png);
+    background-image: url(../../++resource++jquery.ui.theme/images/ui-bg_glass_65_ffffff_1x400.png);
 }
 
 .ui-state-highlight, .ui-widget-content .ui-state-highlight {
-  background-image: url(../../++resource++jquery.ui.theme/images/ui-bg_glass_55_fbf9ee_1x400.png);
+    background-image: url(../../++resource++jquery.ui.theme/images/ui-bg_glass_55_fbf9ee_1x400.png);
 }
 
 .ui-state-error, .ui-widget-content .ui-state-error {
-  background-image: url(../../++resource++jquery.ui.theme/images/ui-bg_glass_95_fef1ec_1x400.png);
+    background-image: url(../../++resource++jquery.ui.theme/images/ui-bg_glass_95_fef1ec_1x400.png);
 }
 
 .ui-widget-overlay {
-  background-image: url(../../++resource++jquery.ui.theme/images/ui-bg_flat_0_aaaaaa_40x100.png);
+    background-image: url(../../++resource++jquery.ui.theme/images/ui-bg_flat_0_aaaaaa_40x100.png);
 }
 
 .ui-widget-shadow {
-  background-image: url(../../++resource++jquery.ui.theme/images/ui-bg_flat_0_aaaaaa_40x100.png);
+    background-image: url(../../++resource++jquery.ui.theme/images/ui-bg_flat_0_aaaaaa_40x100.png);
 }
 
 /* jquery ui overrides
 ====================== */
 .ui-widget-header:hover {
-  cursor: move;
+    cursor: move;
 }
 
 /* Archetypes
 ============= */
 .formHelp {
-  display: block;
+    display: block;
 }
 
 #archetypes-fieldname-title input{
-  width: auto;
+    width: auto;
 }
 
 #archetypes-fieldname-vocabulary select {
-  width: 25em;
+    width: 25em;
 }
 
 /* Widgets
 ========== */
 
 .ui-widget-header {
-  background: #CDE2A7;
-  /* margin-bottom: 1em; */
-  /* margin-top: -0.5em; */
-  /* margin-right: -0.5em; */
-  /* margin-left: -0.5em; */
-  text-align: left;
-  padding-left: 0.5em;
-  padding-bottom: 0.3em;
+    background: #CDE2A7;
+    /* margin-bottom: 1em; */
+    /* margin-top: -0.5em; */
+    /* margin-right: -0.5em; */
+    /* margin-left: -0.5em; */
+    text-align: left;
+    padding-left: 0.5em;
+    padding-bottom: 0.3em;
 }
 
 /* Active fields
  * ========================== */
 
 #dialog-inner {
-	/* height:500px; */
-	/* overflow:auto; */
+    /* height:500px; */
+    /* overflow:auto; */
 }
 
 #dialog-inner .cancel-btn {
-	padding-left:2em;
+    padding-left:2em;
 }
 #dialog-inner .field {
-	/* margin:2em 2em 0 0; */
-	background-color:inherit !important;
-	padding:inherit !important;
-	margin:0 1em 0 0 !important;
+    /* margin:2em 2em 0 0; */
+    background-color:inherit !important;
+    padding:inherit !important;
+    margin:0 1em 0 0 !important;
 }
 #dialog-inner label {
-	/* display:none; */
+    /* display:none; */
 }
 #dialog-inner .fieldTextFormat {
-	display:none;
+    display:none;
 }
 .widgets-area {
-	/* max-height:400px; */
-	/* overflow:auto; */
+    /* max-height:400px; */
+    /* overflow:auto; */
 }
 
 .widgets-area .widgets-list {
-	display:none;
+    display:none;
 }
 .specification-loading {
-	/* Ajax activity visual cue */
-  background-image:url(../../++resource++faceted_images/ajax-loader.gif);
-  background-repeat:no-repeat;
-	position:absolute;
-	opacity:1;
-	/* FILTER: Alpha(Opacity=100); */
-	height:100px;
-	width:100px;
-	z-index:1200;
+    /* Ajax activity visual cue */
+    background-image:url(../../++resource++faceted_images/ajax-loader.gif);
+    background-repeat:no-repeat;
+    position:absolute;
+    opacity:1;
+    /* FILTER: Alpha(Opacity=100); */
+    height:100px;
+    width:100px;
+    z-index:1200;
 }
 
 /* Active fields styling
  * ======================== */
 .active_region {
-		/* padding:1em 0; */
+    /* padding:1em 0; */
 }
 
 .active_field .metadata, .active_field_hovered .metadata, .active_region .metadata {
-	display:none;
+    display:none;
 }
 
 .active_field_hovered {
-	background-color:#F3F3F3;
+    background-color:#F3F3F3;
 }
 
 .active_field .control, .active_field_hovered .control, .active_field .control-special-handler {
-	display:block !important;
-	float:right;
-	padding:4px;
-	background:none repeat scroll 0 0 #F5821F;
-	border-color:#FFCC99 #663300 #333300 #FF9966;
-	border-style:solid;
-	border-width:1px;
+    display:block !important;
+    float:right;
+    padding:4px;
+    background:none repeat scroll 0 0 #F5821F;
+    border-color:#FFCC99 #663300 #333300 #FF9966;
+    border-style:solid;
+    border-width:1px;
 }
 .active_field .control a, .active_field_hovered .control a, .active_field .control-special-handler a {
-	color:white;
-	font-weight:bold;
-	text-decoration:none;
+    color:white;
+    font-weight:bold;
+    text-decoration:none;
 }
 .active_field {
-	border:1px dotted black;
-	padding:1em;
-	/* min-height:20px; */
+    border:1px dotted black;
+    padding:1em;
+    /* min-height:20px; */
 }
 .active_field h5 {
-	margin-top:0;
+    margin-top:0;
 }
 .active_region .placeholder {
-	background-color:#FFEB9B;
-	padding:1em;
-	text-align:center;
+    background-color:#FFEB9B;
+    padding:1em;
+    text-align:center;
 }
 
 .active_region .placeholder span.required {
-  background:url(Warning.png) no-repeat scroll 3px 3px  #FFEB9B;
-	padding:10px 0 10px 4em;
-	line-height:20px;
-	text-align:center;
+    background:url(Warning.png) no-repeat scroll 3px 3px  #FFEB9B;
+    padding:10px 0 10px 4em;
+    line-height:20px;
+    text-align:center;
 }
 
 a.object_creator {
-	/* float:right; */
-	padding:3px;
-	background-color:#CEE2A8;
-	border-bottom:1px solid #AAA;
-	color:black;
-	display:block;
-	margin-bottom:6px;
-	text-align:center;
-	text-decoration:none;
+    /* float:right; */
+    padding:3px;
+    background-color:#CEE2A8;
+    border-bottom:1px solid #AAA;
+    color:black;
+    display:block;
+    margin-bottom:6px;
+    text-align:center;
+    text-decoration:none;
 }
 a.object_creator:hover {
-	/* background-color:#79AE59; */
-	background:none repeat scroll 0 0 #F5821F;
-	border-color:#FFCC99 #663300 #333300 #FF9966;
-	border-style:solid;
-	border-width:1px;
-	color:white;
-	border-bottom:1px solid #AAA;
+    /* background-color:#79AE59; */
+    background:none repeat scroll 0 0 #F5821F;
+    border-color:#FFCC99 #663300 #333300 #FF9966;
+    border-style:solid;
+    border-width:1px;
+    color:white;
+    border-bottom:1px solid #AAA;
 }
 a.object_creator-disabled {
-	display:none;
+    display:none;
 }
 .object_creator_options {
-	text-align:center;
-	background-color:transparent;
-	margin-bottom:5px
+    text-align:center;
+    background-color:transparent;
+    margin-bottom:5px
 }
 
 a.schemata_edit, a.object_delete {
-	padding:1px 6px;
-	background-color:#CEE2A8;
-	color:black;
-	text-decoration:none;
-	display:block;
-	float:left;
-	margin-right:1em;
-	border-bottom:1px solid #AAA;
+    padding:1px 6px;
+    background-color:#CEE2A8;
+    color:black;
+    text-decoration:none;
+    display:block;
+    float:left;
+    margin-right:1em;
+    border-bottom:1px solid #AAA;
 }
 a.schemata_edit:hover, a.object_delete:hover {
-	/* background-color:#79AE59; */
-	background:none repeat scroll 0 0 #F5821F;
-	border-color:#FFCC99 #663300 #333300 #FF9966;
-	border-style:solid;
-	border-width:1px;
-	color:white;
-	border:none;
+    /* background-color:#79AE59; */
+    background:none repeat scroll 0 0 #F5821F;
+    border-color:#FFCC99 #663300 #333300 #FF9966;
+    border-style:solid;
+    border-width:1px;
+    color:white;
+    border:none;
 }
 
 
 /* Kupu and calendar fixes for modal edit
  * ====================================== */
 .calendar {
-	z-index:1100;
+    z-index:1100;
 }
 iframe.kupu-editor-iframe {
-	height:280px;
+    height:280px;
 }
 div.kupu-fulleditor-zoomed .kupu-editor-iframe {
-	height:inherit;
+    height:inherit;
 }
 .forcekupu {
-	display:none;
+    display:none;
 }
 
 /* EEAFigures display
  * =================== */
 .indicator-figure-plus-container {
-  border: 1px solid #A9A9A9;
-  margin: 1em 0;
-  padding: 1em;
+    border: 1px solid #A9A9A9;
+    margin: 1em 0;
+    padding: 1em;
 }
 
 .indicator-figure-plus {
-  font-size: 0.8em;
+    font-size: 0.8em;
 }
 
 .indicator-figure-plus a {
-  background-color: transparent;
-  color: #436976;
-  text-decoration: none;
+    background-color: transparent;
+    color: #436976;
+    text-decoration: none;
 }
 
 .indicator-figure-plus img {
-  float: left;
-  margin: 0 1em 0 0;
-  border: medium none;
-  vertical-align: middle;
+    float: left;
+    margin: 0 1em 0 0;
+    border: medium none;
+    vertical-align: middle;
 }
 
 .indicator-figure-plus .figure-title {
-  font-size: 1.2em;
+    font-size: 1.2em;
 }
 
 /*start datagridwidget */
@@ -588,74 +588,74 @@ div.kupu-fulleditor-zoomed .kupu-editor-iframe {
 /* refuses to load that content */
 
 table.datagridwidget-table-view {
-	width: 100%;
+    width: 100%;
 }
 
 input.datagrid-radio-button {
-	/* Radio buttons try to use Plone's default text input 
-	   field CSS properties, like borders and background shade image */
-	border: 0;
-	background: transparent;
+    /* Radio buttons try to use Plone's default text input 
+    field CSS properties, like borders and background shade image */
+    border: 0;
+    background: transparent;
 }
 
 td.datagridwidget-radio {
-	/* IE adds quite heavy padding - force more sensible values */
-	padding: 0;
-	border: 0;
-	margin: 0;
+    /* IE adds quite heavy padding - force more sensible values */
+    padding: 0;
+    border: 0;
+    margin: 0;
 }
 
 td.datagridwidget-select {
-	/* Looks like browser want to shrink drop down menu boxes 
-	   to zero width if there is any fight from the space.
-	   
-	   Workaround is to force select width. Override this value
-	   according to your needs */
-	width: 5em;
+    /* Looks like browser want to shrink drop down menu boxes 
+    to zero width if there is any fight from the space.
+
+    Workaround is to force select width. Override this value
+    according to your needs */
+width: 5em;
 }
 
 tr.datagridwidget-row {
-	vertical-align: top;
+    vertical-align: top;
 }
 
 /*
- 	Workaround for IE which cannot propeply handle
- 	background images in cloned TR input fields.
- 	Plone is shipped with default input background gradient image
+Workaround for IE which cannot propeply handle
+background images in cloned TR input fields.
+Plone is shipped with default input background gradient image
  */
 .datagridwidget-cell input {
-	background: white;
-	background-image: none;
+    background: white;
+    background-image: none;
 }
 
 tr.datagridwidget-empty-row {
-	/* Hidden row with default selection widget values */
-	display: none;
+    /* Hidden row with default selection widget values */
+    display: none;
 }
 
 td.datagridwidget-cell {
-	vertical-align: top;
-	padding: 2px;
+    vertical-align: top;
+    padding: 2px;
 }
 
 td.datagridwidget-manipulator {
-	width: 16px;
-	text-align: center;
-	padding: 0;
-	margin: 0;	
+    width: 16px;
+    text-align: center;
+    padding: 0;
+    margin: 0;	
 }
 
 td.datagridwidget-manipulator img {
-	cursor: pointer;	
+    cursor: pointer;	
 }
 
 td.datagridwidget-hidden-data {
-	display: none;	
+    display: none;	
 }
 
 
 a.datagridwidget-add-button, a.datagridwidget-add-button:hover {
-	text-decoration: none;
+    text-decoration: none;
     background: &dtml-globalBackgroundColor; url(&dtml-portal_url;/linkOpaque.gif) 9px 1px no-repeat;
     cursor: pointer;
     font-size: &dtml-fontSmallSize;;
@@ -669,9 +669,9 @@ a.datagridwidget-add-button, a.datagridwidget-add-button:hover {
 }
 
 /* 
-    Merged from historical datagridwidget.css file 
-    as fix for: http://plone.org/products/datagridfield/issues/30
-*/
+Merged from historical datagridwidget.css file 
+as fix for: http://plone.org/products/datagridfield/issues/30
+ */
 
 /*  styling for the datagridfield */
 
@@ -688,12 +688,12 @@ div.ArchetypesDataGridWidget table td select {
 /* end datagrid widget */
 
 .ims-overview-spec, .ims-overview-assessment {
-	font-size:110%;
+    font-size:110%;
 }
 .ims-overview-assessment {
-	padding-left:2em !important;
+    padding-left:2em !important;
 }
 
 /* 
-  </dtml-with>  (end of loaded base_properties variables)
-*/
+</dtml-with>  (end of loaded base_properties variables)
+ */
