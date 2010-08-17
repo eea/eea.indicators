@@ -55,12 +55,13 @@ schema = Schema((
         required=False,
         searchable=True,
     ),
-    LinesField(
+    StringField(
         name='provider_url',
-        widget=MultiSelectionWidget(
+        widget=SelectionWidget(
             label="Dataset provider",
             description="Organisation providing access to this dataset.",
-            macro="organisations_widget",
+            macro="organisation_widget",
+            helper_js=("selectautocomplete_widget.js", ),
             label_msgid='indicators_label_provider_url',
             i18n_domain='indicators',
         ),
@@ -68,11 +69,12 @@ schema = Schema((
         required_for_published="True",
         vocabulary=Organisations(),
     ),
-    LinesField(
+    StringField(
         name='dataset_url',
-        widget=MultiSelectionWidget(
+        widget=SelectionWidget(
             label="Dataset URL",
-            macro="organisations_widget",
+            macro="organisation_widget",
+            helper_js=("selectautocomplete_widget.js", ),
             label_msgid='indicators_label_dataset_url',
             i18n_domain='indicators',
         ),
@@ -88,7 +90,7 @@ schema = Schema((
             label_msgid='indicators_label_data_url',
             i18n_domain='indicators',
         ),
-	required=True,
+        required=True,
         searchable=True,
         required_for_published="True",
     ),
