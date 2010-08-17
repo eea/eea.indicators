@@ -201,8 +201,6 @@ class ExternalDataSpec(ATCTContent, BrowserDefaultMixin):
         convert = getToolByName(self, 'portal_transforms').convert
         return convert('html_to_text', self.getDescription()).getData()
 
-
-
 registerType(ExternalDataSpec, PROJECTNAME)
 # end of class ExternalDataSpec
 
