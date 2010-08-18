@@ -3,62 +3,63 @@ Changelog
 
 1.7 - (unreleased)
 -----------------
- * Bug fix: Change provider_url and dataset_url to use StringField instead of LinesField [tiberich #3530]
  * Feature: use new filtering select widget for provider_url and dataset_url [tiberich #3530]
  * Bug fix: added indicators_get_referer.py scipt to fix referer when
-       using "tal expression" faceted widget [ghicaale #3538]
+     using "tal expression" faceted widget [ghicaale #3538]
+ * Bug fix: Change provider_url and dataset_url to use StringField instead of LinesField,
+     also use new filtering select widget [tiberich #3530]
 
 1.6 - (2010-08-17)
 -----------------
  * Feature: Show indicator codes in title [demarant]
  * Change: show TOC and generic metadata section on indicator factsheet as in assessments
  * Feature: tags/keywords for an assessment is now calculated dynamically
-       by its related content. better view of tags and metadata [demarant]
+     by its related content. better view of tags and metadata [demarant]
  * Feature: customize assessment/@@createVersion to allow choosing the destination of that version [tiberich #3539]
  * Bug fix: Add "one_state_workflow" [tiberich #3152]
  * Bug fix: When set versionId on adding an assessment, also look for IndicatorFactSheets
-   with same indicator set [ghicaale #3491]
+     with same indicator set [ghicaale #3491]
  * Bug fix: Reindex child assessment objects when saving 'codes' on a specification [ghicaale #3491]
  * Bug fix: Fix wrong check for EEA Data metatype [tiberich #3541]
  * Bug fix: Fixed indicator code validator. Now an IndicatorFachtSheet validate its code
-   upon Assessments [ghicaale #3491]
+     upon Assessments [ghicaale #3491]
  * Bug fix: Fixed versions display of assessments on same Specification versioning set [ghicaale #3491]
  * Change: Removed custom Title function, we do not need to show version info in title for specifications [demarant]
  * Bug fix/Change: Fixed wrong label on IndicatorFactSheet for assessment text, adjusted more fields labels and
-   descriptions [demarant]
+     descriptions [demarant]
 
 1.5 - (2010-08-04)
 ------------------
-* Fixed missing "More updates info box" in assessment and adjusted design and position on both [demarant]
-* Consistent order of fields under aggregated edit of assessment as in the view. [demarant]
-* Fix: unicode error in Specification.SearchableText,
-       Assessment.SearchableText and IndicatorFactSheet.SearchableText [ghicaale]
-* Hide metadata divs from display in active_field and active_region macros [tiberich]
-* Fix display and sorting of Assessments for a Specification agg edit. [tiberich]
-* Add custom AssessmentPart edit template, to make it include
-  eea.relations JS scripts [tiberich]
-* Mark Ownership field as mandatory in agg edit [tiberich]
-* Code cleanup in browser/assessment.py to eliminate duplicated code
-  from eea.versions [tiberich]
+* Bug fix: Fixed missing "More updates info box" in assessment and adjusted design and position on both [demarant]
+* Change: Consistent order of fields under aggregated edit of assessment as in the view. [demarant]
+* Bug fix: Fixed unicode error in Specification.SearchableText,
+    Assessment.SearchableText and IndicatorFactSheet.SearchableText [ghicaale]
+* Change: Hide metadata divs from display in active_field and active_region macros [tiberich]
+* Bug fix: Fix display and sorting of Assessments for a Specification agg edit. [tiberich]
+* Feature: Add custom AssessmentPart edit template, to make it include
+    eea.relations JS scripts [tiberich]
+* Change: Mark Ownership field as mandatory in agg edit [tiberich]
+* Change: Code cleanup in browser/assessment.py to eliminate duplicated code
+    from eea.versions [tiberich]
 
 1.4 - (2010-07-08)
 ------------------
-* Make "codes" available under SearchableText index for Specification,
-  Assessment and IndicatorFactSheet [ghicaale]
-* Marked more fields on Indicator Fact Sheet as searchable [demarant]
-* Fix: typo in traverse.py [ghicaale]
+* Feature: Make "codes" available under SearchableText index for Specification,
+    Assessment and IndicatorFactSheet [ghicaale]
+* Feature: Marked more fields on Indicator Fact Sheet as searchable [demarant]
+* Bug fix: Fixed typo in traverse.py [ghicaale]
 
 1.3 - (2010-07-07)
 ------------------
-* Add traverser in order to maintain old assessment URLs after migration [ghicaale]
+* Feature: Add traverser in order to maintain old assessment URLs after migration [ghicaale]
 
 1.2 - (2010-07-01)
 ------------------
-* Removed empty folder 'locales' [ghicaale]
+* Change: Removed empty folder 'locales' [ghicaale]
 
 1.1 - (2010-07-01)
 ------------------
-* Fix indexing of themes on Assessments [#3458 ghicaale]
+* Bug fix: Fixed indexing of themes on Assessments [#3458 ghicaale]
 
 1.0 - (2010-07-01)
 ------------------
