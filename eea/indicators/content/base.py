@@ -166,6 +166,7 @@ class CustomizedObjectFactory(object):
         id = self.generateUniqueId(type_name)
         new_id = self.invokeFactory(type_name=type_name,
                 id=id,
+                base_impl=True,
                 title=self.translate(
                     msgid='label-newly-created-type',
                     domain='indicators',
