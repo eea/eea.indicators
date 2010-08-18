@@ -3,6 +3,8 @@ Changelog
 
 1.7 - (unreleased)
 -----------------
+ * Bug fix: added indicators_get_referer.py scipt to fix referer when
+       using "tal expression" faceted widget [ghicaale #3538]
  * Bug fix: Change provider_url and dataset_url to use StringField instead of LinesField,
        also use new filtering select widget [tiberich #3530]
 
