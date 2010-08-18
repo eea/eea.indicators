@@ -1,9 +1,9 @@
 from AccessControl import ClassSecurityInfo
 from Products.Archetypes.utils import mapply
 from Products.CMFCore import permissions
+from Products.CMFCore.permissions import AddPortalContent
 from zope import event
 from zope.app.event import objectevent
-import logging
 
 
 class ModalFieldEditableAware(object):
@@ -145,8 +145,7 @@ class CustomizedObjectFactory(object):
 
         return "<div class='metadata'>" + f + "<div class='object_edit_url'>" + url + "</div></div>" 
 
-    #TODO: change permission to 'Add portal content'
-    security.declareProtected(permissions.ModifyPortalContent, 'object_factory')
+    security.declareProtected(AddPortalContent, 'object_factory')
     def object_factory(self):
         """Create an object according to special rules for that object """
 

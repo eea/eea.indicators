@@ -13,31 +13,23 @@ __author__ = """Tiberiu Ichim <unknown>"""
 __docformat__ = 'plaintext'
 
 from AccessControl import ClassSecurityInfo
-from Products.Archetypes.atapi import *
-from zope.interface import implements
-import interfaces
+from Acquisition import aq_base, aq_inner, aq_parent
 from Products.ATContentTypes.content.folder import ATFolder
+from Products.ATContentTypes.content.folder import ATFolder, ATFolderSchema
+from Products.ATContentTypes.content.schemata import finalizeATCTSchema
+from Products.ATReferenceBrowserWidget.ATReferenceBrowserWidget import  ReferenceBrowserWidget
+from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
+from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
+from Products.Archetypes.atapi import *
+from Products.Archetypes.atapi import MultiSelectionWidget
+from Products.Archetypes.utils import mapply
+from Products.CMFCore import permissions
+from Products.CMFCore.permissions import AddPortalContent
+from Products.CMFCore.utils import getToolByName
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
-
-from Products.ATReferenceBrowserWidget.ATReferenceBrowserWidget import \
-        ReferenceBrowserWidget
-from eea.indicators.config import *
-
-# additional imports from tagged value 'import'
 from Products.DataGridField import DataGridField, DataGridWidget
 from Products.DataGridField.Column import Column
 from Products.DataGridField.SelectColumn import SelectColumn
-from Products.ATContentTypes.content.folder import ATFolder, ATFolderSchema
-from Products.Archetypes.atapi import MultiSelectionWidget
-from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
-
-##code-section module-header #fill in your manual code here
-from Acquisition import aq_base, aq_inner, aq_parent
-from Products.ATContentTypes.content.schemata import finalizeATCTSchema
-from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
-from Products.Archetypes.utils import mapply
-from Products.CMFCore import permissions
-from Products.CMFCore.utils import getToolByName
 from Products.EEAContentTypes.content.ThemeTaggable import ThemeTaggable, ThemeTaggable_schema
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
@@ -45,6 +37,7 @@ from Products.UserAndGroupSelectionWidget import UserAndGroupSelectionWidget
 from eea.dataservice.vocabulary import Organisations
 from eea.indicators import msg_factory as _
 from eea.indicators.browser.assessment import create_version as create_assessment_version
+from eea.indicators.config import *
 from eea.indicators.content.base import ModalFieldEditableAware, CustomizedObjectFactory
 from eea.indicators.content.utils import get_dgf_value
 from eea.relations.field import EEAReferenceField
@@ -55,7 +48,9 @@ from zope import event
 from zope.app.event import objectevent
 from zope.component import getMultiAdapter
 from zope.interface import alsoProvides
+from zope.interface import implements
 import datetime
+import interfaces
 import logging
 
 ONE_YEAR = datetime.timedelta(weeks=52)
@@ -671,14 +666,12 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
             return True
         return False
 
-        #versions = getMultiAdapter((self, self.REQUEST), name="getVersions")
-        #has_versions = getMultiAdapter((self, self.REQUEST), name="getVersions")()
-
-        #newest = versions.newest()
-        #if has_versions and newest:
-        #    return True
-
-        #return False
+    security.declareProtected(AddPortalContent, 'invokeFactory')
+    def invokeFactory(self, type_name, id, RESPONSE=None, *args, **kw):
+        factory_name = 'factory_' + type_name
+        factory = getattr(self, factory_name, None)
+        obj = factory()['obj']
+        return obj.getId()
 
 
 registerType(Specification, PROJECTNAME)
