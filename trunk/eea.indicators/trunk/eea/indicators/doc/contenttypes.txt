@@ -45,11 +45,11 @@ Inside this folder we will add Specifications:
 
 Specifications are containers for several types of objects:
 
-    >>> id = spec.invokeFactory("PolicyQuestion", 'pq')
-    >>> id = spec.invokeFactory("MethodologyReference", "mr")
-    >>> id = spec.invokeFactory("RationaleReference", "rr")
-    >>> id = spec.invokeFactory("WorkItem", "wi")
-    >>> id = spec.invokeFactory("Assessment", 'as')
+    >>> id = spec.invokeFactory("PolicyQuestion", 'pq', base_impl=True)
+    >>> id = spec.invokeFactory("MethodologyReference", "mr", base_impl=True)
+    >>> id = spec.invokeFactory("RationaleReference", "rr", base_impl=True)
+    >>> id = spec.invokeFactory("WorkItem", "wi", base_impl=True)
+    >>> id = spec.invokeFactory("Assessment", 'as', base_impl=True)
 
 An Assessment can contain AssessmentParts:
 
@@ -350,7 +350,7 @@ It's not yet ready for published because there's an override to the default prov
 get_readiness that adds a few extra checks: we need to have at least one
 main policy question and some related items:
 
-    >>> id = spec.invokeFactory("PolicyQuestion", 'pq')
+    >>> id = spec.invokeFactory("PolicyQuestion", 'pq', base_impl=True)
     >>> pq = spec.objectValues('PolicyQuestion')[0]
     >>> pq.setIs_key_question(True)
     >>> spec.setRelatedItems([ims['dt'], ims['eds'], ims['pdr']])

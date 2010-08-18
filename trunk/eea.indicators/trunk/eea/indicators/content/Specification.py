@@ -635,6 +635,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
         id = make_id('assessment', self.objectIds())
         new_id = self.invokeFactory(type_name=type_name,
                 id=id,
+                base_impl=True,
                 title=self.translate(
                     msgid='label-newly-created-type',
                     domain='indicators',
@@ -667,7 +668,9 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
         return False
 
     security.declareProtected(AddPortalContent, 'invokeFactory')
-    def invokeFactory(self, type_name, id, RESPONSE=None, *args, **kw):
+    def invokeFactory(self, type_name, id, RESPONSE=None, base_impl=False, *args, **kw):
+        if base_impl:
+            return super(Specification, self).invokeFactory(type_name, id, RESPONSE, *args, **kw)
         factory_name = 'factory_' + type_name
         factory = getattr(self, factory_name, None)
         obj = factory()['obj']
