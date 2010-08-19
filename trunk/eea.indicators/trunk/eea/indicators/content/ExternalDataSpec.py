@@ -58,7 +58,7 @@ schema = Schema((
     StringField(
         name='provider_url',
         widget=SelectionWidget(
-            label="Dataset provider",
+            label="Dataset provider/owner",
             description="Organisation providing access to this dataset.",
             macro="organisation_widget",
             helper_js=("selectautocomplete_widget.js", ),
@@ -71,23 +71,9 @@ schema = Schema((
     ),
     StringField(
         name='dataset_url',
-        widget=SelectionWidget(
-            label="Dataset URL",
-            macro="organisation_widget",
-            helper_js=("selectautocomplete_widget.js", ),
-            label_msgid='indicators_label_dataset_url',
-            i18n_domain='indicators',
-        ),
-        required=True,
-        required_for_published="False",
-        vocabulary=Organisations(),
-    ),
-    StringField(
-        name='data_url',
         widget=StringField._properties['widget'](
-            visible={'view':'hidden', 'edit':'visible'},
             label="URL where this dataset can be found",
-            label_msgid='indicators_label_data_url',
+            label_msgid='indicators_label_dataset_url',
             i18n_domain='indicators',
         ),
         required=True,
@@ -165,7 +151,6 @@ schema = Schema((
 ##code-section after-local-schema #fill in your manual code here
 schema['provider_url'].validators=('isURL',)
 schema['dataset_url'].validators=('isURL',)
-schema['data_url'].validators=('isURL',)
 ##/code-section after-local-schema
 
 ExternalDataSpec_schema = ATContentTypeSchema.copy() + \
