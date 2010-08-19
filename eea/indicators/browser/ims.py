@@ -109,7 +109,6 @@ class IndicatorsTimeline(BrowserView):
                 for a in assessments:
                     d = a.getEffectiveDate()
                     if not d:
-                        print "adding a for future", a
                         result[set][code]['future'] = [('f', a.absolute_url())] + result[set][code].get('future', [])
                         continue
                     year = d.year()

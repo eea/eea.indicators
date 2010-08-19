@@ -27,7 +27,7 @@ from Products.CMFCore.permissions import setDefaultRoles
 ##/code-section config-head
 
 
-PROJECTNAME = "indicators"
+PROJECTNAME = "eea.indicators"
 
 # Permissions
 DEFAULT_ADD_CONTENT_PERMISSION = "Add portal content"
