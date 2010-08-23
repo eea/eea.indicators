@@ -3,6 +3,7 @@ Changelog
 
 1.7 - (unreleased)
 -----------------
+ * Bug fix: Tests fixed after changing product name [ghicaale]
  * Feature: use new filtering select widget for provider_url and dataset_url [tiberich #3530]
  * Bug fix: added indicators_get_referer.py scipt to fix referer when
      using "tal expression" faceted widget [ghicaale #3538]
