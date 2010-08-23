@@ -9,11 +9,8 @@ Permissions and security in IMS
     >>> setuptool = getToolByName(portal, 'portal_setup')
     >>> setuptool.setImportContext('profile-eea.dataservice:default')
     >>> log = setuptool.runAllImportSteps()
-    adding ...
     >>> setuptool.setImportContext('profile-eea.indicators:default')
     >>> log = setuptool.runAllImportSteps()
-    adding ...
-
     >>> browser = Browser()
     >>> browser.handleErrors = False
     >>> self.portal.error_log._ignored_exceptions = ()
@@ -24,7 +21,7 @@ Permissions and security in IMS
 
 Specification management
 ------------------------
-When changing the manager_user_id field for a Specification, the local role 
+When changing the manager_user_id field for a Specification, the local role
 SpecificationManager is reassigned: it's removed for the old user and added
 for the new user. We have a page called permissions_overview which is registered
 for objects providing IIndicatorsOverview
