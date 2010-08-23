@@ -69,6 +69,8 @@
   <property name="title">Indicator Specification</property>
   <property name="ct_type">Specification</property>
   <property name="ct_interface"></property>
+  <property 
+      name="ct_default_location">python:object.portal_url.getPortalPath() + "/data-and-maps/indicators/createObject?type_name=Specification"</property>
   <criteria>
    <criterion name="c0">
     <property name="widget">text</property>
@@ -123,6 +125,8 @@
   <property name="title">EEA Data</property>
   <property name="ct_type">Data</property>
   <property name="ct_interface"></property>
+  <property 
+      name="ct_default_location">python:object.portal_url.getPortalPath() + "/data-and-maps/createObject?type_name=Data"</property>
   <criteria>
    <criterion name="c0">
     <property name="widget">text</property>
@@ -177,6 +181,8 @@
   <property name="title">EEA Figure</property>
   <property name="ct_type">EEAFigure</property>
   <property name="ct_interface"></property>
+  <property 
+      name="ct_default_location">python:object.portal_url.getPortalPath() + "/data-and-maps/createObject?type_name=EEAFigure"</property>
   <criteria>
    <criterion name="c0">
     <property name="widget">text</property>
@@ -231,6 +237,8 @@
   <property name="title">Policy Document Reference</property>
   <property name="ct_type">PolicyDocumentReference</property>
   <property name="ct_interface"></property>
+  <property 
+      name="ct_default_location">python:object.portal_url.getPortalPath() + "/data-and-maps/createObject?type_name=PolicyDocumentReference"</property>
   <criteria>
    <criterion name="c0">
     <property name="widget">text</property>
@@ -285,6 +293,8 @@
   <property name="title">External Data Reference</property>
   <property name="ct_type">ExternalDataSpec</property>
   <property name="ct_interface"></property>
+  <property 
+      name="ct_default_location">python:object.portal_url.getPortalPath() + "/data-and-maps/createObject?type_name=ExternalDataSpec"</property>
   <criteria>
    <criterion name="c0">
     <property name="widget">text</property>
@@ -339,6 +349,8 @@
   <property name="title">Indicator Assessment Part</property>
   <property name="ct_type">AssessmentPart</property>
   <property name="ct_interface"></property>
+  <property 
+      name="ct_default_location">python:object.portal_url.getPortalPath() + "/data-and-maps/createObject?type_name=AssessmentPart"</property>
   <criteria>
    <criterion name="c0">
     <property name="widget">text</property>
@@ -393,6 +405,8 @@
   <property name="title">Policy Question</property>
   <property name="ct_type">PolicyQuestion</property>
   <property name="ct_interface"></property>
+  <property 
+      name="ct_default_location">python:object.portal_url.getPortalPath() + "/data-and-maps/createObject?type_name=PolicyQuestion"</property>
   <criteria>
    <criterion name="c0">
     <property name="widget">text</property>
@@ -515,6 +529,8 @@
   <property name="title">Indicator Fact Sheet</property>
   <property name="ct_type">IndicatorFactSheet</property>
   <property name="ct_interface"></property>
+  <property 
+      name="ct_default_location">python:object.portal_url.getPortalPath() + "/data-and-maps/createObject?type_name=IndicatorFactSheet"</property>
   <criteria>
    <criterion name="c0">
     <property name="widget">text</property>
