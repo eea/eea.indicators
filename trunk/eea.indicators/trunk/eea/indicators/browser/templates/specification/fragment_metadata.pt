@@ -13,7 +13,24 @@
                     <h2 id="general_metadata">General metadata</h2>
 
                     <div class='headed-box'>
-                        <h5>Responsability and ownership</h5>
+                        <h5>Responsibility and ownership</h5>
+                        <h6>EEA Indicator Manager</h6>
+                        <tal:def tal:define="fieldname string:manager_user_id; fieldset string:default">
+                                                <metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
+                                                        <metal:slot metal:fill-slot="content">
+                                                                <div tal:condition="python:not imsutils.field_has_value(fieldname, context)"
+                                                                        class="placeholder">
+                                                                        <span class="required">Please fill in</span>
+                                                                </div>
+                                                                <p tal:replace="structure context/getManager_user_id"></p>
+                                                        </metal:slot>
+                                                        <metal:slot metal:fill-slot="extra-metadata">
+                                                                <div class="width">800</div>
+                                                                <div class="height">435</div>
+                                                                <div class="dialog_title">Edit EEA Indicator Manager User Id</div>
+                                                        </metal:slot>
+                                                </metal:macro>
+                        </tal:def>
 
                         <h6>Ownership</h6>
                         <tal:def tal:define="fieldname string:ownership; fieldset string:Responsability;
@@ -32,7 +49,7 @@
                                 <metal:slot metal:fill-slot="extra-metadata">
                                     <div class="width">800</div>
                                     <div class="height">500</div>
-                                    <div class="dialog_title">Edit Responsability and Ownership</div>
+                                    <div class="dialog_title">Edit Responsibility and Ownership</div>
                                 </metal:slot>
                             </metal:macro>
                         </tal:def>

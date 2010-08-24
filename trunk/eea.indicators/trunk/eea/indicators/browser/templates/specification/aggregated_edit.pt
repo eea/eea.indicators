@@ -36,7 +36,6 @@
 			</metal:versions>
 
 			<div tal:replace="structure context/fragment_assessments" />
-			<div tal:replace="structure context/fragment_info" />
 			<div tal:replace="structure context/fragment_scientific_references" />
 			<div tal:replace="structure context/fragment_definition" />
 			<div tal:replace="structure context/fragment_policy_questions" />
@@ -46,6 +45,7 @@
 			<div tal:replace="structure context/fragment_uncertainties" />
 			<div tal:replace="structure context/fragment_relateditems" />
 			<div tal:replace="structure context/fragment_metadata" />
+			<div tal:replace="structure context/fragment_info" />
 			<div tal:replace="structure context/fragment_work" />
 
 			<metal:versions use-macro="here/portlet_versions/macros/versions">

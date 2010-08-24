@@ -288,7 +288,7 @@
 				<h2 id="general_metadata">General metadata</h2>
 
 				<div class='headed-box'>
-					<h3>Responsability and ownership</h3>
+					<h3>Responsibility and ownership</h3>
 
 					<h4>EEA Contact Info</h4>
 					<tal:contact define="manager_id context/getManager_user_id">
