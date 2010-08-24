@@ -5,8 +5,8 @@ Changelog
 -----------------
  * Change: Moved the Manager id edit field to the general metadata area. small editorial changes. [demarant #3548]
  * Bug fix: Tests fixed after changing product name [ghicaale]
- * Feature: use new filtering select widget for provider_url and dataset_url [tiberich #3530]
- * Bug fix: added indicators_get_referer.py scipt to fix referer when
+ * Feature: Use new filtering select widget for provider_url and dataset_url [tiberich #3530]
+ * Bug fix: Added indicators_get_referer.py scipt to fix referer when
      using "tal expression" faceted widget [ghicaale #3538]
  * Bug fix: Change provider_url and dataset_url to use StringField instead of LinesField,
      also use new filtering select widget [tiberich #3530]
@@ -14,9 +14,9 @@ Changelog
 1.6 - (2010-08-17)
 -----------------
  * Feature: Show indicator codes in title [demarant]
- * Change: show TOC and generic metadata section on indicator factsheet as in assessments
- * Feature: tags/keywords for an assessment is now calculated dynamically
-     by its related content. better view of tags and metadata [demarant]
+ * Change: Show TOC and generic metadata section on indicator factsheet as in assessments
+ * Feature: Tags/keywords for an assessment are now calculated dynamically
+     by its related content. Better view of tags and metadata [demarant]
  * Feature: customize assessment/@@createVersion to allow choosing the destination of that version [tiberich #3539]
  * Bug fix: Add "one_state_workflow" [tiberich #3152]
  * Bug fix: When set versionId on adding an assessment, also look for IndicatorFactSheets
