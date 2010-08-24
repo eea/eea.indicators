@@ -23,6 +23,24 @@
                                                                         <span class="required">Please fill in</span>
                                                                 </div>
                                                                 <p tal:replace="structure context/getManager_user_id"></p>
+                                                               <tal:contact define="manager_id context/getManager_user_id">
+                                                               <tal:manager condition="manager_id">
+                                                       	        <tal:block define="manager_ob context/@@indicator_contact_info">
+                                                                 <a href=""
+                                                                        tal:condition="manager_ob"
+                                                                        title="Contact indicator manager"
+                                                                       	tal:attributes="href string:http://www.eionet.europa.eu/sitedirsearch?name=${manager_ob/username}"
+                                                                        tal:content="manager_ob/fullname">Contact</a>
+                                                                 <p tal:condition="not:manager_ob">
+                                                                        <span>User not found:</span>
+                                                                        <tal:manager_id tal:content="manager_id" />
+                                                               	 </p>
+                                                                </tal:block>
+                                                               </tal:manager>
+                                               	               <tal:contact condition="not:manager_id">
+                                                                 <p>no user info</p>
+                                                               </tal:contact>
+                                                              </tal:contact>
                                                         </metal:slot>
                                                         <metal:slot metal:fill-slot="extra-metadata">
                                                                 <div class="width">800</div>
@@ -30,6 +48,7 @@
                                                                 <div class="dialog_title">Edit EEA Indicator Manager User Id</div>
                                                         </metal:slot>
                                                 </metal:macro>
+
                         </tal:def>
 
                         <h6>Ownership</h6>
