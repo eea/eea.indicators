@@ -32,37 +32,37 @@ Changelog
 
 1.5 - (2010-08-04)
 ------------------
-* Bug fix: Fixed missing "More updates info box" in assessment and adjusted design and position on both [demarant]
-* Change: Consistent order of fields under aggregated edit of assessment as in the view. [demarant]
-* Bug fix: Fixed unicode error in Specification.SearchableText,
-    Assessment.SearchableText and IndicatorFactSheet.SearchableText [ghicaale]
-* Change: Hide metadata divs from display in active_field and active_region macros [tiberich]
-* Bug fix: Fix display and sorting of Assessments for a Specification agg edit. [tiberich]
-* Feature: Add custom AssessmentPart edit template, to make it include
-    eea.relations JS scripts [tiberich]
-* Change: Mark Ownership field as mandatory in agg edit [tiberich]
-* Change: Code cleanup in browser/assessment.py to eliminate duplicated code
-    from eea.versions [tiberich]
+ * Bug fix: Fixed missing "More updates info box" in assessment and adjusted design and position on both [demarant]
+ * Change: Consistent order of fields under aggregated edit of assessment as in the view. [demarant]
+ * Bug fix: Fixed unicode error in Specification.SearchableText,
+     Assessment.SearchableText and IndicatorFactSheet.SearchableText [ghicaale]
+ * Change: Hide metadata divs from display in active_field and active_region macros [tiberich]
+ * Bug fix: Fix display and sorting of Assessments for a Specification agg edit. [tiberich]
+ * Feature: Add custom AssessmentPart edit template, to make it include
+     eea.relations JS scripts [tiberich]
+ * Change: Mark Ownership field as mandatory in agg edit [tiberich]
+ * Change: Code cleanup in browser/assessment.py to eliminate duplicated code
+     from eea.versions [tiberich]
 
 1.4 - (2010-07-08)
 ------------------
-* Feature: Make "codes" available under SearchableText index for Specification,
-    Assessment and IndicatorFactSheet [ghicaale]
-* Feature: Marked more fields on Indicator Fact Sheet as searchable [demarant]
-* Bug fix: Fixed typo in traverse.py [ghicaale]
+ * Feature: Make "codes" available under SearchableText index for Specification,
+     Assessment and IndicatorFactSheet [ghicaale]
+ * Feature: Marked more fields on Indicator Fact Sheet as searchable [demarant]
+ * Bug fix: Fixed typo in traverse.py [ghicaale]
 
 1.3 - (2010-07-07)
 ------------------
-* Feature: Add traverser in order to maintain old assessment URLs after migration [ghicaale]
+ * Feature: Add traverser in order to maintain old assessment URLs after migration [ghicaale]
 
 1.2 - (2010-07-01)
 ------------------
-* Change: Removed empty folder 'locales' [ghicaale]
+ * Change: Removed empty folder 'locales' [ghicaale]
 
 1.1 - (2010-07-01)
 ------------------
-* Bug fix: Fixed indexing of themes on Assessments [#3458 ghicaale]
+ * Bug fix: Fixed indexing of themes on Assessments [#3458 ghicaale]
 
 1.0 - (2010-07-01)
 ------------------
-* Initial release [ghicaale]
+ * Initial release [ghicaale]
