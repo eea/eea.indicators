@@ -3,10 +3,10 @@ Changelog
 
 1.7 - (unreleased)
 -----------------
- * Change: Moved the Manager id edit field to the general metadata area. small editorial changes. [demarant #3548]
+ * Change: Moved the Manager id edit field to the general metadata area. Small editorial changes. [demarant #3548]
  * Bug fix: Tests fixed after changing product name [ghicaale]
  * Feature: Use new filtering select widget for provider_url and dataset_url [tiberich #3530]
- * Bug fix: Added indicators_get_referer.py scipt to fix referer when
+ * Bug fix: Added indicators_get_referer.py script to fix referer when
      using "tal expression" faceted widget [ghicaale #3538]
  * Bug fix: Change provider_url and dataset_url to use StringField instead of LinesField,
      also use new filtering select widget [tiberich #3530]
