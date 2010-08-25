@@ -694,6 +694,16 @@ div.ArchetypesDataGridWidget table td select {
     padding-left:2em !important;
 }
 
+/* hide the add menu */
+#objectMenu {
+    display:none;
+}
+
+.contentActions > ul > li > a{
+    display:none;   /* hide the menu when single item in menu */
+}
+/* end hide */
+
 /* 
 </dtml-with>  (end of loaded base_properties variables)
  */
