@@ -91,20 +91,20 @@ schema = Schema((
             label_msgid='dataservice_label_eea_mp',
             description_msgid='dataservice_help_eea_mp',
             i18n_domain='eea.dataservice',
-            )
+        )
         ),
     EEAReferenceField(
-            name='relatedItems',
-            isMetadata=False,
-            keepReferencesOnCopy=True,
-            multivalued=True,
-            relationship='relatesTo',
-            widget=EEAReferenceBrowserWidget(
-                visible={'view':'invisible', 'edit':'invisible'},
-                label='Related Item(s)',
-                description='Specify related item(s).',
-                )
-            ),
+        name='relatedItems',
+        isMetadata=False,
+        keepReferencesOnCopy=True,
+        multivalued=True,
+        relationship='relatesTo',
+        widget=EEAReferenceBrowserWidget(
+            visible={'view':'invisible', 'edit':'invisible'},
+            label='Related Item(s)',
+            description='Specify related item(s).',
+        )
+        ),
     ),
 )
 
@@ -112,8 +112,8 @@ schema = Schema((
 ##/code-section after-local-schema
 
 Assessment_schema = ATFolderSchema.copy() + \
-        getattr(ATFolder, 'schema', Schema(())).copy() + \
-        schema.copy()
+                  getattr(ATFolder, 'schema', Schema(())).copy() + \
+                  schema.copy()
 
 ##code-section after-schema #fill in your manual code here
 finalizeATCTSchema(Assessment_schema)
@@ -150,9 +150,9 @@ class Assessment(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory, Br
                 secondary.append(part)
 
         return {
-                'key':key,
-                'secondary':secondary
-                }
+            'key':key,
+            'secondary':secondary
+        }
 
     security.declarePublic("Title")
     def Title(self):
@@ -176,8 +176,8 @@ class Assessment(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory, Br
             msg = _("assessment-title-published",
                     default=u"Assessment published ${date}",
                     mapping={'date':u"%s %s" %
-                        (time.Mon(), time.year())
-                        }
+                             (time.Mon(), time.year())
+                             }
                     )
             return spec_title + ' - ' + self.translate(msg)
         else:
@@ -186,23 +186,23 @@ class Assessment(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory, Br
             msg = _("assessment-title-draft",
                     default=u"Assessment DRAFT created ${date}",
                     mapping={'date':u"%s %s" %
-                        (time.Mon(), time.year())
-                        }
+                             (time.Mon(), time.year())
+                             }
                     )
             return spec_title + ' - ' + self.translate(msg)
 
 
     security.declarePublic('Subject')
     def Subject(self):
-        """Overwrite standard Subject method to dynamically get all 
+        """Overwrite standard Subject method to dynamically get all
            keywords from other objects used in this assessment. """
         result = []
 
         #append assessment own subjects
         result.extend(self.schema['subject'].getRaw(self))
 
-       	#append	indicator codes
-       	result.extend(self.get_codes())
+        #append	indicator codes
+        result.extend(self.get_codes())
 
         #append themes, they are tags as well
         result.extend(self.getThemes())
@@ -210,7 +210,7 @@ class Assessment(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory, Br
         for assessment_part in self.objectValues('AssessmentPart'):
             for ob in assessment_part.getRelatedItems():
                 if ob.portal_type == 'EEAFigure':
-                     result.extend(ob.Subject())
+                    result.extend(ob.Subject())
 
         #TODO: keywords from datasets, work but needs to be double checked with content experts
         #spec = aq_parent(aq_inner(self))
