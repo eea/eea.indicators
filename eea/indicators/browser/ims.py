@@ -77,7 +77,11 @@ class IndicatorsOverview(BrowserView):
 class IndicatorsTimeline(BrowserView):
     """Presents a timeline based structure for Assessments
     """
+
     def get_timeline(self):
+
+        #PUBLISHED = 'published'
+
         specs = self.context.objectValues("Specification")
         wftool = getToolByName(self.context, 'portal_workflow')
         get_state = lambda a:wftool.getInfoFor(a, 'review_state', '(Unknown)')
@@ -86,10 +90,8 @@ class IndicatorsTimeline(BrowserView):
                 #example of data structure:
                 #'TERM':{
                 #    '001':{
-                #        '1998':[('n', None)], #no specification for that year
                 #        '1999':[('a', href)], #assessment at link href
                 #        'published':('p', href),    #assessment in Publication href
-                #        'future':[('f', href)],    #assessment has no effective date
                 #        }
                 #    }
                 }
@@ -104,21 +106,33 @@ class IndicatorsTimeline(BrowserView):
                     result[set] = {}
 
                 if not code in result[set]:
-                    result[set][code] = {'future':[],}
+                    result[set][code] = {}  #'future':[],
 
-                if not assessments:
-                    #TODO: see if there's a related EEAPublication to the Specification
-                    #pseudocode
-                    #if published(a):
-                    #    result[set][code]['p'] = [(p, p.absolute_url())]
-                    #else:
-                    result[set][code]['missing'] = [('m', spec.absolute_url())] + result[set][code].get('missing', [])
+#               if not assessments:
+#                   #TODO: see if there's a related EEAPublication to the Specification
+#                   #pseudocode
+#                   #if published(a):
+#                   #    result[set][code]['p'] = [(p, p.absolute_url())]
+#                   #else:
+#                   result[set][code]['missing'] = [('m', spec.absolute_url())] + result[set][code].get('missing', [])
+
+                d = spec.getEffectiveDate()
+                p = 'published'    #is published
+                if not d:
+                    d = spec.creation_date
+                    p = 'pending'
+                year = d.year()
+
+                result[set][code][year] = result[set][code].get(year, [])  + [('s', spec.absolute_url(), p, spec.Title())]
 
                 for a in assessments:
                     d = a.getEffectiveDate()
+                    p = 'published'
                     if not d:
-                        result[set][code]['future'] = [('f', a.absolute_url())] + result[set][code].get('future', [])
-                        continue
+                        #assessment is not published
+                        #result[set][code]['future'] = [('f', a.absolute_url())] + result[set][code].get('future', [])
+                        d = a.creation_date
+                        p = 'pending'
                     year = d.year()
                     if year < earliest_year:
                         earliest_year = year
@@ -127,6 +141,6 @@ class IndicatorsTimeline(BrowserView):
                         if earliest_year == 0:
                             earliest_year = year
 
-                    result[set][code][year] = [('a', a.absolute_url())] + result[set][code].get(year, []) 
+                    result[set][code][year] = result[set][code].get(year, []) + [('a', a.absolute_url(), p, a.Title())]
 
         return ((earliest_year, latest_year), result)
