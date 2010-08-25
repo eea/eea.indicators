@@ -3,8 +3,9 @@ Changelog
 
 1.7 - (unreleased)
 -----------------
- * Change: Fix the ims_timeline view [tiberich #3071]
- * Change: Show member fullname and workflow state title in @@ims_overview [tiberich #3071]
+ * Feature: Hide the add menu in the Specification and Assessment view and edit pages [tiberich #3583]
+ * Bug fix: Fix the ims_timeline view [tiberich #3071]
+ * Bug fix: Show member fullname and workflow state title in @@ims_overview [tiberich #3071]
  * Bug fix: Now "relatedItems" values are kept when creating a
      new Specification version [ghicaale #3582]
  * Change: Moved the Manager id edit field to the general metadata area. Small editorial changes. [demarant #3548]
