@@ -19,7 +19,7 @@
 			<h1>Indicators database</h1>
 			<tal:rep tal:repeat="set timeline">
 				<h2 tal:content="set">CSI</h2>
-				<table >
+				<table class='listing'>
 					<thead>
 						<tr>
 							<th>No.</th>
