@@ -24,6 +24,12 @@ class IndicatorsOverview(BrowserView):
     template = ViewPageTemplateFile('templates/ims_overview.pt')
 
     __call__ = template
+    def _get_name(self, spec):
+        user = spec.getManager_user_id()
+        info = self.mtool.getMemberInfo(user)
+        if info:
+            return info.get('fullname', user)
+        return user
 
     def get_setcodes_map(self):
 
@@ -31,7 +37,9 @@ class IndicatorsOverview(BrowserView):
         specs = self.context.objectValues("Specification")
 
         wftool = getToolByName(self.context, 'portal_workflow')
-        get_state = lambda a:wftool.getInfoFor(a, 'review_state', '(Unknown)')
+        self.mtool = mtool = getToolByName(self.context, 'portal_membership')
+
+        get_state = lambda a:wftool.getWorkflowsFor(a)[0].states[wftool.getInfoFor(a, 'review_state', '(Unknown)')].title
 
         for spec in specs:
             sets = [s['set'] for s in spec.getCodes()] 
@@ -42,8 +50,8 @@ class IndicatorsOverview(BrowserView):
             for s in sets:
                 info = {
                         'spec':spec,
-                        'manager_id':spec.getManager_user_id(),
-                        'state':wftool.getInfoFor(spec, 'review_state', '(Unknown)'),
+                        'manager_id':self._get_name(spec),
+                        'state':get_state(spec),
                         'assessments':assessments,
                         }
                 if s in result.keys():
