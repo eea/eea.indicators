@@ -3,6 +3,7 @@ Changelog
 
 1.7 - (unreleased)
 -----------------
+ * Bug fix: fix javascript in advanced edit for relations widget [tiberich #3579]
  * Feature: Hide the add menu in the Specification and Assessment view and edit pages [tiberich #3583]
  * Bug fix: Fix the ims_timeline view [tiberich #3071]
  * Bug fix: Show member fullname and workflow state title in @@ims_overview [tiberich #3071]
