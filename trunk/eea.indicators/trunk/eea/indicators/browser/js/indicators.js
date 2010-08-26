@@ -182,8 +182,6 @@ function reload_region(el){
       $(el).replaceWith(r);
       var new_el = $("#"+id);
       $(new_el).effect('highlight');
-      // $(new_el).animate({backgroundColor:'#e1e1e1'}, 1000)
-      //         .animate({backgroundColor:'transparent'}, 1500);
       on_load_dom();
       unblock_ui();
       return false;
