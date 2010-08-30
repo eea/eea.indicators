@@ -272,7 +272,7 @@
 
         <h4>EEA Management Plan</h4>
         <a href=""
-          tal:attributes="href python:'http://applications/managementplan/showProject.asp?year=%s&code=%s' % context.getManagement_plan()"
+          tal:attributes="href python:'http://applications/managementplan/ProjectPlan.aspx?year=%s&code=%s' % context.getManagement_plan()"
           tal:content="python:'%s %s' % context.getManagement_plan()"></a>(note: EEA internal system)
       </div>
 
