@@ -15,7 +15,7 @@
 							<div tal:condition="python:not imsutils.field_has_value(fieldname, context)" 
 								class="placeholder">Please fill in</div>
 							<a href=""
-								tal:attributes="href python:'http://applications/managementplan/showProject.asp?year=%s&code=%s' % context.getManagement_plan()"
+								tal:attributes="href python:'http://applications/managementplan/ProjectPlan.aspx?year=%s&code=%s' % context.getManagement_plan()"
 								tal:content="python:'%s %s' % context.getManagement_plan()">2009</a>(note: EEA internal system)
 						</metal:slot>
 						<metal:slot metal:fill-slot="extra-metadata">
