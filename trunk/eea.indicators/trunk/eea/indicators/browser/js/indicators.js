@@ -148,11 +148,18 @@ function set_relation_widgets() {
   });
 }
 
+function bootstrap_select_widgets() {
+  $(".dummy-org-selector").each(function(i,v){
+    new MultiSelectAutocompleteWidget($(v));
+  });
+}
+
 function on_load_dom() {
   // executed whenever the regions are reloaded
   set_sortables();
   set_relation_widgets();
   bootstrap_relations_widgets();
+  bootstrap_select_widgets();
 }
 
 function reload_region(el){
@@ -332,6 +339,7 @@ function set_edit_buttons() {
     dialog_edit(link, title, function(text, status, xhr){
       // schemata_ajaxify($("#dialog-inner"), fieldname);
       ajaxify($("#dialog-inner"), fieldname);
+      bootstrap_select_widgets();
       unblock_ui();
     }, options);
     return false;
@@ -752,7 +760,6 @@ function toggle_creator_option(el){
     a.original_href = href;
   }
   $(a).attr('href', a.original_href + "&create_in_latest_spec=" + $(el).attr('value'));
-  console.log(a);
 }
 
 // vim: set sw=2 ts=2 softtabstop=2 et:
