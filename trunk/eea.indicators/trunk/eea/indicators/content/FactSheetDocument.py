@@ -1,32 +1,19 @@
 # -*- coding: utf-8 -*-
 #
 # $Id$
-#
-# Copyright (c) 2010 by ['Tiberiu Ichim']
-# Generator: ArchGenXML
-#            http://plone.org/products/archgenxml
-#
-# GNU General Public License (GPL)
-#
 
-__author__ = """Tiberiu Ichim <unknown>"""
+__author__ = """Tiberiu Ichim tiberiu@eaudeweb.ro"""
 __docformat__ = 'plaintext'
 
 from AccessControl import ClassSecurityInfo
+from Products.ATContentTypes.content.file import ATFile, ATFileSchema
 from Products.Archetypes.atapi import *
+from Products.CMFCore.permissions import View
+from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
+from eea.dataservice.fields import EventFileField
+from eea.indicators.config import *
 from zope.interface import implements
 import interfaces
-from Products.ATContentTypes.content.file import ATFile
-from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
-
-from eea.indicators.config import *
-
-# additional imports from tagged value 'import'
-from Products.ATContentTypes.content.file import ATFile, ATFileSchema
-
-##code-section module-header #fill in your manual code here
-from eea.dataservice.fields import EventFileField
-##/code-section module-header
 
 schema = Schema((
 
@@ -96,6 +83,24 @@ class FactSheetDocument(ATFile, BrowserDefaultMixin):
 
     # Methods
 
+    security.declareProtected(View, 'index_html')
+    def index_html(self, REQUEST=None, RESPONSE=None):
+        """Make it directly viewable when entering the objects URL
+        """
+        #override index_html because it returns an recursion error #3533
+        if REQUEST is None:
+            REQUEST = self.REQUEST
+        if RESPONSE is None:
+            RESPONSE = REQUEST.RESPONSE
+        field = self.getPrimaryField()
+
+        return field.index_html(self)   #this is what works
+
+        #this is the original code
+        #data  = field.getAccessor(self)(REQUEST=REQUEST, RESPONSE=RESPONSE)
+        #if data:
+        #    return data.index_html(REQUEST, RESPONSE)
+        ## TODO what should be returned if no data is present?
 
 registerType(FactSheetDocument, PROJECTNAME)
 # end of class FactSheetDocument
