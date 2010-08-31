@@ -103,7 +103,6 @@ schema = Schema((
         widget=EEAReferenceBrowserWidget(
             visible={'view':'invisible', 'edit':'invisible'},
             label='Related Item(s)',
-            description='Related Item(s)',
             description='Specify related item(s).',
         )
         ),
