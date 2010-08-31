@@ -3,6 +3,7 @@ Changelog
 
 1.7 - (unreleased)
 -----------------
+ * Bug fix: Override FactSheetDocument.index_html() to avoid recursion error [tiberich 3533]
  * Change: Added tooltips to all fields on aggregated edit [ghicaale #3420]
  * Bug fix: updated broken internal urls to EEA mamagement plan system [demarant]
  * Bug fix: fix javascript error when reloading relateditems fragment [tiberich #3591]
