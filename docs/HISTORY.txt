@@ -5,11 +5,11 @@ Changelog
 -----------------
  * Bug fix: Override FactSheetDocument.index_html() to avoid recursion error [tiberich 3533]
  * Change: Added tooltips to all fields on aggregated edit [ghicaale #3420]
- * Bug fix: updated broken internal urls to EEA mamagement plan system [demarant]
- * Bug fix: fix javascript error when reloading relateditems fragment [tiberich #3591]
- * Bug fix: fix javascript in advanced edit for relations widget [tiberich #3579]
- * Change: Hide the add menu in the Specification and Assessment view and edit pages [tiberich #3583]
- * Bug fix: Fix the ims_timeline view [tiberich #3071]
+ * Bug fix: Updated broken internal urls to EEA mamagement plan system [demarant]
+ * Bug fix: Fixed javascript error when reloading relateditems fragment [tiberich #3591]
+ * Bug fix: Fixed javascript in advanced edit for relations widget [tiberich #3579]
+ * Change: The add menu in the Specification and Assessment view and edit pages is now hidden [tiberich #3583]
+ * Bug fix: Fixed the ims_timeline view [tiberich #3071]
  * Bug fix: Show member fullname and workflow state title in @@ims_overview [tiberich #3071]
  * Bug fix: Now "relatedItems" values are kept when creating a
      new Specification version [ghicaale #3582]
