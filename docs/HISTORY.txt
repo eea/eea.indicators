@@ -3,6 +3,7 @@ Changelog
 
 1.7 - (unreleased)
 -----------------
+ * Change: Added tooltips to all fields on aggregated edit [ghicaale #3420]
  * Bug fix: updated broken internal urls to EEA mamagement plan system [demarant]
  * Bug fix: fix javascript error when reloading relateditems fragment [tiberich #3591]
  * Bug fix: fix javascript in advanced edit for relations widget [tiberich #3579]

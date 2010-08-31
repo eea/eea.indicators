@@ -163,6 +163,7 @@ schema = Schema((
             allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
             widget=RichWidget(
                 label="Rationale uncertainty",
+                description="Rationale uncertainty",
                 label_msgid='indicators_label_rationale_uncertainty',
                 i18n_domain='indicators',
                 ),
@@ -221,6 +222,7 @@ schema = Schema((
             name='units',
             widget=RichWidget(
                 label="Units",
+                description="Units",
                 label_msgid='indicators_label_units',
                 i18n_domain='indicators',
                 ),
@@ -253,6 +255,7 @@ schema = Schema((
             allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
             widget=RichWidget(
                 label="Methodology uncertainty",
+                description="Methodology uncertainty",
                 label_msgid='indicators_label_methodology_uncertainty',
                 i18n_domain='indicators',
                 ),
@@ -266,6 +269,7 @@ schema = Schema((
             allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
             widget=RichWidget(
                 label="Data uncertainty",
+                description="Data uncertainty",
                 label_msgid='indicators_label_data_uncertainty',
                 i18n_domain='indicators',
                 ),
@@ -279,6 +283,7 @@ schema = Schema((
             allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
             widget=RichWidget(
                 label="Methodology for gap filling",
+                description="Methodology for gap filling",
                 label_msgid='indicators_label_methodology_gapfilling',
                 i18n_domain='indicators',
                 ),
@@ -302,6 +307,7 @@ schema = Schema((
             name='related_external_indicator',
             widget=StringField._properties['widget'](
                 label="Related external indicator",
+                description="Related external indicator",
                 label_msgid='indicators_label_related_external_indicator',
                 i18n_domain='indicators',
                 ),
@@ -313,6 +319,7 @@ schema = Schema((
             widget= UserAndGroupSelectionWidget(
                 label="The manager of this Indicator Specification",
                 usersOnly=True,
+                description="The manager of this Indicator Specification",
                 label_msgid='indicators_label_manager_user_id',
                 i18n_domain='indicators',
                 ),
@@ -471,9 +478,9 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
             if code:
                 res = res + "%s %s/" % (code['set'], code['code'])
         if res:
-           res = self.title + ' (' + res[:-1] + ')'
+            res = self.title + ' (' + res[:-1] + ')'
         else:
-           res = self.title
+            res = self.title
         return res
 
     security.declarePublic('left_slots')
@@ -534,23 +541,23 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
 
     security.declarePublic('SearchableText')
     def SearchableText(self):
-         """ """
-         searchable_text = super(Specification, self).SearchableText()
-         for code in self.get_codes():
+        """ """
+        searchable_text = super(Specification, self).SearchableText()
+        for code in self.get_codes():
             searchable_text += '%s ' % code.encode('utf-8')
-         return searchable_text
+        return searchable_text
 
     security.declarePublic('getMainCode')
     def getMainCode(self):
         """Returns the main code for this indicator (the first in the list of codes).
            Used for display purposed, like in title / description.
         """
-	codes = self.getCodes()
+        codes = self.getCodes()
 
         res = ''
         if len(codes)>0:
-           code = codes[0]
-           res = "%s %s" % (code['set'], code['code'])
+            code = codes[0]
+            res = "%s %s" % (code['set'], code['code'])
         return res
 
     def factory_RationaleReference(self):

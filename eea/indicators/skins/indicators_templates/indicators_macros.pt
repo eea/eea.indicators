@@ -18,7 +18,7 @@
 			<metal:slot metal:define-slot="content"></metal:slot>
 		</div>
 		<div class="metadata" style="display:none" tal:define="also_reload also_reload|nothing">
-			<div class="region_update_handler" 
+			<div class="region_update_handler"
 				tal:content="region_update_handler"></div>
 			<div class="also_reload" tal:condition="also_reload">
 				<span tal:repeat="reg also_reload" tal:content="reg" />
@@ -30,12 +30,12 @@
 </metal:macro>
 
 <!-- Active field macro -->
-<div metal:define-macro="active_field" class="active_field" 
+<div metal:define-macro="active_field" class="active_field"
 	tal:define="thiscontext nocall:thiscontext|context;">
 	<metal:slot metal:define-slot="control">
 		<div class="control">
-			<a href="" 
-				tal:attributes="href 
+			<a href=""
+				tal:attributes="href
 				string:${thiscontext/absolute_url}/${submit_handler}?fieldset=${fieldset}&specific_field=$fieldname">
 				edit...
 			</a>
@@ -51,13 +51,13 @@
 	</div>
 </div>
 
-<!-- Active reference field macro 
+<!-- Active reference field macro
 
 This field macro wraps the relations widget with info and metadata
 that allow integration with the aggregated edit views.
 The dom element that renders the popup macro is replaced,
 in case the form validation fails (for example), with the widget
-that is rendered by the schema (in this case, 
+that is rendered by the schema (in this case,
 the one in indicatorsrelationwidet.pt)
 
 Parameters:
@@ -67,7 +67,7 @@ Parameters:
 TODO:explain
 
 @@param fieldName: required
-This is the field that will be edited; 
+This is the field that will be edited;
 
 @@param field: required
 The field that will be edited;
@@ -80,12 +80,12 @@ The name of the region fragment that will be updated;
 
 -->
 
-<metal:macro metal:define-macro="active_relation_field" 
+<metal:macro metal:define-macro="active_relation_field"
 	tal:define="widget nocall:field/widget;
 	widget_dom_id string:active_field-$fieldName;
 	realFieldName realFieldName|fieldName;" >
 
-	<div class="active_field indicators_relations_widget" tal:attributes="id widget_dom_id"> 
+	<div class="active_field indicators_relations_widget" tal:attributes="id widget_dom_id">
 		<div class="metadata">
 			<div class="widget_dom_id" tal:content="widget_dom_id"></div>
 			<div class="fieldName" tal:content="fieldName"></div>
@@ -96,7 +96,7 @@ The name of the region fragment that will be updated;
 				Please fill in
 			</div>
 
-			<form method="post" action="" 
+			<form method="post" action=""
 				tal:attributes="action string:${context/absolute_url}/simple_edit">
 				<input type="hidden" name="specific_field" tal:attributes="value realFieldName" />
 				<input type="hidden" name="fieldset" tal:attributes="value field/schemata" />

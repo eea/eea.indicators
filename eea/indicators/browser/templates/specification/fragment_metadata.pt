@@ -2,7 +2,8 @@
     <tal:def tal:define="region_name string:metadata_area;
         region_update_handler string:fragment_metadata;
         also_reload python:['object_readiness'];
-        imsutils nocall:context/@@indicator_utils;">
+        imsutils nocall:context/@@indicator_utils;
+        portal_url context/portal_url">
 
         <!-- <div tal:content="python:path('context/@@get_readiness').get_info_for('published')" /> -->
         <!-- <div tal:content="python:path('context/@@get_readiness').is_ready_for('published')" /> -->
@@ -13,45 +14,50 @@
                     <h2 id="general_metadata">General metadata</h2>
 
                     <div class='headed-box'>
-                        <h5>Responsibility and ownership</h5>
-                        <h6>EEA Indicator Manager</h6>
+                        <h3>Responsibility and ownership</h3>
+                        <h4 tal:define="field python:context.getField('manager_user_id')">
+                          <span metal:use-macro="context/indicators_macros/macros/tooltip" />
+                          EEA Indicator Manager
+                        </h4>
                         <tal:def tal:define="fieldname string:manager_user_id; fieldset string:default">
-                                                <metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
-                                                        <metal:slot metal:fill-slot="content">
-                                                                <div tal:condition="python:not imsutils.field_has_value(fieldname, context)"
-                                                                        class="placeholder">
-                                                                        <span class="required">Please fill in</span>
-                                                                </div>
-                                                                <p tal:replace="structure context/getManager_user_id"></p>
-                                                               <tal:contact define="manager_id context/getManager_user_id">
-                                                               <tal:manager condition="manager_id">
-                                                       	        <tal:block define="manager_ob context/@@indicator_contact_info">
-                                                                 <a href=""
-                                                                        tal:condition="manager_ob"
-                                                                        title="Contact indicator manager"
-                                                                       	tal:attributes="href string:http://www.eionet.europa.eu/sitedirsearch?name=${manager_ob/username}"
-                                                                        tal:content="manager_ob/fullname">Contact</a>
-                                                                 <p tal:condition="not:manager_ob">
-                                                                        <span>User not found:</span>
-                                                                        <tal:manager_id tal:content="manager_id" />
-                                                               	 </p>
-                                                                </tal:block>
-                                                               </tal:manager>
-                                               	               <tal:contact condition="not:manager_id">
-                                                                 <p>no user info</p>
-                                                               </tal:contact>
-                                                              </tal:contact>
-                                                        </metal:slot>
-                                                        <metal:slot metal:fill-slot="extra-metadata">
-                                                                <div class="width">800</div>
-                                                                <div class="height">435</div>
-                                                                <div class="dialog_title">Edit EEA Indicator Manager User Id</div>
-                                                        </metal:slot>
-                                                </metal:macro>
-
+                            <metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
+                                    <metal:slot metal:fill-slot="content">
+                                            <div tal:condition="python:not imsutils.field_has_value(fieldname, context)"
+                                                    class="placeholder">
+                                                    <span class="required">Please fill in</span>
+                                            </div>
+                                            <p tal:replace="structure context/getManager_user_id"></p>
+                                           <tal:contact define="manager_id context/getManager_user_id">
+                                           <tal:manager condition="manager_id">
+                                            <tal:block define="manager_ob context/@@indicator_contact_info">
+                                             <a href=""
+                                                    tal:condition="manager_ob"
+                                                    title="Contact indicator manager"
+                                                    tal:attributes="href string:http://www.eionet.europa.eu/sitedirsearch?name=${manager_ob/username}"
+                                                    tal:content="manager_ob/fullname">Contact</a>
+                                             <p tal:condition="not:manager_ob">
+                                                    <span>User not found:</span>
+                                                    <tal:manager_id tal:content="manager_id" />
+                                             </p>
+                                            </tal:block>
+                                           </tal:manager>
+                                           <tal:contact condition="not:manager_id">
+                                             <p>no user info</p>
+                                           </tal:contact>
+                                          </tal:contact>
+                                    </metal:slot>
+                                    <metal:slot metal:fill-slot="extra-metadata">
+                                            <div class="width">800</div>
+                                            <div class="height">435</div>
+                                            <div class="dialog_title">Edit EEA Indicator Manager User Id</div>
+                                    </metal:slot>
+                            </metal:macro>
                         </tal:def>
 
-                        <h6>Ownership</h6>
+                        <h4 tal:define="field python:context.getField('ownership')">
+                          <span metal:use-macro="context/indicators_macros/macros/tooltip" />
+                          Ownership
+                        </h4>
                         <tal:def tal:define="fieldname string:ownership; fieldset string:Responsability;
                             owners context/getOwnership">
                             <metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
@@ -76,10 +82,13 @@
                     </div>
 
                     <div class='headed-box'>
-                        <h5>Classification</h5>
+                        <h3>Classification</h3>
                         <div class="visualClear"><!-- --></div>
 
-                        <strong>DPSIR</strong>
+                        <h4 tal:define="field python:context.getField('dpsir')">
+                          <span metal:use-macro="context/indicators_macros/macros/tooltip" />
+                          DPSIR
+                        </h4>
                         <tal:def tal:define="fieldname string:dpsir; fieldset string:Classification;
                             dpsir context/getDpsir">
                             <metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
@@ -98,7 +107,10 @@
                             </metal:macro>
                         </tal:def>
 
-                        <strong>Typology</strong>
+                        <h4 tal:define="field python:context.getField('typology')">
+                          <span metal:use-macro="context/indicators_macros/macros/tooltip" />
+                          Typology
+                        </h4>
                         <tal:def tal:define="fieldname string:typology; fieldset string:Classification;
                             typology context/getTypology">
                             <metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
@@ -118,7 +130,10 @@
                         </tal:def>
 
 
-                        <strong>EEA Themes</strong>:
+                        <h4 tal:define="field python:context.getField('themes')">
+                          <span metal:use-macro="context/indicators_macros/macros/tooltip" />
+                          EEA Themes
+                        </h4>
                         <tal:def tal:define="fieldname string:themes;
                             fieldset string:Classification;
                             vocab python:context.Vocabulary(fieldname);
@@ -158,12 +173,15 @@
                     </div>
 
                     <div class='headed-box'>
-                        <h5>Identification</h5>
+                        <h3>Identification</h3>
                         <div class="wrapper" >
                             <div tal:define="codes context/getCodes">
 
                                 <div class="required-field"></div>
-                                <strong>Indicator code</strong>
+                                <h4 tal:define="field python:context.getField('codes')">
+                                  <span metal:use-macro="context/indicators_macros/macros/tooltip" />
+                                  Indicator code
+                                </h4>
                                 <tal:def tal:define="fieldname string:codes; fieldset string:Classification">
                                     <metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
                                         <metal:slot metal:fill-slot="content">
@@ -186,7 +204,10 @@
 
                             </div>
 
-                            <strong>Specification</strong>
+                            <h4 tal:define="tooltip string:Specification">
+                              <span metal:use-macro="context/indicators_macros/macros/tooltip" />
+                              Specification
+                            </h4>
                             <div class="active_field">
                                 <div>Link: <a href="" tal:attributes="href context/absolute_url"
                                         tal:content="context/getId">ISpecification1235</a>
