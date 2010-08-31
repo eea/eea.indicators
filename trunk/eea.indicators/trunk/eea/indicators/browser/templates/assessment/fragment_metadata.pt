@@ -1,4 +1,4 @@
-<tal:defs 
+<tal:defs
 	tal:define="region_name string:metadata_area;
 	region_update_handler string:fragment_metadata;
 	submit_handler string:simple_edit;
@@ -8,11 +8,14 @@
 		<metal:slot metal:fill-slot="content">
 
 			<div class="logic_group" >
-				<h4>EEA Management Plan</h4>
+				<h4 tal:define="field python:context.getField('management_plan')">
+					<span metal:use-macro="context/indicators_macros/macros/tooltip" />
+					EEA Management Plan
+				</h4>
 				<tal:def tal:define="fieldname string:management_plan; fieldset string:default">
 					<metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
 						<metal:slot metal:fill-slot="content">
-							<div tal:condition="python:not imsutils.field_has_value(fieldname, context)" 
+							<div tal:condition="python:not imsutils.field_has_value(fieldname, context)"
 								class="placeholder">Please fill in</div>
 							<a href=""
 								tal:attributes="href python:'http://applications/managementplan/ProjectPlan.aspx?year=%s&code=%s' % context.getManagement_plan()"

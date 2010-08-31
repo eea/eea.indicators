@@ -40,6 +40,7 @@ schema = Schema((
         name='assessment',
         widget=RichWidget(
             label='Assessment',
+            description='Assessment',
             label_msgid='indicators_label_assessment',
             i18n_domain='indicators',
             ),
@@ -55,6 +56,7 @@ schema = Schema((
         widget=StringField._properties['widget'](
             visible={'view':'invisible', 'edit':'invisible'},
             label='Title',
+            description='Title',
             label_msgid='indicators_label_title',
             i18n_domain='indicators',
             ),
@@ -67,6 +69,7 @@ schema = Schema((
         widget=TextAreaWidget(
             visible={'edit' : 'invisible', 'view' : 'invisible' },
             label='Description',
+            description='Description',
             label_msgid='indicators_label_description',
             i18n_domain='indicators',
             ),
@@ -82,6 +85,7 @@ schema = Schema((
         validators=('one_assessment_per_question',),
         widget=EEAReferenceBrowserWidget(
             label="Answers to policy question and related EEAFigures",
+            description='Answers to policy question and related EEAFigures',
             label_msgid='indicators_label_question_answered',
             i18n_domain='indicators',
             macro="assessmentpart_relationwidget",

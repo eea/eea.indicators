@@ -46,6 +46,7 @@ schema = Schema((
         widget=StringField._properties['widget'](
             visible={'view':'invisible', 'edit':'invisible'},
             label='Title',
+            description='Title',
             label_msgid='indicators_label_title',
             i18n_domain='indicators',
             ),
@@ -87,7 +88,7 @@ schema = Schema((
         widget = ManagementPlanWidget(
             format="select",
             label="EEA Management Plan",
-            description = ("EEA Management plan code. Internal EEA project line code, used to assign an EEA product output to a specific EEA project number in the management plan."),
+            description=("EEA Management plan code. Internal EEA project line code, used to assign an EEA product output to a specific EEA project number in the management plan."),
             label_msgid='dataservice_label_eea_mp',
             description_msgid='dataservice_help_eea_mp',
             i18n_domain='eea.dataservice',
@@ -102,6 +103,7 @@ schema = Schema((
         widget=EEAReferenceBrowserWidget(
             visible={'view':'invisible', 'edit':'invisible'},
             label='Related Item(s)',
+            description='Related Item(s)',
             description='Specify related item(s).',
         )
         ),
