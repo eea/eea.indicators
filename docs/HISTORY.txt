@@ -3,6 +3,7 @@ Changelog
 
 1.7 - (unreleased)
 -----------------
+ * Change: fixed some design issues with switch box not visible and alignment of toc and metabox [demarant].
  * Feature: use the multiselect autocomplete widget for Ownership in Spec agg edit [tiberich 3597]
  * Bug fix: Override FactSheetDocument.index_html() to avoid recursion error [tiberich 3533]
  * Change: Added tooltips to all fields on aggregated edit [ghicaale #3420]

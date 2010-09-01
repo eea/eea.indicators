@@ -12,11 +12,10 @@
 
 #box-classification {
     border:1px solid #E9EFCD;
-    clear:both;
     float:right;
-    margin-top:20px;
+    margin-top:0px;
     padding:6px;
-    width:20em;
+    width:25em;
 }
 
 #box-classification h3 {
@@ -281,7 +280,6 @@ h1 {
     background-repeat: no-repeat;
     font-weight: bold;
     cursor: pointer;
-    float:right;
     font-size: 130%;
 }
 .metadata-switch-show {
