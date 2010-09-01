@@ -68,6 +68,7 @@
       <metal:versions use-macro="here/portlet_versions/macros/versions">
         <metal:new fill-slot="old" />
       </metal:versions>
+    
       <div id="box-classification">
               <h3 id="general_metadata">Generic metadata</h3>
               <h4>Classification</h4>
@@ -108,11 +109,14 @@
                 </ul>
               </div>
      </div>
+     
       <tal:block define="queryString string:h2:not(.notoc)">
         <metal:toc use-macro="here/portlet_toc/macros/portlet"/>
       </tal:block>
-
       <div class="metadata-switch metadata-switch-show">Switch to full indicator view</div>
+
+    
+      <div class="visualClear"><!-- --></div>
       <div class="metadata-info-switchable">
         <metal:definition-and-units use-macro="specification/@@view/macros/definition-and-units" />
       </div>
