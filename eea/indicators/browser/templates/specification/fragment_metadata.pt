@@ -15,6 +15,7 @@
 
                     <div class='headed-box'>
                         <h3>Responsibility and ownership</h3>
+                        <a name="rfs_manager_user_id" />
                         <h4 tal:define="field python:context.getField('manager_user_id')">
                           <span metal:use-macro="context/indicators_macros/macros/tooltip" />
                           EEA Indicator Manager
@@ -54,6 +55,7 @@
                             </metal:macro>
                         </tal:def>
 
+                        <a name="rfs_ownership" />
                         <h4 tal:define="field python:context.getField('ownership')">
                           <span metal:use-macro="context/indicators_macros/macros/tooltip" />
                           Ownership
@@ -85,6 +87,7 @@
                         <h3>Classification</h3>
                         <div class="visualClear"><!-- --></div>
 
+                        <a name="rfs_dpsir" />
                         <h4 tal:define="field python:context.getField('dpsir')">
                           <span metal:use-macro="context/indicators_macros/macros/tooltip" />
                           DPSIR
@@ -107,6 +110,7 @@
                             </metal:macro>
                         </tal:def>
 
+                        <a name="rfs_typology" />
                         <h4 tal:define="field python:context.getField('typology')">
                           <span metal:use-macro="context/indicators_macros/macros/tooltip" />
                           Typology
@@ -178,6 +182,7 @@
                             <div tal:define="codes context/getCodes">
 
                                 <div class="required-field"></div>
+                                <a name="rfs_codes" />
                                 <h4 tal:define="field python:context.getField('codes')">
                                   <span metal:use-macro="context/indicators_macros/macros/tooltip" />
                                   Indicator code
