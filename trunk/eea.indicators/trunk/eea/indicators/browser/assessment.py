@@ -3,10 +3,11 @@ from DateTime import DateTime
 from Products.CMFCore.utils import getToolByName
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from eea.indicators.browser.utils import has_one_of
 from eea.versions.versions import CreateVersion as BaseCreateVersion, create_version as base_create_version
 from eea.versions.versions import get_versions_api
-from eea.workflow.readiness import ObjectReadinessView
 from eea.workflow.interfaces import IValueProvider, IObjectReadiness
+from eea.workflow.readiness import ObjectReadinessView
 from zope.component import getMultiAdapter
 
 import logging
@@ -121,9 +122,16 @@ class WorkflowStateReadiness(ObjectReadinessView):
                                     o.objectValues("AssessmentPart")),
          'You need to meet the publishing requirements for all assessment parts'),
 
-        (lambda o: 'published' != getToolByName(o, 'portal_workflow').getInfoFor(aq_parent(aq_inner(o)), 'review_state'),
-        "The parent Specification needs to be published"
+        (lambda o:not IObjectReadiness(aq_parent(aq_inner(o))).is_ready_for('published'),
+         "You need to finish the <a href='../'>Indicator Specification</a> first!"),
+
+        (lambda o: 'published' != getToolByName(o, 
+                            'portal_workflow').getInfoFor(aq_parent(aq_inner(o)), 'review_state'),
+        "The Indicator Specification needs to be published"
         ),
+        (lambda o:not filter(lambda part: has_one_of(["EEAFigure",], part.getRelatedItems()), 
+                            o.objectValues("AssessmentPart")),
+        "The answered policy questions need to point to at least one Figure"),
     )
 
     def is_ready_for(self, state_name):

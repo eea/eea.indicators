@@ -130,3 +130,11 @@ class CategoryLabel(BrowserView):
             return value.Title()
         else:
             return ""
+
+
+def has_one_of(has, in_list):
+    for obj in in_list:
+        if obj.meta_type in has:
+            return True
+    return False
+

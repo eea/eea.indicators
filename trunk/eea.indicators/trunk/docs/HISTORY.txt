@@ -3,6 +3,7 @@ Changelog
 
 1.7 - (unreleased)
 -----------------
+ * Change: add two new checks on Assessment readiness [tiberich 3603]
  * Feature: show links to missing fields from the portlet for readiness, on agg edit [tiberich 3598]
  * Change: fixed some design issues with switch box not visible and alignment of toc and metabox [demarant].
  * Feature: use the multiselect autocomplete widget for Ownership in Spec agg edit [tiberich 3597]
