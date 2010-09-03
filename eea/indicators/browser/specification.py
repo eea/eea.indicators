@@ -8,9 +8,10 @@ from DateTime import DateTime
 from Products.CMFCore.utils import getToolByName
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from eea.indicators.browser.utils import has_one_of
 from eea.versions.versions import create_version, CreateVersion as BaseCreateVersion
-from eea.workflow.readiness import ObjectReadinessView
 from eea.workflow.interfaces import IFieldIsRequiredForState, IValueProvider
+from eea.workflow.readiness import ObjectReadinessView
 from zope.component import getMultiAdapter
 
 import logging
@@ -94,13 +95,6 @@ class CreateVersion(BaseCreateVersion):
         self.context.reindexObject() #some indexed values of the context may depend on versions
 
         return self.request.RESPONSE.redirect(new_spec.absolute_url())
-
-
-def has_one_of(has, in_list):
-    for obj in in_list:
-        if obj.meta_type in has:
-            return True
-    return False
 
 
 class WorkflowStateReadiness(ObjectReadinessView):
