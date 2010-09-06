@@ -1,6 +1,9 @@
 Changelog
 =========
 
+1.8 - (unreleased)
+------------------
+
 1.7 - (2010-09-06)
 ------------------
  * Change: add two new checks on Assessment readiness [tiberich 3603]
