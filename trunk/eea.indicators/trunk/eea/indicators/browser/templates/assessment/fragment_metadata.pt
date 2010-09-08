@@ -1,5 +1,6 @@
 <tal:defs
 	tal:define="region_name string:metadata_area;
+  also_reload python:['object_readiness'];
 	region_update_handler string:fragment_metadata;
 	submit_handler string:simple_edit;
 	imsutils nocall:context/@@indicator_utils;

@@ -1,28 +1,17 @@
 # -*- coding: utf-8 -*-
 #
 # $Id$
-#
-# Copyright (c) 2010 by ['Tiberiu Ichim']
-# Generator: ArchGenXML
-#            http://plone.org/products/archgenxml
-#
-# GNU General Public License (GPL)
-#
 
-__author__ = """Tiberiu Ichim <unknown>"""
 __docformat__ = 'plaintext'
 
 from AccessControl import ClassSecurityInfo
-from Acquisition import aq_base, aq_inner, aq_parent
-from Products.ATContentTypes.content.folder import ATFolder
+from Acquisition import aq_inner, aq_parent
 from Products.ATContentTypes.content.folder import ATFolder, ATFolderSchema
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema
-from Products.ATReferenceBrowserWidget.ATReferenceBrowserWidget import  ReferenceBrowserWidget
 from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
 from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
 from Products.Archetypes.atapi import *
 from Products.Archetypes.atapi import MultiSelectionWidget
-from Products.Archetypes.utils import mapply
 from Products.CMFCore import permissions
 from Products.CMFCore.permissions import AddPortalContent
 from Products.CMFCore.utils import getToolByName
@@ -44,17 +33,13 @@ from eea.relations.field import EEAReferenceField
 from eea.relations.widget import EEAReferenceBrowserWidget
 from eea.versions.interfaces import IVersionControl, IVersionEnhanced
 from eea.versions.versions import has_versions, get_versions_api
-from zope import event
-from zope.app.event import objectevent
-from zope.component import getMultiAdapter
+from eea.workflow.interfaces import IHasMandatoryWorkflowFields
 from zope.interface import alsoProvides
 from zope.interface import implements
 import datetime
 import interfaces
-import logging
 
 ONE_YEAR = datetime.timedelta(weeks=52)
-##/code-section module-header
 
 schema = Schema((
 
@@ -343,14 +328,11 @@ schema = Schema((
             ),
 )
 
-##code-section after-local-schema #fill in your manual code here
-##/code-section after-local-schema
 
 Specification_schema = ATFolderSchema.copy() + \
         getattr(ATFolder, 'schema', Schema(())).copy() + \
         schema.copy()
 
-##code-section after-schema #fill in your manual code here
 
 Specification_schema = Specification_schema + ThemeTaggable_schema.copy()
 Specification_schema['themes'].schemata = 'Classification'
@@ -410,26 +392,18 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
     """
     security = ClassSecurityInfo()
 
-    implements(interfaces.ISpecification)
+    implements(interfaces.ISpecification, IHasMandatoryWorkflowFields)
 
     meta_type = 'Specification'
     _at_rename_after_creation = True
 
     schema = Specification_schema
 
-    ##code-section class-header #fill in your manual code here
-
     #this template is customized to expose the number of remaining
     #unfilled fields that are mandatory for publishing
     edit_macros = PageTemplateFile('edit_macros.pt', templates_dir)
 
     portlet_readiness = ViewPageTemplateFile('../browser/templates/portlet_readiness.pt')
-
-    ##/code-section class-header
-
-    # Methods
-
-    # Manually created methods
 
     def get_work(self):
         in_future = datetime.datetime.now() + ONE_YEAR
@@ -671,9 +645,6 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
 
 
 registerType(Specification, PROJECTNAME)
-# end of class Specification
-
-##code-section module-footer #fill in your manual code here
 
 #placed here so that it will be found by extraction utility
 _titlemsg = _('label-newly-created-type',
@@ -701,4 +672,3 @@ def make_id(BASE, names):
 
     return name
 
-##/code-section module-footer

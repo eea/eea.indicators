@@ -1,43 +1,31 @@
 # -*- coding: utf-8 -*-
 #
 # $Id$
-#
-# Copyright (c) 2010 by ['Tiberiu Ichim']
-# Generator: ArchGenXML
-#            http://plone.org/products/archgenxml
-#
-# GNU General Public License (GPL)
-#
 
-__author__ = """Tiberiu Ichim <unknown>"""
 __docformat__ = 'plaintext'
 
 from AccessControl import ClassSecurityInfo
-from Products.Archetypes.atapi import *
-from zope.interface import implements
-import interfaces
+from Acquisition import aq_inner, aq_parent
 from Products.ATContentTypes.content.folder import ATFolder
-from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
-
-from eea.indicators.config import *
-
-# additional imports from tagged value 'import'
 from Products.ATContentTypes.content.folder import ATFolderSchema
-from eea.dataservice.fields.ManagementPlanField import ManagementPlanField
-
-##code-section module-header #fill in your manual code here
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema
+from Products.Archetypes.atapi import *
 from Products.CMFCore.utils import getToolByName
+from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from datetime import datetime
+from eea.dataservice.fields.ManagementPlanField import ManagementPlanField
 from eea.dataservice.vocabulary import DatasetYears
 from eea.dataservice.widgets.ManagementPlanWidget import ManagementPlanWidget
 from eea.indicators import msg_factory as _
+from eea.indicators.config import *
 from eea.indicators.content.base import ModalFieldEditableAware, CustomizedObjectFactory
 from eea.relations.field import EEAReferenceField
 from eea.relations.widget import EEAReferenceBrowserWidget
-from Acquisition import aq_inner, aq_parent
+from eea.workflow.interfaces import IHasMandatoryWorkflowFields
+from zope.interface import implements
+import interfaces
 
-##/code-section module-header
 
 schema = Schema((
 
@@ -109,35 +97,25 @@ schema = Schema((
     ),
 )
 
-##code-section after-local-schema #fill in your manual code here
-##/code-section after-local-schema
-
 Assessment_schema = ATFolderSchema.copy() + \
                   getattr(ATFolder, 'schema', Schema(())).copy() + \
                   schema.copy()
 
-##code-section after-schema #fill in your manual code here
 finalizeATCTSchema(Assessment_schema)
-##/code-section after-schema
 
 class Assessment(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory, BrowserDefaultMixin):
     """
     """
     security = ClassSecurityInfo()
 
-    implements(interfaces.IAssessment, interfaces.IIndicatorAssessment)
+    implements(interfaces.IAssessment, interfaces.IIndicatorAssessment, IHasMandatoryWorkflowFields)
 
     meta_type = 'Assessment'
     _at_rename_after_creation = False
 
     schema = Assessment_schema
 
-    ##code-section class-header #fill in your manual code here
-    ##/code-section class-header
-
-    # Methods
-
-    # Manually created methods
+    portlet_readiness = ViewPageTemplateFile('../browser/templates/portlet_readiness.pt')
 
     security.declarePublic('get_assessments')
     def get_assessments(self):
@@ -275,7 +253,3 @@ class Assessment(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory, Br
         return list(result.keys())
 
 registerType(Assessment, PROJECTNAME)
-# end of class Assessment
-
-##code-section module-footer #fill in your manual code here
-##/code-section module-footer

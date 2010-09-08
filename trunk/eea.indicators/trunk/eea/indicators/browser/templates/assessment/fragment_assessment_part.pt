@@ -2,6 +2,7 @@
 	submit_handler string:simple_edit; 
 	imsutils nocall:context/@@indicator_utils;
 	region_name python:imsutils.str_to_id(context.Title(), context);
+  also_reload python:['object_readiness'];
 	region_update_handler string:${context/absolute_url}/fragment_assessment_part;
 	figures python:context.getFolderContents();">
 
