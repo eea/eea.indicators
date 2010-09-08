@@ -97,7 +97,7 @@ schema = Schema((
         name='timeliness',
         allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
         widget=RichWidget(
-            label="Timelines",
+            label="Timeliness",
             label_msgid='indicators_label_timeliness',
             i18n_domain='indicators',
         ),
