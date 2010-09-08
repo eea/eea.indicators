@@ -3,6 +3,7 @@ Changelog
 
 1.8 - (unreleased)
 ------------------
+ * Feature: add custom faceted widget to be used in sorting indicators [tiberich 3502]
 
 1.7 - (2010-09-06)
 ------------------
