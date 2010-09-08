@@ -5,6 +5,7 @@
            i18n_domain="indicators">
 
     <include file="profiles.zcml" />
+    <include package=".faceted" />
 
     <!-- ##code-section configure.zcml -->
 
