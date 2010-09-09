@@ -3,6 +3,7 @@ Changelog
 
 1.8 - (unreleased)
 ------------------
+ * Bug fix: improve portlet readiness display for Assessments [tiberich #3606]
  * Feature: add custom faceted widget to be used in sorting indicators [tiberich #3502]
  * Change: make assessment agg edit reload the portlet readiness [tiberich #3605]
 
