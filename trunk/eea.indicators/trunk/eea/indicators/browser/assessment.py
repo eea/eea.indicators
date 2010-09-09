@@ -113,14 +113,14 @@ class WorkflowStateReadiness(ObjectReadinessView):
     #TODO: optimize this class, it should at least memoize the results of calling the checks
 
     checks = (
-        (lambda o:filter(lambda p: not getMultiAdapter((p,
-                                                      p.schema['assessment']), IValueProvider).has_value(),
-                         o.objectValues("AssessmentPart")),
-         'You need to fill in the assessments for all the policy questions'),
+        #(lambda o:filter(lambda p: not getMultiAdapter((p,
+        #                                              p.schema['assessment']), IValueProvider).has_value(),
+        #                 o.objectValues("AssessmentPart")),
+        # 'You need to fill in the assessments for all the policy questions'),
 
         (lambda o:filter(lambda p: not IObjectReadiness(p).is_ready_for('published'),
                                     o.objectValues("AssessmentPart")),
-         'You need to meet the publishing requirements for all assessment parts'),
+        'You need to fill in the assessments for all the policy questions'),
 
         (lambda o:not IObjectReadiness(aq_parent(aq_inner(o))).is_ready_for('published'),
          "You need to finish the <a href='../'>Indicator Specification</a> first!"),
@@ -164,12 +164,7 @@ class WorkflowStateReadiness(ObjectReadinessView):
         info['rfs_done'] = int(float(info['rfs_with_value']) / float(info['rfs_required'] or 1) * 100.0)
         info['rfs_field_names'] += _rfs_field_names
 
-        #extras = []
         extras = [('error', error) for checker, error in self.checks if checker(self.context)]
-
-        #for checker, error in self.checks:
-        #    if checker(self.context):
-        #        extras.append(('error', error))
 
         info['extra'] = extras
         return info
