@@ -33,13 +33,13 @@
 			</div>
 			
 			<div class="logic_group">
-
 				<tal:def tal:define="fieldname string:assessment; 
 					fieldset string:default; ">
 					<metal:macro metal:use-macro="context/indicators_macros/macros/active_field">
 						<metal:slot metal:fill-slot="content">
+              <a name="rfs_assessment_id" tal:attributes="name string:rfs_${fieldname}_${context/getId}"/>
 							<div tal:condition="python:not imsutils.field_has_value('assessment', context)" class="placeholder">
-								Please edit this Question Assessment
+                <span class="required">Please fill in</span>
 							</div>
 							<div tal:replace="structure context/assessment" />
 						</metal:slot>

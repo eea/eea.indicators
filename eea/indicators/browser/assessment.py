@@ -146,13 +146,30 @@ class WorkflowStateReadiness(ObjectReadinessView):
     def get_info_for(self, state_name):
         info = ObjectReadinessView.get_info_for(self, state_name)
 
-        #TODO: add the required fields and info from the assessment parts
+        _rfs_required = 0
+        _rfs_with_value = 0
+        _total_fields = 0
+        _rfs_field_names = []
+        for part in self.context.objectValues("AssessmentPart"):
+            _info = IObjectReadiness(part).get_info_for(state_name)
+            _rfs_required +=_info['rfs_required'] 
+            _rfs_with_value += _info['rfs_with_value']
+            _total_fields += _info['total_fields']
+            _rfs_field_names += map(lambda t:(t[0] + "_" + part.getId(), t[1]), _info['rfs_field_names'])
 
-        extras = []
+        info['rfs_required'] += _rfs_required
+        info['rfs_with_value'] += _rfs_with_value
+        info['total_fields'] += _total_fields
 
-        for checker, error in self.checks:
-            if checker(self.context):
-                extras.append(('error', error))
+        info['rfs_done'] = int(float(info['rfs_with_value']) / float(info['rfs_required'] or 1) * 100.0)
+        info['rfs_field_names'] += _rfs_field_names
+
+        #extras = []
+        extras = [('error', error) for checker, error in self.checks if checker(self.context)]
+
+        #for checker, error in self.checks:
+        #    if checker(self.context):
+        #        extras.append(('error', error))
 
         info['extra'] = extras
         return info
