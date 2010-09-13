@@ -4,8 +4,9 @@ __author__ = """European Environment Agency (EEA)"""
 __docformat__ = 'plaintext'
 __credits__ = """contributions: Alec Ghica, Tiberiu Ichim"""
 
-from Acquisition import aq_base, aq_inner, aq_parent
+from Acquisition import aq_inner, aq_parent
 from Products.CMFPlone.utils import getToolByName
+from Products.PluginIndexes.TextIndex.Splitter import UnicodeSplitter
 from Products.validation import validation
 from Products.validation.interfaces.IValidator import IValidator
 from eea.indicators.content.utils import get_dgf_value
@@ -24,9 +25,10 @@ class UniquePolicyDocTitleValidator:
         self.description = description
 
     def __call__(self, value, *args, **kwargs):
+        words = UnicodeSplitter.Splitter(value).split()
         cat = getToolByName(kwargs['instance'], 'portal_catalog')
         query = {'portal_type': 'PolicyDocumentReference',
-                 'Title': value}
+                 'Title': words}
         brains = cat(**query)
         for brain in brains:
             obj = brain.getObject()
