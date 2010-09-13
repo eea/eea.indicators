@@ -29,12 +29,16 @@ class UniquePolicyDocTitleValidator:
         cat = getToolByName(kwargs['instance'], 'portal_catalog')
         query = {'portal_type': 'PolicyDocumentReference',
                  'Title': words}
-        brains = cat(**query)
-        for brain in brains:
-            obj = brain.getObject()
-            if kwargs['instance'].UID() != obj.UID():
-                return ("Validation failed, there is already an Policy Document with this title.")
-        return 1
+        oid = kwargs['instance'].UID()
+        brains = filter(
+                    lambda b:b.Title == value and b.getObject().UID() != oid, 
+                    cat(**query)
+                )
+
+        if brains:
+            return ("Validation failed, there is already an Policy Document with this title.")
+        
+        return True
 
 validation.register(UniquePolicyDocTitleValidator('unique_policy_title_validator'))
 
