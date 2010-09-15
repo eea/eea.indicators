@@ -3,17 +3,18 @@ Changelog
 
 1.8 - (unreleased)
 ------------------
- * Bug fix: link directly to Scientific Reference if they don't have a remote url [tiberich #3646]
- * Bug fix: improve portlet readiness display for Assessments [tiberich #3606]
- * Feature: add custom faceted widget to be used in sorting indicators [tiberich #3502]
- * Change: make assessment agg edit reload the portlet readiness [tiberich #3605]
+ * Bug fix: Fixed adding policy document with '(' in title [tiberich #3614]
+ * Bug fix: Link directly to Scientific Reference if they don't have a remote url [tiberich #3646]
+ * Bug fix: Improved portlet readiness display for Assessments [tiberich #3606]
+ * Feature: Added custom faceted widget to be used in sorting indicators [tiberich #3502]
+ * Change: Made assessment agg edit to reload the portlet readiness [tiberich #3605]
 
 1.7 - (2010-09-06)
 ------------------
- * Change: add two new checks on Assessment readiness [tiberich 3603]
- * Feature: show links to missing fields from the portlet for readiness, on agg edit [tiberich 3598]
- * Change: fixed some design issues with switch box not visible and alignment of toc and metabox [demarant].
- * Feature: use the multiselect autocomplete widget for Ownership in Spec agg edit [tiberich 3597]
+ * Change: Added two new checks on Assessment readiness [tiberich 3603]
+ * Feature: Show links to missing fields from the portlet for readiness, on agg edit [tiberich 3598]
+ * Change: Fixed some design issues with switch box not visible and alignment of toc and metabox [demarant].
+ * Feature: Use the multiselect autocomplete widget for Ownership in Spec agg edit [tiberich 3597]
  * Bug fix: Override FactSheetDocument.index_html() to avoid recursion error [tiberich 3533]
  * Change: Added tooltips to all fields on aggregated edit [ghicaale #3420]
  * Bug fix: Updated broken internal urls to EEA mamagement plan system [demarant]
