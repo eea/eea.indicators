@@ -71,7 +71,7 @@
 					<ul tal:define="refs python:context.getFolderContents(contentFilter={'portal_type':'RationaleReference'})">
 						<li tal:condition="not:refs">No rationale references available</li>
 						<li tal:repeat="ref refs">
-              <a href="" tal:attributes="href python:ref.getRemoteUrl() or ref.absolute_url()" 
+              <a href="" tal:attributes="href python:ref.getRemoteUrl or ref.absolute_url()"
                 tal:content="ref/Title">Ref title</a>
 							<p tal:replace="structure ref/Description" />
 						</li>
