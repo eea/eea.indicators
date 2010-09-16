@@ -1,5 +1,5 @@
 /*
-<dtml-with base_properties> 
+<dtml-with base_properties>
 <dtml-call "REQUEST.set('portal_url', portal_url())">
  */
 
@@ -462,19 +462,23 @@ h1 {
     border-style:solid;
     border-width:1px;
 }
+
 .active_field .control a, .active_field_hovered .control a, .active_field .control-special-handler a {
     color:white;
     font-weight:bold;
     text-decoration:none;
 }
+
 .active_field {
     border:1px dotted black;
     padding:1em;
     /* min-height:20px; */
 }
+
 .active_field h5 {
     margin-top:0;
 }
+
 .active_region .placeholder {
     background-color:#FFEB9B;
     padding:1em;
@@ -499,6 +503,7 @@ a.object_creator {
     text-align:center;
     text-decoration:none;
 }
+
 a.object_creator:hover {
     /* background-color:#79AE59; */
     background:none repeat scroll 0 0 #F5821F;
@@ -508,9 +513,11 @@ a.object_creator:hover {
     color:white;
     border-bottom:1px solid #AAA;
 }
+
 a.object_creator-disabled {
     display:none;
 }
+
 .object_creator_options {
     text-align:center;
     background-color:transparent;
@@ -527,6 +534,7 @@ a.schemata_edit, a.object_delete {
     margin-right:1em;
     border-bottom:1px solid #AAA;
 }
+
 a.schemata_edit:hover, a.object_delete:hover {
     /* background-color:#79AE59; */
     background:none repeat scroll 0 0 #F5821F;
@@ -536,7 +544,6 @@ a.schemata_edit:hover, a.object_delete:hover {
     color:white;
     border:none;
 }
-
 
 /* Kupu and calendar fixes for modal edit
  * ====================================== */
@@ -551,6 +558,17 @@ div.kupu-fulleditor-zoomed .kupu-editor-iframe {
 }
 .forcekupu {
     display:none;
+}
+
+/* Timeline template
+ * =================== */
+.timeline-comments {
+    margin-top: 0;
+    margin-bottom:0;
+}
+
+.timeline-comments li {
+    margin:0 0 0 1em;
 }
 
 /* EEAFigures display
@@ -591,7 +609,7 @@ table.datagridwidget-table-view {
 }
 
 input.datagrid-radio-button {
-    /* Radio buttons try to use Plone's default text input 
+    /* Radio buttons try to use Plone's default text input
     field CSS properties, like borders and background shade image */
     border: 0;
     background: transparent;
@@ -605,7 +623,7 @@ td.datagridwidget-radio {
 }
 
 td.datagridwidget-select {
-    /* Looks like browser want to shrink drop down menu boxes 
+    /* Looks like browser want to shrink drop down menu boxes
     to zero width if there is any fight from the space.
 
     Workaround is to force select width. Override this value
@@ -641,17 +659,16 @@ td.datagridwidget-manipulator {
     width: 16px;
     text-align: center;
     padding: 0;
-    margin: 0;	
+    margin: 0;
 }
 
 td.datagridwidget-manipulator img {
-    cursor: pointer;	
+    cursor: pointer;
 }
 
 td.datagridwidget-hidden-data {
-    display: none;	
+    display: none;
 }
-
 
 a.datagridwidget-add-button, a.datagridwidget-add-button:hover {
     text-decoration: none;
@@ -660,15 +677,15 @@ a.datagridwidget-add-button, a.datagridwidget-add-button:hover {
     font-size: &dtml-fontSmallSize;;
     padding: 1px 1px 1px 15px;
     text-transform: &dtml-textTransform;;
-    float: right;	
+    float: right;
 }
 
 .dgw-hidden-column {
     display: none;
 }
 
-/* 
-Merged from historical datagridwidget.css file 
+/*
+Merged from historical datagridwidget.css file
 as fix for: http://plone.org/products/datagridfield/issues/30
  */
 
@@ -679,7 +696,7 @@ div.ArchetypesDataGridWidget table td img {
     cursor: pointer;
 }
 
-div.ArchetypesDataGridWidget table td input, 
+div.ArchetypesDataGridWidget table td input,
 div.ArchetypesDataGridWidget table td select {
     width:100%;
 }
@@ -703,6 +720,6 @@ div.ArchetypesDataGridWidget table td select {
 }
 /* end hide */
 
-/* 
+/*
 </dtml-with>  (end of loaded base_properties variables)
  */

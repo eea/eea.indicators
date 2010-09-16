@@ -3,6 +3,8 @@ Changelog
 
 1.8 - (unreleased)
 ------------------
+ * Feature: Link indicators and/or assessments with comments on
+     timeline template [ghicaale #3601]
  * Bug fix: Fixed adding policy document with '(' in title [tiberich #3614]
  * Bug fix: Link directly to Scientific Reference if they don't have a remote url [tiberich #3646]
  * Bug fix: Improved portlet readiness display for Assessments [tiberich #3606]
