@@ -42,7 +42,7 @@ class IndicatorsOverview(BrowserView):
         get_state = lambda a:wftool.getWorkflowsFor(a)[0].states[wftool.getInfoFor(a, 'review_state', '(Unknown)')].title
 
         for spec in specs:
-            sets = [s['set'] for s in spec.getCodes()] 
+            sets = [s['set'] for s in spec.getCodes()]
             if not sets:
                 sets = [None]
             assessments = [(a, get_state(a)) for a in spec.objectValues("Assessment")]
@@ -122,8 +122,9 @@ class IndicatorsTimeline(BrowserView):
                     d = spec.creation_date
                     p = 'pending'
                 year = d.year()
+                comments = len(spec.getReplyReplies(spec))
 
-                result[set][code][year] = result[set][code].get(year, [])  + [('s', spec.absolute_url(), p, spec.Title())]
+                result[set][code][year] = result[set][code].get(year, [])  + [('s', spec.absolute_url(), p, spec.Title(), comments)]
 
                 for a in assessments:
                     d = a.getEffectiveDate()
@@ -140,7 +141,8 @@ class IndicatorsTimeline(BrowserView):
                         latest_year = year
                         if earliest_year == 0:
                             earliest_year = year
+                    comments = len(a.getReplyReplies(a))
 
-                    result[set][code][year] = result[set][code].get(year, []) + [('a', a.absolute_url(), p, a.Title())]
+                    result[set][code][year] = result[set][code].get(year, []) + [('a', a.absolute_url(), p, a.Title(), comments)]
 
         return ((earliest_year, latest_year), result)
