@@ -73,6 +73,12 @@ def create_version(original, request=None):
     ver.setEffectiveDate(None)
     ver.setCreationDate(DateTime())
 
+    # Delete comment files
+    file_ids = []
+    for file_ob in ver.objectValues("ATFile"):
+        file_ids.append(file_ob.getId())
+    ver.manage_delObjects(ids=file_ids)
+
     #TODO: should we reindex the objects here?
     for obj in ver.objectValues():
         obj.setEffectiveDate(None)
@@ -125,11 +131,11 @@ class WorkflowStateReadiness(ObjectReadinessView):
         (lambda o:not IObjectReadiness(aq_parent(aq_inner(o))).is_ready_for('published'),
          "You need to finish the <a href='../'>Indicator Specification</a> first!"),
 
-        (lambda o: 'published' != getToolByName(o, 
+        (lambda o: 'published' != getToolByName(o,
                             'portal_workflow').getInfoFor(aq_parent(aq_inner(o)), 'review_state'),
         "The Indicator Specification needs to be published"
         ),
-        (lambda o:not filter(lambda part: has_one_of(["EEAFigure",], part.getRelatedItems()), 
+        (lambda o:not filter(lambda part: has_one_of(["EEAFigure",], part.getRelatedItems()),
                             o.objectValues("AssessmentPart")),
         "The answered policy questions need to point to at least one Figure"),
     )
@@ -152,7 +158,7 @@ class WorkflowStateReadiness(ObjectReadinessView):
         _rfs_field_names = []
         for part in self.context.objectValues("AssessmentPart"):
             _info = IObjectReadiness(part).get_info_for(state_name)
-            _rfs_required +=_info['rfs_required'] 
+            _rfs_required +=_info['rfs_required']
             _rfs_with_value += _info['rfs_with_value']
             _total_fields += _info['total_fields']
             _rfs_field_names += map(lambda t:(t[0] + "_" + part.getId(), t[1]), _info['rfs_field_names'])
