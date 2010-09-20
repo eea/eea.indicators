@@ -3,6 +3,7 @@ Changelog
 
 1.8 - (unreleased)
 ------------------
+ * Feature: On new assessment version, 'File' childs are not copied [ghicaale #3601]
  * Feature: Link indicators and/or assessments with comments on
      timeline template [ghicaale #3601]
  * Bug fix: Fixed adding policy document with '(' in title [tiberich #3614]
