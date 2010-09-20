@@ -8,27 +8,31 @@
  <permission>View</permission>
  <permission>Delete objects</permission>
  <state state_id="content_pending"
-        title="Pending (internal review)">
-  <description>Content pending internal review before publishing.</description>
+        title="Pending final web publishing review">
+  <description>Content pending final web review before publishing.</description>
   <exit-transition transition_id="fake_publish"/>
   <exit-transition transition_id="publish"/>
-  <exit-transition transition_id="publishEionet"/>
   <exit-transition transition_id="reject"/>
-  <exit-transition transition_id="show"/>
   <permission-map name="Access contents information"
                   acquired="False">
+   <permission-role>ContentManager</permission-role>
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
    <permission-role>Reviewer</permission-role>
    <permission-role>WebReviewer</permission-role>
   </permission-map>
+  <permission-map name="Delete objects" acquired="True">
+  </permission-map>
   <permission-map name="Modify portal content"
                   acquired="False">
+   <permission-role>ContentManager</permission-role>
+   <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Reviewer</permission-role>
   </permission-map>
   <permission-map name="View" acquired="False">
+   <permission-role>ContentManager</permission-role>
    <permission-role>Editor</permission-role>
    <permission-role>Manager</permission-role>
    <permission-role>Owner</permission-role>
@@ -40,7 +44,7 @@
   <description>This is the first state when a new item is created</description>
   <exit-transition transition_id="publishEionet"/>
   <exit-transition transition_id="quickPublish"/>
-  <exit-transition transition_id="submitContentReview"/>
+  <exit-transition transition_id="show"/>
   <permission-map name="Access contents information"
                   acquired="False">
    <permission-role>ContentManager</permission-role>
@@ -94,12 +98,12 @@
   </permission-map>
  </state>
  <state state_id="published_eionet"
-        title="Published for Eionet (Circa login)">
+        title="Restricted to Eionet only (login required)">
   <description>This state will make the content available to visitor with Eionet/Circa login.</description>
   <exit-transition transition_id="fake_publish"/>
   <exit-transition transition_id="publish"/>
   <exit-transition transition_id="retract"/>
-  <exit-transition transition_id="show"/>
+  <exit-transition transition_id="submitContentReview"/>
   <permission-map name="Access contents information"
                   acquired="True">
   </permission-map>
@@ -157,11 +161,11 @@
   </permission-map>
  </state>
  <state state_id="visible"
-        title="Visible with direct link (hidden in listings)">
+        title="External Eionet review (visible only with direct link)">
   <description>Item still visible with direct link, but hidden is searches and listings on the site. Usable for external light reviews with no login required.</description>
   <exit-transition transition_id="fake_publish"/>
   <exit-transition transition_id="publish"/>
-  <exit-transition transition_id="publishEionet"/>
+  <exit-transition transition_id="retract"/>
   <exit-transition transition_id="submitContentReview"/>
   <permission-map name="Access contents information"
                   acquired="False">
@@ -207,7 +211,8 @@
  <transition transition_id="hide"
              title="Hide item from search and listings (Unpublish)"
              new_state="visible" trigger="USER"
-             before_script="" after_script="">
+             before_script=""
+             after_script="sendWorkflowEmail">
   <description>Content still available via direct link, but hidden in listings and searches.</description>
   <action url="" category="workflow">Hide item from search and listings (Unpublish)</action>
   <guard>
@@ -218,7 +223,7 @@
  <transition transition_id="publish" title="Publish"
              new_state="published" trigger="USER"
              before_script=""
-             after_script="sendWorkflowEmail">
+             after_script="after_publish">
   <action url="" category="workflow">Publish</action>
   <guard>
    <guard-role>Manager</guard-role>
@@ -227,11 +232,11 @@
   </guard>
  </transition>
  <transition transition_id="publishEionet"
-             title="Restrict to Eionet members (login required)"
+             title="Publish for restricted review (Eionet login required)"
              new_state="published_eionet" trigger="USER"
              before_script=""
              after_script="sendWorkflowEmail">
-  <action url="" category="workflow">Restrict to Eionet members (login required)</action>
+  <action url="" category="workflow">Publish for restricted review (Eionet login required)</action>
   <guard>
    <guard-role>ContentManager</guard-role>
    <guard-role>Reviewer</guard-role>
@@ -240,11 +245,11 @@
  </transition>
  <transition transition_id="quickPublish" title="Publish"
              new_state="published" trigger="USER"
-             before_script="" after_script="">
+             before_script=""
+             after_script="sendWorkflowEmail">
   <action url="" category="workflow">Publish</action>
   <guard>
    <guard-role>Manager</guard-role>
-   <guard-role>Reviewer</guard-role>
    <guard-expression>python:path('here/@@get_readiness').is_ready_for('published')</guard-expression>
   </guard>
  </transition>
@@ -267,12 +272,12 @@
   </guard>
  </transition>
  <transition transition_id="show"
-             title="Make visible only via direct link, still hidden in listings/search"
+             title="Publish for Eionet review (visible only via direct link)"
              new_state="visible" trigger="USER"
              before_script=""
              after_script="sendWorkflowEmail">
   <description>This will make the item visible with direct link, but not show up in listings.</description>
-  <action url="" category="workflow">Make visible only via direct link, still hidden in listings/search</action>
+  <action url="" category="workflow">Publish for Eionet review (visible only via direct link)</action>
   <guard>
    <guard-role>ContentManager</guard-role>
    <guard-role>Reviewer</guard-role>
@@ -291,12 +296,12 @@
   </guard>
  </transition>
  <transition transition_id="submitContentReview"
-             title="Submit for internal peer review"
+             title="Submit for final web publishing"
              new_state="content_pending" trigger="USER"
              before_script=""
              after_script="sendWorkflowEmail">
   <action url="%(content_url)s/content_submit_form"
-          category="workflow">Submit for internal peer review</action>
+          category="workflow">Submit for final web publishing</action>
   <guard>
    <guard-role>ContentManager</guard-role>
    <guard-expression>python: here.portal_type in  ['Assessment', 'Specification'] and here.Language() == 'en'</guard-expression>
@@ -381,6 +386,12 @@
  <script script_id="fake_transition" type="External Method"
          filename="" module="eea.workflow.workflow_scripts"
          function="fake_transition"/>
+ <script script_id="after_publish" type="External Method"
+         filename="" module="eea.indicators.workflow_scripts"
+         function="after_publish"/>
+ <script script_id="publishRelatedFigures" type="External Method"
+         filename="" module="eea.indicators.workflow_scripts"
+         function="publishRelatedFigures"/>
  <script script_id="publish" type="External Method"
          filename=""
          module="EEAContentTypes.frontpage_workflow_scripts"
