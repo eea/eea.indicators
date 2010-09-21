@@ -6,9 +6,8 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from eea.indicators.browser.utils import has_one_of
 from eea.versions.versions import CreateVersion as BaseCreateVersion, create_version as base_create_version
 from eea.versions.versions import get_versions_api
-from eea.workflow.interfaces import IValueProvider, IObjectReadiness
+from eea.workflow.interfaces import IObjectReadiness
 from eea.workflow.readiness import ObjectReadinessView
-from zope.component import getMultiAdapter
 
 import logging
 logger = logging.getLogger('eea.indicators')
