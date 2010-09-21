@@ -3,7 +3,7 @@ Changelog
 
 1.8 - (unreleased)
 ------------------
- * Feature: On new assessment version, 'File' childs are not copied [ghicaale #3601]
+ * Feature: On new assessment version, 'File' children are not copied [ghicaale #3601]
  * Feature: Link indicators and/or assessments with comments on
      timeline template [ghicaale #3601]
  * Bug fix: Fixed adding policy document with '(' in title [tiberich #3614]
@@ -13,6 +13,7 @@ Changelog
  * Change: Made assessment agg edit to reload the portlet readiness [tiberich #3605]
  * Change: Add event subscriber for Assessment state change. It publishes all related figures on
    assessment publication [tiberich #3644]
+ * Change: Add customized view template for ExternalDataSpecs [tiberich #3192]
 
 1.7 - (2010-09-06)
 ------------------
