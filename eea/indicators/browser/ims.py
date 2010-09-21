@@ -143,6 +143,7 @@ class IndicatorsTimeline(BrowserView):
                             earliest_year = year
                     comments = len(a.getReplyReplies(a))
 
-                    result[set][code][year] = result[set][code].get(year, []) + [('a', a.absolute_url(), p, a.Title(), comments)]
+                    result[set][code][year] = result[set][code].get(year, []) + \
+                                              [('a', a.absolute_url(), p, a.Title(), comments)]
 
         return ((earliest_year, latest_year), result)
