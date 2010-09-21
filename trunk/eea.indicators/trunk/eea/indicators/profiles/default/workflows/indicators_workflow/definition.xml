@@ -223,7 +223,7 @@
  <transition transition_id="publish" title="Publish"
              new_state="published" trigger="USER"
              before_script=""
-             after_script="after_publish">
+             after_script="sendWorkflowEmail">
   <action url="" category="workflow">Publish</action>
   <guard>
    <guard-role>Manager</guard-role>
@@ -386,12 +386,6 @@
  <script script_id="fake_transition" type="External Method"
          filename="" module="eea.workflow.workflow_scripts"
          function="fake_transition"/>
- <script script_id="after_publish" type="External Method"
-         filename="" module="eea.indicators.workflow_scripts"
-         function="after_publish"/>
- <script script_id="publishRelatedFigures" type="External Method"
-         filename="" module="eea.indicators.workflow_scripts"
-         function="publishRelatedFigures"/>
  <script script_id="publish" type="External Method"
          filename=""
          module="EEAContentTypes.frontpage_workflow_scripts"
