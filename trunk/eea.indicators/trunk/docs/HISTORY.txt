@@ -11,6 +11,8 @@ Changelog
  * Bug fix: Improved portlet readiness display for Assessments [tiberich #3606]
  * Feature: Added custom faceted widget to be used in sorting indicators [tiberich #3502]
  * Change: Made assessment agg edit to reload the portlet readiness [tiberich #3605]
+ * Change: Add event subscriber for Assessment state change. It publishes all related figures on
+   assessment publication [tiberich #3644]
 
 1.7 - (2010-09-06)
 ------------------

@@ -1,32 +1,31 @@
-#from Products.CMFPlone.utils import getToolByName
-#from eea.indicators.config import MANAGER_ROLE
-#import logging
-#
-#
-#def delegate_manager(specification, event):
-#    """Handler for ISpecification -> IObjectModifiedEvent """
-#
-#    new_manager = specification.getManager_user_id()
-#    pm = getToolByName(specification, 'portal_membership')
-#
-#    roles = specification.computeRoleMap()
-#    for role in roles:  #remove all local grants
-#        if MANAGER_ROLE in role['local']: #TODO: change to SpecificationManager
-#            member_ids = [role['id'], ]
-#
-#            #delete all local roles
-#            pm.deleteLocalRoles(obj=specification,
-#                                member_ids=member_ids,
-#                                reindex=True,)
-#            logging.debug("Removed all local roles for ", member_ids)
-#
-#            #reassign local roles, except our interest role
-#            for role_id in role['local']:
-#                if not role_id == MANAGER_ROLE:
-#                    specification.manage_setLocalRoles(role['id'], [role_id])
-#                    logging.debug("Assigned local role %s to %s" % (role_id, member_ids))
-#
-#    specification.manage_setLocalRoles(new_manager, [MANAGER_ROLE])
-#    specification.reindexObjectSecurity()
-#
-#    logging.debug("Added %s to %s" % (MANAGER_ROLE, new_manager))
+from Products.CMFCore.utils import getToolByName
+
+
+def publishRelatedFigures(context, dest_state):
+    wftool = getToolByName(context, "portal_workflow")
+
+    codes = context.get_codes() 
+    indcodes = codes and codes[-1] or "_missing_"
+    comment = "Automatically published since related indicator (%s) is also published" % indcodes
+
+    for ap in context.objectValues('AssessmentPart'): 
+        for ob in filter(lambda o:o.portal_type=="EEAFigure", ap.getRelatedItems()):
+            figState = wftool.getInfoFor(ob, 'review_state')
+            if figState != dest_state:
+
+                # get possible transitions for object in current state
+                for obj in ([ob] + ob.objectValues('EEAFigureFile')):
+                    actions = wftool.getActionsFor(obj)
+                    transitions = [i['transition'] for i in actions if i.has_key('transition')]
+
+                    # find transition that brings us to the state of parent object
+                    for item in filter(lambda i:i.new_state_id == dest_state, transitions):
+                        wftool.doActionFor(obj, item.id, comment=comment)
+                        obj.reindexObject()
+
+
+def handle_assessment_state_change(context, event):
+    dest_state = event.workflow.transitions[event.action].new_state_id
+
+    if dest_state in ['published', 'visible']:
+        publishRelatedFigures(context, dest_state)

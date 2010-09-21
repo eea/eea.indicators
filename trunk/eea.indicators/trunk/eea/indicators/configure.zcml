@@ -57,6 +57,11 @@
               zope.app.event.interfaces.IObjectModifiedEvent"
          handler="eea.versions.versions.versionIdHandler" />
 
+    <subscriber
+         for=".content.interfaces.IAssessment
+              Products.CMFCore.interfaces.IActionSucceededEvent"
+         handler="eea.indicators.events.handle_assessment_state_change" />
+
     <adapter
          for="eea.indicators.content.interfaces.ISpecification"
          provides="eea.relations.interfaces.IAutoRelations"
