@@ -11,7 +11,7 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from eea.indicators.browser.utils import has_one_of
 from eea.versions.versions import create_version, CreateVersion as BaseCreateVersion
 from eea.workflow.interfaces import IFieldIsRequiredForState, IValueProvider
-from eea.workflow.readiness import ObjectReadinessView
+from eea.workflow.readiness import ObjectReadinessView, ObjectReadiness
 from zope.component import getMultiAdapter
 
 import logging
@@ -97,7 +97,7 @@ class CreateVersion(BaseCreateVersion):
         return self.request.RESPONSE.redirect(new_spec.absolute_url())
 
 
-class WorkflowStateReadiness(ObjectReadinessView):
+class WorkflowStateReadiness(ObjectReadiness):
 
     #TODO: translate messages here
     checks = (
@@ -116,7 +116,7 @@ class WorkflowStateReadiness(ObjectReadinessView):
             )
 
     def get_info_for(self, state_name):
-        info = ObjectReadinessView.get_info_for(self, state_name)
+        info = ObjectReadiness.get_info_for(self, state_name)
         extras = []
 
         for checker, error in self.checks:
@@ -134,6 +134,10 @@ class WorkflowStateReadiness(ObjectReadinessView):
                 return True
         else:
             return super(WorkflowStateReadiness, self).is_ready_for(state_name)
+
+
+class WorkflowStateReadinessView(ObjectReadinessView, WorkflowStateReadiness):
+    """View for workflow state readiness """
 
 
 class PolicyQuestions(BrowserView):

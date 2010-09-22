@@ -2,6 +2,7 @@ from Products.CMFPlone.utils import getToolByName
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from eea.indicators.browser.interfaces import IIndicatorsPermissionsOverview
+from eea.workflow.interfaces import IObjectReadiness
 from zope.interface import implements
 
 
@@ -123,8 +124,16 @@ class IndicatorsTimeline(BrowserView):
                     p = 'pending'
                 year = d.year()
                 comments = len(spec.getReplyReplies(spec))
+                #NOTE: introducing readiness here seems to slow things a lot
+                readiness = 0   #IObjectReadiness(spec).get_info_for('published')['rfs_done']
 
-                result[set][code][year] = result[set][code].get(year, [])  + [('s', spec.absolute_url(), p, spec.Title(), comments)]
+                result[set][code][year] = result[set][code].get(year, [])  + \
+                        [{'type':'s', 
+                            'url':spec.absolute_url(), 
+                            'state':p, 
+                            'title':spec.Title(), 
+                            'comments':comments, 
+                            'readiness':readiness}]
 
                 for a in assessments:
                     d = a.getEffectiveDate()
@@ -142,8 +151,15 @@ class IndicatorsTimeline(BrowserView):
                         if earliest_year == 0:
                             earliest_year = year
                     comments = len(a.getReplyReplies(a))
+                    readiness = 0   #IObjectReadiness(a).get_info_for('published')['rfs_done']
 
                     result[set][code][year] = result[set][code].get(year, []) + \
-                                              [('a', a.absolute_url(), p, a.Title(), comments)]
+                          [{
+                              'type':'a', 
+                              'url':a.absolute_url(), 
+                              'state':p, 
+                              'title':a.Title(), 
+                              'comments':comments, 
+                              'readiness':readiness}]
 
         return ((earliest_year, latest_year), result)

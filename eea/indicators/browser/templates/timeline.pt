@@ -11,14 +11,14 @@
   </head>
   <body>
     <div metal:fill-slot="main"
-         tal:define="info view/get_timeline;
-                     timeline python:info[1];
-                     start python: info[0][0];
-                     end python:info[0][1];
-                     years python:range(start, end+1)">
+      tal:define="info view/get_timeline;
+      timeline python:info[1];
+      start python: info[0][0];
+      end python:info[0][1];
+      years python:range(start, end+1)">
 
       <tal:comment replace="nothing">
-      <!-- <div tal:content="timeline" /> -->
+        <!-- <div tal:content="timeline" /> -->
       </tal:comment>
 
       <h1>Indicators database</h1>
@@ -37,37 +37,40 @@
               <td tal:repeat="year python:years" >
 
                 <tal:comment replace="nothing">
-                <!-- <div tal:condition="python:timeline[set][code].get('missing') and not timeline[set][code].get(year)"  -->
-                  <!--   tal:define="specs python:timeline[set][code].get('missing')"> -->
-                  <!--   <a href="" tal:attributes="href python:spec[1]" tal:repeat="spec specs">No assessment</a> -->
-                  <!-- </div> -->
+                  <!-- <div tal:condition="python:timeline[set][code].get('missing') and not timeline[set][code].get(year)"  -->
+                    <!--   tal:define="specs python:timeline[set][code].get('missing')"> -->
+                    <!--   <a href="" tal:attributes="href python:spec[1]" tal:repeat="spec specs">No assessment</a> -->
+                    <!-- </div> -->
                 </tal:comment>
 
                 <tal:def tal:define="info python:timeline[set][code].get(year)" >
                   <div tal:repeat="entry info">
-                    <a href="" tal:condition="python:entry[0] == 'a'"
-                      tal:attributes="href python:entry[1];
-                                      title python:entry[3]"
+                    <a href="" tal:condition="python:entry['type'] == 'a'"
+                      tal:attributes="href python:entry['url'];
+                      title python:entry['title']"
                       i18n:translate="see_assessment">
-                      <span i18n:name="state" tal:content="python:entry[2].capitalize()" /> assessment
+                      <span i18n:name="state" tal:content="python:entry['state'].capitalize()" /> assessment
+                      <!--<span class="readiness_percentage"-->
+                        <!--tal:content="python: '%s%%' % entry['readiness']">100</span>-->
                     </a>
-                    <a href="" tal:condition="python:entry[0] == 's'"
-                      tal:attributes="href python:entry[1];
-                                      title python:entry[3]"
+                    <a href="" tal:condition="python:entry['type'] == 's'"
+                      tal:attributes="href python:entry['url'];
+                      title python:entry['title']"
                       i18n:translate="see_specification">
-                      <span i18n:name="state" tal:content="python:entry[2].capitalize()"/> specification
+                      <span i18n:name="state" tal:content="python:entry['state'].capitalize()"/> specification
+                      <!--<span class="readiness_percentage" tal:content="python: '%s%%' % entry['readiness']">100</span>-->
                     </a>
 
                     <a href=""
-                      tal:condition="python:entry[0] == 'p'"
+                      tal:condition="python:entry['type'] == 'p'"
                       tal:attributes="href python:entry[1]">See publication</a>
 
                     <!-- Comments -->
-                    <ul tal:condition="python:int(entry[4])" class="timeline-comments" >
+                    <ul tal:condition="python:int(entry['comments'])" class="timeline-comments" >
                       <li>
                         <a href=""
-                          tal:attributes="href python:entry[1] + '#eea-comments'">See comments</a>
-                          </li>
+                          tal:attributes="href python:entry['url'] + '#eea-comments'">See comments</a>
+                      </li>
                     </ul>
                   </div>
                 </tal:def>
@@ -75,11 +78,11 @@
               </td>
 
               <tal:comment replace="nothing">
-              <!-- <td tal:define="futures python:timeline[set][code]['future']"> -->
-              <!--   <div tal:repeat="entry futures"> -->
-              <!--     <a href="" tal:condition="python:entry[0] == 'f'" tal:attributes="href python:entry[1]">See assessment</a> -->
-              <!--   </div> -->
-              <!-- </td> -->
+                <!-- <td tal:define="futures python:timeline[set][code]['future']"> -->
+                  <!--   <div tal:repeat="entry futures"> -->
+                    <!--     <a href="" tal:condition="python:entry[0] == 'f'" tal:attributes="href python:entry[1]">See assessment</a> -->
+                    <!--   </div> -->
+                  <!-- </td> -->
               </tal:comment>
             </tr>
           </tbody>
