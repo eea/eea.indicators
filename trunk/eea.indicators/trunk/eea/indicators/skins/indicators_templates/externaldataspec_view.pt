@@ -8,19 +8,16 @@
     title tooltip" />
 </metal:tooltip>
 
-<metal:main_macro define-macro="body">
+<metal:main_macro define-macro="body" tal:define="portal_url context/portal_url">
 
   <div class="metadata-container">
-    <dl>
-      <tal:block define="field python:context.getField('description'); 
-        value python:field.getAccessor(context)()" tal:condition="value">
-        <dt>
-          <metal:basic use-macro="here/dataset_view/macros/tooltip" />
-          <span>Description:</span>
-        </dt>
-        <dd tal:content="structure value"></dd>
-      </tal:block>
+    <tal:block define="field python:context.getField('description'); 
+      value python:field.getAccessor(context)()" tal:condition="value">
+      <metal:basic use-macro="here/dataset_view/macros/tooltip" />
+      <span tal:replace="structure value" />
+    </tal:block>
 
+    <dl>
       <tal:block metal:define-macro="publish-date"
         define="field python:context.getField('effectiveDate');
         value python:field.getAccessor(context)()" tal:condition="value">
