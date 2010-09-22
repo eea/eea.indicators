@@ -7,7 +7,7 @@ from eea.indicators.browser.utils import has_one_of
 from eea.versions.versions import CreateVersion as BaseCreateVersion, create_version as base_create_version
 from eea.versions.versions import get_versions_api
 from eea.workflow.interfaces import IObjectReadiness
-from eea.workflow.readiness import ObjectReadinessView
+from eea.workflow.readiness import ObjectReadinessView, ObjectReadiness
 
 import logging
 logger = logging.getLogger('eea.indicators')
@@ -111,7 +111,7 @@ def create_version(original, request=None):
     return ver
 
 
-class WorkflowStateReadiness(ObjectReadinessView):
+class WorkflowStateReadiness(ObjectReadiness):
     """ObjectReadiness customizations"""
 
     #TODO: translate messages
@@ -149,7 +149,7 @@ class WorkflowStateReadiness(ObjectReadinessView):
             return super(WorkflowStateReadiness, self).is_ready_for(state_name)
 
     def get_info_for(self, state_name):
-        info = ObjectReadinessView.get_info_for(self, state_name)
+        info = ObjectReadiness.get_info_for(self, state_name)
 
         _rfs_required = 0
         _rfs_with_value = 0
@@ -174,3 +174,6 @@ class WorkflowStateReadiness(ObjectReadinessView):
         info['extra'] = extras
         return info
 
+
+class WorkflowStateReadinessView(ObjectReadinessView, WorkflowStateReadiness):
+    """Readiness view for assessments"""

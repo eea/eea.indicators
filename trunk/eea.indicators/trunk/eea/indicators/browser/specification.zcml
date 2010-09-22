@@ -2,6 +2,9 @@
            xmlns:browser="http://namespaces.zope.org/browser"
            xmlns:five="http://namespaces.zope.org/five">
 
+  <adapter factory=".specification.WorkflowStateReadiness" 
+		   for="eea.indicators.content.interfaces.ISpecification" />
+
   <browser:page name="view"
            for="eea.indicators.content.interfaces.ISpecification"
            class=".specification.IndexPage"
