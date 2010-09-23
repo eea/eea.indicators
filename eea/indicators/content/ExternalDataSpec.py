@@ -18,8 +18,6 @@ from Products.Archetypes.atapi import *
 from Products.Archetypes.utils import shasattr
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 from Products.CMFPlone.utils import getToolByName
-from Products.EEAContentTypes.content.ThemeTaggable import ThemeTaggable
-from Products.CMFCore.permissions import ModifyPortalContent
 from eea.dataservice.vocabulary import Organisations
 from eea.themecentre.interfaces import IThemeTagging
 from eea.indicators.config import *
@@ -36,7 +34,7 @@ schema = Schema((
             label="Dataset name",
             label_msgid='indicators_label_title',
             i18n_domain='indicators',
-            description="Description comes here",
+            description=" ",
         ),
         required=True,
         accessor="Title",
@@ -49,7 +47,7 @@ schema = Schema((
             label="Dataset provider name",
             label_msgid='indicators_label_provider_name',
             i18n_domain='indicators',
-            description="Description comes here",
+            description=" ",
         ),
         required=False,
         searchable=True,
@@ -74,7 +72,7 @@ schema = Schema((
             label="URL where this dataset can be found",
             label_msgid='indicators_label_dataset_url',
             i18n_domain='indicators',
-            description="Description comes here",
+            description=" ",
         ),
         required=True,
         searchable=True,
@@ -100,7 +98,7 @@ schema = Schema((
             label="Timeliness",
             label_msgid='indicators_label_timeliness',
             i18n_domain='indicators',
-            description="Description comes here",
+            description=" ",
         ),
         required=False,
         default_content_type="text/html",
@@ -114,7 +112,7 @@ schema = Schema((
             label="Other Comments",
             label_msgid='indicators_label_other_comments',
             i18n_domain='indicators',
-            description="Description comes here",
+            description=" ",
         ),
         required=False,
         default_content_type="text/html",
@@ -127,7 +125,7 @@ schema = Schema((
             label="Category of use",
             label_msgid='indicators_label_category_of_use',
             i18n_domain='indicators',
-            description="Description comes here",
+            description=" ",
         ),
         required=False,
         vocabulary=NamedVocabulary("indicator_category_of_use"),
@@ -138,7 +136,7 @@ schema = Schema((
             label="Entities description",
             label_msgid='indicators_label_description',
             i18n_domain='indicators',
-            description="Description comes here",
+            description=" ",
         ),
         default_content_type="text/html",
         searchable=True,
