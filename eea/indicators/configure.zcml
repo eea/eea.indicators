@@ -1,8 +1,8 @@
 <configure xmlns="http://namespaces.zope.org/zope"
-           xmlns:browser="http://namespaces.zope.org/browser"
-           xmlns:five="http://namespaces.zope.org/five"
-           xmlns:i18n="http://namespaces.zope.org/i18n"
-           i18n_domain="indicators">
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    i18n_domain="indicators">
 
     <include file="profiles.zcml" />
     <include package=".faceted" />
@@ -21,61 +21,68 @@
     <five:implements class=".content.AssessmentPart.AssessmentPart"
         interface="eea.workflow.interfaces.IHasMandatoryWorkflowFields" />
 
-   <!-- <subscriber handler=".events.delegate_manager" -->
-   <!--     for="eea.indicators.content.interfaces.ISpecification -->
-   <!--          zope.app.event.interfaces.IObjectModifiedEvent" /> -->
+    <!--<class class=".content.ExternalDataSpec.ExternalDataSpec">-->
+        <!--<implements -->
+            <!--interface="eea.themecentre.interfaces.IThemeTaggable" />-->
+    <!--</class>-->
+
+    <adapter factory=".content.ExternalDataSpec.ExternalDataSpecThemes" />
+
+    <!-- <subscriber handler=".events.delegate_manager" -->
+        <!--     for="eea.indicators.content.interfaces.ISpecification -->
+        <!--          zope.app.event.interfaces.IObjectModifiedEvent" /> -->
 
     <interface interface="eea.indicators.content.interfaces.IIndicatorsDatabase" />
 
     <subscriber
-         for=".content.interfaces.ISpecification
-              zope.app.event.interfaces.IObjectCreatedEvent"
-         handler="eea.versions.versions.versionIdHandler" />
+        for=".content.interfaces.ISpecification
+        zope.app.event.interfaces.IObjectCreatedEvent"
+        handler="eea.versions.versions.versionIdHandler" />
 
     <subscriber
-         for=".content.interfaces.ISpecification
-              zope.app.event.interfaces.IObjectModifiedEvent"
-         handler="eea.versions.versions.versionIdHandler" />
+        for=".content.interfaces.ISpecification
+        zope.app.event.interfaces.IObjectModifiedEvent"
+        handler="eea.versions.versions.versionIdHandler" />
 
     <subscriber
-         for=".content.interfaces.IAssessment
-              zope.app.event.interfaces.IObjectCreatedEvent"
-         handler="eea.versions.versions.versionIdHandler" />
+        for=".content.interfaces.IAssessment
+        zope.app.event.interfaces.IObjectCreatedEvent"
+        handler="eea.versions.versions.versionIdHandler" />
 
     <subscriber
-         for=".content.interfaces.IAssessment
-              zope.app.event.interfaces.IObjectModifiedEvent"
-         handler="eea.versions.versions.versionIdHandler" />
+        for=".content.interfaces.IAssessment
+        zope.app.event.interfaces.IObjectModifiedEvent"
+        handler="eea.versions.versions.versionIdHandler" />
 
     <subscriber
-         for=".content.interfaces.IIndicatorFactSheet
-              zope.app.event.interfaces.IObjectCreatedEvent"
-         handler="eea.versions.versions.versionIdHandler" />
+        for=".content.interfaces.IIndicatorFactSheet
+        zope.app.event.interfaces.IObjectCreatedEvent"
+        handler="eea.versions.versions.versionIdHandler" />
 
     <subscriber
-         for=".content.interfaces.IIndicatorFactSheet
-              zope.app.event.interfaces.IObjectModifiedEvent"
-         handler="eea.versions.versions.versionIdHandler" />
+        for=".content.interfaces.IIndicatorFactSheet
+        zope.app.event.interfaces.IObjectModifiedEvent"
+        handler="eea.versions.versions.versionIdHandler" />
 
     <subscriber
-         for=".content.interfaces.IAssessment
-              Products.CMFCore.interfaces.IActionSucceededEvent"
-         handler="eea.indicators.events.handle_assessment_state_change" />
+        for=".content.interfaces.IAssessment
+        Products.CMFCore.interfaces.IActionSucceededEvent"
+        handler="eea.indicators.events.handle_assessment_state_change" />
 
     <adapter
-         for="eea.indicators.content.interfaces.ISpecification"
-         provides="eea.relations.interfaces.IAutoRelations"
-         factory=".autorelations.LatestFigures"/>
+        for="eea.indicators.content.interfaces.ISpecification"
+        provides="eea.relations.interfaces.IAutoRelations"
+        factory=".autorelations.LatestFigures"/>
 
     <adapter
-         for="eea.indicators.content.interfaces.IAssessment"
-         provides="eea.themecentre.interfaces.IThemeTagging"
-         factory=".themes.AssessmentThemes"/>
-         
+        for="eea.indicators.content.interfaces.IAssessment"
+        provides="eea.themecentre.interfaces.IThemeTagging"
+        factory=".themes.AssessmentThemes"/>
+
     <adapter
-         for="eea.indicators.content.interfaces.ISpecification"
-         provides="zope.app.traversing.interfaces.ITraversable"
-         factory=".traverse.SpecificationTraverser"/>
+        for="eea.indicators.content.interfaces.ISpecification"
+        provides="zope.app.traversing.interfaces.ITraversable"
+        factory=".traverse.SpecificationTraverser"/>
 
     <!-- ##/code-section configure.zcml -->
 

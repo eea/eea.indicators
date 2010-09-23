@@ -3,8 +3,6 @@
 # $Id$
 #
 # Copyright (c) 2010 by ['Tiberiu Ichim']
-# Generator: ArchGenXML
-#            http://plone.org/products/archgenxml
 #
 # GNU General Public License (GPL)
 #
@@ -13,23 +11,22 @@ __author__ = """Tiberiu Ichim <unknown>"""
 __docformat__ = 'plaintext'
 
 from AccessControl import ClassSecurityInfo
-from Products.Archetypes.atapi import *
-from zope.interface import implements
-import interfaces
-from Products.ATContentTypes.content.base import ATCTContent
-from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
-
-from eea.indicators.config import *
-
-# additional imports from tagged value 'import'
 from Products.ATContentTypes.content.base import ATCTContent, ATContentTypeSchema
-from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
-
-##code-section module-header #fill in your manual code here
-from Products.CMFPlone.utils import getToolByName
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema
+from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
+from Products.Archetypes.atapi import *
+from Products.Archetypes.utils import shasattr
+from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
+from Products.CMFPlone.utils import getToolByName
+from Products.EEAContentTypes.content.ThemeTaggable import ThemeTaggable
+from Products.CMFCore.permissions import ModifyPortalContent
 from eea.dataservice.vocabulary import Organisations
-##/code-section module-header
+from eea.themecentre.interfaces import IThemeTagging
+from eea.indicators.config import *
+from zope.interface import implements
+from zope.component import adapts
+import interfaces
+
 
 schema = Schema((
 
@@ -155,19 +152,15 @@ schema = Schema((
 ),
 )
 
-##code-section after-local-schema #fill in your manual code here
 schema['provider_url'].validators=('isURL',)
 schema['dataset_url'].validators=('isURL',)
-##/code-section after-local-schema
 
 ExternalDataSpec_schema = ATContentTypeSchema.copy() + \
     getattr(ATCTContent, 'schema', Schema(())).copy() + \
     schema.copy()
 
-##code-section after-schema #fill in your manual code here
 ExternalDataSpec_schema.moveField('relatedItems', after='category_of_use')
 finalizeATCTSchema(ExternalDataSpec_schema)
-##/code-section after-schema
 
 class ExternalDataSpec(ATCTContent, BrowserDefaultMixin):
     """
@@ -181,23 +174,49 @@ class ExternalDataSpec(ATCTContent, BrowserDefaultMixin):
 
     schema = ExternalDataSpec_schema
 
-    ##code-section class-header #fill in your manual code here
-    ##/code-section class-header
-
-    # Methods
-
-    # Manually created methods
-
     security.declarePublic("Description")
     def Description(self):
         convert = getToolByName(self, 'portal_transforms').convert
         return convert('html_to_text', self.getDescription()).getData()
 
+    security.declarePublic("getThemes")
+    def getThemes(self):
+        """Get themes"""
+        themes = []
+        map(
+            lambda o:themes.extend(o.getThemes()), 
+            filter(
+                lambda o:shasattr(o, 'getThemes'), 
+                self.getBRefs()
+            )
+        )
+        return sorted(list(set(themes)))
+
+    security.declarePublic('Subject')
+    def Subject(self):
+        """Overwrite standard Subject method to dynamically get all
+           keywords from other objects used in this assessment. """
+        result = []
+        map(
+            lambda o:result.extend(o.Subject()), 
+            filter(
+                lambda o:o.portal_type=="Specification", 
+                self.getBRefs()
+            )
+        )
+        return sorted(list(set(result)))
+        
+
 registerType(ExternalDataSpec, PROJECTNAME)
-# end of class ExternalDataSpec
-
-##code-section module-footer #fill in your manual code here
-##/code-section module-footer
 
 
+class ExternalDataSpecThemes(object):
+    implements(IThemeTagging)
+    adapts(interfaces.IExternalDataSpec)
 
+    def __init__(self, context):
+        self.context = context
+
+    @property
+    def tags(self):
+        return self.context.getThemes()
