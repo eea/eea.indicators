@@ -195,7 +195,7 @@ class ExternalDataSpec(ATCTContent, BrowserDefaultMixin):
     security.declarePublic('Subject')
     def Subject(self):
         """Overwrite standard Subject method to dynamically get all
-           keywords from other objects used in this assessment. """
+           keywords from other specifications"""
         result = []
         map(
             lambda o:result.extend(o.Subject()), 
