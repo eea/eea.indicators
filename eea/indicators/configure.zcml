@@ -84,6 +84,19 @@
         provides="zope.app.traversing.interfaces.ITraversable"
         factory=".traverse.SpecificationTraverser"/>
 
-    <!-- ##/code-section configure.zcml -->
+    <subscriber
+        for=".content.interfaces.IAssessmentPart
+        zope.app.event.interfaces.IObjectModifiedEvent"
+        handler="eea.indicators.events.handle_assessmentpart_modification" />
+
+    <subscriber
+        for=".content.interfaces.ISpecification
+        zope.app.event.interfaces.IObjectModifiedEvent"
+        handler="eea.indicators.events.handle_specification_state_change" />
+
+    <subscriber
+        for=".content.interfaces.IPolicyQuestion
+        zope.app.event.interfaces.IObjectModifiedEvent"
+        handler="eea.indicators.events.handle_policyquestion_modification" />
 
 </configure>

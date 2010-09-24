@@ -29,3 +29,19 @@ def handle_assessment_state_change(context, event):
 
     if dest_state in ['published', 'visible']:
         publishRelatedFigures(context, dest_state)
+
+
+def handle_specification_state_change(context, event):
+    #reindex children assessments to update their readiness
+    catalog = getToolByName(context, 'portal_catalog')
+    catalog.reindexObject(context, idxs=[], update_metadata=True)
+
+def handle_policyquestion_modification(context, event):
+    #reindex parent specification to update their readiness
+    catalog = getToolByName(context, 'portal_catalog')
+    catalog.reindexObject(context, idxs=[], update_metadata=True)
+
+def handle_assessmentpart_modification(context, event):
+    #reindex parent assessment to update their readiness
+    catalog = getToolByName(context, 'portal_catalog')
+    catalog.reindexObject(context, idxs=[], update_metadata=True)

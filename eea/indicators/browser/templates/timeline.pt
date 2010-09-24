@@ -17,12 +17,12 @@
       end python:info[0][1];
       years python:range(start, end+1)">
 
-      <tal:comment replace="nothing">
-        <!-- <div tal:content="timeline" /> -->
-      </tal:comment>
+      <tal:block define="queryString string:h2">
+        <metal:toc use-macro="here/portlet_toc/macros/portlet"/>
+      </tal:block>
 
       <h1>Indicators database</h1>
-      <tal:rep tal:repeat="set timeline">
+      <tal:rep tal:repeat="set python:sorted(timeline.keys())">
         <h2 tal:content="set">CSI</h2>
         <table class='listing'>
           <thead>
@@ -33,7 +33,7 @@
           </thead>
           <tbody>
             <tr tal:repeat="code python:sorted(timeline[set].keys())">
-              <td tal:content="code">Timeline </td>
+              <td tal:content="code">CSI</td>
               <td tal:repeat="year python:years" >
 
                 <tal:comment replace="nothing">
@@ -50,16 +50,15 @@
                       title python:entry['title']"
                       i18n:translate="see_assessment">
                       <span i18n:name="state" tal:content="python:entry['state'].capitalize()" /> assessment
-                      <!--<span class="readiness_percentage"-->
-                        <!--tal:content="python: '%s%%' % entry['readiness']">100</span>-->
                     </a>
                     <a href="" tal:condition="python:entry['type'] == 's'"
                       tal:attributes="href python:entry['url'];
                       title python:entry['title']"
                       i18n:translate="see_specification">
                       <span i18n:name="state" tal:content="python:entry['state'].capitalize()"/> specification
-                      <!--<span class="readiness_percentage" tal:content="python: '%s%%' % entry['readiness']">100</span>-->
                     </a>
+                    <span class="readiness_percentage" 
+                        tal:content="python: '%s%%' % entry['readiness']">100</span>
 
                     <a href=""
                       tal:condition="python:entry['type'] == 'p'"

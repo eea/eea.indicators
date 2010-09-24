@@ -22,7 +22,7 @@ from eea.indicators.config import *
 from eea.indicators.content.base import ModalFieldEditableAware, CustomizedObjectFactory
 from eea.relations.field import EEAReferenceField
 from eea.relations.widget import EEAReferenceBrowserWidget
-from eea.workflow.interfaces import IHasMandatoryWorkflowFields
+from eea.workflow.interfaces import IHasMandatoryWorkflowFields, IObjectReadiness
 from zope.interface import implements
 import interfaces
 
@@ -102,6 +102,7 @@ Assessment_schema = ATFolderSchema.copy() + \
                   schema.copy()
 
 finalizeATCTSchema(Assessment_schema)
+
 
 class Assessment(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory, BrowserDefaultMixin):
     """
@@ -251,5 +252,15 @@ class Assessment(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory, Br
                         for val in ob.getTemporalCoverage():
                             result[val] = val
         return list(result.keys())
+
+    security.declarePublic("readiness")
+    def published_readiness(self):
+        """Used as index for readiness """
+        return IObjectReadiness(self).get_info_for('published')['rfs_done']
+
+    security.declarePublic("comments")
+    def comments(self):
+        """Return the number of comments"""
+        return len(self.getReplyReplies(self))
 
 registerType(Assessment, PROJECTNAME)

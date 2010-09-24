@@ -134,8 +134,8 @@ class WorkflowStateReadiness(ObjectReadiness):
                             'portal_workflow').getInfoFor(aq_parent(aq_inner(o)), 'review_state'),
         "The Indicator Specification needs to be published"
         ),
-        (lambda o:not filter(lambda part: has_one_of(["EEAFigure",], part.getRelatedItems()),
-                            o.objectValues("AssessmentPart")),
+        (lambda o:not filter(lambda part: has_one_of(["EEAFigure"], part.getRelatedItems()),
+                             o.objectValues("AssessmentPart")),
         "The answered policy questions need to point to at least one Figure"),
     )
 
@@ -160,7 +160,8 @@ class WorkflowStateReadiness(ObjectReadiness):
             _rfs_required +=_info['rfs_required']
             _rfs_with_value += _info['rfs_with_value']
             _total_fields += _info['total_fields']
-            _rfs_field_names += map(lambda t:(t[0] + "_" + part.getId(), t[1]), _info['rfs_field_names'])
+            _rfs_field_names += map(lambda t:(t[0] + "_" + part.getId(), t[1]), 
+                                    _info['rfs_field_names'])
 
         info['rfs_required'] += _rfs_required
         info['rfs_with_value'] += _rfs_with_value

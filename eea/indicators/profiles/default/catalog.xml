@@ -10,4 +10,6 @@
   </index>
   <column value="get_codes" />
   <column value="getOwnership" />
+  <column value="published_readiness" />
+  <column value="comments" />
 </object>

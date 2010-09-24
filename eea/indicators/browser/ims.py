@@ -2,8 +2,9 @@ from Products.CMFPlone.utils import getToolByName
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from eea.indicators.browser.interfaces import IIndicatorsPermissionsOverview
-from eea.workflow.interfaces import IObjectReadiness
 from zope.interface import implements
+import DateTime
+import re
 
 
 #TODO: write test for this sorting
@@ -75,17 +76,31 @@ class IndicatorsOverview(BrowserView):
         return codeset
 
 
+codesre = re.compile(r"([a-zA-Z]+)(\d+)")
+
 class IndicatorsTimeline(BrowserView):
     """Presents a timeline based structure for Assessments
     """
 
+    def get_codes(self, codes):
+        res = []
+        for code in codes:
+            match = codesre.match(code)
+            if match:
+                res.append(match.groups())
+        return res
+
+    def get_child_assessments(self, spec):
+        #checks if spec id is in assessment path segments
+        #TODO: test if changing the self.assessments list by deleting those found results in faster code
+        return filter(
+                lambda b:spec.id in b.getPath().split('/'),
+                self.assessments)
+
     def get_timeline(self):
-
-        #PUBLISHED = 'published'
-
-        specs = self.context.objectValues("Specification")
-        wftool = getToolByName(self.context, 'portal_workflow')
-        get_state = lambda a:wftool.getInfoFor(a, 'review_state', '(Unknown)')
+        catalog = getToolByName(self.context, 'portal_catalog')
+        self.specs = catalog.searchResults(portal_type='Specification')
+        self.assessments = catalog.searchResults(portal_type='Assessment')
 
         result = {
                 #example of data structure:
@@ -99,50 +114,47 @@ class IndicatorsTimeline(BrowserView):
 
         earliest_year = 0
         latest_year = 0
-        for spec in specs:
-            assessments = spec.objectValues("Assessment")
-            for codeset in spec.getCodes():
-                set, code = codeset['set'], codeset['code']
+
+        for i, spec in enumerate(self.specs):
+            assessments = self.get_child_assessments(spec)
+            for set, code in self.get_codes(spec.get_codes):
                 if not set in result:
                     result[set] = {}
 
                 if not code in result[set]:
-                    result[set][code] = {}  #'future':[],
+                    result[set][code] = {}
 
-#               if not assessments:
-#                   #TODO: see if there's a related EEAPublication to the Specification
-#                   #pseudocode
-#                   #if published(a):
-#                   #    result[set][code]['p'] = [(p, p.absolute_url())]
-#                   #else:
-#                   result[set][code]['missing'] = [('m', spec.absolute_url())] + result[set][code].get('missing', [])
-
-                d = spec.getEffectiveDate()
-                p = 'published'    #is published
-                if not d:
-                    d = spec.creation_date
+                d = spec.EffectiveDate
+                if d and d != 'None' and not isinstance(d, tuple):
+                    p = 'published'
+                    d = DateTime.DateTime(d)
+                else:
                     p = 'pending'
+                    d = DateTime.DateTime(spec.CreationDate)
+
                 year = d.year()
-                comments = len(spec.getReplyReplies(spec))
-                #NOTE: introducing readiness here seems to slow things a lot
-                readiness = 0   #IObjectReadiness(spec).get_info_for('published')['rfs_done']
+                #comments = len(spec.getReplyReplies(spec))
+                #readiness = IObjectReadiness(spec).get_info_for('published')['rfs_done']
 
                 result[set][code][year] = result[set][code].get(year, [])  + \
                         [{'type':'s', 
-                            'url':spec.absolute_url(), 
+                            'url':spec.getURL(), 
                             'state':p, 
-                            'title':spec.Title(), 
-                            'comments':comments, 
-                            'readiness':readiness}]
+                            'title':spec.Title, 
+                            'comments':spec.comments, 
+                            'readiness':spec.readiness}]
 
                 for a in assessments:
                     d = a.getEffectiveDate()
                     p = 'published'
-                    if not d:
-                        #assessment is not published
-                        #result[set][code]['future'] = [('f', a.absolute_url())] + result[set][code].get('future', [])
-                        d = a.creation_date
+                    d = spec.EffectiveDate
+                    if d and d != 'None' and not isinstance(d, tuple):
+                        p = 'published'
+                        d = DateTime.DateTime(d)
+                    else:
                         p = 'pending'
+                        d = DateTime.DateTime(spec.CreationDate)
+
                     year = d.year()
                     if year < earliest_year:
                         earliest_year = year
@@ -150,16 +162,16 @@ class IndicatorsTimeline(BrowserView):
                         latest_year = year
                         if earliest_year == 0:
                             earliest_year = year
-                    comments = len(a.getReplyReplies(a))
-                    readiness = 0   #IObjectReadiness(a).get_info_for('published')['rfs_done']
+                    #comments = len(a.getReplyReplies(a))
+                    #readiness = IObjectReadiness(a).get_info_for('published')['rfs_done']
 
                     result[set][code][year] = result[set][code].get(year, []) + \
                           [{
                               'type':'a', 
-                              'url':a.absolute_url(), 
+                              'url':a.getURL(), 
                               'state':p, 
-                              'title':a.Title(), 
-                              'comments':comments, 
-                              'readiness':readiness}]
+                              'title':a.Title, 
+                              'comments':a.comments, 
+                              'readiness':a.published_readiness}]
 
         return ((earliest_year, latest_year), result)
