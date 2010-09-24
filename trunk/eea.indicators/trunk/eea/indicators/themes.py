@@ -1,8 +1,10 @@
-
-from Acquisition import aq_base, aq_inner, aq_parent
+from Acquisition import aq_inner, aq_parent
 from eea.themecentre.interfaces import IThemeTagging
 
+
 class AssessmentThemes(object):
+    """Overrides the IThemeTagging adaptor for Assessments"""
+
     def __init__(self, context):
         self.context = context
         self.parent = aq_parent(aq_inner(self.context))

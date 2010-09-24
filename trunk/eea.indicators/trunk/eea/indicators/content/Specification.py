@@ -33,9 +33,8 @@ from eea.relations.field import EEAReferenceField
 from eea.relations.widget import EEAReferenceBrowserWidget
 from eea.versions.interfaces import IVersionControl, IVersionEnhanced
 from eea.versions.versions import has_versions, get_versions_api
-from eea.workflow.interfaces import IHasMandatoryWorkflowFields
-from zope.interface import alsoProvides
-from zope.interface import implements
+from eea.workflow.interfaces import IHasMandatoryWorkflowFields, IObjectReadiness
+from zope.interface import alsoProvides, implements
 import datetime
 import interfaces
 
@@ -642,6 +641,16 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
         factory = getattr(self, factory_name, None)
         obj = factory()['obj']
         return obj.getId()
+
+    security.declarePublic("readiness")
+    def published_readiness(self):
+        """Used as index for readiness """
+        return IObjectReadiness(self).get_info_for('published')['rfs_done']
+
+    security.declarePublic("comments")
+    def comments(self):
+        """Return the number of comments"""
+        return len(self.getReplyReplies(self))
 
 
 registerType(Specification, PROJECTNAME)

@@ -3,6 +3,9 @@ Changelog
 
 1.8 - (unreleased)
 ------------------
+ * Feature: Add two new catalog metadata columns: comments and published_readiness [tiberich #3645]
+ * Change: Use catalog search and brains to display the ims_timeline [tiberich #3645]
+ * Feature: Add readiness percentage in the ims_timeline [tiberich #3645]
  * Change: Add customized view template for ExternalDataSpecs [tiberich #3192]
  * Feature: On new assessment version, 'File' children are not copied [ghicaale #3601]
  * Feature: Link indicators and/or assessments with comments on
