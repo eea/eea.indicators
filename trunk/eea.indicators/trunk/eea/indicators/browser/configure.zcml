@@ -121,4 +121,8 @@
     name='indicators.js'
     file='js/indicators.js' />
 
+  <browser:resource
+    name='indicators-timeline.js'
+    file='js/indicators-timeline.js' />
+
 </configure>

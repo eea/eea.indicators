@@ -46,6 +46,12 @@
     width: 90%;
 }
 
+a.not-ready {
+    color:red !important;
+}
+.qtip .portletFooter {
+    display:none;
+}
 .required-field {
     background:url(Warning.png) no-repeat scroll 0 0 transparent;
     color:black;
