@@ -97,6 +97,17 @@ class IndicatorsTimeline(BrowserView):
                 lambda b:spec.id in b.getPath().split('/'),
                 self.assessments)
 
+    def _get_instance_info(self, instance):
+        d = instance.EffectiveDate
+        if d and d != 'None' and not isinstance(d, tuple):
+            p = 'published'
+            d = DateTime.DateTime(d)
+        else:
+            p = 'pending'
+            d = DateTime.DateTime(instance.CreationDate)
+
+        return d, p
+
     def get_timeline(self):
         catalog = getToolByName(self.context, 'portal_catalog')
         self.specs = catalog.searchResults(portal_type='Specification')
@@ -124,15 +135,9 @@ class IndicatorsTimeline(BrowserView):
                 if not code in result[set]:
                     result[set][code] = {}
 
-                d = spec.EffectiveDate
-                if d and d != 'None' and not isinstance(d, tuple):
-                    p = 'published'
-                    d = DateTime.DateTime(d)
-                else:
-                    p = 'pending'
-                    d = DateTime.DateTime(spec.CreationDate)
-
+                d, p = self._get_instance_info(spec)
                 year = d.year()
+
                 #comments = len(spec.getReplyReplies(spec))
                 #readiness = IObjectReadiness(spec).get_info_for('published')['rfs_done']
 
@@ -142,19 +147,10 @@ class IndicatorsTimeline(BrowserView):
                             'state':p, 
                             'title':spec.Title, 
                             'comments':spec.comments, 
-                            'readiness':spec.readiness}]
+                            'readiness':spec.published_readiness}]
 
                 for a in assessments:
-                    d = a.getEffectiveDate()
-                    p = 'published'
-                    d = spec.EffectiveDate
-                    if d and d != 'None' and not isinstance(d, tuple):
-                        p = 'published'
-                        d = DateTime.DateTime(d)
-                    else:
-                        p = 'pending'
-                        d = DateTime.DateTime(spec.CreationDate)
-
+                    d, p = self._get_instance_info(a)
                     year = d.year()
                     if year < earliest_year:
                         earliest_year = year
@@ -174,4 +170,6 @@ class IndicatorsTimeline(BrowserView):
                               'comments':a.comments, 
                               'readiness':a.published_readiness}]
 
+            if i > 10:
+                break
         return ((earliest_year, latest_year), result)

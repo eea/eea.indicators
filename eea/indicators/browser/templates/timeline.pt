@@ -8,6 +8,11 @@
     <metal:slot fill-slot="css_slot">
       <link type="text/css" rel="stylesheet" media="all" tal:attributes="href string:$portal_url/indicators.css" />
     </metal:slot>
+
+    <metal:slot fill-slot="javascript_head_slot">
+      <script type="text/javascript" tal:attributes="src context/++resource++jquery.qtip.js" ></script>
+      <script type="text/javascript" tal:attributes="src string:$portal_url/++resource++indicators-timeline.js" ></script>
+    </metal:slot>
   </head>
   <body>
     <div metal:fill-slot="main"
@@ -43,29 +48,31 @@
                     <!-- </div> -->
                 </tal:comment>
 
-                <tal:def tal:define="info python:timeline[set][code].get(year)" >
+                <tal:def tal:define="info python:timeline[set][code].get(year);">
                   <div tal:repeat="entry info">
+                    <a href="#" class="not-ready-anchor" tal:condition="python:entry['readiness']!=100">
+                      <img tal:attributes="src string:$portal_url/cancel.png" />
+                    </a>
                     <a href="" tal:condition="python:entry['type'] == 'a'"
                       tal:attributes="href python:entry['url'];
-                      title python:entry['title']"
+                      title python:entry['title'];
+                      class python:(entry['readiness'] != 100) and 'not-ready' or ''"
                       i18n:translate="see_assessment">
                       <span i18n:name="state" tal:content="python:entry['state'].capitalize()" /> assessment
                     </a>
                     <a href="" tal:condition="python:entry['type'] == 's'"
                       tal:attributes="href python:entry['url'];
-                      title python:entry['title']"
+                      title python:entry['title'];
+                      class python:(entry['readiness'] != 100) and 'not-ready' or ''"
                       i18n:translate="see_specification">
                       <span i18n:name="state" tal:content="python:entry['state'].capitalize()"/> specification
                     </a>
-                    <span class="readiness_percentage" 
-                        tal:content="python: '%s%%' % entry['readiness']">100</span>
-
                     <a href=""
                       tal:condition="python:entry['type'] == 'p'"
                       tal:attributes="href python:entry[1]">See publication</a>
 
                     <!-- Comments -->
-                    <ul tal:condition="python:int(entry['comments'])" class="timeline-comments" >
+                    <ul tal:condition="python:int(entry['comments'] or 0)" class="timeline-comments" >
                       <li>
                         <a href=""
                           tal:attributes="href python:entry['url'] + '#eea-comments'">See comments</a>
