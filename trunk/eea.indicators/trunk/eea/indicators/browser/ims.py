@@ -170,6 +170,4 @@ class IndicatorsTimeline(BrowserView):
                               'comments':a.comments, 
                               'readiness':a.published_readiness}]
 
-            if i > 10:
-                break
         return ((earliest_year, latest_year), result)
