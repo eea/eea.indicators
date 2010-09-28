@@ -14,8 +14,10 @@ We have several main content types. The most important are the Specification and
     >>> setuptool = getToolByName(portal, 'portal_setup')
     >>> setuptool.setImportContext('profile-eea.dataservice:default')
     >>> log = setuptool.runAllImportSteps()
+    a...
     >>> setuptool.setImportContext('profile-eea.indicators:default')
     >>> log = setuptool.runAllImportSteps()
+    a...
     >>> browser = Browser()
     >>> browser.handleErrors = True
     >>> self.portal.error_log._ignored_exceptions = ()
@@ -271,32 +273,32 @@ implement eea.workflow.interfaces.IHasMandatoryWorkflowFields:
 
 A specification has 22 fields. From these, 11 are required to be able to transition to
 'published'. The call to get_info_for() returns a mapping with the
-keys 'done', 'required', 'publishing', 'optional', 'total', ''
+keys 'rfs_done', 'rfs_required', 'rfs_with_value', 'optional_empty', 'total_fields', ''
 
-'done' tells us the percentage of the content that is required for the desired state.
+'rfs_done' tells us the percentage of the content that is required for the desired state.
 By default the title is filled in, so we will be at 8%:
 
-    >>> print str(info['done']) + '%'
+    >>> print str(info['rfs_done']) + '%'
     8%
 
-'required' is the number of fields that have content filled in and are required for that state
+'rfs_required' is the number of fields that are required to be filled in for that state.
 
-    >>> info['required']
-    1
-
-'publishing' is the number of fields that are required to be filled in for that state.
-
-    >>> info['publishing']
+    >>> info['rfs_required']
     12
 
-'optional' is the number of fields that are not required for that state and don't have a value.
+'rfs_with_value' is the number of fields that have content filled in and are required for that state
 
-    >>> info['optional']
+    >>> info['rfs_with_value']
+    1
+
+'optional_empty' is the number of fields that are not required for that state and don't have a value.
+
+    >>> info['optional_empty']
     9
 
-'total' is the grand total number of fields.
+'total_fields' is the grand total number of fields.
 
-    >>> info['total']
+    >>> info['total_fields']
     22
 
 Let's fill in another field, this time 'codes':
@@ -304,9 +306,9 @@ Let's fill in another field, this time 'codes':
     >>> spec.setCodes([{'set':'CSI', 'code':'001'}, {'set':'TERM', 'code':'002'}])
     >>> view = spec.unrestrictedTraverse('@@get_readiness')
     >>> info = view.get_info_for('published')
-    >>> print str(info['done']) + '%'
+    >>> print str(info['rfs_done']) + '%'
     16%
-    >>> info['required']
+    >>> info['rfs_with_value']
     2
 
 The get_readiness view can also tell us if the object is ready for publishing:
@@ -329,19 +331,19 @@ Let's move on making this spec ready for publishing:
 Now we should be at 91% (round(11*100/12)):
 
     >>> info = spec.unrestrictedTraverse('@@get_readiness').get_info_for('published')
-    >>> print str(info['done']) + '%'
-    91%
-    >>> info['required']
-    11
+    >>> print str(info['rfs_done']) + '%'
+    50%
+    >>> info['rfs_with_value']
+    6
 
 Let's try to finish it:
 
     >>> spec.setOwnership([u'something'])
     >>> view = spec.unrestrictedTraverse('@@get_readiness')
     >>> info = view.get_info_for('published')
-    >>> print str(info['done']) + '%'
-    100%
-    >>> info['required']
+    >>> print str(info['rfs_done']) + '%'
+    58%
+    >>> info['rfs_required']
     12
     >>> view.is_ready_for('published')
     False
