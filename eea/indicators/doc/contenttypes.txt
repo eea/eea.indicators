@@ -271,20 +271,22 @@ implement eea.workflow.interfaces.IHasMandatoryWorkflowFields:
     >>> view = spec.unrestrictedTraverse('@@get_readiness')
     >>> info = view.get_info_for('published')
 
-A specification has 22 fields. From these, 11 are required to be able to transition to
-'published'. The call to get_info_for() returns a mapping with the
-keys 'rfs_done', 'rfs_required', 'rfs_with_value', 'optional_empty', 'total_fields', ''
+A specification has 22 fields. From these, 12 are required to be able to transition to
+'published'. We also have a number of 4 extra checks, so we count 16 required fields.
+
+The call to get_info_for() returns a mapping with the
+keys 'rfs_done', 'rfs_required', 'rfs_with_value', 'optional_empty', 'total_fields', 'extras'
 
 'rfs_done' tells us the percentage of the content that is required for the desired state.
-By default the title is filled in, so we will be at 8%:
+By default the title is filled in, so we will be at 6% (1.0/16.0*100):
 
     >>> print str(info['rfs_done']) + '%'
-    8%
+    6%
 
 'rfs_required' is the number of fields that are required to be filled in for that state.
 
     >>> info['rfs_required']
-    12
+    16
 
 'rfs_with_value' is the number of fields that have content filled in and are required for that state
 
@@ -296,10 +298,10 @@ By default the title is filled in, so we will be at 8%:
     >>> info['optional_empty']
     9
 
-'total_fields' is the grand total number of fields.
+'total_fields' is the grand total number of fields. There are 22 fields + 4 lambda checks.
 
     >>> info['total_fields']
-    22
+    26
 
 Let's fill in another field, this time 'codes':
 
@@ -307,7 +309,7 @@ Let's fill in another field, this time 'codes':
     >>> view = spec.unrestrictedTraverse('@@get_readiness')
     >>> info = view.get_info_for('published')
     >>> print str(info['rfs_done']) + '%'
-    16%
+    12%
     >>> info['rfs_with_value']
     2
 
@@ -320,33 +322,30 @@ Let's move on making this spec ready for publishing:
 
     >>> spec.setDpsir('D')
     >>> spec.setTypology('A')
-    >>> spec.setRationale_justification(u'something')
-    >>> spec.setPolicy_context_description(u'something')
-    >>> spec.setDefinition(u'something')
-    >>> spec.setUnits(u'something')
-    >>> spec.setMethodology(u'something')
+    >>> spec.setRationale_justification(u'something or other')
+    >>> spec.setPolicy_context_description(u'something and other')
+    >>> spec.setDefinition(u'something and other')
+    >>> spec.setUnits(u'something and other')
+    >>> spec.setMethodology(u'something and other')
     >>> spec.setManager_user_id(u'something')
     >>> spec.setThemes([u'something'])
+    >>> spec.setOwnership([u'something'])
 
-Now we should be at 91% (round(11*100/12)):
+We have to introduce more then one word in the richtext fields because we have an adapter
+that considers valid values only text with more then 2 words.
+
+All required fields are filled in, but the extra checks are not met:
+
+Now we should be at 81% (round(13*100/16)):
 
     >>> info = spec.unrestrictedTraverse('@@get_readiness').get_info_for('published')
     >>> print str(info['rfs_done']) + '%'
-    50%
+    81%
     >>> info['rfs_with_value']
-    6
+    13
 
-Let's try to finish it:
-
-    >>> spec.setOwnership([u'something'])
-    >>> view = spec.unrestrictedTraverse('@@get_readiness')
-    >>> info = view.get_info_for('published')
-    >>> print str(info['rfs_done']) + '%'
-    58%
-    >>> info['rfs_required']
-    12
-    >>> view.is_ready_for('published')
-    False
+We have 13 in the rfs_with_value variable because we have 12 real fields + one extra check
+that is fulfilled, which checks if we have a primary theme.
 
 It's not yet ready for published because there's an override to the default provided eea.workflow
 get_readiness that adds a few extra checks: we need to have at least one
