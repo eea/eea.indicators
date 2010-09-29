@@ -31,13 +31,13 @@
            class=".utils.Sorter"
            permission="zope2.View" />
 
-  <browser:page
-           name="get_readiness"
-           for="eea.indicators.content.interfaces.ISpecification"
-           permission="zope2.View"
-           class=".specification.WorkflowStateReadinessView"
-           allowed_interface="eea.workflow.interfaces.IObjectReadiness"
-           />
+  <!--<browser:page-->
+           <!--name="get_readiness"-->
+           <!--for="eea.indicators.content.interfaces.ISpecification"-->
+           <!--permission="zope2.View"-->
+           <!--class=".specification.WorkflowStateReadinessView"-->
+           <!--allowed_interface="eea.workflow.interfaces.IObjectReadiness"-->
+           <!--/>-->
 
   <!-- Used on public view -->
   <browser:page name="assessment_versions"

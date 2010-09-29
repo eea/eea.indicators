@@ -115,9 +115,8 @@ class WorkflowStateReadiness(ObjectReadiness):
     """ObjectReadiness customizations"""
 
     #TODO: translate messages
-    #TODO: optimize this class, it should at least memoize the results of calling the checks
 
-    checks = (
+    checks = {'published':(
         #(lambda o:filter(lambda p: not getMultiAdapter((p,
         #                                              p.schema['assessment']), IValueProvider).has_value(),
         #                 o.objectValues("AssessmentPart")),
@@ -137,44 +136,12 @@ class WorkflowStateReadiness(ObjectReadiness):
         (lambda o:not filter(lambda part: has_one_of(["EEAFigure"], part.getRelatedItems()),
                              o.objectValues("AssessmentPart")),
         "The answered policy questions need to point to at least one Figure"),
-    )
+    )}
 
-    def is_ready_for(self, state_name):
-        if state_name == 'published':
-            for checker, error in self.checks:
-                if checker(self.context):
-                    return False
-                return True
-        else:
-            return super(WorkflowStateReadiness, self).is_ready_for(state_name)
-
-    def get_info_for(self, state_name):
-        info = ObjectReadiness.get_info_for(self, state_name)
-
-        _rfs_required = 0
-        _rfs_with_value = 0
-        _total_fields = 0
-        _rfs_field_names = []
-        for part in self.context.objectValues("AssessmentPart"):
-            _info = IObjectReadiness(part).get_info_for(state_name)
-            _rfs_required +=_info['rfs_required']
-            _rfs_with_value += _info['rfs_with_value']
-            _total_fields += _info['total_fields']
-            _rfs_field_names += map(lambda t:(t[0] + "_" + part.getId(), t[1]), 
-                                    _info['rfs_field_names'])
-
-        info['rfs_required'] += _rfs_required
-        info['rfs_with_value'] += _rfs_with_value
-        info['total_fields'] += _total_fields
-
-        info['rfs_done'] = int(float(info['rfs_with_value']) / float(info['rfs_required'] or 1) * 100.0)
-        info['rfs_field_names'] += _rfs_field_names
-
-        extras = [('error', error) for checker, error in self.checks if checker(self.context)]
-
-        info['extra'] = extras
-        return info
+    @property
+    def depends_on(self):
+        return self.context.objectValues("AssessmentPart")
 
 
-class WorkflowStateReadinessView(ObjectReadinessView, WorkflowStateReadiness):
-    """Readiness view for assessments"""
+#class WorkflowStateReadinessView(ObjectReadinessView, WorkflowStateReadiness):
+    #"""Readiness view for assessments"""

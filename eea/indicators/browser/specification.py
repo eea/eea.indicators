@@ -100,7 +100,7 @@ class CreateVersion(BaseCreateVersion):
 class WorkflowStateReadiness(ObjectReadiness):
 
     #TODO: translate messages here
-    checks = (
+    checks = {'published':(
             (
                 lambda o: not has_one_of(('Data', 'ExternalDataSpec'), o.getRelatedItems()),
                 "You need to point to at least one EEA Data or ExternalData"),
@@ -113,31 +113,11 @@ class WorkflowStateReadiness(ObjectReadiness):
             (
                 lambda o:not bool(o.getThemes()),
                 "You need to specify one primary theme" ),
-            )
-
-    def get_info_for(self, state_name):
-        info = ObjectReadiness.get_info_for(self, state_name)
-        extras = []
-
-        for checker, error in self.checks:
-            if checker(self.context):
-                extras.append(('error', error))
-
-        info['extra'] = extras
-        return info
-
-    def is_ready_for(self, state_name):
-        if state_name == 'published':
-            for checker, error in self.checks:
-                if checker(self.context):
-                    return False
-                return True
-        else:
-            return super(WorkflowStateReadiness, self).is_ready_for(state_name)
+            )}
 
 
-class WorkflowStateReadinessView(ObjectReadinessView, WorkflowStateReadiness):
-    """View for workflow state readiness """
+#class WorkflowStateReadinessView(ObjectReadinessView, WorkflowStateReadiness):
+    #"""View for workflow state readiness """
 
 
 class PolicyQuestions(BrowserView):

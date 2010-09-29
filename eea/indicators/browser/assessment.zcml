@@ -16,12 +16,12 @@
            class=".assessment.AggregatedEditPage"
            permission="zope2.View" />
 
-  <browser:page
-           name="get_readiness"
-           for="eea.indicators.content.interfaces.IAssessment"
-           permission="zope2.View"
-           class=".assessment.WorkflowStateReadinessView"
-           allowed_interface="eea.workflow.interfaces.IObjectReadiness" />
+  <!--<browser:page-->
+           <!--name="get_readiness"-->
+           <!--for="eea.indicators.content.interfaces.IAssessment"-->
+           <!--permission="zope2.View"-->
+           <!--class=".assessment.WorkflowStateReadinessView"-->
+           <!--allowed_interface="eea.workflow.interfaces.IObjectReadiness" />-->
 
   <browser:page
            for="eea.indicators.content.interfaces.IAssessment"
