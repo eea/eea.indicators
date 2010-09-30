@@ -1,8 +1,8 @@
 Changelog
 =========
 
-1.8 - (unreleased)
-------------------
+1.8-dev - (unreleased)
+-----------------------
  * Change: No longer need redefinitions for ObjectReadinessView for specs and assessments [tiberich #3694]
  * Feature: Add two new catalog metadata columns: comments and published_readiness [tiberich #3645]
  * Change: Use catalog search and brains to display the ims_timeline [tiberich #3645]
