@@ -225,12 +225,23 @@
       </div>
 
       <h2 id="data_specifications">Data sources</h2>
+      <h3>EEA data references</h3>
       <ul tal:define="datasetsView nocall:specification/@@related_items;
         datasets python:datasetsView('Data')">
         <li tal:condition="not:datasets">No datasets have been specifed yet.</li>
         <li tal:repeat="data datasets" tal:condition="datasets">
           <a href=""
             tal:attributes="href string:${context/portal_url}/data-and-maps/data/ds_resolveuid/${data/@@getLatestVersionLink}"
+            tal:content="data/title">Dataset title</a>
+        </li>
+      </ul>
+      <h3>External data references</h3>
+            <ul tal:define="datasetsView nocall:specification/@@related_items;
+        datasets python:datasetsView('ExternalDataSpec')">
+        <li tal:condition="not:datasets">No datasets have been specifed yet.</li>
+        <li tal:repeat="data datasets" tal:condition="datasets">
+          <a href=""
+            tal:attributes="href data/absolute_url"
             tal:content="data/title">Dataset title</a>
         </li>
       </ul>
