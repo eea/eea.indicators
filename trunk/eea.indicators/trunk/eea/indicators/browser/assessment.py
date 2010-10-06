@@ -117,11 +117,6 @@ class WorkflowStateReadiness(ObjectReadiness):
     #TODO: translate messages
 
     checks = {'published':(
-        #(lambda o:filter(lambda p: not getMultiAdapter((p,
-        #                                              p.schema['assessment']), IValueProvider).has_value(),
-        #                 o.objectValues("AssessmentPart")),
-        # 'You need to fill in the assessments for all the policy questions'),
-
         (lambda o:filter(lambda p: not IObjectReadiness(p).is_ready_for('published'),
                                     o.objectValues("AssessmentPart")),
         'You need to fill in the assessments for all the policy questions'),
@@ -141,7 +136,3 @@ class WorkflowStateReadiness(ObjectReadiness):
     @property
     def depends_on(self):
         return self.context.objectValues("AssessmentPart")
-
-
-#class WorkflowStateReadinessView(ObjectReadinessView, WorkflowStateReadiness):
-    #"""Readiness view for assessments"""

@@ -71,7 +71,7 @@ schema = Schema((
         schemata="Classification",
         columns=("set", "code"),
         required_for_published=True,
-        validators=('unique_specification_code',),
+        #validators=('unique_specification_code',),
         #allow_empty_rows=True,
         ),
     TextField(
@@ -575,7 +575,6 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
 
         version_id = None
         spec_versions = get_versions_api(self).versions.values()
-        #self.unrestrictedTraverse('@@getVersions')().values()
         for spec in spec_versions:  #TODO: versions also contains self. Is this normal?
             asts = spec.objectValues("Assessment")
             if asts:
@@ -660,6 +659,50 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
         except AttributeError:
             return 0    #this happens in tests
 
+    security.declarePublic("has_unique_code")
+    def has_unique_code(self):
+        duplicates = self.get_duplicated_codes()
+        return not bool(duplicates)
+
+    security.declarePublic("get_duplicated_codes")
+    def get_duplicated_codes(self):
+        """Returns codes that are duplicated by some other indicator"""
+
+        spec_id = self.getId()
+        versions = map(
+                lambda v:'/'.join(v.getPhysicalPath()),
+                get_versions_api(self).versions.values()
+            )
+        
+        cat = getToolByName(self, 'portal_catalog')
+        codes = self.getCodes()
+
+        #We want to see if there are other specs with the same code
+        #that are not versions of this object.
+        #if any version has the same path as the checked object,
+        #then we consider all versions to be the same as the object
+
+        duplicated_codes = []
+        for code in codes:
+
+            code = code['set'] + code['code']
+            brains = cat(portal_type="Specification", get_codes=[code])
+
+            not_same = []
+            for b in brains:
+                p = b.getPath()
+                if b.getPath() not in versions:
+                    not_same.append(b)
+
+            if not_same:
+                d = {}      #we only want a single version, not all
+                for _b in not_same:
+                    d[_b.getVersionId] = b
+
+                duplicated_codes.append((code, d.values()))
+
+        return duplicated_codes
+
 
 registerType(Specification, PROJECTNAME)
 
@@ -673,7 +716,7 @@ def make_id(BASE, names):
     """Useful in making a unique id in a container
 
     Given a BASE such as 'assessment' and a list of ids, it returns
-    the first string such as assessmenet-10 that is not found in the list of ids
+    the first string such as assessment-10 that is not found in the list of ids
     """
     x = 1
     name = None
@@ -688,4 +731,3 @@ def make_id(BASE, names):
             x += 1
 
     return name
-

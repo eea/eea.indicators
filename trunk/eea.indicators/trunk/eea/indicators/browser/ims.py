@@ -94,19 +94,18 @@ class IndicatorsTimeline(BrowserView):
         #checks if spec id is in assessment path segments
         #TODO: test if changing the self.assessments list by deleting those found results in faster code
         return filter(
-                lambda b:spec.id in b.getPath().split('/'),
-                self.assessments)
+                lambda b:spec.id == b.getPath().split('/')[-2], #assessments are children of specs
+                self.assessments
+            )
 
     def _get_instance_info(self, instance):
         d = instance.EffectiveDate
         if d and d != 'None' and not isinstance(d, tuple):
-            p = 'published'
             d = DateTime.DateTime(d)
         else:
-            p = 'pending'
             d = DateTime.DateTime(instance.CreationDate)
 
-        return d, p
+        return d, instance.review_state
 
     def get_timeline(self):
         catalog = getToolByName(self.context, 'portal_catalog')
@@ -138,9 +137,6 @@ class IndicatorsTimeline(BrowserView):
                 d, p = self._get_instance_info(spec)
                 year = d.year()
 
-                #comments = len(spec.getReplyReplies(spec))
-                #readiness = IObjectReadiness(spec).get_info_for('published')['rfs_done']
-
                 result[set][code][year] = result[set][code].get(year, [])  + \
                         [{'type':'s', 
                             'url':spec.getURL(), 
@@ -158,8 +154,6 @@ class IndicatorsTimeline(BrowserView):
                         latest_year = year
                         if earliest_year == 0:
                             earliest_year = year
-                    #comments = len(a.getReplyReplies(a))
-                    #readiness = IObjectReadiness(a).get_info_for('published')['rfs_done']
 
                     result[set][code][year] = result[set][code].get(year, []) + \
                           [{
