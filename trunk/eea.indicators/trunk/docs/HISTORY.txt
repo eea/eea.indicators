@@ -3,6 +3,8 @@ Changelog
 
 1.10-dev - (unreleased)
 -----------------------
+ * Feature: automatically reassign version for children Assessments when changing version
+   for a Specification [tiberich #3736]
 
 1.9 - (2010-10-06)
 ------------------
