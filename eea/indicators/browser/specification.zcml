@@ -178,4 +178,14 @@
            permission="zope2.View"
            />
 
+
+
+  <browser:page
+    for="eea.indicators.content.interfaces.ISpecification"
+    name="assign_version"
+    permission="cmf.ModifyPortalContent"
+    class=".specification.AssignVersion"
+    />
+
+
 </configure>

@@ -5,14 +5,15 @@ __docformat__ = 'plaintext'
 __credits__ = """contributions: Alec Ghica, Tiberiu Ichim"""
 
 from DateTime import DateTime
-from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone import PloneMessageFactory as _
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from eea.indicators.browser.utils import has_one_of
-from eea.versions.versions import create_version, CreateVersion as BaseCreateVersion
+from eea.versions.interfaces import IVersionControl, IVersionEnhanced
+from eea.versions.versions import create_version, CreateVersion as BaseCreateVersion, get_version_id
 from eea.workflow.interfaces import IFieldIsRequiredForState, IValueProvider
 from eea.workflow.readiness import ObjectReadiness
-from zope.component import getMultiAdapter
+from zope.interface import alsoProvides
 
 import logging
 logger = logging.getLogger('eea.indicators')
@@ -149,3 +150,70 @@ class ContactInfo(BrowserView):
         mtool = getToolByName(self.context, 'portal_membership')
         return mtool.getMemberInfo(manager_id)
 
+
+def assign_version(context, new_version):
+    """Assign a specific version id to an object
+    
+    We override the same method from eea.versions. We want to 
+    be able to reassign version for children Assessments to be
+    at the same version as the children Assessments of the target
+    Specification version.
+    """
+
+    #TODO: understand what this code does and restore it if needed
+
+    # Verify if there are more objects under this version
+    #cat = getToolByName(context, 'portal_catalog')
+    #brains = cat.searchResults({'getVersionId' : new_version,
+                                #'show_inactive': True})
+    #if brains and not IVersionEnhanced.providedBy(context):
+        #alsoProvides(context, IVersionEnhanced)
+    #if len(brains) == 1:
+        #target_ob = brains[0].getObject()
+        #if not IVersionEnhanced.providedBy(target_ob):
+            #alsoProvides(target_ob, IVersionEnhanced)
+
+    # Set new version ID
+    verparent = IVersionControl(context)
+    verparent.setVersionId(new_version)
+    context.reindexObject()
+    cat = getToolByName(context, 'portal_catalog')
+
+    #search for other Specifications with that version
+    p = '/'.join(context.getPhysicalPath())
+    brains = filter(lambda b:b.getPath() != p,
+                    cat.searchResults({'getVersionId' : new_version}))
+
+    vid = None
+    for brain in brains:
+        obj = brain.getObject()
+        children = obj.objectValues('Assessment')
+        if children:
+            vid = get_version_id(children[0])
+            break
+
+    if not vid:
+        return
+
+    for asmt in context.objectValues('Assessment'):
+        IVersionControl(asmt).setVersionId(vid)
+        asmt.reindexObject()
+
+
+class AssignVersion(object):
+    """ Assign new version ID
+    """
+
+    def __call__(self):
+        pu = getToolByName(self.context, 'plone_utils')
+        new_version = self.request.form.get('new-version', '')
+        nextURL = self.request.form.get('nextURL', self.context.absolute_url())
+
+        if new_version:
+            assign_version(self.context, new_version)
+            message = _(u'Version ID changed.')
+        else:
+            message = _(u'Please specify a valid Version ID.')
+
+        pu.addPortalMessage(message, 'structure')
+        return self.request.RESPONSE.redirect(nextURL)
