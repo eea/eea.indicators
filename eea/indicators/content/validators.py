@@ -67,83 +67,6 @@ class UniquePolicyDocUrlValidator:
 validation.register(UniquePolicyDocUrlValidator('unique_policy_url_validator'))
 
 
-class UniqueSpecificationCode:
-    __implements__ = IValidator
-
-    def __init__(self,
-                 name,
-                 title='Unique Specification code',
-                 description='Check if the Specification code already exists in IMS'):
-        self.name = name
-        self.title = title or name
-        self.description = description
-
-    def __call__(self, value, *args, **kwargs):
-
-        context = kwargs['instance']
-        request = kwargs['REQUEST']
-        spec_id = context.getId()
-        versions = getMultiAdapter((context, request), name='getVersions')().values()
-        versions += [context]
-        cat = getToolByName(kwargs['instance'], 'portal_catalog')
-
-        field = context.schema['codes']
-        value = get_dgf_value(field, value)
-
-        #check if the codes are numeric
-        not_numeric = []
-        for row in value:
-            code = row['code']
-            try:
-                code = int(code)
-            except ValueError:
-                not_numeric.append(row)
-        if not_numeric:
-            not_numeric = ", ".join(
-                [
-                    " ".join(
-                            (row['set'], str(row['code']))
-                            ) for row in not_numeric
-                ]
-            )
-            return "Validation failed, you need to enter a number for set code(s): %s" % not_numeric
-
-        codes = ["".join((v['set'], v['code'])) for v in value]
-
-        for code in codes:
-            #Now we check if there are other specifications in IMS that are not:
-            #the same object or versions of the same object
-            #To do this, we retrieve a list of all specifications with the same
-            #code and we filter out those that are versions or identical objs
-
-
-            if context.portal_type == 'Specification':
-                search_type = 'Specification'
-            elif context.portal_type == 'IndicatorFactSheet':
-                search_type = 'Assessment'
-            else:
-                search_type = context.portal_type
-
-            brains = cat(portal_type=search_type, get_codes=[code])
-            objs = [b.getObject() for b in brains]
-            not_same = []
-
-            for obj in objs:
-                path = obj.getPhysicalPath()
-
-                #if any version has the same path as the checked object,
-                #then we consider all versions to be the same as the object
-                if not [v for v in versions if v.getPhysicalPath() == path]:
-                    not_same.append(obj)
-
-            if not_same:
-                return ("Validation failed, there is already another Specification with code %s" % code)
-
-        return True
-
-
-validation.register(UniqueSpecificationCode('unique_specification_code'))
-
 class OneAssessmentPartPerQuestionValidator:
     __implements__ = IValidator
 
@@ -179,3 +102,81 @@ class OneAssessmentPartPerQuestionValidator:
         return True
 
 validation.register(OneAssessmentPartPerQuestionValidator('one_assessment_per_question'))
+
+
+#class UniqueSpecificationCode:
+    #__implements__ = IValidator
+
+    #def __init__(self,
+                 #name,
+                 #title='Unique Specification code',
+                 #description='Check if the Specification code already exists in IMS'):
+        #self.name = name
+        #self.title = title or name
+        #self.description = description
+
+    #def __call__(self, value, *args, **kwargs):
+
+        #context = kwargs['instance']
+        #request = kwargs['REQUEST']
+        #spec_id = context.getId()
+        #versions = getMultiAdapter((context, request), name='getVersions')().values()
+        #versions += [context]
+        #cat = getToolByName(kwargs['instance'], 'portal_catalog')
+
+        #field = context.schema['codes']
+        #value = get_dgf_value(field, value)
+
+        ##check if the codes are numeric
+        #not_numeric = []
+        #for row in value:
+            #code = row['code']
+            #try:
+                #code = int(code)
+            #except ValueError:
+                #not_numeric.append(row)
+        #if not_numeric:
+            #not_numeric = ", ".join(
+                #[
+                    #" ".join(
+                            #(row['set'], str(row['code']))
+                            #) for row in not_numeric
+                #]
+            #)
+            #return "Validation failed, you need to enter a number for set code(s): %s" % not_numeric
+
+        #codes = ["".join((v['set'], v['code'])) for v in value]
+
+        #for code in codes:
+            ##Now we check if there are other specifications in IMS that are not:
+            ##the same object or versions of the same object
+            ##To do this, we retrieve a list of all specifications with the same
+            ##code and we filter out those that are versions or identical objs
+
+
+            #if context.portal_type == 'Specification':
+                #search_type = 'Specification'
+            #elif context.portal_type == 'IndicatorFactSheet':
+                #search_type = 'Assessment'
+            #else:
+                #search_type = context.portal_type
+
+            #brains = cat(portal_type=search_type, get_codes=[code])
+            #objs = [b.getObject() for b in brains]
+            #not_same = []
+
+            #for obj in objs:
+                #path = obj.getPhysicalPath()
+
+                ##if any version has the same path as the checked object,
+                ##then we consider all versions to be the same as the object
+                #if not [v for v in versions if v.getPhysicalPath() == path]:
+                    #not_same.append(obj)
+
+            #if not_same:
+                #return ("Validation failed, there is already another Specification with code %s" % code)
+
+        #return True
+
+
+#validation.register(UniqueSpecificationCode('unique_specification_code'))

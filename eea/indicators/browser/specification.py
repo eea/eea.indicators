@@ -11,7 +11,7 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from eea.indicators.browser.utils import has_one_of
 from eea.versions.versions import create_version, CreateVersion as BaseCreateVersion
 from eea.workflow.interfaces import IFieldIsRequiredForState, IValueProvider
-from eea.workflow.readiness import ObjectReadinessView, ObjectReadiness
+from eea.workflow.readiness import ObjectReadiness
 from zope.component import getMultiAdapter
 
 import logging
@@ -113,11 +113,10 @@ class WorkflowStateReadiness(ObjectReadiness):
             (
                 lambda o:not bool(o.getThemes()),
                 "You need to specify one primary theme" ),
+            (
+                lambda o:not o.has_unique_code(),
+                "The <a href='#rfs_codes'>Indicator Specification code</a> is already used by some other document in IMS"),
             )}
-
-
-#class WorkflowStateReadinessView(ObjectReadinessView, WorkflowStateReadiness):
-    #"""View for workflow state readiness """
 
 
 class PolicyQuestions(BrowserView):

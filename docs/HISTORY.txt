@@ -1,8 +1,12 @@
 Changelog
 =========
 
-1.9-dev - (unreleased)
-----------------------
+1.9 - (2010-10-06)
+------------------
+ * Bug fix: for ims_timeline: remove assessment id from code that puts together the 
+   children of a specification [tiberich #3741]
+ * Bug fix: use object review state for display in timeline [tiberich]
+ * Allow editors to link an specifications as versioned if the code is not unique [tiberich #3650]
 
 1.8 - (2010-09-30)
 ------------------
