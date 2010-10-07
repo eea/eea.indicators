@@ -422,3 +422,50 @@ the title, the PolicyQuestion's id was changed, so let's get it again.
 	>>> print browser.contents		#doctest: +NORMALIZE_WHITESPACE
 	<...form...>
 
+
+Specification codes validation
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+We have a soft requirement that we shouldn't have Specifications with the same
+codeset that are not versions of each other.
+
+We already have a spec with code CSI001, we'll have another one with the same
+code
+
+    >>> id = ims.invokeFactory("Specification", 'spec4')
+    >>> spec = ims[id]
+    >>> spec.setCodes([{'set':'CSI', 'code':'001'}])
+
+The portlet_readiness will inform us of the situation:
+
+    >>> browser.open(spec.absolute_url() + '/portlet_readiness_live')
+    >>> print browser.contents
+    <...The...is already used by some other document in IMS...
+
+The fragment_metadata, which contains the codes, will tell us that the CSI001
+code is duplicated and offer a link to link it as a version of the other specification:
+
+    >>> browser.open(spec.absolute_url() + '/fragment_metadata')
+    >>> print browser.contents  #doctest: +NORMALIZE_WHITESPACE
+    <...The following codes are duplicated in the IMS:...CSI001...@@assign_version...
+
+Reassigning versions for Specifications
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+When manually reasigning versions for a specification, we want to reassign versions for
+its children assessments as well.
+
+    >>> spec5 = ims[ims.invokeFactory("Specification", 'spec5')]
+    >>> as5 = spec5.invokeFactory("Assessment", 'as5', base_impl=True)
+    >>> spec6 = ims[ims.invokeFactory("Specification", 'spec6')]
+    >>> as6 = spec5.invokeFactory("Assessment", 'as6', base_impl=True)
+    >>> from eea.versions.versions import get_version_id
+    >>> vs5, vs6 = get_version_id(spec5), get_version_id(spec6)
+    >>> va5, va6 = get_version_id(as5), get_version_id(as6)
+    >>> va5 != vs5 != vs6 != va6
+    True
+    >>> from eea.indicators.browser.specification import assign_version
+    >>> assign_version(spec6, vs5)
+    >>> get_version_id(spec6) == vs5
+    True
+    >>> get_version_id(as6) == va5
+    True
+
