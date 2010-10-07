@@ -1,0 +1,87 @@
+<tal:def tal:define="submit_handler string:simple_edit; ">
+  <div tal:define="region_name string:assessments_area;
+                   region_update_handler string:fragment_assessments;
+                   has_pq python:here.getFolderContents( contentFilter={'portal_type':'PolicyQuestion'});
+                   spec_has_newer_version context/has_newer_version;
+                   can_add python: ((not spec_has_newer_version) and has_pq and ' ') or '-disabled';
+                   assessments context/@@assessment_versions;
+                   published assessments/published;
+                   draft assessments/draft;
+                   imsutils nocall:context/@@indicator_utils;
+                   portal_url context/portal_url">
+
+    <metal:macro metal:use-macro="context/indicators_macros/macros/active_region">
+      <metal:slot metal:fill-slot="content" >
+        <div class="logic_group">
+
+          <h2 tal:define="field python:context.getField('more_updates_on')">
+            <span metal:use-macro="context/indicators_macros/macros/tooltip" />
+            More updates on
+          </h2>
+          <tal:def tal:define="fieldname string:more_updates_on; fieldset string:default">
+            <metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
+              <metal:slot metal:fill-slot="content">
+                <div tal:condition="python:not imsutils.field_has_value(fieldname, context)"
+                  class="placeholder">
+                  Please fill in
+                </div>
+                <p tal:replace="structure context/getMore_updates_on"></p>
+              </metal:slot>
+              <metal:slot metal:fill-slot="extra-metadata">
+                <div class="width">800</div>
+                <div class="height">435</div>
+                <div class="dialog_title">Edit more updates information</div>
+              </metal:slot>
+            </metal:macro>
+          </tal:def>
+
+          <h2 id="assessment_versions">Assessment versions</h2>
+          <div tal:condition="not:has_pq" class="portalMessage">
+            You can't create new Assessments until you have defined a main Policy Question
+          </div>
+          <div tal:condition="spec_has_newer_version" class="portalMessage">
+            You can't create new Assessments in a Specification that has newer versions
+          </div>
+          <div class="grouped_field">
+
+            <a href='./object_factory?type_name=Assessment'
+              class="object_creator"
+              tal:attributes="class string:object_creator${can_add} direct_edit">+ Indicator Assessment</a>
+            <!-- <div class="object_creator_options"> -->
+            <!--   <input type="radio" name="create_in_new" value="true" onclick="toggle_creator_option(this)"/>Create in latest Specification &nbsp; -->
+            <!--   <input type="radio" name="create_in_new" value="false" checked="checked" onclick="toggle_creator_option(this)"/>Create here -->
+            <!-- </div> -->
+
+            <div style="width:49%; float:left">
+              <h5>Published (reviewed and quality assured)</h5>
+              <ul>
+                <li tal:condition="not:published">No published assessments</li>
+                <li tal:repeat="ast published">
+                  <a tal:attributes="href ast/absolute_url" tal:content="ast/Title">
+                    Assessment title here
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <div style="width:49%; float:left">
+              <h5>Draft (not yet published - not quality assured)</h5>
+              <ul>
+                <li tal:condition="not:draft">No drafts available</li>
+                <li tal:repeat="ast python:draft">
+                  <a tal:attributes="href ast/absolute_url" tal:content="ast/Title">
+                    Assessment title here
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <div class="visualClear"><!-- --></div>
+
+          </div>
+        </div>
+      </metal:slot>
+    </metal:macro>
+
+  </div>
+</tal:def>
