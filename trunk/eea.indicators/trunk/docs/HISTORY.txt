@@ -1,6 +1,9 @@
 Changelog
 =========
 
+1.13-dev - (unreleased)
+-----------------------
+
 1.12 - (2010-10-07)
 -------------------
  * Bug fix: fix reassign version bug; add test for that [tiberich #3650]
