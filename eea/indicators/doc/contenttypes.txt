@@ -272,36 +272,36 @@ implement eea.workflow.interfaces.IHasMandatoryWorkflowFields:
     >>> info = view.get_info_for('published')
 
 A specification has 22 fields. From these, 12 are required to be able to transition to
-'published'. We also have a number of 4 extra checks, so we count 16 required fields.
+'published'. We also have a number of 5 extra checks, so we count 17 required fields.
 
 The call to get_info_for() returns a mapping with the
 keys 'rfs_done', 'rfs_required', 'rfs_with_value', 'optional_empty', 'total_fields', 'extras'
 
 'rfs_done' tells us the percentage of the content that is required for the desired state.
-By default the title is filled in, so we will be at 6% (1.0/16.0*100):
+By default the title is filled in and one condition is True, so we will be at 11% (2.0/17.0*100):
 
     >>> print str(info['rfs_done']) + '%'
-    6%
+    11%
 
 'rfs_required' is the number of fields that are required to be filled in for that state.
 
     >>> info['rfs_required']
-    16
+    17
 
 'rfs_with_value' is the number of fields that have content filled in and are required for that state
 
     >>> info['rfs_with_value']
-    1
+    2
 
 'optional_empty' is the number of fields that are not required for that state and don't have a value.
 
     >>> info['optional_empty']
     9
 
-'total_fields' is the grand total number of fields. There are 22 fields + 4 lambda checks.
+'total_fields' is the grand total number of fields. There are 22 fields
 
     >>> info['total_fields']
-    26
+    22
 
 Let's fill in another field, this time 'codes':
 
@@ -309,9 +309,9 @@ Let's fill in another field, this time 'codes':
     >>> view = spec.unrestrictedTraverse('@@get_readiness')
     >>> info = view.get_info_for('published')
     >>> print str(info['rfs_done']) + '%'
-    12%
+    17%
     >>> info['rfs_with_value']
-    2
+    3
 
 The get_readiness view can also tell us if the object is ready for publishing:
 
@@ -336,13 +336,13 @@ that considers valid values only text with more then 2 words.
 
 All required fields are filled in, but the extra checks are not met:
 
-Now we should be at 81% (round(13*100/16)):
+Now we should be at 82% (round(14*100/17)):
 
     >>> info = spec.unrestrictedTraverse('@@get_readiness').get_info_for('published')
     >>> print str(info['rfs_done']) + '%'
-    81%
+    82%
     >>> info['rfs_with_value']
-    13
+    14
 
 We have 13 in the rfs_with_value variable because we have 12 real fields + one extra check
 that is fulfilled, which checks if we have a primary theme.
@@ -422,62 +422,3 @@ the title, the PolicyQuestion's id was changed, so let's get it again.
 	>>> print browser.contents		#doctest: +NORMALIZE_WHITESPACE
 	<...form...>
 
-Specification.codes validation
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-The Specification.codes are unique for a Specification across the IMS, unless the
-objects are versions of each other.
-
-We already have a specification with codes [{'set':'CSI', 'code':'001'}, {'set':'TERM', 'code':'002'}]
-Let's create another and try to duplicate the code:
-
-    >>> spec = ims[ims.invokeFactory("Specification", 'spec4')]
-    >>> baseurl = spec.absolute_url()
-    >>> req = (
-    ...     ('codes.set:records','CSI'),
-    ...     ('codes.code:records','001'),
-    ...     ('codes.orderindex_:records','1'),
-    ...     ('codes.set:records','TERM'),
-    ...     ('codes.code:records','002'),
-    ...     ('codes.orderindex_:records','2'),
-    ...     ('codes.set:records','APE'),
-    ...     ('codes.code:records',''),
-    ...     ('codes.orderindex_:records','template_row_marker'),
-    ...
-    ...     ('fieldset','Classification'),
-    ...     ('form.submitted','1'),
-    ...     ('form_submit','Save'),
-    ...     ('specific_field','codes'),
-    ... )
-    >>> data = urllib.urlencode(req)
-    >>> browser.open(baseurl + '/simple_edit', data=data)
-
-This edit will fail validation:
-
-    >>> 'closer(' in browser.contents
-    False
-    >>> print browser.contents  #doctest: +NORMALIZE_WHITESPACE
-    <...Validation failed, there is already another Specification with code CSI001...
-
-Setting another code will result in a successful edit:
-
-    >>> req = (
-    ...     ('codes.set:records','CSI'),
-    ...     ('codes.code:records','123'),
-    ...     ('codes.orderindex_:records','1'),
-    ...     ('codes.set:records','TERM'),
-    ...     ('codes.code:records','321'),
-    ...     ('codes.orderindex_:records','2'),
-    ...     ('codes.set:records','APE'),
-    ...     ('codes.code:records',''),
-    ...     ('codes.orderindex_:records','template_row_marker'),
-    ...
-    ...     ('fieldset','Classification'),
-    ...     ('form.submitted','1'),
-    ...     ('form_submit','Save'),
-    ...     ('specific_field','codes'),
-    ... )
-    >>> data = urllib.urlencode(req)
-    >>> browser.open(baseurl + '/simple_edit', data=data)
-    >>> print browser.contents  #doctest: +NORMALIZE_WHITESPACE
-    <script>...closer(...'codes'...)...</script>
