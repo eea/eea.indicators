@@ -6,14 +6,15 @@ __credits__ = """contributions: Alec Ghica, Tiberiu Ichim"""
 
 from DateTime import DateTime
 from Products.CMFPlone import PloneMessageFactory as _
+from Products.CMFPlone.utils import getToolByName
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from eea.indicators.browser.utils import has_one_of
-from eea.versions.interfaces import IVersionControl, IVersionEnhanced
-from eea.versions.versions import create_version, CreateVersion as BaseCreateVersion, get_version_id
+from eea.versions.interfaces import IVersionControl #, IVersionEnhanced
+from eea.versions.versions import create_version, CreateVersion as BaseCreateVersion, get_version_id, _get_random
 from eea.workflow.interfaces import IFieldIsRequiredForState, IValueProvider
 from eea.workflow.readiness import ObjectReadiness
-from zope.interface import alsoProvides
+#from zope.interface import alsoProvides
 
 import logging
 logger = logging.getLogger('eea.indicators')
@@ -192,8 +193,7 @@ def assign_version(context, new_version):
             vid = get_version_id(children[0])
             break
 
-    if not vid:
-        return
+    vid = vid or _get_random(10)
 
     for asmt in context.objectValues('Assessment'):
         IVersionControl(asmt).setVersionId(vid)
