@@ -3,7 +3,8 @@ Changelog
 
 1.13-dev - (unreleased)
 -----------------------
- * Bug fix: Uncomment comment in assign_version that was providing IVersionEnhanced for specs [tiberich #3650]
+ * Bug fix: Uncomment comment in assign_version that was providing IVersionEnhanced for specs;
+ Make assessments provide IVersionEnhanced when specification gets a new version reassigned [tiberich #3650]
 
 1.12 - (2010-10-07)
 -------------------
