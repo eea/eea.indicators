@@ -706,7 +706,11 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
                     not_same.append(b)
 
             if not_same:
-                duplicated_codes.append((code, not_same[0]))
+                d = []
+                for b in not_same:
+                    if not filter(lambda o:o.getPath() == b.getPath(), d):
+                        d.append(b)
+                duplicated_codes.append((code, d))
 
         return duplicated_codes
 
