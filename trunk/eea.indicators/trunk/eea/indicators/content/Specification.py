@@ -712,7 +712,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
                         d.append(b)
                 _d = {}
                 for b in d:
-                    _d[b.getVersionId()] = b
+                    _d[b.getVersionId.strip()] = b
                 duplicated_codes.append((code, _d.values()))
 
         return duplicated_codes
