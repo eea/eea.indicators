@@ -1,0 +1,9 @@
+<configure xmlns="http://namespaces.zope.org/zope">
+  
+ <include file="includes.zcml" package=".content"/>
+
+
+  <!-- ##code-section includes.zcml -->
+  <!-- ##/code-section includes.zcml -->
+
+</configure>

@@ -1,0 +1,98 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+	metal:use-macro="here/main_template/macros/master"
+	i18n:domain="indicators">
+	<head>
+		<title tal:content="context/Title"></title>
+	</head>
+	<body>
+		<div metal:fill-slot="main">
+			<h1>Wizards</h1>
+
+			<div style="width:49%; float:left">
+				<h3>Indicator Specification operations</h3>
+				<ul>
+					<li>
+						<a href="">Publish this indicator</a>
+					</li>
+					<li>
+						<a href="">Create a new version of this indicator</a>
+					</li>
+				</ul>
+
+				<h3>Policy Questions operations</h3>
+				<ul>
+					<li>
+						<a href="">Add a new Policy Question</a>
+					</li>
+					<li>
+						<a href="">Add a new Main Policy Question</a>
+					</li>
+					<li>
+						<a href="">Manage and reorder Policy Questions</a>
+					</li>
+				</ul>
+
+				<h3>Methodology References operations</h3>
+				<ul>
+					<li>
+						<a href="">Add a new Methodology Reference</a>
+					</li>
+					<li>
+						<a href="">Manage and reorder Methodology References</a>
+					</li>
+				</ul>
+
+				<h3>Rational Reference operations</h3>
+				<ul>
+					<li>
+						<a href="">Add a new Rationale Reference</a>
+					</li>
+					<li>
+						<a href="">Manage and reorder Rationale References</a>
+					</li>
+				</ul>
+			</div>
+
+			<div style="width:49%; float:left">
+				<h3>Data Specifications operations</h3>
+				<ul>
+					<li>
+						<a href="">Add a new External Data Specification</a>
+					</li>
+					<li>
+						<a href="">Manage External Data Specifications</a>
+					</li>
+					<li>
+						<a href="">Assign Data specifications to this Indicator</a>
+					</li>
+				</ul>
+
+				<h3>Policy Documents operations</h3>
+				<ul>
+					<li>
+						<a href="">Add a new global Policy Document Reference</a>
+					</li>
+					<li>
+						<a href="">Manage global Policy Document References</a>
+					</li>
+					<li>
+						<a href="">Manage and assign a new Policy Document Reference to this Indicator</a>
+					</li>
+				</ul>
+
+				<h3>Assessment operations</h3>
+				<ul>
+					<li>
+						<a href="">Create a new assessment</a>
+					</li>
+					<li>
+						<a href="">Manage assessments</a>
+					</li>
+				</ul>
+			</div>
+
+			<div class="visualClear"><!-- --></div>
+		</div>
+	</body>
+</html>
+
