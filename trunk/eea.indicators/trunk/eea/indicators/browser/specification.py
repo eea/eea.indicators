@@ -10,11 +10,11 @@ from Products.CMFPlone.utils import getToolByName
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from eea.indicators.browser.utils import has_one_of
-from eea.versions.interfaces import IVersionControl #, IVersionEnhanced
+from eea.versions.interfaces import IVersionControl, IVersionEnhanced
 from eea.versions.versions import create_version, CreateVersion as BaseCreateVersion, get_version_id, _get_random
 from eea.workflow.interfaces import IFieldIsRequiredForState, IValueProvider
 from eea.workflow.readiness import ObjectReadiness
-#from zope.interface import alsoProvides
+from zope.interface import alsoProvides
 
 import logging
 logger = logging.getLogger('eea.indicators')
@@ -161,18 +161,18 @@ def assign_version(context, new_version):
     Specification version.
     """
 
-    #TODO: understand what this code does and restore it if needed
+    #TODO: understand what this code does 
 
-    # Verify if there are more objects under this version
-    #cat = getToolByName(context, 'portal_catalog')
-    #brains = cat.searchResults({'getVersionId' : new_version,
-                                #'show_inactive': True})
-    #if brains and not IVersionEnhanced.providedBy(context):
-        #alsoProvides(context, IVersionEnhanced)
-    #if len(brains) == 1:
-        #target_ob = brains[0].getObject()
-        #if not IVersionEnhanced.providedBy(target_ob):
-            #alsoProvides(target_ob, IVersionEnhanced)
+    #Verify if there are more objects under this version
+    cat = getToolByName(context, 'portal_catalog')
+    brains = cat.searchResults({'getVersionId' : new_version,
+                                'show_inactive': True})
+    if brains and not IVersionEnhanced.providedBy(context):
+        alsoProvides(context, IVersionEnhanced)
+    if len(brains) == 1:
+        target_ob = brains[0].getObject()
+        if not IVersionEnhanced.providedBy(target_ob):
+            alsoProvides(target_ob, IVersionEnhanced)
 
     # Set new version ID
     verparent = IVersionControl(context)
