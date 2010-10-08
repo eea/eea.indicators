@@ -196,6 +196,8 @@ def assign_version(context, new_version):
     vid = vid or _get_random(10)
 
     for asmt in context.objectValues('Assessment'):
+        if not IVersionEnhanced.providedBy(asmt):
+            alsoProvides(asmt, IVersionEnhanced)
         IVersionControl(asmt).setVersionId(vid)
         asmt.reindexObject()
 
