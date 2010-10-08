@@ -706,11 +706,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
                     not_same.append(b)
 
             if not_same:
-                d = {}      #we only want a single version, not all
-                for _b in not_same:
-                    d[_b.getVersionId] = b
-
-                duplicated_codes.append((code, d.values()))
+                duplicated_codes.append((code, not_same[0]))
 
         return duplicated_codes
 
