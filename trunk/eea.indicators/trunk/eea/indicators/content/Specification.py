@@ -32,7 +32,7 @@ from eea.indicators.content.utils import get_dgf_value
 from eea.relations.field import EEAReferenceField
 from eea.relations.widget import EEAReferenceBrowserWidget
 from eea.versions.interfaces import IVersionControl, IVersionEnhanced
-from eea.versions.versions import has_versions, get_versions_api
+from eea.versions.versions import has_versions, get_versions_api, _get_random
 from eea.workflow.interfaces import IHasMandatoryWorkflowFields, IObjectReadiness
 from zope.interface import alsoProvides, implements
 import datetime
@@ -511,6 +511,17 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
         #reindex all child assessment objects
         for assessment in self.objectValues('Assessment'):
             assessment.reindexObject()
+
+        #TODO: discuss and implement this:
+        #when changing the code to something unique, all versions of this
+        #indicator should get that code
+
+        #whenever we change the code to something unique we give a new version id
+
+        #if not IVersionEnhanced.providedBy(self):
+            #alsoProvides(self, IVersionEnhanced)
+        #new_version = _get_random(10)
+        #assign_version(self, new_version)
 
     security.declarePublic('SearchableText')
     def SearchableText(self):
