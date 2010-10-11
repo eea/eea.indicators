@@ -271,6 +271,25 @@ implement eea.workflow.interfaces.IHasMandatoryWorkflowFields:
     >>> view = spec.unrestrictedTraverse('@@get_readiness')
     >>> info = view.get_info_for('published')
 
+    >>> state_name = 'published'
+    >>> from eea.workflow.readiness import OTHER_METADATA_FIELDS
+    >>> from zope.component import getMultiAdapter
+    >>> from eea.workflow.interfaces import IFieldIsRequiredForState
+    >>> def get_required_for_published(context):
+    ...     i = 0
+    ...     for field in context.schema.fields():
+    ...         if field.isMetadata or field.getName in OTHER_METADATA_FIELDS:
+    ...             continue
+    ...         required_for = getMultiAdapter((context, field), interface=IFieldIsRequiredForState)
+    ...         is_needed = required_for(state_name)
+    ...         if is_needed:
+    ...             i += 1
+    ...     return i
+    ...
+    >>> total_fields = get_required_for_published(spec) + info['conditions']
+    >>> def percentage(val):
+    ...     return int(float(val) /total_fields * 100.0)
+
 A specification has 22 fields. From these, 12 are required to be able to transition to
 'published'. We also have a number of 5 extra checks, so we count 17 required fields.
 
@@ -278,15 +297,15 @@ The call to get_info_for() returns a mapping with the
 keys 'rfs_done', 'rfs_required', 'rfs_with_value', 'optional_empty', 'total_fields', 'extras'
 
 'rfs_done' tells us the percentage of the content that is required for the desired state.
-By default the title is filled in and one condition is True, so we will be at 11% (2.0/17.0*100):
+By default the title is filled in and one condition is True, so we will be at 11% (2.0 * 100 /17.0):
 
-    >>> print str(info['rfs_done']) + '%'
-    11%
+    >>> info['rfs_done'] == percentage(2)
+    True
 
 'rfs_required' is the number of fields that are required to be filled in for that state.
 
-    >>> info['rfs_required']
-    17
+    >>> info['rfs_required'] == total_fields
+    True
 
 'rfs_with_value' is the number of fields that have content filled in and are required for that state
 
@@ -308,8 +327,8 @@ Let's fill in another field, this time 'codes':
     >>> spec.setCodes([{'set':'CSI', 'code':'001'}, {'set':'TERM', 'code':'002'}])
     >>> view = spec.unrestrictedTraverse('@@get_readiness')
     >>> info = view.get_info_for('published')
-    >>> print str(info['rfs_done']) + '%'
-    17%
+    >>> info['rfs_done'] == percentage(3)
+    True
     >>> info['rfs_with_value']
     3
 
@@ -339,8 +358,8 @@ All required fields are filled in, but the extra checks are not met:
 Now we should be at 82% (round(14*100/17)):
 
     >>> info = spec.unrestrictedTraverse('@@get_readiness').get_info_for('published')
-    >>> print str(info['rfs_done']) + '%'
-    82%
+    >>> info['rfs_done'] == percentage(14)
+    True
     >>> info['rfs_with_value']
     14
 
