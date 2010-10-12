@@ -4,12 +4,14 @@ from Products.CMFCore.utils import getToolByName
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from eea.indicators.browser.utils import has_one_of
-from eea.versions.versions import CreateVersion as BaseCreateVersion, create_version as base_create_version
-from eea.versions.versions import get_versions_api
+from eea.indicators.content.Assessment import hasWrongVersionId, getPossibleVersionsId
+from eea.versions.versions import CreateVersion as BaseCreateVersion
+from eea.versions.versions import create_version as base_create_version, get_version_id
 from eea.workflow.interfaces import IObjectReadiness
-from eea.workflow.readiness import ObjectReadinessView, ObjectReadiness
+from eea.workflow.readiness import ObjectReadiness
 
 import logging
+
 logger = logging.getLogger('eea.indicators')
 
 
@@ -117,6 +119,9 @@ class WorkflowStateReadiness(ObjectReadiness):
     #TODO: translate messages
 
     checks = {'published':(
+        (lambda o:hasWrongVersionId(o),
+        'This Assessment belongs to the wrong version group'),
+
         (lambda o:filter(lambda p: not IObjectReadiness(p).is_ready_for('published'),
                                     o.objectValues("AssessmentPart")),
         'You need to fill in the assessments for all the policy questions'),
@@ -136,3 +141,25 @@ class WorkflowStateReadiness(ObjectReadiness):
     @property
     def depends_on(self):
         return self.context.objectValues("AssessmentPart")
+
+
+class WrongVersionReport(BrowserView):
+    """Reports what's wrong with the current version id of an assessment"""
+
+    def current_version(self):
+        return get_version_id(self.context)
+
+    def possible_versions(self):
+        versions = getPossibleVersionsId(self.context)
+        catalog = getToolByName(self.context, 'portal_catalog')
+
+        res = {}
+        for v in versions:
+            res[v] = map(
+                    lambda b:b.getObject(),
+                    catalog.searchResults(getVersionId=v))
+
+        return res
+
+    def get_version_for(self, obj):
+        return get_version_id(obj)

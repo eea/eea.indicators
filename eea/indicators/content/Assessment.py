@@ -22,6 +22,7 @@ from eea.indicators.config import *
 from eea.indicators.content.base import ModalFieldEditableAware, CustomizedObjectFactory
 from eea.relations.field import EEAReferenceField
 from eea.relations.widget import EEAReferenceBrowserWidget
+from eea.versions.versions import get_versions_api, get_version_id
 from eea.workflow.interfaces import IHasMandatoryWorkflowFields, IObjectReadiness
 from zope.interface import implements
 import interfaces
@@ -264,3 +265,62 @@ class Assessment(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory, Br
         return len(self.getReplyReplies(self))
 
 registerType(Assessment, PROJECTNAME)
+
+
+def hasWrongVersionId(context):
+    """Determines if the assessment belongs to a wrong version group"""
+    spec = aq_parent(aq_inner(context))
+    spec_versions = get_versions_api(spec).versions.values()
+    versions = get_versions_api(context).versions.values()
+
+    vid = get_version_id(context)
+    
+    all_assessments = []
+    for spec in spec_versions:
+        all_assessments.extend(spec.objectValues("Assessment"))
+
+    version_ids = {}
+    for a in all_assessments:
+        id = get_version_id(a)
+        version_ids[id] = version_ids.get(id, []) + [a]
+
+    if len(version_ids) == 1:
+        return False
+
+    #major = max(version_ids.keys(), key_func=lambda k:len(version_ids[k])) #needs python2.5
+
+    major = None
+    for k in version_ids.keys():
+        if not major:
+            major = k
+        if len(version_ids[k]) > len(version_ids[major]):
+            major = k
+
+    return not major == vid
+
+
+def getPossibleVersionsId(context):
+    """Returns possible version ids that could be attributed to the context"""
+
+    spec = aq_parent(aq_inner(context))
+    spec_versions = get_versions_api(spec).versions.values()
+    versions = get_versions_api(context).versions.values()
+
+    vid = get_version_id(context)
+    
+    all_assessments = []
+    for spec in spec_versions:
+        all_assessments.extend(spec.objectValues("Assessment"))
+
+    version_ids = {}
+    for a in all_assessments:
+        id = get_version_id(a)
+        _asts = version_ids.get(id, [])
+        version_ids[id] = _asts + [a]
+
+    if len(version_ids) == 1:
+        return []
+
+    r = list(set(version_ids) - set([vid]))
+    return r
+

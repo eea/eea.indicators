@@ -2,6 +2,7 @@ from Products.CMFPlone.utils import getToolByName
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from eea.indicators.browser.interfaces import IIndicatorsPermissionsOverview
+from eea.indicators.content.Assessment import hasWrongVersionId
 from zope.interface import implements
 import DateTime
 import re
@@ -165,3 +166,23 @@ class IndicatorsTimeline(BrowserView):
                               'readiness':a.published_readiness}]
 
         return ((earliest_year, latest_year), result)
+
+
+class ReportWrongVersionAssessments(BrowserView):
+
+    def get_child_assessments(self, spec):
+        #checks if spec id is in assessment path segments
+        #TODO: test if changing the self.assessments list by deleting those found results in faster code
+        return filter(
+                lambda b:spec.id == b.getPath().split('/')[-2], #assessments are children of specs
+                self.assessments
+            )
+
+    def wrongs(self):
+        catalog = getToolByName(self.context, 'portal_catalog')
+        assessments = catalog.searchResults(portal_type='Assessment')
+        #specifications = catalog.searchResults(portal_type='Specification')
+        #assessments = assessments[:5]
+
+        return filter(lambda a:hasWrongVersionId(a.getObject()), assessments)
+

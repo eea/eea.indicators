@@ -1,0 +1,33 @@
+<tal:def tal:define="possible_versions view/possible_versions">
+  <div>This Assessment has version <span tal:content="view/current_version" /></div>
+  <div tal:define="parent nocall:context/aq_parent">Parent specification is 
+    <a href="" tal:attributes="href parent/absolute_url" 
+      tal:content="parent/Title">Spec title</a> with version
+    <span tal:content="python:view.get_version_for(parent)">ZZZ</span>
+  </div>
+  <div tal:repeat="vid possible_versions">
+    <h3>Assessments with version id <span tal:content="vid">ZZZ</span>
+    <form method="POST" action="" style="display:inline"
+      tal:attributes="action string:${context/absolute_url}/@@assign_version">
+      <input type="submit" name="submit" value="Set to this version id" />
+      <input type="hidden" name="nextURL" tal:attributes="value context/absolute_url" />
+      <input type="hidden" name="new-version" tal:attributes="value vid" />
+    </form>
+    </h3>
+
+    <ul>
+      <li tal:repeat="ast python:possible_versions[vid]">
+        <span tal:content="ast/portal_type">Assessment</span>
+        <a tal:content="ast/Title" tal:attributes="href ast/absolute_url" />
+        <tal:def define="parent python:ast.aq_parent">
+          <div style="font-size:90%;color:#666 !important" 
+            tal:condition="python: parent.portal_type=='Specification'">
+            Parent is Specification <a href="" tal:attributes="href parent/absolute_url" 
+              tal:content="python:parent.Title()">Spec title</a>
+            with version <span tal:content="python:view.get_version_for(parent)" />
+          </div>
+        </tal:def>
+      </li>
+    </ul>
+  </div>
+</tal:def>

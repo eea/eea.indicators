@@ -16,13 +16,6 @@
            class=".assessment.AggregatedEditPage"
            permission="zope2.View" />
 
-  <!--<browser:page-->
-           <!--name="get_readiness"-->
-           <!--for="eea.indicators.content.interfaces.IAssessment"-->
-           <!--permission="zope2.View"-->
-           <!--class=".assessment.WorkflowStateReadinessView"-->
-           <!--allowed_interface="eea.workflow.interfaces.IObjectReadiness" />-->
-
   <browser:page
            for="eea.indicators.content.interfaces.IAssessment"
            name="fragment_metadata"
@@ -77,9 +70,10 @@
            description="Re-assign to another version ID"
            permission="cmf.ModifyPortalContent" />
 
-  <!-- <browser:page name="wizards" -->
-  <!--   for="eea.indicators.content.interfaces.IAssessment" -->
-  <!--   template="templates/assessment/wizards.pt" -->
-  <!--   permission="zope2.View" /> -->
+  <browser:page name="wrong_versions_report"
+           for="eea.indicators.content.interfaces.IAssessment"
+           class=".assessment.WrongVersionReport"
+           template="templates/assessment/wrong_versions_report.pt"
+           permission="zope2.View" />
 
 </configure>

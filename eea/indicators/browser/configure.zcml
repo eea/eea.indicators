@@ -23,6 +23,14 @@
 
   <browser:page
     for="eea.indicators.content.interfaces.IIndicatorsDatabase"
+    name="ims_wrong_assessment_versions"
+    template="templates/wrong_assessment_versions.pt"
+    class="eea.indicators.browser.ims.ReportWrongVersionAssessments"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    for="eea.indicators.content.interfaces.IIndicatorsDatabase"
     name="ims_timeline"
     class="eea.indicators.browser.ims.IndicatorsTimeline"
     template="templates/timeline.pt"
@@ -124,5 +132,9 @@
   <browser:resource
     name='indicators-timeline.js'
     file='js/indicators-timeline.js' />
+
+  <browser:resource
+    name='indicators-reports.js'
+    file='js/indicators-reports.js' />
 
 </configure>
