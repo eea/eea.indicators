@@ -3,6 +3,9 @@ Changelog
 
 1.14-dev - (unreleased)
 -----------------------
+ * Bug fix: change tests to hardcode less info about Specifications schema [tiberich]
+ * Feature: add @@ims_wrong_assessment_versions page [tiberich #3753]
+ * Feature: add readiness check that the assessments have the right version id [tiberich #3753]
 
 1.13 - (2010-10-08)
 -------------------
