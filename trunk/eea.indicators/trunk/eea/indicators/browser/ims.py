@@ -7,12 +7,30 @@ from zope.interface import implements
 import DateTime
 import re
 
+codesre = re.compile(r"([a-zA-Z]+)(\d+)")
+
+def get_codes(codes):
+    """Extract real setcodes from codes in metadata format
+    
+    Splits a list such as ['CSI001', 'CSI', "TERM001", "TERM"] into
+    tuples of form [('CSI', '001'), ('TERM', '001')]
+    """
+
+    res = []
+    for code in codes:
+        match = codesre.match(code)
+        if match:
+            g = match.groups()
+            res.append({'set':g[0], 'code':g[1]})
+    return res
+
 
 #TODO: write test for this sorting
 def _get_code(set):
+    """Usable as key in a comparision function"""
     def _wrapped(info):
         spec = info['spec']
-        codes = spec.getCodes()
+        codes = get_codes(spec.get_codes)
         for code in codes:
             if set == code['set']:
                 return code['code']
@@ -21,14 +39,31 @@ def _get_code(set):
     return _wrapped
 
 
-class IndicatorsOverview(BrowserView):
+class BaseIndicatorsReport(object):
+    specifications = None
+    assessments = None
+    factsheets = None
+
+    def get_child_assessments(self, spec):
+        #TODO: rewrite this code so that it uses a map that's initialized with the spec > children
+
+        #checks if spec id is in assessment path segments
+        return filter(
+                lambda b:spec.id == b.getPath().split('/')[-2], #assessments are children of specs
+                self.assessments
+            )
+
+
+class IndicatorsOverview(BrowserView, BaseIndicatorsReport):
     implements(IIndicatorsPermissionsOverview)
 
     template = ViewPageTemplateFile('templates/ims_overview.pt')
 
     __call__ = template
+
+
     def _get_name(self, spec):
-        user = spec.getManager_user_id()
+        user = spec.getObject().getManager_user_id()
         info = self.mtool.getMemberInfo(user)
         if info:
             return info.get('fullname', user)
@@ -37,25 +72,47 @@ class IndicatorsOverview(BrowserView):
     def get_setcodes_map(self):
 
         result = {}
-        specs = self.context.objectValues("Specification")
 
-        wftool = getToolByName(self.context, 'portal_workflow')
+        catalog = getToolByName(self.context, 'portal_catalog')
+        self.specifications = catalog.searchResults(portal_type='Specification')
+        self.assessments = catalog.searchResults(portal_type='Assessment')
+        self.factsheets = catalog.searchResults(portal_type='IndicatorFactSheet')
+
         self.mtool = mtool = getToolByName(self.context, 'portal_membership')
 
-        get_state = lambda a:wftool.getWorkflowsFor(a)[0].states[wftool.getInfoFor(a, 'review_state', '(Unknown)')].title
+        #wftool = getToolByName(self.context, 'portal_workflow')
+        #get_state = lambda a:wftool.getWorkflowsFor(a)[0].states[wftool.getInfoFor(a, 'review_state', '(Unknown)')].title
 
-        for spec in specs:
-            sets = [s['set'] for s in spec.getCodes()]
+        for spec in self.specifications:
+            assessments = [(a, a.review_state) for a in self.get_child_assessments(spec)]
+
+            sets = [s['set'] for s in get_codes(spec.get_codes)]
             if not sets:
                 sets = [None]
-            assessments = [(a, get_state(a)) for a in spec.objectValues("Assessment")]
 
             for s in sets:
                 info = {
                         'spec':spec,
                         'manager_id':self._get_name(spec),
-                        'state':get_state(spec),
+                        'state':spec.review_state,
                         'assessments':assessments,
+                        }
+                if s in result.keys():
+                    result[s].append(info)
+                else:
+                    result[s] = [info]
+
+        for fs in self.factsheets:
+            sets = [s['set'] for s in get_codes(fs.get_codes)]
+            if not sets:
+                sets = [None]
+
+            for s in sets:
+                info = {
+                        'spec':fs,
+                        'manager_id':'',
+                        'state':fs.review_state,
+                        'assessments':[],
                         }
                 if s in result.keys():
                     result[s].append(info)
@@ -67,7 +124,9 @@ class IndicatorsOverview(BrowserView):
 
         return result
 
-    def codeset_for(self, codes, setname):
+    def codeset_for(self, codes, setname): #used by the view template
+        codes = get_codes(codes)
+
         codesets = [code for code in codes if code['set'] == setname]
         if codesets:
             codeset = codesets[0]
@@ -77,27 +136,9 @@ class IndicatorsOverview(BrowserView):
         return codeset
 
 
-codesre = re.compile(r"([a-zA-Z]+)(\d+)")
-
-class IndicatorsTimeline(BrowserView):
+class IndicatorsTimeline(BrowserView, BaseIndicatorsReport):
     """Presents a timeline based structure for Assessments
     """
-
-    def get_codes(self, codes):
-        res = []
-        for code in codes:
-            match = codesre.match(code)
-            if match:
-                res.append(match.groups())
-        return res
-
-    def get_child_assessments(self, spec):
-        #checks if spec id is in assessment path segments
-        #TODO: test if changing the self.assessments list by deleting those found results in faster code
-        return filter(
-                lambda b:spec.id == b.getPath().split('/')[-2], #assessments are children of specs
-                self.assessments
-            )
 
     def _get_instance_info(self, instance):
         d = instance.EffectiveDate
@@ -112,6 +153,7 @@ class IndicatorsTimeline(BrowserView):
         catalog = getToolByName(self.context, 'portal_catalog')
         self.specs = catalog.searchResults(portal_type='Specification')
         self.assessments = catalog.searchResults(portal_type='Assessment')
+        self.factsheets = catalog.searchResults(portal_type='IndicatorFactSheet')
 
         result = {
                 #example of data structure:
@@ -128,7 +170,8 @@ class IndicatorsTimeline(BrowserView):
 
         for i, spec in enumerate(self.specs):
             assessments = self.get_child_assessments(spec)
-            for set, code in self.get_codes(spec.get_codes):
+            for setcode in get_codes(spec.get_codes):
+                set, code = setcode['set'], setcode['code']
                 if not set in result:
                     result[set] = {}
 
@@ -165,18 +208,36 @@ class IndicatorsTimeline(BrowserView):
                               'comments':a.comments, 
                               'readiness':a.published_readiness}]
 
+        for fs in self.factsheets:
+            for setcode in get_codes(fs.get_codes):
+                set, code = setcode['set'], setcode['code']
+                if not set in result:
+                    result[set] = {}
+
+                if not code in result[set]:
+                    result[set][code] = {}
+
+                d, p = self._get_instance_info(fs)
+                year = d.year()
+                if year < earliest_year:
+                    earliest_year = year
+                if year > latest_year:
+                    latest_year = year
+                    if earliest_year == 0:
+                        earliest_year = year
+
+                result[set][code][year] = result[set][code].get(year, [])  + \
+                        [{'type':'f', 
+                            'url':fs.getURL(), 
+                            'state':p, 
+                            'title':fs.Title, 
+                            'comments':fs.comments, 
+                            'readiness':100}]
+
         return ((earliest_year, latest_year), result)
 
 
 class ReportWrongVersionAssessments(BrowserView):
-
-    def get_child_assessments(self, spec):
-        #checks if spec id is in assessment path segments
-        #TODO: test if changing the self.assessments list by deleting those found results in faster code
-        return filter(
-                lambda b:spec.id == b.getPath().split('/')[-2], #assessments are children of specs
-                self.assessments
-            )
 
     def wrongs(self):
         catalog = getToolByName(self.context, 'portal_catalog')

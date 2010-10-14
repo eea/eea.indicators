@@ -290,4 +290,14 @@ class IndicatorFactSheet(ATFolder, BrowserDefaultMixin):
             searchable_text += '%s ' % code.encode('utf-8')
         return searchable_text
 
+    security.declarePublic("comments")
+    def comments(self):
+        """Return the number of comments"""
+        
+        try:
+            return len(self.getReplyReplies(self))
+        except AttributeError:
+            return 0    #this happens in tests
+
+
 registerType(IndicatorFactSheet, PROJECTNAME)

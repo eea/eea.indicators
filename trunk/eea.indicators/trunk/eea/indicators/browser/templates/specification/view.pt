@@ -5,7 +5,7 @@
 	<!-- #TODO: * i18n:translate -->
 
 	<body>
-		<div metal:fill-slot="main">
+		<div metal:fill-slot="main" class="specification_view">
 			<metal:main_macro define-macro="main"
 				tal:define="portal_type python:here.getPortalTypeName().lower().replace(' ', '_');
 				base_macros here/base/macros;

@@ -203,11 +203,15 @@ display:inherit !important;
     background-color: #d0df86;
     margin-right: 25em;
 }
-#headline-assessment {
-    background: transparent url(Assessment.gif) no-repeat scroll 0 8px;
-}
-h1 {
+/*#headline-assessment {*/
+    /*background: transparent url(Assessment.gif) no-repeat scroll 0 8px;*/
+/*}*/
+.specification_view h1, .specification_edit h1 {
     background: transparent url(Specification.gif) no-repeat scroll 0 8px;
+    padding: 10px 0 6px 30px;
+}
+.assessment_view h1, .assessment_edit h1, .factsheet_view h1 {
+    background: transparent url(Assessment.gif) no-repeat scroll 0 8px;
     padding: 10px 0 6px 30px;
 }
 .specification {

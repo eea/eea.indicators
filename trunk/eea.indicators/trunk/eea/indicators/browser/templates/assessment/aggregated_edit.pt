@@ -14,7 +14,7 @@
   </metal:jsslot>
 
   <body>
-    <div metal:fill-slot="main" tal:omit-tag="">
+    <div metal:fill-slot="main" class="assessment_edit">
 
       <div id="dialog_edit_target">
         <!-- This div is used by active field editing -->
