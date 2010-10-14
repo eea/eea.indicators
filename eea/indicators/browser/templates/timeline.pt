@@ -68,6 +68,15 @@
                       i18n:translate="see_specification">
                       <span i18n:name="state" tal:content="state_label"/> specification
                     </a>
+                    <a href="" tal:condition="python:entry['type'] == 'f'"
+                      tal:attributes="href python:entry['url'];
+                      title python:entry['title'];
+                      class string:state-${entry/state};"
+                      tal:define="state python: entry['state'];
+                      state_label python: state == 'published' and 'Published' or 'Draft'"
+                      i18n:translate="see_indicatorfactsheet">
+                      <span i18n:name="state" tal:content="state_label"/> factsheet
+                    </a>
                     <a href=""
                       tal:condition="python:entry['type'] == 'p'"
                       tal:attributes="href python:entry[1]">See publication</a>

@@ -26,7 +26,7 @@
   </metal:jsslot>
 
   <body>
-    <div metal:fill-slot="main">
+    <div metal:fill-slot="main" class="specification_edit">
       <div id="dialog_edit_target">
         <!-- This div is used by active field editing -->
       </div>

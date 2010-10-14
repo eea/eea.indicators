@@ -6,6 +6,8 @@ Changelog
  * Bug fix: change tests to hardcode less info about Specifications schema [tiberich]
  * Feature: add @@ims_wrong_assessment_versions page [tiberich #3753]
  * Feature: add readiness check that the assessments have the right version id [tiberich #3753]
+ * Bug fix: Add IndicatorFactSheets to ims_timeline and ims_overview [tiberich #3754]
+ * Change: Change the way H1 headers are get their icons in stylesheet and templates [tiberich]
 
 1.13 - (2010-10-08)
 -------------------
@@ -88,7 +90,7 @@ Changelog
      with same indicator set [ghicaale #3491]
  * Bug fix: Reindex child assessment objects when saving 'codes' on a specification [ghicaale #3491]
  * Bug fix: Fix wrong check for EEA Data metatype [tiberich #3541]
- * Bug fix: Fixed indicator code validator. Now an IndicatorFachtSheet validate its code
+ * Bug fix: Fixed indicator code validator. Now an IndicatorFactSheet validate its code
      upon Assessments [ghicaale #3491]
  * Bug fix: Fixed versions display of assessments on same Specification versioning set [ghicaale #3491]
  * Change: Removed custom Title function, we do not need to show version info in title for specifications [demarant]

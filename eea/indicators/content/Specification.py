@@ -32,7 +32,7 @@ from eea.indicators.content.utils import get_dgf_value
 from eea.relations.field import EEAReferenceField
 from eea.relations.widget import EEAReferenceBrowserWidget
 from eea.versions.interfaces import IVersionControl, IVersionEnhanced
-from eea.versions.versions import has_versions, get_versions_api, _get_random
+from eea.versions.versions import has_versions, get_versions_api
 from eea.workflow.interfaces import IHasMandatoryWorkflowFields, IObjectReadiness
 from zope.interface import alsoProvides, implements
 import datetime
