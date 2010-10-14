@@ -1,6 +1,9 @@
 Changelog
 =========
 
+1.15-dev - (unreleased)
+-----------------------
+
 1.14 - (2010-10-14)
 -------------------
  * Bug fix: change tests to hardcode less info about Specifications schema [tiberich]
