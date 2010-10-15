@@ -2,16 +2,6 @@
 #
 # $Id$
 #
-# Copyright (c) 2010 by ['Tiberiu Ichim']
-# Generator: ArchGenXML Version 2.4.1
-#            http://plone.org/products/archgenxml
-#
-# GNU General Public License (GPL)
-#
-
-__author__ = """Tiberiu Ichim <unknown>"""
-__docformat__ = 'plaintext'
-
 
 from StringIO import StringIO
 from Products.CMFCore.utils import getToolByName

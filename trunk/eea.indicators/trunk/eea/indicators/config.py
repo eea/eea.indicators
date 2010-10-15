@@ -2,30 +2,8 @@
 #
 # $Id$
 #
-# Copyright (c) 2010 by ['Tiberiu Ichim']
-# Generator: ArchGenXML Version 2.4.1
-#            http://plone.org/products/archgenxml
-#
-# GNU General Public License (GPL)
-#
-
-__author__ = """Tiberiu Ichim <unknown>"""
-__docformat__ = 'plaintext'
-
-
-# Product configuration.
-#
-# The contents of this module will be imported into __init__.py, the
-# workflow configuration and every content type module.
-#
-# If you wish to perform custom configuration, you may put a file
-# AppConfig.py in your product's root directory. The items in there
-# will be included (by importing) in this file if found.
 
 from Products.CMFCore.permissions import setDefaultRoles
-##code-section config-head #fill in your manual code here
-##/code-section config-head
-
 
 PROJECTNAME = "eea.indicators"
 

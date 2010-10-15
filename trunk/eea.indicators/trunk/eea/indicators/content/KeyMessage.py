@@ -3,23 +3,13 @@
 # $Id$
 #
 
-__author__ = """Tiberiu Ichim <unknown>"""
-__docformat__ = 'plaintext'
-
 from AccessControl import ClassSecurityInfo
+from Products.ATContentTypes.content.base import ATCTContent, ATContentTypeSchema
 from Products.Archetypes.atapi import *
+from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
+from eea.indicators.config import *
 from zope.interface import implements
 import interfaces
-
-from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
-
-from eea.indicators.config import *
-
-# additional imports from tagged value 'import'
-from Products.ATContentTypes.content.base import ATCTContent, ATContentTypeSchema
-
-##code-section module-header #fill in your manual code here
-##/code-section module-header
 
 schema = Schema((
 
@@ -38,16 +28,11 @@ schema = Schema((
 ),
 )
 
-##code-section after-local-schema #fill in your manual code here
-##/code-section after-local-schema
-
 KeyMessage_schema = ATContentTypeSchema.copy() + \
     schema.copy()
 
-##code-section after-schema #fill in your manual code here
 KeyMessage_schema['title'].required = False
 KeyMessage_schema['relatedItems'].widget.visible = {'view':'invisible', 'edit':'invisible'}
-##/code-section after-schema
 
 class KeyMessage(ATCTContent, BrowserDefaultMixin):
     """
@@ -61,21 +46,9 @@ class KeyMessage(ATCTContent, BrowserDefaultMixin):
 
     schema = KeyMessage_schema
 
-    ##code-section class-header #fill in your manual code here
-    ##/code-section class-header
-
-    # Methods
-
     security.declarePublic("Title")
     def Title(self):
         return self.getId()
 
 
 registerType(KeyMessage, PROJECTNAME)
-# end of class KeyMessage
-
-##code-section module-footer #fill in your manual code here
-##/code-section module-footer
-
-
-

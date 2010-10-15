@@ -1,34 +1,18 @@
 # -*- coding: utf-8 -*-
 #
 # $Id$
-#
-# Copyright (c) 2010 by ['Tiberiu Ichim']
-# Generator: ArchGenXML 
-#            http://plone.org/products/archgenxml
-#
-# GNU General Public License (GPL)
-#
-
-__author__ = """Tiberiu Ichim <unknown>"""
-__docformat__ = 'plaintext'
 
 from AccessControl import ClassSecurityInfo
+from Products.ATContentTypes.content.base import ATCTContent, ATContentTypeSchema
+from Products.ATContentTypes.content.schemata import finalizeATCTSchema
 from Products.Archetypes.atapi import *
+from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
+from Products.CMFPlone.utils import getToolByName
+from eea.indicators import msg_factory as _
+from eea.indicators.config import *
 from zope.interface import implements
 import interfaces
-from Products.ATContentTypes.content.base import ATCTContent
-from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 
-from eea.indicators.config import *
-
-# additional imports from tagged value 'import'
-from Products.ATContentTypes.content.base import ATCTContent, ATContentTypeSchema
-
-##code-section module-header #fill in your manual code here
-from Products.CMFPlone.utils import getToolByName
-from Products.ATContentTypes.content.schemata import finalizeATCTSchema
-from eea.indicators import msg_factory as _
-##/code-section module-header
 
 schema = Schema((
 

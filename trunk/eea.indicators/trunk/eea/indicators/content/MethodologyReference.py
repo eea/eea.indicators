@@ -2,26 +2,16 @@
 #
 # $Id$
 
-__author__ = """Tiberiu Ichim <unknown>"""
-__docformat__ = 'plaintext'
-
 from AccessControl import ClassSecurityInfo
+from Products.ATContentTypes.content.link import ATLink, ATLinkSchema
+from Products.ATContentTypes.content.schemata import finalizeATCTSchema
 from Products.Archetypes.atapi import *
+from Products.CMFCore import permissions
+from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
+from Products.CMFPlone.utils import getToolByName
+from eea.indicators.config import *
 from zope.interface import implements
 import interfaces
-from Products.ATContentTypes.content.link import ATLink
-from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
-
-from eea.indicators.config import *
-
-# additional imports from tagged value 'import'
-from Products.ATContentTypes.content.link import ATLink, ATLinkSchema
-
-##code-section module-header #fill in your manual code here
-from Products.ATContentTypes.content.schemata import finalizeATCTSchema
-from Products.CMFCore import permissions
-from Products.CMFPlone.utils import getToolByName
-##/code-section module-header
 
 schema = Schema((
 
@@ -56,17 +46,12 @@ schema = Schema((
 ),
 )
 
-##code-section after-local-schema #fill in your manual code here
-##/code-section after-local-schema
-
 MethodologyReference_schema = ATLinkSchema.copy() + \
     getattr(ATLink, 'schema', Schema(())).copy() + \
     schema.copy()
 
-##code-section after-schema #fill in your manual code here
 MethodologyReference_schema['relatedItems'].widget.visible = {'view':'invisible', 'edit':'invisible'}
 finalizeATCTSchema(MethodologyReference_schema)
-##/code-section after-schema
 
 class MethodologyReference(ATLink, BrowserDefaultMixin):
     """
@@ -79,13 +64,6 @@ class MethodologyReference(ATLink, BrowserDefaultMixin):
     _at_rename_after_creation = True
 
     schema = MethodologyReference_schema
-
-    ##code-section class-header #fill in your manual code here
-    ##/code-section class-header
-
-    # Methods
-
-    # Manually created methods
 
     security.declarePublic("Description")
     def Description(self):
@@ -101,10 +79,3 @@ class MethodologyReference(ATLink, BrowserDefaultMixin):
 
 
 registerType(MethodologyReference, PROJECTNAME)
-# end of class MethodologyReference
-
-##code-section module-footer #fill in your manual code here
-##/code-section module-footer
-
-
-

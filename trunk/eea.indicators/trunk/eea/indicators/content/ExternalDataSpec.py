@@ -3,9 +3,6 @@
 # $Id$
 #
 
-__author__ = """Tiberiu Ichim <unknown>"""
-__docformat__ = 'plaintext'
-
 from AccessControl import ClassSecurityInfo
 from Products.ATContentTypes.content.base import ATCTContent, ATContentTypeSchema
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema

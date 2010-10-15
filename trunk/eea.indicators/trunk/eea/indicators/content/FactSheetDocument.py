@@ -2,9 +2,6 @@
 #
 # $Id$
 
-__author__ = """Tiberiu Ichim tiberiu@eaudeweb.ro"""
-__docformat__ = 'plaintext'
-
 from AccessControl import ClassSecurityInfo
 from Products.ATContentTypes.content.file import ATFile, ATFileSchema
 from Products.Archetypes.atapi import *

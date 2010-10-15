@@ -3,9 +3,6 @@
 # $Id$
 #
 
-__author__ = """Tiberiu Ichim <unknown>"""
-__docformat__ = 'plaintext'
-
 from AccessControl import ClassSecurityInfo
 from Acquisition import aq_base, aq_inner, aq_parent
 from Products.ATContentTypes.content.base import ATCTContent

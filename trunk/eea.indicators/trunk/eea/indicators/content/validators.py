@@ -9,8 +9,6 @@ from Products.CMFPlone.utils import getToolByName
 from Products.PluginIndexes.TextIndex.Splitter import UnicodeSplitter
 from Products.validation import validation
 from Products.validation.interfaces.IValidator import IValidator
-from eea.indicators.content.utils import get_dgf_value
-from zope.component import getMultiAdapter
 
 
 class UniquePolicyDocTitleValidator:

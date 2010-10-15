@@ -2,19 +2,11 @@
 #
 # $Id$
 #
-# Copyright (c) 2010 by ['Tiberiu Ichim']
-#
-# GNU General Public License (GPL)
-#
-
-__author__ = """Tiberiu Ichim <unknown>"""
-__docformat__ = 'plaintext'
 
 from Products.Five import fiveconfigure
 from Products.Five import zcml
 from Products.PloneTestCase import PloneTestCase
 from Products.PloneTestCase.layer import onsetup
-from zope.app.component.hooks import setSite
 
 PRODUCTS = ['DataGridField', 'ATVocabularyManager', "RedirectionTool"]
 

@@ -2,26 +2,13 @@
 #
 # $Id$
 #
-# Copyright (c) 2010 by ['Tiberiu Ichim']
-# Generator: ArchGenXML Version 2.4.1
-#            http://plone.org/products/archgenxml
-#
-# GNU General Public License (GPL)
-#
 
-__author__ = """Tiberiu Ichim <unknown>"""
-__docformat__ = 'plaintext'
-
-
-import logging
-logger = logging.getLogger('indicators: setuphandlers')
-from eea.indicators.config import PROJECTNAME
-from eea.indicators.config import DEPENDENCIES
-import os
-from Products.CMFCore.utils import getToolByName
-import transaction
-##code-section HEAD
 from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
+from Products.CMFCore.utils import getToolByName
+from eea.indicators.config import DEPENDENCIES
+import logging
+import os
+import transaction
 from eea.indicators.config import (
     CODES,
     DPSIR,
@@ -29,7 +16,8 @@ from eea.indicators.config import (
     CATEGORY_OF_USE,
     PROFILE_DEPENDENCIES
 )
-##/code-section HEAD
+
+logger = logging.getLogger('indicators: setuphandlers')
 
 def isNotindicatorsProfile(context):
     return context.readDataFile("indicators_marker.txt") is None
@@ -58,12 +46,12 @@ def installQIDependencies(context):
                 raise "   QI dependency %s not installable" % dependency
     logger.info("installQIDependencies finished")
 
-def updateRoleMappings(context):
-    """ After workflow changed update the roles mapping. this is like pressing
-        the button 'Update Security Setting' and portal_workflow. """
-    if isNotindicatorsProfile(context): return
-    wft = getToolByName(context.getSite(), 'portal_workflow')
-    wft.updateRoleMappings()
+#def updateRoleMappings(context):
+    #""" After workflow changed update the roles mapping. this is like pressing
+        #the button 'Update Security Setting' and portal_workflow. """
+    #if isNotindicatorsProfile(context): return
+    #wft = getToolByName(context.getSite(), 'portal_workflow')
+    #wft.updateRoleMappings()
 
 def postInstall(context):
     """ Called as at the end of the setup process. """
@@ -154,5 +142,3 @@ def setup_misc(context):
 def updateRoleMappings(context):
     """ We don't need this actually, so we rewrite it. """
     return
-
-##/code-section FOOT
