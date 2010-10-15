@@ -7,6 +7,7 @@ from eea.indicators.browser.utils import has_one_of
 from eea.indicators.content.Assessment import hasWrongVersionId, getPossibleVersionsId
 from eea.versions.versions import CreateVersion as BaseCreateVersion
 from eea.versions.versions import create_version as base_create_version, get_version_id
+from eea.versions.versions import get_versions_api
 from eea.workflow.interfaces import IObjectReadiness
 from eea.workflow.readiness import ObjectReadiness
 
