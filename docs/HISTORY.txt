@@ -1,6 +1,9 @@
 Changelog
 =========
 
+1.16-dev - (unreleased)
+-----------------------
+
 1.15 - (2010-10-15)
 -------------------
  * Bug fix: add a missing import [tiberich]
