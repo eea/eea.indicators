@@ -2,33 +2,18 @@
 #
 # $Id$
 #
-# Copyright (c) 2010 by ['Tiberiu Ichim']
-# Generator: ArchGenXML 
-#            http://plone.org/products/archgenxml
-#
-# GNU General Public License (GPL)
-#
-
-__author__ = """Tiberiu Ichim <unknown>"""
-__docformat__ = 'plaintext'
 
 from AccessControl import ClassSecurityInfo
+from Products.ATContentTypes.content.base import ATCTContent, ATContentTypeSchema
+from Products.ATContentTypes.content.link import ATLink
+from Products.ATContentTypes.content.schemata import finalizeATCTSchema
 from Products.Archetypes.atapi import *
+from Products.CMFCore import permissions
+from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
+from Products.CMFPlone.utils import getToolByName
+from eea.indicators.config import *
 from zope.interface import implements
 import interfaces
-from Products.ATContentTypes.content.link import ATLink
-from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
-
-from eea.indicators.config import *
-
-# additional imports from tagged value 'import'
-from Products.ATContentTypes.content.base import ATCTContent, ATContentTypeSchema
-
-##code-section module-header #fill in your manual code here
-from Products.CMFPlone.utils import getToolByName
-from Products.ATContentTypes.content.schemata import finalizeATCTSchema
-from Products.CMFCore import permissions
-##/code-section module-header
 
 schema = Schema((
 
@@ -74,17 +59,13 @@ schema = Schema((
 ),
 )
 
-##code-section after-local-schema #fill in your manual code here
-##/code-section after-local-schema
 
 PolicyDocumentReference_schema = ATContentTypeSchema.copy() + \
     getattr(ATLink, 'schema', Schema(())).copy() + \
     schema.copy()
 
-##code-section after-schema #fill in your manual code here
 finalizeATCTSchema(PolicyDocumentReference_schema)
 PolicyDocumentReference_schema['relatedItems'].widget.visible = {'view':'invisible', 'edit':'invisible'}
-##/code-section after-schema
 
 class PolicyDocumentReference(ATCTContent, ATLink, BrowserDefaultMixin):
     """
@@ -97,13 +78,6 @@ class PolicyDocumentReference(ATCTContent, ATLink, BrowserDefaultMixin):
     _at_rename_after_creation = True
 
     schema = PolicyDocumentReference_schema
-
-    ##code-section class-header #fill in your manual code here
-    ##/code-section class-header
-
-    # Methods
-
-    # Manually created methods
 
     security.declarePublic("Description")
     def Description(self):
@@ -119,10 +93,3 @@ class PolicyDocumentReference(ATCTContent, ATLink, BrowserDefaultMixin):
 
 
 registerType(PolicyDocumentReference, PROJECTNAME)
-# end of class PolicyDocumentReference
-
-##code-section module-footer #fill in your manual code here
-##/code-section module-footer
-
-
-

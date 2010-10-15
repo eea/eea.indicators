@@ -1,6 +1,3 @@
-__author__ = """Tiberiu Ichim <unknown>"""
-__docformat__ = 'plaintext'
-
 import interfaces
 from zope.interface import implements
 from Products.Archetypes.atapi import *

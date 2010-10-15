@@ -3,6 +3,7 @@ Changelog
 
 1.16-dev - (unreleased)
 -----------------------
+ * Change: Cleaned source code of agx generated structures [tiberich]
 
 1.15 - (2010-10-15)
 -------------------
