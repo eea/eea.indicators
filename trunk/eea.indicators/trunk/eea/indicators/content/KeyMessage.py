@@ -2,12 +2,6 @@
 #
 # $Id$
 #
-# Copyright (c) 2010 by ['Tiberiu Ichim']
-# Generator: ArchGenXML
-#            http://plone.org/products/archgenxml
-#
-# GNU General Public License (GPL)
-#
 
 __author__ = """Tiberiu Ichim <unknown>"""
 __docformat__ = 'plaintext'
