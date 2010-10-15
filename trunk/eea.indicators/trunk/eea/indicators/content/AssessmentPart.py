@@ -2,37 +2,26 @@
 #
 # $Id$
 #
-# Copyright (c) 2010 by ['Tiberiu Ichim']
-# Generator: ArchGenXML
-#            http://plone.org/products/archgenxml
-#
-# GNU General Public License (GPL)
-#
 
 __author__ = """Tiberiu Ichim <unknown>"""
 __docformat__ = 'plaintext'
 
 from AccessControl import ClassSecurityInfo
-from Products.Archetypes.atapi import *
-from zope.interface import implements
-import interfaces
-from Products.ATContentTypes.content.base import ATCTContent
-from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
-
-from eea.indicators.config import *
-
-# additional imports from tagged value 'import'
-from Products.ATContentTypes.content.folder import ATFolder, ATFolderSchema
-
-##code-section module-header #fill in your manual code here
 from Acquisition import aq_base, aq_inner, aq_parent
+from Products.ATContentTypes.content.base import ATCTContent
+from Products.ATContentTypes.content.folder import ATFolder, ATFolderSchema
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema
+from Products.Archetypes.atapi import *
+from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
+from eea.indicators.config import *
 from eea.indicators.content.base import ModalFieldEditableAware, CustomizedObjectFactory
 from eea.indicators.content.interfaces import ISpecification
 from eea.indicators.content.utils import get_specific_parent
 from eea.relations.field import EEAReferenceField
 from eea.relations.widget import EEAReferenceBrowserWidget
-##/code-section module-header
+from zope.interface import implements
+from eea.indicators.content import  interfaces
+
 
 schema = Schema((
 
@@ -94,17 +83,12 @@ schema = Schema((
     ),
 )
 
-##code-section after-local-schema #fill in your manual code here
-##/code-section after-local-schema
-
 AssessmentPart_schema = ATFolderSchema.copy() + \
     getattr(ATCTContent, 'schema', Schema(())).copy() + \
     schema.copy()
 
-##code-section after-schema #fill in your manual code here
 AssessmentPart_schema.moveField('relatedItems', pos=0)
 finalizeATCTSchema(AssessmentPart_schema)
-##/code-section after-schema
 
 class AssessmentPart(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory, ATCTContent, BrowserDefaultMixin):
     """
@@ -118,12 +102,11 @@ class AssessmentPart(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory
 
     schema = AssessmentPart_schema
 
-    ##code-section class-header #fill in your manual code here
-    ##/code-section class-header
-
-    # Methods
-
-    # Manually created methods
+    #security.declareProtected("View", "index_html")
+    #def index_html(self):
+        #"""Redirect to parent"""
+        #url = aq_parent(aq_inner(self)).absolute_url()
+        #return self.REQUEST.response.redirect(url)
 
     def get_related_question(self):
         question = None
@@ -178,7 +161,3 @@ class AssessmentPart(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory
 
 
 registerType(AssessmentPart, PROJECTNAME)
-# end of class AssessmentPart
-
-##code-section module-footer #fill in your manual code here
-##/code-section module-footer
