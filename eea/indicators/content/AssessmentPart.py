@@ -99,11 +99,11 @@ class AssessmentPart(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory
 
     schema = AssessmentPart_schema
 
-    #security.declareProtected("View", "index_html")
-    #def index_html(self):
-        #"""Redirect to parent"""
-        #url = aq_parent(aq_inner(self)).absolute_url()
-        #return self.REQUEST.response.redirect(url)
+    security.declareProtected("View", "index_html")
+    def index_html(self):
+        """Redirect to parent"""
+        url = aq_parent(aq_inner(self)).absolute_url()
+        return self.REQUEST.response.redirect(url)
 
     def get_related_question(self):
         question = None
