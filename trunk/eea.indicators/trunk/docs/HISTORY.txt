@@ -1,9 +1,10 @@
 Changelog
 =========
 
-1.16-dev - (unreleased)
------------------------
+1.16 - (2010-10-18)
+-------------------
  * Change: Cleaned source code of agx generated structures [tiberich]
+ * Feature: redirect to parent assessment when visiting an AssessmentPart [tiberich #3761]
 
 1.15 - (2010-10-15)
 -------------------
