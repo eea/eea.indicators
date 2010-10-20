@@ -21,16 +21,23 @@
            class=".specification.SchemataCounts"
            permission="zope2.View" />
 
-  <browser:page name="wizards"
-           for="eea.indicators.content.interfaces.ISpecification"
-           template="templates/specification/wizards.pt"
-           permission="zope2.View" />
-
   <browser:page name="change_order"
            for="eea.indicators.content.interfaces.ISpecification"
            class=".utils.Sorter"
            permission="zope2.View" />
 
+  <browser:page name="wrong_versions_report"
+           for="eea.indicators.content.interfaces.ISpecification"
+           class=".specification.WrongVersionReport"
+           template="templates/specification/wrong_versions_report.pt"
+           permission="zope2.View" />
+
+  <browser:page name="wrong_versions_report"
+           for="eea.indicators.content.interfaces.IIndicatorFactSheet"
+           class=".specification.WrongVersionReport"
+           template="templates/specification/wrong_versions_report.pt"
+           permission="zope2.View" />
+       
   <!--<browser:page-->
            <!--name="get_readiness"-->
            <!--for="eea.indicators.content.interfaces.ISpecification"-->

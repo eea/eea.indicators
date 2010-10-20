@@ -242,8 +242,14 @@ class ReportWrongVersionAssessments(BrowserView):
     def wrongs(self):
         catalog = getToolByName(self.context, 'portal_catalog')
         assessments = catalog.searchResults(portal_type='Assessment')
-        #specifications = catalog.searchResults(portal_type='Specification')
-        #assessments = assessments[:5]
 
         return filter(lambda a:hasWrongVersionId(a.getObject()), assessments)
 
+
+class ReportWrongVersionSpecifications(BrowserView):
+
+    def wrongs(self):
+        objs = self.context.objectValues(['IndicatorFactSheet', 'Specification'])
+
+        wrongs = filter(lambda o:o.has_duplicated_code(), objs)
+        return wrongs

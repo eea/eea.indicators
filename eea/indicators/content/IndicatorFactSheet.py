@@ -1,22 +1,21 @@
-import interfaces
-from zope.interface import implements
-from Products.Archetypes.atapi import *
 from AccessControl import ClassSecurityInfo
-from Products.CMFCore.utils import getToolByName
-from Products.ATContentTypes.content.folder import ATFolder
-from Products.CMFCore.permissions import ModifyPortalContent
-from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
-from Products.ATReferenceBrowserWidget.ATReferenceBrowserWidget import ReferenceBrowserWidget
-from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
-from eea.indicators.config import *
 from Products.ATContentTypes.content.folder import ATFolder, ATFolderSchema
-from eea.relations.field import EEAReferenceField
-from eea.relations.widget import EEAReferenceBrowserWidget
+from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
+from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
+from Products.Archetypes.atapi import *
+from Products.CMFCore.utils import getToolByName
+from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 from Products.DataGridField import DataGridField, DataGridWidget
 from Products.DataGridField.Column import Column
 from Products.DataGridField.SelectColumn import SelectColumn
+from eea.indicators.config import *
+from eea.indicators.content.IndicatorMixin import IndicatorMixin
 from eea.indicators.content.utils import get_dgf_value
-from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
+from eea.relations.field import EEAReferenceField
+from eea.relations.widget import EEAReferenceBrowserWidget
+from zope.interface import implements
+import interfaces
+
 
 schema = Schema((
 
@@ -163,7 +162,7 @@ IndicatorFactSheet_schema = ATFolderSchema.copy() + \
 IndicatorFactSheet_schema.moveField('relatedItems', after='dpsir')
 
 
-class IndicatorFactSheet(ATFolder, BrowserDefaultMixin):
+class IndicatorFactSheet(ATFolder, BrowserDefaultMixin, IndicatorMixin):
     """
     """
     security = ClassSecurityInfo()
