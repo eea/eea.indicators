@@ -1,18 +1,19 @@
-<tal:def tal:define="possible_versions view/possible_versions">
-  <div>This Assessment has version <span tal:content="view/current_version" /></div>
-  <div tal:define="parent nocall:context/aq_parent">Parent specification is 
-    <a href="" tal:attributes="href parent/absolute_url" 
+<div class="report" tal:define="possible_versions view/possible_versions">
+  <p tal:define="parent nocall:context/aq_parent">
+    This Assessment has version <span tal:content="view/current_version" />, 
+    parent specification is <a href="" tal:attributes="href parent/absolute_url" 
       tal:content="parent/Title">Spec title</a> with version
     <span tal:content="python:view.get_version_for(parent)">ZZZ</span>
-  </div>
+  </p>
   <div tal:repeat="vid possible_versions">
     <h3>Assessments with version id <span tal:content="vid">ZZZ</span>
-    <form method="POST" action="" style="display:inline"
-      tal:attributes="action string:${context/absolute_url}/@@assign_version">
-      <input type="submit" name="submit" value="Set to this version id" />
-      <input type="hidden" name="nextURL" tal:attributes="value context/absolute_url" />
-      <input type="hidden" name="new-version" tal:attributes="value vid" />
-    </form>
+      <form method="POST" action="" style="display:inline"
+        tal:attributes="action string:${context/absolute_url}/@@assign_version">
+        <input type="submit" name="submit" value="Set to this version id" />
+        <input type="hidden" name="nextURL" 
+          tal:attributes="value string:${context/absolute_url}/@@wrong_versions_report" />
+        <input type="hidden" name="new-version" tal:attributes="value vid" />
+      </form>
     </h3>
 
     <ul>
@@ -30,4 +31,4 @@
       </li>
     </ul>
   </div>
-</tal:def>
+</div>
