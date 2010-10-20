@@ -1,8 +1,8 @@
 Changelog
 =========
 
-1.17-dev - (unreleased)
------------------------
+1.17 - (2010-10-20)
+-------------------
  * Change: changed Specification.has_unique_code in Specification.has_duplicated_code
  * Featured: Added view @@ims_wrong_specification_versions page [tiberich #3775]
 
