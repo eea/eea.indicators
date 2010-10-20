@@ -116,7 +116,7 @@ class WorkflowStateReadiness(ObjectReadiness):
                 lambda o:not bool(o.getThemes()),
                 "You need to specify one primary theme" ),
             (
-                lambda o:not o.has_unique_code(),
+                lambda o:o.has_duplicated_code(),
                 "The <a href='#rfs_codes'>Indicator Specification code</a> is already used by some other document in IMS"),
             )}
 
@@ -219,3 +219,28 @@ class AssignVersion(object):
 
         pu.addPortalMessage(message, 'structure')
         return self.request.RESPONSE.redirect(nextURL)
+
+
+class WrongVersionReport(BrowserView):
+    """Reports what's wrong with the current version id of a specification"""
+
+    def current_version(self):
+        return get_version_id(self.context)
+
+    def get_duplicated_codes(self):
+        return self.context.get_duplicated_codes()
+
+    #def possible_versions(self):
+        #versions = getPossibleVersionsId(self.context)
+        #catalog = getToolByName(self.context, 'portal_catalog')
+
+        #res = {}
+        #for v in versions:
+            #res[v] = map(
+                    #lambda b:b.getObject(),
+                    #catalog.searchResults(getVersionId=v))
+
+        #return res
+
+    #def get_version_for(self, obj):
+        #return get_version_id(obj)

@@ -31,6 +31,14 @@
 
   <browser:page
     for="eea.indicators.content.interfaces.IIndicatorsDatabase"
+    name="ims_wrong_specification_versions"
+    template="templates/wrong_specification_versions.pt"
+    class="eea.indicators.browser.ims.ReportWrongVersionSpecifications"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    for="eea.indicators.content.interfaces.IIndicatorsDatabase"
     name="ims_timeline"
     class="eea.indicators.browser.ims.IndicatorsTimeline"
     template="templates/timeline.pt"

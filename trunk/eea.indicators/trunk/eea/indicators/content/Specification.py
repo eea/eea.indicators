@@ -19,6 +19,7 @@ from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 from Products.DataGridField import DataGridField, DataGridWidget
 from Products.DataGridField.Column import Column
 from Products.DataGridField.SelectColumn import SelectColumn
+from eea.indicators.content.IndicatorMixin import IndicatorMixin
 from Products.EEAContentTypes.content.ThemeTaggable import ThemeTaggable, ThemeTaggable_schema
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
@@ -386,7 +387,8 @@ Specification_schema._names = new_order
 finalizeATCTSchema(Specification_schema)
 
 
-class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  CustomizedObjectFactory, BrowserDefaultMixin):
+class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  
+                    CustomizedObjectFactory, BrowserDefaultMixin, IndicatorMixin):
     """
     """
     security = ClassSecurityInfo()
@@ -670,55 +672,8 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  Customiz
         except AttributeError:
             return 0    #this happens in tests
 
-    security.declarePublic("has_unique_code")
-    def has_unique_code(self):
-        duplicates = self.get_duplicated_codes()
-        return not bool(duplicates)
-
-    security.declarePublic("get_duplicated_codes")
-    def get_duplicated_codes(self):
-        """Returns codes that are duplicated by some other indicator"""
-
-        spec_id = self.getId()
-        versions = map(
-                lambda v:'/'.join(v.getPhysicalPath()),
-                get_versions_api(self).versions.values()
-            )
-        
-        cat = getToolByName(self, 'portal_catalog')
-        codes = self.getCodes()
-
-        #We want to see if there are other specs with the same code
-        #that are not versions of this object.
-        #if any version has the same path as the checked object,
-        #then we consider all versions to be the same as the object
-
-        duplicated_codes = []
-        for code in codes:
-
-            code = code['set'] + code['code']
-            brains = cat(portal_type="Specification", get_codes=[code])
-
-            not_same = []
-            for b in brains:
-                p = b.getPath()
-                if b.getPath() not in versions:
-                    not_same.append(b)
-
-            if not_same:
-                d = []
-                for b in not_same:
-                    if not filter(lambda o:o.getPath() == b.getPath(), d):
-                        d.append(b)
-                _d = {}
-                for b in d:
-                    _d[b.getVersionId.strip()] = b
-                duplicated_codes.append((code, _d.values()))
-
-        return duplicated_codes
-
-
 registerType(Specification, PROJECTNAME)
+
 
 #placed here so that it will be found by extraction utility
 _titlemsg = _('label-newly-created-type',
