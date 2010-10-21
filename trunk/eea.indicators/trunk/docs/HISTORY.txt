@@ -3,6 +3,7 @@ Changelog
 
 1.18-dev - (unreleased)
 -----------------------
+ * Bug fix: added document_byline macro to assessment view [tiberich #3771]
 
 1.17 - (2010-10-20)
 -------------------
