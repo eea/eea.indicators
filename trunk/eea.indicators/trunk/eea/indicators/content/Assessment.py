@@ -95,6 +95,20 @@ schema = Schema((
             description='Specify related item(s).',
         )
         ),
+    ComputedField(
+        name='temporalCoverage',
+        expression="context.getTemporalCoverage()",
+        widget=ComputedField._properties['widget'](
+            visible={'view':'invisible', 'edit':'invisible'},
+        ),
+    ),
+    ComputedField(
+        name='geographicCoverage',
+        expression="context.getGeographicCoverage()",
+        widget=ComputedField._properties['widget'](
+            visible={'view':'invisible', 'edit':'invisible'},
+        ),
+    ),
     ),
 )
 
