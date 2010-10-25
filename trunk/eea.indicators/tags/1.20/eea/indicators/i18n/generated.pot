@@ -1,0 +1,489 @@
+# archgenxml generated POT File
+# Tiberiu Ichim <unknown>, 2010.
+msgid ""
+msgstr ""
+"Project-Id-Version: indicators\n"
+"POT-Creation-Date: Tue Feb 23 16:26:38 2010\n"
+"PO-Revision-Date: Tue Feb 23 16:26:38 2010\n"
+"Last-Translator: Tiberiu Ichim <unknown>\n"
+"Language-Team: Tiberiu Ichim <unknown>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"Language-Code: en\n"
+"Language-Name: English\n"
+"Preferred-Encodings: latin1 utf-8\n"
+"Domain: indicators\n"
+
+#. Default: "Description"
+#: WorkItem.py
+#: content/WorkItem.py
+msgid "IMS_workitem_description_label"
+msgstr ""
+
+#. Default: "Due date"
+#: WorkItem.py
+#: content/WorkItem.py
+msgid "IMS_workitem_duedate_label"
+msgstr ""
+
+#. Default: "Needs"
+#: WorkItem.py
+#: content/WorkItem.py
+msgid "IMS_workitem_needs_label"
+msgstr ""
+
+#. Default: "Status"
+#: WorkItem.py
+#: content/WorkItem.py
+msgid "IMS_workitem_status_label"
+msgstr ""
+
+#. Default: "Here comes Dataspec description"
+#: content/specification_relateditems.py
+msgid "indicators_help_relatedItems"
+msgstr ""
+
+#. Default: "Useful only for CSI indicators, to tell which was original code"
+#: Specification.py
+#: content/Specification.py
+msgid "indicators_help_source_code"
+msgstr ""
+
+#. Default: "ID of manager user"
+#: content/IndicatorFactSheet.py
+msgid "indicators_label_DEV_responsible"
+msgstr ""
+
+#. Default: "Owner"
+#: content/IndicatorFactSheet.py
+msgid "indicators_label_EEA_responsible"
+msgstr ""
+
+#. Default: "Answers to policy question"
+#: content/relates_to.py
+msgid "indicators_label_answers_to_question"
+msgstr ""
+
+#. Default: "Assessment"
+#: Assessment.py
+#: QuestionAssesment.py
+#: content/AssessmentPart.py
+msgid "indicators_label_assessment"
+msgstr ""
+
+#. Default: "Assessment Date"
+#: content/IndicatorFactSheet.py
+msgid "indicators_label_assessment_date"
+msgstr ""
+
+#. Default: "Category of use"
+#: ExternalDataSpec.py
+#: content/ExternalDataSpec.py
+msgid "indicators_label_category_of_use"
+msgstr ""
+
+#. Default: "Specification identification codes"
+#: Specification.py
+#: content/Specification.py
+msgid "indicators_label_codes"
+msgstr ""
+
+#. Default: "Comments"
+#: Specification.py
+#: content/Specification.py
+msgid "indicators_label_comment"
+msgstr ""
+
+#. Default: "ID of manager user"
+#: content/Specification.py
+msgid "indicators_label_contact"
+msgstr ""
+
+#. Default: "Creation date"
+#: Assessment.py
+#: content/Assessment.py
+msgid "indicators_label_creation_date"
+msgstr ""
+
+#. Default: "CSI Status"
+#: Specification.py
+#: content/Specification.py
+msgid "indicators_label_csi_status"
+msgstr ""
+
+#. Default: "CSI Topics"
+#: Specification.py
+#: content/Specification.py
+msgid "indicators_label_csi_topics"
+msgstr ""
+
+#. Default: "Data source info"
+#: content/IndicatorFactSheet.py
+msgid "indicators_label_data_source_info"
+msgstr ""
+
+#. Default: "Data Source Providers"
+#: content/IndicatorFactSheet.py
+msgid "indicators_label_data_source_providers"
+msgstr ""
+
+#. Default: "Data uncertainty"
+#: content/Specification.py
+msgid "indicators_label_data_uncertainty"
+msgstr ""
+
+#. Default: "Dataset path"
+#: ExternalDataSpec.py
+#: content/ExternalDataSpec.py
+msgid "indicators_label_dataset_path"
+msgstr ""
+
+#. Default: "Dataset URL"
+#: ExternalDataSpec.py
+#: content/ExternalDataSpec.py
+msgid "indicators_label_dataset_url"
+msgstr ""
+
+#. Default: "Definition"
+#: content/Specification.py
+msgid "indicators_label_definition"
+msgstr ""
+
+#. Default: "Description"
+#: MethodologyReference.py
+#: RationaleReference.py
+#: content/AssessmentPart.py
+msgid "indicators_label_description"
+msgstr ""
+
+#. Default: "DPSIR"
+#: Specification.py
+#: content/Specification.py
+msgid "indicators_label_dpsir"
+msgstr ""
+
+#. Default: "Due_date"
+#: content/WorkItem.py
+msgid "indicators_label_due_date"
+msgstr ""
+
+#. Default: "EEA Indicator Manager"
+#: Specification.py
+#: content/Specification.py
+msgid "indicators_label_eea_indicator_manager"
+msgstr ""
+
+#. Default: "Eeadatas"
+#: content/has_eea_data_specs.py
+#: has_eea_data_specs.py
+msgid "indicators_label_eeadatas"
+msgstr ""
+
+#. Default: "Eeafigures"
+#: content/example_figure.py
+#: example_figure.py
+#: has_figures.py
+msgid "indicators_label_eeafigures"
+msgstr ""
+
+#. Default: "Entities description"
+#: ExternalDataSpec.py
+#: content/ExternalDataSpec.py
+msgid "indicators_label_entities_description"
+msgstr ""
+
+#. Default: "Example_data"
+#: content/has_eea_data_specs.py
+msgid "indicators_label_example_data"
+msgstr ""
+
+#. Default: "Excel_file"
+#: stub_content/EEAFigureFile.py
+msgid "indicators_label_excel_file"
+msgstr ""
+
+#. Default: "Explanation"
+#: stub_content/EEAFigure.py
+msgid "indicators_label_explanation"
+msgstr ""
+
+#. Default: "Externaldataspecs"
+#: content/has_external_data_specs.py
+#: has_external_data_specs.py
+msgid "indicators_label_externaldataspecs"
+msgstr ""
+
+#. Default: "Is this a key question?"
+#: PolicyQuestion.py
+#: content/PolicyQuestion.py
+msgid "indicators_label_is_key_question"
+msgstr ""
+
+#. Default: "Key message"
+#: Assessment.py
+#: content/Assessment.py
+msgid "indicators_label_key_message"
+msgstr ""
+
+#. Default: "Link"
+#: MethodologyReference.py
+#: RationaleReference.py
+#: content/MethodologyReference.py
+msgid "indicators_label_link"
+msgstr ""
+
+#. Default: "Management_plan"
+#: content/Assessment.py
+msgid "indicators_label_management_plan"
+msgstr ""
+
+#. Default: "ID of manager user"
+#: Specification.py
+#: content/Specification.py
+msgid "indicators_label_manager_user_id"
+msgstr ""
+
+#. Default: "Key message"
+#: content/KeyMessage.py
+msgid "indicators_label_message"
+msgstr ""
+
+#. Default: "Methodology"
+#: content/Specification.py
+msgid "indicators_label_methodology"
+msgstr ""
+
+#. Default: "Methodology gapfilling"
+#: content/Specification.py
+msgid "indicators_label_methodology_gapfilling"
+msgstr ""
+
+#. Default: "Methodology uncertainty"
+#: content/Specification.py
+msgid "indicators_label_methodology_uncertainty"
+msgstr ""
+
+#. Default: "More updates on"
+#: Specification.py
+#: content/Specification.py
+msgid "indicators_label_more_updates_on"
+msgstr ""
+
+#. Default: "MP Code"
+#: Assessment.py
+#: content/Assessment.py
+msgid "indicators_label_mp_code"
+msgstr ""
+
+#. Default: "MP Year"
+#: Assessment.py
+#: content/Assessment.py
+msgid "indicators_label_mp_year"
+msgstr ""
+
+#. Default: "Needs"
+#: content/WorkItem.py
+msgid "indicators_label_needs"
+msgstr ""
+
+#. Default: "Old_id"
+#: content/Specification.py
+msgid "indicators_label_old_id"
+msgstr ""
+
+#. Default: "Other Comments"
+#: ExternalDataSpec.py
+#: content/ExternalDataSpec.py
+msgid "indicators_label_other_comments"
+msgstr ""
+
+#. Default: "Ownership"
+#: Specification.py
+#: content/Specification.py
+msgid "indicators_label_ownership"
+msgstr ""
+
+#. Default: "Policy context"
+#: Specification.py
+#: content/Specification.py
+msgid "indicators_label_policy_context_description"
+msgstr ""
+
+#. Default: "Targets for the policy context"
+#: Specification.py
+#: content/Specification.py
+msgid "indicators_label_policy_context_targets"
+msgstr ""
+
+#. Default: "Policyquestions"
+#: answers_to_question.py
+#: content/answers_to_question.py
+msgid "indicators_label_policyquestions"
+msgstr ""
+
+#. Default: "Priority data flows"
+#: content/IndicatorFactSheet.py
+msgid "indicators_label_priority_data_flows"
+msgstr ""
+
+#. Default: "Dataset provider name"
+#: ExternalDataSpec.py
+#: content/ExternalDataSpec.py
+msgid "indicators_label_provider_name"
+msgstr ""
+
+#. Default: "Provider URL"
+#: ExternalDataSpec.py
+#: content/ExternalDataSpec.py
+msgid "indicators_label_provider_url"
+msgstr ""
+
+#. Default: "Publications"
+#: published_in.py
+msgid "indicators_label_publications"
+msgstr ""
+
+#. Default: "Publication date"
+#: Assessment.py
+#: Specification.py
+#: content/Assessment.py
+msgid "indicators_label_publish_date"
+msgstr ""
+
+#. Default: "Published on EEA?"
+#: Assessment.py
+#: Specification.py
+#: content/Assessment.py
+msgid "indicators_label_published_on_eea"
+msgstr ""
+
+#. Default: "Answers to policy question"
+#: content/relates_to.py
+msgid "indicators_label_question_answered"
+msgstr ""
+
+#. Default: "Rating"
+#: Assessment.py
+#: content/Assessment.py
+msgid "indicators_label_rating"
+msgstr ""
+
+#. Default: "Rationale uncertainty"
+#: Specification.py
+#: content/Specification.py
+msgid "indicators_label_rational_uncertainty"
+msgstr ""
+
+#. Default: "Rationale justification"
+#: Specification.py
+#: content/Specification.py
+msgid "indicators_label_rationale_justification"
+msgstr ""
+
+#. Default: "Rationale uncertainty"
+#: content/Specification.py
+msgid "indicators_label_rationale_uncertainty"
+msgstr ""
+
+#. Default: "Reference type"
+#: RationaleReference.py
+#: content/RationaleReference.py
+msgid "indicators_label_reference_type"
+msgstr ""
+
+#. Default: "Answers to policy question"
+#: content/answers_to_question.py
+#: content/has_external_data_specs.py
+#: content/specification_relateditems.py
+msgid "indicators_label_relatedItems"
+msgstr ""
+
+#. Default: "Related external indicator"
+#: content/Specification.py
+msgid "indicators_label_related_external_indicator"
+msgstr ""
+
+#. Default: "Related Policy Documents"
+#: Specification.py
+#: content/Specification.py
+#: content/specification_related_policy_documents.py
+msgid "indicators_label_related_policy_documents"
+msgstr ""
+
+#. Default: "Remoteurl"
+#: content/PolicyDocumentReference.py
+msgid "indicators_label_remoteUrl"
+msgstr ""
+
+#. Default: "Source Code"
+#: Specification.py
+#: content/IndicatorFactSheet.py
+#: content/Specification.py
+msgid "indicators_label_source_code"
+msgstr ""
+
+#. Default: "Datasets used for this Specification"
+#: content/has_eea_data_specs.py
+#: content/specification_specification_data.py
+msgid "indicators_label_specification_data"
+msgstr ""
+
+#. Default: "Status"
+#: content/WorkItem.py
+msgid "indicators_label_status"
+msgstr ""
+
+#. Default: "Summary message"
+#: Assessment.py
+msgid "indicators_label_summary_message"
+msgstr ""
+
+#. Default: "Themes"
+#: Specification.py
+#: content/Specification.py
+msgid "indicators_label_themes"
+msgstr ""
+
+#. Default: "Timelines"
+#: ExternalDataSpec.py
+#: content/ExternalDataSpec.py
+msgid "indicators_label_timelines"
+msgstr ""
+
+#. Default: "Timelines"
+#: content/ExternalDataSpec.py
+msgid "indicators_label_timeliness"
+msgstr ""
+
+#. Default: "Title"
+#: ExternalDataSpec.py
+#: MethodologyReference.py
+#: PolicyQuestion.py
+msgid "indicators_label_title"
+msgstr ""
+
+#. Default: "Typology"
+#: Specification.py
+#: content/Specification.py
+msgid "indicators_label_typology"
+msgstr ""
+
+#. Default: "Units"
+#: content/Specification.py
+msgid "indicators_label_units"
+msgstr ""
+
+#. Default: "Version"
+#: Specification.py
+#: content/Specification.py
+msgid "indicators_label_version"
+msgstr ""
+
+#. Default: "Version ID"
+#: Specification.py
+#: content/Specification.py
+msgid "indicators_label_version_id"
+msgstr ""
+
