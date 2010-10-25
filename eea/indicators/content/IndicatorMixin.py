@@ -37,7 +37,7 @@ class IndicatorMixin(object):
 
             code = code['set'] + code['code']
             brains = cat(portal_type="Specification", get_codes=[code])
-            brains += cat(portal_type="IndicatorFactSheet", get_codes=[code])
+            #brains += cat(portal_type="IndicatorFactSheet", get_codes=[code])
 
             not_same = []
             for b in brains:

@@ -249,7 +249,7 @@ class ReportWrongVersionAssessments(BrowserView):
 class ReportWrongVersionSpecifications(BrowserView):
 
     def wrongs(self):
-        objs = self.context.objectValues(['IndicatorFactSheet', 'Specification'])
+        objs = self.context.objectValues(['Specification']) #, 'IndicatorFactSheet'
 
         wrongs = filter(lambda o:o.has_duplicated_code(), objs)
         return wrongs

@@ -283,6 +283,11 @@ registerType(Assessment, PROJECTNAME)
 
 def hasWrongVersionId(context):
     """Determines if the assessment belongs to a wrong version group"""
+
+    cat = getToolByName(context, 'portal_catalog')
+
+    #parent based checks; this also does codes check because
+    #assessments inheirt codes from their parent specification
     spec = aq_parent(aq_inner(context))
     spec_versions = get_versions_api(spec).versions.values()
     versions = get_versions_api(context).versions.values()
@@ -293,28 +298,39 @@ def hasWrongVersionId(context):
     for spec in spec_versions:
         all_assessments.extend(spec.objectValues("Assessment"))
 
+    #now also checking IndicatorFactSheets, using codes to do matching
+    codes = ["%s%s" % (c['set'], c['code']) for c in context.getCodes()]
+    factsheets = []
+    map(lambda code:factsheets.extend(
+            [b.getObject() for b in cat.searchResults(get_codes=code, 
+                                            portal_type="IndicatorFactSheet")]
+        ), codes)
+
     version_ids = {}
-    for a in all_assessments:
+    for a in (all_assessments + factsheets):
         id = get_version_id(a)
         version_ids[id] = version_ids.get(id, []) + [a]
 
     if len(version_ids) == 1:
         return False
 
+    return True
+
     #major = max(version_ids.keys(), key_func=lambda k:len(version_ids[k])) #needs python2.5
 
-    major = None
-    for k in version_ids.keys():
-        if not major:
-            major = k
-        if len(version_ids[k]) > len(version_ids[major]):
-            major = k
+    #major = None
+    #for k in version_ids.keys():
+        #if not major:
+            #major = k
+        #if len(version_ids[k]) > len(version_ids[major]):
+            #major = k
 
-    return not major == vid
+    #return not major == vid
 
 
 def getPossibleVersionsId(context):
     """Returns possible version ids that could be attributed to the context"""
+    cat = getToolByName(context, 'portal_catalog')
 
     spec = aq_parent(aq_inner(context))
     spec_versions = get_versions_api(spec).versions.values()
@@ -326,8 +342,15 @@ def getPossibleVersionsId(context):
     for spec in spec_versions:
         all_assessments.extend(spec.objectValues("Assessment"))
 
+    codes = ["%s%s" % (c['set'], c['code']) for c in context.getCodes()]
+    factsheets = []
+    map(lambda code:factsheets.extend(
+            [b.getObject() for b in cat.searchResults(get_codes=code, 
+                                            portal_type="IndicatorFactSheet")]
+        ), codes)
+
     version_ids = {}
-    for a in all_assessments:
+    for a in all_assessments + factsheets:
         id = get_version_id(a)
         _asts = version_ids.get(id, [])
         version_ids[id] = _asts + [a]
