@@ -50,6 +50,9 @@
 
                 <tal:def tal:define="info python:timeline[set][code].get(year);">
                   <div tal:repeat="entry info">
+                    <a href="#" class="not-ready-anchor" tal:condition="python:entry['readiness']!=100">
+                      <img tal:attributes="src string:$portal_url/cancel.png" />
+                    </a>
                     <a href="" tal:condition="python:entry['type'] == 'a'"
                       tal:attributes="href python:entry['url'];
                       title python:entry['title'];
@@ -80,9 +83,6 @@
                     <a href=""
                       tal:condition="python:entry['type'] == 'p'"
                       tal:attributes="href python:entry[1]">See publication</a>
-                    <a href="#" class="not-ready-anchor" tal:condition="python:entry['readiness']!=100">
-                      <img tal:attributes="src string:$portal_url/cancel.png" />
-                    </a>
 
                     <!-- Comments -->
                     <ul tal:condition="python:int(entry['comments'] or 0)" class="timeline-comments" >

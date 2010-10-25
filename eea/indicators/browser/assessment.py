@@ -63,7 +63,6 @@ class CreateVersion(BaseCreateVersion):
 def create_version(original, request=None):
     """Creates a new version of an Assessment. Returns the new version object
     """
-
     #TODO: check if the following is still applied. It is true in any case
     #we want all Assessments for all spec versions to have the
     #same version id.

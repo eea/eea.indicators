@@ -3,6 +3,7 @@ Changelog
 
 1.19-dev - (unreleased)
 -----------------------
+ * Move readiness warning icon in front of text in @@ims_timeline [tiberich]
 
 1.18 - (2010-10-21)
 -------------------
@@ -154,4 +155,3 @@ Changelog
 1.0 - (2010-07-01)
 ------------------
  * Initial release [ghicaale]
-

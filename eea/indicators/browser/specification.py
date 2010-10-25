@@ -159,17 +159,20 @@ def assign_version(context, new_version):
     be able to reassign version for children Assessments to be
     at the same version as the children Assessments of the target
     Specification version.
-    """
 
-    #TODO: understand what this code does 
+    Also, we want to move all specification that share the
+    old version to the new one.
+    """
+    cat = getToolByName(context, 'portal_catalog')
+    old_version = get_version_id(context)
 
     #Verify if there are more objects under this version
-    cat = getToolByName(context, 'portal_catalog')
     brains = cat.searchResults({'getVersionId' : new_version,
                                 'show_inactive': True})
     if brains and not IVersionEnhanced.providedBy(context):
         alsoProvides(context, IVersionEnhanced)
     if len(brains) == 1:
+        #TODO: understand what this code does 
         target_ob = brains[0].getObject()
         if not IVersionEnhanced.providedBy(target_ob):
             alsoProvides(target_ob, IVersionEnhanced)
@@ -178,7 +181,9 @@ def assign_version(context, new_version):
     verparent = IVersionControl(context)
     verparent.setVersionId(new_version)
     context.reindexObject()
-    cat = getToolByName(context, 'portal_catalog')
+
+    #search for specifications with old version
+
 
     #search for other Specifications with that version
     p = '/'.join(context.getPhysicalPath())
