@@ -3,6 +3,8 @@ Changelog
 
 1.20-dev - (unreleased)
 -----------------------
+ * Change: On reassign_version also assign new versions to all assessment
+   group of that Specification [tiberich #3790]
 
 1.19 - (2010-10-25)
 -------------------

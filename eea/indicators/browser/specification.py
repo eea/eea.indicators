@@ -12,6 +12,7 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from eea.indicators.browser.utils import has_one_of
 from eea.versions.interfaces import IVersionControl, IVersionEnhanced
 from eea.versions.versions import create_version, CreateVersion as BaseCreateVersion, get_version_id, _get_random
+from eea.versions.versions import get_versions_api
 from eea.workflow.interfaces import IFieldIsRequiredForState, IValueProvider
 from eea.workflow.readiness import ObjectReadiness
 from zope.interface import alsoProvides
@@ -183,7 +184,12 @@ def assign_version(context, new_version):
     context.reindexObject()
 
     #search for specifications with old version
-
+    versions = get_versions_api(context).versions.values()
+    other_assessments = []
+    for o in versions:
+        IVersionControl(o).setVersionId(new_version)
+        o.reindexObject()
+        other_assessments.extend(o.objectValues("Assessment"))
 
     #search for other Specifications with that version
     p = '/'.join(context.getPhysicalPath())
@@ -200,7 +206,7 @@ def assign_version(context, new_version):
 
     vid = vid or _get_random(10)
 
-    for asmt in context.objectValues('Assessment'):
+    for asmt in (context.objectValues('Assessment') + other_assessments):
         if not IVersionEnhanced.providedBy(asmt):
             alsoProvides(asmt, IVersionEnhanced)
         IVersionControl(asmt).setVersionId(vid)
