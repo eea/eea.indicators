@@ -1,0 +1,28 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+  metal:use-macro="here/main_template/macros/master"
+  i18n:domain="indicators">
+  <head>
+    <metal:slot fill-slot="head_slot">
+      <title>Permissions Overview for Indicators Database</title>
+    </metal:slot>
+    <metal:slot fill-slot="css_slot">
+      <link type="text/css" rel="stylesheet" media="all" tal:attributes="href string:$portal_url/indicators.css" />
+    </metal:slot>
+    <metal:slot fill-slot="javascript_head_slot">
+      <script type="text/javascript" tal:attributes="src context/++resource++indicators-reports.js" ></script>
+    </metal:slot>
+  </head>
+  <body>
+    <div metal:fill-slot="main">
+      <h1>Assessments that have wrong version ids</h1>
+      <ul>
+        <li tal:repeat="brain view/wrongs">
+          <a href="" tal:attributes="href string:${brain/getURL}/@@wrong_versions_report" 
+            tal:content="brain/Title">Assessment title</a> 
+          <input type="button" class="fix_btn" value="+" />
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>
+
