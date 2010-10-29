@@ -204,7 +204,7 @@ def assign_version(context, new_version):
             vid = get_version_id(children[0])
             break
 
-    vid = vid or _get_random(10)
+    vid = vid or _get_random(context, 10)
 
     for asmt in (context.objectValues('Assessment') + other_assessments):
         if not IVersionEnhanced.providedBy(asmt):
