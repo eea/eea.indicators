@@ -1,6 +1,9 @@
 Changelog
 =========
 
+1.22-dev - (unreleased)
+-----------------------
+
 1.21 - (2010-10-29)
 -------------------
  * Change: now using new API for _get_random from eea.versions [tiberich #3758]
