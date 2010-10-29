@@ -30,6 +30,11 @@ def handle_assessment_state_change(context, event):
     if dest_state in ['published', 'visible']:
         publishRelatedFigures(context, dest_state)
 
+    if dest_state in ['visible', 'published_eionet']:
+        context.allowDiscussion('off')
+    else:
+        context.allowDiscussion('on')
+
 
 def handle_specification_state_change(context, event):
     #reindex children assessments to update their readiness

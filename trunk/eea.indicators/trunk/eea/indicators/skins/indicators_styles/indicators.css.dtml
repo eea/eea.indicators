@@ -148,6 +148,9 @@ display:inherit !important;
 .logic_group {
     padding:1em;
 }
+#portal-column-one .logic_group {
+    padding:0;
+}
 .figure_edit_control {
     position:absolute;
     margin-top:40px;

@@ -3,6 +3,8 @@ Changelog
 
 1.21-dev - (unreleased)
 -----------------------
+ * Change: now using new API for _get_random from eea.versions [tiberich #3758]
+ * Change: on assessment state change, make the assessment discussable [tiberich #3791]
 
 1.20 - (2010-10-25)
 -------------------
