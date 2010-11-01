@@ -3,6 +3,7 @@ Changelog
 
 1.22-dev - (unreleased)
 -----------------------
+ * Change: use new API from eea.versions [tiberich #3278]
 
 1.21 - (2010-10-29)
 -------------------

@@ -162,6 +162,7 @@ class Assessment(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory, Br
             wftool = getToolByName(self, 'portal_workflow')
         except AttributeError:
             return spec_title + ' - newly created assessment' #the object has not finished its creation process
+
         info = wftool.getStatusOf('indicators_workflow', self)
         if not info:
             return spec_title + ' - newly created assessment'  #the object has not finished its creation process
