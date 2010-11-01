@@ -1,6 +1,9 @@
 Changelog
 =========
 
+1.23-dev - (unreleased)
+-----------------------
+
 1.22 - (2010-11-01)
 -------------------
  * Change: use new API from eea.versions [tiberich #3278]
