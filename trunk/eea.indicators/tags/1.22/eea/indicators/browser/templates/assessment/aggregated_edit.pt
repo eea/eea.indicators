@@ -1,0 +1,44 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="indicators">
+
+  <metal:block use-macro="here/global_defines/macros/defines" />
+
+  <metal:baseslot fill-slot="base">
+    <base href="" tal:attributes="href request/URL" />
+  </metal:baseslot>
+
+  <metal:jsslot fill-slot="javascript_head_slot">
+    <script type="text/javascript" tal:attributes="src string:${portal_url}/++resource++jquery.ui-1.7.js"></script>
+    <script type="text/javascript" tal:attributes="src string:${portal_url}/++resource++indicators.js"></script>
+  </metal:jsslot>
+
+  <body>
+    <div metal:fill-slot="main" class="assessment_edit">
+
+      <div id="dialog_edit_target">
+        <!-- This div is used by active field editing -->
+      </div>
+
+      <h1 id="headline-assessment" tal:content="context/Title">Title here</h1>
+
+      <h2>Assessment versions</h2>
+      <metal:versions use-macro="here/portlet_versions/macros/versions">
+        <metal:new fill-slot="old" />
+      </metal:versions>
+
+      <div tal:replace="structure context/fragment_keymessage" />
+
+      <div tal:define="
+        assessments context/get_assessments;
+        key nocall:assessments/key;
+        secondary nocall:assessments/secondary;">
+        <tal:parts repeat="part python:[key] + secondary">
+          <div tal:replace="structure part/fragment_assessment_part" tal:condition="part" />
+        </tal:parts>
+      </div>
+      <div tal:replace="structure context/fragment_metadata" />
+
+    </div>
+  </body>
+</html>
