@@ -487,4 +487,3 @@ its children assessments as well.
     True
     >>> get_version_id(as6) == va5
     True
-

@@ -132,7 +132,6 @@
   <browser:page name="object_delete" for="zope.interface.Interface"
     class=".utils.ObjectDelete" permission="zope2.View" />  TODO: change permission here
 
-
   <browser:resource
     name='indicators.js'
     file='js/indicators.js' />
