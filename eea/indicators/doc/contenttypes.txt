@@ -14,10 +14,8 @@ We have several main content types. The most important are the Specification and
     >>> setuptool = getToolByName(portal, 'portal_setup')
     >>> setuptool.setImportContext('profile-eea.dataservice:default')
     >>> log = setuptool.runAllImportSteps()
-    a...
     >>> setuptool.setImportContext('profile-eea.indicators:default')
     >>> log = setuptool.runAllImportSteps()
-    a...
     >>> browser = Browser()
     >>> browser.handleErrors = True
     >>> self.portal.error_log._ignored_exceptions = ()
