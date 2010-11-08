@@ -3,6 +3,7 @@ Changelog
 
 1.23-dev - (unreleased)
 -----------------------
+ * Change: Cleanup doctests according to eea.vocab fix [voineali]
 
 1.22 - (2010-11-01)
 -------------------
@@ -59,7 +60,7 @@ Changelog
 
 1.11 - (2010-10-07)
 -------------------
- * 
+ *
 
 1.10 - (2010-10-07)
 -------------------
@@ -68,7 +69,7 @@ Changelog
 
 1.9 - (2010-10-06)
 ------------------
- * Bug fix: for ims_timeline: remove assessment id from code that puts together the 
+ * Bug fix: for ims_timeline: remove assessment id from code that puts together the
    children of a specification [tiberich #3741]
  * Bug fix: use object review state for display in timeline [tiberich]
  * Allow editors to link an specifications as versioned if the code is not unique [tiberich #3650]
@@ -79,7 +80,7 @@ Changelog
  * Change: No longer need redefinitions for ObjectReadinessView for specs and assessments [tiberich #3694]
  * Feature: Add two new catalog metadata columns: comments and published_readiness [tiberich #3645]
  * Change: Use catalog search and brains to display the ims_timeline [tiberich #3645]
- * Feature: Display not ready specs and assessments in red, with an icon that AJAX 
+ * Feature: Display not ready specs and assessments in red, with an icon that AJAX
    loads the readiness status in a tooltip, in the ims_timeline [tiberich #3645]
  * Change: Add customized view template for ExternalDataSpecs [tiberich #3192]
  * Feature: On new assessment version, 'File' children are not copied [ghicaale #3601]
