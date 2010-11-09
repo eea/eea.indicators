@@ -160,6 +160,7 @@ function on_load_dom() {
   set_relation_widgets();
   bootstrap_relations_widgets();
   bootstrap_select_widgets();
+  set_readiness_accordion();  // for portlet_readiness
 }
 
 function reload_region(el){
