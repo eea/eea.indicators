@@ -4,6 +4,7 @@ Changelog
 1.23-dev - (unreleased)
 -----------------------
  * Change: Cleanup doctests according to eea.vocab fix [voineali]
+ * Change: Set default creation locations for PolicyQuestion and IndicatorFactSheet [tiberich #3584]
 
 1.22 - (2010-11-01)
 -------------------
