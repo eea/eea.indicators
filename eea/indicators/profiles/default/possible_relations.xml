@@ -406,7 +406,7 @@
   <property name="ct_type">PolicyQuestion</property>
   <property name="ct_interface"></property>
   <property 
-      name="ct_default_location">python:object.portal_url.getPortalPath() + "/data-and-maps/createObject?type_name=PolicyQuestion"</property>
+      name="ct_default_location">string:../@@edit_aggregated</property>
   <criteria>
    <criterion name="c0">
     <property name="widget">text</property>
@@ -530,7 +530,7 @@
   <property name="ct_type">IndicatorFactSheet</property>
   <property name="ct_interface"></property>
   <property 
-      name="ct_default_location">python:object.portal_url.getPortalPath() + "/data-and-maps/createObject?type_name=IndicatorFactSheet"</property>
+      name="ct_default_location">python:None</property>
   <criteria>
    <criterion name="c0">
     <property name="widget">text</property>
