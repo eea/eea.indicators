@@ -1,6 +1,9 @@
 Changelog
 =========
 
+1.24-dev - (unreleased)
+-----------------------
+
 1.23 - (2010-11-10)
 -------------------
  * Change: Cleanup doctests according to eea.vocab fix [voineali]
