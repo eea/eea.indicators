@@ -1,8 +1,8 @@
 Changelog
 =========
 
-1.23-dev - (unreleased)
------------------------
+1.23 - (2010-11-10)
+-------------------
  * Change: Cleanup doctests according to eea.vocab fix [voineali]
  * Change: Set default creation locations for PolicyQuestion and IndicatorFactSheet [tiberich #3584]
  * Change: Recreate accordion on portlet readiness reload [tiberich #3766]
