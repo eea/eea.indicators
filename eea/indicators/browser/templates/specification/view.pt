@@ -171,7 +171,7 @@
 					<h2 id="data_specifications">Data specifications</h2>
 					<h3>EEA data references</h3>
 					<ul tal:define="datasets python:datasetsView('Data')">
-						<li tal:condition="not:datasets">No datasets have been specifed yet.</li>
+						<li tal:condition="not:datasets">No datasets have been specified here.</li>
 						<li tal:repeat="data datasets" tal:condition="datasets">
 							<a href=""
 								tal:attributes="href string:${context/portal_url}/data-and-maps/data/ds_resolveuid/${data/@@getLatestVersionLink}"
@@ -264,7 +264,7 @@
 						<p tal:replace="structure work/getDue_date"></p>
 					</div>
 					<h3>Long term work</h3>
-					<p>Work specifed here will require more than 1 year (from now) to be completed.</p>
+					<p>Work specified here will require more than 1 year (from now) to be completed.</p>
 					<div tal:repeat="work long">
 						<h4>Work description</h4>
 						<tal:description define="description work/Description">
