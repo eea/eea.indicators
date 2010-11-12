@@ -88,6 +88,7 @@ PROFILE_DEPENDENCIES = (
          ('eea.relations', 'profile-eea.relations:a', True),
          #('eea.relations', 'profile-eea.relations:b', True),
          ('eea.versions', 'profile-eea.versions:default', False),
+         ('eea.vocab', 'eea.vocab:default', True),
     )
 
 
