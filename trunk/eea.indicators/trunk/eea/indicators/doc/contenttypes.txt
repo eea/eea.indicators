@@ -461,6 +461,7 @@ The portlet_readiness will inform us of the situation:
 The fragment_metadata, which contains the codes, will tell us that the CSI001
 code is duplicated and offer a link to link it as a version of the other specification:
 
+    >>> #browser.handleErrors = False
     >>> browser.open(spec.absolute_url() + '/fragment_metadata')
     >>> print browser.contents  #doctest: +NORMALIZE_WHITESPACE
     <...The following codes are duplicated in the IMS:...CSI001...@@assign_version...
