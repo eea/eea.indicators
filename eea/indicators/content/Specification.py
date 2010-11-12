@@ -387,7 +387,7 @@ Specification_schema._names = new_order
 finalizeATCTSchema(Specification_schema)
 
 
-class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,  
+class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
                     CustomizedObjectFactory, BrowserDefaultMixin, IndicatorMixin):
     """
     """
@@ -666,7 +666,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
     security.declarePublic("comments")
     def comments(self):
         """Return the number of comments"""
-        
+
         try:
             return len(self.getReplyReplies(self))
         except AttributeError:
