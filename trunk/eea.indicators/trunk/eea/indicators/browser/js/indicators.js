@@ -652,6 +652,12 @@ function open_relations_widget(widget_dom_id, selected_tab){
   $("#" + widget_dom_id + " :input").trigger('click');
   return false;
 }
+function preselect_relations_tab(region_id, selected_tab){
+  $("#" + region_id + " .searchButton").click(function(){
+    window._selected_tab = selected_tab;// will be read by the relations widget and set as selected tab
+    return true;
+  })
+}
 
 function bootstrap_relations_widgets(){
   $('.eea-widget-referencebrowser').each(
