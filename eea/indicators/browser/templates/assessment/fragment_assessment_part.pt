@@ -1,10 +1,11 @@
 <tal:def tal:define="
 	submit_handler string:simple_edit; 
 	imsutils nocall:context/@@indicator_utils;
-	region_name python:imsutils.str_to_id(context.Title(), context);
+  region_name python:context.UID();
   also_reload python:['object_readiness'];
 	region_update_handler string:${context/absolute_url}/fragment_assessment_part;
-	figures python:context.getFolderContents();">
+  figures python:context.getFolderContents();
+  UID context/UID">
 
 	<metal:block use-macro="here/global_defines/macros/defines" />
 
@@ -34,7 +35,7 @@
 			
 			<div class="logic_group">
 				<tal:def tal:define="fieldname string:assessment; 
-					fieldset string:default; ">
+                             fieldset string:default; ">
 					<metal:macro metal:use-macro="context/indicators_macros/macros/active_field">
 						<metal:slot metal:fill-slot="content">
               <a name="rfs_assessment_id" tal:attributes="name string:rfs_${fieldname}_${context/getId}"/>
@@ -46,16 +47,13 @@
 						<metal:slot metal:fill-slot="extra-metadata">
 							<div class="width">800</div>
 							<div class="height">600</div>
-							<!-- <div class="title">Question assessment</div> -->
 						</metal:slot>
 					</metal:macro>
+          <script type="text/javascript" tal:content="string:
+            preselect_relations_tab('${region_name}', 'relatedItems-$UID-eea-figure');
+            "></script>
 				</tal:def>
 			</div>
-
-			<!-- <div class="logic_group" tal:define="errors context/REQUEST/errors|options/errors|python:{}"> -->
-			<!-- 	<div metal:use-macro="python:context.widget('relatedItems', mode='edit')" /> -->
-			<!-- </div> -->
-
 
 		</metal:slot>
 	</metal:macro>
