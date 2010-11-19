@@ -1,8 +1,8 @@
 Changelog
 =========
 
-1.25-dev - (unreleased)
------------------------
+1.25 - (2010-11-19)
+-------------------
  * Bug fix: add eea.vocab profile to dependencies. Fixes tests [tiberich]
  * Bug fix: changed wording for "no datasets specified" messages [tiberich #3831]
  * Bug fix: preselect EEAFigure tab in relations popup [tiberich #3604]
