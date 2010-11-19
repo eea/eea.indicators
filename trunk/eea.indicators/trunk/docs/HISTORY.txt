@@ -1,6 +1,9 @@
 Changelog
 =========
 
+1.26-dev - (unreleased)
+-----------------------
+
 1.25 - (2010-11-19)
 -------------------
  * Bug fix: add eea.vocab profile to dependencies. Fixes tests [tiberich]
