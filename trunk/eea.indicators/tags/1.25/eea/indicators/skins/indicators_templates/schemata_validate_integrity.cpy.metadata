@@ -1,9 +1,0 @@
-[default]
-title = Validate Content Integrity
-
-[validators]
-validators =
-
-[actions]
-action.success = traverse_to:string:close_schemata_edit
-action.failure = traverse_to:string:schemata_content_edit
