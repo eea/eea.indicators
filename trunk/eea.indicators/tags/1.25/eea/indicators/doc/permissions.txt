@@ -1,0 +1,39 @@
+Permissions and security in IMS
+===============================
+
+    >>> from Products.Five.testbrowser import Browser
+    >>> from Products.PloneTestCase import PloneTestCase
+
+    >>> self.loginAsPortalOwner()
+    >>> from Products.CMFCore.utils import getToolByName
+    >>> setuptool = getToolByName(portal, 'portal_setup')
+    >>> setuptool.setImportContext('profile-eea.dataservice:default')
+    >>> log = setuptool.runAllImportSteps()
+    >>> setuptool.setImportContext('profile-eea.indicators:default')
+    >>> log = setuptool.runAllImportSteps()
+    >>> browser = Browser()
+    >>> browser.handleErrors = False
+    >>> self.portal.error_log._ignored_exceptions = ()
+    >>> browser.addHeader('Authorization',
+    ...                   'Basic %s:%s' % (PloneTestCase.portal_owner,
+    ...                                    PloneTestCase.default_password))
+
+
+Specification management
+------------------------
+When changing the manager_user_id field for a Specification, the local role
+SpecificationManager is reassigned: it's removed for the old user and added
+for the new user. We have a page called permissions_overview which is registered
+for objects providing IIndicatorsOverview
+
+    >>> ims = portal[portal.invokeFactory("Folder", 'ims')]
+    >>> from zope.interface import alsoProvides
+    >>> from eea.indicators.content.interfaces import IIndicatorsDatabase
+    >>> alsoProvides(ims, IIndicatorsDatabase)
+    >>> spec = portal[portal.invokeFactory("Specification", 'spec1')]
+
+    >>> view = ims.unrestrictedTraverse('@@ims_overview')
+
+
+# vim: ft=doctest:
+# vim: sw=4 ts=4 et:
