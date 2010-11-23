@@ -459,7 +459,7 @@ code is duplicated and offer a link to link it as a version of the other specifi
     >>> #browser.handleErrors = False
     >>> browser.open(spec.absolute_url() + '/fragment_metadata')
     >>> print browser.contents  #doctest: +NORMALIZE_WHITESPACE
-    <...The following codes are duplicated in the IMS:...CSI001...@@assign_version...
+    <...Unrelated Indicators Specifications have the same codes...CSI001...@@assign_version...
 
 
 Reassigning versions for Specifications
