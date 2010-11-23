@@ -452,10 +452,10 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
         for code in codes:
             if code:
                 res = res + "%s %s/" % (code['set'], code['code'])
+        res = self.title
         if res:
             res = self.title + ' (' + res[:-1] + ')'
-        else:
-            res = self.title
+
         return res
 
     security.declarePublic('left_slots')
@@ -671,6 +671,28 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
             return len(self.getReplyReplies(self))
         except AttributeError:
             return 0    #this happens in tests
+
+    security.declarePublic("get_diff_vers_setcode")
+    def get_diff_vers_setcode(self):
+        """Returns a list of versions of this Spec that have a different main setcode"""
+        diff = []
+        for v in get_versions_api(self).versions.values():
+            if v.getCodes() and v.getCodes()[0] != self.getCodes()[0]:
+                diff.append(v)
+        return diff
+
+    security.declarePublic('getCandidateFixedCode')
+    def getCandidateFixedCode(self, spec):
+        """Returns codes that a spec should get to have a similar main setcode to context """
+        main = self.getCodes()[0]
+        other = spec.getCodes()
+
+        return [main] + list(filter(lambda c:c!=main, other))
+
+    security.declarePublic('format_codes')
+    def format_codes(self, codes):
+        return ", ".join(["%s%s" % (s['set'], s['code']) for s in codes])
+        
 
 registerType(Specification, PROJECTNAME)
 

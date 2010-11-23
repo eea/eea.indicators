@@ -194,5 +194,11 @@
     class=".specification.AssignVersion"
     />
 
+  <browser:page
+    for="eea.indicators.content.interfaces.ISpecification"
+    name="set_codes"
+    permission="cmf.ModifyPortalContent"
+    class=".specification.SetCodes"
+    />
 
 </configure>
