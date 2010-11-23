@@ -154,6 +154,33 @@ function bootstrap_select_widgets() {
   });
 }
 
+function set_generic_ajax_forms(){
+  $(".generic_ajax_forms form").submit(function(e){
+    var form = this;
+    var data = $(":input", form).serialize();
+    var url = $(this).attr('action');
+
+    console.log(data);
+
+    block_ui();
+    $.ajax({
+      'url':url,
+      type:'POST',
+      'data':data,
+      cache:false,
+      error:function(){
+        unblock_ui();
+        alert("ERROR: There was a problem communicating with the server. Please reload this page.");
+      },
+      success:function(r){
+        unblock_ui();
+        $(form).html(r)
+      }
+    })
+    return false;
+  });
+}
+
 function on_load_dom() {
   // executed whenever the regions are reloaded
   set_sortables();
@@ -161,6 +188,7 @@ function on_load_dom() {
   bootstrap_relations_widgets();
   bootstrap_select_widgets();
   set_readiness_accordion();  // for portlet_readiness
+  set_generic_ajax_forms();
 }
 
 function reload_region(el){
@@ -697,16 +725,7 @@ $(document).ready(function () {
   set_deleters();
   set_edit_buttons();
 
-  // setTimeout('change_kupu_styles()', '2000');
-
   on_load_dom();
-
-  // styling tweak for relations widget edit button
-  // $(".eea-widget-referencebrowser").each(function(){
-  //   var parent = $(this).parent();
-  //   $(parent).prepend(this);
-  // });
-  //
 
 });
 
@@ -761,6 +780,7 @@ KupuZoomTool.prototype.commandfunc = function(button, editor) {
   window.scrollTo(0, iframe.offsetTop);
   editor.focusDocument();
 };
+
 function toggle_creator_option(el){
   var a = $(el).parent().parent().children('a.object_creator').get(0);
   var href = $(a).attr('href');

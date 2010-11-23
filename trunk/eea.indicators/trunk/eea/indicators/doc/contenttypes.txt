@@ -137,7 +137,6 @@ created PolicyQuestion.
 
 Versioning
 ~~~~~~~~~~
-
 We need a specification with assessments that link to EEAFigures, so let's
 make sure we have some.
 
@@ -216,7 +215,6 @@ AssessmentParts created for all the PolicyQuestions - this is already demonstrat
 
 Catalog Indexes
 ---------------
-
 We index the codes of a Specification using the get_codes index. First, let's
 test if it's installed:
 
@@ -248,7 +246,6 @@ catalog searches based on either the full code or the Set code:
 
 Readiness for publication
 -------------------------
-
 We have a system that uses eea.workflow to decide if a Specification is ready to be published.
 
     >>> spec = ims[ims.invokeFactory("Specification", 'spec3')]
@@ -391,7 +388,6 @@ In the new aggregated edit view we use two types of editing dialog boxes:
 
 Single field dialog edit
 ~~~~~~~~~~~~~~~~~~~~~~~~
-
 Single field edit forms are based on a modified base_edit.cpt template that presents a
 single field.
 
@@ -417,7 +413,6 @@ fragment that closes the dialog and reloads the region to which that field belon
 
 Schemata dialog edit
 ~~~~~~~~~~~~~~~~~~~~
-
 Several content types can be edited from the aggregated edit view in a full popup edit form.
 They are: WorkItems, MethodologyReferences, RationaleReferences and PolicyQuestions
 
@@ -441,7 +436,7 @@ the title, the PolicyQuestion's id was changed, so let's get it again.
 
 
 Specification codes validation
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------------
 We have a soft requirement that we shouldn't have Specifications with the same
 codeset that are not versions of each other.
 
@@ -466,8 +461,9 @@ code is duplicated and offer a link to link it as a version of the other specifi
     >>> print browser.contents  #doctest: +NORMALIZE_WHITESPACE
     <...The following codes are duplicated in the IMS:...CSI001...@@assign_version...
 
+
 Reassigning versions for Specifications
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+---------------------------------------
 When manually reasigning versions for a specification, we want to reassign versions for
 its children assessments as well.
 

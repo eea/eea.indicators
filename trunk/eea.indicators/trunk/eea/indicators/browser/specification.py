@@ -241,17 +241,15 @@ class WrongVersionReport(BrowserView):
     def get_duplicated_codes(self):
         return self.context.get_duplicated_codes()
 
-    #def possible_versions(self):
-        #versions = getPossibleVersionsId(self.context)
-        #catalog = getToolByName(self.context, 'portal_catalog')
 
-        #res = {}
-        #for v in versions:
-            #res[v] = map(
-                    #lambda b:b.getObject(),
-                    #catalog.searchResults(getVersionId=v))
+class SetCodes(BrowserView):
+    def __call__(self):
+        codes = self.request.form.get("codes")  #this is a list of form ['APE', '009', 'CSI', '001', 'CLIM', '003']
 
-        #return res
+        value = [{'set':set, 'code':code} 
+                    for set, code in zip(codes[::2], codes[1::2])]
 
-    #def get_version_for(self, obj):
-        #return get_version_id(obj)
+        field = self.context.schema['codes']
+        field.getStorage(self.context).set(field.getName(), self.context, value)
+        return "Fixed"
+
