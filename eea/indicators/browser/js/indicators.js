@@ -160,8 +160,6 @@ function set_generic_ajax_forms(){
     var data = $(":input", form).serialize();
     var url = $(this).attr('action');
 
-    console.log(data);
-
     block_ui();
     $.ajax({
       'url':url,

@@ -63,7 +63,11 @@ schema = Schema((
         searchable=True,
         widget=DataGridWidget(
             label="Specification identification codes",
-            description="Codes are short names used to identify the indicator in question. Code is made up of a SET-ID and an CODE-NR, e.g. TERM 002. Multiple codes are allowed, since same indicator can be re-used in other indicators' sets.",
+            description="""Codes are short names used to identify the indicator
+            in question. Code is made up of a SET-ID and an CODE-NR, e.g. TERM
+            002. Multiple codes are allowed, since same indicator can be
+            re-used in other indicators' sets. The first code is the main
+            code.""",
             columns={'set':SelectColumn("Set ID", vocabulary="get_indicator_codes"), "code":Column("Code number")},
             auto_insert=True,
             label_msgid='indicators_label_codes',
@@ -676,8 +680,13 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
     def get_diff_vers_setcode(self):
         """Returns a list of versions of this Spec that have a different main setcode"""
         diff = []
+        codes = self.getCodes()
+        if not codes:
+            return diff
+
+        code = codes[0]
         for v in get_versions_api(self).versions.values():
-            if v.getCodes() and v.getCodes()[0] != self.getCodes()[0]:
+            if v.getCodes() and v.getCodes()[0] != code:
                 diff.append(v)
         return diff
 

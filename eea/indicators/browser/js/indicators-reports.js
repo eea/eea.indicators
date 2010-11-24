@@ -2,7 +2,7 @@ function ajaxize(target, url) {
     $(target).load(url, function(){
         $(".report form", target).submit(
             function(){
-                var btn = $('input[type=');
+                //var btn = $('input[type="submit"]');
                 var formurl = $(this).attr('action');
                 var report = $(this).parents('.report').get(0);
                 var data = $(this).serialize();
@@ -17,6 +17,29 @@ function ajaxize(target, url) {
     });
 }
 
+function set_generic_ajax_forms(){
+  $(".generic_ajax_forms form").submit(function(e){
+    var form = this;
+    var data = $(":input", form).serialize();
+    var url = $(this).attr('action');
+
+    $.ajax({
+      'url':url,
+      type:'POST',
+      'data':data,
+      cache:false,
+      error:function(){
+        unblock_ui();
+        alert("ERROR: There was a problem communicating with the server. Please reload this page.");
+      },
+      success:function(r){
+        unblock_ui();
+        $(form).html(r)
+      }
+    })
+    return false;
+  });
+}
 
 $(document).ready(function () {
     $(".fix_btn").click(function(){
@@ -37,5 +60,6 @@ $(document).ready(function () {
         return false;
     });
 
+    set_generic_ajax_forms();
 });
 

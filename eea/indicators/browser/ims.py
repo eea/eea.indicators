@@ -254,3 +254,9 @@ class ReportWrongVersionSpecifications(BrowserView):
         wrongs = filter(lambda o:o.has_duplicated_code(), objs)
         return wrongs
 
+
+class ReportWrongMainCodeSpecifications(BrowserView):
+    def wrongs(self):
+        objs = self.context.objectValues(['Specification'])
+        wrongs = filter(lambda o:bool(o.get_diff_vers_setcode()), objs)
+        return wrongs
