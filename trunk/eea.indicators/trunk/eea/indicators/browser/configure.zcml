@@ -39,6 +39,14 @@
 
   <browser:page
     for="eea.indicators.content.interfaces.IIndicatorsDatabase"
+    name="ims_wrong_maincode"
+    template="templates/wrong_maincode.pt"
+    class="eea.indicators.browser.ims.ReportWrongMainCodeSpecifications"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    for="eea.indicators.content.interfaces.IIndicatorsDatabase"
     name="ims_timeline"
     class="eea.indicators.browser.ims.IndicatorsTimeline"
     template="templates/timeline.pt"

@@ -1,0 +1,80 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+  metal:use-macro="here/main_template/macros/master"
+  i18n:domain="indicators">
+  <head>
+    <metal:slot fill-slot="head_slot">
+      <title>Permissions Overview for Indicators Database</title>
+    </metal:slot>
+    <metal:slot fill-slot="css_slot">
+      <link type="text/css" rel="stylesheet" media="all" tal:attributes="href string:$portal_url/indicators.css" />
+    </metal:slot>
+    <metal:slot fill-slot="javascript_head_slot">
+      <script type="text/javascript" tal:attributes="src context/++resource++indicators-reports.js" ></script>
+    </metal:slot>
+  </head>
+  <body>
+    <div metal:fill-slot="main">
+      <h1>Specifications with the wrong maincode</h1>
+      <p>
+        The following Indicator Specifications belong to the same versioning group but have a different main code. There are
+        two ways of fixing this: either assign all the codes of this current specification, or assign just the maincode of this
+        specification.
+      </p>
+      <ul>
+        <li tal:repeat="wrong_spec view/wrongs" class="generic_ajax_forms">
+          <table tal:define="diff_codes wrong_spec/get_diff_vers_setcode;
+            format_codes python:lambda codes: ', '.join(['%s%s' % (s['set'], s['code']) for s in codes])
+            ">
+            <thead>
+              <tr>
+                <th>Indicator</th>
+                <th>Solution I</th>
+                <th>Solution II</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr tal:repeat="spec diff_codes">
+                <td>
+                  <a href="" tal:attributes="href spec/absolute_url" tal:content="spec/Title">Spec</a>.
+                </td>
+                <td>
+                  <form method="POST" action="./@@set_codes" style="display:inline"
+                    tal:attributes="action string:${spec/absolute_url}/@@set_codes" >
+                    <p>The codes will be changed from 
+
+                      <strong tal:content="python:format_codes(spec.getCodes())" /> to 
+                      <strong tal:content="python:format_codes(wrong_spec.getCodes())" />.
+                    </p>
+                    <tal:rep tal:repeat="code wrong_spec/getCodes">
+                      <input name="codes:list" tal:attributes="value python:code['set']" type="hidden" />
+                      <input name="codes:list" tal:attributes="value python:code['code']" type="hidden" />
+                    </tal:rep>
+                    <input type="submit" name="submit" value="Apply fix" />
+                  </form>
+                </td>
+                <td>
+                  <form method="POST" action="./@@set_Codes" style="display:inline"
+                    tal:attributes="action string:${spec/absolute_url}/@@set_codes"
+                    tal:define="candidates python: wrong_spec.getCandidateFixedCode(spec)">
+                    <p>
+                      The codes will be changed from 
+                      <strong tal:content="python:format_codes(spec.getCodes())" /> to 
+                      <strong tal:content="python:format_codes(candidates)" />.
+                    </p>
+                    <tal:rep tal:repeat="code candidates">
+                      <input name="codes:list" tal:attributes="value python:code['set']" type="hidden" />
+                      <input name="codes:list" tal:attributes="value python:code['code']" type="hidden" />
+                    </tal:rep>
+                    <input type="submit" name="submit" value="Apply fix" />
+                  </form>
+
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

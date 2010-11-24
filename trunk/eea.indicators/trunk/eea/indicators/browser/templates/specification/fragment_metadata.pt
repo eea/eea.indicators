@@ -205,7 +205,7 @@
                         Unrelated Indicators Specifications have the same codes.
                       </div>
                       
-                      <p>
+                      <p tal:condition="duplicate_codes">
                         In case you have specified the wrong code for the current Indicator, use the "Edit" button
                         to change it. If you believe the following indicators should be related to each other, use the 
                         "Apply fix" button on each one to connect them as versions.

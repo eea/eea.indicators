@@ -4,6 +4,7 @@ Changelog
 1.26-dev - (unreleased)
 -----------------------
  * Feature: Allow reassigning codes when related specifications have different codes [tiberich #3756]
+ * Feature: Added @@ims_wrong_maincode admin view to see and fix related specs with different codes [tiberich #3756]
 
 1.25 - (2010-11-19)
 -------------------
