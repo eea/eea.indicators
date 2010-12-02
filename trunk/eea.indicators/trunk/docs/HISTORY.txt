@@ -5,6 +5,7 @@ Changelog
 -----------------------
  * Feature: Allow reassigning codes when related specifications have different codes [tiberich #3756]
  * Feature: Added @@ims_wrong_maincode admin view to see and fix related specs with different codes [tiberich #3756]
+ * Bug fix: Added Specification2Surf adapter to solve @@rdf view problem [tiberich #3893]
 
 1.25 - (2010-11-19)
 -------------------

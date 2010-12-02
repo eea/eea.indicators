@@ -16,10 +16,10 @@ from Products.CMFCore import permissions
 from Products.CMFCore.permissions import AddPortalContent
 from Products.CMFCore.utils import getToolByName
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
+from Products.CMFPlone.utils import log
 from Products.DataGridField import DataGridField, DataGridWidget
 from Products.DataGridField.Column import Column
 from Products.DataGridField.SelectColumn import SelectColumn
-from eea.indicators.content.IndicatorMixin import IndicatorMixin
 from Products.EEAContentTypes.content.ThemeTaggable import ThemeTaggable, ThemeTaggable_schema
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
@@ -28,16 +28,21 @@ from eea.dataservice.vocabulary import Organisations
 from eea.indicators import msg_factory as _
 from eea.indicators.browser.assessment import create_version as create_assessment_version
 from eea.indicators.config import *
+from eea.indicators.content.IndicatorMixin import IndicatorMixin
 from eea.indicators.content.base import ModalFieldEditableAware, CustomizedObjectFactory
 from eea.indicators.content.utils import get_dgf_value
+from eea.rdfmarshaller.interfaces import IATField2Surf, ISurfSession
+from eea.rdfmarshaller.marshaller import ATCT2Surf
 from eea.relations.field import EEAReferenceField
 from eea.relations.widget import EEAReferenceBrowserWidget
 from eea.versions.interfaces import IVersionControl, IVersionEnhanced
 from eea.versions.versions import isVersionEnhanced, get_versions_api
 from eea.workflow.interfaces import IHasMandatoryWorkflowFields, IObjectReadiness
 from zope.interface import alsoProvides, implements
+from zope.component import adapts, queryMultiAdapter
 import datetime
 import interfaces
+import rdflib
 
 ONE_YEAR = datetime.timedelta(weeks=52)
 
@@ -731,3 +736,49 @@ def make_id(BASE, names):
             x += 1
 
     return name
+
+
+class Specification2Surf(ATCT2Surf):
+    adapts(interfaces.ISpecification, ISurfSession)
+
+    def _schema2surf(self):
+        context = self.context
+        session = self.session
+        resource = self.surfResource
+        language = context.Language()
+        for field in context.Schema().fields():
+            fieldName = field.getName()
+            if fieldName in self.blacklist_map:
+                continue
+            fieldAdapter = queryMultiAdapter((field, self.session), interface=IATField2Surf)
+            if fieldAdapter.exportable:
+                value = fieldAdapter.value(context)
+                if value:
+                    prefix = self.prefix
+
+                    #concatenate the codes field
+                    if fieldName == "codes":
+                        value = ["%s%s" % (c['set'], c['code']) for c in value]
+
+                    if isinstance(value, (list, tuple)):
+                        value = list(value)
+                    else:
+                        value = (str(value), language)
+                    if fieldName in self.field_map:
+                        fieldName = self.field_map.get(fieldName)
+                    elif fieldName in self.dc_map:
+                        fieldName = self.dc_map.get(fieldName)
+                        prefix = 'dc'
+                    try:
+                        setattr(resource, '%s_%s' % (prefix, fieldName), value)
+                    except:
+                        log.log('RDF marshaller error for context[field] "%s[%s]": \n%s: %s' % 
+                                (context.absolute_url(), fieldName, sys.exc_info()[0], 
+                                    sys.exc_info()[1]), severity=log.logging.WARN)
+
+        parent = getattr(aq_inner(context), 'aq_parent', None)
+        if parent is not None:
+            resource.dcterms_isPartOf = rdflib.URIRef(parent.absolute_url())
+
+        resource.save()
+        return resource
