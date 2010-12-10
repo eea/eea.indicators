@@ -7,10 +7,10 @@ function ajaxize(target, url) {
                 var report = $(this).parents('.report').get(0);
                 var data = $(this).serialize();
 
-                $(target).load(formurl, data, function(){ 
+                $(target).load(formurl, data, function(){
                     ajaxize(target, url);
                 });
-            
+
                 return false;
             }
         );
@@ -34,9 +34,9 @@ function set_generic_ajax_forms(){
       },
       success:function(r){
         unblock_ui();
-        $(form).html(r)
+        $(form).html(r);
       }
-    })
+    });
     return false;
   });
 }
@@ -53,7 +53,7 @@ $(document).ready(function () {
 
         $(this).attr('value', '-');
         var url = $(this).parent().find('a').attr('href');
-        $(parent).append("<div class='target' style='padding:0 1em 1em 1em; " + 
+        $(parent).append("<div class='target' style='padding:0 1em 1em 1em; " +
                          "margin:0 1em 1em 0; border:1px solid #666'>Loading...</div>");
 
         ajaxize($('.target', parent).get(0), url);
@@ -62,4 +62,3 @@ $(document).ready(function () {
 
     set_generic_ajax_forms();
 });
-
