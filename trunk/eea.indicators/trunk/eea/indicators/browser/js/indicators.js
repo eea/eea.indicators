@@ -122,6 +122,46 @@ function set_sortables() {
   });
 }
 
+function ajaxify(el, fieldname){
+  // This will make a form submit and resubmit itself using AJAX
+  // It also takes care of kupu mangling
+
+  $('.kupu-editor-iframe').parent().parent().parent().parent().each(function(){
+    var kupu_id = $(this).attr('id');
+    setTimeout(function(){
+      initPloneKupu(kupu_id);
+      $("#kupu-bold-button").trigger('click');
+      $("#kupu-bold-button").trigger('click');
+    }, 1000);
+  });
+
+  $("form", el).submit(
+    function(e){
+      block_ui();
+      var form = this;
+      save_kupu_values(form);
+      var data = ($(form).serialize() + "&form_submit=Save&form.submitted=1");
+      $.ajax({
+        "data": data,
+        url: this.action,
+        type:'POST',
+        cache:false,
+        // timeout: 2000,
+        error: function() {
+          unblock_ui();
+          alert("Failed to submit");
+        },
+        success: function(r) {
+          $(el).html(r);
+          ajaxify(el);
+          unblock_ui();
+          return false;
+        }
+      });
+      return false;
+    });
+}
+
 function set_relation_widgets() {
   // activates the relation widgets
 
@@ -136,10 +176,10 @@ function set_relation_widgets() {
     var popup = new EEAReferenceBrowser.Widget(fieldname);
     try {
       $('#' + widget_dom_id).get(0)._widget = popup;
-      $(popup.events).bind(popup.events.SAVED, function(evt){ 
-        ajaxify($('#'+widget_dom_id), realfieldname); 
+      $(popup.events).bind(popup.events.SAVED, function(evt){
+        ajaxify($('#'+widget_dom_id), realfieldname);
         $('#' + widget_dom_id + ' form').trigger('submit');
-      }); 
+      });
     } catch (e) {
       // for some reasons this behaves as if the DOM is not fully loaded.
       // Probably the calling script should be made smarter
@@ -150,7 +190,7 @@ function set_relation_widgets() {
 
 function bootstrap_select_widgets() {
   $(".dummy-org-selector").each(function(i,v){
-    new MultiSelectAutocompleteWidget($(v));
+    var widget = new MultiSelectAutocompleteWidget($(v));
   });
 }
 
@@ -172,11 +212,40 @@ function set_generic_ajax_forms(){
       },
       success:function(r){
         unblock_ui();
-        $(form).html(r)
+        $(form).html(r);
       }
-    })
+    });
     return false;
   });
+}
+
+function bootstrap_relations_widgets(){
+  $('.eea-widget-referencebrowser').each(
+    function(){
+      // If it has a metadata then it's a widget from assessmentpart.
+      // At this moment it's the only one that has that.
+
+      if (!$(".metadata", this).length) { return false; }
+
+      var widget = this;
+      var active_field = $(widget).parents('.active_field').get(0);
+
+      var fieldname = $(".metadata .fieldname", this).text();
+      var domid = $(".metadata .domid", this).text();    //$(this).attr('id');
+      var popup = new EEAReferenceBrowser.Widget(domid, {'fieldname':fieldname});
+      var region = $(this).parents('.active_region');
+
+      try {
+        $(popup.events).bind(popup.events.SAVED, function(evt){
+          ajaxify(active_field, domid);
+          $(widget).parents('form').trigger('submit');
+        });
+      } catch (e) {
+        // for some reasons this behaves as if the DOM is not fully loaded.
+        // Probably the calling script should be made smarter
+      }
+    }
+  );
 }
 
 function on_load_dom() {
@@ -305,6 +374,117 @@ function schemata_ajaxify(el, active_region){
     });
 }
 
+function set_inout(el){
+  if (!el.length) { return false; }
+  var divs = $("div div", el);
+  var last_div = divs.get(divs.length-1);
+  $("<div style='float:left; padding-top:18px'><input type='button' value='&uarr;' class='context up-btn'/><br/><input value='&darr;' type='button' class='context down-btn'/></div>").insertBefore($(last_div));
+  var select = $("select", divs.get(1)).get(0);
+
+  var up_btn = $(".up-btn", el);
+  var down_btn = $(".down-btn", el);
+  $(up_btn).click(function(){
+    var ix = select.selectedIndex;
+    if (ix === 0) {
+      return false;
+    }
+
+    var opt = $(select).children().get(ix);
+    var arr = [];
+    for (i=0; i<select.options.length; i++) {
+      arr.push(select.options[i]);
+    }
+
+    // move position above to the selected position
+    arr[ix] = select.options[ix-1];
+    arr[ix-1] = opt;
+
+    var len = select.options.length;
+    select.options.length = 0;
+
+    for (i=0; i<len; i++) {
+      select.options[i] = arr[i];
+    }
+  });
+
+  $(down_btn).click(function(){
+    var ix = select.selectedIndex;
+    if (ix === select.options.length-1) {
+      return false;
+    }
+
+    var opt = $(select).children().get(ix);
+    var arr = [];
+    for (i=0; i<select.options.length; i++) {
+      arr.push(select.options[i]);
+    }
+
+    // move position below the selected position
+    arr[ix] = select.options[ix+1];
+    arr[ix+1] = opt;
+
+    var len = select.options.length;
+    select.options.length = 0;
+
+    for (i=0; i<len; i++) {
+      select.options[i] = arr[i];
+    }
+  });
+}
+
+function dialog_edit(url, title, callback, options){
+  // Opens a modal dialog with the given title
+
+  block_ui();
+  options = options || {
+    'height':null,
+    'width':800
+  };
+  var target = $('#dialog_edit_target');
+  $("#dialog-inner").remove();     // temporary, apply real fix
+  $(target).append("<div id='dialog-inner'></div>");
+  window.onbeforeunload = null; // this disables the form unloaders
+  $("#dialog-inner").dialog({
+    modal:true,
+    width:options.width,
+    minWidth:options.width,
+    height:options.height,
+    minHeight:options.height,
+    'title':title,
+    closeOnEscape:true,
+    buttons: {
+      'Save':function(e){
+        var button = e.target;
+        $("#dialog-inner form").trigger('submit');
+      },
+      'Cancel':function(e){
+        $("#dialog-inner").dialog("close");
+      }
+    },
+    beforeclose:function(event, ui){
+      return true;
+    }
+  });
+
+  $.ajax({
+    'url':url,
+    'type':'GET',
+    'cache':false,
+    'success': function(r){
+      $("#dialog-inner").html(r);
+
+      // this is a workaround for the following bug:
+      // after editing with Kupu in one of the popup dialogs,
+      // it is not possible to click inside the text inputs anymore
+      // surprisingly, clicking on their label activates the fields
+      // this happens only in Internet Explorer
+      $("#dialog-inner label").trigger('click');
+      set_inout($("#archetypes-fieldname-themes"));
+      callback();
+    }
+  });
+  change_kupu_styles();
+}
 
 function set_editors(){
   // Set handlers for Edit (full schemata) buttons
@@ -492,159 +672,6 @@ function closer(fieldname, active_region, url){
   return false;
 }
 
-function ajaxify(el, fieldname){
-  // This will make a form submit and resubmit itself using AJAX
-  // It also takes care of kupu mangling
-
-  $('.kupu-editor-iframe').parent().parent().parent().parent().each(function(){
-    var kupu_id = $(this).attr('id');
-    setTimeout(function(){
-      initPloneKupu(kupu_id);
-      $("#kupu-bold-button").trigger('click');
-      $("#kupu-bold-button").trigger('click');
-    }, 1000);
-  });
-
-  $("form", el).submit(
-    function(e){
-      block_ui();
-      var form = this;
-      save_kupu_values(form);
-      var data = ($(form).serialize() + "&form_submit=Save&form.submitted=1");
-      $.ajax({
-        "data": data,
-        url: this.action,
-        type:'POST',
-        cache:false,
-        // timeout: 2000,
-        error: function() {
-          unblock_ui();
-          alert("Failed to submit");
-        },
-        success: function(r) {
-          $(el).html(r);
-          ajaxify(el);
-          unblock_ui();
-          return false;
-        }
-      });
-      return false;
-    });
-}
-
-function set_inout(el){
-  if (!el.length) { return false; }
-  var divs = $("div div", el);
-  var last_div = divs.get(divs.length-1);
-  $("<div style='float:left; padding-top:18px'><input type='button' value='&uarr;' class='context up-btn'/><br/><input value='&darr;' type='button' class='context down-btn'/></div>").insertBefore($(last_div));
-  var select = $("select", divs.get(1)).get(0);
-
-  var up_btn = $(".up-btn", el);
-  var down_btn = $(".down-btn", el);
-  $(up_btn).click(function(){
-    var ix = select.selectedIndex;
-    if (ix === 0) {
-      return false;
-    }
-
-    var opt = $(select).children().get(ix);
-    var arr = new Array();
-    for (i=0; i<select.options.length; i++) {
-      arr.push(select.options[i]);
-    }
-
-    // move position above to the selected position
-    arr[ix] = select.options[ix-1];
-    arr[ix-1] = opt;
-
-    var len = select.options.length;
-    select.options.length = 0;
-
-    for (i=0; i<len; i++) {
-      select.options[i] = arr[i];
-    }
-  });
-
-  $(down_btn).click(function(){
-    var ix = select.selectedIndex;
-    if (ix === select.options.length-1) {
-      return false;
-    }
-
-    var opt = $(select).children().get(ix);
-    var arr = new Array();
-    for (i=0; i<select.options.length; i++) {
-      arr.push(select.options[i]);
-    }
-
-    // move position below the selected position
-    arr[ix] = select.options[ix+1];
-    arr[ix+1] = opt;
-
-    var len = select.options.length;
-    select.options.length = 0;
-
-    for (i=0; i<len; i++) {
-      select.options[i] = arr[i];
-    }
-  });
-}
-
-function dialog_edit(url, title, callback, options){
-  // Opens a modal dialog with the given title
-
-  block_ui();
-  options = options || {
-    'height':null,
-    'width':800
-  };
-  var target = $('#dialog_edit_target');
-  $("#dialog-inner").remove();     // temporary, apply real fix
-  $(target).append("<div id='dialog-inner'></div>");
-  window.onbeforeunload = null; // this disables the form unloaders
-  $("#dialog-inner").dialog({
-    modal:true,
-    width:options.width,
-    minWidth:options.width,
-    height:options.height,
-    minHeight:options.height,
-    'title':title,
-    closeOnEscape:true,
-    buttons: {
-      'Save':function(e){
-        var button = e.target;
-        $("#dialog-inner form").trigger('submit');
-      },
-      'Cancel':function(e){
-        $("#dialog-inner").dialog("close");
-      }
-    },
-    beforeclose:function(event, ui){
-      return true;
-    }
-  });
-
-  $.ajax({
-    'url':url,
-    'type':'GET',
-    'cache':false,
-    'success': function(r){
-      $("#dialog-inner").html(r);
-
-      // this is a workaround for the following bug:
-      // after editing with Kupu in one of the popup dialogs,
-      // it is not possible to click inside the text inputs anymore
-      // surprisingly, clicking on their label activates the fields
-      // this happens only in Internet Explorer
-      $("#dialog-inner label").trigger('click');
-      set_inout($("#archetypes-fieldname-themes"));
-      callback();
-    }
-  });
-  change_kupu_styles();
-}
-
-
 function close_dialog(region){
   reload_region($("#"+region));
   $("#dialog-inner").dialog("close");
@@ -654,7 +681,7 @@ function close_dialog(region){
 KupuEditor.prototype.getRichText = function(form, field) {
   // taken from saveDataToForm, because that function assumes too much
   var sourcetool = this.getTool('sourceedittool');
-  if (sourcetool) { 
+  if (sourcetool) {
     sourcetool.cancelSourceMode();
   }
   var transform = this._filterContent(this.getInnerDocument().documentElement);
@@ -682,38 +709,8 @@ function preselect_relations_tab(region_id, selected_tab){
   $("#" + region_id + " .searchButton").click(function(){
     window._selected_tab = selected_tab;// will be read by the relations widget and set as selected tab
     return true;
-  })
+  });
 }
-
-function bootstrap_relations_widgets(){
-  $('.eea-widget-referencebrowser').each(
-    function(){
-      // If it has a metadata then it's a widget from assessmentpart. 
-      // At this moment it's the only one that has that.
-      
-      if (!$(".metadata", this).length) { return false; } 
-
-      var widget = this;
-      var active_field = $(widget).parents('.active_field').get(0);
-
-      var fieldname = $(".metadata .fieldname", this).text();
-      var domid = $(".metadata .domid", this).text();    //$(this).attr('id');
-      var popup = new EEAReferenceBrowser.Widget(domid, {'fieldname':fieldname});
-      var region = $(this).parents('.active_region');
-
-      try {
-        $(popup.events).bind(popup.events.SAVED, function(evt){ 
-          ajaxify(active_field, domid); 
-          $(widget).parents('form').trigger('submit');
-        }); 
-      } catch (e) {
-        // for some reasons this behaves as if the DOM is not fully loaded.
-        // Probably the calling script should be made smarter
-      }
-    }
-  );
-}
-
 
 $(document).ready(function () {
 
@@ -730,7 +727,7 @@ $(document).ready(function () {
 // this.contentWindow.focus();//this should solve the problem that requires pressing the bold button
 
 KupuZoomTool.prototype.commandfunc = function(button, editor) {
-  // we rewrite the KupuZoomTool because we want to scroll the page 
+  // we rewrite the KupuZoomTool because we want to scroll the page
   /* Toggle zoom state */
   var zoom = button.pressed;
   this.zoomed = zoom;
@@ -741,7 +738,7 @@ KupuZoomTool.prototype.commandfunc = function(button, editor) {
   var body = document.body;
   var html = document.getElementsByTagName('html')[0];
   var doc = editor.getInnerDocument();
-  
+
   if (zoom) {
     this.scrolled = jQuery(window).scrollTop();
     html.style.overflow = 'hidden';
@@ -766,7 +763,7 @@ KupuZoomTool.prototype.commandfunc = function(button, editor) {
     if (sourceArea) {
       sourceArea.style.width = '';
       sourceArea.style.height = '';
-    };
+    }
     var scrolled = this.scrolled;
     setTimeout(function(){
       window.scrollTo(0, scrolled);
