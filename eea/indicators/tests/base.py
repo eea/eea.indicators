@@ -8,7 +8,8 @@ from Products.Five import zcml
 from Products.PloneTestCase import PloneTestCase
 from Products.PloneTestCase.layer import onsetup
 
-PRODUCTS = ['DataGridField', 'ATVocabularyManager', "RedirectionTool",  "FiveSite", "ThemeCentre",]
+PRODUCTS = ['DataGridField', 'ATVocabularyManager',
+            'RedirectionTool', 'FiveSite', 'ThemeCentre', ]
 
 @onsetup
 def setup_indicators():
@@ -32,8 +33,8 @@ def setup_indicators():
 
 setup_indicators()
 PRODUCTS.append('eea.indicators')
-PloneTestCase.setupPloneSite(   
-        products=PRODUCTS, 
+PloneTestCase.setupPloneSite(
+        products=PRODUCTS,
         #extension_profiles='eea.indicators:default'
     )
 

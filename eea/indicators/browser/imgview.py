@@ -25,7 +25,9 @@ class ImageViewAssessment(BrowserView):
         for assessment in assessments_list:
             for rel_ob in assessment.getRelatedItems():
                 if rel_ob.portal_type == 'EEAFigure':
-                    state = wftool.getInfoFor(rel_ob, 'review_state', '(Unknown)')
+                    state = wftool.getInfoFor(rel_ob,
+                                              'review_state',
+                                              '(Unknown)')
                     if state in ['published', 'visible']:
                         eeafile = rel_ob
                         break

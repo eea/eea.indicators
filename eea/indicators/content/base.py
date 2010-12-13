@@ -9,7 +9,8 @@ from zope.app.event import objectevent
 class ModalFieldEditableAware(object):
     security = ClassSecurityInfo()
 
-    security.declareProtected(permissions.ModifyPortalContent, 'simpleProcessForm')
+    security.declareProtected(permissions.ModifyPortalContent,
+                              'simpleProcessForm')
     def simpleProcessForm(self, data=1, metadata=0, REQUEST=None, values=None):
         """Processes the schema looking for data in the form.
         """
@@ -28,7 +29,6 @@ class ModalFieldEditableAware(object):
         fieldname = form.get('specific_field')
         if not fieldname:
             raise ValueError("Please provide a specific field")
-            return
 
         field = self.schema[fieldname]
         result = field.widget.process_form(self, field, form,
@@ -58,14 +58,15 @@ class ModalFieldEditableAware(object):
         #the problem is that the objects, when are editing
         #in a composite manner with the aggregated edit view,
         #will change their ids after the first save. For example
-        #when editing the title for a Specification, it will 
+        #when editing the title for a Specification, it will
         #change its id. This means that all the URLs that are
         #already on the page (for example adding a PolicyQuestion)
         #will be invalid. To solve this particular case we make
         #the page reload after editing the Title. In all other cases
         #we want to either skip this behaviour or make those objects
         #have their _at_rename_after_creation set to False
-        if self._at_rename_after_creation and is_new_object and fieldname == 'title':
+        if self._at_rename_after_creation and is_new_object \
+          and fieldname == 'title':
             self._renameAfterCreation(check_auto_id=True)
 
         # Post create/edit hooks
@@ -96,17 +97,17 @@ class ModalFieldEditableAware(object):
 
         fields = [(field.getName(), field) for field in
                         self.schema.filterFields(__name__=fieldname)]
-        for name, field in fields:
-            error = 0
+        for field_info in fields:
             value = None
-            widget = field.widget
+            field = field_info[1]
             if form:
-                result = widget.process_form(instance, field, form,
-                                             empty_marker=_marker)
+                result = field.widget.process_form(instance, field, form,
+                                                   empty_marker=_marker)
             else:
                 result = None
             if result is None or result is _marker:
-                accessor = field.getEditAccessor(instance) or field.getAccessor(instance)
+                accessor = field.getEditAccessor(instance) or \
+                             field.getAccessor(instance)
                 if accessor is not None:
                     value = accessor()
                 else:
@@ -125,17 +126,20 @@ class ModalFieldEditableAware(object):
 
 
 class CustomizedObjectFactory(object):
-    """Content classes subclassing this want to customize how contained objects are created
+    """Content classes subclassing this want to customize how contained
+         objects are created.
 
-    These object factories are used in the Specification Aggregated Edit View
-    The main method is object_factory, which reads the request to look for a type_name
-    parameter. It returns a html structure with info about the newly created object.
+       These object factories are used in the Specification Aggregated Edit View
+         The main method is object_factory, which reads the request to look for
+         a type_name parameter. It returns a html structure with info about
+         the newly created object.
     """
 
     security = ClassSecurityInfo()
 
     def _error(self, error):
-        return u"<div class='metadata'><div class='error'>" + error + "</div></div>"
+        return u"<div class='metadata'><div class='error'>" + error + \
+               "</div></div>"
 
     def _success(self, **kw):
         obj = kw['obj']
@@ -143,7 +147,7 @@ class CustomizedObjectFactory(object):
         url = obj.absolute_url() + '/' + subview
         f = kw.get('direct_edit') and "<div class='direct_edit' />" or ''
 
-        return "<div class='metadata'>" + f + "<div class='object_edit_url'>" + url + "</div></div>" 
+        return "<div class='metadata'>" + f + "<div class='object_edit_url'>" + url + "</div></div>"
 
     security.declareProtected(AddPortalContent, 'object_factory')
     def object_factory(self):
@@ -153,7 +157,8 @@ class CustomizedObjectFactory(object):
         factory_name = 'factory_' + type_name
         factory = getattr(self, factory_name, None)
         if factory is None:
-            return self._error("Don't know how to create object of type %s" % type_name)
+            return self._error("Don't know how to create object "
+                               "of type %s") % type_name
 
         info = factory()
         error = info.get('error')
@@ -173,6 +178,9 @@ class CustomizedObjectFactory(object):
                     default="Newly created ${type_name}",
                     mapping={'type_name':type_name},
                     ))
-        
+
         ref = self[new_id]
-        return {'obj':ref, 'error':'', 'subview':'schemata_edit', 'direct_edit':False}
+        return {'obj':ref,
+                'error':'',
+                'subview':'schemata_edit',
+                'direct_edit':False}

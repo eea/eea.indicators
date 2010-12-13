@@ -1,4 +1,4 @@
-from Acquisition import aq_base, aq_inner, aq_parent
+from Acquisition import aq_inner, aq_parent
 from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
 
 
@@ -12,26 +12,26 @@ def get_dgf_value(field, value):
 
     for row in value:
         order = row.get('orderindex_', None)
-        
+
         empty = True
-                        
+
         if order != "template_row_marker":
             # don't process hidden template row as
-            # input data                     
-            
+            # input data
+
             val = {}
             for col in column_ids:
                 val[col] = (row.get(col,'')).strip()
-                
+
                 if val[col] != '':
                     empty = False
-                                                                
-            if order is not None:                        
+
+            if order is not None:
                 try:
                     order = int(order)
                     doSort = True
                 except ValueError:
-                    pass
+                    doSort = False
 
             # create sortable tuples
             if (not field.allow_empty_rows) and empty:
@@ -43,8 +43,9 @@ def get_dgf_value(field, value):
         cleaned.sort()
 
     # remove order keys when sorting is complete
-    value = tuple([x for (throwaway, x) in cleaned])
-    value = [v for v in value if (v['set'] and v['code'])]  #make sure set+code are entered
+    value = tuple(x[1] for x in cleaned)
+    # make sure set+code are entered
+    value = [v for v in value if (v['set'] and v['code'])]
 
     return value
 
@@ -56,7 +57,7 @@ def get_specific_parent(startobj, criteria):
     >>> criteria = lambda o: ISpecification.providedBy(o)
 
     If nothing is found, raise ValueError
-    """ 
+    """
 
     parent = startobj
     find = None

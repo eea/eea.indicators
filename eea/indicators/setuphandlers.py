@@ -7,7 +7,6 @@ from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
 from Products.CMFCore.utils import getToolByName
 from eea.indicators.config import DEPENDENCIES
 import logging
-import os
 import transaction
 from eea.indicators.config import (
     CODES,
@@ -24,7 +23,8 @@ def isNotindicatorsProfile(context):
 
 def installQIDependencies(context):
     """ This is for old-style products using QuickInstaller. """
-    if isNotindicatorsProfile(context): return
+    if isNotindicatorsProfile(context):
+        return
     logger.info("installQIDependencies starting")
     site = context.getSite()
     qi = getToolByName(site, 'portal_quickinstaller')
@@ -56,7 +56,8 @@ def installQIDependencies(context):
 def postInstall(context):
     """ Called as at the end of the setup process. """
     # the right place for your custom code
-    if isNotindicatorsProfile(context): return
+    if isNotindicatorsProfile(context):
+        return
     site = context.getSite()
 
     #install dependencies available as GS profiles

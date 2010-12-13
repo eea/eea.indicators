@@ -18,12 +18,11 @@ class IndicatorMixin(object):
     def get_duplicated_codes(self):
         """Returns codes that are duplicated by some other indicator"""
 
-        spec_id = self.getId()
         versions = map(
                 lambda v:'/'.join(v.getPhysicalPath()),
                 get_versions_api(self).versions.values()
             )
-        
+
         cat = getToolByName(self, 'portal_catalog')
         codes = self.getCodes()
 
@@ -41,7 +40,6 @@ class IndicatorMixin(object):
 
             not_same = []
             for b in brains:
-                p = b.getPath()
                 if b.getPath() not in versions:
                     not_same.append(b)
 

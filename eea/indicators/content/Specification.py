@@ -706,7 +706,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
     security.declarePublic('format_codes')
     def format_codes(self, codes):
         return ", ".join(["%s%s" % (s['set'], s['code']) for s in codes])
-        
+
 
 registerType(Specification, PROJECTNAME)
 
@@ -772,8 +772,8 @@ class Specification2Surf(ATCT2Surf):
                     try:
                         setattr(resource, '%s_%s' % (prefix, fieldName), value)
                     except:
-                        log.log('RDF marshaller error for context[field] "%s[%s]": \n%s: %s' % 
-                                (context.absolute_url(), fieldName, sys.exc_info()[0], 
+                        log.log('RDF marshaller error for context[field] "%s[%s]": \n%s: %s' %
+                                (context.absolute_url(), fieldName, sys.exc_info()[0],
                                     sys.exc_info()[1]), severity=log.logging.WARN)
 
         parent = getattr(aq_inner(context), 'aq_parent', None)

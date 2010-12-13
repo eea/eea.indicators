@@ -22,7 +22,7 @@ class LatestFigures(object):
             latest_assessment = None
 
         #get the figures for each assessment part, we can use related_items view
-        figs=[]
+        figs = []
         if latest_assessment:
             #take the key part
             part = latest_assessment.objectValues('AssessmentPart')[-1]
@@ -30,4 +30,4 @@ class LatestFigures(object):
                                    name=u'related_items')
             figs = related_items('EEAFigure')
 
-        return [('Latest figures',figs)]
+        return [('Latest figures', figs)]

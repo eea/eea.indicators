@@ -28,10 +28,14 @@ class IIndicatorUtils(Interface):
     #str_to_id = Attribute(u"String to Id conversion")
 
     def str_to_id():
-        """Convert an ordinary string (maybe title) to something that can be used as a DOM element ID"""
+        """Convert an ordinary string (maybe title) to something that
+           can be used as a DOM element ID
+        """
 
     def field_has_value(fieldname, context):
-        """Return True if the given field has a value for the given context object"""
+        """Return True if the given field has a value
+           for the given context object
+        """
 
 
 class IndicatorUtils(BrowserView):
