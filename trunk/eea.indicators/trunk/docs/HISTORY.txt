@@ -1,8 +1,8 @@
 Changelog
 =========
 
-1.27-dev - (unreleased)
------------------------
+1.27 - (2010-12-13)
+-------------------
  * Bug fix: Fixed jslint warnings [voineali #3821]
 
 1.26 - (2010-12-06)
