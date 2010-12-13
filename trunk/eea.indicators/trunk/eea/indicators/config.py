@@ -9,7 +9,8 @@ PROJECTNAME = "eea.indicators"
 
 # Permissions
 DEFAULT_ADD_CONTENT_PERMISSION = "Add portal content"
-setDefaultRoles(DEFAULT_ADD_CONTENT_PERMISSION, ('Manager', 'Owner', 'Contributor'))
+setDefaultRoles(DEFAULT_ADD_CONTENT_PERMISSION,
+                ('Manager', 'Owner', 'Contributor'))
 ADD_CONTENT_PERMISSIONS = {
     'PolicyQuestion': 'Add portal content',
     'ExternalDataSpec': 'Add portal content',
@@ -37,7 +38,7 @@ PRODUCT_DEPENDENCIES = []
 ##code-section config-bottom #fill in your manual code here
 import os
 from Globals import package_home
-templates_dir =  os.path.join(package_home(product_globals), 'browser/templates')
+templates_dir = os.path.join(package_home(product_globals), 'browser/templates')
 
 CODES = [
         'APE',
@@ -82,7 +83,8 @@ CATEGORY_OF_USE = [
 #True = QuickInstaller, False: GenericSetup
 PROFILE_DEPENDENCIES = (
          ('DataGridField', 'profile-Products.DataGridField:default_25x', True),
-         ('UserAndGroupSelectionWidget',  'profile-Products.UserAndGroupSelectionWidget:default', False),
+         ('UserAndGroupSelectionWidget',
+          'profile-Products.UserAndGroupSelectionWidget:default', False),
          ('eea.workflow', 'profile-eea.workflow:default', False),
          ('eea.dataservice', 'profile-eea.dataservice:default', True),
          ('eea.relations', 'profile-eea.relations:a', True),
@@ -95,10 +97,3 @@ PROFILE_DEPENDENCIES = (
 #this is the role that people need to receive to become a manager over a specification
 MANAGER_ROLE = 'ContentManager'
 ##/code-section config-bottom
-
-
-# Load custom configuration not managed by archgenxml
-try:
-    from eea.indicators.AppConfig import *
-except ImportError:
-    pass

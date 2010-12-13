@@ -55,7 +55,8 @@ class IKeyMessage(Interface):
     """
 
 class IIndicatorAssessment(Interface):
-    """Marker interface for assessments objects: Assessment and IndicatorFactSheet
+    """Marker interface for assessments objects:
+         Assessment and IndicatorFactSheet
     """
 
 class IIndicatorsDatabase(Interface):

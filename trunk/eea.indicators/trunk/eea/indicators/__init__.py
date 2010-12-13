@@ -10,10 +10,14 @@ import os
 import os.path
 from Globals import package_home
 from Products.Archetypes import listTypes
-from Products.Archetypes.atapi import *
+from Products.Archetypes.atapi import process_types
 from Products.CMFCore import DirectoryView
 from Products.CMFCore import utils as cmfutils
-from config import *
+from eea.indicators.config import (
+    PROJECTNAME,
+    DEFAULT_ADD_CONTENT_PERMISSION,
+    ADD_CONTENT_PERMISSIONS
+)
 
 DirectoryView.registerDirectory('skins', product_globals)
 
@@ -51,8 +55,8 @@ def initialize(context):
         ).initialize(context)
 
     # Give it some extra permissions to control them on a per class limit
-    for i in range(0,len(all_content_types)):
-        klassname=all_content_types[i].__name__
+    for i in range(0, len(all_content_types)):
+        klassname = all_content_types[i].__name__
         if not klassname in ADD_CONTENT_PERMISSIONS:
             continue
 

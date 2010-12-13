@@ -21,7 +21,7 @@ class FiguresForAlbum(BrowserView):
             if rel_ob.portal_type == 'EEAFigure':
                 figures.append(rel_ob)
 
-        [uids.append(fig_ob.UID()) for fig_ob in figures]
+        uids = [fig_ob.UID() for fig_ob in figures]
         query = {'UID': uids, 'review_state':'published'}
         brains = [b for b in cat.searchResults(query)]
         return brains

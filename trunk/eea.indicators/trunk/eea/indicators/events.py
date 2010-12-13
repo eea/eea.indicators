@@ -4,11 +4,12 @@ from Products.CMFCore.utils import getToolByName
 def publishRelatedFigures(context, dest_state):
     wftool = getToolByName(context, "portal_workflow")
 
-    codes = context.get_codes() 
+    codes = context.get_codes()
     indcodes = codes and codes[-1] or "_missing_"
-    comment = "Automatically published since related indicator (%s) is also published" % indcodes
+    comment = ("Automatically published since related indicator (%s) "
+               "is also published") % indcodes
 
-    for ap in context.objectValues('AssessmentPart'): 
+    for ap in context.objectValues('AssessmentPart'):
         for ob in filter(lambda o:o.portal_type=="EEAFigure", ap.getRelatedItems()):
             figState = wftool.getInfoFor(ob, 'review_state')
             if figState != dest_state:
@@ -23,7 +24,6 @@ def publishRelatedFigures(context, dest_state):
                         wftool.doActionFor(obj, item.id, comment=comment)
                         obj.reindexObject()
 
-
 def handle_assessment_state_change(context, event):
     dest_state = event.workflow.transitions[event.action].new_state_id
 
@@ -34,7 +34,6 @@ def handle_assessment_state_change(context, event):
         context.allowDiscussion('off')
     else:
         context.allowDiscussion('on')
-
 
 def handle_specification_state_change(context, event):
     #reindex children assessments to update their readiness
