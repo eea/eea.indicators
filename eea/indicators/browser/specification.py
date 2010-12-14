@@ -16,6 +16,7 @@ from eea.versions.versions import get_versions_api
 from eea.workflow.interfaces import IFieldIsRequiredForState, IValueProvider
 from eea.workflow.readiness import ObjectReadiness
 from zope.interface import alsoProvides
+from zope.component import getMultiAdapter
 
 import logging
 logger = logging.getLogger('eea.indicators')
