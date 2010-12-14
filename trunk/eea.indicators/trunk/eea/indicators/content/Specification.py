@@ -2,6 +2,8 @@
 #
 # $Id$
 
+""" Specification content class and utilities
+"""
 __docformat__ = 'plaintext'
 
 from AccessControl import ClassSecurityInfo
@@ -10,7 +12,8 @@ from Products.ATContentTypes.content.folder import ATFolder, ATFolderSchema
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema
 from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
 from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
-from Products.Archetypes.atapi import MultiSelectionWidget, Schema, StringField, TextField, RichWidget, TextAreaWidget, SelectionWidget, LinesField, registerType
+from Products.Archetypes.atapi import MultiSelectionWidget, Schema, StringField, TextField
+from Products.Archetypes.atapi import RichWidget, TextAreaWidget, SelectionWidget, LinesField, registerType
 from Products.CMFCore import permissions
 from Products.CMFCore.permissions import AddPortalContent
 from Products.CMFCore.utils import getToolByName
@@ -36,12 +39,14 @@ from eea.relations.field import EEAReferenceField
 from eea.relations.widget import EEAReferenceBrowserWidget
 from eea.versions.interfaces import IVersionControl, IVersionEnhanced
 from eea.versions.versions import isVersionEnhanced, get_versions_api
-from eea.workflow.interfaces import IHasMandatoryWorkflowFields, IObjectReadiness
+from eea.workflow.interfaces import IHasMandatoryWorkflowFields, IObjectReadiness, IGetVersions
 from zope.interface import alsoProvides, implements
 from zope.component import adapts, queryMultiAdapter
 import datetime
 import interfaces
 import rdflib
+import sys
+
 
 ONE_YEAR = datetime.timedelta(weeks=52)
 
