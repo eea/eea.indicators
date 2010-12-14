@@ -26,7 +26,7 @@ from eea.relations.widget import EEAReferenceBrowserWidget
 from eea.versions.interfaces import IVersionControl, IVersionEnhanced
 from eea.versions.versions import isVersionEnhanced, get_versions_api
 from eea.workflow.interfaces import IHasMandatoryWorkflowFields
-from eea.workflow.interfaces import IObjectReadiness
+from eea.workflow.interfaces import IObjectReadiness, IGetVersions
 from Products.ATContentTypes.content.folder import ATFolder, ATFolderSchema
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema
 from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
@@ -844,7 +844,7 @@ class Specification2Surf(ATCT2Surf):
                         prefix = 'dc'
                     try:
                         setattr(resource, '%s_%s' % (prefix, fieldName), value)
-                    except Exception, err:
+                    except Exception:
                         log.log(('RDF marshaller error for context[field] '
                                  '"%s[%s]": \n%s: %s') % (
                                      context.absolute_url(),
