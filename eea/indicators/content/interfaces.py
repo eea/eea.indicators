@@ -2,8 +2,6 @@
 
 from zope.interface import Interface
 
-##code-section HEAD
-##/code-section HEAD
 
 class IPolicyQuestion(Interface):
     """Marker interface for .PolicyQuestion.PolicyQuestion
@@ -41,7 +39,6 @@ class IWorkItem(Interface):
     """Marker interface for .WorkItem.WorkItem
     """
 
-##code-section FOOT
 class IFactSheetDocument(Interface):
     """Marker interface for .FactSheetDocument.FactSheetDocument
     """
@@ -62,4 +59,3 @@ class IIndicatorAssessment(Interface):
 class IIndicatorsDatabase(Interface):
     """Marker interface for folders storing a bunch of indicators
     """
-##/code-section FOOT

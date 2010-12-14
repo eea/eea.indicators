@@ -2,37 +2,32 @@
 #
 # $Id$
 
-import logging
-logger = logging.getLogger('indicators')
-logger.debug('Installing Product')
 
-import os
-import os.path
 from Globals import package_home
 from Products.Archetypes import listTypes
 from Products.Archetypes.atapi import process_types
 from Products.CMFCore import DirectoryView
+from Products.CMFCore import utils
 from Products.CMFCore import utils as cmfutils
-from eea.indicators.config import (
-    PROJECTNAME,
-    DEFAULT_ADD_CONTENT_PERMISSION,
-    ADD_CONTENT_PERMISSIONS
-)
+from eea.indicators.config import product_globals, PROJECTNAME, DEFAULT_ADD_CONTENT_PERMISSION, ADD_CONTENT_PERMISSIONS
+from os.path import dirname
+from zope.i18nmessageid import MessageFactory
+import logging
 
+
+logger = logging.getLogger('indicators')
+logger.debug('Installing Product')
 DirectoryView.registerDirectory('skins', product_globals)
 
 # temporarily add the path to the namespace package to the products path,
 # so that the directory views are set up correctly
 # Register our skins directory - this makes it available via portal_skins.
 
-from Products.CMFCore import utils
-from os.path import dirname
 ppath = utils.ProductsPath
 utils.ProductsPath.append(dirname(package_home(product_globals)))
 DirectoryView.registerDirectory('skins', product_globals)
 utils.ProductsPath = ppath
 
-from zope.i18nmessageid import MessageFactory
 msg_factory = MessageFactory('indicators')
 
 

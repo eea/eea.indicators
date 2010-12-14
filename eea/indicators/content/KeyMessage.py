@@ -5,9 +5,9 @@
 
 from AccessControl import ClassSecurityInfo
 from Products.ATContentTypes.content.base import ATCTContent, ATContentTypeSchema
-from Products.Archetypes.atapi import *
+from Products.Archetypes.atapi import TextField, Schema, registerType, RichWidget
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
-from eea.indicators.config import *
+from eea.indicators.config import PROJECTNAME
 from zope.interface import implements
 import interfaces
 

@@ -5,11 +5,11 @@
 from AccessControl import ClassSecurityInfo
 from Products.ATContentTypes.content.link import ATLink, ATLinkSchema
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema
-from Products.Archetypes.atapi import *
+from Products.Archetypes.atapi import StringField, Schema, TextField, registerType, RichWidget
 from Products.CMFCore import permissions
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 from Products.CMFPlone.utils import getToolByName
-from eea.indicators.config import *
+from eea.indicators.config import PROJECTNAME
 from zope.interface import implements
 import interfaces
 
@@ -75,7 +75,6 @@ class MethodologyReference(ATLink, BrowserDefaultMixin):
         """ """
         field = self.getField('remoteUrl')
         return field.getAccessor(self)()
-
 
 
 registerType(MethodologyReference, PROJECTNAME)
