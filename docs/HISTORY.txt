@@ -3,7 +3,7 @@ Changelog
 
 1.28-dev - (unreleased)
 -----------------------
- * Change: Fixed code according to pass PyFlakes tests [tiberich, ghicaale #3676]
+ * Work in progress: Fixed code accordingly to pass PyFlakes tests [tiberich, ghicaale #3676]
 
 1.27 - (2010-12-13)
 -------------------
