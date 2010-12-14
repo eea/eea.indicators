@@ -78,7 +78,7 @@ class IndicatorsOverview(BrowserView, BaseIndicatorsReport):
         self.assessments = catalog.searchResults(portal_type='Assessment')
         self.factsheets = catalog.searchResults(portal_type='IndicatorFactSheet')
 
-        self.mtool = mtool = getToolByName(self.context, 'portal_membership')
+        self.mtool = getToolByName(self.context, 'portal_membership')
 
         #wftool = getToolByName(self.context, 'portal_workflow')
         #get_state = lambda a:wftool.getWorkflowsFor(a)[0].states[wftool.getInfoFor(a, 'review_state', '(Unknown)')].title

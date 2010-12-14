@@ -88,7 +88,6 @@ class OneAssessmentPartPerQuestionValidator:
         instance = kwargs['instance']
         catalog = getToolByName(instance, 'uid_catalog')
         brains = catalog.searchResults(UID=value[0])
-        pq = brains[0].getObject()
 
         path = instance.getPhysicalPath()
 
