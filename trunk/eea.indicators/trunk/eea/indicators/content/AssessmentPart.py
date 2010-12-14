@@ -4,13 +4,13 @@
 #
 
 from AccessControl import ClassSecurityInfo
-from Acquisition import aq_base, aq_inner, aq_parent
+from Acquisition import aq_inner, aq_parent
 from Products.ATContentTypes.content.base import ATCTContent
 from Products.ATContentTypes.content.folder import ATFolder, ATFolderSchema
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema
-from Products.Archetypes.atapi import *
+from Products.Archetypes.atapi import TextField, StringField, TextAreaWidget, Schema, RichWidget, registerType
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
-from eea.indicators.config import *
+from eea.indicators.config import PROJECTNAME
 from eea.indicators.content.base import ModalFieldEditableAware, CustomizedObjectFactory
 from eea.indicators.content.interfaces import ISpecification
 from eea.indicators.content.utils import get_specific_parent

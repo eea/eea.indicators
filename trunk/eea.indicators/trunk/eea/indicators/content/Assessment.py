@@ -9,7 +9,7 @@ from Acquisition import aq_inner, aq_parent
 from Products.ATContentTypes.content.folder import ATFolder
 from Products.ATContentTypes.content.folder import ATFolderSchema
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema
-from Products.Archetypes.atapi import *
+from Products.Archetypes.atapi import Schema, StringField, TextField, RichWidget, ComputedField, registerType
 from Products.CMFCore.utils import getToolByName
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
@@ -18,7 +18,7 @@ from eea.dataservice.fields.ManagementPlanField import ManagementPlanField
 from eea.dataservice.vocabulary import DatasetYears
 from eea.dataservice.widgets.ManagementPlanWidget import ManagementPlanWidget
 from eea.indicators import msg_factory as _
-from eea.indicators.config import *
+from eea.indicators.config import PROJECTNAME
 from eea.indicators.content.base import ModalFieldEditableAware, CustomizedObjectFactory
 from eea.relations.field import EEAReferenceField
 from eea.relations.widget import EEAReferenceBrowserWidget

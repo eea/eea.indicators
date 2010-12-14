@@ -7,13 +7,13 @@ from AccessControl import ClassSecurityInfo
 from Products.ATContentTypes.content.base import ATCTContent, ATContentTypeSchema
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema
 from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
-from Products.Archetypes.atapi import *
+from Products.Archetypes.atapi import StringField, Schema, TextField, RichWidget, registerType, SelectionWidget
 from Products.Archetypes.utils import shasattr
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 from Products.CMFPlone.utils import getToolByName
 from eea.dataservice.vocabulary import Organisations
 from eea.themecentre.interfaces import IThemeTagging
-from eea.indicators.config import *
+from eea.indicators.config import PROJECTNAME
 from zope.interface import implements
 from zope.component import adapts
 import interfaces

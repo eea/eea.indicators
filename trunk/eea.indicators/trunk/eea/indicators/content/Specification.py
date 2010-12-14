@@ -10,8 +10,7 @@ from Products.ATContentTypes.content.folder import ATFolder, ATFolderSchema
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema
 from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
 from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
-from Products.Archetypes.atapi import *
-from Products.Archetypes.atapi import MultiSelectionWidget
+from Products.Archetypes.atapi import MultiSelectionWidget, Schema, StringField, TextField, RichWidget, TextAreaWidget, SelectionWidget, LinesField, registerType
 from Products.CMFCore import permissions
 from Products.CMFCore.permissions import AddPortalContent
 from Products.CMFCore.utils import getToolByName
@@ -27,7 +26,7 @@ from Products.UserAndGroupSelectionWidget import UserAndGroupSelectionWidget
 from eea.dataservice.vocabulary import Organisations
 from eea.indicators import msg_factory as _
 from eea.indicators.browser.assessment import create_version as create_assessment_version
-from eea.indicators.config import *
+from eea.indicators.config import PROJECTNAME, templates_dir
 from eea.indicators.content.IndicatorMixin import IndicatorMixin
 from eea.indicators.content.base import ModalFieldEditableAware, CustomizedObjectFactory
 from eea.indicators.content.utils import get_dgf_value

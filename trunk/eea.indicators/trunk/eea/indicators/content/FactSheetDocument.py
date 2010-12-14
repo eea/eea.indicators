@@ -4,11 +4,11 @@
 
 from AccessControl import ClassSecurityInfo
 from Products.ATContentTypes.content.file import ATFile, ATFileSchema
-from Products.Archetypes.atapi import *
+from Products.Archetypes.atapi import Schema, StringField, TextField, TextAreaWidget, registerType, FileWidget
 from Products.CMFCore.permissions import View
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 from eea.dataservice.fields import EventFileField
-from eea.indicators.config import *
+from eea.indicators.config import PROJECTNAME
 from zope.interface import implements
 import interfaces
 
@@ -51,34 +51,23 @@ schema = Schema((
 ),
 )
 
-##code-section after-local-schema #fill in your manual code here
-##/code-section after-local-schema
 
 FactSheetDocument_schema = ATFileSchema.copy() + \
     getattr(ATFile, 'schema', Schema(())).copy() + \
     schema.copy()
 
-##code-section after-schema #fill in your manual code here
 FactSheetDocument_schema['description'].required = False
 FactSheetDocument_schema['relatedItems'].widget.visible = {'view':'invisible', 'edit':'invisible'}
-##/code-section after-schema
 
 class FactSheetDocument(ATFile, BrowserDefaultMixin):
     """
     """
-    security = ClassSecurityInfo()
-
     implements(interfaces.IFactSheetDocument)
-
     meta_type = 'FactSheetDocument'
-    _at_rename_after_creation = True
-
     schema = FactSheetDocument_schema
 
-    ##code-section class-header #fill in your manual code here
-    ##/code-section class-header
-
-    # Methods
+    security = ClassSecurityInfo()
+    _at_rename_after_creation = True
 
     security.declareProtected(View, 'index_html')
     def index_html(self, REQUEST=None, RESPONSE=None):
@@ -100,7 +89,3 @@ class FactSheetDocument(ATFile, BrowserDefaultMixin):
         ## TODO what should be returned if no data is present?
 
 registerType(FactSheetDocument, PROJECTNAME)
-# end of class FactSheetDocument
-
-##code-section module-footer #fill in your manual code here
-##/code-section module-footer
