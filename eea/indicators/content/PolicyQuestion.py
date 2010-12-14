@@ -3,6 +3,9 @@
 # $Id$
 #
 
+"""Policy Question content class
+"""
+
 from AccessControl import ClassSecurityInfo
 from Products.ATContentTypes.content.base import ATCTContent, ATContentTypeSchema
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema

@@ -3,6 +3,8 @@
 # $Id$
 #
 
+"""Configuration for eea.indicators"""
+
 from Products.CMFCore.permissions import setDefaultRoles
 
 PROJECTNAME = "eea.indicators"

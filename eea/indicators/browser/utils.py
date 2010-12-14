@@ -1,3 +1,6 @@
+"""Browser utilities
+"""
+
 from Products.CMFPlone.utils import normalizeString
 from Products.Five import BrowserView
 from eea.workflow.interfaces import IValueProvider

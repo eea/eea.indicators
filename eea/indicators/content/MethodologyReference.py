@@ -2,6 +2,9 @@
 #
 # $Id$
 
+"""Methodology Reference content type
+"""
+
 from AccessControl import ClassSecurityInfo
 from Products.ATContentTypes.content.link import ATLink, ATLinkSchema
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema

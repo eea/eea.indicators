@@ -1,3 +1,6 @@
+"""Integration with eea.themescentre 
+"""
+
 from Acquisition import aq_inner, aq_parent
 from eea.themecentre.interfaces import IThemeTagging
 

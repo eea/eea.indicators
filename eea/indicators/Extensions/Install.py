@@ -3,6 +3,8 @@
 # $Id$
 #
 
+"""QuickInstaller support for eea.indicators"""
+
 from StringIO import StringIO
 from Products.CMFCore.utils import getToolByName
 from eea.indicators.config import PROJECTNAME

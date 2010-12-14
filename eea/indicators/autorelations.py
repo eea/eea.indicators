@@ -1,3 +1,5 @@
+"""Autorelations for eea.indicators"""
+
 from zope.component import getMultiAdapter
 
 
@@ -5,6 +7,7 @@ class LatestFigures(object):
     """ Return the latest figures from latest assessment for a specification.
     """
     def __init__(self, context):
+        """Constructor"""
         self.context = context
         self.request = getattr(self.context, 'REQUEST', None)
 

@@ -1,3 +1,6 @@
+""" Test suites for eea.indicators
+"""
+
 from Products.PloneTestCase.layer import PloneSite
 from eea.indicators.tests.base import BaseIndicatorsTestCase
 from unittest import TestSuite

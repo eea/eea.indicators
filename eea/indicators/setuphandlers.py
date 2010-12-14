@@ -3,6 +3,8 @@
 # $Id$
 #
 
+"""Custom import steps for eea.indicators"""
+
 from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
 from Products.CMFCore.utils import getToolByName
 from eea.indicators.config import DEPENDENCIES

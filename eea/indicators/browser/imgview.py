@@ -1,9 +1,12 @@
-from zope.interface import implements
-from zope.component import queryMultiAdapter
-from Products.Five.browser import BrowserView
-from zope.publisher.interfaces import NotFound
+""" Views to get images for indicators and assessments
+"""
+
 from Products.CMFCore.utils import getToolByName
+from Products.Five.browser import BrowserView
 from valentine.imagescales.browser.interfaces import IImageView
+from zope.component import queryMultiAdapter
+from zope.interface import implements
+from zope.publisher.interfaces import NotFound
 
 
 class ImageViewAssessment(BrowserView):
@@ -43,6 +46,7 @@ class ImageViewAssessment(BrowserView):
         if self.display(scalename):
             return self.img(scalename)
         raise NotFound(self.request, scalename)
+
 
 class ImageViewIndicatorFactSheet(BrowserView):
     """ Get cover image from related EEAFigure

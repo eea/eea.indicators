@@ -1,3 +1,6 @@
+"""A mixin class for objects that function as indicators"""
+
+
 from Products.CMFCore.utils import getToolByName
 from AccessControl import ClassSecurityInfo
 from eea.versions.versions import get_versions_api

@@ -3,6 +3,9 @@
 # $Id$
 #
 
+""" Base classes for tests
+"""
+
 from Products.Five import fiveconfigure
 from Products.Five import zcml
 from Products.PloneTestCase import PloneTestCase
@@ -13,11 +16,12 @@ PRODUCTS = ['DataGridField', 'ATVocabularyManager',
 
 @onsetup
 def setup_indicators():
+    """Setup utilities"""
     fiveconfigure.debug_mode = True
 
     fiveconfigure.debug_mode = True
     import Products.Five
-    import Products.FiveSite
+    #import Products.FiveSite
     zcml.load_config('meta.zcml', Products.Five)
     zcml.load_config('configure.zcml', Products.Five)
     zcml.load_config('configure.zcml', Products.FiveSite)
@@ -40,6 +44,8 @@ PloneTestCase.setupPloneSite(
 
 
 class BaseIndicatorsTestCase(PloneTestCase.FunctionalTestCase):
+    """Base Test case
+    """
 
     def afterSetUp(self):
         pass

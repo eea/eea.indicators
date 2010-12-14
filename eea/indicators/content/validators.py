@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 
+"""Validators for eea.indicators content
+"""
+
 __author__ = """European Environment Agency (EEA)"""
 __docformat__ = 'plaintext'
 __credits__ = """contributions: Alec Ghica, Tiberiu Ichim"""

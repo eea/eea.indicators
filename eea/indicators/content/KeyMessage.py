@@ -3,6 +3,9 @@
 # $Id$
 #
 
+"""KeyMessage content class
+"""
+
 from AccessControl import ClassSecurityInfo
 from Products.ATContentTypes.content.base import ATCTContent, ATContentTypeSchema
 from Products.Archetypes.atapi import TextField, Schema, registerType, RichWidget
