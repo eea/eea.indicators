@@ -1,3 +1,6 @@
+"""Base classes for eea.indicators content
+"""
+
 from AccessControl import ClassSecurityInfo
 from Products.Archetypes.utils import mapply
 from Products.CMFCore import permissions

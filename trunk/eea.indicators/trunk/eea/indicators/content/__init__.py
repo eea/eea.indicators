@@ -3,6 +3,9 @@
 # $Id$
 #
 
+""" The content types package
+"""
+
 # Validators
 import eea.indicators.content.validators
 

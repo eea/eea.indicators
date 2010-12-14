@@ -2,15 +2,18 @@
 #
 # $Id$
 
+"""The eea.indicators package"""
 
-from eea.indicators.config import product_globals, PROJECTNAME
-from eea.indicators.config import DEFAULT_ADD_CONTENT_PERMISSION
-from eea.indicators.config import ADD_CONTENT_PERMISSIONS
+
 from Globals import package_home
 from Products.Archetypes import listTypes
 from Products.Archetypes.atapi import process_types
 from Products.CMFCore import DirectoryView
 from Products.CMFCore import utils
+from eea.indicators.config import product_globals
+from eea.indicators.config import PROJECTNAME
+from eea.indicators.config import DEFAULT_ADD_CONTENT_PERMISSION
+from eea.indicators.config import ADD_CONTENT_PERMISSIONS
 from os.path import dirname
 from zope.i18nmessageid import MessageFactory
 import logging
@@ -35,7 +38,7 @@ msg_factory = MessageFactory('indicators')
 def initialize(context):
     """initialize product (called by zope)"""
     # imports packages and types for registration
-    import content
+    import eea.indicators.content
 
     # Initialize portal content
     all_content_types, all_constructors, all_ftis = process_types(

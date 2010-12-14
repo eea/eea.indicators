@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+""" Interfaces for content types"""
+
 from zope.interface import Interface
 
 

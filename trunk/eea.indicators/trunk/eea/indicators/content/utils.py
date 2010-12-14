@@ -1,3 +1,6 @@
+"""Various utilities for content types
+"""
+
 from Acquisition import aq_inner, aq_parent
 from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
 

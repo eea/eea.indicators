@@ -2,6 +2,9 @@
 #
 # $Id$
 
+"""FactSheetDocument
+"""
+
 from AccessControl import ClassSecurityInfo
 from Products.ATContentTypes.content.file import ATFile, ATFileSchema
 from Products.Archetypes.atapi import Schema, StringField, TextField, TextAreaWidget, registerType, FileWidget

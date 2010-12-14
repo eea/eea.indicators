@@ -1,3 +1,6 @@
+""" Traversing utilities
+"""
+
 from zope.app.traversing.interfaces import ITraversable
 from Products.Five.traversable import FiveTraversable
 from eea.indicators.content.interfaces import ISpecification

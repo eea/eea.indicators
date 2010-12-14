@@ -1,5 +1,8 @@
 from zope.interface import Interface 
 
+""" The interfaces for the browser package
+"""
+
 class IIndicatorsPermissionsOverview(Interface):
     """Overview of indicators database permissions"""
 

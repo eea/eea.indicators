@@ -1,1 +1,1 @@
-# make me a python module
+"""The extensions package"""

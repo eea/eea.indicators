@@ -1,3 +1,6 @@
+"""Special widgets for eea.facetednavigation
+"""
+
 from eea.facetednavigation.widgets.sorting.widget import Widget as SortingWidget
 from eea.facetednavigation.interfaces import IWidgetFilterBrains
 from zope.interface import implements
