@@ -3,13 +3,14 @@
 # $Id$
 
 
+from eea.indicators.config import product_globals, PROJECTNAME
+from eea.indicators.config import DEFAULT_ADD_CONTENT_PERMISSION
+from eea.indicators.config import ADD_CONTENT_PERMISSIONS
 from Globals import package_home
 from Products.Archetypes import listTypes
 from Products.Archetypes.atapi import process_types
 from Products.CMFCore import DirectoryView
 from Products.CMFCore import utils
-from Products.CMFCore import utils as cmfutils
-from eea.indicators.config import product_globals, PROJECTNAME, DEFAULT_ADD_CONTENT_PERMISSION, ADD_CONTENT_PERMISSIONS
 from os.path import dirname
 from zope.i18nmessageid import MessageFactory
 import logging
@@ -41,7 +42,7 @@ def initialize(context):
         listTypes(PROJECTNAME),
         PROJECTNAME)
 
-    cmfutils.ContentInit(
+    utils.ContentInit(
         PROJECTNAME + ' Content',
         content_types      = all_content_types,
         permission         = DEFAULT_ADD_CONTENT_PERMISSION,
