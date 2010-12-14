@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
-#
-# $Id$
+
+""" Assessment content class and utilities
+"""
 
 __docformat__ = 'plaintext'
 
@@ -9,8 +10,8 @@ from Acquisition import aq_inner, aq_parent
 from Products.ATContentTypes.content.folder import ATFolder
 from Products.ATContentTypes.content.folder import ATFolderSchema
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema
-from Products.Archetypes.atapi import RichWidget, ComputedField, registerType
 from Products.Archetypes.atapi import Schema, StringField, TextField
+from Products.Archetypes.atapi import RichWidget, ComputedField, registerType
 from Products.CMFCore.utils import getToolByName
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
@@ -20,15 +21,15 @@ from eea.dataservice.vocabulary import DatasetYears
 from eea.dataservice.widgets.ManagementPlanWidget import ManagementPlanWidget
 from eea.indicators import msg_factory as _
 from eea.indicators.config import PROJECTNAME
-from eea.indicators.content.base import CustomizedObjectFactory
 from eea.indicators.content.base import ModalFieldEditableAware
+from eea.indicators.content.base import CustomizedObjectFactory
+from eea.indicators.interfaces import IAssessment, IIndicatorAssessment
 from eea.relations.field import EEAReferenceField
 from eea.relations.widget import EEAReferenceBrowserWidget
 from eea.versions.versions import get_versions_api, get_version_id
 from eea.workflow.interfaces import IHasMandatoryWorkflowFields
 from eea.workflow.interfaces import IObjectReadiness
 from zope.interface import implements
-import interfaces
 
 
 schema = Schema((
@@ -49,11 +50,13 @@ schema = Schema((
         ),
     TextField(
         name='key_message',
-        allowable_content_types=('text/plain', 'text/structured', 'text/html', 
-            'application/msword',),
+        allowable_content_types=('text/plain', 'text/structured',
+                                 'text/html', 'application/msword',),
         widget=RichWidget(
             label="Key message",
-            description="A short message listing the assessment's key findings. It works as a summary/abstract for the entire indicator assessment.",
+            description=("A short message listing the assessment's key "
+                         "findings. It works as a summary/abstract for the "
+                         "entire indicator assessment."),
             label_msgid='indicators_label_key_message',
             i18n_domain='indicators',
             ),
@@ -66,7 +69,9 @@ schema = Schema((
         name='management_plan',
         widget=ManagementPlanField._properties['widget'](
             label='Management_plan',
-            description="Internal EEA project line code, used to assign an EEA product output to a specific EEA project number in the management plan.",
+            description=("Internal EEA project line code, used to assign an "
+                         "EEA product output to a specific EEA project "
+                         "number in the management plan."),
             label_msgid='indicators_label_management_plan',
             i18n_domain='indicators',
             ),
@@ -81,7 +86,10 @@ schema = Schema((
         widget = ManagementPlanWidget(
             format="select",
             label="EEA Management Plan",
-            description=("EEA Management plan code. Internal EEA project line code, used to assign an EEA product output to a specific EEA project number in the management plan."),
+            description=("EEA Management plan code. Internal EEA project "
+                         "line code, used to assign an EEA product output to "
+                         "a specific EEA project number in the "
+                         "management plan."),
             label_msgid='dataservice_label_eea_mp',
             description_msgid='dataservice_help_eea_mp',
             i18n_domain='eea.dataservice',
@@ -123,19 +131,21 @@ Assessment_schema = ATFolderSchema.copy() + \
 finalizeATCTSchema(Assessment_schema)
 
 
-class Assessment(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory, BrowserDefaultMixin):
-    """
+class Assessment(ATFolder, ModalFieldEditableAware,
+                 CustomizedObjectFactory, BrowserDefaultMixin):
+    """ Assessment content type
     """
     security = ClassSecurityInfo()
 
-    implements(interfaces.IAssessment, interfaces.IIndicatorAssessment, IHasMandatoryWorkflowFields)
+    implements(IAssessment, IIndicatorAssessment, IHasMandatoryWorkflowFields)
 
     meta_type = 'Assessment'
     _at_rename_after_creation = False
 
     schema = Assessment_schema
 
-    portlet_readiness = ViewPageTemplateFile('../browser/templates/portlet_readiness.pt')
+    portlet_readiness = \
+          ViewPageTemplateFile('../browser/templates/portlet_readiness.pt')
 
     security.declarePublic('get_assessments')
     def get_assessments(self):
@@ -165,11 +175,13 @@ class Assessment(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory, Br
         try:
             wftool = getToolByName(self, 'portal_workflow')
         except AttributeError:
-            return spec_title + ' - newly created assessment' #the object has not finished its creation process
+            #the object has not finished its creation process
+            return spec_title + ' - newly created assessment'
 
         info = wftool.getStatusOf('indicators_workflow', self)
         if not info:
-            return spec_title + ' - newly created assessment'  #the object has not finished its creation process
+            #the object has not finished its creation process
+            return spec_title + ' - newly created assessment'
 
         time = self.getEffectiveDate()
         if info['review_state'] == "published":
@@ -212,7 +224,8 @@ class Assessment(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory, Br
                 if ob.portal_type == 'EEAFigure':
                     result.extend(ob.Subject())
 
-        #TODO: keywords from datasets, work but needs to be double checked with content experts
+        #TODO: keywords from datasets, work but needs to be double checked
+        #      with content experts
         #spec = aq_parent(aq_inner(self))
         #for ob in spec.getRelatedItems():
         #       if ob.portal_type == 'Data':
@@ -229,7 +242,7 @@ class Assessment(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory, Br
 
     security.declarePublic('SearchableText')
     def SearchableText(self):
-        """ """
+        """ Override SearchableText to index codes """
         searchable_text = super(Assessment, self).SearchableText()
         for code in self.get_codes():
             searchable_text += '%s ' % code.encode('utf-8')
@@ -245,7 +258,7 @@ class Assessment(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory, Br
 
     security.declarePublic("getGeographicCoverage")
     def getGeographicCoverage(self):
-        """ """
+        """ Return geographic coverage """
         result = {}
         wftool = getToolByName(self, 'portal_workflow')
 
@@ -260,7 +273,7 @@ class Assessment(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory, Br
 
     security.declarePublic("getTemporalCoverage")
     def getTemporalCoverage(self):
-        """ """
+        """ Return temporal coverage """
         result = {}
         wftool = getToolByName(self, 'portal_workflow')
 
@@ -295,10 +308,7 @@ def hasWrongVersionId(context):
     #assessments inheirt codes from their parent specification
     spec = aq_parent(aq_inner(context))
     spec_versions = get_versions_api(spec).versions.values()
-    versions = get_versions_api(context).versions.values()
 
-    vid = get_version_id(context)
-    
     all_assessments = []
     for spec in spec_versions:
         all_assessments.extend(spec.objectValues("Assessment"))
@@ -307,7 +317,7 @@ def hasWrongVersionId(context):
     codes = ["%s%s" % (c['set'], c['code']) for c in context.getCodes()]
     factsheets = []
     map(lambda code:factsheets.extend(
-            [b.getObject() for b in cat.searchResults(get_codes=code, 
+            [b.getObject() for b in cat.searchResults(get_codes=code,
                                             portal_type="IndicatorFactSheet")]
         ), codes)
 
@@ -321,7 +331,8 @@ def hasWrongVersionId(context):
 
     return True
 
-    #major = max(version_ids.keys(), key_func=lambda k:len(version_ids[k])) #needs python2.5
+    #needs python2.5
+    #major = max(version_ids.keys(), key_func=lambda k:len(version_ids[k]))
 
     #major = None
     #for k in version_ids.keys():
@@ -330,6 +341,7 @@ def hasWrongVersionId(context):
         #if len(version_ids[k]) > len(version_ids[major]):
             #major = k
 
+    #vid = get_version_id(context)
     #return not major == vid
 
 
@@ -339,10 +351,8 @@ def getPossibleVersionsId(context):
 
     spec = aq_parent(aq_inner(context))
     spec_versions = get_versions_api(spec).versions.values()
-    versions = get_versions_api(context).versions.values()
-
     vid = get_version_id(context)
-    
+
     all_assessments = []
     for spec in spec_versions:
         all_assessments.extend(spec.objectValues("Assessment"))
@@ -350,7 +360,7 @@ def getPossibleVersionsId(context):
     codes = ["%s%s" % (c['set'], c['code']) for c in context.getCodes()]
     factsheets = []
     map(lambda code:factsheets.extend(
-            [b.getObject() for b in cat.searchResults(get_codes=code, 
+            [b.getObject() for b in cat.searchResults(get_codes=code,
                                             portal_type="IndicatorFactSheet")]
         ), codes)
 

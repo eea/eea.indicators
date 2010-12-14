@@ -1,3 +1,5 @@
+""" ims.py """
+
 from Products.CMFPlone.utils import getToolByName
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
@@ -11,7 +13,7 @@ codesre = re.compile(r"([a-zA-Z]+)(\d+)")
 
 def get_codes(codes):
     """Extract real setcodes from codes in metadata format
-    
+
     Splits a list such as ['CSI001', 'CSI', "TERM001", "TERM"] into
     tuples of form [('CSI', '001'), ('TERM', '001')]
     """
@@ -40,21 +42,24 @@ def _get_code(set):
 
 
 class BaseIndicatorsReport(object):
+    """ BaseIndicatorsReport """
     specifications = None
     assessments = None
     factsheets = None
 
     def get_child_assessments(self, spec):
-        #TODO: rewrite this code so that it uses a map that's initialized with the spec > children
+        #TODO: rewrite this code so that it uses a map that's initialized
+        #      with the spec > children
 
         #checks if spec id is in assessment path segments
         return filter(
-                lambda b:spec.id == b.getPath().split('/')[-2], #assessments are children of specs
+                lambda b:spec.id == b.getPath().split('/')[-2],
                 self.assessments
             )
 
 
 class IndicatorsOverview(BrowserView, BaseIndicatorsReport):
+    """ IndicatorsOverview """
     implements(IIndicatorsPermissionsOverview)
 
     template = ViewPageTemplateFile('templates/ims_overview.pt')
@@ -76,15 +81,14 @@ class IndicatorsOverview(BrowserView, BaseIndicatorsReport):
         catalog = getToolByName(self.context, 'portal_catalog')
         self.specifications = catalog.searchResults(portal_type='Specification')
         self.assessments = catalog.searchResults(portal_type='Assessment')
-        self.factsheets = catalog.searchResults(portal_type='IndicatorFactSheet')
+        self.factsheets = catalog.searchResults(
+                             portal_type='IndicatorFactSheet')
 
         self.mtool = getToolByName(self.context, 'portal_membership')
 
-        #wftool = getToolByName(self.context, 'portal_workflow')
-        #get_state = lambda a:wftool.getWorkflowsFor(a)[0].states[wftool.getInfoFor(a, 'review_state', '(Unknown)')].title
-
         for spec in self.specifications:
-            assessments = [(a, a.review_state) for a in self.get_child_assessments(spec)]
+            assessments = [(a, a.review_state)
+                           for a in self.get_child_assessments(spec)]
 
             sets = [s['set'] for s in get_codes(spec.get_codes)]
             if not sets:
@@ -153,14 +157,15 @@ class IndicatorsTimeline(BrowserView, BaseIndicatorsReport):
         catalog = getToolByName(self.context, 'portal_catalog')
         self.specs = catalog.searchResults(portal_type='Specification')
         self.assessments = catalog.searchResults(portal_type='Assessment')
-        self.factsheets = catalog.searchResults(portal_type='IndicatorFactSheet')
+        self.factsheets = catalog.searchResults(
+                               portal_type='IndicatorFactSheet')
 
         result = {
                 #example of data structure:
                 #'TERM':{
                 #    '001':{
-                #        '1999':[('a', href)], #assessment at link href
-                #        'published':('p', href),    #assessment in Publication href
+                #  '1999':[('a', href)], #assessment at link href
+                #  'published':('p', href), #assessment in Publication href
                 #        }
                 #    }
                 }
@@ -168,7 +173,7 @@ class IndicatorsTimeline(BrowserView, BaseIndicatorsReport):
         earliest_year = 0
         latest_year = 0
 
-        for i, spec in enumerate(self.specs):
+        for spec in self.specs:
             assessments = self.get_child_assessments(spec)
             for setcode in get_codes(spec.get_codes):
                 set, code = setcode['set'], setcode['code']
@@ -181,12 +186,12 @@ class IndicatorsTimeline(BrowserView, BaseIndicatorsReport):
                 d, p = self._get_instance_info(spec)
                 year = d.year()
 
-                result[set][code][year] = result[set][code].get(year, [])  + \
-                        [{'type':'s', 
-                            'url':spec.getURL(), 
-                            'state':p, 
-                            'title':spec.Title, 
-                            'comments':spec.comments, 
+                result[set][code][year] = result[set][code].get(year, []) + \
+                        [{'type':'s',
+                            'url':spec.getURL(),
+                            'state':p,
+                            'title':spec.Title,
+                            'comments':spec.comments,
                             'readiness':spec.published_readiness}]
 
                 for a in assessments:
@@ -199,13 +204,13 @@ class IndicatorsTimeline(BrowserView, BaseIndicatorsReport):
                         if earliest_year == 0:
                             earliest_year = year
 
-                    result[set][code][year] = result[set][code].get(year, []) + \
-                          [{
-                              'type':'a', 
-                              'url':a.getURL(), 
-                              'state':p, 
-                              'title':a.Title, 
-                              'comments':a.comments, 
+                    result[set][code][year] = result[set][code].get(year, []) \
+                          + [{
+                              'type':'a',
+                              'url':a.getURL(),
+                              'state':p,
+                              'title':a.Title,
+                              'comments':a.comments,
                               'readiness':a.published_readiness}]
 
         for fs in self.factsheets:
@@ -227,18 +232,18 @@ class IndicatorsTimeline(BrowserView, BaseIndicatorsReport):
                         earliest_year = year
 
                 result[set][code][year] = result[set][code].get(year, [])  + \
-                        [{'type':'f', 
-                            'url':fs.getURL(), 
-                            'state':p, 
-                            'title':fs.Title, 
-                            'comments':fs.comments, 
+                        [{'type':'f',
+                            'url':fs.getURL(),
+                            'state':p,
+                            'title':fs.Title,
+                            'comments':fs.comments,
                             'readiness':100}]
 
         return ((earliest_year, latest_year), result)
 
 
 class ReportWrongVersionAssessments(BrowserView):
-
+    """ ReportWrongVersionAssessments """
     def wrongs(self):
         catalog = getToolByName(self.context, 'portal_catalog')
         assessments = catalog.searchResults(portal_type='Assessment')
@@ -247,15 +252,16 @@ class ReportWrongVersionAssessments(BrowserView):
 
 
 class ReportWrongVersionSpecifications(BrowserView):
-
+    """ ReportWrongVersionSpecifications """
     def wrongs(self):
-        objs = self.context.objectValues(['Specification']) #, 'IndicatorFactSheet'
+        objs = self.context.objectValues(['Specification'])
 
         wrongs = filter(lambda o:o.has_duplicated_code(), objs)
         return wrongs
 
 
 class ReportWrongMainCodeSpecifications(BrowserView):
+    """ ReportWrongMainCodeSpecifications """
     def wrongs(self):
         objs = self.context.objectValues(['Specification'])
         wrongs = filter(lambda o:bool(o.get_diff_vers_setcode()), objs)
