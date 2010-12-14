@@ -1,3 +1,5 @@
+""" Specfication content type, schema and API """
+
 # -*- coding: utf-8 -*-
 #
 # $Id$
@@ -8,12 +10,30 @@ __docformat__ = 'plaintext'
 
 from AccessControl import ClassSecurityInfo
 from Acquisition import aq_inner, aq_parent
+from eea.dataservice.vocabulary import Organisations
+from eea.indicators import msg_factory as _
+from eea.indicators.browser.assessment import create_version as createVersion
+from eea.indicators.config import PROJECTNAME, templates_dir
+from eea.indicators.content.IndicatorMixin import IndicatorMixin
+from eea.indicators.content.base import ModalFieldEditableAware
+from eea.indicators.content.base import CustomizedObjectFactory
+from eea.indicators.content.utils import get_dgf_value
+from eea.indicators.content.interfaces import ISpecification
+from eea.rdfmarshaller.interfaces import IATField2Surf, ISurfSession
+from eea.rdfmarshaller.marshaller import ATCT2Surf
+from eea.relations.field import EEAReferenceField
+from eea.relations.widget import EEAReferenceBrowserWidget
+from eea.versions.interfaces import IVersionControl, IVersionEnhanced
+from eea.versions.versions import isVersionEnhanced, get_versions_api
+from eea.workflow.interfaces import IHasMandatoryWorkflowFields
+from eea.workflow.interfaces import IObjectReadiness
 from Products.ATContentTypes.content.folder import ATFolder, ATFolderSchema
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema
 from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
 from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
-from Products.Archetypes.atapi import MultiSelectionWidget, Schema, StringField, TextField
-from Products.Archetypes.atapi import RichWidget, TextAreaWidget, SelectionWidget, LinesField, registerType
+from Products.Archetypes.atapi import MultiSelectionWidget, Schema, RichWidget
+from Products.Archetypes.atapi import StringField, TextField, TextAreaWidget
+from Products.Archetypes.atapi import SelectionWidget, LinesField, registerType
 from Products.CMFCore import permissions
 from Products.CMFCore.permissions import AddPortalContent
 from Products.CMFCore.utils import getToolByName
@@ -22,28 +42,14 @@ from Products.CMFPlone.utils import log
 from Products.DataGridField import DataGridField, DataGridWidget
 from Products.DataGridField.Column import Column
 from Products.DataGridField.SelectColumn import SelectColumn
-from Products.EEAContentTypes.content.ThemeTaggable import ThemeTaggable, ThemeTaggable_schema
+from Products.EEAContentTypes.content.ThemeTaggable import ThemeTaggable
+from Products.EEAContentTypes.content.ThemeTaggable import ThemeTaggable_schema
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 from Products.UserAndGroupSelectionWidget import UserAndGroupSelectionWidget
-from eea.dataservice.vocabulary import Organisations
-from eea.indicators import msg_factory as _
-from eea.indicators.browser.assessment import create_version as create_assessment_version
-from eea.indicators.config import PROJECTNAME, templates_dir
-from eea.indicators.content.IndicatorMixin import IndicatorMixin
-from eea.indicators.content.base import ModalFieldEditableAware, CustomizedObjectFactory
-from eea.indicators.content.utils import get_dgf_value
-from eea.rdfmarshaller.interfaces import IATField2Surf, ISurfSession
-from eea.rdfmarshaller.marshaller import ATCT2Surf
-from eea.relations.field import EEAReferenceField
-from eea.relations.widget import EEAReferenceBrowserWidget
-from eea.versions.interfaces import IVersionControl, IVersionEnhanced
-from eea.versions.versions import isVersionEnhanced, get_versions_api
-from eea.workflow.interfaces import IHasMandatoryWorkflowFields, IObjectReadiness, IGetVersions
 from zope.interface import alsoProvides, implements
 from zope.component import adapts, queryMultiAdapter
 import datetime
-import interfaces
 import rdflib
 import sys
 
@@ -56,7 +62,10 @@ schema = Schema((
         name='title',
         widget=StringField._properties['widget'](
             label="Title",
-            description="The generic title of the indicator which is stable over a long period. It is short enough to explain the tracked issue and it does not contain specific dates.",
+            description=("The generic title of the indicator which is stable "
+                         "over a long period. It is short enough to explain "
+                         "the tracked issue and it does not contain specific "
+                         "dates."),
             label_msgid='indicators_label_title',
             i18n_domain='indicators',
             ),
@@ -77,7 +86,9 @@ schema = Schema((
             002. Multiple codes are allowed, since same indicator can be
             re-used in other indicators' sets. The first code is the main
             code.""",
-            columns={'set':SelectColumn("Set ID", vocabulary="get_indicator_codes"), "code":Column("Code number")},
+            columns={'set':SelectColumn("Set ID",
+                                        vocabulary="get_indicator_codes"),
+                     'code':Column("Code number")},
             auto_insert=True,
             label_msgid='indicators_label_codes',
             i18n_domain='indicators',
@@ -90,10 +101,12 @@ schema = Schema((
         ),
     TextField(
         name='more_updates_on',
-        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+        allowable_content_types=('text/plain', 'text/structured', 'text/html',
+                                 'application/msword',),
         widget=RichWidget(
             label="Message info on updates",
-            description="This information is used to display warning messages to the users on top of the indicator page.",
+            description=("This information is used to display warning messages "
+                         "to the users on top of the indicator page."),
             label_msgid='indicators_label_more_updates_on',
             i18n_domain='indicators',
             ),
@@ -106,7 +119,13 @@ schema = Schema((
         name='dpsir',
         widget=SelectionWidget(
             label="Position in DPSIR framework",
-            description="The work of the EEA is built around a conceptual framework known as the DPSIR assessment framework. DPSIR stands for ‘driving forces, pressures, states, impacts and responses’. DPSIR builds on the existing OECD model and offers a basis for analysing the interrelated factors that impact on the environment.",
+            description=("The work of the EEA is built around a conceptual "
+                         "framework known as the DPSIR assessment framework. "
+                         "DPSIR stands for ‘driving forces, pressures, states, "
+                         "impacts and responses’. DPSIR builds on the existing "
+                         "OECD model and offers a basis for analysing the "
+                         "interrelated factors that impact on the "
+                         "environment."),
             label_msgid='indicators_label_dpsir',
             i18n_domain='indicators',
             ),
@@ -118,7 +137,14 @@ schema = Schema((
             name='typology',
             widget=SelectionWidget(
                 label="Typology",
-                description="Typology is a categorisation based on a simple set of questions: what is happening (A) is this relevant (B) can we make progress in improving the way we do things (C), are the undertaken policy measures effective (Type D) and does this contribute to our overall welfare (E)?, led to a first typology of indicators. The typology was used to demonstrate that (in",
+                description=("Typology is a categorisation based on a simple "
+                             "set of questions: what is happening (A) is this "
+                             "relevant (B) can we make progress in improving "
+                             "the way we do things (C), are the undertaken "
+                             "policy measures effective (Type D) and does this "
+                             "contribute to our overall welfare (E)?, led to a "
+                             "first typology of indicators. The typology was "
+                             "used to demonstrate that (in"),
                 label_msgid='indicators_label_typology',
                 i18n_domain='indicators',
                 ),
@@ -130,7 +156,8 @@ schema = Schema((
             name='ownership',
             widget=MultiSelectionWidget(
                 label="Owners",
-                description="One or several institutions/organisations sharing ownership for this indicator.",
+                description=("One or several institutions/organisations "
+                             "sharing ownership for this indicator."),
                 macro="organisations_widget",
                 helper_js=("multiselectautocomplete_widget.js", ),
                 label_msgid='indicators_label_ownership',
@@ -145,20 +172,23 @@ schema = Schema((
             name='rationale_justification',
             widget=RichWidget(
                 label="Rationale for indicator selection",
-                description="Explanation and justification of indicator selection.",
+                description=("Explanation and justification of "
+                             "indicator selection."),
                 label_msgid='indicators_label_rationale_justification',
                 i18n_domain='indicators',
                 ),
             default_content_type="text/html",
             searchable=True,
             required_for_published=True,
-            allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+            allowable_content_types=('text/plain', 'text/structured',
+                                     'text/html', 'application/msword',),
             schemata="Rationale",
             default_output_type="text/x-html-safe",
             ),
     TextField(
             name='rationale_uncertainty',
-            allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+            allowable_content_types=('text/plain', 'text/structured',
+                                     'text/html', 'application/msword',),
             widget=RichWidget(
                 label="Rationale uncertainty",
                 description="Rationale uncertainty",
@@ -174,7 +204,8 @@ schema = Schema((
             name='policy_context_description',
             widget=RichWidget(
                 label="Policy context",
-                description="Policy context is the main driving force for presentation of indicator and its assessments.",
+                description=("Policy context is the main driving force for "
+                             "presentation of indicator and its assessments."),
                 label_msgid='indicators_label_policy_context_description',
                 i18n_domain='indicators',
                 ),
@@ -182,16 +213,22 @@ schema = Schema((
             searchable=True,
             required=True,
             required_for_published=True,
-            allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+            allowable_content_types=('text/plain', 'text/structured',
+                                     'text/html', 'application/msword',),
             schemata="PolicyContext",
             default_output_type="text/x-html-safe",
             ),
     TextField(
             name='policy_context_targets',
-            allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+            allowable_content_types=('text/plain', 'text/structured',
+                                     'text/html', 'application/msword',),
             widget=RichWidget(
                 label="Targets for the policy context",
-                description="A quantitative value which usually underpins a European Union or other international policy objective. The target usually has a time deadline that should be met through the design and implementation of measures by countries.",
+                description=("A quantitative value which usually underpins a "
+                             "European Union or other international policy "
+                             "objective. The target usually has a time "
+                             "deadline that should be met through the design "
+                             "and implementation of measures by countries."),
                 label_msgid='indicators_label_policy_context_targets',
                 i18n_domain='indicators',
                 ),
@@ -204,7 +241,13 @@ schema = Schema((
             name='definition',
             widget=RichWidget(
                 label="Definition",
-                description="Provide short textual definition of the indicator. Provide units and list of parameters, sectors, media, processes used in indicator. A definition is a statement of the precise meaning of something. Often includes specific examples of what is and is not included in particular categories. ",
+                description=("Provide short textual definition of the "
+                             "indicator. Provide units and list of parameters, "
+                             "sectors, media, processes used in indicator. A "
+                             "definition is a statement of the precise meaning "
+                             "of something. Often includes specific examples "
+                             "of what is and is not included in "
+                             "particular categories. "),
                 label_msgid='indicators_label_definition',
                 i18n_domain='indicators',
                 ),
@@ -212,7 +255,8 @@ schema = Schema((
             searchable=True,
             required=False,
             required_for_published=True,
-            allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+            allowable_content_types=('text/plain', 'text/structured',
+                                     'text/html', 'application/msword',),
             schemata="default",
             default_output_type="text/x-html-safe",
             ),
@@ -228,7 +272,8 @@ schema = Schema((
             searchable=True,
             required=False,
             required_for_published=True,
-            allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+            allowable_content_types=('text/plain', 'text/structured',
+                                     'text/html', 'application/msword',),
             schemata="default",
             default_output_type="text/x-html-safe",
             ),
@@ -236,7 +281,9 @@ schema = Schema((
             name='methodology',
             widget=RichWidget(
                 label="Methodology for indicator calculation",
-                description="Guidelines for calculating the indicator, including exact formulas and/or links to more explanatory methodological description",
+                description=("Guidelines for calculating the indicator, "
+                             "including exact formulas and/or links to more "
+                             "explanatory methodological description"),
                 label_msgid='indicators_label_methodology',
                 i18n_domain='indicators',
                 ),
@@ -244,13 +291,15 @@ schema = Schema((
             searchable=True,
             required=False,
             required_for_published=True,
-            allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+            allowable_content_types=('text/plain', 'text/structured',
+                                     'text/html', 'application/msword',),
             schemata="Methodology",
             default_output_type="text/x-html-safe",
             ),
     TextField(
             name='methodology_uncertainty',
-            allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+            allowable_content_types=('text/plain', 'text/structured',
+                                     'text/html', 'application/msword',),
             widget=RichWidget(
                 label="Methodology uncertainty",
                 description="Methodology uncertainty",
@@ -264,7 +313,8 @@ schema = Schema((
             ),
     TextField(
             name='data_uncertainty',
-            allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+            allowable_content_types=('text/plain', 'text/structured',
+                                     'text/html', 'application/msword',),
             widget=RichWidget(
                 label="Data uncertainty",
                 description="Data uncertainty",
@@ -278,7 +328,8 @@ schema = Schema((
             ),
     TextField(
             name='methodology_gapfilling',
-            allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+            allowable_content_types=('text/plain', 'text/structured',
+                                     'text/html', 'application/msword',),
             widget=RichWidget(
                 label="Methodology for gap filling",
                 description="Methodology for gap filling",
@@ -295,7 +346,8 @@ schema = Schema((
             widget=TextAreaWidget(
                 visible={'view':'invisible', 'edit':'invisible'},
                 label='Description',
-                description='A short and concise description about this indicator.',
+                description=("A short and concise description about "
+                             "this indicator."),
                 label_msgid='indicators_label_description',
                 i18n_domain='indicators',
                 ),
@@ -333,7 +385,9 @@ schema = Schema((
             keepReferencesOnCopy=True,
             widget=EEAReferenceBrowserWidget(
                 label='External data references',
-                description="References to external data sets, available on other websites or via other organisations' communication channels.",
+                description=("References to external data sets, available on "
+                             "other websites or via other organisations' "
+                             "communication channels."),
                 label_msgid='indicators_label_specRelatedItems',
                 description_msgid='indicators_help_specRelatedItems',
                 macro="indicatorsrelationwidget",
@@ -351,10 +405,11 @@ Specification_schema = Specification_schema + ThemeTaggable_schema.copy()
 Specification_schema['themes'].schemata = 'Classification'
 Specification_schema['themes'].required_for_published = True
 
-#batch reorder of the fields
-#this is created like this because we want explicit control over how the schemata fields
-#are ordered and changing this in the UML modeler is just too time consuming
-#TODO: get rid of this, we no longer use the UML modeler
+# Batch reorder of the fields
+
+#this is created like this because we want explicit control over how the
+#schemata fields are ordered and changing this in the UML modeler is just too
+#time consuming
 _field_order = [
         {
             'name':'default',
@@ -371,7 +426,8 @@ _field_order = [
             },
         {
             'name':'Methodology',
-            'fields':['methodology', 'methodology_uncertainty', 'methodology_gapfilling',]
+            'fields':['methodology', 'methodology_uncertainty',
+                      'methodology_gapfilling',]
             },
         {
             'name':'DataSpecs',
@@ -392,7 +448,8 @@ new_order = []
 for info in _field_order:
     new_order.extend(info['fields'])
 
-for name in old_order:  #add fields that are not in our specified list at the end of the schema
+#add fields that are not in our specified list at the end of the schema
+for name in old_order:
     if name not in new_order:
         new_order.append(name)
 
@@ -401,12 +458,13 @@ finalizeATCTSchema(Specification_schema)
 
 
 class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
-                    CustomizedObjectFactory, BrowserDefaultMixin, IndicatorMixin):
-    """
+                    CustomizedObjectFactory, BrowserDefaultMixin,
+                    IndicatorMixin):
+    """ Specfication content type
     """
     security = ClassSecurityInfo()
 
-    implements(interfaces.ISpecification, IHasMandatoryWorkflowFields)
+    implements(ISpecification, IHasMandatoryWorkflowFields)
 
     meta_type = 'Specification'
     _at_rename_after_creation = True
@@ -417,7 +475,8 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
     #unfilled fields that are mandatory for publishing
     edit_macros = PageTemplateFile('edit_macros.pt', templates_dir)
 
-    portlet_readiness = ViewPageTemplateFile('../browser/templates/portlet_readiness.pt')
+    portlet_readiness = \
+            ViewPageTemplateFile('../browser/templates/portlet_readiness.pt')
 
     def get_work(self):
         in_future = datetime.datetime.now() + ONE_YEAR
@@ -437,18 +496,15 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
                 short_term.append(item)
         return {'long':long_term, 'short':short_term, 'incomplete':incomplete}
 
-    def get_assessments(self):
-        assessments = self.objectValues('Assessment')
-        pass
-
     security.declareProtected(permissions.View, 'getOrganisationName')
     def getOrganisationName(self, url):
-        """ """
+        """ Return an organisation based on its URL """
         res = None
         cat = getToolByName(self, 'portal_catalog')
         brains = cat.searchResults({'portal_type' : 'Organisation',
             'getUrl': url})
-        if brains: res = brains[0]
+        if brains:
+            res = brains[0]
         return res
 
     security.declarePublic("Description")
@@ -458,7 +514,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
 
     security.declarePublic("getTitle")
     def getTitle(self):
-        """ Return title with codes.  """
+        """ Return title with codes """
         codes = self.getCodes()
 
         res = ''
@@ -477,7 +533,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
         #_assigned = self.getProperty('left_slots') or []
 
         parent = aq_parent(aq_inner(self))
-        base_slots=getattr(parent,'left_slots', [])
+        base_slots = getattr(parent,'left_slots', [])
         if callable(base_slots):
             base_slots = base_slots()
 
@@ -531,7 +587,8 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
         #when changing the code to something unique, all versions of this
         #indicator should get that code
 
-        #whenever we change the code to something unique we give a new version id
+        #whenever we change the code to something unique we give
+        #a new version id
 
         #if not IVersionEnhanced.providedBy(self):
             #alsoProvides(self, IVersionEnhanced)
@@ -540,7 +597,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
 
     security.declarePublic('SearchableText')
     def SearchableText(self):
-        """ """
+        """ Override SearchableText to index codes """
         searchable_text = super(Specification, self).SearchableText()
         for code in self.get_codes():
             searchable_text += '%s ' % code.encode('utf-8')
@@ -548,8 +605,8 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
 
     security.declarePublic('getMainCode')
     def getMainCode(self):
-        """Returns the main code for this indicator (the first in the list of codes).
-           Used for display purposed, like in title / description.
+        """Returns the main code for this indicator (the first in the list of
+           codes). Used for display purposed, like in title / description.
         """
         codes = self.getCodes()
 
@@ -580,8 +637,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
 
         create = self.REQUEST.form.get('create_in_latest_spec')
         if create == 'true':
-            info = IGetVersions(self)
-            latest = info.latest_version()
+            latest = IGetVersions(self).latest_version()
             if latest.UID() != self.UID():
                 return latest.factory_Assessment()
 
@@ -592,24 +648,29 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
         #create a version if we already have an Assessment
         assessments = self.objectValues(type_name)
         if assessments:
-            original = assessments[-1]  #NOTE: we assume the latest object is the last one
-            ast = create_assessment_version(original)
-            return {'obj':ast, 'subview':'@@edit_aggregated', 'direct_edit':True}
+            #NOTE: we assume the latest object is the last one
+            original = assessments[-1]
+            ast = createVersion(original)
+            return {'obj':ast,
+                    'subview':'@@edit_aggregated',
+                    'direct_edit':True}
 
         #we want to make this assessment a version of a previous assessment
         #if this Specification is already versioned, so we try get a versionId
 
         version_id = None
         spec_versions = get_versions_api(self).versions.values()
-        for spec in spec_versions:  #TODO: versions also contains self. Is this normal?
+        #TODO: versions also contains self. Is this normal?
+        for spec in spec_versions:
             asts = spec.objectValues("Assessment")
             if asts:
                 original = asts[0]
                 version_id = IVersionControl(original).versionId
                 break
 
-        # if there are no other assessments in this version set we look for other
-        # IndicatorFactSheet objects with same indicator code to get the versionId
+        #if there are no other assessments in this version set we look for
+        #other IndicatorFactSheet objects with same indicator code to
+        #get the versionId
         if not version_id:
             brains = []
             codes = self.get_codes()
@@ -649,7 +710,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
             try:
                 ap.reindexObject()
             except AttributeError:
-                pass    #TODO: this happens when executed from test
+                log.log("#TODO: this happens when executed from test")
 
         ast.reindexObject()
         return {'obj':ast, 'subview':'@@edit_aggregated', 'direct_edit':True}
@@ -663,9 +724,12 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
         return False
 
     security.declareProtected(AddPortalContent, 'invokeFactory')
-    def invokeFactory(self, type_name, id, RESPONSE=None, base_impl=False, *args, **kw):
+    def invokeFactory(self, type_name, id, RESPONSE=None,
+                      base_impl=False, *args, **kw):
         if base_impl:
-            return super(Specification, self).invokeFactory(type_name, id, RESPONSE, *args, **kw)
+            return super(Specification, self).invokeFactory(type_name, id,
+                                                            RESPONSE, *args,
+                                                            **kw)
         factory_name = 'factory_' + type_name
         factory = getattr(self, factory_name, None)
         obj = factory()['obj']
@@ -687,7 +751,9 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
 
     security.declarePublic("get_diff_vers_setcode")
     def get_diff_vers_setcode(self):
-        """Returns a list of versions of this Spec that have a different main setcode"""
+        """Returns a list of versions of this Spec that have
+           a different main setcode
+        """
         diff = []
         codes = self.getCodes()
         if not codes:
@@ -701,7 +767,9 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
 
     security.declarePublic('getCandidateFixedCode')
     def getCandidateFixedCode(self, spec):
-        """Returns codes that a spec should get to have a similar main setcode to context """
+        """Returns codes that a spec should get to have a similar main
+           setcode to context
+        """
         main = self.getCodes()[0]
         other = spec.getCodes()
 
@@ -728,33 +796,34 @@ def make_id(BASE, names):
     the first string such as assessment-10 that is not found in the list of ids
     """
     x = 1
-    name = None
+    id_name = None
 
     if BASE not in names:
-        name = BASE
+        id_name = BASE
     else:
         while True:
-            name = "%s-%s" % (BASE, x)
-            if name not in names:
+            id_name = "%s-%s" % (BASE, x)
+            if id_name not in names:
                 break
             x += 1
 
-    return name
+    return id_name
 
 
 class Specification2Surf(ATCT2Surf):
-    adapts(interfaces.ISpecification, ISurfSession)
+    """ Specification2Surf """
+    adapts(ISpecification, ISurfSession)
 
     def _schema2surf(self):
         context = self.context
-        session = self.session
         resource = self.surfResource
         language = context.Language()
         for field in context.Schema().fields():
             fieldName = field.getName()
             if fieldName in self.blacklist_map:
                 continue
-            fieldAdapter = queryMultiAdapter((field, self.session), interface=IATField2Surf)
+            fieldAdapter = queryMultiAdapter((field, self.session),
+                                             interface=IATField2Surf)
             if fieldAdapter.exportable:
                 value = fieldAdapter.value(context)
                 if value:
@@ -775,10 +844,13 @@ class Specification2Surf(ATCT2Surf):
                         prefix = 'dc'
                     try:
                         setattr(resource, '%s_%s' % (prefix, fieldName), value)
-                    except:
-                        log.log('RDF marshaller error for context[field] "%s[%s]": \n%s: %s' %
-                                (context.absolute_url(), fieldName, sys.exc_info()[0],
-                                    sys.exc_info()[1]), severity=log.logging.WARN)
+                    except Exception, err:
+                        log.log(('RDF marshaller error for context[field] '
+                                 '"%s[%s]": \n%s: %s') % (
+                                     context.absolute_url(),
+                                     fieldName, sys.exc_info()[0],
+                                     sys.exc_info()[1]),
+                                severity=log.logging.WARN)
 
         parent = getattr(aq_inner(context), 'aq_parent', None)
         if parent is not None:
