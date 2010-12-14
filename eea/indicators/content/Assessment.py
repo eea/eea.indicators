@@ -23,7 +23,7 @@ from eea.indicators import msg_factory as _
 from eea.indicators.config import PROJECTNAME
 from eea.indicators.content.base import ModalFieldEditableAware
 from eea.indicators.content.base import CustomizedObjectFactory
-from eea.indicators.interfaces import IAssessment, IIndicatorAssessment
+from eea.indicators.content.interfaces import IAssessment, IIndicatorAssessment
 from eea.relations.field import EEAReferenceField
 from eea.relations.widget import EEAReferenceBrowserWidget
 from eea.versions.versions import get_versions_api, get_version_id
