@@ -1,11 +1,8 @@
-""" Specfication content type, schema and API """
-
 # -*- coding: utf-8 -*-
-#
-# $Id$
 
 """ Specification content class and utilities
 """
+
 __docformat__ = 'plaintext'
 
 from AccessControl import ClassSecurityInfo
@@ -33,8 +30,9 @@ from Products.ATContentTypes.content.schemata import finalizeATCTSchema
 from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
 from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
 from Products.Archetypes.atapi import MultiSelectionWidget, Schema, RichWidget
-from Products.Archetypes.atapi import StringField, TextField, TextAreaWidget
-from Products.Archetypes.atapi import SelectionWidget, LinesField, registerType
+from Products.Archetypes.atapi import StringField, TextField, registerType
+from Products.Archetypes.atapi import SelectionWidget, LinesField
+from Products.Archetypes.atapi import TextAreaWidget
 from Products.CMFCore import permissions
 from Products.CMFCore.permissions import AddPortalContent
 from Products.CMFCore.utils import getToolByName
@@ -82,11 +80,11 @@ schema = Schema((
         searchable=True,
         widget=DataGridWidget(
             label="Specification identification codes",
-            description="""Codes are short names used to identify the indicator
-            in question. Code is made up of a SET-ID and an CODE-NR, e.g. TERM
-            002. Multiple codes are allowed, since same indicator can be
-            re-used in other indicators' sets. The first code is the main
-            code.""",
+            description="""Codes are short names used to identify the
+            indicator in question. Code is made up of a SET-ID and an CODE-NR,
+             e.g. TERM002. Multiple codes are allowed, since same indicator
+            can be re-used in other indicators' sets. The first code is the
+            main code.""",
             columns={'set':SelectColumn("Set ID",
                                         vocabulary="get_indicator_codes"),
                      'code':Column("Code number")},
@@ -106,8 +104,9 @@ schema = Schema((
                                  'application/msword',),
         widget=RichWidget(
             label="Message info on updates",
-            description=("This information is used to display warning messages "
-                         "to the users on top of the indicator page."),
+            description=("This information is used to display warning "
+                         "messages to the users on top of the indicator "
+                         "page."),
             label_msgid='indicators_label_more_updates_on',
             i18n_domain='indicators',
             ),
@@ -122,11 +121,11 @@ schema = Schema((
             label="Position in DPSIR framework",
             description=("The work of the EEA is built around a conceptual "
                          "framework known as the DPSIR assessment framework. "
-                         "DPSIR stands for ‘driving forces, pressures, states, "
-                         "impacts and responses’. DPSIR builds on the existing "
-                         "OECD model and offers a basis for analysing the "
-                         "interrelated factors that impact on the "
-                         "environment."),
+                         "DPSIR stands for ‘driving forces, pressures, "
+                         "states, impacts and responses’. DPSIR builds on "
+                         "the existing OECD model and offers a basis for "
+                         "analysing the interrelated factors that impact on "
+                         "the environment."),
             label_msgid='indicators_label_dpsir',
             i18n_domain='indicators',
             ),
@@ -139,13 +138,14 @@ schema = Schema((
             widget=SelectionWidget(
                 label="Typology",
                 description=("Typology is a categorisation based on a simple "
-                             "set of questions: what is happening (A) is this "
-                             "relevant (B) can we make progress in improving "
-                             "the way we do things (C), are the undertaken "
-                             "policy measures effective (Type D) and does this "
-                             "contribute to our overall welfare (E)?, led to a "
-                             "first typology of indicators. The typology was "
-                             "used to demonstrate that (in"),
+                             "set of questions: what is happening (A) is "
+                             "this relevant (B) can we make progress in "
+                             "improving the way we do things (C), are the "
+                             "undertaken policy measures effective (Type D) "
+                             "and does this contribute to our overall "
+                             "welfare (E)?, led to a first typology of "
+                             "indicators. The typology was used to "
+                             "demonstrate that (in"),
                 label_msgid='indicators_label_typology',
                 i18n_domain='indicators',
                 ),
@@ -206,7 +206,8 @@ schema = Schema((
             widget=RichWidget(
                 label="Policy context",
                 description=("Policy context is the main driving force for "
-                             "presentation of indicator and its assessments."),
+                             "presentation of indicator and its "
+                             "assessments."),
                 label_msgid='indicators_label_policy_context_description',
                 i18n_domain='indicators',
                 ),
@@ -243,12 +244,12 @@ schema = Schema((
             widget=RichWidget(
                 label="Definition",
                 description=("Provide short textual definition of the "
-                             "indicator. Provide units and list of parameters, "
-                             "sectors, media, processes used in indicator. A "
-                             "definition is a statement of the precise meaning "
-                             "of something. Often includes specific examples "
-                             "of what is and is not included in "
-                             "particular categories. "),
+                             "indicator. Provide units and list of "
+                             "parameters, sectors, media, processes used in "
+                             "indicator. A definition is a statement of the "
+                             "precise meaning of something. Often includes "
+                             "specific examples of what is and is not "
+                             "included in particular categories. "),
                 label_msgid='indicators_label_definition',
                 i18n_domain='indicators',
                 ),
@@ -414,8 +415,9 @@ Specification_schema['themes'].required_for_published = True
 _field_order = [
         {
             'name':'default',
-            'fields':[  'title', 'description', 'more_updates_on', 'definition',
-                'units', 'related_external_indicator', 'manager_user_id']
+            'fields':['title', 'description', 'more_updates_on',
+                      'definition', 'units', 'related_external_indicator',
+                      'manager_user_id']
             },
         {
             'name':'Rationale',
@@ -534,7 +536,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
         #_assigned = self.getProperty('left_slots') or []
 
         parent = aq_parent(aq_inner(self))
-        base_slots = getattr(parent,'left_slots', [])
+        base_slots = getattr(parent, 'left_slots', [])
         if callable(base_slots):
             base_slots = base_slots()
 
@@ -677,8 +679,9 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
             codes = self.get_codes()
             cat = getToolByName(self, 'portal_catalog')
             for code in codes[1::2]:
-                brains = cat.searchResults({'portal_type': 'IndicatorFactSheet',
-                                            'get_codes': code})
+                brains = cat.searchResults({
+                               'portal_type': 'IndicatorFactSheet',
+                               'get_codes': code})
                 if brains:
                     break
             if brains:
@@ -794,7 +797,8 @@ def make_id(BASE, names):
     """Useful in making a unique id in a container
 
     Given a BASE such as 'assessment' and a list of ids, it returns
-    the first string such as assessment-10 that is not found in the list of ids
+    the first string such as assessment-10 that is not found in the
+    list of ids
     """
     x = 1
     id_name = None
@@ -832,7 +836,8 @@ class Specification2Surf(ATCT2Surf):
 
                     #concatenate the codes field
                     if fieldName == "codes":
-                        value = ["%s%s" % (c['set'], c['code']) for c in value]
+                        value = ["%s%s" % (c['set'], c['code'])
+                                 for c in value]
 
                     if isinstance(value, (list, tuple)):
                         value = list(value)
@@ -844,7 +849,8 @@ class Specification2Surf(ATCT2Surf):
                         fieldName = self.dc_map.get(fieldName)
                         prefix = 'dc'
                     try:
-                        setattr(resource, '%s_%s' % (prefix, fieldName), value)
+                        setattr(resource, '%s_%s' %
+                                (prefix, fieldName), value)
                     except Exception:
                         log.log(('RDF marshaller error for context[field] '
                                  '"%s[%s]": \n%s: %s') % (
