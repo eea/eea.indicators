@@ -26,7 +26,8 @@ from eea.relations.widget import EEAReferenceBrowserWidget
 from eea.versions.interfaces import IVersionControl, IVersionEnhanced
 from eea.versions.versions import isVersionEnhanced, get_versions_api
 from eea.workflow.interfaces import IHasMandatoryWorkflowFields
-from eea.workflow.interfaces import IObjectReadiness, IGetVersions
+from eea.workflow.interfaces import IObjectReadiness
+from eea.versions.interfaces import IGetVersions
 from Products.ATContentTypes.content.folder import ATFolder, ATFolderSchema
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema
 from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL

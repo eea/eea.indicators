@@ -11,12 +11,14 @@ from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from eea.indicators.browser.utils import has_one_of
 from eea.versions.interfaces import IVersionControl, IVersionEnhanced
-from eea.versions.versions import create_version, CreateVersion as BaseCreateVersion, get_version_id, _get_random
+from eea.versions.versions import CreateVersion as BaseCreateVersion
+from eea.versions.versions import create_version
+from eea.versions.versions import get_version_id, _get_random
 from eea.versions.versions import get_versions_api
 from eea.workflow.interfaces import IFieldIsRequiredForState, IValueProvider
 from eea.workflow.readiness import ObjectReadiness
-from zope.interface import alsoProvides
 from zope.component import getMultiAdapter
+from zope.interface import alsoProvides
 
 import logging
 logger = logging.getLogger('eea.indicators')
@@ -33,7 +35,8 @@ class AggregatedEditPage(BrowserView):
 
 
 class SchemataCounts(BrowserView):
-    """Provides a dictionary of fields that are required for publishing grouped by schematas
+    """Provides a dictionary of fields that are required for publishing 
+    grouped by schematas
 
     TODO: see if able/worthy to move this to eea.workflow
     """
@@ -43,7 +46,8 @@ class SchemataCounts(BrowserView):
         for field in self.context.schema.fields():
             if not field.schemata in schematas:
                 schematas[field.schemata] = []
-            req = getMultiAdapter((self.context, field), IFieldIsRequiredForState)('published')
+            req = getMultiAdapter((self.context, field), 
+                    IFieldIsRequiredForState)('published')
             if req:
                 adapter = getMultiAdapter((self.context, field), IValueProvider)
                 if not adapter.has_value():
@@ -106,20 +110,23 @@ class WorkflowStateReadiness(ObjectReadiness):
     #TODO: translate messages here
     checks = {'published':(
             (
-                lambda o: not has_one_of(('Data', 'ExternalDataSpec'), o.getRelatedItems()),
+                lambda o: not has_one_of(('Data', 'ExternalDataSpec'), 
+                                            o.getRelatedItems()),
                 "You need to point to at least one EEA Data or ExternalData"),
             (
                 lambda o:not bool(o.objectValues("PolicyQuestion")),
                 "You need to add at least one Policy Question"),
             (
-                lambda o:not filter(lambda x:x.getIs_key_question(), o.objectValues('PolicyQuestion')),
+                lambda o:not filter(lambda x:x.getIs_key_question(), 
+                                    o.objectValues('PolicyQuestion')),
                 "At least one PolicyQuestion needs to be main policy question"),
             (
                 lambda o:not bool(o.getThemes()),
                 "You need to specify one primary theme" ),
             (
                 lambda o:o.has_duplicated_code(),
-                "The <a href='#rfs_codes'>Indicator Specification code</a> is already used by some other document in IMS"),
+                "The <a href='#rfs_codes'>Indicator Specification code</a> is "
+                "already used by some other document in IMS"),
             )}
 
 
@@ -245,7 +252,8 @@ class WrongVersionReport(BrowserView):
 
 class SetCodes(BrowserView):
     def __call__(self):
-        codes = self.request.form.get("codes")  #this is a list of form ['APE', '009', 'CSI', '001', 'CLIM', '003']
+        #this is a list of form ['APE', '009', 'CSI', '001', 'CLIM', '003']
+        codes = self.request.form.get("codes")  
 
         value = [{'set':set, 'code':code} 
                     for set, code in zip(codes[::2], codes[1::2])]

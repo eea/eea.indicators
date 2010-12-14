@@ -7,9 +7,11 @@
 """
 
 from AccessControl import ClassSecurityInfo
-from Products.ATContentTypes.content.base import ATCTContent, ATContentTypeSchema
+from Products.ATContentTypes.content.base import ATCTContent
+from Products.ATContentTypes.content.base import ATContentTypeSchema
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema
-from Products.Archetypes.atapi import Schema, StringField, TextField, BooleanField, registerType, TextAreaWidget
+from Products.Archetypes.atapi import Schema, StringField, TextField
+from Products.Archetypes.atapi import BooleanField, registerType, TextAreaWidget
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 from eea.indicators.config import PROJECTNAME
 from zope.interface import implements
@@ -57,7 +59,8 @@ PolicyQuestion_schema = ATContentTypeSchema.copy() + \
     schema.copy()
 
 finalizeATCTSchema(PolicyQuestion_schema)
-PolicyQuestion_schema['relatedItems'].widget.visible = {'view':'invisible', 'edit':'invisible'}
+PolicyQuestion_schema['relatedItems'].widget.visible = {'view':'invisible', 
+                                                        'edit':'invisible'}
 
 class PolicyQuestion(ATCTContent, BrowserDefaultMixin):
     """

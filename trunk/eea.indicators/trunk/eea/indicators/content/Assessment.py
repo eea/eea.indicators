@@ -9,7 +9,8 @@ from Acquisition import aq_inner, aq_parent
 from Products.ATContentTypes.content.folder import ATFolder
 from Products.ATContentTypes.content.folder import ATFolderSchema
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema
-from Products.Archetypes.atapi import Schema, StringField, TextField, RichWidget, ComputedField, registerType
+from Products.Archetypes.atapi import RichWidget, ComputedField, registerType
+from Products.Archetypes.atapi import Schema, StringField, TextField
 from Products.CMFCore.utils import getToolByName
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
@@ -19,11 +20,13 @@ from eea.dataservice.vocabulary import DatasetYears
 from eea.dataservice.widgets.ManagementPlanWidget import ManagementPlanWidget
 from eea.indicators import msg_factory as _
 from eea.indicators.config import PROJECTNAME
-from eea.indicators.content.base import ModalFieldEditableAware, CustomizedObjectFactory
+from eea.indicators.content.base import CustomizedObjectFactory
+from eea.indicators.content.base import ModalFieldEditableAware
 from eea.relations.field import EEAReferenceField
 from eea.relations.widget import EEAReferenceBrowserWidget
 from eea.versions.versions import get_versions_api, get_version_id
-from eea.workflow.interfaces import IHasMandatoryWorkflowFields, IObjectReadiness
+from eea.workflow.interfaces import IHasMandatoryWorkflowFields
+from eea.workflow.interfaces import IObjectReadiness
 from zope.interface import implements
 import interfaces
 
@@ -46,7 +49,8 @@ schema = Schema((
         ),
     TextField(
         name='key_message',
-        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+        allowable_content_types=('text/plain', 'text/structured', 'text/html', 
+            'application/msword',),
         widget=RichWidget(
             label="Key message",
             description="A short message listing the assessment's key findings. It works as a summary/abstract for the entire indicator assessment.",

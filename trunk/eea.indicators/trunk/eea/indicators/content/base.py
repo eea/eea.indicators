@@ -51,6 +51,7 @@ class ModalFieldEditableAware(object):
         # Set things by calling the mutator
         mutator = field.getMutator(self)
         __traceback_info__ = (self, field, mutator)
+        __traceback_info__  #tiberich: I'm not sure this var is not needed in a frame trick
         result[1]['field'] = field.__name__
         mapply(mutator, result[0], **result[1])
 
@@ -150,7 +151,8 @@ class CustomizedObjectFactory(object):
         url = obj.absolute_url() + '/' + subview
         f = kw.get('direct_edit') and "<div class='direct_edit' />" or ''
 
-        return "<div class='metadata'>" + f + "<div class='object_edit_url'>" + url + "</div></div>"
+        return "<div class='metadata'>" + f + "<div class='object_edit_url'>" \
+                + url + "</div></div>"
 
     security.declareProtected(AddPortalContent, 'object_factory')
     def object_factory(self):
