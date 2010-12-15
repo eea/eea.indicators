@@ -46,7 +46,8 @@ schema = Schema((
     ),
     TextField(
         name='assessment',
-        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+        allowable_content_types=('text/plain', 'text/structured', 
+            'text/html', 'application/msword',),
         widget=RichWidget(
             label="Assessment",
             label_msgid='indicators_label_assessment',
@@ -59,7 +60,9 @@ schema = Schema((
         name='assessment_date',
         widget=DateTimeField._properties['widget'](
             label="Assessment date",
-            description="Date when the assessment analysis was made. This does not necesserly coincide with the underline data time coverage which can be older.",
+            description="Date when the assessment analysis was made. "
+                        "This does not necesserly coincide with the "
+                        "underline data time coverage which can be older.",
             label_msgid='indicators_label_assessment_date',
             i18n_domain='indicators',
         ),
@@ -68,8 +71,14 @@ schema = Schema((
         name='codes',
         widget=DataGridWidget(
             label="Identification codes",
-            description="Codes are short names used to identify the indicator in question. Code is made up of a SET-ID and an CODE-NR, e.g. TERM 002. Multiple codes are allowed, since same indicator can be re-used in other indicators' sets.",
-            columns={'set':SelectColumn("Set ID", vocabulary="get_indicator_codes"), "code":Column("Code number")},
+            description="Codes are short names used to identify the indicator"
+                        " in question. Code is made up of a SET-ID and an "
+                        "CODE-NR, e.g. TERM 002. Multiple codes are allowed, "
+                        "since same indicator can be re-used in other "
+                        "indicators' sets.",
+            columns={'set':SelectColumn("Set ID", 
+                vocabulary="get_indicator_codes"), 
+                "code":Column("Code number")},
             auto_insert=True,
             label_msgid='indicatorsfactsheet_label_codes',
             i18n_domain='indicators',
@@ -84,7 +93,8 @@ schema = Schema((
         searchable = True,
         widget=StringField._properties['widget'](
             label="Source code",
-            description="another code who may indentify this indicator in other source databases.",
+            description="another code who may indentify this indicator "
+            "in other source databases.",
             label_msgid='indicators_label_source_code',
             i18n_domain='indicators',
         ),
@@ -260,9 +270,9 @@ class IndicatorFactSheet(ATFolder, BrowserDefaultMixin, IndicatorMixin):
             if code:
                 res = res + "%s %s/" % (code['set'], code['code'])
         if res:
-           res = self.title + ' (' + res[:-1] + ')'
+            res = self.title + ' (' + res[:-1] + ')'
         else:
-           res = self.title
+            res = self.title
         return res
 
     security.declarePublic('get_codes')
