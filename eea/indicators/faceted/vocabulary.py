@@ -6,6 +6,7 @@ from zope.schema.vocabulary import SimpleVocabulary
 from zope.schema.vocabulary import SimpleTerm
 
 def sorting_options_vocabulary(context):
+    """ vocab """
     return SimpleVocabulary([
         SimpleTerm("effective", "effective", "Publish date"),
         SimpleTerm("get_codes", "get_codes", "Indicator code")

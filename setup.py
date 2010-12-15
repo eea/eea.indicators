@@ -13,7 +13,8 @@ setup(
  description="EEA Indicators site",
  long_description=open("README.txt").read() + "\n" +
                   open(os.path.join("docs", "HISTORY.txt")).read(),
- url="https://svn.eionet.europa.eu/projects/Zope/browser/trunk/eea.indicators",
+ url="https://svn.eionet.europa.eu/projects/"
+     "Zope/browser/trunk/eea.indicators",
  classifiers=[
    "Framework :: Plone",
    "Programming Language :: Python",

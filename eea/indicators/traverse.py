@@ -19,9 +19,11 @@ class SpecificationTraverser(FiveTraversable):
     adapts(ISpecification)
 
     def fallback(self, name, furtherPath):
+        """ """
         return super(SpecificationTraverser, self).traverse(name, furtherPath)
 
     def traverse(self, name, furtherPath):
+        """ """
         context = self._subject
 
         if name.startswith('IAssessment'):

@@ -66,7 +66,8 @@ DPSIR = [
 
 TYPOLOGY = [
     ('None', 'N/A'),
-    ('A', 'Descriptive indicator (Type A – What is happening to the environment and to humans?)'),
+    ('A', 'Descriptive indicator (Type A – What is '
+          'happening to the environment and to humans?)'),
     ('B', 'Performance indicator (Type B – Does it matter?)'),
     ('C', 'Efficiency indicator (Type C – Are we improving?)'),
     ('D', 'Policy-effectiveness indicator (Type D)'),
@@ -96,6 +97,7 @@ PROFILE_DEPENDENCIES = (
     )
 
 
-#this is the role that people need to receive to become a manager over a specification
+#this is the role that people need to receive to 
+#become a manager over a specification
 MANAGER_ROLE = 'ContentManager'
 ##/code-section config-bottom

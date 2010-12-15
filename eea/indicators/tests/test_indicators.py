@@ -8,6 +8,7 @@ from Testing.ZopeTestCase.zopedoctest import ZopeDocFileSuite
 
 
 def test_suite():
+    """test suite"""
     s1 = ZopeDocFileSuite('install.txt',
                          package='eea.indicators.doc',
                          test_class=BaseIndicatorsTestCase)
