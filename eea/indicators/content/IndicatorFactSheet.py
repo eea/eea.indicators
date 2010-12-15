@@ -11,14 +11,14 @@ from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 from Products.DataGridField import DataGridField, DataGridWidget
 from Products.DataGridField.Column import Column
 from Products.DataGridField.SelectColumn import SelectColumn
+from Products.archetypes.atapi import SelectionWidget, ComputedField
+from Products.archetypes.atapi import registerType
 from eea.indicators.config import PROJECTNAME
 from eea.indicators.content import interfaces
 from eea.indicators.content.IndicatorMixin import IndicatorMixin
 from eea.indicators.content.utils import get_dgf_value
 from eea.relations.field import EEAReferenceField
 from eea.relations.widget import EEAReferenceBrowserWidget
-from products.archetypes.atapi import SelectionWidget, ComputedField
-from products.archetypes.atapi import registerType
 from zope.interface import implements
 
 

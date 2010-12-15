@@ -17,7 +17,7 @@ We have several main content types. The most important are the Specification and
     >>> setuptool.setImportContext('profile-eea.indicators:default')
     >>> log = setuptool.runAllImportSteps()
     >>> browser = Browser()
-    >>> browser.handleErrors = True
+    >>> browser.handleErrors = False
     >>> self.portal.error_log._ignored_exceptions = ()
     >>> browser.addHeader('Authorization',
     ...                   'Basic %s:%s' % (PloneTestCase.portal_owner,
