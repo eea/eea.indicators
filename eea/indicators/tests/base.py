@@ -21,7 +21,7 @@ def setup_indicators():
 
     fiveconfigure.debug_mode = True
     import Products.Five
-    #import Products.FiveSite
+    import Products.FiveSite
     zcml.load_config('meta.zcml', Products.Five)
     zcml.load_config('configure.zcml', Products.Five)
     zcml.load_config('configure.zcml', Products.FiveSite)
