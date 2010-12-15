@@ -173,7 +173,7 @@ def assign_version(context, new_version):
     old version to the new one.
     """
     cat = getToolByName(context, 'portal_catalog')
-    old_version = get_version_id(context)
+    #old_version = get_version_id(context)
 
     #Verify if there are more objects under this version
     brains = cat.searchResults({'getVersionId' : new_version,

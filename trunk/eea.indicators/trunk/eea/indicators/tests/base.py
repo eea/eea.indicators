@@ -47,5 +47,6 @@ class BaseIndicatorsTestCase(PloneTestCase.FunctionalTestCase):
     """Base Test case
     """
 
-    def afterSetUp(self):
-        pass
+    #def afterSetUp(self):
+    #    pass
+

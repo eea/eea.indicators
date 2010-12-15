@@ -14,6 +14,9 @@ class LatestFigures(object):
     def __call__(self, **kwargs):
         """ Return all the related data sets from the assessments figures.
         """
+
+        kwargs  #TODO: get pylint to not complain about this
+
         #get my published assessments
         assessments = getMultiAdapter((self.context, self.request),
                                    name=u'assessment_versions')

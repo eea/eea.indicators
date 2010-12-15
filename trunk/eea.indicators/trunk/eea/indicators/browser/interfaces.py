@@ -1,7 +1,6 @@
-from zope.interface import Interface 
+"""The interfaces for the browser package"""
 
-""" The interfaces for the browser package
-"""
+from zope.interface import Interface 
 
 class IIndicatorsPermissionsOverview(Interface):
     """Overview of indicators database permissions"""
@@ -11,3 +10,4 @@ class IIndicatorsPermissionsOverview(Interface):
 
     #def get_specs_map():
     #    """Returns spec-centered details about roles"""
+

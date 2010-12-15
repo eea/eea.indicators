@@ -7,13 +7,15 @@
 
 from AccessControl import ClassSecurityInfo
 from Products.ATContentTypes.content.file import ATFile, ATFileSchema
-from Products.Archetypes.atapi import Schema, StringField, TextField, TextAreaWidget, registerType, FileWidget
+from Products.Archetypes.atapi import Schema, StringField
+from Products.Archetypes.atapi import TextField, TextAreaWidget
+from Products.Archetypes.atapi import registerType, FileWidget
 from Products.CMFCore.permissions import View
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 from eea.dataservice.fields import EventFileField
 from eea.indicators.config import PROJECTNAME
+from eea.indicators.content import interfaces
 from zope.interface import implements
-import interfaces
 
 schema = Schema((
 
@@ -45,7 +47,8 @@ schema = Schema((
         required=False,
         primary=True,
         widget = FileWidget(
-            description = "Select the file to be added by clicking the 'Browse' button.",
+            description = "Select the file to be added by "
+                          "clicking the 'Browse' button.",
             description_msgid = "help_file",
             label= "File",
             label_msgid = "label_file",
@@ -60,10 +63,11 @@ FactSheetDocument_schema = ATFileSchema.copy() + \
     schema.copy()
 
 FactSheetDocument_schema['description'].required = False
-FactSheetDocument_schema['relatedItems'].widget.visible = {'view':'invisible', 'edit':'invisible'}
+FactSheetDocument_schema['relatedItems'].widget.visible = \
+        {'view':'invisible', 'edit':'invisible'}
 
 class FactSheetDocument(ATFile, BrowserDefaultMixin):
-    """
+    """FactSheet Document
     """
     implements(interfaces.IFactSheetDocument)
     meta_type = 'FactSheetDocument'
