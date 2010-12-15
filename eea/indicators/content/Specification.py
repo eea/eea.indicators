@@ -724,7 +724,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
             try:
                 ap.reindexObject()
             except AttributeError:
-                log.log("#TODO: this happens when executed from test")
+                log("#TODO: this happens when executed from test")
 
         ast.reindexObject()
         return {'obj':ast, 'subview':'@@edit_aggregated', 'direct_edit':True}
