@@ -5,14 +5,14 @@ from Products.ATContentTypes.content.folder import ATFolder, ATFolderSchema
 from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
 from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
 from Products.Archetypes.atapi import Schema, TextField, TextAreaWidget
+from Products.Archetypes.atapi import SelectionWidget, ComputedField
 from Products.Archetypes.atapi import StringField, RichWidget, DateTimeField
+from Products.Archetypes.atapi import registerType
 from Products.CMFCore.utils import getToolByName
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 from Products.DataGridField import DataGridField, DataGridWidget
 from Products.DataGridField.Column import Column
 from Products.DataGridField.SelectColumn import SelectColumn
-from Products.archetypes.atapi import SelectionWidget, ComputedField
-from Products.archetypes.atapi import registerType
 from eea.indicators.config import PROJECTNAME
 from eea.indicators.content import interfaces
 from eea.indicators.content.IndicatorMixin import IndicatorMixin
