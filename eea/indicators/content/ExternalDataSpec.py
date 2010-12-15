@@ -3,22 +3,25 @@
 # $Id$
 #
 
+"""ExternalDataSpec content type
+"""
+
 from AccessControl import ClassSecurityInfo
 from Products.ATContentTypes.content.base import ATCTContent
 from Products.ATContentTypes.content.base import ATContentTypeSchema
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema
 from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
-from Products.Archetypes.atapi import StringField, Schema, TextField
 from Products.Archetypes.atapi import RichWidget, registerType, SelectionWidget
+from Products.Archetypes.atapi import StringField, Schema, TextField
 from Products.Archetypes.utils import shasattr
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 from Products.CMFPlone.utils import getToolByName
 from eea.dataservice.vocabulary import Organisations
-from eea.themecentre.interfaces import IThemeTagging
 from eea.indicators.config import PROJECTNAME
-from zope.interface import implements
+from eea.indicators.content import interfaces
+from eea.themecentre.interfaces import IThemeTagging
 from zope.component import adapts
-import interfaces
+from zope.interface import implements
 
 
 schema = Schema((
@@ -150,8 +153,8 @@ schema = Schema((
 ),
 )
 
-schema['provider_url'].validators=('isURL',)
-schema['dataset_url'].validators=('isURL',)
+schema['provider_url'].validators = ('isURL',)
+schema['dataset_url'].validators = ('isURL',)
 
 ExternalDataSpec_schema = ATContentTypeSchema.copy() + \
     getattr(ATCTContent, 'schema', Schema(())).copy() + \
