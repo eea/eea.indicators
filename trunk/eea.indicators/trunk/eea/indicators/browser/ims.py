@@ -31,6 +31,7 @@ def get_codes(codes):
 def _get_code(set):
     """Usable as key in a comparision function"""
     def _wrapped(info):
+        """cook function"""
         spec = info['spec']
         codes = get_codes(spec.get_codes)
         for code in codes:
@@ -48,6 +49,7 @@ class BaseIndicatorsReport(object):
     factsheets = None
 
     def get_child_assessments(self, spec):
+        """Returns child assessments"""
         #TODO: rewrite this code so that it uses a map that's initialized
         #      with the spec > children
 
@@ -66,8 +68,8 @@ class IndicatorsOverview(BrowserView, BaseIndicatorsReport):
 
     __call__ = template
 
-
     def _get_name(self, spec):
+        """get name"""
         user = spec.getObject().getManager_user_id()
         info = self.mtool.getMemberInfo(user)
         if info:
@@ -75,6 +77,7 @@ class IndicatorsOverview(BrowserView, BaseIndicatorsReport):
         return user
 
     def get_setcodes_map(self):
+        """get secodes map"""
 
         result = {}
 
@@ -129,6 +132,7 @@ class IndicatorsOverview(BrowserView, BaseIndicatorsReport):
         return result
 
     def codeset_for(self, codes, setname): #used by the view template
+        """return codeset"""
         codes = get_codes(codes)
 
         codesets = [code for code in codes if code['set'] == setname]
@@ -145,6 +149,7 @@ class IndicatorsTimeline(BrowserView, BaseIndicatorsReport):
     """
 
     def _get_instance_info(self, instance):
+        """get instance info"""
         d = instance.EffectiveDate
         if d and d != 'None' and not isinstance(d, tuple):
             d = DateTime.DateTime(d)
@@ -154,6 +159,7 @@ class IndicatorsTimeline(BrowserView, BaseIndicatorsReport):
         return d, instance.review_state
 
     def get_timeline(self):
+        """get timeline"""
         catalog = getToolByName(self.context, 'portal_catalog')
         self.specs = catalog.searchResults(portal_type='Specification')
         self.assessments = catalog.searchResults(portal_type='Assessment')
@@ -244,7 +250,9 @@ class IndicatorsTimeline(BrowserView, BaseIndicatorsReport):
 
 class ReportWrongVersionAssessments(BrowserView):
     """ ReportWrongVersionAssessments """
+
     def wrongs(self):
+        """returns wrong assessments"""
         catalog = getToolByName(self.context, 'portal_catalog')
         assessments = catalog.searchResults(portal_type='Assessment')
 
@@ -253,7 +261,9 @@ class ReportWrongVersionAssessments(BrowserView):
 
 class ReportWrongVersionSpecifications(BrowserView):
     """ ReportWrongVersionSpecifications """
+
     def wrongs(self):
+        """returns wrong specifications"""
         objs = self.context.objectValues(['Specification'])
 
         wrongs = filter(lambda o:o.has_duplicated_code(), objs)
@@ -262,7 +272,10 @@ class ReportWrongVersionSpecifications(BrowserView):
 
 class ReportWrongMainCodeSpecifications(BrowserView):
     """ ReportWrongMainCodeSpecifications """
+
     def wrongs(self):
+        """returns wrong specifications"""
         objs = self.context.objectValues(['Specification'])
         wrongs = filter(lambda o:bool(o.get_diff_vers_setcode()), objs)
         return wrongs
+

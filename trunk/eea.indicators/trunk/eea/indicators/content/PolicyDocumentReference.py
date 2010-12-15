@@ -4,16 +4,18 @@
 #
 
 from AccessControl import ClassSecurityInfo
-from Products.ATContentTypes.content.base import ATCTContent, ATContentTypeSchema
+from Products.ATContentTypes.content.base import ATCTContent
+from Products.ATContentTypes.content.base import ATContentTypeSchema
 from Products.ATContentTypes.content.link import ATLink
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema
-from Products.Archetypes.atapi import Schema, StringField, TextField, registerType, RichWidget
+from Products.Archetypes.atapi import Schema, StringField
+from Products.Archetypes.atapi import TextField, registerType, RichWidget
 from Products.CMFCore import permissions
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 from Products.CMFPlone.utils import getToolByName
 from eea.indicators.config import PROJECTNAME
+from eea.indicators.content import  interfaces
 from zope.interface import implements
-import interfaces
 
 schema = Schema((
 
@@ -38,7 +40,8 @@ schema = Schema((
         default_content_type="text/html",
         searchable=True,
         required=True,
-        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+        allowable_content_types=('text/plain', 'text/structured', 
+                                 'text/html', 'application/msword',),
         default_output_type="text/x-html-safe",
         accessor="getDescription",
     ),
@@ -65,10 +68,11 @@ PolicyDocumentReference_schema = ATContentTypeSchema.copy() + \
     schema.copy()
 
 finalizeATCTSchema(PolicyDocumentReference_schema)
-PolicyDocumentReference_schema['relatedItems'].widget.visible = {'view':'invisible', 'edit':'invisible'}
+PolicyDocumentReference_schema['relatedItems'].widget.visible = {'view':'invisible', 
+                                                                 'edit':'invisible'}
 
 class PolicyDocumentReference(ATCTContent, ATLink, BrowserDefaultMixin):
-    """
+    """PolicyDocumentReference content class
     """
     security = ClassSecurityInfo()
 
@@ -81,12 +85,13 @@ class PolicyDocumentReference(ATCTContent, ATLink, BrowserDefaultMixin):
 
     security.declarePublic("Description")
     def Description(self):
+        """Description"""
         convert = getToolByName(self, 'portal_transforms').convert
         return convert('html_to_text', self.getDescription()).getData()
 
     security.declareProtected(permissions.View, 'getUrl')
     def getUrl(self):
-        """ """
+        """ getUrl"""
         field = self.getField('remoteUrl')
         return field.getAccessor(self)()
 

@@ -1,20 +1,25 @@
+"""Indicator fact sheet"""
+
 from AccessControl import ClassSecurityInfo
 from Products.ATContentTypes.content.folder import ATFolder, ATFolderSchema
 from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
 from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
-from Products.Archetypes.atapi import Schema, TextField, TextAreaWidget, StringField, RichWidget, DateTimeField, SelectionWidget, ComputedField, registerType
+from Products.Archetypes.atapi import Schema, TextField, TextAreaWidget
+from Products.Archetypes.atapi import StringField, RichWidget, DateTimeField
 from Products.CMFCore.utils import getToolByName
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 from Products.DataGridField import DataGridField, DataGridWidget
 from Products.DataGridField.Column import Column
 from Products.DataGridField.SelectColumn import SelectColumn
 from eea.indicators.config import PROJECTNAME
+from eea.indicators.content import interfaces
 from eea.indicators.content.IndicatorMixin import IndicatorMixin
 from eea.indicators.content.utils import get_dgf_value
 from eea.relations.field import EEAReferenceField
 from eea.relations.widget import EEAReferenceBrowserWidget
+from products.archetypes.atapi import SelectionWidget, ComputedField
+from products.archetypes.atapi import registerType
 from zope.interface import implements
-import interfaces
 
 
 schema = Schema((
@@ -177,7 +182,7 @@ IndicatorFactSheet_schema.moveField('relatedItems', after='dpsir')
 
 
 class IndicatorFactSheet(ATFolder, BrowserDefaultMixin, IndicatorMixin):
-    """
+    """IndicatorFactSheet content class
     """
     security = ClassSecurityInfo()
 
@@ -191,7 +196,7 @@ class IndicatorFactSheet(ATFolder, BrowserDefaultMixin, IndicatorMixin):
 
     security.declarePublic("getGeographicCoverage")
     def getGeographicCoverage(self):
-        """ """
+        """ Geographic coverage """
         result = {}
         wftool = getToolByName(self, 'portal_workflow')
 
@@ -205,7 +210,7 @@ class IndicatorFactSheet(ATFolder, BrowserDefaultMixin, IndicatorMixin):
 
     security.declarePublic("getTemporalCoverage")
     def getTemporalCoverage(self):
-        """ """
+        """ temporal coverage"""
         result = {}
         wftool = getToolByName(self, 'portal_workflow')
 
@@ -218,6 +223,7 @@ class IndicatorFactSheet(ATFolder, BrowserDefaultMixin, IndicatorMixin):
         return list(result.keys())
 
     def get_indicator_codes(self):
+        "indicator codes"
         atvm = getToolByName(self, ATVOCABULARYTOOL)
         vocab = getattr(atvm, 'indicator_codes')
         return vocab.getDisplayList(self)
@@ -252,7 +258,7 @@ class IndicatorFactSheet(ATFolder, BrowserDefaultMixin, IndicatorMixin):
         res = ''
         for code in codes:
             if code:
-               	res = res + "%s %s/" % (code['set'], code['code'])
+                res = res + "%s %s/" % (code['set'], code['code'])
         if res:
            res = self.title + ' (' + res[:-1] + ')'
         else:
@@ -281,6 +287,7 @@ class IndicatorFactSheet(ATFolder, BrowserDefaultMixin, IndicatorMixin):
 
     security.declareProtected("Modify portal content", 'setCodes')
     def setCodes(self, value):
+        """Set the codes"""
         #we want to filter rows that don't have a number filled in
         field = self.schema['codes']
         instance = self
@@ -294,7 +301,7 @@ class IndicatorFactSheet(ATFolder, BrowserDefaultMixin, IndicatorMixin):
 
     security.declarePublic('SearchableText')
     def SearchableText(self):
-        """ """
+        """Searchable text """
         searchable_text = super(IndicatorFactSheet, self).SearchableText()
         for code in self.get_codes():
             searchable_text += '%s ' % code.encode('utf-8')
@@ -303,7 +310,7 @@ class IndicatorFactSheet(ATFolder, BrowserDefaultMixin, IndicatorMixin):
     security.declarePublic("comments")
     def comments(self):
         """Return the number of comments"""
-        
+
         try:
             return len(self.getReplyReplies(self))
         except AttributeError:

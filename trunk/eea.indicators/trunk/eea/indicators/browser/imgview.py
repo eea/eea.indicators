@@ -38,7 +38,7 @@ class ImageViewAssessment(BrowserView):
         self.img = queryMultiAdapter((eeafile, request), name=u'imgview')
 
     def display(self, scalename='thumb'):
-        """ """
+        """ display """
         if not self.img:
             return False
         return self.img.display(scalename)
@@ -70,7 +70,7 @@ class ImageViewIndicatorFactSheet(BrowserView):
         self.img = queryMultiAdapter((eeafile, request), name=u'imgview')
 
     def display(self, scalename='thumb'):
-        """ """
+        """ display """
         if not self.img:
             return False
         return self.img.display(scalename)

@@ -8,10 +8,12 @@ from Acquisition import aq_inner, aq_parent
 from Products.ATContentTypes.content.base import ATCTContent
 from Products.ATContentTypes.content.folder import ATFolder, ATFolderSchema
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema
-from Products.Archetypes.atapi import TextField, StringField, TextAreaWidget, Schema, RichWidget, registerType
+from Products.Archetypes.atapi import TextField, StringField, TextAreaWidget
+from Products.Archetypes.atapi import Schema, RichWidget, registerType
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 from eea.indicators.config import PROJECTNAME
-from eea.indicators.content.base import ModalFieldEditableAware, CustomizedObjectFactory
+from eea.indicators.content.base import ModalFieldEditableAware
+from eea.indicators.content.base import CustomizedObjectFactory
 from eea.indicators.content.interfaces import ISpecification
 from eea.indicators.content.utils import get_specific_parent
 from eea.relations.field import EEAReferenceField
@@ -34,7 +36,8 @@ schema = Schema((
         searchable=True,
         required=True,
         required_for_published=True,
-        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+        allowable_content_types=('text/plain', 'text/structured', 
+             'text/html', 'application/msword',),
         default_output_type="text/x-html-safe",
         ),
     StringField(
@@ -87,8 +90,9 @@ AssessmentPart_schema = ATFolderSchema.copy() + \
 AssessmentPart_schema.moveField('relatedItems', pos=0)
 finalizeATCTSchema(AssessmentPart_schema)
 
-class AssessmentPart(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory, ATCTContent, BrowserDefaultMixin):
-    """
+class AssessmentPart(ATFolder, ModalFieldEditableAware,  
+        CustomizedObjectFactory, ATCTContent, BrowserDefaultMixin):
+    """Assessment part
     """
     security = ClassSecurityInfo()
 
@@ -106,6 +110,7 @@ class AssessmentPart(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory
         return self.REQUEST.response.redirect(url)
 
     def get_related_question(self):
+        """Get related q"""
         question = None
         try:
             relations = self.getRelatedItems()
@@ -120,6 +125,7 @@ class AssessmentPart(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory
 
     security.declarePublic('Title')
     def Title(self):
+        """Title"""
         question = self.get_related_question()
 
         if question:
@@ -129,6 +135,7 @@ class AssessmentPart(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory
 
     security.declarePublic('is_key_message')
     def is_key_message(self):
+        """ is key message?"""
         question = self.get_related_question()
 
         if question:
@@ -138,17 +145,21 @@ class AssessmentPart(ATFolder, ModalFieldEditableAware,  CustomizedObjectFactory
 
     security.declarePublic('get_specification_path')
     def get_specification_path(self):
+        """get spec path"""
         #returns the path to the specification, used by the ReferenceWidget
-        spec = aq_parent(aq_inner(self)) #Specification -> Assessment -> AssessmentPart
+        #Specification -> Assessment -> AssessmentPart
+        spec = aq_parent(aq_inner(self)) 
         return spec.getPhysicalPath()
 
     def factory_EEAFigure(self):
+        """Factory for eea figures"""
         type_name = 'EEAFigure'
         info = self._generic_factory(type_name)
         figure = info['obj']
 
         try:
-            spec = get_specific_parent(self, lambda o:ISpecification.providedBy(o))
+            spec = get_specific_parent(self, 
+                                      lambda o:ISpecification.providedBy(o))
             themes = spec.getThemes()
         except ValueError:
             themes = []

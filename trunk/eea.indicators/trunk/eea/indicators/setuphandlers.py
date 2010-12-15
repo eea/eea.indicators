@@ -144,10 +144,8 @@ def setup_vocabularies(context):
 
 def setup_misc(context):
     """ Stub step to enable setting dependent steps. """
-    context #TODO: make pylint not complain
     return
 
 def updateRoleMappings(context):
     """ We don't need this actually, so we rewrite it. """
-    context #TODO: make pylint not complain
     return

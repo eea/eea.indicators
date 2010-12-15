@@ -10,12 +10,12 @@ from AccessControl import ClassSecurityInfo
 from Products.ATContentTypes.content.base import ATCTContent
 from Products.ATContentTypes.content.base import ATContentTypeSchema
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema
-from Products.Archetypes.atapi import Schema, StringField, TextField
 from Products.Archetypes.atapi import BooleanField, registerType, TextAreaWidget
+from Products.Archetypes.atapi import Schema, StringField, TextField
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 from eea.indicators.config import PROJECTNAME
+from eea.indicators.content import interfaces
 from zope.interface import implements
-import interfaces
 
 schema = Schema((
 
@@ -63,7 +63,7 @@ PolicyQuestion_schema['relatedItems'].widget.visible = {'view':'invisible',
                                                         'edit':'invisible'}
 
 class PolicyQuestion(ATCTContent, BrowserDefaultMixin):
-    """
+    """ Policy Question content type
     """
     security = ClassSecurityInfo()
 

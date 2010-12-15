@@ -12,12 +12,15 @@ class IndicatorsSortingWidget(SortingWidget):
 
 
 class IndicatorsSorter(object):
+    """A sorter for indicators"""
 
     implements(IWidgetFilterBrains)
     def __init__(self, context):
         self.widget = context
 
     def reorder_brains_codes(self):
+        """Reorder brains based on codes"""
+
         # There is no good way of sorting a list of Specs where not all of
         #   them belong to the same indicators set, so we need to differentiate
         #   this case.
@@ -48,6 +51,7 @@ class IndicatorsSorter(object):
         #dumb filtering with the first setcode
         if dominant == None:
             def get_first_setcode(b):
+                """ returns """
                 if b.get_codes:
                     return b.get_codes[1]
                 return None
@@ -57,14 +61,17 @@ class IndicatorsSorter(object):
         #filter the brains according to the dominant setcode
         if dominant:
             def get_dominant_setcode(b):
+                """Returns """
                 for i, v in enumerate(b.get_codes):
                     if v == dominant:
                         return b[i + 1]
-                raise AssertionError("%s does not have the proper value for a dominant based sorting" % b)
+                raise AssertionError("%s does not have the proper "
+                        "value for a dominant based sorting" % b)
             self.brains.sort(key=get_dominant_setcode)
             return
 
     def reorder_brains_effective(self):
+        """reorder"""
         self.brains.sort(key=lambda b:b.effective)
         return
 

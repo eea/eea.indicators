@@ -7,8 +7,10 @@
 """
 
 from AccessControl import ClassSecurityInfo
-from Products.ATContentTypes.content.base import ATCTContent, ATContentTypeSchema
-from Products.Archetypes.atapi import TextField, Schema, registerType, RichWidget
+from Products.ATContentTypes.content.base import ATCTContent
+from Products.ATContentTypes.content.base import ATContentTypeSchema
+from Products.Archetypes.atapi import TextField, Schema
+from Products.Archetypes.atapi import registerType, RichWidget
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 from eea.indicators.config import PROJECTNAME
 from zope.interface import implements
@@ -18,7 +20,8 @@ schema = Schema((
 
     TextField(
         name='message',
-        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+        allowable_content_types=('text/plain', 'text/structured', 
+                      'text/html', 'application/msword',),
         required_for_published=True,
         widget=RichWidget(
             label="Key message",
@@ -35,10 +38,11 @@ KeyMessage_schema = ATContentTypeSchema.copy() + \
     schema.copy()
 
 KeyMessage_schema['title'].required = False
-KeyMessage_schema['relatedItems'].widget.visible = {'view':'invisible', 'edit':'invisible'}
+KeyMessage_schema['relatedItems'].widget.visible = {'view':'invisible', 
+                                                    'edit':'invisible'}
 
 class KeyMessage(ATCTContent, BrowserDefaultMixin):
-    """
+    """KeyMessage content type
     """
     security = ClassSecurityInfo()
 
@@ -51,6 +55,7 @@ class KeyMessage(ATCTContent, BrowserDefaultMixin):
 
     security.declarePublic("Title")
     def Title(self):
+        """Returns title"""
         return self.getId()
 
 

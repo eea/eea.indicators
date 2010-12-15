@@ -15,6 +15,8 @@ from Products.validation.interfaces.IValidator import IValidator
 
 
 class UniquePolicyDocTitleValidator:
+    """Validator"""
+
     __implements__ = IValidator
 
     def __init__(self,
@@ -47,6 +49,7 @@ validation.register(
 
 
 class UniquePolicyDocUrlValidator:
+    """Validator"""
     __implements__ = IValidator
 
     def __init__(self,
@@ -86,8 +89,8 @@ class OneAssessmentPartPerQuestionValidator:
     def __call__(self, value, *args, **kwargs):
 
         instance = kwargs['instance']
-        catalog = getToolByName(instance, 'uid_catalog')
-        brains = catalog.searchResults(UID=value[0])
+        #catalog = getToolByName(instance, 'uid_catalog')
+        #brains = catalog.searchResults(UID=value[0])
 
         path = instance.getPhysicalPath()
 
