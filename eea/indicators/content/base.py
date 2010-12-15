@@ -10,6 +10,7 @@ from zope.app.event import objectevent
 
 
 class ModalFieldEditableAware(object):
+    """Classes that want to allow editing of their fields in modal dialogs"""
     security = ClassSecurityInfo()
 
     security.declareProtected(permissions.ModifyPortalContent,
@@ -50,8 +51,7 @@ class ModalFieldEditableAware(object):
 
         # Set things by calling the mutator
         mutator = field.getMutator(self)
-        __traceback_info__ = (self, field, mutator)
-        __traceback_info__  #tiberich: I'm not sure this var is not needed in a frame trick
+        __traceback_info__ = (self, field, mutator) #tiberich: is it needed?
         result[1]['field'] = field.__name__
         mapply(mutator, result[0], **result[1])
 
@@ -84,6 +84,7 @@ class ModalFieldEditableAware(object):
 
     security.declareProtected(permissions.View, 'simple_validate')
     def simple_validate(self, REQUEST, errors=None):
+        """Validate simple"""
 
         #customized because we don't want to validate a whole
         #schemata, because some fields are required
@@ -142,10 +143,12 @@ class CustomizedObjectFactory(object):
     security = ClassSecurityInfo()
 
     def _error(self, error):
+        """Returns error structure"""
         return u"<div class='metadata'><div class='error'>" + error + \
                "</div></div>"
 
     def _success(self, **kw):
+        """Returns success structure"""
         obj = kw['obj']
         subview = kw.get('subview', 'schemata_edit')
         url = obj.absolute_url() + '/' + subview
@@ -173,6 +176,7 @@ class CustomizedObjectFactory(object):
         return self._success(**info)
 
     def _generic_factory(self, type_name):
+        """Generic factory"""
         id = self.generateUniqueId(type_name)
         new_id = self.invokeFactory(type_name=type_name,
                 id=id,

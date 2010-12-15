@@ -28,6 +28,7 @@ class Sorter(BrowserView):
 
 
 class IIndicatorUtils(Interface):
+    """This view can provide various utilities"""
     #str_to_id = Attribute(u"String to Id conversion")
 
     def str_to_id():
@@ -47,6 +48,7 @@ class IndicatorUtils(BrowserView):
     implements(IIndicatorUtils)
 
     def str_to_id(self, s, context):
+        """make an id from a string"""
         s = normalizeString(s, context=context)
         return s.replace(".", "_")
 
@@ -82,11 +84,12 @@ class RelatedItems(BrowserView):
 
         if state:
             wf_tool = getToolByName(self, 'portal_workflow')
-            return [rel for rel in res
-                         if wf_tool.getInfoFor(rel, 'review_state') in state]
+            return [rell for rell in res
+                         if wf_tool.getInfoFor(rell, 'review_state') in state]
         return res
 
     def get_uids(self, ctype=None):
+        """ returns uids """
         if ctype == None:
             return self.context.getRawRelatedItems()
 
@@ -140,6 +143,7 @@ class CategoryLabel(BrowserView):
 
 
 def has_one_of(has, in_list):
+    """Returns if there at least one object of type 'has' in the list 'list'"""
     for obj in in_list:
         if obj.meta_type in has:
             return True

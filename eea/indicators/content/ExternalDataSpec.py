@@ -4,10 +4,12 @@
 #
 
 from AccessControl import ClassSecurityInfo
-from Products.ATContentTypes.content.base import ATCTContent, ATContentTypeSchema
+from Products.ATContentTypes.content.base import ATCTContent
+from Products.ATContentTypes.content.base import ATContentTypeSchema
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema
 from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
-from Products.Archetypes.atapi import StringField, Schema, TextField, RichWidget, registerType, SelectionWidget
+from Products.Archetypes.atapi import StringField, Schema, TextField
+from Products.Archetypes.atapi import RichWidget, registerType, SelectionWidget
 from Products.Archetypes.utils import shasattr
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 from Products.CMFPlone.utils import getToolByName
@@ -73,10 +75,12 @@ schema = Schema((
     ),
     TextField(
         name='dataset_path',
-        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+        allowable_content_types=('text/plain', 'text/structured', 
+            'text/html', 'application/msword',),
         widget=RichWidget(
             label="Dataset path",
-            description="Further information and details needed to get the dataset.",
+            description="Further information and details needed to "
+                        "get the dataset.",
             label_msgid='indicators_label_dataset_path',
             i18n_domain='indicators',
         ),
@@ -86,7 +90,8 @@ schema = Schema((
     ),
     TextField(
         name='timeliness',
-        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+        allowable_content_types=('text/plain', 'text/structured', 
+            'text/html', 'application/msword',),
         widget=RichWidget(
             label="Timeliness",
             label_msgid='indicators_label_timeliness',
@@ -100,7 +105,8 @@ schema = Schema((
     ),
     TextField(
         name='other_comments',
-        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+        allowable_content_types=('text/plain', 'text/structured', 
+            'text/html', 'application/msword',),
         widget=RichWidget(
             label="Other Comments",
             label_msgid='indicators_label_other_comments',
@@ -135,7 +141,8 @@ schema = Schema((
         searchable=True,
         required=True,
         required_for_published="True",
-        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+        allowable_content_types=('text/plain', 'text/structured', 
+            'text/html', 'application/msword',),
         default_output_type="text/x-html-safe",
         accessor="getDescription",
     ),
@@ -154,7 +161,7 @@ ExternalDataSpec_schema.moveField('relatedItems', after='category_of_use')
 finalizeATCTSchema(ExternalDataSpec_schema)
 
 class ExternalDataSpec(ATCTContent, BrowserDefaultMixin):
-    """
+    """External data spec
     """
     security = ClassSecurityInfo()
 
@@ -167,6 +174,7 @@ class ExternalDataSpec(ATCTContent, BrowserDefaultMixin):
 
     security.declarePublic("Description")
     def Description(self):
+        """description"""
         convert = getToolByName(self, 'portal_transforms').convert
         return convert('html_to_text', self.getDescription()).getData()
 
@@ -202,6 +210,8 @@ registerType(ExternalDataSpec, PROJECTNAME)
 
 
 class ExternalDataSpecThemes(object):
+    """ExternalDataSpec themes"""
+
     implements(IThemeTagging)
     adapts(interfaces.IExternalDataSpec)
 
@@ -210,4 +220,5 @@ class ExternalDataSpecThemes(object):
 
     @property
     def tags(self):
+        """return tags"""
         return self.context.getThemes()

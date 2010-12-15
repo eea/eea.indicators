@@ -482,6 +482,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
             ViewPageTemplateFile('../browser/templates/portlet_readiness.pt')
 
     def get_work(self):
+        """get work info"""
         in_future = datetime.datetime.now() + ONE_YEAR
         items = self.objectValues('WorkItem')
         short_term = []
@@ -512,6 +513,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
 
     security.declarePublic("Description")
     def Description(self):
+        """Returns description"""
         convert = getToolByName(self, 'portal_transforms').convert
         return convert('html_to_text', self.getDefinition()).getData()
 
@@ -532,6 +534,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
 
     security.declarePublic('left_slots')
     def left_slots(self):
+        """left slots"""
         _slot = 'here/portlet_readiness/macros/portlet'
         #_assigned = self.getProperty('left_slots') or []
 
@@ -545,6 +548,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
         return base_slots
 
     def get_indicator_codes(self):
+        """get indicator codes"""
         atvm = getToolByName(self, ATVOCABULARYTOOL)
         vocab = getattr(atvm, 'indicator_codes')
         return vocab.getDisplayList(self)
@@ -571,6 +575,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
 
     security.declareProtected("Modify portal content", 'setCodes')
     def setCodes(self, value):
+        """set value for codes"""
         #we want to filter rows that don't have a number filled in
         field = self.schema['codes']
         instance = self
@@ -620,22 +625,27 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
         return res
 
     def factory_RationaleReference(self):
+        """factory for RationaleReference"""
         type_name = 'RationaleReference'
         return self._generic_factory(type_name)
 
     def factory_PolicyQuestion(self):
+        """Factory for PolicyQuestion"""
         type_name = 'PolicyQuestion'
         return self._generic_factory(type_name)
 
     def factory_WorkItem(self):
+        """Factory for WorkItem"""
         type_name = 'WorkItem'
         return self._generic_factory(type_name)
 
     def factory_MethodologyReference(self):
+        """Factory for MethodologyReference"""
         type_name = 'MethodologyReference'
         return self._generic_factory(type_name)
 
     def factory_Assessment(self):
+        """factory"""
         type_name = 'Assessment'
 
         create = self.REQUEST.form.get('create_in_latest_spec')
@@ -720,6 +730,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
         return {'obj':ast, 'subview':'@@edit_aggregated', 'direct_edit':True}
 
     def has_newer_version(self):
+        """has newer version"""
         versions = get_versions_api(self)
         newest = versions.newest()
 
@@ -730,6 +741,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
     security.declareProtected(AddPortalContent, 'invokeFactory')
     def invokeFactory(self, type_name, id, RESPONSE=None,
                       base_impl=False, *args, **kw):
+        """invoke the factory"""
         if base_impl:
             return super(Specification, self).invokeFactory(type_name, id,
                                                             RESPONSE, *args,
@@ -781,6 +793,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
 
     security.declarePublic('format_codes')
     def format_codes(self, codes):
+        """format codes"""
         return ", ".join(["%s%s" % (s['set'], s['code']) for s in codes])
 
 
@@ -820,6 +833,7 @@ class Specification2Surf(ATCT2Surf):
     adapts(ISpecification, ISurfSession)
 
     def _schema2surf(self):
+        """overriden"""
         context = self.context
         resource = self.surfResource
         language = context.Language()

@@ -25,11 +25,13 @@ logger = logging.getLogger('eea.indicators')
 
 
 class IndexPage(BrowserView):
-    """ """
+    """ Index page """
 
 
 class AggregatedEditPage(BrowserView):
-    template = ViewPageTemplateFile('templates/specification/aggregated_edit.pt')
+    """Agg edit page"""
+    template = \
+        ViewPageTemplateFile('templates/specification/aggregated_edit.pt')
 
     __call__ = template
 
@@ -100,12 +102,14 @@ class CreateVersion(BaseCreateVersion):
             obj.setCreationDate(DateTime())
 
         new_spec.reindexObject()
-        self.context.reindexObject() #some indexed values of the context may depend on versions
+        self.context.reindexObject() #some indexed values of the context may 
+                                     #depend on versions
 
         return self.request.RESPONSE.redirect(new_spec.absolute_url())
 
 
 class WorkflowStateReadiness(ObjectReadiness):
+    """Overrides default readiness adapter"""
 
     #TODO: translate messages here
     checks = {'published':(
@@ -244,13 +248,17 @@ class WrongVersionReport(BrowserView):
     """Reports what's wrong with the current version id of a specification"""
 
     def current_version(self):
+        """current version"""
         return get_version_id(self.context)
 
     def get_duplicated_codes(self):
+        """gets duplicated codes"""
         return self.context.get_duplicated_codes()
 
 
 class SetCodes(BrowserView):
+    """Set codes view"""
+
     def __call__(self):
         #this is a list of form ['APE', '009', 'CSI', '001', 'CLIM', '003']
         codes = self.request.form.get("codes")  

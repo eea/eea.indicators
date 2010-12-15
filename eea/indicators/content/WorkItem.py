@@ -3,15 +3,18 @@
 # $Id$
 
 from AccessControl import ClassSecurityInfo
-from Products.ATContentTypes.content.base import ATCTContent, ATContentTypeSchema
+from Products.ATContentTypes.content.base import ATCTContent
+from Products.ATContentTypes.content.base import ATContentTypeSchema
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema
-from Products.Archetypes.atapi import Schema, TextField, StringField, RichWidget, registerType, DateTimeField, SelectionWidget
+from Products.Archetypes.atapi import RichWidget, registerType, DateTimeField
+from Products.Archetypes.atapi import Schema, TextField, StringField
+from Products.Archetypes.atapi import SelectionWidget
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 from Products.CMFPlone.utils import getToolByName
 from eea.indicators import msg_factory as _
 from eea.indicators.config import PROJECTNAME
+from eea.indicators.content import interfaces
 from zope.interface import implements
-import interfaces
 
 
 schema = Schema((
@@ -28,7 +31,8 @@ schema = Schema((
     ),
     TextField(
         name='description',
-        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+        allowable_content_types=('text/plain', 'text/structured', 
+             'text/html', 'application/msword',),
         widget=RichWidget(
             label='Description',
             label_msgid='indicators_label_description',
@@ -40,7 +44,8 @@ schema = Schema((
     ),
     TextField(
         name='needs',
-        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+        allowable_content_types=('text/plain', 'text/structured', 
+            'text/html', 'application/msword',),
         widget=RichWidget(
             label='Needs',
             label_msgid='indicators_label_needs',
@@ -77,10 +82,11 @@ WorkItem_schema = ATContentTypeSchema.copy() + \
     schema.copy()
 
 finalizeATCTSchema(WorkItem_schema)
-WorkItem_schema['relatedItems'].widget.visible = {'view':'invisible', 'edit':'invisible'}
+WorkItem_schema['relatedItems'].widget.visible = {'view':'invisible', 
+                                                  'edit':'invisible'}
 
 class WorkItem(ATCTContent, BrowserDefaultMixin):
-    """
+    """WorkItem content class
     """
     security = ClassSecurityInfo()
 
@@ -93,6 +99,7 @@ class WorkItem(ATCTContent, BrowserDefaultMixin):
 
     security.declarePublic('Title')
     def Title(self):
+        """title"""
         if not(self.getDue_date()):
             return _(
                     "title-work-get-title-none",
@@ -111,6 +118,7 @@ class WorkItem(ATCTContent, BrowserDefaultMixin):
 
     security.declarePublic("Description")
     def Description(self):
+        """Description"""
         convert = getToolByName(self, 'portal_transforms').convert
         return convert('html_to_text', self.getDescription()).getData()
 

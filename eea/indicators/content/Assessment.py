@@ -149,6 +149,7 @@ class Assessment(ATFolder, ModalFieldEditableAware,
 
     security.declarePublic('get_assessments')
     def get_assessments(self):
+        """Returns assessment parts"""
         parts = self.objectValues('AssessmentPart')
         key = None
         secondary = []
@@ -237,6 +238,7 @@ class Assessment(ATFolder, ModalFieldEditableAware,
 
     security.declarePublic('getThemes')
     def getThemes(self):
+        """Returns parent themes"""
         parent = aq_parent(aq_inner(self))
         return parent.getThemes()
 
@@ -253,6 +255,7 @@ class Assessment(ATFolder, ModalFieldEditableAware,
 
     security.declarePublic("Description")
     def Description(self):
+        """Returns description"""
         convert = getToolByName(self, 'portal_transforms').convert
         return convert('html_to_text', self.getKey_message()).getData()
 

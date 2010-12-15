@@ -3,16 +3,20 @@
 # $Id$
 #
 
+"""RationaleReference content type
+"""
+
 from AccessControl import ClassSecurityInfo
 from Products.ATContentTypes.content.link import ATLink, ATLinkSchema
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema
-from Products.Archetypes.atapi import Schema, StringField, registerType, TextField, RichWidget, SelectionWidget
+from Products.Archetypes.atapi import Schema, StringField, registerType
+from Products.Archetypes.atapi import TextField, RichWidget, SelectionWidget
 from Products.CMFCore import permissions
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 from Products.CMFPlone.utils import getToolByName
 from eea.indicators.config import PROJECTNAME
+from eea.indicators.content import interfaces
 from zope.interface import implements
-import interfaces
 
 
 schema = Schema((
@@ -37,7 +41,8 @@ schema = Schema((
             i18n_domain='indicators',
         ),
         required=True,
-        vocabulary=[("",""), ("RationaleRefType_01", "Scientific reference"), ("RationaleRefType_02", "Reference to other indicator initiative") ],
+        vocabulary=[("",""), ("RationaleRefType_01", "Scientific reference"), 
+            ("RationaleRefType_02", "Reference to other indicator initiative") ],
         required_for_published=True,
     ),
     TextField(
@@ -50,7 +55,8 @@ schema = Schema((
         default_content_type="text/html",
         searchable=True,
         required_for_published=True,
-        allowable_content_types=('text/plain', 'text/structured', 'text/html', 'application/msword',),
+        allowable_content_types=('text/plain', 'text/structured', 'text/html', 
+                                 'application/msword',),
         default_output_type="text/x-html-safe",
         accessor="getDescription",
     ),
@@ -62,7 +68,8 @@ RationaleReference_schema = ATLinkSchema.copy() + \
     getattr(ATLink, 'schema', Schema(())).copy() + \
     schema.copy()
 
-RationaleReference_schema['relatedItems'].widget.visible = {'view':'invisible', 'edit':'invisible'}
+RationaleReference_schema['relatedItems'].widget.visible = {'view':'invisible', 
+                                                            'edit':'invisible'}
 finalizeATCTSchema(RationaleReference_schema)
 
 class RationaleReference(ATLink, BrowserDefaultMixin):
@@ -80,6 +87,7 @@ class RationaleReference(ATLink, BrowserDefaultMixin):
 
     security.declarePublic("Description")
     def Description(self):
+        """Returns description"""
         convert = getToolByName(self, 'portal_transforms').convert
         return convert('html_to_text', self.getDescription()).getData()
 

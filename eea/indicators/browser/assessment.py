@@ -4,14 +4,16 @@ from Products.CMFCore.utils import getToolByName
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from eea.indicators.browser.utils import has_one_of
-from eea.indicators.content.Assessment import hasWrongVersionId, getPossibleVersionsId
+from eea.indicators.content.Assessment import getPossibleVersionsId
+from eea.indicators.content.Assessment import hasWrongVersionId
 from eea.versions.versions import CreateVersion as BaseCreateVersion
-from eea.versions.versions import create_version as base_create_version, get_version_id
+from eea.versions.versions import create_version as base_create_version
+from eea.versions.versions import get_version_id
 from eea.versions.versions import get_versions_api
 from eea.workflow.interfaces import IObjectReadiness
 from eea.workflow.readiness import ObjectReadiness
-
 import logging
+
 
 logger = logging.getLogger('eea.indicators')
 
@@ -21,6 +23,7 @@ class IndexPage(BrowserView):
 
 
 class AggregatedEditPage(BrowserView):
+    """Aggregated edit"""
     template = ViewPageTemplateFile('templates/assessment/aggregated_edit.pt')
 
     __call__ = template
@@ -106,9 +109,11 @@ def create_version(original, request=None):
         ap.reindexObject()
 
     # Set new state
-    #IVersionControl(ver).setVersionId(version_id)   #setting the version ID to the assessments group version id
+    #IVersionControl(ver).setVersionId(version_id)   
+    #setting the version ID to the assessments group version id
     ver.reindexObject()
-    original.reindexObject()    # _reindex(original)  #some indexed values of the context may depend on versions
+    original.reindexObject()    # _reindex(original)  
+    #some indexed values of the context may depend on versions
 
     return ver
 
@@ -122,24 +127,28 @@ class WorkflowStateReadiness(ObjectReadiness):
         (lambda o:hasWrongVersionId(o),
         'This Assessment belongs to the wrong version group'),
 
-        (lambda o:filter(lambda p: not IObjectReadiness(p).is_ready_for('published'),
+        (lambda o:filter(
+            lambda p: not IObjectReadiness(p).is_ready_for('published'),
                                     o.objectValues("AssessmentPart")),
         'You need to fill in the assessments for all the policy questions'),
 
-        (lambda o:not IObjectReadiness(aq_parent(aq_inner(o))).is_ready_for('published'),
-         "You need to finish the <a href='../'>Indicator Specification</a> first!"),
+        (lambda o:not IObjectReadiness(
+                           aq_parent(aq_inner(o))).is_ready_for('published'),
+         "You need to finish the <a href='../'>"
+         "Indicator Specification</a> first!"),
 
-        (lambda o: 'published' != getToolByName(o,
-                            'portal_workflow').getInfoFor(aq_parent(aq_inner(o)), 'review_state'),
+        (lambda o: 'published' != getToolByName(o, 'portal_workflow').
+                            getInfoFor(aq_parent(aq_inner(o)), 'review_state'),
         "The Indicator Specification needs to be published"
         ),
-        (lambda o:not filter(lambda part: has_one_of(["EEAFigure"], part.getRelatedItems()),
-                             o.objectValues("AssessmentPart")),
+        (lambda o:not filter(lambda part: has_one_of(["EEAFigure"], 
+                    part.getRelatedItems()), o.objectValues("AssessmentPart")),
         "The answered policy questions need to point to at least one Figure"),
     )}
 
     @property
     def depends_on(self):
+        """see interface"""
         return self.context.objectValues("AssessmentPart")
 
 
@@ -147,9 +156,11 @@ class WrongVersionReport(BrowserView):
     """Reports what's wrong with the current version id of an assessment"""
 
     def current_version(self):
+        """current version"""
         return get_version_id(self.context)
 
     def possible_versions(self):
+        """possible versions"""
         versions = getPossibleVersionsId(self.context)
         catalog = getToolByName(self.context, 'portal_catalog')
 
@@ -162,4 +173,5 @@ class WrongVersionReport(BrowserView):
         return res
 
     def get_version_for(self, obj):
+        """get version for"""
         return get_version_id(obj)
