@@ -3,7 +3,7 @@
 # $Id$
 #
 
-"""ExternalDataSpec content type
+""" ExternalDataSpec content type
 """
 
 from AccessControl import ClassSecurityInfo

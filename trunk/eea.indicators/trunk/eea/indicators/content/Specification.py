@@ -526,9 +526,10 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
         for code in codes:
             if code:
                 res = res + "%s %s/" % (code['set'], code['code'])
-        res = self.title
         if res:
             res = self.title + ' (' + res[:-1] + ')'
+        else:
+            res = self.title
 
         return res
 
