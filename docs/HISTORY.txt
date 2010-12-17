@@ -3,6 +3,7 @@ Changelog
 
 1.29-dev - (unreleased)
 -----------------------
+ * Bug fix: Fixed title calculation for Specification [tiberich #4006]
 
 1.28 - (2010-12-16)
 -------------------
