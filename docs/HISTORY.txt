@@ -1,6 +1,9 @@
 Changelog
 =========
 
+1.30-dev - (unreleased)
+-----------------------
+
 1.29 - (2010-12-17)
 -------------------
  * Bug fix: Fixed title calculation for Specification [tiberich #4006]
