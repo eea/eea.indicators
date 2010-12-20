@@ -67,18 +67,8 @@ schema = Schema((
         ),
     ManagementPlanField(
         name='management_plan',
-        widget=ManagementPlanField._properties['widget'](
-            label='Management_plan',
-            description=("Internal EEA project line code, used to assign an "
-                         "EEA product output to a specific EEA project "
-                         "number in the management plan."),
-            label_msgid='indicators_label_management_plan',
-            i18n_domain='indicators',
-            ),
-        ),
-    ManagementPlanField(
-        name='management_plan',
         languageIndependent=True,
+        required_for_published=True,
         required=False,
         default=(datetime.now().year, ''),
         #validators = ('management_plan_code_validator',),

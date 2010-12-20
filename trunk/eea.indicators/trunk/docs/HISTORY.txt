@@ -3,6 +3,7 @@ Changelog
 
 1.30-dev - (unreleased)
 -----------------------
+ * Change: Made eea management plan required for publishing, removed redundant old code [demarant]
 
 1.29 - (2010-12-17)
 -------------------
