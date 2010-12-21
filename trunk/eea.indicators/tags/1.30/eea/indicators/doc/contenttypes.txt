@@ -1,0 +1,484 @@
+The Indicators Database
+=======================
+# vim: ft=doctest:
+# vim: sw=4 ts=4 et:
+
+We have several main content types. The most important are the Specification and their Assessments.
+
+    >>> import urllib
+    >>> from Products.Five.testbrowser import Browser
+    >>> from Products.PloneTestCase import PloneTestCase
+
+    >>> self.loginAsPortalOwner()
+    >>> from Products.CMFCore.utils import getToolByName
+    >>> setuptool = getToolByName(portal, 'portal_setup')
+    >>> setuptool.setImportContext('profile-eea.dataservice:default')
+    >>> log = setuptool.runAllImportSteps()
+    >>> setuptool.setImportContext('profile-eea.indicators:default')
+    >>> log = setuptool.runAllImportSteps()
+    >>> browser = Browser()
+    >>> browser.handleErrors = False
+    >>> self.portal.error_log._ignored_exceptions = ()
+    >>> browser.addHeader('Authorization',
+    ...                   'Basic %s:%s' % (PloneTestCase.portal_owner,
+    ...                                    PloneTestCase.default_password))
+    >>> def types_in_container(container):
+    ...     types = [t.__class__.__name__ for t in container.objectValues()]
+    ...     return sorted(types)
+    >>>
+
+
+Containments
+------------
+The Specifications are implicitly addable. It is the duty of the portal manager to
+create a special folder to store them.
+
+    >>> id = portal.invokeFactory('Folder', 'ims')
+    >>> ims = portal[id]
+
+Inside this folder we will add Specifications:
+
+    >>> id = ims.invokeFactory("Specification", 'spec1')
+    >>> spec = ims[id]
+
+Specifications are containers for several types of objects:
+
+    >>> id = spec.invokeFactory("PolicyQuestion", 'pq', base_impl=True)
+    >>> id = spec.invokeFactory("MethodologyReference", "mr", base_impl=True)
+    >>> id = spec.invokeFactory("RationaleReference", "rr", base_impl=True)
+    >>> id = spec.invokeFactory("WorkItem", "wi", base_impl=True)
+    >>> id = spec.invokeFactory("Assessment", 'as', base_impl=True)
+
+An Assessment can contain AssessmentParts:
+
+    >>> as = spec['as']
+    >>> ap = as[as.invokeFactory("AssessmentPart", 'ap')]
+
+Inside the ims folder, where the Specification was created, we will also create several
+other objects that can be referenced from the Specification.
+
+    >>> id = ims.invokeFactory("ExternalDataSpec", 'eds')
+    >>> id = ims.invokeFactory("PolicyDocumentReference", 'pdr')
+
+EEAFigures sit in a separate folder, not under the IMS control:
+
+    >>> ef = portal[portal.invokeFactory("EEAFigure", 'ef')]
+
+
+Relationships
+-------------
+The IMS uses the relatedItems field to store all relationships. We use the eea.relations
+widget and infrastructure to be able to specify which object a relation can contain.
+
+    >>> reltool = portal['portal_relations']
+
+Specifications can point to  PolicyDocumentReferences, ExternalDataSpecs and Data
+(from eea.dataservice).
+
+    >>> id = ims.invokeFactory("Data", 'dt')
+    >>> spec.setRelatedItems([ims['dt'], ims['eds'], ims['pdr']])
+
+AssessmentParts point to the answered PolicyQuestion and to various EEAFigures:
+
+    >>> ap.setRelatedItems([spec['pq'], ef])
+
+Installing the eea.indicators package will execute a setup step that installs new
+objects in the portal_relations tools:
+
+    >>> relations = getToolByName(portal, 'portal_relations')
+    >>> ids = set(relations.objectIds())
+    >>> our_ids = set(['specification', 'eea-data',
+    ...                'policy-document-reference',
+    ...                'specification-eea-data',
+    ...                'specification-policy-document-reference'])
+
+TODO: add new content from updated possible_relations.xml
+
+#    >>> ids.intersection(our_ids) == our_ids
+#    True
+
+
+Versioning and utility views
+----------------------------
+
+Editing the IMS should be done through a modified Edit form, which aggregates
+all content into a single view, to make editing the tree of objects easier.
+
+    >>> spec = ims[ims.invokeFactory("Specification", 'spec2')]
+    >>> spec_url = spec.absolute_url()
+
+Object factories
+~~~~~~~~~~~~~~~~
+One important feature are the object factories: this is a concept were we
+customize the process of creating an object.
+
+Note: these object factories are not the same as the ones from Plone.
+
+The following objects are created in the Edit view of Specification through object factories:
+
+    >>> browser.open("%s/object_factory?type_name=RationaleReference" % spec_url)
+    >>> browser.open("%s/object_factory?type_name=WorkItem" % spec_url)
+    >>> browser.open("%s/object_factory?type_name=MethodologyReference" % spec_url)
+    >>> browser.open("%s/object_factory?type_name=PolicyQuestion" % spec_url)
+    >>> browser.open("%s/object_factory?type_name=Assessment" % spec_url)
+    >>> print types_in_container(spec)
+    ['Assessment', 'MethodologyReference', 'PolicyQuestion', 'RationaleReference', 'WorkItem']
+
+An newly created Assessment should already have an AssessmentPart created, linked to the already
+created PolicyQuestion.
+
+    >>> assessment = spec.objectValues('Assessment')[0]
+    >>> assessment.objectValues()
+    [<AssessmentPart at ...>]
+    >>> ap = assessment.objectValues('AssessmentPart')[0]
+    >>> pq = spec.objectValues('PolicyQuestion')[0]
+    >>> ap.getRelatedItems()[0] == pq
+    True
+
+Versioning
+~~~~~~~~~~
+We need a specification with assessments that link to EEAFigures, so let's
+make sure we have some.
+
+    >>> figures = portal[portal.invokeFactory("Folder", 'figures')]
+    >>> figure_1 = figures[figures.invokeFactory("EEAFigure", 'f1')]
+    >>> print figure_1
+    <EEAFigure at ...>
+    >>> related = ap.getRelatedItems()
+    >>> ap.setRelatedItems(related + [figure_1])
+
+Specifications have versions; a version of a specification is a new revision
+of the Spec; it is a completely restructured specification, with new format
+for Assessments. This is implemented with eea.versions
+
+Assessments have versions, for example, each year the specifications might
+get new assessments.
+
+When creating a new version of a Specification, the new specification is
+a copy of the old, with the following exceptions:
+
+ * none of the assessments are copied
+ * the work items are not copied
+ * the rest of the contained content items are copied
+
+    >>> version_url = spec.unrestrictedTraverse('@@createVersion')()
+    >>> print version_url
+    http://nohost/plone/ims/spec2-1
+    >>> versioned_spec = ims[version_url.split('/')[-1]]
+    >>> print types_in_container(versioned_spec)
+    ['MethodologyReference', 'PolicyQuestion', 'RationaleReference']
+
+When creating a new version of an Assessment, the new assessment is a copy of the old,
+with the following exceptions:
+
+ * The new AssessmentParts will point to the latest version of the EEAFigures that
+   were referenced by the old AssessmentParts
+
+    >>> from eea.indicators.browser.assessment import create_version as assessment_create_version
+    >>> from eea.versions.versions import create_version as base_create_version
+    >>> versioned_figure = base_create_version(figure_1)
+    >>> versioned_assessment = assessment_create_version(assessment)
+    >>> print versioned_assessment
+    <Assessment at ...>
+    >>> assessment_part = versioned_assessment.objectValues('AssessmentPart')[0]
+    >>> print assessment_part.getRelatedItems()
+    [<PolicyQuestion at ...>, <EEAFigure at ...>]
+    >>> figure_2 = filter(lambda x:x.meta_type=='EEAFigure', assessment_part.getRelatedItems())[0]
+    >>> figure_2.absolute_url() == versioned_figure.absolute_url()
+    True
+
+Versioning again the new assessment will result in the EEAFigure being preserved,
+as there is no more another newer version:
+
+    >>> versioned_assessment_2 = assessment_create_version(versioned_assessment)
+    >>> assessment_part = versioned_assessment_2.objectValues('AssessmentPart')[0]
+    >>> figure_2 = filter(lambda x:x.meta_type=='EEAFigure', assessment_part.getRelatedItems())[0]
+    >>> figure_2.absolute_url() == versioned_figure.absolute_url()
+    True
+
+Adding a new Assessment will already create it as a version of the previous one.
+
+When creating a new Assessment in a Specification that is versioned, that assessments
+needs to have the same versionid (group id) as the previous assessments.
+
+    >>> browser.open("%s/object_factory?type_name=Assessment" % version_url)
+    >>> ast = versioned_spec.objectValues("Assessment")[0]
+    >>> versions = ast.unrestrictedTraverse('@@getVersions')().values()
+    >>> assert len(versions) > 1
+
+TODO: at this moment we need to use the special object factory to achieve this.
+In the future it would be good to be able to use the regular invokeFactory call.
+
+When creating a new Assessment for a Specification, the Assessment should already contain
+AssessmentParts created for all the PolicyQuestions - this is already demonstrated above.
+
+
+Catalog Indexes
+---------------
+We index the codes of a Specification using the get_codes index. First, let's
+test if it's installed:
+
+    >>> catalog = getToolByName(portal, 'portal_catalog')
+    >>> 'get_codes' in catalog.indexes()
+    True
+
+There is some cleanup done for codes input in Specification.setCodes():
+
+    >>> spec.setCodes([{}])
+    >>> spec.getCodes()
+    ()
+    >>> spec.setCodes([{'set':'CSI', 'code':'001'}])
+    >>> spec.getCodes()
+    ({'code': '001', 'set': 'CSI'},)
+    >>> spec.setCodes([{'set':'CSI', 'code':''}])
+    >>> spec.getCodes()
+    ()
+    >>> spec.setCodes([{'set':'CSI', 'code':'001'}, {'set':'TERM', 'code':'002'}])
+    >>> spec.getCodes()
+    ({'code': '001', 'set': 'CSI'}, {'code': '002', 'set': 'TERM'})
+
+Specification.get_codes() will return a structure that can be used to find Specs in
+catalog searches based on either the full code or the Set code:
+
+    >>> spec.get_codes()
+    ['CSI', 'CSI001', 'TERM', 'TERM002']
+
+
+Readiness for publication
+-------------------------
+We have a system that uses eea.workflow to decide if a Specification is ready to be published.
+
+    >>> spec = ims[ims.invokeFactory("Specification", 'spec3')]
+
+First, we have a portlet that shows the readiness state for a Specification. This portlet
+overrides and includes the same portlet from eea.workflow and the main difference is that
+it is an AJAX reloadable version of the original. For the AJAX call we use portlet_readiness_live
+(we couldn't use portlet_readiness because of the way it is defined at the level of
+the Specification class)
+
+    >>> res = spec.unrestrictedTraverse("portlet_readiness_live")()   #+NORMALIZE_WHITESPACE
+    >>> "object_readiness" in res
+    True
+
+This portlet uses a special view that is registered on objects that
+implement eea.workflow.interfaces.IHasMandatoryWorkflowFields:
+
+    >>> view = spec.unrestrictedTraverse('@@get_readiness')
+    >>> info = view.get_info_for('published')
+
+    >>> state_name = 'published'
+    >>> from eea.workflow.readiness import OTHER_METADATA_FIELDS
+    >>> from zope.component import getMultiAdapter
+    >>> from eea.workflow.interfaces import IFieldIsRequiredForState
+    >>> def get_required_for_published(context):
+    ...     i = 0
+    ...     for field in context.schema.fields():
+    ...         if field.isMetadata or field.getName in OTHER_METADATA_FIELDS:
+    ...             continue
+    ...         required_for = getMultiAdapter((context, field), interface=IFieldIsRequiredForState)
+    ...         is_needed = required_for(state_name)
+    ...         if is_needed:
+    ...             i += 1
+    ...     return i
+    ...
+    >>> total_fields = get_required_for_published(spec) + info['conditions']
+    >>> def percentage(val):
+    ...     return int(float(val) /total_fields * 100.0)
+
+A specification has 22 fields. From these, 12 are required to be able to transition to
+'published'. We also have a number of 5 extra checks, so we count 17 required fields.
+
+The call to get_info_for() returns a mapping with the
+keys 'rfs_done', 'rfs_required', 'rfs_with_value', 'optional_empty', 'total_fields', 'extras'
+
+'rfs_done' tells us the percentage of the content that is required for the desired state.
+By default the title is filled in and one condition is True, so we will be at 11% (2.0 * 100 /17.0):
+
+    >>> info['rfs_done'] == percentage(2)
+    True
+
+'rfs_required' is the number of fields that are required to be filled in for that state.
+
+    >>> info['rfs_required'] == total_fields
+    True
+
+'rfs_with_value' is the number of fields that have content filled in and are required for that state
+
+    >>> info['rfs_with_value']
+    2
+
+'optional_empty' is the number of fields that are not required for that state and don't have a value.
+
+    >>> info['optional_empty']
+    9
+
+'total_fields' is the grand total number of fields. There are 22 fields
+
+    >>> info['total_fields']
+    22
+
+Let's fill in another field, this time 'codes':
+
+    >>> spec.setCodes([{'set':'CSI', 'code':'001'}, {'set':'TERM', 'code':'002'}])
+    >>> view = spec.unrestrictedTraverse('@@get_readiness')
+    >>> info = view.get_info_for('published')
+    >>> info['rfs_done'] == percentage(3)
+    True
+    >>> info['rfs_with_value']
+    3
+
+The get_readiness view can also tell us if the object is ready for publishing:
+
+    >>> view.is_ready_for('published')
+    False
+
+Let's move on making this spec ready for publishing:
+
+    >>> spec.setDpsir('D')
+    >>> spec.setTypology('A')
+    >>> spec.setRationale_justification(u'something or other')
+    >>> spec.setPolicy_context_description(u'something and other')
+    >>> spec.setDefinition(u'something and other')
+    >>> spec.setUnits(u'something and other')
+    >>> spec.setMethodology(u'something and other')
+    >>> spec.setManager_user_id(u'something')
+    >>> spec.setThemes([u'something'])
+    >>> spec.setOwnership([u'something'])
+
+We have to introduce more then one word in the richtext fields because we have an adapter
+that considers valid values only text with more then 2 words.
+
+All required fields are filled in, but the extra checks are not met:
+
+Now we should be at 82% (round(14*100/17)):
+
+    >>> info = spec.unrestrictedTraverse('@@get_readiness').get_info_for('published')
+    >>> info['rfs_done'] == percentage(14)
+    True
+    >>> info['rfs_with_value']
+    14
+
+We have 13 in the rfs_with_value variable because we have 12 real fields + one extra check
+that is fulfilled, which checks if we have a primary theme.
+
+It's not yet ready for published because there's an override to the default provided eea.workflow
+get_readiness that adds a few extra checks: we need to have at least one
+main policy question and some related items:
+
+    >>> id = spec.invokeFactory("PolicyQuestion", 'pq', base_impl=True)
+    >>> pq = spec.objectValues('PolicyQuestion')[0]
+    >>> pq.setIs_key_question(True)
+    >>> spec.setRelatedItems([ims['dt'], ims['eds'], ims['pdr']])
+    >>> spec.unrestrictedTraverse('@@get_readiness').is_ready_for('published')
+    True
+
+We'll reindex this object because we need it later for some entries in the catalog.
+
+    >>> catalog = getToolByName(portal, 'portal_catalog')
+    >>> catalog.reindexObject(spec)
+
+
+Simple field editing and schemata editing
+-----------------------------------------
+
+In the new aggregated edit view we use two types of editing dialog boxes:
+
+ * one where we edit just one field
+ * another one where we edit a full schemata
+
+Single field dialog edit
+~~~~~~~~~~~~~~~~~~~~~~~~
+Single field edit forms are based on a modified base_edit.cpt template that presents a
+single field.
+
+    >>> baseurl = spec.absolute_url()
+    >>> browser.open(baseurl + '/simple_edit?fieldset=default&specific_field=title')
+    >>> print browser.contents  #doctest: +NORMALIZE_WHITESPACE
+    <... <form ... id="specification-base-edit"...
+
+Inside we will have the field:
+
+    >>> title = browser.getControl(name='title')
+
+The submit button is created by javascript, through the jQuery UI framework.
+Submiting the form, if the form is properly validated, will return a small Javascript
+fragment that closes the dialog and reloads the region to which that field belongs:
+
+    >>> req = {'specific_field':'title', 'fieldset':'default', 'title':'Some title',
+    ...        'form.submitted':'1', 'form_submit':'Save'}
+    >>> data = urllib.urlencode(req)
+    >>> browser.open(baseurl + '/simple_edit', data=data)
+    >>> print browser.contents  #doctest: +NORMALIZE_WHITESPACE
+    <script>...closer(...'title'...)...</script>
+
+Schemata dialog edit
+~~~~~~~~~~~~~~~~~~~~
+Several content types can be edited from the aggregated edit view in a full popup edit form.
+They are: WorkItems, MethodologyReferences, RationaleReferences and PolicyQuestions
+
+	>>> pq = spec.objectValues('PolicyQuestion')[0]
+	>>> url = pq.absolute_url()
+	>>> browser.open(url + '/schemata_edit?fieldset=default')
+	>>> browser.getControl(name="title").value = 'First question'
+	>>> browser.getForm(name="edit_form").submit()
+	>>> print browser.contents		#doctest: +NORMALIZE_WHITESPACE
+	<script>...close_dialog...</script>
+
+If the form that was submited fails validation, it is redisplayed. Because we have edited
+the title, the PolicyQuestion's id was changed, so let's get it again.
+
+	>>> url = pq.absolute_url()
+	>>> browser.open(url + '/schemata_edit?fieldset=default')
+	>>> browser.getControl(name="title").value = ''
+	>>> browser.getForm(name="edit_form").submit()
+	>>> print browser.contents		#doctest: +NORMALIZE_WHITESPACE
+	<...form...>
+
+
+Specification codes validation
+------------------------------
+We have a soft requirement that we shouldn't have Specifications with the same
+codeset that are not versions of each other.
+
+We already have a spec with code CSI001, we'll have another one with the same
+code
+
+    >>> id = ims.invokeFactory("Specification", 'spec4')
+    >>> spec = ims[id]
+    >>> spec.setCodes([{'set':'CSI', 'code':'001'}])
+
+The portlet_readiness will inform us of the situation:
+
+    >>> browser.open(spec.absolute_url() + '/portlet_readiness_live')
+    >>> print browser.contents
+    <...The...is already used by some other document in IMS...
+
+The fragment_metadata, which contains the codes, will tell us that the CSI001
+code is duplicated and offer a link to link it as a version of the other specification:
+
+    >>> #browser.handleErrors = False
+    >>> browser.open(spec.absolute_url() + '/fragment_metadata')
+    >>> print browser.contents  #doctest: +NORMALIZE_WHITESPACE
+    <...Unrelated Indicators Specifications have the same codes...CSI001...@@assign_version...
+
+
+Reassigning versions for Specifications
+---------------------------------------
+When manually reasigning versions for a specification, we want to reassign versions for
+its children assessments as well.
+
+    >>> spec5 = ims[ims.invokeFactory("Specification", 'spec5')]
+    >>> as5 = spec5.invokeFactory("Assessment", 'as5', base_impl=True)
+    >>> spec6 = ims[ims.invokeFactory("Specification", 'spec6')]
+    >>> as6 = spec5.invokeFactory("Assessment", 'as6', base_impl=True)
+    >>> from eea.versions.versions import get_version_id
+    >>> vs5, vs6 = get_version_id(spec5), get_version_id(spec6)
+    >>> va5, va6 = get_version_id(as5), get_version_id(as6)
+    >>> va5 != vs5 != vs6 != va6
+    True
+    >>> from eea.indicators.browser.specification import assign_version
+    >>> assign_version(spec6, vs5)
+    >>> get_version_id(spec6) == vs5
+    True
+    >>> get_version_id(as6) == va5
+    True

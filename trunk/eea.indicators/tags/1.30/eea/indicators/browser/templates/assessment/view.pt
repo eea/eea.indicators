@@ -1,0 +1,313 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="indicators">
+  <head>
+  <title tal:content="context/Title"></title>
+  </head>
+
+  <metal:javascript fill-slot="javascript_head_slot">
+    <script language="javascript" type="text/javascript">
+      
+      function figuresNumber() {
+        var figures = jQuery(".figure-title");
+        var count = 1;
+
+        jQuery.each(figures, function(i, figure) {
+          var figure_title = figure.innerHTML;
+          figure.innerHTML = 'Fig. ' + count + ': ' + figure_title;
+          count += 1;
+        })
+      }
+
+      function setMetadataSwitchBtn() {
+        jQuery(".metadata-switch").click(function () { showMetadata() });
+      };
+
+      function clearToc() {
+        jQuery('#document-toc dd.portletItem ol').empty();
+      };
+
+      function showMetadata() {
+        if (jQuery('.metadata-switch').hasClass('metadata-switch-show')) {
+          jQuery(".metadata-info-switchable h2").toggleClass('notoc');
+          jQuery(".metadata-info-switchable").fadeIn("slow", function() {
+              jQuery('.metadata-switch').removeClass('metadata-switch-show');
+              jQuery('.metadata-switch').addClass('metadata-switch-hide');
+              jQuery('.metadata-switch').html('Switch to short indicator view');
+              clearToc();
+              build_toc();
+              });
+        }
+        else
+        if (jQuery('.metadata-switch').hasClass('metadata-switch-hide')) {
+          jQuery(".metadata-info-switchable h2").toggleClass('notoc');
+          jQuery(".metadata-info-switchable").fadeOut("slow", function() {
+              jQuery('.metadata-switch').removeClass('metadata-switch-hide');
+              jQuery('.metadata-switch').addClass('metadata-switch-show');
+              jQuery('.metadata-switch').html('Switch to full indicator view');
+              clearToc();
+              build_toc();
+              });
+        };
+      };
+
+      jQuery(document).ready(function () {
+          figuresNumber();
+          setMetadataSwitchBtn();
+      });
+    </script>
+  </metal:javascript>
+
+  <body>
+    <div metal:fill-slot="main" tal:define="specification context/getParentNode" class='assessment_view'>
+      <h1 tal:content="context/Title">Title here</h1>
+      <metal:byline use-macro="context/document_byline/macros/byline" />
+      <div id="content-more-updates-on"
+        class="system-message warningMessage"
+        tal:condition="context/getMore_updates_on"
+        tal:content="structure context/getMore_updates_on" />
+
+      <metal:versions use-macro="here/portlet_versions/macros/versions">
+        <metal:new fill-slot="old" />
+      </metal:versions>
+
+      <div id="box-classification">
+        <h3 id="general_metadata">Generic metadata</h3>
+        <h4>Classification</h4>
+        <tal:block define="themesView specification/@@themes-object|nothing;
+          themes themesView/full_items;
+          primaryTheme python:themes and themes[0] or None">
+
+          <tal:primaryTheme repeat="theme themes" condition="primaryTheme">
+            <a href="" title="" style="text-decoration: none"
+              tal:attributes="href theme_url;
+              title theme_title"
+              tal:define="theme_title python:theme['title'];
+              theme_url python:theme['url'];
+              theme_image python:theme['image']">
+              <img alt="" src=""
+                tal:attributes="alt theme_title;
+                src theme_image" />
+              <tal:block replace="theme_title" />
+            </a> <span tal:condition="python:theme == themes[0]">(Primary theme)</span>
+            <br /><br />
+          </tal:primaryTheme>
+        </tal:block>
+        <tal:tags define="facetId string:c9">
+          <metal:related use-macro="here/dataset_view/macros/tags" />
+        </tal:tags>
+        <div class="visualClear"><!-- --></div>
+        <strong>DPSIR</strong>: <span tal:define="dpsirLabel nocall:context/@@dpsir_label"
+          tal:replace="python:dpsirLabel(context.getDpsir())" />
+        <br/>
+        <strong>Typology</strong>: <span tal:define="typologyLabel nocall:context/@@typology_label"
+          tal:replace="python:typologyLabel(context.getTypology())" />
+        <br/>
+        <h4>Identification</h4>
+        <div tal:define="codes context/getCodes">
+          <strong>Indicator codes</strong>
+          <ul>
+            <li tal:repeat="code codes" tal:content="string:${code/set} ${code/code}">CSI 001</li>
+          </ul>
+        </div>
+        <metal:related use-macro="here/dataset_view/macros/temp-coverage" />
+        <metal:related use-macro="here/dataset_view/macros/geo-coverage" />
+      </div>
+
+      <tal:block define="queryString string:h2:not(.notoc)">
+        <metal:toc use-macro="here/portlet_toc/macros/portlet"/>
+      </tal:block>
+      <div class="metadata-switch metadata-switch-show">Switch to full indicator view</div>
+
+      <div class="visualClear"><!-- --></div>
+      <div class="metadata-info-switchable">
+        <metal:definition-and-units use-macro="specification/@@view/macros/definition-and-units" />
+      </div>
+      <br class="visualClear" />
+
+      <div tal:define="assessments context/get_assessments;
+        key nocall:assessments/key;
+        secondary assessments/secondary;">
+        <div tal:condition="key" >
+          <h2 class="policy_question">Key policy question: <span tal:replace="key/Title" /></h2>
+          <div class="keyMessage">
+            <h3>Key messages</h3>
+            <p tal:content="structure context/getKey_message" />
+          </div>
+
+          <tal:figures define="relatedItems nocall:key/@@related_items;
+            eea_figures python:relatedItems('EEAFigure')">
+            <div tal:repeat="figure eea_figures" class="indicator-figure-plus-container">
+              <div class="indicator-figure-plus" tal:attributes="id figure/getId">
+                <div class="indicator-figure-image">
+                  <a title="Downloads and more info"
+                    href=""
+                    tal:attributes="href figure/absolute_url">
+                    <img alt="" title="" src=""
+                      tal:attributes="alt figure/Title;
+                      title figure/Title;
+                      src string:${figure/absolute_url}/image_preview" />
+                  </a>
+                </div>
+
+                <p class="figure-title" tal:content="figure/Title" />
+
+                <tal:description define="figure_description figure/Description">
+                  <p>
+                    <strong>Note: </strong>
+                    <span tal:condition="figure_description" tal:content="figure_description" />
+                    <span tal:condition="not:figure_description">N/A</span>
+                  </p>
+                </tal:description>
+
+                <tal:dataSource define="figure_dataSource figure/getDataSource">
+                  <p>
+                    <strong>Data source: </strong>
+                    <span tal:condition="not:figure_dataSource">N/A</span>
+                  </p>
+                  <p tal:condition="figure_dataSource" tal:content="structure figure_dataSource" />
+                </tal:dataSource>
+
+                <a tal:attributes="href figure/absolute_url">Downloads and more info</a>
+                <div class="visualClear"><!-- --></div>
+
+              </div>
+            </div>
+          </tal:figures>
+
+          <h3>Key assessment</h3>
+          <div tal:replace="structure python:key.getAssessment()">Question here</div>
+        </div>
+
+        <tal:parts repeat="part secondary">
+          <h2 class="policy_question">Specific policy question: <span tal:replace="part/Title" /></h2>
+
+          <tal:figures define="relatedItems nocall:part/@@related_items;
+            eea_figures python:relatedItems('EEAFigure')">
+            <div tal:repeat="figure eea_figures" class="indicator-figure-plus-container">
+              <div class="indicator-figure-plus" tal:attributes="id figure/getId">
+                <div class="indicator-figure-image">
+                  <a title="Downloads and more info"
+                    href=""
+                    tal:attributes="href figure/absolute_url">
+                    <img alt="" title="" src=""
+                      tal:attributes="alt figure/Title;
+                      title figure/Title;
+                      src string:${figure/absolute_url}/image_preview" />
+                  </a>
+                </div>
+
+                <p class="figure-title" tal:content="figure/Title" />
+
+                <tal:description define="figure_description figure/Description">
+                  <p>
+                    <strong>Note: </strong>
+                    <span tal:condition="figure_description" tal:content="figure_description" />
+                    <span tal:condition="not:figure_description">N/A</span>
+                  </p>
+                </tal:description>
+
+                <tal:dataSource define="figure_dataSource figure/getDataSource">
+                  <p>
+                    <strong>Data source: </strong>
+                    <span tal:condition="not:figure_dataSource">N/A</span>
+                  </p>
+                  <p tal:condition="figure_dataSource" tal:content="structure figure_dataSource" />
+                </tal:dataSource>
+
+                <a tal:attributes="href figure/absolute_url">Downloads and more info</a>
+                <div class="visualClear"><!-- --></div>
+
+              </div>
+            </div>
+          </tal:figures>
+
+          <h3>Specific assessment</h3>
+          <div tal:replace="structure part/assessment">Question here</div>
+        </tal:parts>
+      </div>
+
+      <h2 id="data_specifications">Data sources</h2>
+      <h3>EEA data references</h3>
+      <ul tal:define="datasetsView nocall:specification/@@related_items;
+        datasets python:datasetsView('Data')">
+        <li tal:condition="not:datasets">No datasets have been specified here.</li>
+        <li tal:repeat="data datasets" tal:condition="datasets">
+          <a href=""
+            tal:attributes="href string:${context/portal_url}/data-and-maps/data/ds_resolveuid/${data/@@getLatestVersionLink}"
+            tal:content="data/title">Dataset title</a>
+        </li>
+      </ul>
+      <h3>External data references</h3>
+            <ul tal:define="datasetsView nocall:specification/@@related_items;
+        datasets python:datasetsView('ExternalDataSpec')">
+        <li tal:condition="not:datasets">No datasets have been specified here.</li>
+        <li tal:repeat="data datasets" tal:condition="datasets">
+          <a href=""
+            tal:attributes="href data/absolute_url"
+            tal:content="data/title">Dataset title</a>
+        </li>
+      </ul>
+
+      <div class="indicator-metadata-info">
+        <metal:justification use-macro="specification/@@view/macros/justification-and-references" />
+      </div>
+
+      <h2 id="methodology">More information about this indicator</h2>
+      <p>See this <a href="..">indicator specification</a> more relevant details.</p>
+
+      <div class='headed-box'>
+        <h2>Contacts and ownership</h2>
+        <h4>EEA Contact Info</h4>
+        <tal:contact define="manager_id context/getManager_user_id">
+          <tal:manager condition="manager_id">
+            <tal:block define="manager_ob context/@@indicator_contact_info">
+              <a href=""
+                tal:condition="manager_ob"
+                title="Contact indicator manager"
+                tal:attributes="href string:http://www.eionet.europa.eu/sitedirsearch?name=${manager_ob/username}"
+                tal:content="manager_ob/fullname">Contact</a>
+              <p tal:condition="not:manager_ob">
+                <span>User not found:</span>
+                <tal:manager_id tal:content="manager_id" />
+              </p>
+            </tal:block>
+          </tal:manager>
+          <tal:contact condition="not:manager_id">
+            <p>no contact info</p>
+          </tal:contact>
+        </tal:contact>
+
+        <h4>Ownership</h4>
+        <ul>
+          <li tal:repeat="info context/getOwnership" >
+            <a tal:content="python:context.getOrganisationName(info).Title" tal:attributes="href info">EEA</a>
+          </li>
+        </ul>
+
+        <h4>EEA Management Plan</h4>
+        <a href=""
+          tal:attributes="href python:'http://applications/managementplan/ProjectPlan.aspx?year=%s&code=%s' % context.getManagement_plan()"
+          tal:content="python:'%s %s' % context.getManagement_plan()"></a>(note: EEA internal system)
+      </div>
+
+      <div class='headed-box'>
+        <h4>Dates</h4>
+        <div>
+          First draft created: <span tal:content="context/creation_date">creation date</span>
+        </div>
+
+        <div>
+          Publish date: <span tal:content="context/effective_date">effective date</span>
+        </div>
+
+        <div>
+          Last modified: <span tal:content="context/modified">Modified date</span>
+        </div>
+      </div>
+      <metal:versions use-macro="here/portlet_versions/macros/versions">
+        <metal:new fill-slot="new" />
+      </metal:versions>
+    </div>
+  </body>
+</html>
