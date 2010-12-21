@@ -3,6 +3,7 @@ Changelog
 
 1.30-dev - (unreleased)
 -----------------------
+ * Change: enabled annual management plan validator, refs #4019 [demarant]
  * Change: Made eea management plan required for publishing, removed redundant old code [demarant]
 
 1.29 - (2010-12-17)
