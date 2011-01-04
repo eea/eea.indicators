@@ -8,7 +8,7 @@
   <metal:macro metal:use-macro="context/indicators_macros/macros/active_region">
     <metal:slot metal:fill-slot="content">
       <div class="logic_group">
-        <a name="rfs_key_message" />
+        <a name="rfs_key_message"></a>
         <h2 tal:define="field python:context.getField('key_message')">
           <span metal:use-macro="context/indicators_macros/macros/tooltip" />
           Key message

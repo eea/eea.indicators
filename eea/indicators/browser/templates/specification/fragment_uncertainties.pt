@@ -55,7 +55,7 @@
             </metal:macro>
           </tal:def>
 
-          <a name="rfs_rationale_uncertainty" />
+          <a name="rfs_rationale_uncertainty" ></a>
           <h4 tal:define="field python:context.getField('rationale_uncertainty')">
             <span metal:use-macro="tooltip_macro" />
             Rationale uncertainty

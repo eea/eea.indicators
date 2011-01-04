@@ -38,7 +38,7 @@
                              fieldset string:default; ">
 					<metal:macro metal:use-macro="context/indicators_macros/macros/active_field">
 						<metal:slot metal:fill-slot="content">
-              <a name="rfs_assessment_id" tal:attributes="name string:rfs_${fieldname}_${context/getId}"/>
+              <a name="rfs_assessment_id" tal:attributes="name string:rfs_${fieldname}_${context/getId}"></a>
 							<div tal:condition="python:not imsutils.field_has_value('assessment', context)" class="placeholder">
                 <span class="required">Please fill in</span>
 							</div>
