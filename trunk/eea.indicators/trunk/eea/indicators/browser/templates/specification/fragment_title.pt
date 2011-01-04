@@ -4,7 +4,7 @@
 
 		<metal:macro metal:use-macro="context/indicators_macros/macros/active_region">
 			<metal:slot metal:fill-slot="content">
-        <a name="rfs_title" />
+        <a name="rfs_title" ></a>
 				<tal:def tal:define="fieldname string:title; fieldset string:default">
 					<metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
 						<metal:slot metal:fill-slot="content">

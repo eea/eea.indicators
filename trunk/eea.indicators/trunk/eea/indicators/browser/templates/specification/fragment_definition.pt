@@ -8,7 +8,7 @@
     <metal:macro metal:use-macro="context/indicators_macros/macros/active_region">
       <metal:slot metal:fill-slot="content">
         <div class="logic_group">
-          <a name="rfs_definition" />
+          <a name="rfs_definition" ></a>
           <h2 id="indicator_definition">Indicator definition</h2>
 
           <tal:def tal:define="fieldname string:definition; fieldset string:default">
@@ -33,7 +33,7 @@
           </tal:def>
 
 
-          <a name="rfs_units" />
+          <a name="rfs_units" ></a>
           <h4 tal:define="field python:context.getField('units')">
             <span metal:use-macro="context/indicators_macros/macros/tooltip" />
             Units

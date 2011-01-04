@@ -11,7 +11,7 @@
       <div class="logic_group" >
         <h2 id="methodology">Methodology</h2>
 
-        <a name="rfs_methodology" />
+        <a name="rfs_methodology" ></a>
         <h4 tal:define="field python:context.getField('methodology')">
           <span metal:use-macro="context/indicators_macros/macros/tooltip" />
           Methodology for indicator calculation
