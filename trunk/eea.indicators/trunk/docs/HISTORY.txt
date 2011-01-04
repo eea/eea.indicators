@@ -1,8 +1,8 @@
 Changelog
 =========
 
-1.31-dev - (unreleased)
------------------------
+1.31 - (2011-01-04)
+-------------------
  * Bug fix: Made Assessments, Specifications, IndicatorFactSheets implement IVersionEnhanced [tiberich #4024]
  * Bug fix: Balance named link tags because of browser issues [tiberich]
 
