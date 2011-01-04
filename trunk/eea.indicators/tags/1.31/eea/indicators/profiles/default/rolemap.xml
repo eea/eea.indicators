@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<rolemap>
+  <roles>
+    <role name="CommonEditor"/>
+    <role name="ContentManager"/>
+    <role name="ProofReader"/>
+    <role name="WebReviewer"/>
+  </roles>
+  <permissions>
+  </permissions>
+</rolemap>
