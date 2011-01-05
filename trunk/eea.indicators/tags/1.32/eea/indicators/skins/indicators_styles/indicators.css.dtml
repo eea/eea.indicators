@@ -1,0 +1,747 @@
+/*
+<dtml-with base_properties>
+<dtml-call "REQUEST.set('portal_url', portal_url())">
+ */
+
+.headed-box {
+    border:1px solid #E9EFCD;
+    clear:both;
+    margin-top:20px;
+    padding:6px;
+}
+
+#box-classification {
+    border:1px solid #E9EFCD;
+    float:right;
+    margin-top:0px;
+    padding:6px;
+    width:70%;
+}
+
+#box-classification h4 {
+    margin: 0 0 1em 0;
+}
+
+#box-classification-col1 {
+   float:left;
+   width: 48%;
+}
+
+#box-classification-col2 {
+   float:right;
+   width: 48%;
+}
+
+
+
+.headed-box h5 {
+    background-color:white;
+    float:left;
+    top:-14px;
+    padding:0 6px;
+    position:relative;
+    margin:0 0 0 20px;
+}
+.headed-box p, .headed-box h6, .headed-box div.wrapper {
+    padding-top:0px;
+    margin:15px 0 0;
+}
+
+/* Completeness status portlet
+============================== */
+#readiness-status .percentage, #readiness-status .missingRequiredNr{
+    font-size: 250%;
+    color:red;
+}
+
+#readiness-status .error {
+    width: 90%;
+}
+
+.qtip .portletFooter {
+    display:none;
+}
+.required-field {
+    background:url(Warning.png) no-repeat scroll 0 0 transparent;
+    color:black;
+    padding:0 0 0 2.5em;
+    line-height:2em;
+}
+
+/* Fields that are required for publication
+=========================================== */
+#assessment-base-edit #archetypes-fieldname-key_message,
+#externaldataspec-base-edit #archetypes-fieldname-provider_name,
+#externaldataspec-base-edit #archetypes-fieldname-provider_url,
+#externaldataspec-base-edit #archetypes-fieldname-dataset_url,
+#externaldataspec-base-edit #archetypes-fieldname-description,
+#assessmentpart-base-edit #archetypes-fieldname-assessment,
+#methodologyreference-base-edit #archetypes-fieldname-title,
+#methodologyreference-base-edit #archetypes-fieldname-description,
+#rationalereference-base-edit #archetypes-fieldname-title,
+#rationalereference-base-edit #archetypes-fieldname-description,
+#rationalereference-base-edit #archetypes-fieldname-reference_type,
+#specification-base-edit #archetypes-fieldname-title,
+#specification-base-edit #archetypes-fieldname-codes,
+#specification-base-edit #archetypes-fieldname-dpsir,
+#specification-base-edit #archetypes-fieldname-typology,
+#specification-base-edit #archetypes-fieldname-rationale_justification,
+#specification-base-edit #archetypes-fieldname-policy_context_description,
+#specification-base-edit #archetypes-fieldname-definition,
+#specification-base-edit #archetypes-fieldname-units,
+#specification-base-edit #archetypes-fieldname-methodology,
+#specification-base-edit #archetypes-fieldname-manager_user_id,
+#specification-base-edit #archetypes-fieldname-themes,
+#policyquestion-base-edit #archetypes-fieldname-title {
+    background:url(Warning.png) no-repeat scroll 0 0 transparent;
+    color:black;
+    padding:3em 0 2em;
+}
+
+#datagridwidget-table-codes {
+    width:auto !important;
+}
+#datagridwidget-add-button {
+    float:none;
+    background:none repeat scroll 0 0 #F5821F;
+    border-color:#FFCC99 #663300 #333300 #FF9966;
+    border-style:solid;
+    border-width:1px;
+    color:white;
+    cursor:pointer;
+    font:bold 0.9em verdana,sans-serif;
+    padding:0.2em 0.3em;
+    text-decoration:none;
+    text-transform:lowercase;
+}
+#archetypes-fieldname-due_date a {
+    visibility:hidden;
+}
+
+/* Temporary overrides
+====================== */
+dl.toc {
+    /* TODO: temporary override, because of conflict with kupu styling
+     * Per Thulin has a ticket to fix this */
+display:inherit !important;
+}
+
+/* Active field stuff
+===================== */
+.sortable_spec {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+.sortable_spec .handler {
+    /* position: absolute; margin-left: -1.3em;  */
+    float:left;
+    margin-right:1em;
+    display:block;
+}
+.sortable_spec .ui-state-highlight {
+    height:40px;
+}
+.sortable_spec .ui-sortable-helper .spec_control {
+    /* display:none; */
+}
+.ui-sortable-helper {
+    width:inherit !important;
+}
+.scientific_references {
+    list-style-type:none;
+    list-style-image:none;
+    line-height:inherit;
+}
+.list-item {
+    /* #policy_questions  */
+    margin:6px 0;
+}
+.logic_group {
+    padding:1em;
+}
+#portal-column-one .logic_group {
+    padding:0;
+}
+.figure_edit_control {
+    position:absolute;
+    margin-top:40px;
+    margin-left:50px;
+}
+.figure_edit_control a {
+    /* background-color:#79AE59; */
+    background:none repeat scroll 0 0 #F5821F;
+    border-color:#FFCC99 #663300 #333300 #FF9966;
+    border-style:solid;
+    border-width:1px;
+    color:white;
+    font-size:inherit;
+    height:inherit;
+    width:inherit;
+    padding:4px;
+    font-weight:bold;
+}
+.col3 {
+    float:left;
+    width:30%;
+    border-left:1px solid #4F7BFF;
+    padding-left:6px;
+}
+.work_item {margin-bottom:5px}
+.work_item h5 {margin:0}
+.work_item h6 {margin:0}
+.grouped_field {
+    border:1px dotted black;
+    padding:1em;
+    overflow:hidden;
+}
+.active_region h5 {
+    margin-top:0;
+}
+#relatedItems-widget {
+    /* float:right; */
+}
+#relatedItems-widget .searchButton {
+    /* background-color:#79AE59; */
+    /* border:none; */
+    font-size:inherit;
+}
+
+/* Specification view
+===================== */
+.documentContent th {
+    background-color: #31B4FF;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+#content-more-updates-on {
+    background-color: #d0df86;
+    margin-right: 25em;
+}
+/*#headline-assessment {*/
+    /*background: transparent url(Assessment.gif) no-repeat scroll 0 8px;*/
+/*}*/
+.specification_view h1, .specification_edit h1 {
+    background: transparent url(Specification.gif) no-repeat scroll 0 8px;
+    padding: 10px 0 6px 30px;
+}
+.assessment_view h1, .assessment_edit h1, .factsheet_view h1 {
+    background: transparent url(Assessment.gif) no-repeat scroll 0 8px;
+    padding: 10px 0 6px 30px;
+}
+.specification {
+    background: transparent url(Specification.gif) no-repeat scroll 0 8px;
+    padding: 10px 0 6px 30px;
+}
+#assessment_versions {
+    background: transparent url(Assessment.gif) no-repeat scroll 0 8px;
+    padding: 10px 0 6px 30px;
+}
+#assessment_title {
+    background: transparent url(Assessment.gif) no-repeat scroll 0 8px;
+    padding: 10px 0 6px 30px;
+}
+#rationale {
+    background: transparent url(RationaleReference.gif) no-repeat scroll 0 8px;
+    padding: 10px 0 6px 30px;
+}
+#indicator_definition {
+    background: transparent url(IMSDefinition.gif) no-repeat scroll 0 8px;
+    padding: 10px 0 6px 30px;
+}
+#policy_context {
+    background: transparent url(PolicyContext.gif) no-repeat scroll 0 8px;
+    padding: 10px 0 6px 30px;
+}
+.policy_question {
+    background: transparent url(PolicyQuestion.gif) no-repeat scroll 0 8px;
+    padding: 10px 0 6px 30px;
+}
+#methodology {
+    background: transparent url(MethodologyReference.gif) no-repeat scroll 0 8px;
+    padding: 10px 0 6px 30px;
+}
+#data_specifications {
+    background: transparent url(DataSpecification.gif) no-repeat scroll 0 8px;
+    padding: 10px 0 6px 30px;
+}
+#uncertainties {
+    background: transparent url(IMSUncertainties.gif) no-repeat scroll 0 8px;
+    padding: 10px 0 6px 30px;
+}
+#further_work {
+    background: transparent url(WorkItem.gif) no-repeat scroll 0 8px;
+    padding: 10px 0 6px 30px;
+}
+#general_metadata {
+    background: transparent url(IMSDescription.gif) no-repeat scroll 0 8px;
+    padding: 10px 0 6px 30px;
+}
+#related_items {
+    background: transparent url(Relations.png) no-repeat scroll 0 8px;
+    padding: 13px 0 6px 35px;
+}
+.specification-overlay {
+    background-image:url("../../++resource++jquery.ui.theme/images/ui-bg_flat_0_aaaaaa_40x100.png");
+    opacity:0.3;
+    FILTER: Alpha(Opacity=30);
+}
+.keyMessage {
+    background-color: #ECF3D0;
+    border: 1px solid #8CACBB;
+    color: Black;
+    font-size: 120%;
+    padding: 0 0.5em 1em 1em;
+}
+
+/* Assessment view
+================== */
+.metadata-switch {
+    padding-left: 1.5em;
+    background-position: left center;
+    background-repeat: no-repeat;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 130%;
+}
+.metadata-switch-show {
+    background-image: url(bullet_add.png);
+}
+.metadata-switch-hide {
+    background-image: url(bullet_delete.png);
+}
+.metadata-info-switchable {
+    display: none;
+}
+
+/* Update ui images path
+======================== */
+.ui-icon-show {
+    background-image: url(../../++resource++faceted_images/show.png) ! important;
+}
+
+.ui-icon-hide {
+    background-image: url(../../++resource++faceted_images/hide.png) ! important;
+}
+
+.ui-icon, .ui-widget-content .ui-icon, .ui-widget-header .ui-icon {
+    background-image: url(../../++resource++jquery.ui.theme/images/ui-icons_222222_256x240.png);
+    cursor: pointer;
+}
+
+.ui-state-default .ui-icon {
+    background-image: url(../../++resource++jquery.ui.theme/images/ui-icons_888888_256x240.png);
+    cursor: pointer;
+}
+
+.ui-state-hover .ui-icon, .ui-state-focus .ui-icon, .ui-state-active .ui-icon {
+    background-image: url(../../++resource++jquery.ui.theme/images/ui-icons_454545_256x240.png);
+    cursor: pointer;
+}
+.ui-state-highlight .ui-icon {
+    background-image: url(../../++resource++jquery.ui.theme/images/ui-icons_2e83ff_256x240.png);
+    cursor: pointer;
+}
+
+.ui-state-error .ui-icon, .ui-state-error-text .ui-icon {
+    background-image: url(../../++resource++jquery.ui.theme/images/ui-icons_cd0a0a_256x240.png);
+    cursor: pointer;
+}
+
+.ui-widget-content {
+    background-image: url(../../++resource++jquery.ui.theme/images/ui-bg_flat_75_ffffff_40x100.png);
+}
+
+.ui-widget-header {
+    background-image: url(../../++resource++jquery.ui.theme/images/ui-bg_highlight-soft_75_cccccc_1x100.png);
+}
+
+.ui-state-default, .ui-widget-content .ui-state-default {
+    background-image: url(../../++resource++jquery.ui.theme/images/ui-bg_glass_75_e6e6e6_1x400.png);
+}
+
+.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus {
+    background-image: url(../../++resource++jquery.ui.theme/images/ui-bg_glass_75_dadada_1x400.png);
+}
+
+.ui-state-active, .ui-widget-content .ui-state-active {
+    background-image: url(../../++resource++jquery.ui.theme/images/ui-bg_glass_65_ffffff_1x400.png);
+}
+
+.ui-state-highlight, .ui-widget-content .ui-state-highlight {
+    background-image: url(../../++resource++jquery.ui.theme/images/ui-bg_glass_55_fbf9ee_1x400.png);
+}
+
+.ui-state-error, .ui-widget-content .ui-state-error {
+    background-image: url(../../++resource++jquery.ui.theme/images/ui-bg_glass_95_fef1ec_1x400.png);
+}
+
+.ui-widget-overlay {
+    background-image: url(../../++resource++jquery.ui.theme/images/ui-bg_flat_0_aaaaaa_40x100.png);
+}
+
+.ui-widget-shadow {
+    background-image: url(../../++resource++jquery.ui.theme/images/ui-bg_flat_0_aaaaaa_40x100.png);
+}
+
+/* jquery ui overrides
+====================== */
+.ui-widget-header:hover {
+    cursor: move;
+}
+
+/* Archetypes
+============= */
+.formHelp {
+    display: block;
+}
+
+#archetypes-fieldname-title input{
+    width: auto;
+}
+
+#archetypes-fieldname-vocabulary select {
+    width: 25em;
+}
+
+/* Widgets
+========== */
+
+.ui-widget-header {
+    background: #CDE2A7;
+    /* margin-bottom: 1em; */
+    /* margin-top: -0.5em; */
+    /* margin-right: -0.5em; */
+    /* margin-left: -0.5em; */
+    text-align: left;
+    padding-left: 0.5em;
+    padding-bottom: 0.3em;
+}
+
+/* Active fields
+ * ========================== */
+
+#dialog-inner {
+    /* height:500px; */
+    /* overflow:auto; */
+}
+
+#dialog-inner .cancel-btn {
+    padding-left:2em;
+}
+#dialog-inner .field {
+    /* margin:2em 2em 0 0; */
+    background-color:inherit !important;
+    padding:inherit !important;
+    margin:0 1em 0 0 !important;
+}
+#dialog-inner label {
+    /* display:none; */
+}
+#dialog-inner .fieldTextFormat {
+    display:none;
+}
+.widgets-area {
+    /* max-height:400px; */
+    /* overflow:auto; */
+}
+
+.widgets-area .widgets-list {
+    display:none;
+}
+.specification-loading {
+    /* Ajax activity visual cue */
+    background-image:url(../../++resource++faceted_images/ajax-loader.gif);
+    background-repeat:no-repeat;
+    position:absolute;
+    opacity:1;
+    /* FILTER: Alpha(Opacity=100); */
+    height:100px;
+    width:100px;
+    z-index:1200;
+}
+
+/* Active fields styling
+ * ======================== */
+.active_region {
+    /* padding:1em 0; */
+}
+
+.active_field .metadata, .active_field_hovered .metadata, .active_region .metadata {
+    display:none;
+}
+
+.active_field_hovered {
+    background-color:#F3F3F3;
+}
+
+.active_field .control, .active_field_hovered .control, .active_field .control-special-handler {
+    display:block !important;
+    float:right;
+    padding:4px;
+    background:none repeat scroll 0 0 #F5821F;
+    border-color:#FFCC99 #663300 #333300 #FF9966;
+    border-style:solid;
+    border-width:1px;
+}
+
+.active_field .control a, .active_field_hovered .control a, .active_field .control-special-handler a {
+    color:white;
+    font-weight:bold;
+    text-decoration:none;
+}
+
+.active_field {
+    border:1px dotted black;
+    padding:1em;
+    /* min-height:20px; */
+}
+
+.active_field h5 {
+    margin-top:0;
+}
+
+.active_region .placeholder {
+    background-color:#FFEB9B;
+    padding:1em;
+    text-align:center;
+}
+
+.active_region .placeholder span.required {
+    background:url(Warning.png) no-repeat scroll 3px 3px  #FFEB9B;
+    padding:10px 0 10px 4em;
+    line-height:20px;
+    text-align:center;
+}
+
+a.object_creator {
+    /* float:right; */
+    padding:3px;
+    background-color:#CEE2A8;
+    border-bottom:1px solid #AAA;
+    color:black;
+    display:block;
+    margin-bottom:6px;
+    text-align:center;
+    text-decoration:none;
+}
+
+a.object_creator:hover {
+    /* background-color:#79AE59; */
+    background:none repeat scroll 0 0 #F5821F;
+    border-color:#FFCC99 #663300 #333300 #FF9966;
+    border-style:solid;
+    border-width:1px;
+    color:white;
+    border-bottom:1px solid #AAA;
+}
+
+a.object_creator-disabled {
+    display:none;
+}
+
+.object_creator_options {
+    text-align:center;
+    background-color:transparent;
+    margin-bottom:5px
+}
+
+a.schemata_edit, a.object_delete {
+    padding:1px 6px;
+    background-color:#CEE2A8;
+    color:black;
+    text-decoration:none;
+    display:block;
+    float:left;
+    margin-right:1em;
+    border-bottom:1px solid #AAA;
+}
+
+a.schemata_edit:hover, a.object_delete:hover {
+    /* background-color:#79AE59; */
+    background:none repeat scroll 0 0 #F5821F;
+    border-color:#FFCC99 #663300 #333300 #FF9966;
+    border-style:solid;
+    border-width:1px;
+    color:white;
+    border:none;
+}
+
+/* Kupu and calendar fixes for modal edit
+ * ====================================== */
+.calendar {
+    z-index:1100;
+}
+iframe.kupu-editor-iframe {
+    height:280px;
+}
+div.kupu-fulleditor-zoomed .kupu-editor-iframe {
+    height:inherit;
+}
+.forcekupu {
+    display:none;
+}
+
+/* Timeline template
+ * =================== */
+.timeline-comments {
+    margin-top: 0;
+    margin-bottom:0;
+}
+
+.timeline-comments li {
+    margin:0 0 0 1em;
+}
+
+/* EEAFigures display
+ * =================== */
+.indicator-figure-plus-container {
+    border: 1px solid #A9A9A9;
+    margin: 1em 0;
+    padding: 1em;
+}
+
+.indicator-figure-plus {
+    font-size: 0.8em;
+}
+
+.indicator-figure-plus a {
+    background-color: transparent;
+    color: #436976;
+    text-decoration: none;
+}
+
+.indicator-figure-plus img {
+    float: left;
+    margin: 0 1em 0 0;
+    border: medium none;
+    vertical-align: middle;
+}
+
+.indicator-figure-plus .figure-title {
+    font-size: 1.2em;
+}
+
+/*start datagridwidget */
+/* We copy the content from the datagrid widget. For some reason Internet Explorer */
+/* refuses to load that content */
+
+table.datagridwidget-table-view {
+    width: 100%;
+}
+
+input.datagrid-radio-button {
+    /* Radio buttons try to use Plone's default text input
+    field CSS properties, like borders and background shade image */
+    border: 0;
+    background: transparent;
+}
+
+td.datagridwidget-radio {
+    /* IE adds quite heavy padding - force more sensible values */
+    padding: 0;
+    border: 0;
+    margin: 0;
+}
+
+td.datagridwidget-select {
+    /* Looks like browser want to shrink drop down menu boxes
+    to zero width if there is any fight from the space.
+
+    Workaround is to force select width. Override this value
+    according to your needs */
+width: 5em;
+}
+
+tr.datagridwidget-row {
+    vertical-align: top;
+}
+
+/*
+Workaround for IE which cannot propeply handle
+background images in cloned TR input fields.
+Plone is shipped with default input background gradient image
+ */
+.datagridwidget-cell input {
+    background: white;
+    background-image: none;
+}
+
+tr.datagridwidget-empty-row {
+    /* Hidden row with default selection widget values */
+    display: none;
+}
+
+td.datagridwidget-cell {
+    vertical-align: top;
+    padding: 2px;
+}
+
+td.datagridwidget-manipulator {
+    width: 16px;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+}
+
+td.datagridwidget-manipulator img {
+    cursor: pointer;
+}
+
+td.datagridwidget-hidden-data {
+    display: none;
+}
+
+a.datagridwidget-add-button, a.datagridwidget-add-button:hover {
+    text-decoration: none;
+    background: &dtml-globalBackgroundColor; url(&dtml-portal_url;/linkOpaque.gif) 9px 1px no-repeat;
+    cursor: pointer;
+    font-size: &dtml-fontSmallSize;;
+    padding: 1px 1px 1px 15px;
+    text-transform: &dtml-textTransform;;
+    float: right;
+}
+
+.dgw-hidden-column {
+    display: none;
+}
+
+/*
+Merged from historical datagridwidget.css file
+as fix for: http://plone.org/products/datagridfield/issues/30
+ */
+
+/*  styling for the datagridfield */
+
+div.ArchetypesDataGridWidget table td img {
+    display: block;
+    cursor: pointer;
+}
+
+div.ArchetypesDataGridWidget table td input,
+div.ArchetypesDataGridWidget table td select {
+    width:100%;
+}
+
+/* end datagrid widget */
+
+.ims-overview-spec, .ims-overview-assessment {
+    font-size:110%;
+}
+.ims-overview-assessment {
+    padding-left:2em !important;
+}
+
+/* hide the add menu */
+#objectMenu {
+    display:none;
+}
+
+.contentActions > ul > li > a{
+    display:none;   /* hide the menu when single item in menu */
+}
+/* end hide */
+
+/*
+</dtml-with>  (end of loaded base_properties variables)
+ */

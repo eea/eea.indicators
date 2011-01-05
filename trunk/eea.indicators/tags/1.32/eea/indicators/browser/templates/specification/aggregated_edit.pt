@@ -1,0 +1,64 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="indicators">
+
+  <metal:block use-macro="here/global_defines/macros/defines" />
+
+  <metal:baseslot fill-slot="base">
+    <base href="" tal:attributes="href request/URL" />
+  </metal:baseslot>
+
+  <metal:jsslot fill-slot="javascript_head_slot">
+    <script type="text/javascript"
+            tal:attributes="src string:${portal_url}/++resource++jquery.ui-1.7.js"></script>
+    <script type="text/javascript"
+            tal:attributes="src string:${portal_url}/++resource++indicators.js"></script>
+    <script type="text/javascript"
+            tal:attributes="src string:${portal_url}/eeareferencebrowser.js"></script>
+    <script type="text/javascript"
+            tal:attributes="src string:${portal_url}/userandgroupselect.js"></script>
+    <script type="text/javascript"
+            tal:attributes="src string:${portal_url}/widgets/js/inandout.js"></script>
+    <script type="text/javascript"
+            tal:attributes="src string:${portal_url}/datagridwidget.js"></script>
+    <script type="text/javascript"
+            tal:attributes="src string:${portal_url}/multiselectautocomplete_widget.js"></script>
+  </metal:jsslot>
+
+  <body>
+    <div metal:fill-slot="main" class="specification_edit">
+      <div id="dialog_edit_target">
+        <!-- This div is used by active field editing -->
+      </div>
+
+      <div tal:replace="structure context/fragment_title" />
+
+      <!-- <div metal:use-macro="here/portlet_themes_object/macros/portlet" /> -->
+      <tal:block define="queryString string:h2">
+          <metal:toc use-macro="here/portlet_toc/macros/portlet"/>
+      </tal:block>
+
+      <metal:versions use-macro="here/portlet_versions/macros/versions">
+        <metal:new fill-slot="old" />
+      </metal:versions>
+
+      <div tal:replace="structure context/fragment_assessments" />
+      <div tal:replace="structure context/fragment_scientific_references" />
+      <div tal:replace="structure context/fragment_definition" />
+      <div tal:replace="structure context/fragment_policy_questions" />
+      <div tal:replace="structure context/fragment_policy_context" />
+      <div tal:replace="structure context/fragment_methodology" />
+      <div tal:replace="structure context/fragment_data_specifications" />
+      <div tal:replace="structure context/fragment_uncertainties" />
+      <div tal:replace="structure context/fragment_relateditems" />
+      <div tal:replace="structure context/fragment_metadata" />
+      <div tal:replace="structure context/fragment_info" />
+      <div tal:replace="structure context/fragment_work" />
+
+      <metal:versions use-macro="here/portlet_versions/macros/versions">
+        <metal:new fill-slot="new" />
+      </metal:versions>
+
+    </div>
+  </body>
+</html>
