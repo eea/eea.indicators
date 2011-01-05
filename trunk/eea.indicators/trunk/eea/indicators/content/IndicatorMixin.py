@@ -28,6 +28,7 @@ class IndicatorMixin(object):
 
         cat = getToolByName(self, 'portal_catalog')
         codes = self.getCodes()
+        self_path = '/'.join(self.getPhysicalPath())
 
         #We want to see if there are other specs with the same code
         #that are not versions of this object.
@@ -43,7 +44,8 @@ class IndicatorMixin(object):
 
             not_same = []
             for b in brains:
-                if b.getPath() not in versions:
+                p = b.getPath()
+                if (p not in versions) and (p != self_path):
                     not_same.append(b)
 
             if not_same:

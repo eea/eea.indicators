@@ -319,7 +319,7 @@ By default the title is filled in and one condition is True, so we will be at 11
 
 Let's fill in another field, this time 'codes':
 
-    >>> spec.setCodes([{'set':'CSI', 'code':'001'}, {'set':'TERM', 'code':'002'}])
+    >>> spec.setCodes([{'set':'BLA', 'code':'005'}, {'set':'IRENA', 'code':'006'}])
     >>> view = spec.unrestrictedTraverse('@@get_readiness')
     >>> info = view.get_info_for('published')
     >>> info['rfs_done'] == percentage(3)
@@ -474,8 +474,12 @@ its children assessments as well.
     >>> from eea.versions.versions import get_version_id
     >>> vs5, vs6 = get_version_id(spec5), get_version_id(spec6)
     >>> va5, va6 = get_version_id(as5), get_version_id(as6)
-    >>> va5 != vs5 != vs6 != va6
+
+Each object involved has a different version id:
+
+    >>> len(set([va5, vs5, vs6, va6])) == 4
     True
+    >>> print va5, vs5, vs6, va6
     >>> from eea.indicators.browser.specification import assign_version
     >>> assign_version(spec6, vs5)
     >>> get_version_id(spec6) == vs5
