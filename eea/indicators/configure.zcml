@@ -91,16 +91,16 @@
         zope.app.event.interfaces.IObjectModifiedEvent"
         handler="eea.indicators.events.handle_policyquestion_modification" />
 
-    <class class="eea.indicators.content.Assessment.Assessment">
-        <implements interface="eea.versions.interfaces.IVersionEnhanced" />
-    </class>
+    <!--<class class="eea.indicators.content.Assessment.Assessment">-->
+        <!--<implements interface="eea.versions.interfaces.IVersionEnhanced" />-->
+    <!--</class>-->
 
-    <class class="eea.indicators.content.Specification.Specification">
-        <implements interface="eea.versions.interfaces.IVersionEnhanced" />
-    </class>
+    <!--<class class="eea.indicators.content.Specification.Specification">-->
+        <!--<implements interface="eea.versions.interfaces.IVersionEnhanced" />-->
+    <!--</class>-->
 
-    <class class="eea.indicators.content.IndicatorFactSheet.IndicatorFactSheet">
-        <implements interface="eea.versions.interfaces.IVersionEnhanced" />
-    </class>
+    <!--<class class="eea.indicators.content.IndicatorFactSheet.IndicatorFactSheet">-->
+        <!--<implements interface="eea.versions.interfaces.IVersionEnhanced" />-->
+    <!--</class>-->
 
 </configure>
