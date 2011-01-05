@@ -462,27 +462,3 @@ code is duplicated and offer a link to link it as a version of the other specifi
     <...Unrelated Indicators Specifications have the same codes...CSI001...@@assign_version...
 
 
-Reassigning versions for Specifications
----------------------------------------
-When manually reasigning versions for a specification, we want to reassign versions for
-its children assessments as well.
-
-    >>> spec5 = ims[ims.invokeFactory("Specification", 'spec5')]
-    >>> as5 = spec5.invokeFactory("Assessment", 'as5', base_impl=True)
-    >>> spec6 = ims[ims.invokeFactory("Specification", 'spec6')]
-    >>> as6 = spec5.invokeFactory("Assessment", 'as6', base_impl=True)
-    >>> from eea.versions.versions import get_version_id
-    >>> vs5, vs6 = get_version_id(spec5), get_version_id(spec6)
-    >>> va5, va6 = get_version_id(as5), get_version_id(as6)
-
-Each object involved has a different version id:
-
-    >>> len(set([va5, vs5, vs6, va6])) == 4
-    True
-    >>> print va5, vs5, vs6, va6
-    >>> from eea.indicators.browser.specification import assign_version
-    >>> assign_version(spec6, vs5)
-    >>> get_version_id(spec6) == vs5
-    True
-    >>> get_version_id(as6) == va5
-    True
