@@ -71,13 +71,14 @@
         <metal:new fill-slot="old" />
       </metal:versions>
 
+
       <div id="box-classification">
-        <h3 id="general_metadata">Generic metadata</h3>
-        <h4>Classification</h4>
+      <h4>Generic metadata</h4>
+      <div id="box-classification-col1">
         <tal:block define="themesView specification/@@themes-object|nothing;
           themes themesView/full_items;
           primaryTheme python:themes and themes[0] or None">
-
+          <strong>Topics</strong>:<br /><br />
           <tal:primaryTheme repeat="theme themes" condition="primaryTheme">
             <a href="" title="" style="text-decoration: none"
               tal:attributes="href theme_url;
@@ -89,7 +90,7 @@
                 tal:attributes="alt theme_title;
                 src theme_image" />
               <tal:block replace="theme_title" />
-            </a> <span tal:condition="python:theme == themes[0]">(Primary theme)</span>
+            </a> <span tal:condition="python:theme == themes[0]">(Primary topic)</span>
             <br /><br />
           </tal:primaryTheme>
         </tal:block>
@@ -102,16 +103,17 @@
         <br/>
         <strong>Typology</strong>: <span tal:define="typologyLabel nocall:context/@@typology_label"
           tal:replace="python:typologyLabel(context.getTypology())" />
-        <br/>
-        <h4>Identification</h4>
-        <div tal:define="codes context/getCodes">
+        </div>
+        <div id="box-classification-col2">
+         <div tal:define="codes context/getCodes">
           <strong>Indicator codes</strong>
           <ul>
             <li tal:repeat="code codes" tal:content="string:${code/set} ${code/code}">CSI 001</li>
           </ul>
+         </div>
+         <metal:related use-macro="here/dataset_view/macros/temp-coverage" />
+         <metal:related use-macro="here/dataset_view/macros/geo-coverage" />
         </div>
-        <metal:related use-macro="here/dataset_view/macros/temp-coverage" />
-        <metal:related use-macro="here/dataset_view/macros/geo-coverage" />
       </div>
 
       <tal:block define="queryString string:h2:not(.notoc)">

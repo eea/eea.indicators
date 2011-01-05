@@ -5,6 +5,7 @@ Changelog
 -----------------------
  * Bug fix: revert change made in 1.31, no longer directly implement IVersionEnhanced for Assessments, Specifications and IndicatorFactSheets [tiberich #4024]
  * Bug fix: improve checks for versions in code that decides if spec code is duplicated [tiberich]
+ * Change: Visual fix for too tall metadata box on assessment view, now displayed in a more compact way [demarant]
 
 1.31 - (2011-01-04)
 -------------------

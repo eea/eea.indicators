@@ -15,12 +15,24 @@
     float:right;
     margin-top:0px;
     padding:6px;
-    width:25em;
+    width:70%;
 }
 
-#box-classification h3 {
-    margin: 0;
+#box-classification h4 {
+    margin: 0 0 1em 0;
 }
+
+#box-classification-col1 {
+   float:left;
+   width: 48%;
+}
+
+#box-classification-col2 {
+   float:right;
+   width: 48%;
+}
+
+
 
 .headed-box h5 {
     background-color:white;
