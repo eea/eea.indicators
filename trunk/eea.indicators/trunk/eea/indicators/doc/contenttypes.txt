@@ -25,7 +25,7 @@ We have several main content types. The most important are the Specification and
     >>> def types_in_container(container):
     ...     types = [t.__class__.__name__ for t in container.objectValues()]
     ...     return sorted(types)
-    >>>
+    >>> catalog = portal.portal_catalog
 
 
 Containments
@@ -243,6 +243,10 @@ catalog searches based on either the full code or the Set code:
     >>> spec.get_codes()
     ['CSI', 'CSI001', 'TERM', 'TERM002']
 
+Indexing this object, as it is required in a test later on:
+
+    >>> catalog.indexObject(spec)
+
 
 Readiness for publication
 -------------------------
@@ -451,7 +455,7 @@ The portlet_readiness will inform us of the situation:
 
     >>> browser.open(spec.absolute_url() + '/portlet_readiness_live')
     >>> print browser.contents
-    <...The...is already used by some other document in IMS...
+    <...is already used by some other document in IMS...
 
 The fragment_metadata, which contains the codes, will tell us that the CSI001
 code is duplicated and offer a link to link it as a version of the other specification:
