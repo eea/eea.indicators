@@ -466,3 +466,48 @@ code is duplicated and offer a link to link it as a version of the other specifi
     <...Unrelated Indicators Specifications have the same codes...CSI001...@@assign_version...
 
 
+Reassigning versions for Specifications
+---------------------------------------
+When manually reasigning versions for a specification, we want to reassign versions for
+its children assessments as well.
+
+    >>> from eea.versions.versions import get_version_id
+    >>> from eea.indicators.browser.specification import create_version as spec_create_version
+    >>> from eea.indicators.browser.assessment import create_version as assessment_create_version
+
+    >>> version_factories = {
+    ...     "Specification":spec_create_version,
+    ...     "Assessment":assessment_create_version
+    ... }
+    >>> def make_version(obj):
+    ...     factory = version_factories[obj.meta_type]
+    ...     return factory(obj)
+
+    >>> def make_obj(parent, type_name, id):
+    ...     if type_name == "Assessment":
+    ...         return parent[parent.invokeFactory(type_name, id, base_impl=True)]
+    ...     else:
+    ...         return parent[parent.invokeFactory(type_name, id)]
+
+    >>> spec5  = make_obj(ims, "Specification", 'spec5')
+    >>> vspec5 = make_version(spec5)
+    >>> as5    = make_obj(spec5, "Assessment", 'as5')
+    >>> vas5   = make_version(as5)
+    >>> as6    = make_obj(spec5, "Assessment", "as6")
+    >>> vas6   = make_version(as6)
+    >>> spec6  = make_obj(ims, "Specification", 'spec6')
+    >>> vspec6 = make_version(spec6)
+
+Each object involved has a different version id:
+
+    >>> vs5, vs6 = get_version_id(vspec5), get_version_id(vspec6)
+    >>> va5, va6 = get_version_id(vas5), get_version_id(vas6)
+    >>> len(set([va5, vs5, vs6, va6])) == 4
+    True
+    >>> from eea.indicators.browser.specification import assign_version
+    >>> assign_version(spec6, vs5)
+    >>> get_version_id(spec6) == vs5
+    True
+    >>> get_version_id(as6) == va5
+    True
+
