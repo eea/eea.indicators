@@ -3,6 +3,7 @@ Changelog
 
 1.33-dev - (unreleased)
 -----------------------
+ * Bug fix: make tests pass [tiberich]
 
 1.32 - (2011-01-05)
 -------------------
