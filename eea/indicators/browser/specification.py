@@ -12,7 +12,7 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from eea.indicators.browser.utils import has_one_of
 from eea.versions.interfaces import IVersionControl, IVersionEnhanced
 from eea.versions.versions import CreateVersion as BaseCreateVersion
-from eea.versions.versions import create_version
+from eea.versions.versions import create_version as base_create_version
 from eea.versions.versions import get_version_id, _get_random
 from eea.versions.versions import get_versions_api
 from eea.workflow.interfaces import IFieldIsRequiredForState, IValueProvider
@@ -84,28 +84,31 @@ class AssessmentVersions(BrowserView):
         return res
 
 
+def create_version(original, request=None):
+    new_spec = base_create_version(original, False)
+    new_spec.setEffectiveDate(None)
+
+    #Delete assessments and work items
+    new_spec.manage_delObjects(ids=new_spec.objectIds('Assessment'))
+    new_spec.manage_delObjects(ids=new_spec.objectIds('WorkItem'))
+
+    #TODO: should we reindex the objects here?
+    for obj in new_spec.objectValues():
+        obj.setEffectiveDate(None)
+        obj.setCreationDate(DateTime())
+
+    new_spec.reindexObject()
+    original.reindexObject() #some indexed values of the context may 
+                             #depend on versions
+    return new_spec
+
+
 class CreateVersion(BaseCreateVersion):
     """Create new version customizations for eea.versions """
 
     def __call__(self):
-        
-        new_spec = create_version(self.context, False)
-        new_spec.setEffectiveDate(None)
-
-        #Delete assessments and work items
-        new_spec.manage_delObjects(ids=new_spec.objectIds('Assessment'))
-        new_spec.manage_delObjects(ids=new_spec.objectIds('WorkItem'))
-
-        #TODO: should we reindex the objects here?
-        for obj in new_spec.objectValues():
-            obj.setEffectiveDate(None)
-            obj.setCreationDate(DateTime())
-
-        new_spec.reindexObject()
-        self.context.reindexObject() #some indexed values of the context may 
-                                     #depend on versions
-
-        return self.request.RESPONSE.redirect(new_spec.absolute_url())
+        new = create_version(self.context)
+        return self.request.RESPONSE.redirect(new.absolute_url())
 
 
 class WorkflowStateReadiness(ObjectReadiness):
