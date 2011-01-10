@@ -137,7 +137,7 @@
     allowed_interface=".utils.IIndicatorUtils"
     />
 
-  <browser:page name="obj_delete" for="zope.interface.Interface"
+  <browser:page name="obj_delete" for="eea.indicators.content.interfaces.ISpecification"
     class=".utils.ObjectDelete" permission="cmf.ModifyPortalContent" />
 
   <browser:resource
