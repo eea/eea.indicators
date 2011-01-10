@@ -4,6 +4,8 @@ Changelog
 1.33-dev - (unreleased)
 -----------------------
  * Bug fix: make tests pass [tiberich]
+ * Change: refactor versioning code for specifications to be used outside of views [tiberich]
+ * Change: refactor version reassigning code [tiberich]
 
 1.32 - (2011-01-05)
 -------------------
