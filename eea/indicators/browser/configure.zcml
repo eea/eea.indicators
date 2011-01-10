@@ -137,8 +137,8 @@
     allowed_interface=".utils.IIndicatorUtils"
     />
 
-  <browser:page name="object_delete" for="zope.interface.Interface"
-    class=".utils.ObjectDelete" permission="zope2.View" />  TODO: change permission here
+  <browser:page name="obj_delete" for="zope.interface.Interface"
+    class=".utils.ObjectDelete" permission="cmf.ModifyPortalContent" />
 
   <browser:resource
     name='indicators.js'

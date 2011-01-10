@@ -39,7 +39,7 @@
                 tal:attributes="href string:${question/absolute_url}/schemata_edit?fieldset=default">Edit</a>
               <a href=""
                 class="object_delete spec_control"
-                tal:attributes="href string:${question/aq_parent/absolute_url}/@@object_delete?id=${question/getId}">Delete</a>
+                tal:attributes="href string:${question/aq_parent/absolute_url}/@@obj_delete?id=${question/getId}">Delete</a>
               <strong tal:content="question/Title">Question title</strong>
               <span tal:condition="question/getIs_key_question">(Main question)</span>
             </div>

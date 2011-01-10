@@ -51,7 +51,7 @@
                   tal:attributes="href string:${ref/absolute_url}/schemata_edit?fieldset=default">Edit</a>
                 <a href=""
                   class="object_delete"
-                  tal:attributes="href string:${ref/aq_parent/absolute_url}/object_delete?id=${ref/getId}">Delete</a>
+                  tal:attributes="href string:${ref/aq_parent/absolute_url}/obj_delete?id=${ref/getId}">Delete</a>
                 <a href="" tal:attributes="href python:ref.getRemoteUrl or ref.absolute_url()"
                   tal:content="ref/Title">Ref title</a>
                 <p tal:replace="structure ref/getDescription" />
