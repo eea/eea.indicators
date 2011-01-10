@@ -6,6 +6,7 @@ Changelog
  * Bug fix: make tests pass [tiberich]
  * Change: refactor versioning code for specifications to be used outside of views [tiberich]
  * Change: refactor version reassigning code [tiberich]
+ * Bug fix: rename @@object_delete to @@obj_delete as it conflicts with a formcontroller script [tiberich #4028]
 
 1.32 - (2011-01-05)
 -------------------
