@@ -298,7 +298,7 @@ def hasWrongVersionId(context):
     cat = getToolByName(context, 'portal_catalog')
 
     #parent based checks; this also does codes check because
-    #assessments inheirt codes from their parent specification
+    #assessments inherit codes from their parent specification
     spec = aq_parent(aq_inner(context))
     spec_versions = get_versions_api(spec).versions.values()
 

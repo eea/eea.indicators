@@ -10,15 +10,12 @@ from Products.CMFPlone.utils import getToolByName
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from eea.indicators.browser.utils import has_one_of
-from eea.versions.interfaces import IVersionControl, IVersionEnhanced
+from eea.indicators.content.Specification import assign_version
 from eea.versions.versions import CreateVersion as BaseCreateVersion
 from eea.versions.versions import create_version as base_create_version
-from eea.versions.versions import get_version_id, _get_random
-from eea.versions.versions import get_versions_api
 from eea.workflow.interfaces import IFieldIsRequiredForState, IValueProvider
 from eea.workflow.readiness import ObjectReadiness
 from zope.component import getMultiAdapter
-from zope.interface import alsoProvides
 
 import logging
 logger = logging.getLogger('eea.indicators')
@@ -166,66 +163,6 @@ class ContactInfo(BrowserView):
         manager_id = self.context.getManager_user_id()
         mtool = getToolByName(self.context, 'portal_membership')
         return mtool.getMemberInfo(manager_id)
-
-
-def assign_version(context, new_version):
-    """Assign a specific version id to an object
-    
-    We override the same method from eea.versions. We want to 
-    be able to reassign version for children Assessments to be
-    at the same version as the children Assessments of the target
-    Specification version.
-
-    Also, we want to move all specification that share the
-    old version to the new one.
-    """
-    cat = getToolByName(context, 'portal_catalog')
-    #old_version = get_version_id(context)
-
-    #Verify if there are more objects under this version
-    brains = cat.searchResults({'getVersionId' : new_version,
-                                'show_inactive': True})
-    if brains and not IVersionEnhanced.providedBy(context):
-        alsoProvides(context, IVersionEnhanced)
-    if len(brains) == 1:
-        #TODO: understand what this code does 
-        target_ob = brains[0].getObject()
-        if not IVersionEnhanced.providedBy(target_ob):
-            alsoProvides(target_ob, IVersionEnhanced)
-
-    # Set new version ID
-    verparent = IVersionControl(context)
-    verparent.setVersionId(new_version)
-    context.reindexObject()
-
-    #search for specifications with old version
-    versions = get_versions_api(context).versions.values()
-    other_assessments = []
-    for o in versions:
-        IVersionControl(o).setVersionId(new_version)
-        o.reindexObject()
-        other_assessments.extend(o.objectValues("Assessment"))
-
-    #search for other Specifications with that version
-    p = '/'.join(context.getPhysicalPath())
-    brains = filter(lambda b:b.getPath() != p,
-                    cat.searchResults({'getVersionId' : new_version}))
-
-    vid = None
-    for brain in brains:
-        obj = brain.getObject()
-        children = obj.objectValues('Assessment')
-        if children:
-            vid = get_version_id(children[0])
-            break
-
-    vid = vid or _get_random(context, 10)
-
-    for asmt in (context.objectValues('Assessment') + other_assessments):
-        if not IVersionEnhanced.providedBy(asmt):
-            alsoProvides(asmt, IVersionEnhanced)
-        IVersionControl(asmt).setVersionId(vid)
-        asmt.reindexObject()
 
 
 class AssignVersion(object):

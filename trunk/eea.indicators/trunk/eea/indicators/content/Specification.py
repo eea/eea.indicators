@@ -7,31 +7,13 @@ __docformat__ = 'plaintext'
 
 from AccessControl import ClassSecurityInfo
 from Acquisition import aq_inner, aq_parent
-from eea.dataservice.vocabulary import Organisations
-from eea.indicators import msg_factory as _
-from eea.indicators.browser.assessment import create_version as createVersion
-from eea.indicators.config import PROJECTNAME, templates_dir
-from eea.indicators.content.IndicatorMixin import IndicatorMixin
-from eea.indicators.content.base import ModalFieldEditableAware
-from eea.indicators.content.base import CustomizedObjectFactory
-from eea.indicators.content.utils import get_dgf_value
-from eea.indicators.content.interfaces import ISpecification
-from eea.rdfmarshaller.interfaces import IATField2Surf, ISurfSession
-from eea.rdfmarshaller.marshaller import ATCT2Surf
-from eea.relations.field import EEAReferenceField
-from eea.relations.widget import EEAReferenceBrowserWidget
-from eea.versions.interfaces import IVersionControl, IVersionEnhanced
-from eea.versions.versions import isVersionEnhanced, get_versions_api
-from eea.workflow.interfaces import IHasMandatoryWorkflowFields
-from eea.workflow.interfaces import IObjectReadiness
-from eea.versions.interfaces import IGetVersions
 from Products.ATContentTypes.content.folder import ATFolder, ATFolderSchema
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema
 from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
 from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
 from Products.Archetypes.atapi import MultiSelectionWidget, Schema, RichWidget
-from Products.Archetypes.atapi import StringField, TextField, registerType
 from Products.Archetypes.atapi import SelectionWidget, LinesField
+from Products.Archetypes.atapi import StringField, TextField, registerType
 from Products.Archetypes.atapi import TextAreaWidget
 from Products.CMFCore import permissions
 from Products.CMFCore.permissions import AddPortalContent
@@ -46,8 +28,28 @@ from Products.EEAContentTypes.content.ThemeTaggable import ThemeTaggable_schema
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 from Products.UserAndGroupSelectionWidget import UserAndGroupSelectionWidget
-from zope.interface import alsoProvides, implements
+from eea.dataservice.vocabulary import Organisations
+from eea.indicators import msg_factory as _
+from eea.indicators.browser.assessment import create_version as createVersion
+from eea.indicators.config import PROJECTNAME, templates_dir
+from eea.indicators.content.IndicatorMixin import IndicatorMixin
+from eea.indicators.content.base import CustomizedObjectFactory
+from eea.indicators.content.base import ModalFieldEditableAware
+from eea.indicators.content.interfaces import ISpecification
+from eea.indicators.content.utils import get_dgf_value
+from eea.rdfmarshaller.interfaces import IATField2Surf, ISurfSession
+from eea.rdfmarshaller.marshaller import ATCT2Surf
+from eea.relations.field import EEAReferenceField
+from eea.relations.widget import EEAReferenceBrowserWidget
+from eea.versions.interfaces import IGetVersions
+from eea.versions.interfaces import IVersionControl, IVersionEnhanced
+from eea.versions.versions import assign_version as base_assign_version
+from eea.versions.versions import get_version_id, _get_random
+from eea.versions.versions import isVersionEnhanced, get_versions_api
+from eea.workflow.interfaces import IHasMandatoryWorkflowFields
+from eea.workflow.interfaces import IObjectReadiness
 from zope.component import adapts, queryMultiAdapter
+from zope.interface import alsoProvides, implements
 import datetime
 import rdflib
 import sys
@@ -880,3 +882,62 @@ class Specification2Surf(ATCT2Surf):
 
         resource.save()
         return resource
+
+
+def assign_version(context, new_version):
+    """Assign a specific version id to an object
+    
+    We override the same method from eea.versions. We want to 
+    be able to reassign version for children Assessments to be
+    at the same version as the children Assessments of the target
+    Specification version.
+
+    Also, we want to assign the new version to all specification 
+    that had the old version.
+    """
+
+    #assign new version to context
+    base_assign_version(context, new_version)
+
+    #search for specifications with the old version and assign new version
+    other_assessments = []  #optimization: children assessments from other specs
+    versions = [o for o in get_versions_api(context).versions.values() 
+                           if o.meta_type == "Specification"]
+    for o in versions:
+        IVersionControl(o).setVersionId(new_version)
+        o.reindexObject()
+        other_assessments.extend(o.objectValues("Assessment"))
+
+    #reassign version ids to context assessments + assessments 
+    #from related specifications
+    vid = get_assessment_vid_for_spec_vid(context, new_version)
+    for asmt in (context.objectValues('Assessment') + other_assessments):
+        if not IVersionEnhanced.providedBy(asmt):
+            alsoProvides(asmt, IVersionEnhanced)
+        IVersionControl(asmt).setVersionId(vid)
+        asmt.reindexObject()
+
+
+def get_assessment_vid_for_spec_vid(context, versionid):
+    """Returns an assessment version id
+
+    Given a version id for a specification, returns the version id of the 
+    assessments that are contained in any of the Specifications from that
+    versioning group.
+    """
+
+    vid = _get_random(context, 10)
+    cat = getToolByName(context, 'portal_catalog')
+    p = '/'.join(context.getPhysicalPath())
+    brains = cat.searchResults({'getVersionId':versionid, 
+                                'portal_type':'Specification'})
+    brains = [b for b in brains if b.getPath() != p]
+    
+    for brain in brains:
+        obj = brain.getObject()
+        children = obj.objectValues('Assessment')
+        if children:
+            vid = get_version_id(children[0])
+            break
+
+    return vid
