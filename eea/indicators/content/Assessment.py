@@ -175,7 +175,14 @@ class Assessment(ATFolder, ModalFieldEditableAware,
             return spec_title + ' - newly created assessment'
 
         time = self.getEffectiveDate()
+
         if info['review_state'] == "published":
+            if time is None:
+                time = self.creation_date
+                msg = _("assessment-title-draft",
+                        default=u"Assessment published with invalid published date")
+                return spec_title + ' - ' + self.translate(msg)
+
             msg = _("assessment-title-published",
                     default=u"Assessment published ${date}",
                     mapping={'date':u"%s %s" %
