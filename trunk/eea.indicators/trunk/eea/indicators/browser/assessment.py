@@ -125,7 +125,8 @@ class WorkflowStateReadiness(ObjectReadiness):
 
     checks = {'published':(
         (lambda o:hasWrongVersionId(o),
-        'This Assessment belongs to the wrong version group'),
+        'This Assessment belongs to the wrong version group. To fix this '
+        'please visit the Indicator Specification edit page.'),
 
         (lambda o:filter(
             lambda p: not IObjectReadiness(p).is_ready_for('published'),
