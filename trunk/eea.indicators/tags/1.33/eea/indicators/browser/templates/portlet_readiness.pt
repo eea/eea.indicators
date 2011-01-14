@@ -1,0 +1,13 @@
+<tal:def tal:define="submit_handler string:simple_edit; ">
+	<div tal:define="region_name string:assessments_area;
+		region_update_handler string:portlet_readiness_live;
+		">
+		<div metal:define-macro="portlet">
+			<div metal:use-macro="here/portlet_readiness_live/macros/portlet">
+				<div metal:fill-slot="content">
+					<div metal:use-macro="portal_object/portlet_readiness/macros/portlet" />
+				</div>
+			</div>
+		</div>
+	</div>
+</tal:def>
