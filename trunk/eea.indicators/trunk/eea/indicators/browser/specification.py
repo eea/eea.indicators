@@ -13,6 +13,7 @@ from eea.indicators.browser.utils import has_one_of
 from eea.indicators.content.Specification import assign_version
 from eea.versions.versions import CreateVersion as BaseCreateVersion
 from eea.versions.versions import create_version as base_create_version
+from eea.versions.versions import get_version_id
 from eea.workflow.interfaces import IFieldIsRequiredForState, IValueProvider
 from eea.workflow.readiness import ObjectReadiness
 from zope.component import getMultiAdapter

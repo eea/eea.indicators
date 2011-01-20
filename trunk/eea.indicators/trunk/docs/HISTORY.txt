@@ -3,6 +3,8 @@ Changelog
 
 1.34-dev - (unreleased)
 -----------------------
+ * Bug fix: redirect to @@edit_aggregated instead of edit_aggregated after title edit in indicator [tiberich]
+ * Feature: link to @@ims_timeline and @@ims_overview from the readiness portlet [tiberich #4045]
 
 1.33 - (2011-01-14)
 -------------------
