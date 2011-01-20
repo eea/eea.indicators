@@ -4,7 +4,7 @@ active_region = context.REQUEST.form.get('active_region');
 if not field:
     raise ValueError('We need a specific field here')
 
-url = context.absolute_url() + '/edit_aggregated';
+url = context.absolute_url() + '/@@edit_aggregated';
 
 if active_region:
     return """
