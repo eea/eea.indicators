@@ -22,6 +22,8 @@
       end python:info[0][1];
       years python:range(start, end+1)">
 
+      <div tal:content="python:timeline.keys()" />
+
       <tal:block define="queryString string:h2">
         <metal:toc use-macro="here/portlet_toc/macros/portlet"/>
       </tal:block>

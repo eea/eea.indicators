@@ -93,26 +93,22 @@ class IndicatorsOverview(BrowserView, BaseIndicatorsReport):
             assessments = [(a, a.review_state)
                            for a in self.get_child_assessments(spec)]
 
-            sets = [s['set'] for s in get_codes(spec.get_codes)]
-            if not sets:
-                sets = [None]
+            sets = [s['set'] for s in get_codes(spec.get_codes)] or ["none"]
 
-            for s in sets:
+            for st in sets:
                 info = {
                         'spec':spec,
                         'manager_id':self._get_name(spec),
                         'state':spec.review_state,
                         'assessments':assessments,
                         }
-                if s in result.keys():
-                    result[s].append(info)
+                if st in result.keys():
+                    result[st].append(info)
                 else:
-                    result[s] = [info]
+                    result[st] = [info]
 
         for fs in self.factsheets:
-            sets = [s['set'] for s in get_codes(fs.get_codes)]
-            if not sets:
-                sets = [None]
+            sets = [s['set'] for s in get_codes(fs.get_codes)] or ["none"]
 
             for s in sets:
                 info = {
@@ -178,10 +174,11 @@ class IndicatorsTimeline(BrowserView, BaseIndicatorsReport):
 
         earliest_year = 0
         latest_year = 0
+        none = [{'set':"missing setcode", 'code':' '}]
 
         for spec in self.specs:
             assessments = self.get_child_assessments(spec)
-            for setcode in get_codes(spec.get_codes):
+            for setcode in (get_codes(spec.get_codes) or none):
                 set, code = setcode['set'], setcode['code']
                 if not set in result:
                     result[set] = {}
@@ -220,7 +217,7 @@ class IndicatorsTimeline(BrowserView, BaseIndicatorsReport):
                               'readiness':a.published_readiness}]
 
         for fs in self.factsheets:
-            for setcode in get_codes(fs.get_codes):
+            for setcode in (get_codes(fs.get_codes) or none):
                 set, code = setcode['set'], setcode['code']
                 if not set in result:
                     result[set] = {}
