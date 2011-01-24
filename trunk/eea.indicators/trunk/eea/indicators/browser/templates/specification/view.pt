@@ -382,6 +382,7 @@
 						<div>
 							Last modified: <span tal:content="context/modified">Modified date</span>
 						</div>
+
 						<div>
 							Primary theme:<br />
 							<tal:block define="themesView here/@@themes-object|nothing;
@@ -404,8 +405,14 @@
 
 							</tal:block>
 						</div>
+
 					</div>
 				</div>
+
+        <div class='headed-box'>
+          <h4>Permalinks</h4>
+          <metal:basicmeta use-macro="context/versions_macros/macros/permalinks" />
+        </div>
 
 				<div class='headed-box'>
 					<h3>Classification</h3>
