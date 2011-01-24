@@ -307,6 +307,12 @@
           Last modified: <span tal:content="context/modified">Modified date</span>
         </div>
       </div>
+
+      <div class='headed-box'>
+        <h4>Permalinks</h4>
+        <metal:basicmeta use-macro="context/versions_macros/macros/permalinks" />
+      </div>
+
       <metal:versions use-macro="here/portlet_versions/macros/versions">
         <metal:new fill-slot="new" />
       </metal:versions>
