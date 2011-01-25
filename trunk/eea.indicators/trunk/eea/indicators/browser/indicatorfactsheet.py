@@ -5,10 +5,19 @@
 
 __author__ = """European Environment Agency (EEA)"""
 __docformat__ = 'plaintext'
-__credits__ = """contributions: Alec Ghica"""
+__credits__ = """contributions: Alec Ghica, Tiberiu Ichim"""
 
-from Products.Five import BrowserView
+
 from Products.CMFCore.utils import getToolByName
+from Products.Five import BrowserView
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+
+
+class AggregatedEditPage(BrowserView):
+    """Aggregated edit"""
+    template = ViewPageTemplateFile('templates/indicatorfactsheet/aggregated_edit.pt')
+
+    __call__ = template
 
 
 class FiguresForAlbum(BrowserView):
@@ -29,6 +38,7 @@ class FiguresForAlbum(BrowserView):
         brains = [b for b in cat.searchResults(query)]
         return brains
 
+
 class KeyMessages(BrowserView):
     """ Return contained KeyMessage objects
     """
@@ -39,6 +49,7 @@ class KeyMessages(BrowserView):
                     'review_state': ['published'],
                }, full_objects = True)
 
+
 class FactSheetDocuments(BrowserView):
     """ Return contained FactSheetDocument objects
     """
@@ -48,3 +59,4 @@ class FactSheetDocuments(BrowserView):
                     'portal_type': 'FactSheetDocument',
                     'review_state': ['published'],
                }, full_objects = True)
+

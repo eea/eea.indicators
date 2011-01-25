@@ -59,3 +59,34 @@ class IndicatorMixin(object):
                 duplicated_codes.append((code, _d.values()))
 
         return duplicated_codes
+
+    security.declarePublic("get_diff_vers_setcode")
+    def get_diff_vers_setcode(self):
+        """Returns a list of versions of this Spec that have
+           a different main setcode
+        """
+        diff = []
+        codes = self.getCodes()
+        if not codes:
+            return diff
+
+        code = codes[0]
+        for v in get_versions_api(self).versions.values():
+            if v.getCodes() and v.getCodes()[0] != code:
+                diff.append(v)
+        return diff
+
+    security.declarePublic('getCandidateFixedCode')
+    def getCandidateFixedCode(self, spec):
+        """Returns codes that a spec should get to have a similar main
+           setcode to context
+        """
+        main = self.getCodes()[0]
+        other = spec.getCodes()
+
+        return [main] + list(filter(lambda c:c!=main, other))
+
+    security.declarePublic('format_codes')
+    def format_codes(self, codes):
+        """format codes"""
+        return ", ".join(["%s%s" % (s['set'], s['code']) for s in codes])
