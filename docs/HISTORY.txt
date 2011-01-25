@@ -7,6 +7,8 @@ Changelog
  * Feature: link to @@ims_timeline and @@ims_overview from the readiness portlet [tiberich #4045]
  * Bug fix: show ims content with missing setcodes in @@ims_timeline [tiberich #4053]
  * Feature: added permalinks in indicator factsheet, specification and assessment index views [tiberich #3552]
+ * Feature: added aggregated edit view for indicator fact sheets [tiberich #4068]
+ * Feature: enabled portlet readiness for indicator fact sheets [tiberich #4068]
 
 1.33 - (2011-01-14)
 -------------------

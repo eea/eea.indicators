@@ -1,6 +1,7 @@
 """Indicator fact sheet"""
 
 from AccessControl import ClassSecurityInfo
+from Acquisition import aq_inner, aq_parent
 from Products.ATContentTypes.content.folder import ATFolder, ATFolderSchema
 from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
 from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
@@ -13,12 +14,15 @@ from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 from Products.DataGridField import DataGridField, DataGridWidget
 from Products.DataGridField.Column import Column
 from Products.DataGridField.SelectColumn import SelectColumn
+from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from eea.indicators.config import PROJECTNAME
 from eea.indicators.content import interfaces
 from eea.indicators.content.IndicatorMixin import IndicatorMixin
+from eea.indicators.content.base import ModalFieldEditableAware
 from eea.indicators.content.utils import get_dgf_value
 from eea.relations.field import EEAReferenceField
 from eea.relations.widget import EEAReferenceBrowserWidget
+from eea.workflow.interfaces import IHasMandatoryWorkflowFields
 from zope.interface import implements
 
 
@@ -56,6 +60,24 @@ schema = Schema((
         default_output_type='text/html',
         searchable=True,
     ),
+    StringField(
+        name='policy_question',
+        searchable = True,
+        widget=StringField._properties['widget'](
+            label="Policy Question",
+            label_msgid='indicators_label_policy_question',
+            i18n_domain='indicators',
+        ),
+    ),
+    StringField(
+        name='dpsir',
+        widget=SelectionWidget(
+            label="DPSIR",
+            label_msgid='indicators_label_dpsir',
+            i18n_domain='indicators',
+        ),
+        vocabulary=NamedVocabulary("indicator_dpsir"),
+    ),
     DateTimeField(
         name='assessment_date',
         widget=DateTimeField._properties['widget'](
@@ -67,27 +89,6 @@ schema = Schema((
             i18n_domain='indicators',
         ),
     ),
-    DataGridField(
-        name='codes',
-        widget=DataGridWidget(
-            label="Identification codes",
-            description="Codes are short names used to identify the indicator"
-                        " in question. Code is made up of a SET-ID and an "
-                        "CODE-NR, e.g. TERM 002. Multiple codes are allowed, "
-                        "since same indicator can be re-used in other "
-                        "indicators' sets.",
-            columns={'set':SelectColumn("Set ID", 
-                vocabulary="get_indicator_codes"), 
-                "code":Column("Code number")},
-            auto_insert=True,
-            label_msgid='indicatorsfactsheet_label_codes',
-            i18n_domain='indicators',
-            ),
-        columns=("set", "code"),
-        required_for_published=True,
-        searchable = True,
-        validators=('unique_specification_code',),
-        ),
     StringField(
         name='source_code',
         searchable = True,
@@ -142,24 +143,27 @@ schema = Schema((
             i18n_domain='indicators',
         ),
     ),
-    StringField(
-        name='policy_question',
+    DataGridField(
+        name='codes',
+        widget=DataGridWidget(
+            label="Identification codes",
+            description="Codes are short names used to identify the indicator"
+                        " in question. Code is made up of a SET-ID and an "
+                        "CODE-NR, e.g. TERM 002. Multiple codes are allowed, "
+                        "since same indicator can be re-used in other "
+                        "indicators' sets.",
+            columns={'set':SelectColumn("Set ID", 
+                vocabulary="get_indicator_codes"), 
+                "code":Column("Code number")},
+            auto_insert=True,
+            label_msgid='indicatorsfactsheet_label_codes',
+            i18n_domain='indicators',
+            ),
+        columns=("set", "code"),
+        required_for_published=True,
         searchable = True,
-        widget=StringField._properties['widget'](
-            label="Policy Question",
-            label_msgid='indicators_label_policy_question',
-            i18n_domain='indicators',
+        validators=('unique_specification_code',),
         ),
-    ),
-    StringField(
-        name='dpsir',
-        widget=SelectionWidget(
-            label="DPSIR",
-            label_msgid='indicators_label_dpsir',
-            i18n_domain='indicators',
-        ),
-        vocabulary=NamedVocabulary("indicator_dpsir"),
-    ),
     EEAReferenceField('relatedItems',
             relationship='relatesTo',
             multivalued=True,
@@ -191,18 +195,37 @@ IndicatorFactSheet_schema = ATFolderSchema.copy() + \
 IndicatorFactSheet_schema.moveField('relatedItems', after='dpsir')
 
 
-class IndicatorFactSheet(ATFolder, BrowserDefaultMixin, IndicatorMixin):
+class IndicatorFactSheet(ATFolder, ModalFieldEditableAware, BrowserDefaultMixin, IndicatorMixin):
     """IndicatorFactSheet content class
     """
     security = ClassSecurityInfo()
 
     implements(interfaces.IIndicatorFactSheet,
-               interfaces.IIndicatorAssessment)
+               interfaces.IIndicatorAssessment,
+               IHasMandatoryWorkflowFields)
 
     meta_type = 'IndicatorFactSheet'
     _at_rename_after_creation = True
 
     schema = IndicatorFactSheet_schema
+
+    portlet_readiness = \
+            ViewPageTemplateFile('../browser/templates/portlet_readiness.pt')
+
+    security.declarePublic('left_slots')
+    def left_slots(self):
+        """left slots"""
+        _slot = 'here/portlet_readiness/macros/portlet'
+        #_assigned = self.getProperty('left_slots') or []
+
+        parent = aq_parent(aq_inner(self))
+        base_slots = getattr(parent, 'left_slots', [])
+        if callable(base_slots):
+            base_slots = base_slots()
+
+        base_slots = list(base_slots)
+        base_slots.insert(0, _slot)
+        return base_slots
 
     security.declarePublic("getGeographicCoverage")
     def getGeographicCoverage(self):
