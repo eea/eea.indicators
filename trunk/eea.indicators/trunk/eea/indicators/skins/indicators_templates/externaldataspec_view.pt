@@ -41,7 +41,9 @@
           <span>Provider:</span>
         </dt>
         <dd>
-          <a href="" tal:attributes="href python:context.getProvider_url()[0]" tal:content="value" />
+          <a tal:condition="context/getProvider_url" 
+            href="" tal:attributes="href python:context.getProvider_url()[0]" tal:content="value" />
+          <span tal:condition="not:context/getProvider_url" tal:content="value" />
         </dd>
       </tal:block>
 
