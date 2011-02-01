@@ -230,25 +230,33 @@
       </div>
 
       <h2 id="data_specifications">Data sources</h2>
-      <h3>EEA data references</h3>
       <ul tal:define="datasetsView nocall:specification/@@related_items;
-        datasets python:datasetsView('Data')">
-        <li tal:condition="not:datasets">No datasets have been specified here.</li>
+        datasets python:datasetsView('Data'); extdatasets python:datasetsView('ExternalDataSpec')">
         <li tal:repeat="data datasets" tal:condition="datasets">
+          <span tal:repeat="url python:data.getDataOwner()">
+           <tal:organisations condition="python:specification.getOrganisationName(url)">
+            <strong tal:content="python:specification.getOrganisationName(url).Title" />
+            <span tal:condition="not: repeat/url/end" tal:replace="string:, " />
+            <span tal:condition="repeat/url/end" tal:replace="string:: " />
+           </tal:organisations>
+          </span>
           <a href=""
             tal:attributes="href string:${context/portal_url}/data-and-maps/data/ds_resolveuid/${data/@@getLatestVersionLink}"
-            tal:content="data/title">Dataset title</a>
+            tal:content="data/title">Dataset title</a> (downloadable at EEA)
         </li>
-      </ul>
-      <h3>External data references</h3>
-            <ul tal:define="datasetsView nocall:specification/@@related_items;
-        datasets python:datasetsView('ExternalDataSpec')">
-        <li tal:condition="not:datasets">No datasets have been specified here.</li>
-        <li tal:repeat="data datasets" tal:condition="datasets">
+        <li tal:repeat="data extdatasets" tal:condition="extdatasets">
+          <span tal:repeat="url python:data.getProvider_url()">
+            <tal:organisations condition="python:specification.getOrganisationName(url)">
+      	    <strong tal:content="python:specification.getOrganisationName(url).Title" />       
+            <span tal:condition="not: repeat/url/end" tal:replace="string:, " />
+            <span tal:condition="repeat/url/end" tal:replace="string:: " />
+            </tal:organisations>
+       	  </span>
           <a href=""
             tal:attributes="href data/absolute_url"
-            tal:content="data/title">Dataset title</a>
+            tal:content="data/title">Dataset title</a> (external data reference)
         </li>
+        <li tal:condition="python:(not extdatasets and not datasets)">No datasets have been specified.</li>
       </ul>
 
       <div class="indicator-metadata-info">

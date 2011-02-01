@@ -3,6 +3,7 @@ Changelog
 
 1.34-dev - (unreleased)
 -----------------------
+ * Feature: Show data source organisation before each dataset title in assessment view, fixes #4091 and refs #3452 [demarant]
  * Bug fix: fix rendering of provider urls in external data spec view [tiberich #4092]
  * Bug fix: redirect to @@edit_aggregated instead of edit_aggregated after title edit in indicator [tiberich]
  * Feature: link to @@ims_timeline and @@ims_overview from the readiness portlet [tiberich #4045]
