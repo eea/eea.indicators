@@ -1,0 +1,90 @@
+<tal:defs tal:define="region_name string:methodology_area;
+                      region_update_handler string:fragment_methodology;
+                      also_reload python:['object_readiness'];
+                      submit_handler string:simple_edit;
+                      imsutils nocall:context/@@indicator_utils;
+                      portal_url context/portal_url;">
+
+  <metal:macro metal:use-macro="context/indicators_macros/macros/active_region">
+    <metal:slot metal:fill-slot="content">
+
+      <div class="logic_group" >
+        <h2 id="methodology">Methodology</h2>
+
+        <a name="rfs_methodology" ></a>
+        <h4 tal:define="field python:context.getField('methodology')">
+          <span metal:use-macro="context/indicators_macros/macros/tooltip" />
+          Methodology for indicator calculation
+        </h4>
+        <tal:def tal:define="fieldname string:methodology; fieldset string:Methodology">
+          <metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
+            <metal:slot metal:fill-slot="content">
+              <div tal:condition="python:not imsutils.field_has_value('methodology', context)"
+                class="placeholder">
+                <span class="required">Please fill in</span>
+              </div>
+              <p tal:replace="structure context/getMethodology" />
+            </metal:slot>
+            <metal:slot metal:fill-slot="extra-metadata">
+              <div class="width">800</div>
+              <div class="height">435</div>
+              <div class="dialog_title">Edit Methodology for indicator calculation</div>
+            </metal:slot>
+          </metal:macro>
+        </tal:def>
+
+        <h4 tal:define="field python:context.getField('methodology_gapfilling')">
+          <span metal:use-macro="context/indicators_macros/macros/tooltip" />
+          Methodology for gap filling
+        </h4>
+        <tal:def tal:define="fieldname string:methodology_gapfilling; fieldset string:Methodology">
+          <metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
+            <metal:slot metal:fill-slot="content">
+              <div tal:condition="python:not imsutils.field_has_value('methodology_gapfilling', context)"
+                class="placeholder">
+                Please fill in
+              </div>
+              <p tal:replace="structure context/getMethodology_gapfilling" />
+            </metal:slot>
+            <metal:slot metal:fill-slot="extra-metadata">
+              <div class="width">800</div>
+              <div class="height">435</div>
+              <div class="dialog_title">Edit Methodology for gap filling</div>
+            </metal:slot>
+          </metal:macro>
+        </tal:def>
+
+        <h4 tal:define="tooltip string:Add Methodology references">
+          <span metal:use-macro="context/indicators_macros/macros/tooltip" />
+          Methodology references
+        </h4>
+        <div class="grouped_field">
+          <a href='./object_factory?type_name=MethodologyReference'
+            class="object_creator">+ Methodology Reference</a>
+          <div id="methodology_references" class="sortable_spec"
+            tal:define="refs python:context.objectValues('MethodologyReference')">
+            <div class="metadata">
+              <span class="handler"
+                tal:content="string:${context/absolute_url}/change_order"></span>
+            </div>
+            <div tal:repeat="ref refs" class="list-item" tal:attributes="id ref/getId">
+              <span title="Drag & drop to set order"
+                    class="handler ui-icon ui-icon-arrowthick-2-n-s"></span>
+              <a href=""
+                class="schemata_edit spec_control"
+                title="Edit Methodology Reference"
+                i18n:attributes="title"
+                tal:attributes="href string:${ref/absolute_url}/schemata_edit?fieldset=default">Edit</a>
+              <a href=""
+                class="object_delete spec_control"
+                tal:attributes="href string:${ref/aq_parent/absolute_url}/@@obj_delete?id=${ref/getId}">Delete</a>
+              <a href="" tal:attributes="href ref/getRemoteUrl"><strong tal:content="ref/Title">Ref</strong></a>
+              <p tal:replace="structure ref/getDescription" />
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </metal:slot>
+  </metal:macro>
+</tal:defs>

@@ -1,0 +1,106 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    i18n_domain="indicators">
+
+    <five:registerPackage package="." initialize=".initialize" />
+
+    <include file="profiles.zcml" />
+    <include package=".faceted" />
+    <include package=".browser" />
+
+    <interface interface="eea.indicators.content.interfaces.IIndicatorsDatabase" />
+
+    <five:implements class=".content.Specification.Specification"
+        interface="eea.workflow.interfaces.IHasMandatoryWorkflowFields" />
+
+    <five:implements class=".content.Assessment.Assessment"
+        interface="eea.workflow.interfaces.IHasMandatoryWorkflowFields" />
+
+    <five:implements class=".content.AssessmentPart.AssessmentPart"
+        interface="eea.workflow.interfaces.IHasMandatoryWorkflowFields" />
+
+
+    <adapter factory=".content.ExternalDataSpec.ExternalDataSpecThemes" />
+    <adapter factory=".content.Specification.Specification2Surf" />
+
+
+    <subscriber
+        for=".content.interfaces.ISpecification
+        zope.app.event.interfaces.IObjectCreatedEvent"
+        handler="eea.versions.versions.versionIdHandler" />
+
+    <subscriber
+        for=".content.interfaces.ISpecification
+        zope.app.event.interfaces.IObjectModifiedEvent"
+        handler="eea.versions.versions.versionIdHandler" />
+
+    <subscriber
+        for=".content.interfaces.IAssessment
+        zope.app.event.interfaces.IObjectCreatedEvent"
+        handler="eea.versions.versions.versionIdHandler" />
+
+    <subscriber
+        for=".content.interfaces.IAssessment
+        zope.app.event.interfaces.IObjectModifiedEvent"
+        handler="eea.versions.versions.versionIdHandler" />
+
+    <subscriber
+        for=".content.interfaces.IIndicatorFactSheet
+        zope.app.event.interfaces.IObjectCreatedEvent"
+        handler="eea.versions.versions.versionIdHandler" />
+
+    <subscriber
+        for=".content.interfaces.IIndicatorFactSheet
+        zope.app.event.interfaces.IObjectModifiedEvent"
+        handler="eea.versions.versions.versionIdHandler" />
+
+    <subscriber
+        for=".content.interfaces.IAssessment
+        Products.CMFCore.interfaces.IActionSucceededEvent"
+        handler="eea.indicators.events.handle_assessment_state_change" />
+
+    <adapter
+        for="eea.indicators.content.interfaces.ISpecification"
+        provides="eea.relations.interfaces.IAutoRelations"
+        factory=".autorelations.LatestFigures"/>
+
+    <adapter
+        for="eea.indicators.content.interfaces.IAssessment"
+        provides="eea.themecentre.interfaces.IThemeTagging"
+        factory=".themes.AssessmentThemes"/>
+
+    <adapter
+        for="eea.indicators.content.interfaces.ISpecification"
+        provides="zope.app.traversing.interfaces.ITraversable"
+        factory=".traverse.SpecificationTraverser"/>
+
+    <subscriber
+        for=".content.interfaces.IAssessmentPart
+        zope.app.event.interfaces.IObjectModifiedEvent"
+        handler="eea.indicators.events.handle_assessmentpart_modification" />
+
+    <subscriber
+        for=".content.interfaces.ISpecification
+        zope.app.event.interfaces.IObjectModifiedEvent"
+        handler="eea.indicators.events.handle_specification_state_change" />
+
+    <subscriber
+        for=".content.interfaces.IPolicyQuestion
+        zope.app.event.interfaces.IObjectModifiedEvent"
+        handler="eea.indicators.events.handle_policyquestion_modification" />
+
+    <!--<class class="eea.indicators.content.Assessment.Assessment">-->
+        <!--<implements interface="eea.versions.interfaces.IVersionEnhanced" />-->
+    <!--</class>-->
+
+    <!--<class class="eea.indicators.content.Specification.Specification">-->
+        <!--<implements interface="eea.versions.interfaces.IVersionEnhanced" />-->
+    <!--</class>-->
+
+    <!--<class class="eea.indicators.content.IndicatorFactSheet.IndicatorFactSheet">-->
+        <!--<implements interface="eea.versions.interfaces.IVersionEnhanced" />-->
+    <!--</class>-->
+
+</configure>
