@@ -20,7 +20,7 @@ setup(
    "Programming Language :: Python",
    ],
  keywords='EEA indicators ims indicatorsmanagementsystem',
- author='European Environment Agency',
+ author='Alec Ghica (Eaudeweb), Tiberiu Ichim (Eaudeweb), Antonio De Marinis (EEA), European Environment Agency',
  author_email='webadmin@eea.europa.eu',
  license='GPL',
  packages=find_packages(exclude=['ez_setup', 'examples', 'tests']),
