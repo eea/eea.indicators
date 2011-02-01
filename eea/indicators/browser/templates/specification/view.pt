@@ -93,22 +93,22 @@
 					</tal:units>
 				</div>
 
+                                <div id="policy-context-and-references" metal:define-macro="policy-context-and-references">
+					<h2 id="policy_context" class="notoc">Policy context and targets</h2>
 
-				<h2 id="policy_context">Policy Context and targets</h2>
-
-				<h3>Context description</h3>
-				<tal:policy_description define="policy_description context/getPolicy_context_description">
+					<h3>Context description</h3>
+					<tal:policy_description define="policy_description context/getPolicy_context_description">
 					<p tal:condition="policy_description" tal:content="structure policy_description"></p>
 					<p tal:condition="not:policy_description">No context has been specified</p>
-				</tal:policy_description>
+					</tal:policy_description>
 
-				<h3>Targets</h3>
-				<tal:policy_targets define="policy_targets context/getPolicy_context_targets">
+					<h3>Targets</h3>
+					<tal:policy_targets define="policy_targets context/getPolicy_context_targets">
 					<p tal:condition="policy_targets" tal:content="structure policy_targets"></p>
 					<p tal:condition="not:policy_targets">No targets have been specified</p>
-				</tal:policy_targets>
+					</tal:policy_targets>
 
-				<tal:policy_documents define="policyDocuments nocall:context/@@related_items;
+					<tal:policy_documents define="policyDocuments nocall:context/@@related_items;
 					policy_documents python:policyDocuments('PolicyDocumentReference')">
 					<h3>Related policy documents</h3>
 					<ul tal:condition="policy_documents">
@@ -120,8 +120,9 @@
 						</li>
 					</ul>
 					<p tal:condition="not:policy_documents">No related policy documents have been specified</p>
-				</tal:policy_documents>
-
+					</tal:policy_documents>
+				</div>
+				
 				<tal:policy_question define="policy_questions context/@@policy_questions;
 					all_questions python:policy_questions['all'];
 					key_questions python:policy_questions['key_questions'];
@@ -135,25 +136,26 @@
 						<h3 tal:content="question/Title">Question title</h3>
 					</tal:question>
 				</tal:policy_question>
+				
+                                <div id="methodology-and-references" metal:define-macro="methodology-and-references">
+					<h2 id="methodology" class="notoc">Methodology</h2>
 
-				<h2 id="methodology">Methodology</h2>
-
-				<tal:methodology define="methodology context/getMethodology">
+					<tal:methodology define="methodology context/getMethodology">
 					<h3>Methodology for indicator calculation</h3>
 					<p tal:condition="methodology" tal:content="structure methodology" />
 					<p tal:condition="not:methodology">No methodology for indicator calculation has been specified</p>
-				</tal:methodology>
+					</tal:methodology>
 
-				<tal:methodology_gapfilling define="methodology_gapfilling context/getMethodology_gapfilling">
+					<tal:methodology_gapfilling define="methodology_gapfilling context/getMethodology_gapfilling">
 					<h3>Methodology for gap filling</h3>
 					<p tal:condition="methodology_gapfilling" tal:content="structure methodology_gapfilling" />
 					<p tal:condition="not:methodology_gapfilling">
 						No methodology for gap filling has been specified.
 						Probably this info has been added together with indicator calculation.</p>
-				</tal:methodology_gapfilling>
+					</tal:methodology_gapfilling>
 
-				<h3>Methodology references</h3>
-				<tal:methodology_references define="references python:context.getFolderContents(contentFilter={'portal_type':'MethodologyReference'})">
+					<h3>Methodology references</h3>
+					<tal:methodology_references define="references python:context.getFolderContents(contentFilter={'portal_type':'MethodologyReference'})">
 					<ul tal:condition="references">
 						<li tal:repeat="ref references">
 							<a href="" tal:attributes="href ref/getRemoteUrl" tal:content="ref/Title">Ref</a>
@@ -161,8 +163,8 @@
 						</li>
 					</ul>
 					<p tal:condition="not:references">No methodology references available.</p>
-				</tal:methodology_references>
-
+					</tal:methodology_references>
+				</div>
 				<!-- TODO: #3273 -->
 				<!-- TODO: add extra info from datasets like owner/provider/processor-->
 				<div id="data-specifications" metal:define-macro="data-specifications"
@@ -218,27 +220,27 @@
 
 
 				</div>
+				<div id="uncertainties-part" metal:define-macro="uncertainties-part">
+					<h2 id="uncertainties" class="notoc">Uncertainties</h2>
 
-				<h2 id="uncertainties">Uncertainties</h2>
-
-				<h3>Methodology uncertainty</h3>
-				<tal:methodology_uncertainty define="methodology_uncertainty context/getMethodology_uncertainty">
+					<h3>Methodology uncertainty</h3>
+					<tal:methodology_uncertainty define="methodology_uncertainty context/getMethodology_uncertainty">
 					<p tal:condition="methodology_uncertainty" tal:replace="structure methodology_uncertainty"></p>
 					<p tal:condition="not:methodology_uncertainty">No uncertainty has been specified</p>
-				</tal:methodology_uncertainty>
+					</tal:methodology_uncertainty>
 
-				<h3>Data sets uncertainty</h3>
-				<tal:data_uncertainty define="data_uncertainty context/getData_uncertainty">
+					<h3>Data sets uncertainty</h3>
+					<tal:data_uncertainty define="data_uncertainty context/getData_uncertainty">
 					<p tal:condition="data_uncertainty" tal:replace="structure data_uncertainty"></p>
 					<p tal:condition="not:data_uncertainty">No uncertainty has been specified</p>
-				</tal:data_uncertainty>
+					</tal:data_uncertainty>
 
-				<h3>Rationale uncertainty</h3>
-				<tal:rationale_uncertainty define="rationale_uncertainty context/getRationale_uncertainty">
+					<h3>Rationale uncertainty</h3>
+					<tal:rationale_uncertainty define="rationale_uncertainty context/getRationale_uncertainty">
 					<p tal:condition="rationale_uncertainty" tal:replace="structure rationale_uncertainty"></p>
 					<p tal:condition="not:rationale_uncertainty">No uncertainty has been specified</p>
-				</tal:rationale_uncertainty>
-
+					</tal:rationale_uncertainty>
+				</div>
 				<h2 id="further_work">Further work</h2>
 
 				<tal:def tal:define="works context/get_work; short works/short; long works/long">

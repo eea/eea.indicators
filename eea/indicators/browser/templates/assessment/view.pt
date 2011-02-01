@@ -126,7 +126,6 @@
         <metal:definition-and-units use-macro="specification/@@view/macros/definition-and-units" />
       </div>
       <br class="visualClear" />
-
       <div tal:define="assessments context/get_assessments;
         key nocall:assessments/key;
         secondary assessments/secondary;">
@@ -262,9 +261,18 @@
       <div class="indicator-metadata-info">
         <metal:justification use-macro="specification/@@view/macros/justification-and-references" />
       </div>
-
+      <div class="metadata-info-switchable">
+        <metal:policy use-macro="specification/@@view/macros/policy-context-and-references" />
+      </div>
+      <div class="metadata-info-switchable">
+        <metal:methodology use-macro="specification/@@view/macros/methodology-and-references" />
+      </div>
+      <div class="metadata-info-switchable">
+        <metal:uncertainties use-macro="specification/@@view/macros/uncertainties-part" />
+      </div>
+      
       <h2 id="methodology">More information about this indicator</h2>
-      <p>See this <a href="..">indicator specification</a> more relevant details.</p>
+      <p>See this <a href="..">indicator specification</a> for more details.</p>
 
       <div class='headed-box'>
         <h2>Contacts and ownership</h2>
@@ -320,6 +328,8 @@
         <h4>Permalinks</h4>
         <metal:basicmeta use-macro="context/versions_macros/macros/permalinks" />
       </div>
+      
+      <div class="metadata-switch metadata-switch-show">Switch to full indicator view</div>
 
       <metal:versions use-macro="here/portlet_versions/macros/versions">
         <metal:new fill-slot="new" />
