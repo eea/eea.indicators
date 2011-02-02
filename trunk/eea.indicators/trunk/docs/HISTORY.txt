@@ -1,6 +1,9 @@
 Changelog
 =========
 
+1.36-dev - (unreleased)
+-----------------------
+
 1.35 - (2011-02-02)
 -------------------
  * Bug fix: adjusted the link to ims overview and made the portlet only available for authorised only (CMS) fixes #4045 [demarant]
