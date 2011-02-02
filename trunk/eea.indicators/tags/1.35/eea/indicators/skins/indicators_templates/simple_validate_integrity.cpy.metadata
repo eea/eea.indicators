@@ -1,0 +1,10 @@
+[default]
+title = Validate Content Integrity
+
+[validators]
+validators =
+
+[actions]
+action.success = traverse_to:string:close_simple_edit
+action.failure = traverse_to:string:simple_content_edit
+

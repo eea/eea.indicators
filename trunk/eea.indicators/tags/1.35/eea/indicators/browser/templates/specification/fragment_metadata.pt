@@ -1,0 +1,342 @@
+<tal:def tal:define="submit_handler string:simple_edit; ">
+  <tal:def tal:define="region_name string:metadata_area;
+    region_update_handler string:fragment_metadata;
+    also_reload python:['object_readiness'];
+    imsutils nocall:context/@@indicator_utils;
+    portal_url context/portal_url">
+
+    <!-- <div tal:content="python:path('context/@@get_readiness').get_info_for('published')" /> -->
+    <!-- <div tal:content="python:path('context/@@get_readiness').is_ready_for('published')" /> -->
+
+    <metal:macro metal:use-macro="context/indicators_macros/macros/active_region">
+      <metal:slot metal:fill-slot="content">
+        <div class="logic_group">
+          <h2 id="general_metadata">General metadata</h2>
+
+          <div class='headed-box'>
+            <h3>Responsibility and ownership</h3>
+            <a name="rfs_manager_user_id" ></a>
+            <h4 tal:define="field python:context.getField('manager_user_id')">
+              <span metal:use-macro="context/indicators_macros/macros/tooltip" />
+              EEA Indicator Manager
+            </h4>
+            <tal:def tal:define="fieldname string:manager_user_id; fieldset string:default">
+              <metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
+                <metal:slot metal:fill-slot="content">
+                  <div tal:condition="python:not imsutils.field_has_value(fieldname, context)"
+                    class="placeholder">
+                    <span class="required">Please fill in</span>
+                  </div>
+                  <p tal:replace="structure context/getManager_user_id"></p>
+                  <tal:contact define="manager_id context/getManager_user_id">
+                    <tal:manager condition="manager_id">
+                      <tal:block define="manager_ob context/@@indicator_contact_info">
+                        <a href=""
+                          tal:condition="manager_ob"
+                          title="Contact indicator manager"
+                          tal:attributes="href string:http://www.eionet.europa.eu/sitedirsearch?name=${manager_ob/username}"
+                          tal:content="manager_ob/fullname">Contact</a>
+                        <p tal:condition="not:manager_ob">
+                          <span>User not found:</span>
+                          <tal:manager_id tal:content="manager_id" />
+                        </p>
+                      </tal:block>
+                    </tal:manager>
+                    <tal:contact condition="not:manager_id">
+                      <p>no user info</p>
+                    </tal:contact>
+                  </tal:contact>
+                </metal:slot>
+                <metal:slot metal:fill-slot="extra-metadata">
+                  <div class="width">800</div>
+                  <div class="height">435</div>
+                  <div class="dialog_title">Edit EEA Indicator Manager User Id</div>
+                </metal:slot>
+              </metal:macro>
+            </tal:def>
+
+            <a name="rfs_ownership" ></a>
+            <h4 tal:define="field python:context.getField('ownership')">
+              <span metal:use-macro="context/indicators_macros/macros/tooltip" />
+              Ownership
+            </h4>
+            <tal:def tal:define="fieldname string:ownership; fieldset string:Responsability;
+              owners context/getOwnership">
+              <metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
+                <metal:slot metal:fill-slot="content">
+                  <div tal:condition="python:not owners" class="placeholder">
+                    <span class="required">Please fill in</span>
+                  </div>
+                  <ul tal:condition="owners">
+                    <li tal:repeat="info owners" >
+                      <a tal:content="python:context.getOrganisationName(info).Title" tal:attributes="href info">EEA</a>
+                    </li>
+                  </ul>
+                </metal:slot>
+                <metal:slot metal:fill-slot="extra-metadata">
+                  <div class="width">800</div>
+                  <div class="height">500</div>
+                  <div class="dialog_title">Edit Responsibility and Ownership</div>
+                </metal:slot>
+              </metal:macro>
+            </tal:def>
+
+          </div>
+
+          <div class='headed-box'>
+            <h3>Classification</h3>
+            <div class="visualClear"><!-- --></div>
+
+            <a name="rfs_dpsir" ></a>
+            <h4 tal:define="field python:context.getField('dpsir')">
+              <span metal:use-macro="context/indicators_macros/macros/tooltip" />
+              DPSIR
+            </h4>
+            <tal:def tal:define="fieldname string:dpsir; fieldset string:Classification;
+              dpsir context/getDpsir">
+              <metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
+                <metal:slot metal:fill-slot="content">
+                  <div tal:condition="python:not dpsir" class="placeholder">
+                    <span class="required">Please fill in</span>
+                  </div>
+                  <span tal:define="dpsirLabel nocall:context/@@dpsir_label"
+                    tal:replace="python:dpsirLabel(dpsir)" />
+                </metal:slot>
+                <metal:slot metal:fill-slot="extra-metadata">
+                  <div class="width">800</div>
+                  <div class="height">435</div>
+                  <div class="dialog_title">Edit Classification</div>
+                </metal:slot>
+              </metal:macro>
+            </tal:def>
+
+            <a name="rfs_typology" ></a>
+            <h4 tal:define="field python:context.getField('typology')">
+              <span metal:use-macro="context/indicators_macros/macros/tooltip" />
+              Typology
+            </h4>
+            <tal:def tal:define="fieldname string:typology; fieldset string:Classification;
+              typology context/getTypology">
+              <metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
+                <metal:slot metal:fill-slot="content">
+                  <div tal:condition="python:not typology" class="placeholder">
+                    <span class="required">Please fill in</span>
+                  </div>
+                  <span tal:define="typologyLabel nocall:context/@@typology_label"
+                    tal:replace="python:typologyLabel(typology)"/>
+                </metal:slot>
+                <metal:slot metal:fill-slot="extra-metadata">
+                  <div class="width">800</div>
+                  <div class="height">435</div>
+                  <div class="dialog_title">Edit Typology</div>
+                </metal:slot>
+              </metal:macro>
+            </tal:def>
+
+
+            <h4 tal:define="field python:context.getField('themes')">
+              <span metal:use-macro="context/indicators_macros/macros/tooltip" />
+              EEA Themes
+            </h4>
+            <tal:def tal:define="fieldname string:themes;
+              fieldset string:Classification;
+              vocab python:context.Vocabulary(fieldname);
+              themes context/getThemes">
+              <div class="portalMessage" tal:condition="not:themes">
+                You need to assign a primary theme
+              </div>
+              <metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
+                <metal:slot metal:fill-slot="content">
+                  <div tal:condition="python:not themes" class="placeholder">
+                    <span class="required">Please fill in</span>
+                  </div>
+                  <div tal:define="view_name string:themes-object;
+                    proxy context/@@proxy;
+                    view python: proxy.real_view(view_name);
+                    items view/short_items;
+                    title title|view/title"
+                    tal:condition="items"
+                    tal:omit-tag="">
+
+                    <dt class="portletItem" tal:repeat="item items">
+                      <a href="" tal:attributes="href item/url">
+                        <img src="" alt="Theme image"
+                          tal:attributes="src string:${item/image}; alt item/title" /> <span tal:replace="item/title">Item title</span>
+                      </a>
+                    </dt>
+                  </div>
+
+                </metal:slot>
+                <metal:slot metal:fill-slot="extra-metadata">
+                  <div class="width">800</div>
+                  <div class="height">435</div>
+                  <div class="dialog_title">Edit EEA Themes</div>
+                </metal:slot>
+              </metal:macro>
+            </tal:def>
+          </div>
+
+          <div class='headed-box'>
+            <h3>Identification</h3>
+            <div class="wrapper" >
+              <div tal:define="codes context/getCodes; 
+                duplicate_codes context/get_duplicated_codes;
+                diff_codes context/get_diff_vers_setcode">
+
+                <div class="required-field"></div>
+                <a name="rfs_codes" ></a>
+                <h4 tal:define="field python:context.getField('codes')">
+                  <span metal:use-macro="context/indicators_macros/macros/tooltip" />
+                  Indicator code
+                </h4>
+
+                <tal:def tal:define="fieldname string:codes; fieldset string:Classification">
+                  <metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
+                    <metal:slot metal:fill-slot="content">
+                      <div tal:condition="python:not codes" class="placeholder">
+                        <span class="required">
+                          Please fill in
+                        </span>
+                      </div>
+                      <div tal:repeat="code codes" tal:content="string:${code/set} ${code/code}">
+                        CSI 001
+                      </div>
+                      <div tal:condition="duplicate_codes" class="portalMessage warningMessage">
+                        Unrelated Indicators Specifications have the same codes.
+                      </div>
+                      
+                      <p tal:condition="duplicate_codes">
+                        In case you have specified the wrong code for the current Indicator, use the "Edit" button
+                        to change it. If you believe the following indicators should be related to each other, use the 
+                        "Apply fix" button on each one to connect them as versions.
+                      </p>
+                      <table tal:repeat="code duplicate_codes">
+                        <thead>
+                          <tr>
+                            <th tal:content="python:'Duplicated code: %s' % code[0] ">
+                              CSI ZZZ
+                            </th>
+                            <th>Solution</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr tal:repeat="brain python:code[1]">
+                            <td>
+                              <a href='' tal:attributes="href python:brain.getURL()" tal:content="python:brain.Title" />
+                            </td>
+                            <td>
+                              <form method="POST" action="./@@assign_version" style="display:inline">
+                                <input type="hidden" name="new-version" value="" tal:attributes="value brain/getVersionId" />
+                                <input type="hidden" name="nextURL" 
+                                  tal:attributes="value string:${context/absolute_url}/@@edit_aggregated"/>
+                                <input type="submit" name="submit" value="Apply fix" />
+                              </form>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      
+
+                      <div tal:condition="diff_codes" class="portalMessage warningMessage">
+                        The main code for this Indicator Specification is not consistent with the rest of the related Indicators.
+                      </div>
+
+                      <div tal:condition="diff_codes" class="generic_ajax_forms">
+                        The following Indicator Specifications belong to the same versioning group but have a different main code. There are
+                        two ways of fixing this: either assign all the codes of this current specification, or assign just the maincode of this
+                        specification.
+                        <table>
+                          <thead>
+                            <tr>
+                              <th>Indicator</th>
+                              <th>Solution I</th>
+                              <th>Solution II</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr tal:repeat="spec diff_codes">
+                              <td>
+                                <a href="" tal:attributes="href spec/absolute_url" tal:content="spec/Title">Spec</a>.
+                              </td>
+                              <td>
+                                <form method="POST" action="./@@set_codes" style="display:inline"
+                                  tal:attributes="action string:${spec/absolute_url}/@@set_codes" >
+                                  <p>The codes will be changed from 
+                                    <strong tal:content="python:context.format_codes(spec.getCodes())" /> to 
+                                    <strong tal:content="python:context.format_codes(context.getCodes())" />.
+                                  </p>
+                                  <tal:rep tal:repeat="code context/getCodes">
+                                    <input name="codes:list" tal:attributes="value python:code['set']" type="hidden" />
+                                    <input name="codes:list" tal:attributes="value python:code['code']" type="hidden" />
+                                  </tal:rep>
+                                  <input type="submit" name="submit" value="Apply fix" />
+                                </form>
+                              </td>
+                              <td>
+                                <form method="POST" action="./@@set_Codes" style="display:inline"
+                                  tal:attributes="action string:${spec/absolute_url}/@@set_codes"
+                                  tal:define="candidates python: context.getCandidateFixedCode(spec)">
+                                  <p>
+                                    The codes will be changed from 
+                                    <strong tal:content="python:context.format_codes(spec.getCodes())" /> to 
+                                    <strong tal:content="python:context.format_codes(candidates)" />.
+                                  </p>
+                                  <tal:rep tal:repeat="code candidates">
+                                    <input name="codes:list" tal:attributes="value python:code['set']" type="hidden" />
+                                    <input name="codes:list" tal:attributes="value python:code['code']" type="hidden" />
+                                  </tal:rep>
+                                  <input type="submit" name="submit" value="Apply fix" />
+                                </form>
+
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+
+                    </metal:slot>
+                    <metal:slot metal:fill-slot="extra-metadata">
+                      <div class="width">800</div>
+                      <div class="height">435</div>
+                      <div class="dialog_title">Edit Codes</div>
+                    </metal:slot>
+                  </metal:macro>
+                </tal:def>
+
+              </div>
+
+              <h4 tal:define="tooltip string:Specification">
+                <span metal:use-macro="context/indicators_macros/macros/tooltip" />
+                Specification
+              </h4>
+              <div class="active_field">
+                <div>Link: <a href="" tal:attributes="href context/absolute_url"
+                    tal:content="context/getId">ISpecification1235</a>
+                </div>
+                <div>
+                  Version id: <tal:version_id define="getVersions nocall:context/@@getVersions;
+                    version_number getVersions/version_number"
+                    content="version_number" />
+                </div>
+
+                <div>
+                  First draft created: <span tal:content="context/creation_date">creation date</span>
+                </div>
+
+                <div>
+                  Publish date: <span tal:content="context/effective_date">effective date</span>
+                </div>
+                <div>
+                  Last modified: <span tal:content="context/modified">Modified date</span>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </metal:slot>
+    </metal:macro>
+
+  </tal:def>
+</tal:def>
