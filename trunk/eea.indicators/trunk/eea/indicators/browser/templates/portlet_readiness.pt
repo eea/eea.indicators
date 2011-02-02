@@ -2,7 +2,7 @@
   <div tal:define="region_name string:assessments_area;
     region_update_handler string:portlet_readiness_live;
     ">
-    <div metal:define-macro="portlet">
+    <div metal:define-macro="portlet" tal:condition="not:portal/portal_membership/isAnonymousUser">
       <div metal:use-macro="here/portlet_readiness_live/macros/portlet">
         <div metal:fill-slot="content">
           <div metal:use-macro="portal_object/portlet_readiness/macros/portlet" />
@@ -14,7 +14,7 @@
           <a href="" tal:attributes="href string:${context/portal_url}/data-and-maps/indicators/@@ims_timeline">Timeline</a>
         </li>
         <li>
-          <a href="" tal:attributes="href string:${context/portal_url}/data-and-maps/indicators/@@ims_timeline">Overview</a>
+          <a href="" tal:attributes="href string:${context/portal_url}/data-and-maps/indicators/@@ims_overview">Overview</a>
         </li>
       </ul>
     </div>
