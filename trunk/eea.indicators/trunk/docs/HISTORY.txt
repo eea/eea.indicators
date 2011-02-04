@@ -3,6 +3,7 @@ Changelog
 
 1.36-dev - (unreleased)
 -----------------------
+ * Change: Minor changes to the overviews links in portlet refs #4045 [demarant]
 
 1.35 - (2011-02-02)
 -------------------
