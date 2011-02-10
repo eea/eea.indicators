@@ -1,0 +1,37 @@
+<tal:def tal:define="submit_handler string:simple_edit;
+                     imsutils nocall:context/@@indicator_utils;
+                     region_name string:region_keymessage;
+                     also_reload python:['object_readiness'];
+                     region_update_handler string:${context/absolute_url}/fragment_keymessage;
+                     portal_url context/portal_url">
+
+  <metal:macro metal:use-macro="context/indicators_macros/macros/active_region">
+    <metal:slot metal:fill-slot="content">
+      <div class="logic_group">
+        <a name="rfs_key_message"></a>
+        <h2 tal:define="field python:context.getField('key_message')">
+          <span metal:use-macro="context/indicators_macros/macros/tooltip" />
+          Key message
+        </h2>
+
+        <tal:def tal:define="fieldname string:key_message;
+          fieldset string:default; ">
+          <metal:macro metal:use-macro="context/indicators_macros/macros/active_field">
+            <metal:slot metal:fill-slot="content">
+              <div tal:condition="python:not imsutils.field_has_value('key_message', context)"
+                class="placeholder">
+                <span class="required">Please fill in</span>
+              </div>
+              <div tal:replace="structure context/getKey_message" />
+            </metal:slot>
+            <metal:slot metal:fill-slot="extra-metadata">
+              <div class="width">800</div>
+              <div class="height">600</div>
+            </metal:slot>
+          </metal:macro>
+        </tal:def>
+      </div>
+    </metal:slot>
+  </metal:macro>
+
+</tal:def>
