@@ -286,7 +286,7 @@ class Assessment(ATFolder, ModalFieldEditableAware,
                             result[val] = val
         return list(result.keys())
 
-    security.declarePublic("readiness")
+    security.declarePublic("published_readiness")
     def published_readiness(self):
         """Used as index for readiness """
         return IObjectReadiness(self).get_info_for('published')['rfs_done']
