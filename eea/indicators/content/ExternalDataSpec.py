@@ -179,7 +179,12 @@ class ExternalDataSpec(ATCTContent, BrowserDefaultMixin):
     def Description(self):
         """description"""
         convert = getToolByName(self, 'portal_transforms').convert
-        return convert('html_to_text', self.getDescription()).getData()
+        text = convert('html_to_text', self.getDescription()).getData()
+        try:
+            text = text.decode('utf-8')
+        except UnicodeDecodeError:
+            pass
+        return text
 
     security.declarePublic("getThemes")
     def getThemes(self):

@@ -517,7 +517,12 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
     def Description(self):
         """Returns description"""
         convert = getToolByName(self, 'portal_transforms').convert
-        return convert('html_to_text', self.getDefinition()).getData()
+        text = convert('html_to_text', self.getDefinition()).getData()
+        try:
+            text = text.decode('utf-8')
+        except UnicodeDecodeError:
+            pass
+        return text
 
     security.declarePublic("getTitle")
     def getTitle(self):

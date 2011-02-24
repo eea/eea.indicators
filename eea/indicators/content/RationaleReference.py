@@ -89,7 +89,12 @@ class RationaleReference(ATLink, BrowserDefaultMixin):
     def Description(self):
         """Returns description"""
         convert = getToolByName(self, 'portal_transforms').convert
-        return convert('html_to_text', self.getDescription()).getData()
+        text = convert('html_to_text', self.getDescription()).getData()
+        try:
+            text = text.decode('utf-8')
+        except UnicodeDecodeError:
+            pass
+        return text
 
     security.declareProtected(permissions.View, 'getUrl')
     def getUrl(self):
