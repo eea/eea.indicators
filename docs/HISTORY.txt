@@ -1,6 +1,9 @@
 Changelog
 =========
 
+1.39-dev - (unreleased)
+-----------------------
+
 1.38 - (2011-02-24)
 -------------------
  * Bug fix: decode to unicode the Description for content types with autocomputed value [tiberich #4164]
