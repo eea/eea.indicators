@@ -1,0 +1,25 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+	metal:use-macro="here/main_template/macros/master"
+	i18n:domain="indicators">
+	<head>
+		<title tal:content="context/Title"></title>
+	</head>
+
+	<body>
+		<div metal:fill-slot="main">
+			<h1>Create a new version of an Assessment</h1>
+			<form method="POST" action="." tal:attributes="action here/REQUEST/URL">
+				<p>This indicator has a newer version, 
+					<a href="" tal:attributes="href view/spec_url" tal:content="view/spec_title">Spec title</a> from
+					<span tal:replace="view/date" />.
+				</p>
+				<p>
+					Do you want to create this assessment
+					<input type="radio" name="choice" value="here" /> here or 
+					<input type="radio" name="choice" value="newest" checked="checked" /> in the latest version of the Specification?
+				</p>
+				<input type="submit" name="submit" value="Submit" />
+			</form>
+		</div>
+	</body>
+</html>

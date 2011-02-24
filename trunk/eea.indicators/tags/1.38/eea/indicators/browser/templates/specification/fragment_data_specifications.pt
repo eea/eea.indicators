@@ -1,0 +1,58 @@
+<tal:defs tal:define="region_name string:data_spec_area;
+                      region_update_handler string:fragment_data_specifications;
+                      submit_handler string:simple_edit;
+                      imsutils nocall:context/@@indicator_utils;
+                      tooltip_macro context/indicators_macros/macros/tooltip;
+                      portal_url context/portal_url;
+                      related_view nocall:context/@@related_items;
+
+                      values python:related_view(['Data', 'ExternalDataSpec']);
+                      fieldname string:relatedItems;
+                      selected_tab string:$fieldname-eea-data">
+
+  <metal:macro metal:use-macro="context/indicators_macros/macros/active_region">
+    <metal:slot metal:fill-slot="content">
+
+      <div class="logic_group">
+        <h2 id="data_specifications"
+            tal:define="tooltip string:Data specifications">
+          <span metal:use-macro="tooltip_macro" /> Data specifications
+        </h2>
+
+        <div class="portalMessage" tal:condition="python:not values">
+          You need to reference at least one Data Spec
+        </div>
+
+        <metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
+          <metal:slot metal:fill-slot="content">
+            <div tal:condition="python:not values"
+              class="placeholder">
+              Please fill in
+            </div>
+            <ul>
+              <li tal:repeat="ref values">
+                <a href="" tal:attributes="href ref/absolute_url">
+                  <span tal:replace="ref/Title" />
+                </a>
+              </li>
+            </ul>
+          </metal:slot>
+          <metal:slot metal:fill-slot="control">
+            <div class="control-special-handler">
+              <a href=""
+                tal:attributes="onclick string:return open_relations_widget('active_field-$fieldname',
+                '$selected_tab')">edit...</a>
+            </div>
+          </metal:slot>
+          <metal:slot metal:fill-slot="extra-metadata">
+            <div class="disable_handler">true</div>
+            <div class="dialog_title">Data Specifications</div>
+          </metal:slot>
+
+        </metal:macro>
+
+      </div>
+    </metal:slot>
+  </metal:macro>
+</tal:defs>
+<!-- also_reload python:['relateditems_area','policy_context_area']; -->
