@@ -50,7 +50,7 @@ schema = Schema((
     ),
     TextField(
         name='assessment',
-        allowable_content_types=('text/plain', 'text/structured', 
+        allowable_content_types=('text/plain', 'text/structured',
             'text/html', 'application/msword',),
         widget=RichWidget(
             label="Assessment",
@@ -152,8 +152,8 @@ schema = Schema((
                         "CODE-NR, e.g. TERM 002. Multiple codes are allowed, "
                         "since same indicator can be re-used in other "
                         "indicators' sets.",
-            columns={'set':SelectColumn("Set ID", 
-                vocabulary="get_indicator_codes"), 
+            columns={'set':SelectColumn("Set ID",
+                vocabulary="get_indicator_codes"),
                 "code":Column("Code number")},
             auto_insert=True,
             label_msgid='indicatorsfactsheet_label_codes',
@@ -162,7 +162,7 @@ schema = Schema((
         columns=("set", "code"),
         required_for_published=True,
         searchable = True,
-        validators=('unique_specification_code',),
+        #validators=('unique_specification_code',),
         ),
     EEAReferenceField('relatedItems',
             relationship='relatesTo',
