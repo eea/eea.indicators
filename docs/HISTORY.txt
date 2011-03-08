@@ -1,6 +1,9 @@
 Changelog
 =========
 
+1.40-dev - (unreleased)
+-----------------------
+
 1.39 - (2011-03-08)
 -------------------
  * Bug fix: commented under IndicatorFactSheet content type the usage of
