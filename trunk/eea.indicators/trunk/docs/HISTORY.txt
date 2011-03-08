@@ -1,8 +1,8 @@
 Changelog
 =========
 
-1.39-dev - (unreleased)
------------------------
+1.39 - (2011-03-08)
+-------------------
  * Bug fix: commented under IndicatorFactSheet content type the usage of
      "unique_specification_code" validator as it is not defined [ghicaale #4174]
 
