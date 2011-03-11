@@ -22,7 +22,9 @@ from eea.indicators.content import interfaces
 from eea.themecentre.interfaces import IThemeTagging
 from zope.component import adapts
 from zope.interface import implements
+import logging
 
+logger = logging.getLogger('eea.indicators.content.ExternalDataSpec')
 
 schema = Schema((
 
@@ -182,8 +184,8 @@ class ExternalDataSpec(ATCTContent, BrowserDefaultMixin):
         text = convert('html_to_text', self.getDescription()).getData()
         try:
             text = text.decode('utf-8')
-        except UnicodeDecodeError:
-            pass
+        except UnicodeDecodeError, err:
+            logger.info(err)
         return text
 
     security.declarePublic("getThemes")

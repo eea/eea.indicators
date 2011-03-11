@@ -12,10 +12,6 @@ from eea.versions.versions import get_version_id
 from eea.versions.versions import get_versions_api
 from eea.workflow.interfaces import IObjectReadiness
 from eea.workflow.readiness import ObjectReadiness
-import logging
-
-
-logger = logging.getLogger('eea.indicators')
 
 
 class IndexPage(BrowserView):
@@ -60,7 +56,6 @@ class CreateVersion(BaseCreateVersion):
             return self.request.RESPONSE.redirect(version.absolute_url())
 
         raise ValueError("Unknown option for field choice")
-        return
 
 
 def create_version(original, request=None):

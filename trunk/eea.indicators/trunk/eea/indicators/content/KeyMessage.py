@@ -14,7 +14,7 @@ from Products.Archetypes.atapi import registerType, RichWidget
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 from eea.indicators.config import PROJECTNAME
 from zope.interface import implements
-import interfaces
+from eea.indicators.content import interfaces
 
 schema = Schema((
 

@@ -14,18 +14,17 @@ class AssessmentThemes(object):
         self.context = context
         self.parent = aq_parent(aq_inner(self.context))
 
-    def tags():
-        """The tags"""
+    #def tags():
+    #    """The tags"""
 
-        def get(self):
-            """ use the parent tags """
-            return IThemeTagging(self.parent).tags
+    def gett(self):
+        """ use the parent tags """
+        return IThemeTagging(self.parent).tags
 
-        def set(self, value):
-            """ do nothing on set"""
-            pass
+    def sett(self, value):
+        """ do nothing on set"""
+        pass
 
-        return property(get, set)
-
-    tags = tags()
+    #return property(get, set)
+    tags = property(gett, sett)
 

@@ -53,6 +53,9 @@ from zope.interface import alsoProvides, implements
 import datetime
 import rdflib
 import sys
+import logging
+
+logger = logging.getLogger('eea.indicators.content.Specification')
 
 
 ONE_YEAR = datetime.timedelta(weeks=52)
@@ -520,8 +523,8 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
         text = convert('html_to_text', self.getDefinition()).getData()
         try:
             text = text.decode('utf-8')
-        except UnicodeDecodeError:
-            pass
+        except UnicodeDecodeError, err:
+            logger.info(err)
         return text
 
     security.declarePublic("getTitle")
@@ -707,9 +710,9 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
 
         #create a new Assessment from scratch
         #id = self.generateUniqueId(type_name)
-        id = make_id('assessment', self.objectIds())
+        aid = make_id('assessment', self.objectIds())
         new_id = self.invokeFactory(type_name=type_name,
-                id=id,
+                id=aid,
                 base_impl=True,
                 title=self.translate(
                     msgid='label-newly-created-type',
@@ -725,9 +728,9 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
 
         #create assessment parts for each policy question
         for pq in self.objectValues("PolicyQuestion"):
-            id = ast.invokeFactory(type_name="AssessmentPart",
+            aid = ast.invokeFactory(type_name="AssessmentPart",
                     id=ast.generateUniqueId("AssessmentPart"),)
-            ap = ast[id]
+            ap = ast[aid]
             ap.setRelatedItems(pq)
             try:
                 ap.reindexObject()
