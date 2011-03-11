@@ -28,14 +28,14 @@ def get_codes(codes):
 
 
 #TODO: write test for this sorting
-def _get_code(set):
+def _get_code(sets):
     """Usable as key in a comparision function"""
     def _wrapped(info):
         """cook function"""
         spec = info['spec']
         codes = get_codes(spec.get_codes)
         for code in codes:
-            if set == code['set']:
+            if sets == code['set']:
                 return code['code']
 
         return None
@@ -108,7 +108,7 @@ class IndicatorsOverview(BrowserView, BaseIndicatorsReport):
                     result[st] = [info]
 
         for fs in self.factsheets:
-            sets = [s['set'] for s in get_codes(fs.get_codes)] or ["none"]
+            sets = [ms['set'] for ms in get_codes(fs.get_codes)] or ["none"]
 
             for s in sets:
                 info = {
@@ -179,17 +179,17 @@ class IndicatorsTimeline(BrowserView, BaseIndicatorsReport):
         for spec in self.specs:
             assessments = self.get_child_assessments(spec)
             for setcode in (get_codes(spec.get_codes) or none):
-                set, code = setcode['set'], setcode['code']
-                if not set in result:
-                    result[set] = {}
+                setc, code = setcode['set'], setcode['code']
+                if not setc in result:
+                    result[setc] = {}
 
-                if not code in result[set]:
-                    result[set][code] = {}
+                if not code in result[setc]:
+                    result[setc][code] = {}
 
                 d, p = self._get_instance_info(spec)
                 year = d.year()
 
-                result[set][code][year] = result[set][code].get(year, []) + \
+                result[setc][code][year] = result[setc][code].get(year, []) + \
                         [{'type':'s',
                             'url':spec.getURL(),
                             'state':p,
@@ -207,7 +207,7 @@ class IndicatorsTimeline(BrowserView, BaseIndicatorsReport):
                         if earliest_year == 0:
                             earliest_year = year
 
-                    result[set][code][year] = result[set][code].get(year, []) \
+                    result[setc][code][year] = result[setc][code].get(year, []) \
                           + [{
                               'type':'a',
                               'url':a.getURL(),
@@ -218,12 +218,12 @@ class IndicatorsTimeline(BrowserView, BaseIndicatorsReport):
 
         for fs in self.factsheets:
             for setcode in (get_codes(fs.get_codes) or none):
-                set, code = setcode['set'], setcode['code']
-                if not set in result:
-                    result[set] = {}
+                setc, code = setcode['set'], setcode['code']
+                if not setc in result:
+                    result[setc] = {}
 
-                if not code in result[set]:
-                    result[set][code] = {}
+                if not code in result[setc]:
+                    result[setc][code] = {}
 
                 d, p = self._get_instance_info(fs)
                 year = d.year()
@@ -234,7 +234,7 @@ class IndicatorsTimeline(BrowserView, BaseIndicatorsReport):
                     if earliest_year == 0:
                         earliest_year = year
 
-                result[set][code][year] = result[set][code].get(year, [])  + \
+                result[setc][code][year] = result[setc][code].get(year, [])  + \
                         [{'type':'f',
                             'url':fs.getURL(),
                             'state':p,

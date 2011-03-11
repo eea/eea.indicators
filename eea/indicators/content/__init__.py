@@ -23,5 +23,4 @@ import eea.indicators.content.WorkItem
 # V1 content
 import eea.indicators.content.FactSheetDocument
 import eea.indicators.content.IndicatorFactSheet
-import eea.indicators.content.KeyMessage
-
+import eea.indicators.content.KeyMessage 

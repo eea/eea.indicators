@@ -30,6 +30,10 @@ from eea.versions.versions import get_versions_api, get_version_id
 from eea.workflow.interfaces import IHasMandatoryWorkflowFields
 from eea.workflow.interfaces import IObjectReadiness
 from zope.interface import implements
+import logging
+
+logger = logging.getLogger('eea.indicators.content.Assessment')
+
 
 
 schema = Schema((
@@ -257,8 +261,8 @@ class Assessment(ATFolder, ModalFieldEditableAware,
         text = convert('html_to_text', self.getKey_message()).getData()
         try:
             text = text.decode('utf-8')
-        except UnicodeDecodeError:
-            pass
+        except UnicodeDecodeError, err:
+            logger.info(err)
         return text
 
     security.declarePublic("getGeographicCoverage")
@@ -328,8 +332,8 @@ def hasWrongVersionId(context):
 
     version_ids = {}
     for a in (all_assessments + factsheets):
-        id = get_version_id(a)
-        version_ids[id] = version_ids.get(id, []) + [a]
+        vid = get_version_id(a)
+        version_ids[vid] = version_ids.get(vid, []) + [a]
 
     if len(version_ids) == 1:
         return False
@@ -371,9 +375,9 @@ def getPossibleVersionsId(context):
 
     version_ids = {}
     for a in all_assessments + factsheets:
-        id = get_version_id(a)
-        _asts = version_ids.get(id, [])
-        version_ids[id] = _asts + [a]
+        vid = get_version_id(a)
+        _asts = version_ids.get(vid, [])
+        version_ids[vid] = _asts + [a]
 
     if len(version_ids) == 1:
         return []

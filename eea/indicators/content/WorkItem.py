@@ -15,7 +15,9 @@ from eea.indicators import msg_factory as _
 from eea.indicators.config import PROJECTNAME
 from eea.indicators.content import interfaces
 from zope.interface import implements
+import logging
 
+logger = logging.getLogger('eea.indicators.content.WorkItem')
 
 schema = Schema((
 
@@ -123,8 +125,8 @@ class WorkItem(ATCTContent, BrowserDefaultMixin):
         text = convert('html_to_text', self.getDescription()).getData()
         try:
             text = text.decode('utf-8')
-        except UnicodeDecodeError:
-            pass
+        except UnicodeDecodeError, err:
+            logger.info(err)
         return text
 
 

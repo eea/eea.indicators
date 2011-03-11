@@ -16,6 +16,10 @@ from Products.CMFPlone.utils import getToolByName
 from eea.indicators.config import PROJECTNAME
 from eea.indicators.content import interfaces
 from zope.interface import implements
+import logging
+
+logger = logging.getLogger('eea.indicators.content.MethodologyReference')
+
 
 schema = Schema((
 
@@ -78,8 +82,8 @@ class MethodologyReference(ATLink, BrowserDefaultMixin):
         text = convert('html_to_text', self.getDescription()).getData()
         try:
             text = text.decode('utf-8')
-        except UnicodeDecodeError:
-            pass
+        except UnicodeDecodeError, err:
+            logger.info(err)
         return text
 
     security.declareProtected(permissions.View, 'getUrl')

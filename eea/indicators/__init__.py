@@ -39,6 +39,7 @@ def initialize(context):
     """initialize product (called by zope)"""
     # imports packages and types for registration
     import eea.indicators.content
+    eea.indicators.content # pyflakes
 
     # Initialize portal content
     all_content_types, all_constructors, all_ftis = process_types(

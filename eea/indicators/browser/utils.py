@@ -18,10 +18,10 @@ class Sorter(BrowserView):
         new = self.request.form.get('order')
         old = self.context.objectIds()
 
-        for i, id in enumerate(new):
-            old_i = old.index(id)
+        for i, sid in enumerate(new):
+            old_i = old.index(sid)
             if old_i != i:
-                self.context.moveObjectToPosition(id, i)
+                self.context.moveObjectToPosition(sid, i)
                 #logging.info("Moved %s from position %s to %s", id, old_i, i)
 
         return "<done />"
@@ -31,12 +31,12 @@ class IIndicatorUtils(Interface):
     """This view can provide various utilities"""
     #str_to_id = Attribute(u"String to Id conversion")
 
-    def str_to_id():
+    def str_to_id(): 
         """Convert an ordinary string (maybe title) to something that
            can be used as a DOM element ID
         """
 
-    def field_has_value(fieldname, context):
+    def field_has_value(fieldname, context): 
         """Return True if the given field has a value
            for the given context object
         """
@@ -64,8 +64,8 @@ class ObjectDelete(BrowserView):
     """Delete objects from this container"""
 
     def __call__(self):
-        id = self.request.form['id']
-        del self.context[id]
+        oid = self.request.form['id']
+        del self.context[oid]
         return "<done />"
 
 

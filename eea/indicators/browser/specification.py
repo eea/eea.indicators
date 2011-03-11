@@ -19,7 +19,7 @@ from eea.workflow.readiness import ObjectReadiness
 from zope.component import getMultiAdapter
 
 import logging
-logger = logging.getLogger('eea.indicators')
+logger = logging.getLogger('eea.indicators.browser.specification')
 
 
 class IndexPage(BrowserView):
@@ -204,8 +204,8 @@ class SetCodes(BrowserView):
         #this is a list of form ['APE', '009', 'CSI', '001', 'CLIM', '003']
         codes = self.request.form.get("codes")  
 
-        value = [{'set':set, 'code':code} 
-                    for set, code in zip(codes[::2], codes[1::2])]
+        value = [{'set':setc, 'code':code} 
+                    for setc, code in zip(codes[::2], codes[1::2])]
 
         field = self.context.schema['codes']
         field.getStorage(self.context).set(field.getName(), self.context, value)
