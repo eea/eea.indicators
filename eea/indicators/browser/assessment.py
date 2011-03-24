@@ -74,7 +74,8 @@ def create_version(original, request=None):
 
     # Delete comment files
     file_ids = []
-    for file_ob in ver.objectValues("ATFile"):
+    for file_ob in ver.getFolderContents(content_filter={'portal_type':'File'}, 
+            full_objects=True):
         file_ids.append(file_ob.getId())
     ver.manage_delObjects(ids=file_ids)
 
