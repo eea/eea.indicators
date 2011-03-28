@@ -81,7 +81,7 @@ class MethodologyReference(ATLink, BrowserDefaultMixin):
         convert = getToolByName(self, 'portal_transforms').convert
         text = convert('html_to_text', self.getDescription()).getData()
         try:
-            text = text.decode('utf-8')
+            text = text.decode('utf-8', 'replace')
         except UnicodeDecodeError, err:
             logger.info(err)
         return text

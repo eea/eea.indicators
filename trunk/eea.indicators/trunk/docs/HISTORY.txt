@@ -5,6 +5,7 @@ Changelog
 -----------------------
  * Change: cleaned package of pylint violations [ichimdav #4140]
  * Change: use portal_type when looking for files in assessment [tiberich #4135]
+ * Bug fix: force decoding into unicode of Description for content types with autocomputed descriptions [tiberich]
 
 1.39 - (2011-03-08)
 -------------------
