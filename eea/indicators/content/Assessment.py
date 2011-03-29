@@ -10,10 +10,11 @@ from Acquisition import aq_inner, aq_parent
 from Products.ATContentTypes.content.folder import ATFolder
 from Products.ATContentTypes.content.folder import ATFolderSchema
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema
-from Products.Archetypes.atapi import Schema, StringField, TextField
 from Products.Archetypes.atapi import RichWidget, ComputedField, registerType
+from Products.Archetypes.atapi import Schema, StringField, TextField
 from Products.CMFCore.utils import getToolByName
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
+from Products.EEAContentTypes.content.validators import ManagementPlanCodeValidator
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from datetime import datetime
 from eea.dataservice.fields.ManagementPlanField import ManagementPlanField
@@ -21,14 +22,16 @@ from eea.dataservice.vocabulary import DatasetYears
 from eea.dataservice.widgets.ManagementPlanWidget import ManagementPlanWidget
 from eea.indicators import msg_factory as _
 from eea.indicators.config import PROJECTNAME
-from eea.indicators.content.base import ModalFieldEditableAware
 from eea.indicators.content.base import CustomizedObjectFactory
+from eea.indicators.content.base import ModalFieldEditableAware
 from eea.indicators.content.interfaces import IAssessment, IIndicatorAssessment
 from eea.relations.field import EEAReferenceField
 from eea.relations.widget import EEAReferenceBrowserWidget
 from eea.versions.versions import get_versions_api, get_version_id
 from eea.workflow.interfaces import IHasMandatoryWorkflowFields
 from eea.workflow.interfaces import IObjectReadiness
+from eea.workflow.utils import ATFieldValueProvider
+from zope.component import adapts
 from zope.interface import implements
 import logging
 
@@ -385,3 +388,13 @@ def getPossibleVersionsId(context):
     r = list(set(version_ids) - set([vid]))
     return r
 
+
+class ManagementPlanFieldValueProvider(ATFieldValueProvider):
+    adapts(Assessment, ManagementPlanField)
+
+    def has_value(self, **kwargs):
+        vd = ManagementPlanCodeValidator('management_plan_code_validator')
+        if not vd(self.get_value()) == 1:
+            return False
+
+        return True
