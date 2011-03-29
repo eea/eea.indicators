@@ -1,0 +1,127 @@
+<!-- TODO: remove the thiscontext variable, is not needed -->
+
+<!-- Tooltip macro -->
+<metal:tooltip define-macro="tooltip"
+	tal:define="tooltip tooltip|field/widget/description|nothing"
+	tal:condition="tooltip">
+	<img class="eea-flexible-tooltip-bottom"
+		src="information.png"
+		title=""
+		tal:attributes="src string:${portal_url}/information.png;
+		title tooltip" />
+</metal:tooltip>
+
+<!-- Active region macro -->
+<metal:macro metal:define-macro="active_region">
+	<div class="active_region" tal:attributes="id region_name">
+		<div class="content">
+			<metal:slot metal:define-slot="content"></metal:slot>
+		</div>
+		<div class="metadata" style="display:none" tal:define="also_reload also_reload|nothing">
+			<div class="region_update_handler"
+				tal:content="region_update_handler"></div>
+			<div class="also_reload" tal:condition="also_reload">
+				<span tal:repeat="reg also_reload" tal:content="reg" />
+			</div>
+			<metal:slot metal:define-slot="extra-metadata"></metal:slot>
+		</div>
+	</div>
+	<div class="visualClear"><!-- --></div>
+</metal:macro>
+
+<!-- Active field macro -->
+<div metal:define-macro="active_field" class="active_field"
+	tal:define="thiscontext nocall:thiscontext|context;">
+	<metal:slot metal:define-slot="control">
+		<div class="control">
+			<a href=""
+				tal:attributes="href
+				string:${thiscontext/absolute_url}/${submit_handler}?fieldset=${fieldset}&specific_field=$fieldname">
+				edit...
+			</a>
+		</div>
+	</metal:slot>
+	<div class="content">
+		<metal:slot metal:define-slot="content"></metal:slot>
+	</div>
+	<div class="metadata" style="display:none">
+		<div class="fieldname" tal:content="fieldname" />
+		<div class="submit_handler" tal:content="submit_handler" />
+		<metal:slot metal:define-slot="extra-metadata"></metal:slot>
+	</div>
+</div>
+
+<!-- Active reference field macro
+
+This field macro wraps the relations widget with info and metadata
+that allow integration with the aggregated edit views.
+The dom element that renders the popup macro is replaced,
+in case the form validation fails (for example), with the widget
+that is rendered by the schema (in this case,
+the one in indicatorsrelationwidet.pt)
+
+Parameters:
+
+@@param realFieldName: optional
+
+TODO:explain
+
+@@param fieldName: required
+This is the field that will be edited;
+
+@@param field: required
+The field that will be edited;
+
+@@param value: required
+A list of uids that are the initial value of that field;
+
+@@param region_name: required
+The name of the region fragment that will be updated;
+
+-->
+
+<metal:macro metal:define-macro="active_relation_field"
+	tal:define="widget nocall:field/widget;
+	widget_dom_id string:active_field-$fieldName;
+	realFieldName realFieldName|fieldName;" >
+
+	<div class="active_field indicators_relations_widget" tal:attributes="id widget_dom_id">
+		<div class="metadata">
+			<div class="widget_dom_id" tal:content="widget_dom_id"></div>
+			<div class="fieldName" tal:content="fieldName"></div>
+			<div class="realFieldName" tal:content="realFieldName"></div>
+		</div>
+		<div class="content">
+			<div tal:condition="python:not value" class="placeholder">
+				Please fill in
+			</div>
+
+			<form method="post" action=""
+				tal:attributes="action string:${context/absolute_url}/simple_edit">
+				<input type="hidden" name="specific_field" tal:attributes="value realFieldName" />
+				<input type="hidden" name="fieldset" tal:attributes="value field/schemata" />
+				<input type="hidden" name="active_region" tal:attributes="value region_name" />
+
+				<metal:macro metal:use-macro="here/eeareferencebrowser/macros/popup" >
+
+					<metal:slot fill-slot="edit">
+						<input type="hidden" value=""
+							tal:condition="multiVal"
+							tal:attributes="name string:$realFieldName:default" />
+						<select style="display:none" tal:attributes="
+							multiple python:multiVal and 'multiple' or None;
+							name string:$realFieldName:list; id fieldName;">
+							<tal:uids repeat="uid uids">
+								<option selected="selected"
+									tal:condition="uid" tal:attributes="value uid" tal:content="uid" />
+							</tal:uids>
+						</select>
+					</metal:slot>
+
+					<div metal:fill-slot="script"></div>
+				</metal:macro>
+			</form>
+
+		</div>
+	</div>
+</metal:macro>
