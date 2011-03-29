@@ -23,11 +23,15 @@
 
 
     <adapter factory=".content.ExternalDataSpec.ExternalDataSpecThemes" />
+
     <adapter factory=".content.Specification.Specification2Surf" />
+
     <adapter for="eea.indicators.content.interfaces.IIndicatorFactSheet
                   eea.rdfmarshaller.interfaces.ISurfSession" 
         provides="eea.rdfmarshaller.interfaces.IArchetype2Surf"
         factory=".content.Specification.Specification2Surf" />
+
+    <adapter factory=".content.Assessment.ManagementPlanFieldValueProvider" />
 
 
     <subscriber
