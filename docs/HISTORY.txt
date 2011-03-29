@@ -1,6 +1,9 @@
 Changelog
 =========
 
+1.41-dev - (unreleased)
+-----------------------
+
 1.40 - (2011-03-29)
 -------------------
  * Change: cleaned package of pylint violations [ichimdav #4140]
