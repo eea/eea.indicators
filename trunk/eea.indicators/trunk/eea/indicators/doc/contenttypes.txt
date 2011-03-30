@@ -381,6 +381,39 @@ We'll reindex this object because we need it later for some entries in the catal
     >>> catalog = getToolByName(portal, 'portal_catalog')
     >>> catalog.reindexObject(spec)
 
+Assessment readiness for publication:
+
+    >>> id = spec.invokeFactory("Assessment", 'asp')
+    >>> asp = spec[id]
+
+By default, a newly created assessment is not ready to be published:
+
+    >>> asp.unrestrictedTraverse('@@get_readiness').is_ready_for('published')
+    False
+
+We need to set the key message, set a figure as related and publish the specification:
+
+    >>> asp.setKey_message("something or other")
+    >>> ap = asp.objectValues("AssessmentPart")[0]
+    >>> rels = ap.getRelatedItems()
+    >>> ap.setRelatedItems(rels + [figure_1])
+    >>> asp.unrestrictedTraverse('@@get_readiness').is_ready_for('published')
+    False
+    >>> wftool = portal.portal_workflow
+    >>> try:    #there's an exception in a EEAContentTypes workflow script that can be ignored
+    ...     wftool.doActionFor(spec, 'quickPublish')
+    ... except:
+    ...     pass
+    >>> ap.setAssessment("assessment comes here")
+    >>> asp.unrestrictedTraverse('@@get_readiness').is_ready_for('published')
+    False
+
+The management plan needs to be filled in:
+
+    >>> asp.setManagement_plan((2001, '1.2.3'))
+    >>> asp.unrestrictedTraverse('@@get_readiness').is_ready_for('published')
+    True
+
 
 Simple field editing and schemata editing
 -----------------------------------------
