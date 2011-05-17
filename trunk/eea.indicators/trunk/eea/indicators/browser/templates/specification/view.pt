@@ -11,7 +11,8 @@
 				base_macros here/base/macros;
 				view_template python:'%s_view' % portal_type;
 				view_macros python:path('here/%s/macros|nothing' % view_template);
-				header_macro view_macros/header | header_macro | base_macros/header;">
+				header_macro view_macros/header | header_macro | base_macros/header;
+				specification python:context;">
 
 				<metal:use_header use-macro="header_macro" />
 
@@ -68,7 +69,7 @@
 					</tal:justification>
 
 					<h3>Scientific references:</h3>
-					<ul tal:define="refs python:context.getFolderContents(contentFilter={'portal_type':'RationaleReference'})">
+					<ul tal:define="refs python:specification.getFolderContents(contentFilter={'portal_type':'RationaleReference'})">
 						<li tal:condition="not:refs">No rationale references available</li>
 						<li tal:repeat="ref refs">
               <a href="" tal:attributes="href python:ref.getRemoteUrl or ref.absolute_url()"
@@ -108,7 +109,7 @@
 					<p tal:condition="not:policy_targets">No targets have been specified</p>
 					</tal:policy_targets>
 
-					<tal:policy_documents define="policyDocuments nocall:context/@@related_items;
+					<tal:policy_documents define="policyDocuments nocall:specification/@@related_items;
 					policy_documents python:policyDocuments('PolicyDocumentReference')">
 					<h3>Related policy documents</h3>
 					<ul tal:condition="policy_documents">
@@ -155,7 +156,7 @@
 					</tal:methodology_gapfilling>
 
 					<h3>Methodology references</h3>
-					<tal:methodology_references define="references python:context.getFolderContents(contentFilter={'portal_type':'MethodologyReference'})">
+					<tal:methodology_references define="references python:specification.getFolderContents(contentFilter={'portal_type':'MethodologyReference'})">
 					<ul tal:condition="references">
 						<li tal:repeat="ref references">
 							<a href="" tal:attributes="href ref/getRemoteUrl" tal:content="ref/Title">Ref</a>

@@ -3,6 +3,7 @@ Changelog
 
 1.41-dev - (unreleased)
 -----------------------
+ * Bug fix: references now also appear on Assessment view [ghicaale #4351]
 
 1.40 - (2011-03-29)
 -------------------
