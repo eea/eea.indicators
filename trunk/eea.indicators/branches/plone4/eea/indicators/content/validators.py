@@ -8,16 +8,17 @@ __docformat__ = 'plaintext'
 __credits__ = """contributions: Alec Ghica, Tiberiu Ichim"""
 
 from Acquisition import aq_inner, aq_parent
+from Products.CMFPlone.UnicodeSplitter import process_unicode
 from Products.CMFPlone.utils import getToolByName
-from Products.PluginIndexes.TextIndex.Splitter import UnicodeSplitter
 from Products.validation import validation
 from Products.validation.interfaces.IValidator import IValidator
+from zope.interface import implements
 
 
 class UniquePolicyDocTitleValidator:
     """Validator"""
 
-    __implements__ = IValidator
+    implements(IValidator)
 
     def __init__(self,
                  name,
@@ -28,7 +29,7 @@ class UniquePolicyDocTitleValidator:
         self.description = description
 
     def __call__(self, value, *args, **kwargs):
-        words = UnicodeSplitter.Splitter(value).split()
+        words = process_unicode(value)
         cat = getToolByName(kwargs['instance'], 'portal_catalog')
         query = {'portal_type': 'PolicyDocumentReference',
                  'Title': words}
@@ -50,7 +51,7 @@ validation.register(
 
 class UniquePolicyDocUrlValidator:
     """Validator"""
-    __implements__ = IValidator
+    implements(IValidator)
 
     def __init__(self,
                  name,
@@ -76,7 +77,7 @@ validation.register(UniquePolicyDocUrlValidator('unique_policy_url_validator'))
 
 
 class OneAssessmentPartPerQuestionValidator:
-    __implements__ = IValidator
+    implements(IValidator)
 
     def __init__(self,
                  name,

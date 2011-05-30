@@ -29,6 +29,13 @@ setup(
  zip_safe=False,
  install_requires=[
      "setuptools",
+     "Products.ATVocabularyManager",
+     "Products.DataGridField",
+     "Products.UserAndGroupSelectionWidget",
+     "eea.facetednavigation",
+     "eea.themecentre",
+     "eea.dataservice",
+     "eea.workflow",
  ],
  entry_points="""
  # -*- Entry points: -*-

@@ -8,13 +8,13 @@
 
  <object name="indicators_images"
          meta_type="Filesystem Directory View"
-         directory="indicators/skins/indicators_images"/>
+         directory="eea.indicators:skins/indicators_images"/>
  <object name="indicators_styles"
          meta_type="Filesystem Directory View"
-         directory="indicators/skins/indicators_styles"/>
+         directory="eea.indicators:skins/indicators_styles"/>
  <object name="indicators_templates"
          meta_type="Filesystem Directory View"
-         directory="indicators/skins/indicators_templates"/>
+         directory="eea.indicators:skins/indicators_templates"/>
  
  <skin-path name="*">
   <layer insert-after="custom" 
