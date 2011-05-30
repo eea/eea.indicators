@@ -1,0 +1,278 @@
+Changelog
+=========
+
+1.42-dev - (unreleased)
+-----------------------
+
+1.41 - (2011-05-20)
+-------------------
+ * Bug fix: references now also appear on Assessment view [ghicaale #4351]
+
+1.40 - (2011-03-29)
+-------------------
+ * Change: cleaned package of pylint violations [ichimdav #4140]
+ * Change: use portal_type when looking for files in assessment [tiberich #4135]
+ * Bug fix: force decoding into unicode of Description for content types with autocomputed descriptions [tiberich]
+ * Bug fix: added IValueProvider adapter for ManagementPlanField [tiberich #4222]
+
+1.39 - (2011-03-08)
+-------------------
+ * Bug fix: commented under IndicatorFactSheet content type the usage of
+     "unique_specification_code" validator as it is not defined [ghicaale #4174]
+
+1.38 - (2011-02-24)
+-------------------
+ * Bug fix: decode to unicode the Description for content types with autocomputed value [tiberich #4164]
+
+1.37 - (2011-02-10)
+-------------------
+ * Bug fix: made IndicatorFactSheets use the same IArchetype2Surf adapter as Specifications [tiberich #3982]
+
+1.36 - (2011-02-04)
+-------------------
+ * Change: Minor changes to the overviews links in portlet refs #4045 [demarant]
+
+1.35 - (2011-02-02)
+-------------------
+ * Bug fix: adjusted the link to ims overview and made the portlet only available for authorised only (CMS) fixes #4045 [demarant]
+
+1.34 - (2011-02-01)
+-------------------
+ * Feature: Included most of the metadata and info from the specification into the full view on assessment [demarant]
+ * Feature: Show data source organisation before each dataset title in assessment view, fixes #4091 and refs #3452 [demarant]
+ * Bug fix: fix rendering of provider urls in external data spec view [tiberich #4092]
+ * Bug fix: redirect to @@edit_aggregated instead of edit_aggregated after title edit in indicator [tiberich]
+ * Feature: link to @@ims_timeline and @@ims_overview from the readiness portlet [tiberich #4045]
+ * Bug fix: show ims content with missing setcodes in @@ims_timeline [tiberich #4053]
+ * Feature: added permalinks in indicator factsheet, specification and assessment index views [tiberich #3552]
+ * Feature: added aggregated edit view for indicator fact sheets [tiberich #4068]
+ * Feature: enabled portlet readiness for indicator fact sheets [tiberich #4068]
+
+1.33 - (2011-01-14)
+-------------------
+ * Change: Make the readiness message for wrong version on Assessment more clear [tiberich]
+ * Bug fix: Fix rendering of ExternalDataSource url [tiberich #4010]
+ * Bug fix: make tests pass [tiberich]
+ * Change: refactor versioning code for specifications to be used outside of views [tiberich]
+ * Change: refactor version reassigning code [tiberich]
+ * Bug fix: rename @@object_delete to @@obj_delete as it conflicts with a formcontroller script [tiberich #4028]
+
+1.32 - (2011-01-05)
+-------------------
+ * Bug fix: revert change made in 1.31, no longer directly implement IVersionEnhanced for Assessments, Specifications and IndicatorFactSheets [tiberich #4024]
+ * Bug fix: improve checks for versions in code that decides if spec code is duplicated [tiberich]
+ * Change: Visual fix for too tall metadata box on assessment view, now displayed in a more compact way [demarant]
+
+1.31 - (2011-01-04)
+-------------------
+ * Bug fix: Made Assessments, Specifications, IndicatorFactSheets implement IVersionEnhanced [tiberich #4024]
+ * Bug fix: Balance named link tags because of browser issues [tiberich]
+
+1.30 - (2010-12-21)
+-------------------
+ * Change: enabled annual management plan validator, refs #4019 [demarant]
+ * Change: Made eea management plan required for publishing, removed redundant old code [demarant]
+
+1.29 - (2010-12-17)
+-------------------
+ * Bug fix: Fixed title calculation for Specification [tiberich #4006]
+
+1.28 - (2010-12-16)
+-------------------
+ * Work in progress: Fixed code accordingly to pass PyFlakes tests [tiberich, ghicaale #3676]
+
+1.27 - (2010-12-13)
+-------------------
+ * Bug fix: Fixed jslint warnings [voineali #3821]
+
+1.26 - (2010-12-06)
+-------------------
+ * Feature: Allow reassigning codes when related specifications have different codes [tiberich #3756]
+ * Feature: Added @@ims_wrong_maincode admin view to see and fix related specs with different codes [tiberich #3756]
+ * Bug fix: Added Specification2Surf adapter to solve @@rdf view problem [tiberich #3893]
+
+1.25 - (2010-11-19)
+-------------------
+ * Bug fix: add eea.vocab profile to dependencies. Fixes tests [tiberich]
+ * Bug fix: changed wording for "no datasets specified" messages [tiberich #3831]
+ * Bug fix: preselect EEAFigure tab in relations popup [tiberich #3604]
+
+1.24 - (2010-11-12)
+-------------------
+ * Change: Added cache metadata to images [ghicaale #3667]
+
+1.23 - (2010-11-10)
+-------------------
+ * Change: Cleanup doctests according to eea.vocab fix [voineali]
+ * Change: Set default creation locations for PolicyQuestion and IndicatorFactSheet [tiberich #3584]
+ * Change: Recreate accordion on portlet readiness reload [tiberich #3766]
+
+1.22 - (2010-11-01)
+-------------------
+ * Change: use new API from eea.versions [tiberich #3278]
+
+1.21 - (2010-10-29)
+-------------------
+ * Change: now using new API for _get_random from eea.versions [tiberich #3758]
+ * Change: on assessment state change, make the assessment discussable [tiberich #3791]
+
+1.20 - (2010-10-25)
+-------------------
+ * Change: On reassign_version also assign new versions to all assessment
+   group of that Specification [tiberich #3790]
+
+1.19 - (2010-10-25)
+-------------------
+ * Move readiness warning icon in front of text in @@ims_timeline [tiberich]
+
+1.18 - (2010-10-21)
+-------------------
+ * Bug fix: added document_byline macro to assessment view [tiberich #3771]
+
+1.17 - (2010-10-20)
+-------------------
+ * Change: changed Specification.has_unique_code in Specification.has_duplicated_code
+ * Featured: Added view @@ims_wrong_specification_versions page [tiberich #3775]
+
+1.16 - (2010-10-18)
+-------------------
+ * Change: Cleaned source code of agx generated structures [tiberich]
+ * Feature: redirect to parent assessment when visiting an AssessmentPart [tiberich #3761]
+
+1.15 - (2010-10-15)
+-------------------
+ * Bug fix: add a missing import [tiberich]
+
+1.14 - (2010-10-14)
+-------------------
+ * Bug fix: change tests to hardcode less info about Specifications schema [tiberich]
+ * Feature: add @@ims_wrong_assessment_versions page [tiberich #3753]
+ * Feature: add readiness check that the assessments have the right version id [tiberich #3753]
+ * Bug fix: Add IndicatorFactSheets to ims_timeline and ims_overview [tiberich #3754]
+ * Change: Change the way H1 headers are get their icons in stylesheet and templates [tiberich]
+
+1.13 - (2010-10-08)
+-------------------
+ * Bug fix: Uncomment comment in assign_version that was providing IVersionEnhanced for specs;
+ Make assessments provide IVersionEnhanced when specification gets a new version reassigned [tiberich #3650]
+
+1.12 - (2010-10-07)
+-------------------
+ * Bug fix: fix reassign version bug; add test for that [tiberich #3650]
+
+1.11 - (2010-10-07)
+-------------------
+ *
+
+1.10 - (2010-10-07)
+-------------------
+ * Feature: automatically reassign version for children Assessments when changing version
+   for a Specification [tiberich #3736]
+
+1.9 - (2010-10-06)
+------------------
+ * Bug fix: for ims_timeline: remove assessment id from code that puts together the
+   children of a specification [tiberich #3741]
+ * Bug fix: use object review state for display in timeline [tiberich]
+ * Allow editors to link an specifications as versioned if the code is not unique [tiberich #3650]
+
+1.8 - (2010-09-30)
+------------------
+ * Feature: Show external data references when in assessment view [demarant #3732]
+ * Change: No longer need redefinitions for ObjectReadinessView for specs and assessments [tiberich #3694]
+ * Feature: Add two new catalog metadata columns: comments and published_readiness [tiberich #3645]
+ * Change: Use catalog search and brains to display the ims_timeline [tiberich #3645]
+ * Feature: Display not ready specs and assessments in red, with an icon that AJAX
+   loads the readiness status in a tooltip, in the ims_timeline [tiberich #3645]
+ * Change: Add customized view template for ExternalDataSpecs [tiberich #3192]
+ * Feature: On new assessment version, 'File' children are not copied [ghicaale #3601]
+ * Feature: Link indicators and/or assessments with comments on
+     timeline template [ghicaale #3601]
+ * Bug fix: Fixed adding policy document with '(' in title [tiberich #3614]
+ * Bug fix: Link directly to Scientific Reference if they don't have a remote url [tiberich #3646]
+ * Bug fix: Improved portlet readiness display for Assessments [tiberich #3606]
+ * Feature: Added custom faceted widget to be used in sorting indicators [tiberich #3502]
+ * Change: Made assessment agg edit to reload the portlet readiness [tiberich #3605]
+ * Change: Add event subscriber for Assessment state change. It publishes all related figures on
+   assessment publication [tiberich #3644]
+
+1.7 - (2010-09-06)
+------------------
+ * Change: Added two new checks on Assessment readiness [tiberich 3603]
+ * Feature: Show links to missing fields from the portlet for readiness, on agg edit [tiberich 3598]
+ * Change: Fixed some design issues with switch box not visible and alignment of toc and metabox [demarant].
+ * Feature: Use the multiselect autocomplete widget for Ownership in Spec agg edit [tiberich 3597]
+ * Bug fix: Override FactSheetDocument.index_html() to avoid recursion error [tiberich 3533]
+ * Change: Added tooltips to all fields on aggregated edit [ghicaale #3420]
+ * Bug fix: Updated broken internal urls to EEA mamagement plan system [demarant]
+ * Bug fix: Fixed javascript error when reloading relateditems fragment [tiberich #3591]
+ * Bug fix: Fixed javascript in advanced edit for relations widget [tiberich #3579]
+ * Change: The add menu in the Specification and Assessment view and edit pages is now hidden [tiberich #3583]
+ * Bug fix: Fixed the ims_timeline view [tiberich #3071]
+ * Bug fix: Show member fullname and workflow state title in @@ims_overview [tiberich #3071]
+ * Bug fix: Now "relatedItems" values are kept when creating a
+     new Specification version [ghicaale #3582]
+ * Change: Moved the Manager id edit field to the general metadata area. Small editorial changes. [demarant #3548]
+ * Bug fix: Tests fixed after changing product name [ghicaale]
+ * Feature: Use new filtering select widget for provider_url and dataset_url [tiberich #3530]
+ * Bug fix: Added indicators_get_referer.py script to fix referer when
+     using "tal expression" faceted widget [ghicaale #3538]
+ * Bug fix: Change provider_url and dataset_url to use StringField instead of LinesField,
+     also use new filtering select widget [tiberich #3530]
+
+1.6 - (2010-08-17)
+-----------------
+ * Feature: Show indicator codes in title [demarant]
+ * Change: Show TOC and generic metadata section on indicator factsheet as in assessments
+ * Feature: Tags/keywords for an assessment are now calculated dynamically
+     by its related content. Better view of tags and metadata [demarant]
+ * Feature: customize assessment/@@createVersion to allow choosing the destination of that version [tiberich #3539]
+ * Bug fix: Add "one_state_workflow" [tiberich #3152]
+ * Bug fix: When set versionId on adding an assessment, also look for IndicatorFactSheets
+     with same indicator set [ghicaale #3491]
+ * Bug fix: Reindex child assessment objects when saving 'codes' on a specification [ghicaale #3491]
+ * Bug fix: Fix wrong check for EEA Data metatype [tiberich #3541]
+ * Bug fix: Fixed indicator code validator. Now an IndicatorFactSheet validate its code
+     upon Assessments [ghicaale #3491]
+ * Bug fix: Fixed versions display of assessments on same Specification versioning set [ghicaale #3491]
+ * Change: Removed custom Title function, we do not need to show version info in title for specifications [demarant]
+ * Bug fix/Change: Fixed wrong label on IndicatorFactSheet for assessment text, adjusted more fields labels and
+     descriptions [demarant]
+
+1.5 - (2010-08-04)
+------------------
+ * Bug fix: Fixed missing "More updates info box" in assessment and adjusted design and position on both [demarant]
+ * Change: Consistent order of fields under aggregated edit of assessment as in the view. [demarant]
+ * Bug fix: Fixed unicode error in Specification.SearchableText,
+     Assessment.SearchableText and IndicatorFactSheet.SearchableText [ghicaale]
+ * Change: Hide metadata divs from display in active_field and active_region macros [tiberich]
+ * Bug fix: Fix display and sorting of Assessments for a Specification agg edit. [tiberich]
+ * Feature: Add custom AssessmentPart edit template, to make it include
+     eea.relations JS scripts [tiberich]
+ * Change: Mark Ownership field as mandatory in agg edit [tiberich]
+ * Change: Code cleanup in browser/assessment.py to eliminate duplicated code
+     from eea.versions [tiberich]
+
+1.4 - (2010-07-08)
+------------------
+ * Feature: Make "codes" available under SearchableText index for Specification,
+     Assessment and IndicatorFactSheet [ghicaale]
+ * Feature: Marked more fields on Indicator Fact Sheet as searchable [demarant]
+ * Bug fix: Fixed typo in traverse.py [ghicaale]
+
+1.3 - (2010-07-07)
+------------------
+ * Feature: Add traverser in order to maintain old assessment URLs after migration [ghicaale]
+
+1.2 - (2010-07-01)
+------------------
+ * Change: Removed empty folder 'locales' [ghicaale]
+
+1.1 - (2010-07-01)
+------------------
+ * Bug fix: Fixed indexing of themes on Assessments [#3458 ghicaale]
+
+1.0 - (2010-07-01)
+------------------
+ * Initial release [ghicaale]
+
