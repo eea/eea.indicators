@@ -36,6 +36,9 @@ setup(
      "eea.themecentre",
      "eea.dataservice",
      "eea.workflow",
+     'eea.relations',
+     "Products.kupu",
+     'zope.traversing',
  ],
  entry_points="""
  # -*- Entry points: -*-

@@ -48,7 +48,7 @@
         permission="cmf.ModifyPortalContent"
         class=".assessment.CreateVersion" />
 
-    <browser:menuItem title="Create new version"
+    <!--<browser:menuItem title="Create new version"
         for="eea.indicators.content.interfaces.IAssessment"
         menu="object_buttons"
         action="@@createVersion"
@@ -68,7 +68,7 @@
         title="Re-assign version"
         action="@@assignVersion"
         description="Re-assign to another version ID"
-        permission="cmf.ModifyPortalContent" />
+        permission="cmf.ModifyPortalContent" />-->
 
     <browser:page name="wrong_versions_report"
         for="eea.indicators.content.interfaces.IAssessment"

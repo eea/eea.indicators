@@ -70,7 +70,7 @@
         permission="cmf.ModifyPortalContent"
         class=".specification.CreateVersion" />
 
-    <browser:menuItem
+    <!--<browser:menuItem
         for="eea.indicators.content.interfaces.ISpecification"
         menu="object_buttons"
         title="Create new version"
@@ -92,7 +92,7 @@
         title="Re-assign version"
         action="@@assignVersion"
         description="Re-assign to another version ID"
-        permission="cmf.ModifyPortalContent" />
+        permission="cmf.ModifyPortalContent" />-->
 
     <browser:page
         for="eea.indicators.content.interfaces.ISpecification"

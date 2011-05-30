@@ -6,7 +6,7 @@ from Products.Archetypes.utils import mapply
 from Products.CMFCore import permissions
 from Products.CMFCore.permissions import AddPortalContent
 from zope import event
-from zope.app.event import objectevent
+from zope.lifecycleevent import ObjectModifiedEvent
 
 
 class ModalFieldEditableAware(object):
@@ -79,7 +79,7 @@ class ModalFieldEditableAware(object):
         else:
             self.at_post_edit_script()
 
-        event.notify(objectevent.ObjectModifiedEvent(self))
+        event.notify(ObjectModifiedEvent(self))
         return
 
     security.declareProtected(permissions.View, 'simple_validate')

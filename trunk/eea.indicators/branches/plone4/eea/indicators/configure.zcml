@@ -41,32 +41,32 @@
 
     <subscriber
         for=".content.interfaces.ISpecification
-        zope.app.event.interfaces.IObjectCreatedEvent"
+        zope.lifecycleevent.interfaces.IObjectCreatedEvent"
         handler="eea.versions.versions.versionIdHandler" />
 
     <subscriber
         for=".content.interfaces.ISpecification
-        zope.app.event.interfaces.IObjectModifiedEvent"
+        zope.lifecycleevent.interfaces.IObjectModifiedEvent"
         handler="eea.versions.versions.versionIdHandler" />
 
     <subscriber
         for=".content.interfaces.IAssessment
-        zope.app.event.interfaces.IObjectCreatedEvent"
+        zope.lifecycleevent.interfaces.IObjectCreatedEvent"
         handler="eea.versions.versions.versionIdHandler" />
 
     <subscriber
         for=".content.interfaces.IAssessment
-        zope.app.event.interfaces.IObjectModifiedEvent"
+        zope.lifecycleevent.interfaces.IObjectModifiedEvent"
         handler="eea.versions.versions.versionIdHandler" />
 
     <subscriber
         for=".content.interfaces.IIndicatorFactSheet
-        zope.app.event.interfaces.IObjectCreatedEvent"
+        zope.lifecycleevent.interfaces.IObjectCreatedEvent"
         handler="eea.versions.versions.versionIdHandler" />
 
     <subscriber
         for=".content.interfaces.IIndicatorFactSheet
-        zope.app.event.interfaces.IObjectModifiedEvent"
+        zope.lifecycleevent.interfaces.IObjectModifiedEvent"
         handler="eea.versions.versions.versionIdHandler" />
 
     <subscriber
@@ -86,22 +86,22 @@
 
     <adapter
         for="eea.indicators.content.interfaces.ISpecification"
-        provides="zope.app.traversing.interfaces.ITraversable"
+        provides="zope.traversing.interfaces.ITraversable"
         factory=".traverse.SpecificationTraverser"/>
 
     <subscriber
         for=".content.interfaces.IAssessmentPart
-        zope.app.event.interfaces.IObjectModifiedEvent"
+        zope.lifecycleevent.interfaces.IObjectModifiedEvent"
         handler="eea.indicators.events.handle_assessmentpart_modification" />
 
     <subscriber
         for=".content.interfaces.ISpecification
-        zope.app.event.interfaces.IObjectModifiedEvent"
+        zope.lifecycleevent.interfaces.IObjectModifiedEvent"
         handler="eea.indicators.events.handle_specification_state_change" />
 
     <subscriber
         for=".content.interfaces.IPolicyQuestion
-        zope.app.event.interfaces.IObjectModifiedEvent"
+        zope.lifecycleevent.interfaces.IObjectModifiedEvent"
         handler="eea.indicators.events.handle_policyquestion_modification" />
 
     <!--<class class="eea.indicators.content.Assessment.Assessment">-->

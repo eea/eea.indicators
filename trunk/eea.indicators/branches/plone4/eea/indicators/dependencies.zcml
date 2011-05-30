@@ -5,5 +5,14 @@
     i18n_domain="indicators">
 
     <include package="eea.facetednavigation" file='meta.zcml' />
+    <include package="eea.relations" file='meta.zcml' />
+
+    <include package="eea.workflow" />
+    <include package="eea.versions" />
+    <include package="Products.kupu" />
+    <include package="eea.relations" />
+    <include package="eea.relations.default" />
+
+    <includeOverrides package="eea.relations" file='overrides.zcml' />
 
 </configure>

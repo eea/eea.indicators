@@ -1,17 +1,18 @@
 """ Traversing utilities
 """
 
-from zope.app.traversing.interfaces import ITraversable
-from Products.Five.traversable import FiveTraversable
 from eea.indicators.content.interfaces import ISpecification
+from zope.annotation.interfaces import IAnnotations
 from zope.component import adapts
 from zope.interface import implements
-from zope.app.annotation.interfaces import IAnnotations
+from zope.traversing.interfaces import ITraversable
+from zope.traversing.adapters import DefaultTraversable
 
+#from Products.Five.traversable import FiveTraversable
 
 ANNO_MARKER = '__ims_migration__'
 
-class SpecificationTraverser(FiveTraversable):
+class SpecificationTraverser(DefaultTraversable):   #FiveTraversable
     """ traversal adapter to get an assessment based on its
         old ID after the migration from ims.eionet.europa.eu
     """

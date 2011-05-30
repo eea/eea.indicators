@@ -12,10 +12,12 @@ from Products.Archetypes.atapi import TextField, TextAreaWidget
 from Products.Archetypes.atapi import registerType, FileWidget
 from Products.CMFCore.permissions import View
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
-from eea.dataservice.fields import EventFileField
 from eea.indicators.config import PROJECTNAME
 from eea.indicators.content import interfaces
+from plone.app.blob.field import BlobField
 from zope.interface import implements
+
+#from eea.dataservice.fields import EventFileField
 
 schema = Schema((
 
@@ -43,7 +45,7 @@ schema = Schema((
         required=True,
         accessor="getDescription",
     ),
-    EventFileField('file',
+    BlobField('file',
         required=False,
         primary=True,
         widget = FileWidget(
