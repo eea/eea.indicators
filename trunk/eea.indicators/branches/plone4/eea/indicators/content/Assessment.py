@@ -96,7 +96,7 @@ schema = Schema((
         name='relatedItems',
         isMetadata=False,
         keepReferencesOnCopy=True,
-        multivalued=True,
+        multiValued=True,
         relationship='relatesTo',
         widget=EEAReferenceBrowserWidget(
             visible={'view':'invisible', 'edit':'invisible'},
@@ -306,6 +306,13 @@ class Assessment(ATFolder, ModalFieldEditableAware,
     security.declarePublic("comments")
     def comments(self):
         """Return the number of comments"""
+        #TODO: enable on plone4 migration
+        return 0
+
+        thread = self.plone_utils.getDiscussionThread(self)
+        return len(thread) - 1
+
+        #old, plone2.5
         return len(self.getReplyReplies(self))
 
 registerType(Assessment, PROJECTNAME)

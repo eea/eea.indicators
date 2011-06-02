@@ -1,7 +1,18 @@
 <?xml version="1.0"?>
 <metadata>
- <description>eea.indicators profile</description>
- <version>1</version>
+    <description>eea.indicators profile</description>
+    <version>1</version>
+
+    <dependencies>
+        <dependency>profile-Products.EEAPloneAdmin:default</dependency>
+        <dependency>profile-Products.ATVocabularyManager:default</dependency>
+        <dependency>profile-Products.UserAndGroupSelectionWidget:default</dependency>
+        <dependency>profile-eea.themecentre:default</dependency>
+        <dependency>profile-eea.versions:default</dependency>
+        <dependency>profile-eea.workflow:default</dependency>
+        <dependency>profile-eea.dataservice:default</dependency>
+        <dependency>profile-eea.relations:default</dependency>
+    </dependencies>
 </metadata>
 
 

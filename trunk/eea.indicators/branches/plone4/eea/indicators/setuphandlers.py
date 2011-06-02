@@ -24,32 +24,32 @@ def isNotindicatorsProfile(context):
     """ Used by GS """
     return context.readDataFile("indicators_marker.txt") is None
 
-def installQIDependencies(context):
-    """ This is for old-style products using QuickInstaller. """
+#def installQIDependencies(context):
+    #""" This is for old-style products using QuickInstaller. """
 
-    if isNotindicatorsProfile(context):
-        return
-    logger.info("installQIDependencies starting")
-    site = context.getSite()
-    qi = getToolByName(site, 'portal_quickinstaller')
+    #if isNotindicatorsProfile(context):
+        #return
+    #logger.info("installQIDependencies starting")
+    #site = context.getSite()
+    #qi = getToolByName(site, 'portal_quickinstaller')
 
-    for dependency in DEPENDENCIES:
-        if qi.isProductInstalled(dependency):
-            logger.info("re-Installing QI dependency %s:" % dependency)
-            qi.reinstallProducts([dependency])
-            transaction.savepoint() # is a savepoint really needed here?
-            logger.debug("re-Installed QI dependency %s:" % dependency)
-        else:
-            if qi.isProductInstallable(dependency):
-                logger.info("installing QI dependency %s:" % dependency)
-                qi.installProduct(dependency)
-                transaction.savepoint() # is a savepoint really needed here?
-                logger.debug("installed dependency %s:" % dependency)
-            else:
-                logger.info("QI dependency %s not installable" % dependency)
-                raise Exception("QI dependency %s not installable" % dependency)
+    #for dependency in DEPENDENCIES:
+        #if qi.isProductInstalled(dependency):
+            #logger.info("re-Installing QI dependency %s:" % dependency)
+            #qi.reinstallProducts([dependency])
+            #transaction.savepoint() # is a savepoint really needed here?
+            #logger.debug("re-Installed QI dependency %s:" % dependency)
+        #else:
+            #if qi.isProductInstallable(dependency):
+                #logger.info("installing QI dependency %s:" % dependency)
+                #qi.installProduct(dependency)
+                #transaction.savepoint() # is a savepoint really needed here?
+                #logger.debug("installed dependency %s:" % dependency)
+            #else:
+                #logger.info("QI dependency %s not installable" % dependency)
+                #raise Exception("QI dependency %s not installable" % dependency)
 
-    logger.info("installQIDependencies finished")
+    #logger.info("installQIDependencies finished")
 
 #def updateRoleMappings(context):
     #""" After workflow changed update the roles mapping. this is like pressing
@@ -66,32 +66,34 @@ def postInstall(context):
         return
     site = context.getSite()
 
-    #install dependencies available as GS profiles
-    qtool = getToolByName(site, 'portal_quickinstaller')
-    installed = [package['id'] for package in qtool.listInstalledProducts()]
-    for name, importcontext, install in PROFILE_DEPENDENCIES:
-        if install:
-            if name not in installed:
-                qtool.installProduct(name)
-                logger.info("Installed dependency %s" % name)
-            else:
-                logger.info("Skip %s, already installed" % name)
-        else:
-            setuptool = getToolByName(site, 'portal_setup')
-            setuptool.setImportContext(importcontext)
-            setuptool.runAllImportSteps()
-            logger.info("Run all import steps for %s" % name)
+    ##install dependencies available as GS profiles
+    #qtool = getToolByName(site, 'portal_quickinstaller')
+    #installed = [package['id'] for package in qtool.listInstalledProducts()]
+    #for name, importcontext, install in PROFILE_DEPENDENCIES:
+        #if install:
+            #if name not in installed:
+                #qtool.installProduct(name)
+                #logger.info("Installed dependency %s" % name)
+            #else:
+                #logger.info("Skip %s, already installed" % name)
+        #else:
+            #setuptool = getToolByName(site, 'portal_setup')
+            #setuptool.setImportContext(importcontext)
+            #setuptool.runAllImportSteps()
+            #logger.info("Run all import steps for %s" % name)
 
-    # Enable aliases (redirects) for eea.indicators content types
-    redirection_tool = getToolByName(site, 'portal_redirection')
-    ctypes = ["PolicyDocumentReference",
-              "ExternalDataSpec",
-              "Specification",
-              "IndicatorFactSheet"]
-    new_ctypes = redirection_tool.getRedirectionAllowedForTypes()
-    new_ctypes.extend(ctypes)
-    redirection_tool.setRedirectionAllowedForTypes(new_ctypes)
-    logger.info("Redirection tool enabled for eea.indicators content types.")
+
+    #TODO: enable on plone4
+    ## Enable aliases (redirects) for eea.indicators content types
+    #redirection_tool = getToolByName(site, 'portal_redirection')
+    #ctypes = ["PolicyDocumentReference",
+              #"ExternalDataSpec",
+              #"Specification",
+              #"IndicatorFactSheet"]
+    #new_ctypes = redirection_tool.getRedirectionAllowedForTypes()
+    #new_ctypes.extend(ctypes)
+    #redirection_tool.setRedirectionAllowedForTypes(new_ctypes)
+    #logger.info("Redirection tool enabled for eea.indicators content types.")
 
 ##code-section FOOT
 def setup_vocabularies(context):

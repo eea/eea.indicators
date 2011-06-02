@@ -19,18 +19,18 @@ from zope.i18nmessageid import MessageFactory
 import logging
 
 
-logger = logging.getLogger('indicators')
-logger.debug('Installing Product')
-DirectoryView.registerDirectory('skins', product_globals)
+#logger = logging.getLogger('indicators')
+#logger.debug('Installing Product')
+#DirectoryView.registerDirectory('skins', product_globals)
 
-# temporarily add the path to the namespace package to the products path,
-# so that the directory views are set up correctly
-# Register our skins directory - this makes it available via portal_skins.
+## temporarily add the path to the namespace package to the products path,
+## so that the directory views are set up correctly
+## Register our skins directory - this makes it available via portal_skins.
 
-ppath = utils.ProductsPath
-utils.ProductsPath.append(dirname(package_home(product_globals)))
-DirectoryView.registerDirectory('skins', product_globals)
-utils.ProductsPath = ppath
+#ppath = utils.ProductsPath
+#utils.ProductsPath.append(dirname(package_home(product_globals)))
+#DirectoryView.registerDirectory('skins', product_globals)
+#utils.ProductsPath = ppath
 
 msg_factory = MessageFactory('indicators')
 

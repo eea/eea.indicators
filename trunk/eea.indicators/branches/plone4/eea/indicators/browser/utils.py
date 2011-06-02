@@ -144,6 +144,7 @@ class CategoryLabel(BrowserView):
 
 def has_one_of(has, in_list):
     """Returns if there at least one object of type 'has' in the list 'list'"""
+    in_list = in_list or []
     for obj in in_list:
         if obj.meta_type in has:
             return True

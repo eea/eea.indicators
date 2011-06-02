@@ -11,35 +11,62 @@ from Products.Five import zcml
 from Products.PloneTestCase import PloneTestCase
 from Products.PloneTestCase.layer import onsetup
 
-PRODUCTS = ['DataGridField', 'ATVocabularyManager',
-            'RedirectionTool', 'FiveSite', 'ThemeCentre', ]
+PRODUCTS = [
+    'DataGridField', 
+    'ATVocabularyManager',
+    'EEAContentTypes',
+    'EEAPloneAdmin',
+    'UserAndGroupSelectionWidget',
+    'kupu',
+    #'RedirectionTool', 
+]
+
+for product in PRODUCTS:
+    PloneTestCase.installProduct(product)
 
 @onsetup
 def setup_indicators():
     """Setup utilities"""
     fiveconfigure.debug_mode = True
 
-    fiveconfigure.debug_mode = True
-    import Products.Five
-    import Products.FiveSite
-    zcml.load_config('meta.zcml', Products.Five)
-    zcml.load_config('configure.zcml', Products.Five)
-    zcml.load_config('configure.zcml', Products.FiveSite)
+    import eea.indicators
+    zcml.load_config('configure.zcml', eea.indicators)
+    PloneTestCase.installPackage('eea.indicators')
+
+    import eea.themecentre
+    zcml.load_config('configure.zcml', eea.themecentre)
+    PloneTestCase.installPackage('eea.themecentre')
+
+    import eea.relations
+    zcml.load_config('configure.zcml', eea.relations)
+    PloneTestCase.installPackage('eea.relations')
+
+    import eea.workflow
+    zcml.load_config('configure.zcml', eea.workflow)
+    PloneTestCase.installPackage('eea.workflow')
+
+    import eea.versions
+    zcml.load_config('configure.zcml', eea.versions)
+    PloneTestCase.installPackage('eea.versions')
+
+    import eea.dataservice
+    zcml.load_config('configure.zcml', eea.dataservice)
+    PloneTestCase.installPackage('eea.dataservice')
+
     fiveconfigure.debug_mode = False
 
-    PloneTestCase.installProduct('Five')
-
-    #import eea.indicators
-    #zcml.load_config('configure.zcml', eea.indicators)
-
-    for product in PRODUCTS:
-        PloneTestCase.installProduct(product)
+    #for product in PRODUCTS:
+        #PloneTestCase.installProduct(product)
 
 setup_indicators()
 PRODUCTS.append('eea.indicators')
 PloneTestCase.setupPloneSite(
         products=PRODUCTS,
-        #extension_profiles='eea.indicators:default'
+        extension_profiles=
+        [
+            'eea.indicators:default',
+            'Products.DataGridField:default',
+            ]
     )
 
 

@@ -8,14 +8,9 @@ We have several main content types. The most important are the Specification and
     >>> import urllib
     >>> from Products.Five.testbrowser import Browser
     >>> from Products.PloneTestCase import PloneTestCase
+    >>> from Products.CMFPlone.utils import getToolByName
 
     >>> self.loginAsPortalOwner()
-    >>> from Products.CMFCore.utils import getToolByName
-    >>> setuptool = getToolByName(portal, 'portal_setup')
-    >>> setuptool.setImportContext('profile-eea.dataservice:default')
-    >>> log = setuptool.runAllImportSteps()
-    >>> setuptool.setImportContext('profile-eea.indicators:default')
-    >>> log = setuptool.runAllImportSteps()
     >>> browser = Browser()
     >>> browser.handleErrors = False
     >>> self.portal.error_log._ignored_exceptions = ()
@@ -51,8 +46,8 @@ Specifications are containers for several types of objects:
 
 An Assessment can contain AssessmentParts:
 
-    >>> as = spec['as']
-    >>> ap = as[as.invokeFactory("AssessmentPart", 'ap')]
+    >>> asst = spec['as']
+    >>> ap = asst[asst.invokeFactory("AssessmentPart", 'ap')]
 
 Inside the ims folder, where the Specification was created, we will also create several
 other objects that can be referenced from the Specification.
