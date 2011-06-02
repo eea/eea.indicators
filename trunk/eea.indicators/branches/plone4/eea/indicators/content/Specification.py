@@ -888,7 +888,7 @@ def assign_version(context, new_version):
     #reassign version ids to context assessments + assessments 
     #from related specifications
     vid = get_assessment_vid_for_spec_vid(context, new_version)
-    for asmt in (context.objectValues('Assessment') + other_assessments):
+    for asmt in (list(context.objectValues('Assessment')) + list(other_assessments)):
         if not IVersionEnhanced.providedBy(asmt):
             alsoProvides(asmt, IVersionEnhanced)
         IVersionControl(asmt).setVersionId(vid)

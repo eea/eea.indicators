@@ -151,8 +151,7 @@
                     <span class="required">Please fill in</span>
                   </div>
                   <div tal:define="view_name string:themes-object;
-                    proxy context/@@proxy;
-                    view python: proxy.real_view(view_name);
+                    view nocall:context/@@themes-object;
                     items view/short_items;
                     title title|view/title"
                     tal:condition="items"

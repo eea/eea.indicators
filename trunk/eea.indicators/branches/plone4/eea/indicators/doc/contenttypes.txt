@@ -284,7 +284,11 @@ implement eea.workflow.interfaces.IHasMandatoryWorkflowFields:
     >>> def percentage(val):
     ...     return int(float(val) /total_fields * 100.0)
 
-A specification has 22 fields. From these, 12 are required to be able to transition to
+A specification has 21 fields. 
+
+NOTE plone4: they used to be 22. What happened?
+
+From these, 12 are required to be able to transition to
 'published'. We also have a number of 5 extra checks, so we count 17 required fields.
 
 The call to get_info_for() returns a mapping with the
@@ -310,11 +314,12 @@ By default the title is filled in and one condition is True, so we will be at 11
 
     >>> info['optional_empty']
     9
+    >>> print info
 
-'total_fields' is the grand total number of fields. There are 22 fields
+'total_fields' is the grand total number of fields. There are 21 fields
 
     >>> info['total_fields']
-    22
+    21
 
 Let's fill in another field, this time 'codes':
 
