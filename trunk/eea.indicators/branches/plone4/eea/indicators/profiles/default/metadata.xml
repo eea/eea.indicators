@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
 <metadata>
+
     <description>eea.indicators profile</description>
     <version>1</version>
 
@@ -13,6 +14,5 @@
         <dependency>profile-eea.dataservice:default</dependency>
         <dependency>profile-eea.relations:default</dependency>
     </dependencies>
+
 </metadata>
-
-

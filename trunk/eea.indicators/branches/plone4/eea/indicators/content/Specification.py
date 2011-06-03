@@ -462,7 +462,7 @@ for name in old_order:
         new_order.append(name)
 
 Specification_schema._names = new_order
-#finalizeATCTSchema(Specification_schema)
+finalizeATCTSchema(Specification_schema)
 
 
 class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,

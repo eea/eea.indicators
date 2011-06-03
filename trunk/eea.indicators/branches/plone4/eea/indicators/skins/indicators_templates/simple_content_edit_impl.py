@@ -8,14 +8,16 @@
 ##parameters=state, id=''
 ##
 
+from Products.Archetypes import PloneMessageFactory as _
+from Products.Archetypes.utils import addStatusMessage
 from Products.CMFCore.utils import getToolByName
+
+REQUEST = context.REQUEST
+old_id = context.getId()
 
 #this is probably not needed
 specific_field = context.REQUEST.form.get('specific_field')
 state.set(specific_field=specific_field)
-
-REQUEST = context.REQUEST
-old_id = context.getId()
 
 try:
     new_context = context.portal_factory.doCreate(context, id)
@@ -30,14 +32,8 @@ form = REQUEST.form
 if form.has_key('current_lang'):
     form['language'] = form.get('current_lang')
 
-portal_status_message = context.translate(
-    msgid='message_content_changes_saved',
-    default='Content changes saved.')
+portal_status_message = _(u'Changes saved.')
 
-portal_status_message = REQUEST.get('portal_status_message',
-                                    portal_status_message)
-
-# handle navigation for multi-page edit forms
 fieldset = REQUEST.get('fieldset', None)
 schemata = new_context.Schemata()
 
@@ -49,39 +45,12 @@ if reference_source_url is not None:
     reference_source_fieldset = env['reference_source_fieldset'].pop()
     portal = context.portal_url.getPortalObject()
     reference_obj = portal.restrictedTraverse(reference_source_url)
-    portal_status_message = context.translate(
-        msgid='message_reference_added',
-        default='Reference Added.')
 
-    edited_reference_message = context.translate(
-        msgid='message_reference_edited',
-        default='Reference Edited.')
+    portal_status_message = _(u'message_reference_added',
+                              default=u'Reference added.')
 
-    # Avoid implicitly creating a session if one doesn't exists
-    session = None
-    sdm = getToolByName(context, 'session_data_manager', None)
-    if sdm is not None:
-        session = sdm.getSessionData(create=0)
-
-    # update session saved data, if session exists.
-    uid = new_context.UID()
-    if session is not None:
-        saved_dic = session.get(reference_obj.getId(), None)
-        if saved_dic:
-            saved_value = saved_dic.get(reference_source_field, None)
-            if same_type(saved_value, []):
-                # reference_source_field is a multiValued field, right!?
-                if uid in saved_value:
-                    portal_status_message = edited_reference_message
-                else:
-                    saved_value.append(uid)
-            else:
-                if uid == saved_value:
-                    portal_status_message = edited_reference_message
-                else:
-                    saved_value = uid
-            saved_dic[reference_source_field] = saved_value
-            session.set(reference_obj.getId(), saved_dic)
+    edited_reference_message = _(u'message_reference_edited',
+                                 default=u'Reference edited.')
 
     # XXX disabled mark creation flag
     ## context.remove_creation_mark(old_id)
@@ -89,7 +58,6 @@ if reference_source_url is not None:
     kwargs = {
         'status':'success_add_reference',
         'context':reference_obj,
-        'portal_status_message':portal_status_message,
         'fieldset':reference_source_fieldset,
         'field':reference_source_field,
         'reference_focus':reference_source_field,
@@ -106,21 +74,20 @@ if state.errors:
     for s_name, f_name in fields:
         if errors.has_key(f_name):
             REQUEST.set('fieldset', s_name)
+            addStatusMessage(REQUEST, portal_status_message)
             return state.set(
                 status='failure',
-                context=new_context,
-                portal_status_message=portal_status_message)
-
-# XXX disabled mark creation flag
-## context.remove_creation_mark(old_id)
+                context=new_context,)
 
 if not state.errors:
-    from Products.Archetypes import transaction_note
+    from Products.Archetypes.utils import transaction_note
     transaction_note('Edited %s %s at %s' % (new_context.meta_type,
                                              new_context.title_or_id(),
                                              new_context.absolute_url()))
 
+addStatusMessage(REQUEST, portal_status_message)
+
 return state.set(status='success',
                  context=new_context,
-                 portal_status_message=portal_status_message)
+                 )
 

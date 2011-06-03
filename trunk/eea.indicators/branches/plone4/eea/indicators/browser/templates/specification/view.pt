@@ -11,10 +11,11 @@
 				base_macros here/base/macros;
 				view_template python:'%s_view' % portal_type;
 				view_macros python:path('here/%s/macros|nothing' % view_template);
-				header_macro view_macros/header | header_macro | base_macros/header;
 				specification python:context;">
 
-				<metal:use_header use-macro="header_macro" />
+        <!--TODO: fix plone4-->
+				<!--header_macro view_macros/header | header_macro | base_macros/header;-->
+				<!--<metal:use_header use-macro="header_macro" />-->
 
 				<div id="content-more-updates-on"
 					class="system-message warningMessage"
@@ -380,7 +381,7 @@
 						</div>
 
 						<div>
-							Publish date: <span tal:content="context/effective_date">effective date</span>
+							Publish date: <span tal:content="context/getEffectiveDate">effective date</span>
 						</div>
 						<div>
 							Last modified: <span tal:content="context/modified">Modified date</span>
