@@ -314,7 +314,7 @@ By default the title is filled in and one condition is True, so we will be at 11
 
     >>> info['optional_empty']
     9
-    >>> print info
+    >>> #print info
 
 'total_fields' is the grand total number of fields. There are 21 fields
 

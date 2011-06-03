@@ -22,7 +22,7 @@
 			</h1>
 
 			<div id="archetypes-schemata-links" 
-				tal:condition="fieldsets">
+				tal:condition="fieldsets" style="display:none">
 				<tal:block repeat="set fieldsets">
 					<tal:current condition="python:set == fieldset and fieldsets != ['default']">
 						<strong>[<span tal:content="set" i18n:translate="" />]</strong>
@@ -169,42 +169,20 @@
 
 						<input tal:condition="python:fieldset_index &gt; 0"
 							class="context"
-							tabindex=""
 							type="submit"
 							name="form_previous"
 							value="Previous"
 							i18n:attributes="value label_previous;"
-							tal:attributes="tabindex tabindex/next;
-							disabled python:test(isLocked, 'disabled', None);"
+							tal:attributes="disabled python:test(isLocked, 'disabled', None);"
 							/>
 						<input tal:condition="python:fieldset_index &lt; n_fieldsets - 1"
 							class="context"
-							tabindex=""
 							type="submit"
 							name="form_next"
 							value="Next"
 							i18n:attributes="value label_next;"
-							tal:attributes="tabindex tabindex/next;
-							disabled python:test(isLocked, 'disabled', None);"
+							tal:attributes="disabled python:test(isLocked, 'disabled', None);"
 							/>
-						<!-- <input class="context" -->
-							<!-- 	tabindex="" -->
-							<!-- 	type="submit" -->
-							<!-- 	name="form_submit" -->
-							<!-- 	value="Save" -->
-							<!-- 	i18n:attributes="value label_save;" -->
-							<!-- 	tal:attributes="tabindex tabindex/next; -->
-							<!-- 	disabled python:test(isLocked, 'disabled', None);" -->
-							<!-- 	/> -->
-						<!-- <a href="#" class="cancel-btn" i18n:translate="label_cancel">Cancel</a> -->
-						<!-- <input class="standalone" -->
-							<!-- 	tabindex="" -->
-							<!-- 	type="submit" -->
-							<!-- 	name="form.button.cancel" -->
-							<!-- 	value="Cancel" -->
-							<!-- 	i18n:attributes="value label_cancel;" -->
-							<!-- 	tal:attributes="tabindex tabindex/next" -->
-							<!-- 	/> -->
 					</metal:block>
 
 					<metal:block define-slot="extra_buttons" />

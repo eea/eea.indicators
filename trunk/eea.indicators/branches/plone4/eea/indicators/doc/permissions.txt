@@ -6,11 +6,6 @@ Permissions and security in IMS
 
     >>> self.loginAsPortalOwner()
     >>> from Products.CMFCore.utils import getToolByName
-    >>> setuptool = getToolByName(portal, 'portal_setup')
-    >>> setuptool.setImportContext('profile-eea.dataservice:default')
-    >>> log = setuptool.runAllImportSteps()
-    >>> setuptool.setImportContext('profile-eea.indicators:default')
-    >>> log = setuptool.runAllImportSteps()
     >>> browser = Browser()
     >>> browser.handleErrors = False
     >>> self.portal.error_log._ignored_exceptions = ()

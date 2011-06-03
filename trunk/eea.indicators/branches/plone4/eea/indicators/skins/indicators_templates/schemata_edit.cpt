@@ -2,7 +2,6 @@
            define="errors options/state/getErrors | nothing;
                    temporary here/isTemporary | nothing;
                    dummy python:temporary and request.set('disable_border', True);
-                   Iterator python:modules['Products.Archetypes'].IndexIterator;
                    schematas here/Schemata;
                    fieldsets python:[key for key in schematas.keys() if (key != 'metadata') and (schematas[key].editableFields(here, visible_only=True))];
                    default_fieldset python:(not schematas or schematas.has_key('default')) and 'default' or fieldsets[0];
@@ -20,7 +19,6 @@
                    footer_macro edit_macros/footer | footer_macro | base_macros/footer;
                    lockable python:hasattr(here, 'wl_isLocked');
                    isLocked python:lockable and here.wl_isLocked();
-                   tabindex tabindex|python:Iterator(pos=7000);
                    css python:here.getUniqueWidgetAttr(fields, 'helper_css');
                    js python:here.getUniqueWidgetAttr(fields, 'helper_js');">
 
