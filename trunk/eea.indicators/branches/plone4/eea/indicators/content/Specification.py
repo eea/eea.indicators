@@ -3,8 +3,6 @@
 """ Specification content class and utilities
 """
 
-__docformat__ = 'plaintext'
-
 from AccessControl import ClassSecurityInfo
 from Acquisition import aq_inner, aq_parent
 from Products.ATContentTypes.content.folder import ATFolder, ATFolderSchema
@@ -28,7 +26,6 @@ from Products.EEAContentTypes.content.ThemeTaggable import ThemeTaggable_schema
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 from Products.UserAndGroupSelectionWidget import UserAndGroupSelectionWidget
-from eea.dataservice.vocabulary import Organisations
 from eea.indicators import msg_factory as _
 from eea.indicators.browser.assessment import create_version as createVersion
 from eea.indicators.config import PROJECTNAME, templates_dir
@@ -56,7 +53,6 @@ import sys
 import logging
 
 logger = logging.getLogger('eea.indicators.content.Specification')
-
 
 ONE_YEAR = datetime.timedelta(weeks=52)
 
@@ -170,7 +166,7 @@ schema = Schema((
                 i18n_domain='indicators',
                 ),
             schemata="Responsability",
-            vocabulary=Organisations(),
+            vocabulary_factory=u'Organisations',
             required=True,
             required_for_published=True,
             ),
@@ -402,11 +398,9 @@ schema = Schema((
             ),
 )
 
-
 Specification_schema = ATFolderSchema.copy() + \
         getattr(ATFolder, 'schema', Schema(())).copy() + \
         schema.copy()
-
 
 Specification_schema = Specification_schema + ThemeTaggable_schema.copy()
 Specification_schema['themes'].schemata = 'Classification'
@@ -863,13 +857,13 @@ class Specification2Surf(ATCT2Surf):
 
 def assign_version(context, new_version):
     """Assign a specific version id to an object
-    
-    We override the same method from eea.versions. We want to 
+
+    We override the same method from eea.versions. We want to
     be able to reassign version for children Assessments to be
     at the same version as the children Assessments of the target
     Specification version.
 
-    Also, we want to assign the new version to all specification 
+    Also, we want to assign the new version to all specification
     that had the old version.
     """
 
@@ -878,14 +872,14 @@ def assign_version(context, new_version):
 
     #search for specifications with the old version and assign new version
     other_assessments = []  #optimization: children assessments from other specs
-    versions = [o for o in get_versions_api(context).versions.values() 
+    versions = [o for o in get_versions_api(context).versions.values()
                            if o.meta_type == "Specification"]
     for o in versions:
         IVersionControl(o).setVersionId(new_version)
         o.reindexObject()
         other_assessments.extend(o.objectValues("Assessment"))
 
-    #reassign version ids to context assessments + assessments 
+    #reassign version ids to context assessments + assessments
     #from related specifications
     vid = get_assessment_vid_for_spec_vid(context, new_version)
     for asmt in (list(context.objectValues('Assessment')) + list(other_assessments)):
@@ -898,7 +892,7 @@ def assign_version(context, new_version):
 def get_assessment_vid_for_spec_vid(context, versionid):
     """Returns an assessment version id
 
-    Given a version id for a specification, returns the version id of the 
+    Given a version id for a specification, returns the version id of the
     assessments that are contained in any of the Specifications from that
     versioning group.
     """
@@ -906,10 +900,10 @@ def get_assessment_vid_for_spec_vid(context, versionid):
     vid = _get_random(context, 10)
     cat = getToolByName(context, 'portal_catalog')
     p = '/'.join(context.getPhysicalPath())
-    brains = cat.searchResults({'getVersionId':versionid, 
+    brains = cat.searchResults({'getVersionId':versionid,
                                 'portal_type':'Specification'})
     brains = [b for b in brains if b.getPath() != p]
-    
+
     for brain in brains:
         obj = brain.getObject()
         children = obj.objectValues('Assessment')

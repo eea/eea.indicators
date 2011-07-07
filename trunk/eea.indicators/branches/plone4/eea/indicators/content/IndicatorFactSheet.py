@@ -166,7 +166,7 @@ schema = Schema((
         ),
     EEAReferenceField('relatedItems',
             relationship='relatesTo',
-            multivalued=True,
+            multiValued=True,
             isMetadata=False,
             widget=EEAReferenceBrowserWidget(
                 label='Related Item(s)',

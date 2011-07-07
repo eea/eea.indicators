@@ -69,7 +69,8 @@
                   </div>
                   <ul tal:condition="owners">
                     <li tal:repeat="info owners" >
-                      <a tal:content="python:context.getOrganisationName(info).Title" tal:attributes="href info">EEA</a>
+                      <a tal:content="python:context.getOrganisationName(info).Title" 
+                        tal:on-error="python:info" tal:attributes="href info">EEA</a>
                     </li>
                   </ul>
                 </metal:slot>

@@ -38,7 +38,6 @@ import logging
 logger = logging.getLogger('eea.indicators.content.Assessment')
 
 
-
 schema = Schema((
 
     StringField(
@@ -306,8 +305,6 @@ class Assessment(ATFolder, ModalFieldEditableAware,
     security.declarePublic("comments")
     def comments(self):
         """Return the number of comments"""
-        #TODO: enable on plone4 migration
-        return 0
 
         thread = self.plone_utils.getDiscussionThread(self)
         return len(thread) - 1
@@ -321,6 +318,8 @@ registerType(Assessment, PROJECTNAME)
 def hasWrongVersionId(context):
     """Determines if the assessment belongs to a wrong version group"""
 
+    #if getattr(context, "check_flag", False):
+        #import pdb; pdb.set_trace()
     cat = getToolByName(context, 'portal_catalog')
 
     #parent based checks; this also does codes check because

@@ -22,7 +22,7 @@
           Title or id
         </h1>
 
-        <metal:byline use-macro="context/document_byline/macros/byline" />
+        <!--<metal:byline use-macro="context/document_byline/macros/byline" />-->
 
         <p class="documentDescription">
           Assessment made on <tal:block define="value context/getAssessment_date"

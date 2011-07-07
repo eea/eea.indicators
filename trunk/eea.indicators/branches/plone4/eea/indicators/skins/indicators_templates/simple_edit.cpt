@@ -11,6 +11,10 @@
                    fields python:specific_field and filter(lambda f:f.getName() == specific_field, fields) or fields;
                    dummy python:here.at_isEditable(fields);
                    portal_type python:here.getPortalTypeName().lower().replace(' ', '_');
+                   here_url context/absolute_url;
+                   portal_url nocall:context/portal_url;
+                   portal portal_url/getPortalObject;
+                   type_name context/getPortalTypeName|context/archetype_name;
                    type_name here/getPortalTypeName|here/archetype_name;
                    base_macros here/simple_edit_macros/macros;
                    edit_template python:'%s_edit' % portal_type;

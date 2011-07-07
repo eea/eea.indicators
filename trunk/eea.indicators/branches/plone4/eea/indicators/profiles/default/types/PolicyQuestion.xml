@@ -2,7 +2,7 @@
 <object name="PolicyQuestion"
         meta_type="Factory-based Type Information with dynamic views"
         xmlns:i18n="http://xml.zope.org/namespaces/i18n">
-   
+
  <property name="title">Policy Question</property>
  <property name="description"></property>
  <property name="content_icon">PolicyQuestion.png</property>
@@ -25,27 +25,19 @@
  <alias from="view" to="(selected layout)"/>
  <alias from="edit" to="base_edit"/>
  <alias from="properties" to="base_metadata"/>
- <action title="View" 
+ <action title="View"
          action_id="view"
-         category="object" 
+         category="object"
          condition_expr=""
-         url_expr="string:${object_url}/view" 
+         url_expr="string:${object_url}/view"
          visible="True">
   <permission value="View"/>
  </action>
- <action title="Edit" 
+ <action title="Edit"
          action_id="edit"
-         category="object" 
+         category="object"
          condition_expr=""
-         url_expr="string:${object_url}/edit" 
-         visible="True">
-  <permission value="Modify portal content"/>
- </action>
- <action title="Properties" 
-         action_id="metadata"
-         category="object" 
-         condition_expr=""
-         url_expr="string:${object_url}/properties" 
+         url_expr="string:${object_url}/edit"
          visible="True">
   <permission value="Modify portal content"/>
  </action>

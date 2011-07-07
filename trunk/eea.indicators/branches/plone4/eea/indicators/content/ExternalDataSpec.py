@@ -16,7 +16,6 @@ from Products.Archetypes.atapi import StringField, Schema, TextField
 from Products.Archetypes.utils import shasattr
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 from Products.CMFPlone.utils import getToolByName
-from eea.dataservice.vocabulary import Organisations
 from eea.indicators.config import PROJECTNAME
 from eea.indicators.content import interfaces
 from eea.themecentre.interfaces import IThemeTagging
@@ -64,7 +63,7 @@ schema = Schema((
         ),
         required=True,
         required_for_published="True",
-        vocabulary=Organisations(),
+        vocabulary_factory=u'Organisations',
     ),
     StringField(
         name='dataset_url',
@@ -80,7 +79,7 @@ schema = Schema((
     ),
     TextField(
         name='dataset_path',
-        allowable_content_types=('text/plain', 'text/structured', 
+        allowable_content_types=('text/plain', 'text/structured',
             'text/html', 'application/msword',),
         widget=RichWidget(
             label="Dataset path",
@@ -95,7 +94,7 @@ schema = Schema((
     ),
     TextField(
         name='timeliness',
-        allowable_content_types=('text/plain', 'text/structured', 
+        allowable_content_types=('text/plain', 'text/structured',
             'text/html', 'application/msword',),
         widget=RichWidget(
             label="Timeliness",
@@ -110,7 +109,7 @@ schema = Schema((
     ),
     TextField(
         name='other_comments',
-        allowable_content_types=('text/plain', 'text/structured', 
+        allowable_content_types=('text/plain', 'text/structured',
             'text/html', 'application/msword',),
         widget=RichWidget(
             label="Other Comments",
@@ -146,7 +145,7 @@ schema = Schema((
         searchable=True,
         required=True,
         required_for_published="True",
-        allowable_content_types=('text/plain', 'text/structured', 
+        allowable_content_types=('text/plain', 'text/structured',
             'text/html', 'application/msword',),
         default_output_type="text/x-html-safe",
         accessor="getDescription",
@@ -193,9 +192,9 @@ class ExternalDataSpec(ATCTContent, BrowserDefaultMixin):
         """Get themes"""
         themes = []
         map(
-            lambda o:themes.extend(o.getThemes()), 
+            lambda o:themes.extend(o.getThemes()),
             filter(
-                lambda o:shasattr(o, 'getThemes'), 
+                lambda o:shasattr(o, 'getThemes'),
                 self.getBRefs()
             )
         )
@@ -207,14 +206,14 @@ class ExternalDataSpec(ATCTContent, BrowserDefaultMixin):
            keywords from other specifications"""
         result = []
         map(
-            lambda o:result.extend(o.Subject()), 
+            lambda o:result.extend(o.Subject()),
             filter(
-                lambda o:o.portal_type=="Specification", 
+                lambda o:o.portal_type=="Specification",
                 self.getBRefs()
             )
         )
         return sorted(list(set(result)))
-        
+
 
 registerType(ExternalDataSpec, PROJECTNAME)
 

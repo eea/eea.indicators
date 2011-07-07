@@ -15,6 +15,9 @@
     <object name="indicators_templates"
         meta_type="Filesystem Directory View"
         directory="eea.indicators:skins/indicators_templates"/>
+    <object name="indicators_overrides"
+        meta_type="Filesystem Directory View"
+        directory="eea.indicators:skins/indicators_overrides"/>
 
     <skin-path name="*">
         <layer insert-after="custom" 
@@ -23,6 +26,8 @@
             name="indicators_styles"/>
         <layer insert-after="custom" 
             name="indicators_templates"/>
+        <layer insert-after="custom" 
+            name="indicators_overrides"/>
     </skin-path>
 
 </object>

@@ -1,74 +1,69 @@
 <configure xmlns="http://namespaces.zope.org/zope"
-    xmlns:browser="http://namespaces.zope.org/browser"
-    xmlns:five="http://namespaces.zope.org/five">
+           xmlns:browser="http://namespaces.zope.org/browser"
+           i18n_domain="eea">
 
-    <adapter factory=".specification.WorkflowStateReadiness" 
-        for="eea.indicators.content.interfaces.ISpecification" />
+    <adapter factory=".specification.WorkflowStateReadiness"
+             for="eea.indicators.content.interfaces.ISpecification" />
 
     <browser:page name="view"
-        for="eea.indicators.content.interfaces.ISpecification"
-        class=".specification.IndexPage"
-        template="templates/specification/view.pt"
-        permission="zope2.View" />
+                  for="eea.indicators.content.interfaces.ISpecification"
+                  class=".specification.IndexPage"
+                  template="templates/specification/view.pt"
+                  permission="zope2.View" />
 
     <browser:page name="edit_aggregated"
-        for="eea.indicators.content.interfaces.ISpecification"
-        class=".specification.AggregatedEditPage"
-        permission="cmf.ModifyPortalContent" />
+                  for="eea.indicators.content.interfaces.ISpecification"
+                  class=".specification.AggregatedEditPage"
+                  permission="cmf.ModifyPortalContent" />
 
     <browser:page name="get_schemata_count"
-        for="eea.indicators.content.interfaces.ISpecification"
-        class=".specification.SchemataCounts"
-        permission="zope2.View" />
+                  for="eea.indicators.content.interfaces.ISpecification"
+                  class=".specification.SchemataCounts"
+                  permission="zope2.View" />
 
     <browser:page name="change_order"
-        for="eea.indicators.content.interfaces.ISpecification"
-        class=".utils.Sorter"
-        permission="cmf.ModifyPortalContent" />
+                  for="eea.indicators.content.interfaces.ISpecification"
+                  class=".utils.Sorter"
+                  permission="cmf.ModifyPortalContent" />
 
-    <browser:page
-        for="eea.indicators.content.IndicatorMixin.IndicatorMixin"
-        name="set_codes"
-        permission="cmf.ModifyPortalContent"
-        class=".specification.SetCodes"
-        />
+    <browser:page for="eea.indicators.content.IndicatorMixin.IndicatorMixin"
+                  name="set_codes"
+                  permission="cmf.ModifyPortalContent"
+                  class=".specification.SetCodes" />
 
     <browser:page name="wrong_versions_report"
-        for="eea.indicators.content.interfaces.ISpecification"
-        class=".specification.WrongVersionReport"
-        template="templates/specification/wrong_versions_report.pt"
-        permission="cmf.ModifyPortalContent" />
+                  for="eea.indicators.content.interfaces.ISpecification"
+                  class=".specification.WrongVersionReport"
+                  template="templates/specification/wrong_versions_report.pt"
+                  permission="cmf.ModifyPortalContent" />
 
     <browser:page name="wrong_versions_report"
-        for="eea.indicators.content.interfaces.IIndicatorFactSheet"
-        class=".specification.WrongVersionReport"
-        template="templates/specification/wrong_versions_report.pt"
-        permission="cmf.ModifyPortalContent" />
-
+                  for="eea.indicators.content.interfaces.IIndicatorFactSheet"
+                  class=".specification.WrongVersionReport"
+                  template="templates/specification/wrong_versions_report.pt"
+                  permission="cmf.ModifyPortalContent" />
 
     <!-- Used on public view -->
     <browser:page name="assessment_versions"
-        for="eea.indicators.content.interfaces.ISpecification"
-        class=".specification.AssessmentVersions"
-        permission="zope2.View" />
+                  for="eea.indicators.content.interfaces.ISpecification"
+                  class=".specification.AssessmentVersions"
+                  permission="zope2.View" />
 
     <browser:page name="policy_questions"
-        for="eea.indicators.content.interfaces.ISpecification"
-        class=".specification.PolicyQuestions"
-        permission="zope2.View" />
+                  for="eea.indicators.content.interfaces.ISpecification"
+                  class=".specification.PolicyQuestions"
+                  permission="zope2.View" />
 
     <browser:page name="indicator_contact_info"
-        for="eea.indicators.content.interfaces.ISpecification"
-        class=".specification.ContactInfo"
-        permission="zope2.View" />
-
+                  for="eea.indicators.content.interfaces.ISpecification"
+                  class=".specification.ContactInfo"
+                  permission="zope2.View" />
 
     <!-- Specification Versioning -->
-    <browser:page
-        for="eea.indicators.content.interfaces.ISpecification"
-        name="createVersion"
-        permission="cmf.ModifyPortalContent"
-        class=".specification.CreateVersion" />
+    <browser:page for="eea.indicators.content.interfaces.ISpecification"
+                  name="createVersion"
+                  permission="cmf.ModifyPortalContent"
+                  class=".specification.CreateVersion" />
 
     <!--<browser:menuItem
         for="eea.indicators.content.interfaces.ISpecification"
@@ -94,104 +89,76 @@
         description="Re-assign to another version ID"
         permission="cmf.ModifyPortalContent" />-->
 
-    <browser:page
-        for="eea.indicators.content.interfaces.ISpecification"
-        name="assign_version"
-        permission="cmf.ModifyPortalContent"
-        class=".specification.AssignVersion"
-        />
+    <browser:page for="eea.indicators.content.interfaces.ISpecification"
+                  name="assign_version"
+                  permission="cmf.ModifyPortalContent"
+                  class=".specification.AssignVersion" />
 
 
     <!-- Fragments used in aggregated edit -->
-    <browser:page
-        for="eea.indicators.content.interfaces.ISpecification"
-        name="fragment_assessments"
-        template="templates/specification/fragment_assessments.pt"
-        permission="cmf.ModifyPortalContent"
-        />
+    <browser:page for="eea.indicators.content.interfaces.ISpecification"
+                  name="fragment_assessments"
+                  template="templates/specification/fragment_assessments.pt"
+                  permission="cmf.ModifyPortalContent" />
 
-    <browser:page
-        for="eea.indicators.content.interfaces.ISpecification"
-        name="fragment_info"
-        template="templates/specification/fragment_info.pt"
-        permission="cmf.ModifyPortalContent"
-        />
+    <browser:page for="eea.indicators.content.interfaces.ISpecification"
+                  name="fragment_info"
+                  template="templates/specification/fragment_info.pt"
+                  permission="cmf.ModifyPortalContent" />
 
-    <browser:page
-        for="eea.indicators.content.interfaces.ISpecification"
-        name="fragment_data_specifications"
-        template="templates/specification/fragment_data_specifications.pt"
-        permission="cmf.ModifyPortalContent"
-        />
+    <browser:page for="eea.indicators.content.interfaces.ISpecification"
+                  name="fragment_data_specifications"
+                  template="templates/specification/fragment_data_specifications.pt"
+                  permission="cmf.ModifyPortalContent" />
 
-    <browser:page
-        for="eea.indicators.content.interfaces.ISpecification"
-        name="fragment_definition"
-        template="templates/specification/fragment_definition.pt"
-        permission="cmf.ModifyPortalContent"
-        />
+    <browser:page for="eea.indicators.content.interfaces.ISpecification"
+                  name="fragment_definition"
+                  template="templates/specification/fragment_definition.pt"
+                  permission="cmf.ModifyPortalContent" />
 
-    <browser:page
-        for="eea.indicators.content.interfaces.ISpecification"
-        name="fragment_methodology"
-        template="templates/specification/fragment_methodology.pt"
-        permission="cmf.ModifyPortalContent"
-        />
+    <browser:page for="eea.indicators.content.interfaces.ISpecification"
+                  name="fragment_methodology"
+                  template="templates/specification/fragment_methodology.pt"
+                  permission="cmf.ModifyPortalContent" />
 
-    <browser:page
-        for="eea.indicators.content.interfaces.ISpecification"
-        name="fragment_policy_context"
-        template="templates/specification/fragment_policy_context.pt"
-        permission="cmf.ModifyPortalContent"
-        />
+    <browser:page for="eea.indicators.content.interfaces.ISpecification"
+                  name="fragment_policy_context"
+                  template="templates/specification/fragment_policy_context.pt"
+                  permission="cmf.ModifyPortalContent" />
 
-    <browser:page
-        for="eea.indicators.content.interfaces.ISpecification"
-        name="fragment_policy_questions"
-        template="templates/specification/fragment_policy_questions.pt"
-        permission="cmf.ModifyPortalContent"
-        />
+    <browser:page for="eea.indicators.content.interfaces.ISpecification"
+                  name="fragment_policy_questions"
+                  template="templates/specification/fragment_policy_questions.pt"
+                  permission="cmf.ModifyPortalContent" />
 
-    <browser:page
-        for="eea.indicators.content.interfaces.ISpecification"
-        name="fragment_scientific_references"
-        template="templates/specification/fragment_scientific_references.pt"
-        permission="cmf.ModifyPortalContent"
-        />
+    <browser:page for="eea.indicators.content.interfaces.ISpecification"
+                  name="fragment_scientific_references"
+                  template="templates/specification/fragment_scientific_references.pt"
+                  permission="cmf.ModifyPortalContent" />
 
-    <browser:page
-        for="eea.indicators.content.interfaces.ISpecification"
-        name="fragment_title"
-        template="templates/specification/fragment_title.pt"
-        permission="cmf.ModifyPortalContent"
-        />
+    <browser:page for="eea.indicators.content.interfaces.ISpecification"
+                  name="fragment_title"
+                  template="templates/specification/fragment_title.pt"
+                  permission="cmf.ModifyPortalContent" />
 
-    <browser:page
-        for="eea.indicators.content.interfaces.ISpecification"
-        name="fragment_uncertainties"
-        template="templates/specification/fragment_uncertainties.pt"
-        permission="cmf.ModifyPortalContent"
-        />
+    <browser:page for="eea.indicators.content.interfaces.ISpecification"
+                  name="fragment_uncertainties"
+                  template="templates/specification/fragment_uncertainties.pt"
+                  permission="cmf.ModifyPortalContent" />
 
-    <browser:page
-        for="eea.indicators.content.interfaces.ISpecification"
-        name="fragment_work"
-        template="templates/specification/fragment_work.pt"
-        permission="cmf.ModifyPortalContent"
-        />
+    <browser:page for="eea.indicators.content.interfaces.ISpecification"
+                  name="fragment_work"
+                  template="templates/specification/fragment_work.pt"
+                  permission="cmf.ModifyPortalContent" />
 
-    <browser:page
-        for="eea.indicators.content.interfaces.ISpecification"
-        name="fragment_metadata"
-        template="templates/specification/fragment_metadata.pt"
-        permission="cmf.ModifyPortalContent"
-        />
+    <browser:page for="eea.indicators.content.interfaces.ISpecification"
+                  name="fragment_metadata"
+                  template="templates/specification/fragment_metadata.pt"
+                  permission="cmf.ModifyPortalContent" />
 
-    <browser:page
-        for="eea.indicators.content.interfaces.ISpecification"
-        name="fragment_relateditems"
-        template="templates/specification/fragment_relateditems.pt"
-        permission="cmf.ModifyPortalContent"
-        />
+    <browser:page for="eea.indicators.content.interfaces.ISpecification"
+                  name="fragment_relateditems"
+                  template="templates/specification/fragment_relateditems.pt"
+                  permission="cmf.ModifyPortalContent" />
 
 </configure>

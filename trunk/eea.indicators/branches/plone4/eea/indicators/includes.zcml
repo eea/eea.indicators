@@ -1,9 +1,7 @@
-<configure xmlns="http://namespaces.zope.org/zope">
-  
- <include file="includes.zcml" package=".content"/>
+<configure xmlns="http://namespaces.zope.org/zope"
+           i18n_domain="eea">
 
-
-  <!-- ##code-section includes.zcml -->
-  <!-- ##/code-section includes.zcml -->
+  <include file="includes.zcml"
+           package=".content"/>
 
 </configure>

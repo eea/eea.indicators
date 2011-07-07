@@ -1,17 +1,14 @@
-<configure xmlns="http://namespaces.zope.org/zope" 
-  xmlns:faceted="http://namespaces.zope.org/faceted"
-  i18n_domain="eea.indicators">
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:faceted="http://namespaces.zope.org/faceted"
+           i18n_domain="eea">
 
   <faceted:widget factory=".widget.IndicatorsSortingWidget" />
 
-  <utility
-    component=".vocabulary.sorting_options_vocabulary"
-    name="eea.indicators.faceted_sorting_options"
-    />
+  <utility component=".vocabulary.sorting_options_vocabulary"
+           name="eea.indicators.faceted_sorting_options" />
 
-  <adapter
-    for=".widget.IndicatorsSortingWidget"
-    provides="eea.facetednavigation.interfaces.IWidgetFilterBrains"
-    factory=".widget.IndicatorsSorter" />
+  <adapter for=".widget.IndicatorsSortingWidget"
+           provides="eea.facetednavigation.interfaces.IWidgetFilterBrains"
+           factory=".widget.IndicatorsSorter" />
 
 </configure>

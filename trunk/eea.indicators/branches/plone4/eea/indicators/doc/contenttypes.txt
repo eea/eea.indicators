@@ -324,6 +324,7 @@ By default the title is filled in and one condition is True, so we will be at 11
 Let's fill in another field, this time 'codes':
 
     >>> spec.setCodes([{'set':'BLA', 'code':'005'}, {'set':'IRENA', 'code':'006'}])
+    >>> catalog.reindexObject(spec)
     >>> view = spec.unrestrictedTraverse('@@get_readiness')
     >>> info = view.get_info_for('published')
     >>> info['rfs_done'] == percentage(3)
@@ -348,6 +349,7 @@ Let's move on making this spec ready for publishing:
     >>> spec.setManager_user_id(u'something')
     >>> spec.setThemes([u'something'])
     >>> spec.setOwnership([u'something'])
+    >>> catalog.reindexObject(spec)
 
 We have to introduce more then one word in the richtext fields because we have an adapter
 that considers valid values only text with more then 2 words.
@@ -411,6 +413,10 @@ We need to set the key message, set a figure as related and publish the specific
 The management plan needs to be filled in:
 
     >>> asp.setManagement_plan((2001, '1.2.3'))
+    >>> catalog.reindexObject(asp)
+    >>> #asp.check_flag = True
+    >>> info = asp.unrestrictedTraverse('@@get_readiness').get_info_for('published')
+    >>> #print info
     >>> asp.unrestrictedTraverse('@@get_readiness').is_ready_for('published')
     True
 

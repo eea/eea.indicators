@@ -5,17 +5,13 @@
 	<!-- #TODO: * i18n:translate -->
 
 	<body>
-		<div metal:fill-slot="main" class="specification_view">
+		<div metal:fill-slot="content-core" class="specification_view">
 			<metal:main_macro define-macro="main"
 				tal:define="portal_type python:here.getPortalTypeName().lower().replace(' ', '_');
 				base_macros here/base/macros;
 				view_template python:'%s_view' % portal_type;
 				view_macros python:path('here/%s/macros|nothing' % view_template);
 				specification python:context;">
-
-        <!--TODO: fix plone4-->
-				<!--header_macro view_macros/header | header_macro | base_macros/header;-->
-				<!--<metal:use_header use-macro="header_macro" />-->
 
 				<div id="content-more-updates-on"
 					class="system-message warningMessage"
@@ -48,7 +44,7 @@
 						</li>
 					</ul>
 
-					<tal:draft_versions condition="python:not portal.portal_membership.isAnonymousUser()">
+					<tal:draft_versions condition="not:context/@@plone_portal_state/anonymous">
 						<h5>Draft (not yet published - not quality assured)</h5>
 						<ul>
 							<li tal:condition="not:draft">No drafts available</li>
@@ -124,7 +120,7 @@
 					<p tal:condition="not:policy_documents">No related policy documents have been specified</p>
 					</tal:policy_documents>
 				</div>
-				
+
 				<tal:policy_question define="policy_questions context/@@policy_questions;
 					all_questions python:policy_questions['all'];
 					key_questions python:policy_questions['key_questions'];
@@ -138,7 +134,7 @@
 						<h3 tal:content="question/Title">Question title</h3>
 					</tal:question>
 				</tal:policy_question>
-				
+
                                 <div id="methodology-and-references" metal:define-macro="methodology-and-references">
 					<h2 id="methodology" class="notoc">Methodology</h2>
 
@@ -333,7 +329,7 @@
 					<tal:management_plan define="assessments python:context.getFolderContents(
 						contentFilter={'portal_type':'Assessment'},
 						full_objects = True)"
-						condition="not:portal/portal_membership/isAnonymousUser">
+						condition="not:context/@@plone_portal_state/anonymous">
 						<h4>EEA Management Plan</h4>
 						<ul>
 							<tal:assessment repeat="assessment assessments">

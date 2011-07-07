@@ -3,21 +3,22 @@
 from setuptools import setup, find_packages
 import os
 
-name = 'eea.indicators'
-path = name.split('.') + ['version.txt']
-version = open(os.path.join(*path)).read().strip()
+NAME = 'eea.indicators'
+PATH = NAME.split('.') + ['version.txt']
+VERSION = open(os.path.join(*PATH)).read().strip()
 
 setup(
- name='eea.indicators',
- version=version,
- description="EEA Indicators site",
+ name=NAME,
+ version=VERSION,
+ description="EEA Indicators",
  long_description=open("README.txt").read() + "\n" +
                   open(os.path.join("docs", "HISTORY.txt")).read(),
  url="https://svn.eionet.europa.eu/projects/"
      "Zope/browser/trunk/eea.indicators",
  classifiers=[
-   "Framework :: Plone",
-   "Programming Language :: Python",
+     "Framework :: Plone",
+     "Programming Language :: Python",
+     "Topic :: Software Development :: Libraries :: Python Modules",
    ],
  keywords='EEA indicators ims indicatorsmanagementsystem',
  author='Alec Ghica (Eaudeweb), Tiberiu Ichim (Eaudeweb), Antonio De Marinis (EEA), European Environment Agency',

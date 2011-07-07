@@ -1,8 +1,16 @@
 Changelog
 =========
 
-1.42-dev - (unreleased)
------------------------
+4.0-dev - (unreleased)
+----------------------
+ * TODO: fix "related policy document" button in specification aggedit 
+
+* Feature: Added upgrade steps
+  [voineali #4392]
+
+* Feature: Plone 4.0.4 compatible release
+  [tiberich #4214]
+
 
 1.41 - (2011-05-20)
 -------------------

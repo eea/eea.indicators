@@ -1,155 +1,128 @@
 <configure xmlns="http://namespaces.zope.org/zope"
            xmlns:browser="http://namespaces.zope.org/browser"
-           xmlns:five="http://namespaces.zope.org/five">
+           i18n_domain="eea">
 
   <include file="specification.zcml" />
   <include file="assessment.zcml" />
   <include file="indicatorfactsheet.zcml" />
 
-  <browser:page
-    for="*"
-    name="portlet_readiness_live"
-    template="templates/portlet_readiness_live.pt"
-    permission="zope2.View"
-    />
+  <browser:page for="*"
+                name="portlet_readiness_live"
+                template="templates/portlet_readiness_live.pt"
+                permission="zope2.View" />
 
-  <browser:page
-    for="eea.indicators.content.interfaces.IIndicatorsDatabase"
-    name="ims_overview"
-    class="eea.indicators.browser.ims.IndicatorsOverview"
-    permission="zope2.View"
-    />
-    <!-- allowed_interface="eea.indicators.browser.interfaces.IIndicatorsPermissionsOverview" -->
+  <browser:page for="eea.indicators.content.interfaces.IIndicatorsDatabase"
+                name="ims_overview"
+                class="eea.indicators.browser.ims.IndicatorsOverview"
+                permission="zope2.View" />
+               <!-- allowed_interface="eea.indicators.browser.interfaces.IIndicatorsPermissionsOverview" -->
 
-  <browser:page
-    for="eea.indicators.content.interfaces.IIndicatorsDatabase"
-    name="ims_wrong_assessment_versions"
-    template="templates/wrong_assessment_versions.pt"
-    class="eea.indicators.browser.ims.ReportWrongVersionAssessments"
-    permission="zope2.View"
-    />
+  <browser:page for="eea.indicators.content.interfaces.IIndicatorsDatabase"
+                name="ims_wrong_assessment_versions"
+                template="templates/wrong_assessment_versions.pt"
+                class="eea.indicators.browser.ims.ReportWrongVersionAssessments"
+                permission="zope2.View" />
 
-  <browser:page
-    for="eea.indicators.content.interfaces.IIndicatorsDatabase"
-    name="ims_wrong_specification_versions"
-    template="templates/wrong_specification_versions.pt"
-    class="eea.indicators.browser.ims.ReportWrongVersionSpecifications"
-    permission="zope2.View"
-    />
+  <browser:page for="eea.indicators.content.interfaces.IIndicatorsDatabase"
+                name="ims_wrong_specification_versions"
+                template="templates/wrong_specification_versions.pt"
+                class="eea.indicators.browser.ims.ReportWrongVersionSpecifications"
+                permission="zope2.View" />
 
-  <browser:page
-    for="eea.indicators.content.interfaces.IIndicatorsDatabase"
-    name="ims_wrong_maincode"
-    template="templates/wrong_maincode.pt"
-    class="eea.indicators.browser.ims.ReportWrongMainCodeSpecifications"
-    permission="zope2.View"
-    />
+  <browser:page for="eea.indicators.content.interfaces.IIndicatorsDatabase"
+                name="ims_wrong_maincode"
+                template="templates/wrong_maincode.pt"
+                class="eea.indicators.browser.ims.ReportWrongMainCodeSpecifications"
+                permission="zope2.View" />
 
-  <browser:page
-    for="eea.indicators.content.interfaces.IIndicatorsDatabase"
-    name="ims_timeline"
-    class="eea.indicators.browser.ims.IndicatorsTimeline"
-    template="templates/timeline.pt"
-    permission="zope2.View"
-    />
+  <browser:page for="eea.indicators.content.interfaces.IIndicatorsDatabase"
+                name="ims_timeline"
+                class="eea.indicators.browser.ims.IndicatorsTimeline"
+                template="templates/timeline.pt"
+                permission="zope2.View" />
 
-  <browser:page
-    for="eea.indicators.content.interfaces.IAssessmentPart"
-    name="view"
-    template="templates/assessmentpart_view.pt"
-    permission="zope2.View"
-    />
+  <browser:page for="eea.indicators.content.interfaces.IAssessmentPart"
+                name="view"
+                template="templates/assessmentpart_view.pt"
+                permission="zope2.View" />
 
-  <browser:page
-    for="eea.indicators.content.interfaces.IExternalDataSpec"
-    name="view"
-    template="templates/externaldataspec_view.pt"
-    permission="zope2.View"
-    />
+  <browser:page for="eea.indicators.content.interfaces.IExternalDataSpec"
+                name="view"
+                template="templates/externaldataspec_view.pt"
+                permission="zope2.View" />
 
-  <browser:page
-    for="eea.indicators.content.interfaces.IMethodologyReference"
-    name="view"
-    template="templates/methodologyreference_view.pt"
-    permission="zope2.View"
-    />
+  <browser:page for="eea.indicators.content.interfaces.IMethodologyReference"
+                name="view"
+                template="templates/methodologyreference_view.pt"
+                permission="zope2.View" />
 
-  <browser:page
-    for="eea.indicators.content.interfaces.IPolicyQuestion"
-    name="view"
-    template="templates/policyquestion_view.pt"
-    permission="zope2.View"
-    />
+  <browser:page for="eea.indicators.content.interfaces.IPolicyQuestion"
+                name="view"
+                template="templates/policyquestion_view.pt"
+                permission="zope2.View" />
 
-  <browser:page
-    for="eea.indicators.content.interfaces.IRationaleReference"
-    name="view"
-    template="templates/rationalereference_view.pt"
-    permission="zope2.View"
-    />
+  <browser:page for="eea.indicators.content.interfaces.IRationaleReference"
+                name="view"
+                template="templates/rationalereference_view.pt"
+                permission="zope2.View" />
 
   <browser:page name="related_items"
-    for="*"
-    class=".utils.RelatedItems"
-    permission="zope2.View" />
+                for="*"
+                class=".utils.RelatedItems"
+                permission="zope2.View" />
 
   <browser:page name="dpsir_label"
-    for="*"
-    class=".utils.DpsirLabel"
-    permission="zope2.View" />
+                for="*"
+                class=".utils.DpsirLabel"
+                permission="zope2.View" />
 
   <browser:page name="typology_label"
-    for="*"
-    class=".utils.TypologyLabel"
-    permission="zope2.View" />
+                for="*"
+                class=".utils.TypologyLabel"
+                permission="zope2.View" />
 
   <browser:page name="category_label"
-    for="*"
-    class=".utils.CategoryLabel"
-    permission="zope2.View" />
+                for="*"
+                class=".utils.CategoryLabel"
+                permission="zope2.View" />
 
   <!-- imgview -->
-  <browser:page
-    for="..content.interfaces.IAssessment"
-    name="imgview"
-    class=".imgview.ImageViewAssessment"
-    permission="zope.Public"
-    allowed_interface="valentine.imagescales.browser.interfaces.IImageView"
-    />
+  <browser:page for="..content.interfaces.IAssessment"
+                name="imgview"
+                class=".imgview.ImageViewAssessment"
+                permission="zope.Public"
+                allowed_interface="valentine.imagescales.browser.interfaces.IImageView" />
 
-  <browser:page
-    for="..content.interfaces.IIndicatorFactSheet"
-    name="imgview"
-    class=".imgview.ImageViewIndicatorFactSheet"
-    permission="zope.Public"
-    allowed_interface="valentine.imagescales.browser.interfaces.IImageView"
-    />
+  <browser:page for="..content.interfaces.IIndicatorFactSheet"
+                name="imgview"
+                class=".imgview.ImageViewIndicatorFactSheet"
+                permission="zope.Public"
+                allowed_interface="valentine.imagescales.browser.interfaces.IImageView" />
 
   <!-- subviews -->
-
   <browser:page name="fulldetail"
-    for="eea.indicators.content.interfaces.IPolicyQuestion"
-    template="templates/policyquestion_fulldetail.pt"
-    permission="zope2.View" />
+                for="eea.indicators.content.interfaces.IPolicyQuestion"
+                template="templates/policyquestion_fulldetail.pt"
+                permission="zope2.View" />
 
-  <browser:page name="indicator_utils" for="zope.interface.Interface"
-    class=".utils.IndicatorUtils" permission="zope2.View"
-    allowed_interface=".utils.IIndicatorUtils"
-    />
+  <browser:page name="indicator_utils"
+                for="zope.interface.Interface"
+                class=".utils.IndicatorUtils"
+                permission="zope2.View"
+                allowed_interface=".utils.IIndicatorUtils" />
 
-  <browser:page name="obj_delete" for="eea.indicators.content.interfaces.ISpecification"
-    class=".utils.ObjectDelete" permission="cmf.ModifyPortalContent" />
+  <browser:page name="obj_delete"
+                for="eea.indicators.content.interfaces.ISpecification"
+                class=".utils.ObjectDelete"
+                permission="cmf.ModifyPortalContent" />
 
-  <browser:resource
-    name='indicators.js'
-    file='js/indicators.js' />
+  <browser:resource name='indicators.js'
+                    file='js/indicators.js' />
 
-  <browser:resource
-    name='indicators-timeline.js'
-    file='js/indicators-timeline.js' />
+  <browser:resource name='indicators-timeline.js'
+                    file='js/indicators-timeline.js' />
 
-  <browser:resource
-    name='indicators-reports.js'
-    file='js/indicators-reports.js' />
+  <browser:resource name='indicators-reports.js'
+                    file='js/indicators-reports.js' />
 
 </configure>
