@@ -271,7 +271,7 @@
         <metal:uncertainties use-macro="specification/@@view/macros/uncertainties-part" />
       </div>
       
-      <h2 id="methodology">More information about this indicator</h2>
+      <h2 id="more-specification">More information about this indicator</h2>
       <p>See this <a href="..">indicator specification</a> for more details.</p>
 
       <div class='headed-box'>
