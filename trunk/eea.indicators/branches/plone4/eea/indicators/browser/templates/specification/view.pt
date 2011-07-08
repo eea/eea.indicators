@@ -5,6 +5,10 @@
 	<!-- #TODO: * i18n:translate -->
 
 	<body>
+    <div metal:fill-slot="content-title" class="specification_view">
+      <h1 class="documentFirstHeading" tal:content="context/Title">Title here</h1>
+    </div>
+    <div metal:fill-slot="content-description"></div>
 		<div metal:fill-slot="content-core" class="specification_view">
 			<metal:main_macro define-macro="main"
 				tal:define="portal_type python:here.getPortalTypeName().lower().replace(' ', '_');

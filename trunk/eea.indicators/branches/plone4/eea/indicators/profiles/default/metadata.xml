@@ -5,8 +5,8 @@
     <version>4.0</version>
 
     <dependencies>
-        <dependency>profile-Products.EEAPloneAdmin:default</dependency>
         <dependency>profile-Products.ATVocabularyManager:default</dependency>
+        <dependency>profile-Products.EEAPloneAdmin:default</dependency>
         <dependency>profile-Products.UserAndGroupSelectionWidget:default</dependency>
         <dependency>profile-Products.DataGridField:default</dependency>
         <dependency>profile-eea.themecentre:default</dependency>

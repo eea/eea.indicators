@@ -59,9 +59,11 @@
   </metal:javascript>
 
   <body>
-    <div metal:fill-slot="main" tal:define="specification context/getParentNode" class='assessment_view'>
-      <h1 tal:content="context/Title">Title here</h1>
-      <!--<metal:byline use-macro="context/document_byline/macros/byline" />-->
+    <div metal:fill-slot="content-title" class="assessment_view">
+      <h1 class="documentFirstHeading" tal:content="context/Title">Title here</h1>
+    </div>
+    <div metal:fill-slot="content-description"></div>
+    <div metal:fill-slot="content-core" tal:define="specification context/getParentNode" class='assessment_view'>
       <div id="content-more-updates-on"
         class="system-message warningMessage"
         tal:condition="context/getMore_updates_on"

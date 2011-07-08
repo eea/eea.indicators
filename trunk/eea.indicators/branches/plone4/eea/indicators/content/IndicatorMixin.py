@@ -4,6 +4,7 @@
 from Products.CMFCore.utils import getToolByName
 from AccessControl import ClassSecurityInfo
 from eea.versions.versions import get_versions_api
+from Missing import Value as MissingValue
 
 
 class IndicatorMixin(object):
@@ -55,7 +56,14 @@ class IndicatorMixin(object):
                         d.append(b)
                 _d = {}
                 for b in d:
-                    _d[b.getVersionId.strip()] = b
+                    v = b.getVersionId.strip()
+                    if v != MissingValue:
+                        try:
+                            _d[v] = b
+                        except Exception, e:
+                            import pdb; pdb.set_trace()
+                    else:
+                        print "Missing versionid value: ", b.getObject()
                 duplicated_codes.append((code, _d.values()))
 
         return duplicated_codes

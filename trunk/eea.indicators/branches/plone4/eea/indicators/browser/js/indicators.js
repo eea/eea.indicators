@@ -1,55 +1,3 @@
-function change_kupu_styles(){
-  // customize the Kupu editor to IMS standards
-  $(".kupu-table").remove();
-  $('.kupu-image').remove();
-  $(".kupu-tb-styles option[value='h2|']").remove();
-  $(".kupu-tb-styles option[value='h3|']").remove();
-}
-
-function get_kupu_editor(editorId) {
-  // initializes a kupu editor and returns it.
-  // This is needed to make up for the lack of proper API:
-  // we can't get the kupu editor back from just the iframe or whatever
-  // The content here is taken from initPloneKupu()
-
-  var prefix = '#'+editorId+' ';
-
-  var iframe = getFromSelector(prefix+'iframe.kupu-editor-iframe');
-  var textarea = getFromSelector(prefix+'textarea.kupu-editor-textarea');
-  // var form = textarea.form;
-
-  // first we create a logger
-  var l = new DummyLogger();
-
-  // now some config values
-  var conf = loadDictFromXML(document, prefix+'xml.kupuconfig');
-
-  // the we create the document, hand it over the id of the iframe
-  var doc = new KupuDocument(iframe);
-
-  // now we can create the controller
-  var kupu = (window.kupu = new KupuEditor(doc, conf, l));
-  return kupu;
-}
-
-
-function save_kupu_values(el) {
-  // saves each value from a kupu editor into its associated textarea
-
-  $('.kupu-editor-iframe', el).parent().parent().parent().parent().each(function(){
-    var id        = $(this).attr('id');
-    var thiskupu  = get_kupu_editor(id);
-    var fieldname = id.substr("kupu-editor-".length);
-    var textarea  = $('#' + id + ' textarea[name=' + fieldname + ']')[0];
-    var result    = thiskupu.getRichText(textarea.form, textarea);
-    result = result.replace(/^\s+/g, "");  // for some reasons what kupu saves has a space in front
-
-    if (result != textarea.defaultValue) {
-      textarea.value = result;
-    }
-  });
-}
-
 function block_ui(){
   var scr_x = jQuery(window).scrollLeft();
   var scr_y = jQuery(window).scrollTop();
@@ -122,24 +70,83 @@ function set_sortables() {
   });
 }
 
+function init_tinymce(el){
+  // init tinymce edit fields
+
+  $('.mce_editable', el).each(function(){
+    var id = $(this).attr('id');
+
+    var config = new TinyMCEConfig(id);
+    // TODO: resize tinymce to a more decent size
+    //console.log(config.widget_config);
+    config.widget_config.editor_height = 800;
+    //config.widget_config.autoresize = true;
+    //config.widget_config.resizing = false;
+    config.widget_config.resizing_use_cookie = false;
+    config.widget_config.buttons = [
+      "save",
+      "style",
+      "bold",
+      "italic",
+      "justifyleft",
+      "justifycenter",
+      "justifyright",
+      "justifyfull",
+      "bullist",
+      "numlist",
+      "definitionlist",
+      "outdent",
+      "indent",
+      //"image",
+      "link",
+      "unlink",
+      "anchor",
+      //"tablecontrols",
+      "code",
+      "fullscreen",
+      "",
+    ];
+    config.widget_config.styles = [
+      "Invisible grid|table|invisible",
+      "Fancy listing|table|listing",
+      "Fancy grid listing|table|grid listing",
+      "Fancy vertical listing|table|vertical listing",
+      "Literal|pre",
+      "Discreet|span|discreet",
+      "Pull-quote|blockquote|pullquote",
+      "Call-out|p|callout",
+      "Highlight|span|visualHighlight",
+      "Disc|ul|listTypeDisc",
+      "Square|ul|listTypeSquare",
+      "Circle|ul|listTypeCircle",
+      "Numbers|ol|listTypeDecimal",
+      "Lower Alpha|ol|listTypeLowerAlpha",
+      "Upper Alpha|ol|listTypeUpperAlpha",
+      "Lower Roman|ol|listTypeLowerRoman",
+      "Upper Roman|ol|listTypeUpperRoman",
+      "Definition term|dt",
+      "Definition description|dd",
+      "Odd row|tr|odd",
+      "Even row|tr|even",
+      "Heading cell|th|",
+      "Page break (print only)|div|pageBreak",
+      "Clear floats|div|visualClear",
+    ];
+    delete InitializedTinyMCEInstances[id]
+    config.init();
+  });
+}
+
 function ajaxify(el, fieldname){
   // This will make a form submit and resubmit itself using AJAX
-  // It also takes care of kupu mangling
 
-  $('.kupu-editor-iframe').parent().parent().parent().parent().each(function(){
-    var kupu_id = $(this).attr('id');
-    setTimeout(function(){
-      initPloneKupu(kupu_id);
-      $("#kupu-bold-button").trigger('click');
-      $("#kupu-bold-button").trigger('click');
-    }, 1000);
-  });
+  init_tinymce(el);
 
   $("form", el).submit(
     function(e){
       block_ui();
+      tinyMCE.triggerSave();
       var form = this;
-      save_kupu_values(form);
       var data = ($(form).serialize() + "&form_submit=Save&form.submitted=1");
       $.ajax({
         "data": data,
@@ -317,36 +324,18 @@ function set_actives(){
 function schemata_ajaxify(el, active_region){
 
   set_actives();
-
-  // TODO: this is a _temporary_ hack to make kupu work properly
-  // the problem is probably that not all the DOM is loaded when the kupu editor
-  // is initiated and so it freezes the editor
-  // A proper fix would be to see if it's possible to delay the kupu load when it is
-  // loaded through AJAX
-  // This fix has one problem: it loads a frame (emptypage.html) that might not be completely
-  // loaded in the timeout interval, and when that happens it throws an error
-
-  $('.kupu-editor-iframe').parent().parent().parent().parent().each(function(){
-    var kupu_id = $(this).attr('id');
-    setTimeout(function(){
-      initPloneKupu(kupu_id);
-      $("#kupu-bold-button").trigger('click');
-      $("#kupu-bold-button").trigger('click');
-      // $("#kupu-bold-button").trigger('click');
-    }, 1000);
-  });
+  init_tinymce(el);
 
   $("form", el).submit(
     function(e){
       block_ui();
+      tinyMCE.triggerSave();
       var form = this;
 
       var inputs = [];
       $(".widgets-list .widget-name").each(function(){
         inputs.push($(this).text());
       });
-
-      save_kupu_values(form);
 
       var data = "";
       data = $(form).serialize();
@@ -483,7 +472,6 @@ function dialog_edit(url, title, callback, options){
       callback();
     }
   });
-  change_kupu_styles();
 }
 
 function set_editors(){
@@ -725,56 +713,6 @@ $(document).ready(function () {
 });
 
 // this.contentWindow.focus();//this should solve the problem that requires pressing the bold button
-
-KupuZoomTool.prototype.commandfunc = function(button, editor) {
-  // we rewrite the KupuZoomTool because we want to scroll the page
-  /* Toggle zoom state */
-  var zoom = button.pressed;
-  this.zoomed = zoom;
-
-  var zoomClass = 'kupu-fulleditor-zoomed';
-  var iframe = editor.getDocument().getEditable();
-
-  var body = document.body;
-  var html = document.getElementsByTagName('html')[0];
-  var doc = editor.getInnerDocument();
-
-  if (zoom) {
-    this.scrolled = jQuery(window).scrollTop();
-    html.style.overflow = 'hidden';
-    window.scrollTo(0, 0);
-    editor.setClass(zoomClass);
-    body.className += ' '+zoomClass;
-    doc.body.className += ' '+zoomClass;
-    this.onresize();
-  } else {
-    html.style.overflow = '';
-    var fulleditor = iframe.parentNode;
-    fulleditor.style.width = '';
-    body.className = body.className.replace(/ *kupu-fulleditor-zoomed/, '');
-    doc.body.className = doc.body.className.replace(/ *kupu-fulleditor-zoomed/, '');
-    editor.clearClass(zoomClass);
-
-    iframe.style.width = '';
-    iframe.style.height = '';
-
-    var sourcetool = editor.getTool('sourceedittool');
-    var sourceArea = sourcetool?sourcetool.getSourceArea():null;
-    if (sourceArea) {
-      sourceArea.style.width = '';
-      sourceArea.style.height = '';
-    }
-    var scrolled = this.scrolled;
-    setTimeout(function(){
-      window.scrollTo(0, scrolled);
-    }, 200);    // TODO: this fix is a hack. Try to replace it.
-  }
-  // Mozilla needs this. Yes, really!
-  doc.designMode=doc.designMode;
-
-  window.scrollTo(0, iframe.offsetTop);
-  editor.focusDocument();
-};
 
 function toggle_creator_option(el){
   var a = $(el).parent().parent().children('a.object_creator').get(0);
