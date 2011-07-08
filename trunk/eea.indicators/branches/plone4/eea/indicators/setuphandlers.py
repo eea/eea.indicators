@@ -42,6 +42,9 @@ def postInstall(context):
 def setup_vocabularies(context):
     """ Setup ATVocabularyManager vocabularies. """
 
+    if isNotindicatorsProfile(context):
+        return
+
     site = context.getSite()
     atvm = getToolByName(site, ATVOCABULARYTOOL, None)
     if atvm is None:
