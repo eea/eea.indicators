@@ -666,26 +666,6 @@ function close_dialog(region){
 }
 
 
-KupuEditor.prototype.getRichText = function(form, field) {
-  // taken from saveDataToForm, because that function assumes too much
-  var sourcetool = this.getTool('sourceedittool');
-  if (sourcetool) {
-    sourcetool.cancelSourceMode();
-  }
-  var transform = this._filterContent(this.getInnerDocument().documentElement);
-
-  var contents = this.getXMLBody(transform);
-  if (/^<body[^>]*>(<\/?(p|br)[^>]*>|\&nbsp;|\s)*<\/body>$/.test(contents)) {
-    contents = ''; /* Ignore nearly empty contents */
-  }
-  var base = this._getBase(transform);
-  contents = this._fixupSingletons(contents);
-  contents = this.makeLinksRelative(contents, base).replace(/<\/?body[^>]*>/g, "");
-
-  return contents;
-};
-
-
 function open_relations_widget(widget_dom_id, selected_tab){
   var widget = $("#"+widget_dom_id).get(0)._widget;
   window._selected_tab = selected_tab;// will be read by the relations widget and set as selected tab
