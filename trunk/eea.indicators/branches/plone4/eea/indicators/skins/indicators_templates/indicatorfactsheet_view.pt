@@ -9,31 +9,26 @@
 
   <head><title></title></head>
 
+  <div metal:fill-slot="content-description">
+    <p class="documentDescription"
+      tal:content="here/Description"
+      tal:condition="here/Description">
+      Description
+    </p>
+    <p class="documentDescription">
+      Assessment made on <tal:block define="value context/getAssessment_date"
+        content="python:context.toLocalizedTime(value, long_format=0)" />
+    </p>
+  </div>
+
   <body>
-    <div class="factsheet_view" metal:fill-slot="main">
+    <div class="factsheet_view" metal:fill-slot="content-core">
       <metal:main_macro define-macro="main"
         tal:define="portal_type python:here.getPortalTypeName().lower().replace(' ', '_');
         base_macros here/base/macros;
         view_template python:'%s_view' % portal_type;
         view_macros python:path('here/%s/macros|nothing' % view_template);
         header_macro view_macros/header | header_macro | base_macros/header;">
-
-        <h1 tal:content="context/title_or_id" class="documentFirstHeading">
-          Title or id
-        </h1>
-
-        <!--<metal:byline use-macro="context/document_byline/macros/byline" />-->
-
-        <p class="documentDescription">
-          Assessment made on <tal:block define="value context/getAssessment_date"
-            content="python:context.toLocalizedTime(value, long_format=0)" />
-        </p>
-
-        <p class="documentDescription"
-          tal:content="here/Description"
-          tal:condition="here/Description">
-          Description
-        </p>
 
         <metal:versions use-macro="here/portlet_versions/macros/versions">
           <metal:old fill-slot="old" />
