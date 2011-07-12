@@ -13,7 +13,7 @@
         <metal:slot metal:fill-slot="content" >
           <div class="logic_group">
             <metal:slot metal:define-slot="content">
-              <div metal:use-macro="portal_object/portlet_readiness/macros/portlet" />
+              <div tal:replace="structure context/@@readiness" />
             </metal:slot>
           </div>
         </metal:slot>

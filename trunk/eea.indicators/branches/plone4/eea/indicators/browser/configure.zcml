@@ -1,10 +1,23 @@
 <configure xmlns="http://namespaces.zope.org/zope"
            xmlns:browser="http://namespaces.zope.org/browser"
+           xmlns:plone="http://namespaces.plone.org/plone"
            i18n_domain="eea">
 
   <include file="specification.zcml" />
   <include file="assessment.zcml" />
   <include file="indicatorfactsheet.zcml" />
+
+  <plone:portletRenderer 
+      portlet="eea.workflow.portlets.readiness.IReadinessPortlet"
+      for="eea.indicators.content.interfaces.ISpecification"
+      template="templates/portlet_readiness.pt"
+      />
+
+  <plone:portletRenderer 
+      portlet="eea.workflow.portlets.readiness.IReadinessPortlet"
+      for="eea.indicators.content.interfaces.IAssessment"
+      template="templates/portlet_readiness.pt"
+      />
 
   <browser:page for="*"
                 name="portlet_readiness_live"

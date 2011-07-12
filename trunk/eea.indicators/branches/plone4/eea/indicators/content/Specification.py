@@ -477,8 +477,8 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
     #unfilled fields that are mandatory for publishing
     edit_macros = PageTemplateFile('edit_macros.pt', templates_dir)
 
-    portlet_readiness = \
-            ViewPageTemplateFile('../browser/templates/portlet_readiness.pt')
+    #portlet_readiness = \
+            #ViewPageTemplateFile('../browser/templates/portlet_readiness.pt')
 
     def get_work(self):
         """get work info"""
@@ -537,20 +537,20 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
 
         return res
 
-    security.declarePublic('left_slots')
-    def left_slots(self):
-        """left slots"""
-        _slot = 'here/portlet_readiness/macros/portlet'
-        #_assigned = self.getProperty('left_slots') or []
+    #security.declarePublic('left_slots')
+    #def left_slots(self):
+        #"""left slots"""
+        #_slot = 'here/portlet_readiness/macros/portlet'
+        ##_assigned = self.getProperty('left_slots') or []
 
-        parent = aq_parent(aq_inner(self))
-        base_slots = getattr(parent, 'left_slots', [])
-        if callable(base_slots):
-            base_slots = base_slots()
+        #parent = aq_parent(aq_inner(self))
+        #base_slots = getattr(parent, 'left_slots', [])
+        #if callable(base_slots):
+            #base_slots = base_slots()
 
-        base_slots = list(base_slots)
-        base_slots.insert(0, _slot)
-        return base_slots
+        #base_slots = list(base_slots)
+        #base_slots.insert(0, _slot)
+        #return base_slots
 
     def get_indicator_codes(self):
         """get indicator codes"""

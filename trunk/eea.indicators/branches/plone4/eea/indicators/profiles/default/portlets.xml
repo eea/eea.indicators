@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<portlets>
+
+    <assignment
+        manager="plone.leftcolumn"
+        category="content_type"
+        key="Specification"
+        type="portlets.Readiness"
+        name="readiness"
+        />
+
+    <assignment
+        manager="plone.leftcolumn"
+        category="content_type"
+        key="Assessment"
+        type="portlets.Readiness"
+        name="readiness"
+        />
+
+        insert-before="*"
+
+</portlets>

@@ -5,6 +5,7 @@ from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from eea.indicators.browser.interfaces import IIndicatorsPermissionsOverview
 from eea.indicators.content.Assessment import hasWrongVersionId
+from plone.app.portlets.portlets.base import Renderer
 from zope.interface import implements
 import DateTime
 import re
@@ -276,3 +277,5 @@ class ReportWrongMainCodeSpecifications(BrowserView):
         wrongs = filter(lambda o:bool(o.get_diff_vers_setcode()), objs)
         return wrongs
 
+#class ReadinessRenderer(Renderer):
+    #render = ViewPageTemplateFile('templates/portlet_readiness.pt')
