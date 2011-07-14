@@ -2,7 +2,7 @@
 <metadata>
 
     <description>EEA Indicators profile</description>
-    <version>4.0</version>
+    <version>4.0.1</version>
 
     <dependencies>
         <dependency>profile-Products.ATVocabularyManager:default</dependency>

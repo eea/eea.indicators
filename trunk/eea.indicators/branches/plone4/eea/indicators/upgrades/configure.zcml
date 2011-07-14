@@ -5,12 +5,17 @@
 
   <genericsetup:upgradeSteps
     source="*"
-    destination="4.0"
+    destination="4.0.1"
     profile="eea.indicators:default">
 
     <genericsetup:upgradeDepends
       title="Import all steps from eea.indicators profile"
       import_profile="eea.indicators:default"
+      />
+
+    <genericsetup:upgradeStep
+      title="Update IMS content to provide IVersionEnhanced if they should"
+      handler="eea.indicators.upgrades.assign_iversionenhanced_to_content"
       />
 
   </genericsetup:upgradeSteps>
