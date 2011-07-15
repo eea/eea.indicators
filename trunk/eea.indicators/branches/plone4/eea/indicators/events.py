@@ -21,10 +21,16 @@ def syncWorkflowStateRelatedFigures(context, dest_state):
                 for obj in chain([ob], ob.objectValues('EEAFigureFile')):
                     workflow = wftool.getWorkflowsFor(obj)[0]
                     transitions = workflow.transitions
+                    available_transitions = [transitions[i['id']] for i in 
+                                workflow.getTransitionsFor(obj)]
+                    to_do = filter(lambda i:i.new_state_id == dest_state, 
+                            available_transitions)
+                    if not to_do:
+                        raise ValueError("Could not find a transition that would "
+                                         "bring the Figure to destination state")
 
                     # find transition that brings to the state of parent object
-                    for item in filter(lambda i:i.new_state_id == dest_state, 
-                            transitions.objectValues()):
+                    for item in to_do:
                         workflow.doActionFor(obj, item.id, comment=comment)
                         obj.reindexObject()
                         break
