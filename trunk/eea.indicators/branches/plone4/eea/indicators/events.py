@@ -27,6 +27,7 @@ def syncWorkflowStateRelatedFigures(context, dest_state):
                             transitions.objectValues()):
                         workflow.doActionFor(obj, item.id, comment=comment)
                         obj.reindexObject()
+                        break
 
 
 def handle_assessment_state_change(context, event):
