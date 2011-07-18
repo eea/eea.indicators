@@ -8,12 +8,12 @@
     allow_tabbing python: not view.isMultiPageSchema();
 
     fieldsets python: view.fieldsets();
-    default_fieldset python:'default' in fieldsets and 'default' or fieldsets and fieldsets[0] or None;
-    fieldset request/fieldset|options/fieldset|default_fieldset;
 
-    specific_field options/state/kwargs/specific_field|options/specific_field|request/specific_field | nothing;
     fields python: view.fields(fieldsets);
+    specific_field options/state/kwargs/specific_field|options/specific_field|request/specific_field | nothing;
     fields python:specific_field and filter(lambda f:f.getName() == specific_field, fields) or fields;
+    specific_at_field python:context.getField(specific_field);
+    fieldset specific_at_field/schemata;
 
     dummy python:context.at_isEditable(fields);
     portal_type python:context.getPortalTypeName().lower().replace(' ', '_');
