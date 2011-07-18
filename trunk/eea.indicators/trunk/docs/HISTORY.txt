@@ -1,6 +1,9 @@
 Changelog
 =========
 
+1.44-dev - (unreleased)
+-----------------------
+
 1.43 - (2011-07-18)
 -------------------
  * Bug fix: fix a unicode problem in specification/@@rdf view [tiberich 4426]
