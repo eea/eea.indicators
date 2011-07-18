@@ -836,7 +836,7 @@ class Specification2Surf(ATCT2Surf):
                     if isinstance(value, (list, tuple)):
                         value = list(value)
                     else:
-                        value = (str(value), language)
+                        value = (unicode(value), language)
                     if fieldName in self.field_map:
                         fieldName = self.field_map.get(fieldName)
                     elif fieldName in self.dc_map:
