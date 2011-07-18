@@ -17,9 +17,9 @@ from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 from Products.EEAContentTypes.content.validators import ManagementPlanCodeValidator
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from datetime import datetime
-from eea.dataservice.fields.ManagementPlanField import ManagementPlanField
+from eea.forms.fields.ManagementPlanField import ManagementPlanField
 from eea.dataservice.vocabulary import DatasetYears
-from eea.dataservice.widgets.ManagementPlanWidget import ManagementPlanWidget
+from eea.forms.widgets.ManagementPlanWidget import ManagementPlanWidget
 from eea.indicators import msg_factory as _
 from eea.indicators.config import PROJECTNAME
 from eea.indicators.content.base import CustomizedObjectFactory
