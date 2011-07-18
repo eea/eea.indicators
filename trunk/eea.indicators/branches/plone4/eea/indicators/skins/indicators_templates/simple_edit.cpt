@@ -1,59 +1,66 @@
-<tal:block metal:define-macro="master"
-           define="errors options/state/getErrors | nothing;
-                   temporary here/isTemporary | nothing;
-                   dummy python:temporary and request.set('disable_border', True);
-                   schematas here/Schemata;
-                   specific_field options/state/kwargs/specific_field|options/specific_field|request/specific_field | nothing;
-                   fieldsets python:[key for key in schematas.keys() if (key != 'metadata') and (schematas[key].editableFields(here, visible_only=True))];
-                   default_fieldset python:(not schematas or schematas.has_key('default')) and 'default' or fieldsets[0];
-                   fieldset request/fieldset|options/fieldset|default_fieldset;
-                   fields python:schematas[fieldset].editableFields(here);
-                   fields python:specific_field and filter(lambda f:f.getName() == specific_field, fields) or fields;
-                   dummy python:here.at_isEditable(fields);
-                   portal_type python:here.getPortalTypeName().lower().replace(' ', '_');
-                   here_url context/absolute_url;
-                   portal_url nocall:context/portal_url;
-                   portal portal_url/getPortalObject;
-                   type_name context/getPortalTypeName|context/archetype_name;
-                   type_name here/getPortalTypeName|here/archetype_name;
-                   base_macros here/simple_edit_macros/macros;
-                   edit_template python:'%s_edit' % portal_type;
-                   edit_macros python:path('here/%s/macros | nothing' % edit_template);
-                   body_macro edit_macros/body | body_macro | base_macros/body;
-                   lockable python:hasattr(here, 'wl_isLocked');
-                   isLocked python:lockable and here.wl_isLocked();
-                   css python:here.getUniqueWidgetAttr(fields, 'helper_css');
-                   js python:here.getUniqueWidgetAttr(fields, 'helper_js');">
+<tal:block define="view context/@@at_base_edit_view;
+    dummy python:request.set('disable_border', True);
+    lifecycle context/@@at_lifecycle_view;
+    lock_info context/@@plone_lock_info|nothing;
+    dummy lifecycle/begin_edit;
+    errors options/state/getErrors | nothing;
+    schematas context/Schemata;
+    allow_tabbing python: not view.isMultiPageSchema();
 
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xml:lang="en"
-      lang="en"
-      xmlns:tal="http://xml.zope.org/namespaces/tal"
-      xmlns:metal="http://xml.zope.org/namespaces/metal"
-      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-      metal:use-macro="here/simple_main_template/macros/master"
-      i18n:domain="indicators">
+    fieldsets python: view.fieldsets();
+    default_fieldset python:'default' in fieldsets and 'default' or fieldsets and fieldsets[0] or None;
+    fieldset request/fieldset|options/fieldset|default_fieldset;
 
-  <metal:head fill-slot="top_slot">
-    <tal:block define="macro edit_macros/topslot | nothing"
-                    condition="macro">
-	<metal:block use-macro="macro" />
-    </tal:block>
-  </metal:head>
-  
-  <metal:javascript_head fill-slot="javascript_head_slot">
-  </metal:javascript_head>
+    specific_field options/state/kwargs/specific_field|options/specific_field|request/specific_field | nothing;
+    fields python: view.fields(fieldsets);
+    fields python:specific_field and filter(lambda f:f.getName() == specific_field, fields) or fields;
 
-  <metal:css fill-slot="css_slot">
-  </metal:css>
-    
-  <body>
-    <metal:fill fill-slot="main">
-      <metal:main define-macro="main">
-        <metal:use_body use-macro="body_macro" />
-      </metal:main>
-    </metal:fill>
-  </body>
+    dummy python:context.at_isEditable(fields);
+    portal_type python:context.getPortalTypeName().lower().replace(' ', '_');
+    portal_url nocall:context/portal_url;
+    portal portal_url/getPortalObject;
+    type_name context/getPortalTypeName|context/archetype_name;
 
-</html>
+    base_macros context/simple_edit_macros/macros;
+
+    edit_template string:${portal_type}_edit;
+    edit_macros python:path('context/%s/macros | nothing' % edit_template);
+
+    body_macro edit_macros/body | body_macro | base_macros/body;
+    isLocked isLocked | lock_info/is_locked_for_current_user | nothing;
+    css python:context.getUniqueWidgetAttr(fields, 'helper_css');
+    js python:context.getUniqueWidgetAttr(fields, 'helper_js');
+">
+
+    <html xmlns="http://www.w3.org/1999/xhtml"
+        xml:lang="en"
+        lang="en"
+        xmlns:tal="http://xml.zope.org/namespaces/tal"
+        xmlns:metal="http://xml.zope.org/namespaces/metal"
+        xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+        metal:use-macro="here/simple_main_template/macros/master"
+        i18n:domain="indicators">
+
+        <metal:head fill-slot="top_slot">
+            <tal:block define="macro edit_macros/topslot | nothing" condition="macro">
+                <metal:block use-macro="macro" />
+            </tal:block>
+        </metal:head>
+
+        <metal:javascript_head fill-slot="javascript_head_slot">
+        </metal:javascript_head>
+
+        <metal:css fill-slot="css_slot">
+        </metal:css>
+
+        <body>
+
+            <metal:fill fill-slot="main">
+                <metal:use_body use-macro="body_macro" />
+            </metal:fill>
+
+        </body>
+
+    </html>
+
 </tal:block>

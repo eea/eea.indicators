@@ -54,6 +54,7 @@ function set_sortables() {
           data += "&order:list=" + this;
         });
         block_ui();
+        console.info("doing ajax set sortables");
         $.ajax({
           'url':handler,
           'type':'POST',
@@ -148,6 +149,8 @@ function ajaxify(el, fieldname){
       tinyMCE.triggerSave();
       var form = this;
       var data = ($(form).serialize() + "&form_submit=Save&form.submitted=1");
+
+      console.info("doing ajax ajaxify");
       $.ajax({
         "data": data,
         url: this.action,
@@ -208,6 +211,8 @@ function set_generic_ajax_forms(){
     var url = $(this).attr('action');
 
     block_ui();
+
+    console.info("doing ajax set generic ajax forms");
     $.ajax({
       'url':url,
       type:'POST',
@@ -266,6 +271,7 @@ function on_load_dom() {
 }
 
 function reload_region(el){
+  console.info("doing reload region");
   block_ui();
   var update_handler = $(".metadata .region_update_handler", el).text();
   var also_reload = $(".metadata .also_reload", el);
@@ -278,6 +284,7 @@ function reload_region(el){
     });
   }
 
+        console.info("doing ajax reload region");
   $.ajax({
     url: update_handler,
     type:'GET',
@@ -322,6 +329,8 @@ function set_actives(){
 }
 
 function schemata_ajaxify(el, active_region){
+        console.info("doing schemata ajaxify");
+  
 
   set_actives();
   init_tinymce(el);
@@ -341,6 +350,7 @@ function schemata_ajaxify(el, active_region){
       data = $(form).serialize();
       data += "&_active_region=" + active_region;
       data += "&form_submit=Save&form.submitted=1";
+        console.info("doing ajax schemata ajaxify");
 
       $.ajax({
         "data": data,
@@ -454,6 +464,7 @@ function dialog_edit(url, title, callback, options){
       return true;
     }
   });
+        console.info("doing ajax dialog edit ");
 
   $.ajax({
     'url':url,
@@ -554,6 +565,7 @@ function set_creators(){
       'width':800,
       'height':600
     };
+    console.info("doing ajax set creators");
     $.ajax({
       url: link,
       type:'GET',
@@ -615,6 +627,7 @@ function set_deleters(){
     block_ui();
     var link = $(this).attr('href');
     var region = $(this).parents(".active_region")[0];
+    console.info("doing ajax set deleters");
     $.ajax({
       url: link,
       type:'GET',
