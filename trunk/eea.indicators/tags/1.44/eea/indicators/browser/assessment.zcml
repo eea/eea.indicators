@@ -1,0 +1,79 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    xmlns:five="http://namespaces.zope.org/five">
+
+    <adapter factory=".assessment.WorkflowStateReadiness" 
+        for="eea.indicators.content.interfaces.IAssessment" />
+
+    <browser:page name="view"
+        for="eea.indicators.content.interfaces.IAssessment"
+        template="templates/assessment/view.pt"
+        class=".assessment.IndexPage"
+        permission="zope2.View" />
+
+    <browser:page name="edit_aggregated"
+        for="eea.indicators.content.interfaces.IAssessment"
+        class=".assessment.AggregatedEditPage"
+        permission="cmf.ModifyPortalContent" />
+
+    <browser:page
+        for="eea.indicators.content.interfaces.IAssessment"
+        name="fragment_metadata"
+        template="templates/assessment/fragment_metadata.pt"
+        permission="cmf.ModifyPortalContent"
+        />
+
+    <browser:page
+        for="eea.indicators.content.interfaces.IAssessment"
+        name="fragment_keymessage"
+        template="templates/assessment/fragment_keymessage.pt"
+        permission="cmf.ModifyPortalContent"
+        />
+
+    <browser:page
+        for="eea.indicators.content.interfaces.IAssessmentPart"
+        name="fragment_assessment_part"
+        template="templates/assessment/fragment_assessment_part.pt"
+        permission="cmf.ModifyPortalContent"
+        />
+
+    <browser:page name="indicator_contact_info"
+        for="eea.indicators.content.interfaces.IAssessment"
+        class=".specification.ContactInfo"
+        permission="zope2.View" />
+
+    <!-- Assessment Versioning -->
+    <browser:page name="createVersion"
+        for="eea.indicators.content.interfaces.IAssessment"
+        permission="cmf.ModifyPortalContent"
+        class=".assessment.CreateVersion" />
+
+    <browser:menuItem title="Create new version"
+        for="eea.indicators.content.interfaces.IAssessment"
+        menu="object_buttons"
+        action="@@createVersion"
+        description="Create a new version"
+        permission="cmf.ModifyPortalContent" />
+
+    <browser:menuItem title="Revoke version"
+        for="eea.indicators.content.interfaces.IAssessment"
+        menu="object_buttons"
+        action="@@revokeVersion"
+        description="Revoke a version"
+        permission="cmf.ModifyPortalContent" />
+
+    <browser:menuItem
+        for="eea.indicators.content.interfaces.IAssessment"
+        menu="object_buttons"
+        title="Re-assign version"
+        action="@@assignVersion"
+        description="Re-assign to another version ID"
+        permission="cmf.ModifyPortalContent" />
+
+    <browser:page name="wrong_versions_report"
+        for="eea.indicators.content.interfaces.IAssessment"
+        class=".assessment.WrongVersionReport"
+        template="templates/assessment/wrong_versions_report.pt"
+        permission="cmf.ModifyPortalContent" />
+
+</configure>
