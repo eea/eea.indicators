@@ -1,8 +1,9 @@
 Changelog
 =========
 
-1.44-dev - (unreleased)
------------------------
+1.44 - (2011-07-19)
+-------------------
+ * Change: use 'replace' option when converting to unicode for previous commit [tiberich #4426]
 
 1.43 - (2011-07-18)
 -------------------
