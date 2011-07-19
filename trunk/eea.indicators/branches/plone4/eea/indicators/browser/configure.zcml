@@ -129,6 +129,24 @@
                 class=".utils.ObjectDelete"
                 permission="cmf.ModifyPortalContent" />
 
+  <browser:page name="jqueryui-include-condition"
+      class=".ims.IncludeJqueryUI"
+      for="eea.indicators.content.interfaces.ISpecification"
+      permission="zope2.View"
+      />
+
+  <browser:page name="jqueryui-include-condition"
+      class=".ims.IncludeJqueryUI"
+      for="eea.indicators.content.interfaces.IAssessment"
+      permission="zope2.View"
+      />
+
+  <browser:page name="jqueryui-include-condition"
+      class=".ims.IncludeJqueryUI"
+      for="eea.indicators.content.interfaces.IIndicatorFactSheet"
+      permission="zope2.View"
+      />
+
   <browser:resource name='indicators.js'
                     file='js/indicators.js' />
 

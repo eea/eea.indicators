@@ -279,3 +279,9 @@ class ReportWrongMainCodeSpecifications(BrowserView):
 
 #class ReadinessRenderer(Renderer):
     #render = ViewPageTemplateFile('templates/portlet_readiness.pt')
+
+class IncludeJqueryUI(BrowserView):
+    """
+    """
+    def __call__(self):
+        return True

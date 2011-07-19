@@ -18,7 +18,6 @@ from Products.EEAContentTypes.content.validators import ManagementPlanCodeValida
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from datetime import datetime
 from eea.forms.fields.ManagementPlanField import ManagementPlanField
-from eea.dataservice.vocabulary import DatasetYears
 from eea.forms.widgets.ManagementPlanWidget import ManagementPlanWidget
 from eea.indicators import msg_factory as _
 from eea.indicators.config import PROJECTNAME
@@ -34,6 +33,7 @@ from eea.workflow.utils import ATFieldValueProvider
 from zope.component import adapts
 from zope.interface import implements
 import logging
+#from eea.dataservice.vocabulary import DatasetYears
 
 logger = logging.getLogger('eea.indicators.content.Assessment')
 
@@ -78,7 +78,7 @@ schema = Schema((
         required=False,
         default=(datetime.now().year, ''),
         validators = ('management_plan_code_validator',),
-        vocabulary=DatasetYears(),
+        vocabulary_factory="Temporal coverage",
         widget = ManagementPlanWidget(
             format="select",
             label="EEA Management Plan",
