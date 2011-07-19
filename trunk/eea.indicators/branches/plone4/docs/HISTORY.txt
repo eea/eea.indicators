@@ -6,6 +6,8 @@ Changelog
 
  * TODO: fix "related policy document" button in specification aggedit 
 
+* Change: Added Products.RedirectionTool profile in metadata.xml
+
 * Change: Included ManagementPlan Field and Widget from eea.forms instead of eea.dataservice [szabozo0 #4423]
 
 * Feature: Added upgrade steps
