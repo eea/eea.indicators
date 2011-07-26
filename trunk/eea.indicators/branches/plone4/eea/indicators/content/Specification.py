@@ -760,8 +760,8 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
             res = factory()
         except ValueError, e:
             request = self.REQUEST
-            addStatusMessage(request, e)
-            return request.RESPONSE.redirect(request['HTTP_REFERER'])
+            addStatusMessage(request, e, type='error')
+            raise
 
         obj = res['obj']
         return obj.getId()
