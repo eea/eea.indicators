@@ -2,9 +2,8 @@
 
 """ Specification content class and utilities
 """
-
 from AccessControl import ClassSecurityInfo
-from Acquisition import aq_inner, aq_parent
+from Acquisition import aq_inner
 from Products.ATContentTypes.content.folder import ATFolder, ATFolderSchema
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema
 from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
@@ -13,6 +12,7 @@ from Products.Archetypes.atapi import MultiSelectionWidget, Schema, RichWidget
 from Products.Archetypes.atapi import SelectionWidget, LinesField
 from Products.Archetypes.atapi import StringField, TextField, registerType
 from Products.Archetypes.atapi import TextAreaWidget
+from Products.Archetypes.utils import addStatusMessage
 from Products.CMFCore import permissions
 from Products.CMFCore.permissions import AddPortalContent
 from Products.CMFCore.utils import getToolByName
@@ -23,7 +23,6 @@ from Products.DataGridField.Column import Column
 from Products.DataGridField.SelectColumn import SelectColumn
 from Products.EEAContentTypes.content.ThemeTaggable import ThemeTaggable
 from Products.EEAContentTypes.content.ThemeTaggable import ThemeTaggable_schema
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 from Products.UserAndGroupSelectionWidget import UserAndGroupSelectionWidget
 from eea.indicators import msg_factory as _
@@ -48,9 +47,9 @@ from eea.workflow.interfaces import IObjectReadiness
 from zope.component import adapts, queryMultiAdapter
 from zope.interface import alsoProvides, implements
 import datetime
+import logging
 import rdflib
 import sys
-import logging
 
 logger = logging.getLogger('eea.indicators.content.Specification')
 
@@ -755,9 +754,12 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
         factory = getattr(self, factory_name, None)
         res = factory()
         request = self.REQUEST
+
         if ('/view') in request['HTTP_REFERER']:
-            if res and "<div" in res:
-                raise ValueError(res)
+            if res.status == 'FAILURE':
+                addStatusMessage(request, res.msg)
+                raise request.RESPONSE.redirect(request['HTTP_REFERER'])
+
         obj = res['obj']
         return obj.getId()
 

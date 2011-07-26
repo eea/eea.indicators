@@ -9,6 +9,26 @@ from zope import event
 from zope.lifecycleevent import ObjectModifiedEvent
 
 
+class ExtendedMessage(object):
+    """An string to be rendered as HTML
+    
+    It holds metadata about the contained information
+    """
+
+    template = None
+    html     = None
+    msg      = None
+    status   = None
+
+    def __init__(self, template, status, **kwds):
+        self.html   = template % kwds
+        self.msg    = kwds['msg']
+        self.status = status
+
+    def __str__(self):
+        return self.html
+
+
 class ModalFieldEditableAware(object):
     """Classes that want to allow editing of their fields in modal dialogs"""
     security = ClassSecurityInfo()
@@ -144,8 +164,11 @@ class CustomizedObjectFactory(object):
 
     def _error(self, error):
         """Returns error structure"""
-        return u"<div class='metadata'><div class='error'>" + error + \
-               "</div></div>"
+        return ExtendedMessage(
+            u"<div class='metadata'><div class='error'>%(msg)s</div></div>", 
+            'FAILURE',
+            {'msg':error}
+            )
 
     def _success(self, **kw):
         """Returns success structure"""
@@ -154,8 +177,11 @@ class CustomizedObjectFactory(object):
         url = obj.absolute_url() + '/' + subview
         f = kw.get('direct_edit') and "<div class='direct_edit' />" or ''
 
-        return "<div class='metadata'>" + f + "<div class='object_edit_url'>" \
-                + url + "</div></div>"
+        return ExtendedMessage(
+            u"<div class='metadata'>%(msg)s<div class='object_edit_url'>%(url)s</div></div>",
+            'SUCCESS',
+            {'msg':f, 'url':url}
+            )
 
     security.declareProtected(AddPortalContent, 'object_factory')
     def object_factory(self):
