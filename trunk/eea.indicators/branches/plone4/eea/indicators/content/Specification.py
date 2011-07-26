@@ -660,7 +660,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
 
         #drop with error if no PolicyQuestions are created
         if not self.objectValues('PolicyQuestion'):
-            return self._error("You need to create first a Policy Question")
+            raise ValueError("You need to create first a Policy Question")
 
         #create a version if we already have an Assessment
         assessments = self.objectValues(type_name)
@@ -752,13 +752,16 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
                                                             **kw)
         factory_name = 'factory_' + type_name
         factory = getattr(self, factory_name, None)
-        res = factory()
-        request = self.REQUEST
-
-        if ('/view') in request['HTTP_REFERER']:
-            if res.status == 'FAILURE':
-                addStatusMessage(request, res.msg)
-                raise request.RESPONSE.redirect(request['HTTP_REFERER'])
+        if not factory:
+            return super(Specification, self).invokeFactory(type_name, id,
+                                                            RESPONSE, *args,
+                                                            **kw)
+        try:
+            res = factory()
+        except ValueError, e:
+            request = self.REQUEST
+            addStatusMessage(request, e)
+            return request.RESPONSE.redirect(request['HTTP_REFERER'])
 
         obj = res['obj']
         return obj.getId()

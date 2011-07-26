@@ -185,7 +185,9 @@ class CustomizedObjectFactory(object):
 
     security.declareProtected(AddPortalContent, 'object_factory')
     def object_factory(self):
-        """Create an object according to special rules for that object """
+        """Create an object according to special rules for that object.
+        
+        This is callable TTW by ajax agg editing"""
 
         type_name = self.REQUEST['type_name']
         factory_name = 'factory_' + type_name
