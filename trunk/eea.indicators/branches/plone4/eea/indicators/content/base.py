@@ -167,7 +167,7 @@ class CustomizedObjectFactory(object):
         return ExtendedMessage(
             u"<div class='metadata'><div class='error'>%(msg)s</div></div>", 
             'FAILURE',
-            {'msg':error}
+            msg=error
             )
 
     def _success(self, **kw):
@@ -180,7 +180,7 @@ class CustomizedObjectFactory(object):
         return ExtendedMessage(
             u"<div class='metadata'>%(msg)s<div class='object_edit_url'>%(url)s</div></div>",
             'SUCCESS',
-            {'msg':f, 'url':url}
+            msg=f, url=url
             )
 
     security.declareProtected(AddPortalContent, 'object_factory')
