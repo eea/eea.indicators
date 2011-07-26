@@ -4,7 +4,7 @@
     xmlns:i18n="http://xml.zope.org/namespaces/i18n">
 
     <property name="title">Indicator Fact Sheet</property>
-    <property name="description"></property>
+    <property name="description">Indicator Fact Sheet</property>
     <property name="content_icon">IndicatorFactSheet.gif</property>
     <property name="content_meta_type">IndicatorFactSheet</property>
     <property name="product">eea.indicators</property>

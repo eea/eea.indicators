@@ -4,7 +4,7 @@
         xmlns:i18n="http://xml.zope.org/namespaces/i18n">
 
  <property name="title">Work Item</property>
- <property name="description"></property>
+ <property name="description">Work Item</property>
  <property name="content_icon">WorkItem.png</property>
  <property name="content_meta_type">WorkItem</property>
  <property name="product">eea.indicators</property>

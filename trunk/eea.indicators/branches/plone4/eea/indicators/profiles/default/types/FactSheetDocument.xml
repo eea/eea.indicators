@@ -4,7 +4,7 @@
         xmlns:i18n="http://xml.zope.org/namespaces/i18n">
 
  <property name="title">Fact Sheet Document</property>
- <property name="description"></property>
+ <property name="description">Fact Sheet Document</property>
  <property name="content_icon">FactSheetDocument.gif</property>
  <property name="content_meta_type">FactSheetDocument</property>
  <property name="product">eea.indicators</property>

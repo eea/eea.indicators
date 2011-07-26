@@ -4,7 +4,7 @@
         xmlns:i18n="http://xml.zope.org/namespaces/i18n">
 
  <property name="title">Assessment Part</property>
- <property name="description"></property>
+ <property name="description">Assessment Part</property>
  <property name="content_icon">AssessmentPart.png</property>
  <property name="content_meta_type">AssessmentPart</property>
  <property name="product">eea.indicators</property>

@@ -4,7 +4,7 @@
         xmlns:i18n="http://xml.zope.org/namespaces/i18n">
 
  <property name="title">Key Message</property>
- <property name="description"></property>
+ <property name="description">Key Message</property>
  <property name="content_icon">KeyMessage.gif</property>
  <property name="content_meta_type">KeyMessage</property>
  <property name="product">eea.indicators</property>

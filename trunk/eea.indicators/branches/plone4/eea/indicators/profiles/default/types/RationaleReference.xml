@@ -4,7 +4,7 @@
         xmlns:i18n="http://xml.zope.org/namespaces/i18n">
 
  <property name="title">Rationale Reference</property>
- <property name="description"></property>
+ <property name="description">Rationale Reference</property>
  <property name="content_icon">RationaleReference.png</property>
  <property name="content_meta_type">RationaleReference</property>
  <property name="product">eea.indicators</property>
