@@ -29,10 +29,10 @@ class UniquePolicyDocTitleValidator:
         self.description = description
 
     def __call__(self, value, *args, **kwargs):
-        words = process_unicode(value)
+        words = process_unicode(unicode(value, 'utf-8'))
         cat = getToolByName(kwargs['instance'], 'portal_catalog')
         query = {'portal_type': 'PolicyDocumentReference',
-                 'Title': words}
+                 'Title': list(words)}
         oid = kwargs['instance'].UID()
         brains = filter(
                     lambda b:b.Title == value and b.getObject().UID() != oid,
