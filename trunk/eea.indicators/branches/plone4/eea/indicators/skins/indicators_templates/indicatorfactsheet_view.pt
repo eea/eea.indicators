@@ -23,12 +23,7 @@
 
   <body>
     <div class="factsheet_view" metal:fill-slot="content-core">
-      <metal:main_macro define-macro="main"
-        tal:define="portal_type python:here.getPortalTypeName().lower().replace(' ', '_');
-        base_macros here/base/macros;
-        view_template python:'%s_view' % portal_type;
-        view_macros python:path('here/%s/macros|nothing' % view_template);
-        header_macro view_macros/header | header_macro | base_macros/header;">
+      <metal:main_macro define-macro="main">
 
         <metal:versions use-macro="here/portlet_versions/macros/versions">
           <metal:old fill-slot="old" />
