@@ -1,0 +1,161 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xml:lang="en"
+  lang="en"
+  xmlns:tal="http://xml.zope.org/namespaces/tal"
+  xmlns:metal="http://xml.zope.org/namespaces/metal"
+  xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+  metal:use-macro="here/main_template/macros/master"
+  i18n:domain="plone">
+
+  <head><title></title></head>
+
+  <body>
+    <div class="factsheet_view" metal:fill-slot="main">
+      <metal:main_macro define-macro="main"
+        tal:define="portal_type python:here.getPortalTypeName().lower().replace(' ', '_');
+        base_macros here/base/macros;
+        view_template python:'%s_view' % portal_type;
+        view_macros python:path('here/%s/macros|nothing' % view_template);
+        header_macro view_macros/header | header_macro | base_macros/header;">
+
+        <h1 tal:content="context/title_or_id" class="documentFirstHeading">
+          Title or id
+        </h1>
+
+        <metal:byline use-macro="context/document_byline/macros/byline" />
+
+        <p class="documentDescription">
+          Assessment made on <tal:block define="value context/getAssessment_date"
+            content="python:context.toLocalizedTime(value, long_format=0)" />
+        </p>
+
+        <p class="documentDescription"
+          tal:content="here/Description"
+          tal:condition="here/Description">
+          Description
+        </p>
+
+        <metal:versions use-macro="here/portlet_versions/macros/versions">
+          <metal:old fill-slot="old" />
+        </metal:versions>
+
+        <div class="visualClear"><!-- --></div>
+
+        <div id="box-classification">
+          <h3 id="general_metadata">Generic metadata</h3>
+          <h4>Classification</h4>
+          <tal:block define="themesView here/@@themes-object|nothing;
+            themes themesView/full_items;
+            primaryTheme python:themes and themes[0] or None">
+
+            <tal:primaryTheme repeat="theme themes" condition="primaryTheme">
+              <a href="" title="" style="text-decoration: none"
+                tal:attributes="href theme_url;
+                title theme_title"
+                tal:define="theme_title python:theme['title'];
+                theme_url python:theme['url'];
+                theme_image python:theme['image']">
+                <img alt="" src=""
+                  tal:attributes="alt theme_title;
+                  src theme_image" />
+                <tal:block replace="theme_title" />
+              </a> <span tal:condition="python:theme == themes[0]">(Primary theme)</span>
+              <br /><br />
+            </tal:primaryTheme>
+          </tal:block>
+          <tal:tags define="facetId string:c9">
+            <metal:related use-macro="here/dataset_view/macros/tags" />
+          </tal:tags>
+          <strong>DPSIR</strong>: <span tal:define="dpsirLabel nocall:context/@@dpsir_label"
+            tal:replace="python:dpsirLabel(context.getDpsir())" />
+          <br/>
+          <h4>Identification</h4>
+          <div tal:define="codes context/getCodes">
+            <strong>Indicator codes</strong>
+            <ul>
+              <li tal:repeat="code codes" tal:content="string:${code/set} ${code/code}">CSI 001</li>
+            </ul>
+          </div>
+          <metal:related use-macro="here/dataset_view/macros/temp-coverage" />
+          <metal:related use-macro="here/dataset_view/macros/geo-coverage" />
+        </div>
+
+        <tal:block define="queryString string:h2:not(.notoc)">
+          <metal:toc use-macro="here/portlet_toc/macros/portlet"/>
+        </tal:block>
+
+        <div class="visualClear"><!-- --></div>
+
+        <tal:policy_question define="policy_question context/getPolicy_question"
+          condition="policy_question">
+          <h2>Policy issue: <span tal:replace="policy_question" /></h2>
+        </tal:policy_question>
+
+        <tal:key_messages define="key_messages context/@@key_messages"
+          condition="key_messages">
+          <div class="keyMessage">
+            <h2>Key messages</h2>
+            <ul><li tal:repeat="message key_messages" tal:content="structure message/getMessage"></li></ul>
+          </div>
+
+        </tal:key_messages>
+
+        <tal:mapsandgraphs tal:define="figures context/@@figures_for_album"
+          tal:condition="figures">
+          <h2>Figures</h2>
+          <div metal:define-macro="figures-album" class="map-photo-album"
+            tal:define="Batch python:modules['Products.CMFPlone'].Batch;
+            figure_context python:True;
+            b_start python:request.get('b_start', 0);
+            template_id string:;
+            folderContents python:Batch(figures, 12, int(b_start), orphan=1)">
+            <h4 id="maps-and-graphs" style="display: none">Fancybox relations</h4>
+            <metal:figures use-macro="here/atct_album_view/macros/listing" />
+          </div>
+        </tal:mapsandgraphs>
+
+        <h2>Key assessment</h2>
+        <div tal:content="structure context/getAssessment" />
+
+        <tal:factSheetDocuments define="documents context/@@fact_sheet_documents"
+          condition="documents">
+          <h2>Download detailed information and factsheets</h2>
+          <!-- #TODO: there was also a display of "complete_report_link" -->
+          <ul>
+            <tal:block repeat="file documents">
+              <li tal:define="field python:file.getFile();
+                icon field/getBestIcon | nothing;
+                filename field/filename | nothing;
+                size field/get_size;">
+                <a tal:attributes="
+                  id file/UID;
+                  href string:${file/absolute_url}/at_download/file;">
+                  <img tal:condition="icon" src=""
+                    tal:attributes="src string:${context/portal_url}/$icon"/>
+                  <span tal:content="file/Title" />
+                </a>
+                (<span tal:content="python:file.lookupMime(field.getContentType())">ContentType</span>
+                <tal:size define="displaySize nocall:context/displaySize"
+                  content="python:displaySize(size)"
+                  condition="size">0Kb</tal:size>)
+                <br />
+              </li>
+            </tal:block>
+          </ul>
+        </tal:factSheetDocuments>
+
+        <div class='headed-box'>
+          <h4>Permalinks</h4>
+          <metal:basicmeta use-macro="context/versions_macros/macros/permalinks" />
+        </div>
+
+        <metal:versions use-macro="here/portlet_versions/macros/versions">
+          <metal:new fill-slot="new" />
+        </metal:versions>
+
+<!-- #TODO: <dtml-var show_related_indicators> -->
+
+      </metal:main_macro>
+    </div>
+  </body>
+</html>
