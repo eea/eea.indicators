@@ -3,10 +3,11 @@ Changelog
 
 1.46-dev - (unreleased)
 -----------------------
+ * Bug fix: fixed a problem with boolean widgets being toggled in aggedit [tiberich #4450]
 
 1.45 - (2011-08-02)
 -------------------
- * Bug fix: fix a unicode bug in specification/@@rdf view [tiberich ]
+ * Bug fix: fix a unicode bug in specification/@@rdf view [tiberich #4448]
 
 1.44 - (2011-07-19)
 -------------------
