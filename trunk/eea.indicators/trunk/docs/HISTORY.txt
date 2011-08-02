@@ -1,8 +1,8 @@
 Changelog
 =========
 
-1.46-dev - (unreleased)
------------------------
+1.46 - (2011-08-02)
+-------------------
  * Bug fix: fixed a problem with boolean widgets being toggled in aggedit [tiberich #4450]
 
 1.45 - (2011-08-02)
