@@ -3,6 +3,7 @@ Changelog
 
 1.45-dev - (unreleased)
 -----------------------
+ * Bug fix: fix a unicode bug in specification/@@rdf view [tiberich ]
 
 1.44 - (2011-07-19)
 -------------------
