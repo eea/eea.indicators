@@ -85,8 +85,13 @@ def create_version(original, request=None):
         obj.setCreationDate(DateTime())
 
     #The links to EEAFigures are updated to point to their latest version
+    #Also, we need to add whatever new PolicyQuestions were added in the Specification
 
     assessment = ver
+
+    spec = assessment.aq_parent
+    pqs = set(spec.objectIds("PolicyQuestion"))
+    assigned_pqs = set()
 
     for ap in assessment.objectValues("AssessmentPart"):
         rels = []
@@ -98,11 +103,26 @@ def create_version(original, request=None):
                     rels.append(new)
                 else:
                     rels.append(o)
+            elif o.meta_type == "PolicyQuestion":
+                rels.append(o)
+                assigned_pqs.add(o.getId())
             else:
                 rels.append(o)
 
         ap.setRelatedItems(rels)
         ap.reindexObject()
+
+    #creating missing policy questions
+    new_pqs = pqs - assigned_pqs
+    for id in new_pqs:
+        aid = assessment.invokeFactory(type_name="AssessmentPart",
+                id=assessment.generateUniqueId("AssessmentPart"),)
+        ap = assessment[aid]
+        ap.setRelatedItems(spec[id])
+        try:
+            ap.reindexObject()
+        except AttributeError:
+            pass
 
     # Set new state
     #IVersionControl(ver).setVersionId(version_id)   

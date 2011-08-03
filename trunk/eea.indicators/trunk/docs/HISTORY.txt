@@ -3,6 +3,7 @@ Changelog
 
 1.47-dev - (unreleased)
 -----------------------
+ * Bug fix: create AssessmentParts for newly added PolicyQuestions when versioning an Assessment [tiberich #4451]
 
 1.46 - (2011-08-02)
 -------------------
