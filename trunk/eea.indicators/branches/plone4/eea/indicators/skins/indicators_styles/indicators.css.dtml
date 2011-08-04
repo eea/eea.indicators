@@ -98,7 +98,7 @@
 #policyquestion-base-edit #archetypes-fieldname-title {
     background:url(Warning.png) no-repeat scroll 0 0 transparent;
     color:black;
-    padding:3em 0 2em;
+    padding:3em 0 2em !important;
 }
 
 #datagridwidget-table-codes {
@@ -440,6 +440,7 @@ display:inherit !important;
 }
 #dialog-inner label {
     /* display:none; */
+    font-size: 1.1em;
 }
 #dialog-inner .fieldTextFormat {
     display:none;
