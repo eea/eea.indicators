@@ -12,6 +12,8 @@ from eea.versions.versions import get_version_id
 from eea.versions.versions import get_versions_api
 from eea.workflow.interfaces import IObjectReadiness
 from eea.workflow.readiness import ObjectReadiness
+from plone.app.layout.globals.interfaces import IViewView
+from zope.interface import implements
 
 
 class IndexPage(BrowserView):
@@ -20,6 +22,7 @@ class IndexPage(BrowserView):
 
 class AggregatedEditPage(BrowserView):
     """Aggregated edit"""
+    implements(IViewView)
     template = ViewPageTemplateFile('templates/assessment/aggregated_edit.pt')
 
     __call__ = template

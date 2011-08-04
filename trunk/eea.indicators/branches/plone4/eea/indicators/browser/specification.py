@@ -16,7 +16,9 @@ from eea.versions.versions import create_version as base_create_version
 from eea.versions.versions import get_version_id
 from eea.workflow.interfaces import IFieldIsRequiredForState, IValueProvider
 from eea.workflow.readiness import ObjectReadiness
+from plone.app.layout.globals.interfaces import IViewView
 from zope.component import getMultiAdapter
+from zope.interface import implements
 
 import logging
 logger = logging.getLogger('eea.indicators.browser.specification')
@@ -28,6 +30,8 @@ class IndexPage(BrowserView):
 
 class AggregatedEditPage(BrowserView):
     """Agg edit page"""
+    implements(IViewView)
+
     template = \
         ViewPageTemplateFile('templates/specification/aggregated_edit.pt')
 
