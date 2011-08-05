@@ -54,7 +54,7 @@ function set_sortables() {
           data += "&order:list=" + this;
         });
         block_ui();
-        console.info("doing ajax set sortables");
+        //console.info("doing ajax set sortables");
         $.ajax({
           'url':handler,
           'type':'POST',
@@ -79,7 +79,6 @@ function init_tinymce(el){
 
     var config = new TinyMCEConfig(id);
     // TODO: resize tinymce to a more decent size
-    //console.log(config.widget_config);
     config.widget_config.editor_height = 800;
     //config.widget_config.autoresize = true;
     //config.widget_config.resizing = false;
@@ -150,7 +149,7 @@ function ajaxify(el, fieldname){
       var form = this;
       var data = ($(form).serialize() + "&form_submit=Save&form.submitted=1");
 
-      console.info("doing ajax ajaxify");
+      //console.info("doing ajax ajaxify");
       $.ajax({
         "data": data,
         url: this.action,
@@ -212,7 +211,7 @@ function set_generic_ajax_forms(){
 
     block_ui();
 
-    console.info("doing ajax set generic ajax forms");
+    //console.info("doing ajax set generic ajax forms");
     $.ajax({
       'url':url,
       type:'POST',
@@ -232,6 +231,7 @@ function set_generic_ajax_forms(){
 }
 
 function bootstrap_relations_widgets(){
+  // bootstraps reference widgets for the assessment aggedit
   $('.eea-widget-referencebrowser').each(
     function(){
       // If it has a metadata then it's a widget from assessmentpart.
@@ -245,7 +245,7 @@ function bootstrap_relations_widgets(){
       var fieldname = $(".metadata .fieldname", this).text();
       var domid = $(".metadata .domid", this).text();    //$(this).attr('id');
       var popup = new EEAReferenceBrowser.Widget(domid, {'fieldname':fieldname});
-      var region = $(this).parents('.active_region');
+      var region = $(this).parents('.active_region'); // TODO: is this needed? doesn't look like
 
       try {
         $(popup.events).bind(popup.events.SAVED, function(evt){
@@ -271,7 +271,7 @@ function on_load_dom() {
 }
 
 function reload_region(el){
-  console.info("doing reload region");
+  //console.info("doing reload region");
   block_ui();
   var update_handler = $(".metadata .region_update_handler", el).text();
   var also_reload = $(".metadata .also_reload", el);
@@ -284,7 +284,7 @@ function reload_region(el){
     });
   }
 
-        console.info("doing ajax reload region");
+  //console.info("doing ajax reload region");
   $.ajax({
     url: update_handler,
     type:'GET',
@@ -329,7 +329,7 @@ function set_actives(){
 }
 
 function schemata_ajaxify(el, active_region){
-        console.info("doing schemata ajaxify");
+        //console.info("doing schemata ajaxify");
   
 
   set_actives();
@@ -350,7 +350,7 @@ function schemata_ajaxify(el, active_region){
       data = $(form).serialize();
       data += "&_active_region=" + active_region;
       data += "&form_submit=Save&form.submitted=1";
-        console.info("doing ajax schemata ajaxify");
+        //console.info("doing ajax schemata ajaxify");
 
       $.ajax({
         "data": data,
@@ -464,7 +464,7 @@ function dialog_edit(url, title, callback, options){
       return true;
     }
   });
-        console.info("doing ajax dialog edit ");
+        //console.info("doing ajax dialog edit ");
 
   $.ajax({
     'url':url,
@@ -565,7 +565,7 @@ function set_creators(){
       'width':800,
       'height':600
     };
-    console.info("doing ajax set creators");
+    //console.info("doing ajax set creators");
     $.ajax({
       url: link,
       type:'GET',
@@ -627,7 +627,7 @@ function set_deleters(){
     block_ui();
     var link = $(this).attr('href');
     var region = $(this).parents(".active_region")[0];
-    console.info("doing ajax set deleters");
+    //console.info("doing ajax set deleters");
     $.ajax({
       url: link,
       type:'GET',
@@ -715,5 +715,4 @@ function toggle_creator_option(el){
   }
   $(a).attr('href', a.original_href + "&create_in_latest_spec=" + $(el).attr('value'));
 }
-
 // vim: set sw=2 ts=2 softtabstop=2 et:
