@@ -319,7 +319,7 @@
         </div>
 
         <div>
-          Publish date: <span tal:content="context/effective_date">effective date</span>
+          Publish date: <span tal:content="context/EffectiveDate">effective date</span>
         </div>
 
         <div>
