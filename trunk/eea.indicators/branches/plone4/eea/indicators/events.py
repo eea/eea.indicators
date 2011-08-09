@@ -12,22 +12,24 @@ def syncWorkflowStateRelatedFigures(context, dest_state):
                "is also published") % indcodes
 
     for ap in context.objectValues('AssessmentPart'):
-        for ob in filter(lambda o:o.portal_type=="EEAFigure", 
+        for figure in filter(lambda o:o.portal_type=="EEAFigure", 
                 ap.getRelatedItems()):
-            figState = wftool.getInfoFor(ob, 'review_state')
+            figState = wftool.getInfoFor(figure, 'review_state')
             if figState != dest_state:
 
                 # get possible transitions for object in current state
-                for obj in chain([ob], ob.objectValues('EEAFigureFile')):
+                for obj in chain([figure], figure.objectValues('EEAFigureFile')):
                     workflow = wftool.getWorkflowsFor(obj)[0]
                     transitions = workflow.transitions
                     available_transitions = [transitions[i['id']] for i in 
-                                workflow.getTransitionsFor(obj)]
+                                                wftool.getTransitionsFor(obj)]
                     to_do = filter(lambda i:i.new_state_id == dest_state, 
-                            available_transitions)
+                                   available_transitions)
                     if not to_do:
-                        raise ValueError("Could not find a transition that would "
-                                         "bring the Figure to destination state")
+                        raise ValueError(
+"""Could not find a transition that would bring the object to destination 
+state. This may be due to having the FigureFile at different workflow state
+than its parent Figure.""")
 
                     # find transition that brings to the state of parent object
                     for item in to_do:
