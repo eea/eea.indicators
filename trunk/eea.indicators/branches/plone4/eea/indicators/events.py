@@ -19,6 +19,11 @@ def syncWorkflowStateRelatedFigures(context, dest_state):
 
                 # get possible transitions for object in current state
                 for obj in chain([figure], figure.objectValues('EEAFigureFile')):
+
+                    state = wftool.getInfoFor(obj, 'review_state')
+                    if state == dest_state: #sometimes the child is in the 
+                        continue            #desired state
+
                     workflow = wftool.getWorkflowsFor(obj)[0]
                     transitions = workflow.transitions
                     available_transitions = [transitions[i['id']] for i in 
