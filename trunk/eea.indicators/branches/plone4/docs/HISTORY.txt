@@ -5,15 +5,17 @@ Changelog
 ----------------------
 
  * TODO: fix "related policy document" button in specification aggedit 
+ 
+ * Change: removed the old themes portlet, now part of the main template as viewlet [demarant]
 
-* Change: Added Products.RedirectionTool profile in metadata.xml
+ * Change: Added Products.RedirectionTool profile in metadata.xml
 
-* Change: Included ManagementPlan Field and Widget from eea.forms instead of eea.dataservice [szabozo0 #4423]
+ * Change: Included ManagementPlan Field and Widget from eea.forms instead of eea.dataservice [szabozo0 #4423]
 
-* Feature: Added upgrade steps
+ * Feature: Added upgrade steps
   [voineali #4392]
 
-* Feature: Plone 4.0.4 compatible release
+ * Feature: Plone 4.0.4 compatible release
   [tiberich #4214]
 
 

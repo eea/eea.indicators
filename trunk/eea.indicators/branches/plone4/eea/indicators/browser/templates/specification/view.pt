@@ -28,7 +28,7 @@
 				<metal:versions use-macro="here/portlet_versions/macros/versions">
 					<metal:new fill-slot="new" />
 				</metal:versions>
-				<div metal:use-macro="here/portlet_themes_object/macros/portlet" />
+				
 				<tal:block define="queryString string:h2">
 					<metal:toc use-macro="here/portlet_toc/macros/portlet"/>
 				</tal:block>
