@@ -6,8 +6,8 @@
   </head>
 
   <metal:javascript fill-slot="javascript_head_slot">
-    <script language="javascript" type="text/javascript">
-      
+    <script type="text/javascript">
+
       function figuresNumber() {
         var figures = jQuery(".figure-title");
         var count = 1;
@@ -248,7 +248,7 @@
         <li tal:repeat="data extdatasets" tal:condition="extdatasets">
           <span tal:repeat="url python:data.getProvider_url()">
             <tal:organisations condition="python:specification.getOrganisationName(url)">
-      	    <strong tal:content="python:specification.getOrganisationName(url).Title" />       
+      	    <strong tal:content="python:specification.getOrganisationName(url).Title" />
             <span tal:condition="not: repeat/url/end" tal:replace="string:, " />
             <span tal:condition="repeat/url/end" tal:replace="string:: " />
             </tal:organisations>
@@ -272,7 +272,7 @@
       <div class="metadata-info-switchable">
         <metal:uncertainties use-macro="specification/@@view/macros/uncertainties-part" />
       </div>
-      
+
       <h2 id="methodology">More information about this indicator</h2>
       <p>See this <a href="..">indicator specification</a> for more details.</p>
 
@@ -331,7 +331,7 @@
         <h4>Permalinks</h4>
         <metal:basicmeta use-macro="context/versions_macros/macros/permalinks" />
       </div>
-      
+
       <div class="metadata-switch metadata-switch-show">Switch to full indicator view</div>
 
       <metal:versions use-macro="here/portlet_versions/macros/versions">
