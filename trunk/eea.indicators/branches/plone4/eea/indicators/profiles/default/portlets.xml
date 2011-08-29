@@ -2,7 +2,7 @@
 <portlets>
 
     <assignment
-        manager="plone.leftcolumn"
+        manager="plone.rightcolumn"
         category="content_type"
         key="Specification"
         type="portlets.Readiness"
@@ -10,9 +10,17 @@
         />
 
     <assignment
-        manager="plone.leftcolumn"
+        manager="plone.rightcolumn"
         category="content_type"
         key="Assessment"
+        type="portlets.Readiness"
+        name="readiness"
+        />
+
+    <assignment
+        manager="plone.rightcolumn"
+        category="content_type"
+        key="IndicatorFactSheet"
         type="portlets.Readiness"
         name="readiness"
         />

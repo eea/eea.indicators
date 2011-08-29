@@ -212,20 +212,20 @@ class IndicatorFactSheet(ATFolder, ModalFieldEditableAware, BrowserDefaultMixin,
     portlet_readiness = \
             ViewPageTemplateFile('../browser/templates/portlet_readiness.pt')
 
-    security.declarePublic('left_slots')
-    def left_slots(self):
-        """left slots"""
-        _slot = 'here/portlet_readiness/macros/portlet'
-        #_assigned = self.getProperty('left_slots') or []
+#    security.declarePublic('left_slots')
+#    def left_slots(self):
+#        """left slots"""
+#        _slot = 'here/portlet_readiness/macros/portlet'
+#        #_assigned = self.getProperty('left_slots') or []
 
-        parent = aq_parent(aq_inner(self))
-        base_slots = getattr(parent, 'left_slots', [])
-        if callable(base_slots):
-            base_slots = base_slots()
+#        parent = aq_parent(aq_inner(self))
+#        base_slots = getattr(parent, 'left_slots', [])
+#        if callable(base_slots):
+#            base_slots = base_slots()
 
-        base_slots = list(base_slots)
-        base_slots.insert(0, _slot)
-        return base_slots
+#        base_slots = list(base_slots)
+#        base_slots.insert(0, _slot)
+#        return base_slots
 
     security.declarePublic("getGeographicCoverage")
     def getGeographicCoverage(self):
