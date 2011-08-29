@@ -1,12 +1,17 @@
 from zope.interface import implements
 
-from plone.portlets.interfaces import IPortletManagerRenderer
-from plone.portlets.manager import PortletManagerRenderer
+from plone.app.portlets.manager import ColumnPortletManagerRenderer
 
-class IndicatorFactSheetPortletManagerRenderer(PortletManagerRenderer):
-    """IndicatorFactSheet specific renderer for portlet managers.
+class IndicatorsPortletManagerRenderer(ColumnPortletManagerRenderer):
+    """Indicators specific renderer for portlet managers.
     """
 
     def portletsToShow(self):
-        print "new renderer"
-        return [p for p in self.allPortlets() if p['available']]
+        portlets = []
+        for p in self.allPortlets():
+            if p['available']:
+                if p['name'] == 'readiness':
+                    portlets.insert(0,p)
+                else:
+                    portlets.append(p)
+        return portlets

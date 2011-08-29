@@ -156,16 +156,18 @@
   <browser:resource name='indicators-reports.js'
                     file='js/indicators-reports.js' />
 
-  <adapter factory="eea.indicators.browser.manager.PortletManagerRenderer" />
 
-  <!--adapter factory=".manager.PortletManagerRenderer" 
-           for="eea.indicators.content.interfaces.IIndicatorFactSheet zope.publisher.interfaces.browser.IBrowserRequest zope.publisher.interfaces.browser.IBrowserView plone.portlets.interfaces.IPortletManager"/>
+  <adapter factory=".manager.IndicatorsPortletManagerRenderer" 
+           for="eea.indicators.content.interfaces.IIndicatorFactSheet zope.publisher.interfaces.browser.IBrowserRequest zope.publisher.interfaces.browser.IBrowserView plone.portlets.interfaces.IPortletManager" 
+           provides="plone.portlets.interfaces.IPortletManagerRenderer" />
 
-  <adapter factory=".manager.PortletManagerRenderer" 
-           for="eea.indicators.content.interfaces.IAssessment zope.publisher.interfaces.browser.IBrowserRequest zope.publisher.interfaces.browser.IBrowserView plone.portlets.interfaces.IPortletManager"/>
+  <adapter factory=".manager.IndicatorsPortletManagerRenderer" 
+           for="eea.indicators.content.interfaces.IAssessment zope.publisher.interfaces.browser.IBrowserRequest zope.publisher.interfaces.browser.IBrowserView plone.portlets.interfaces.IPortletManager"
+           provides="plone.portlets.interfaces.IPortletManagerRenderer" />
 
-  <adapter factory=".manager.PortletManagerRenderer" 
-           for="eea.indicators.content.interfaces.ISpecification zope.publisher.interfaces.browser.IBrowserRequest zope.publisher.interfaces.browser.IBrowserView plone.portlets.interfaces.IPortletManager"/-->
+  <adapter factory=".manager.IndicatorsPortletManagerRenderer" 
+           for="eea.indicators.content.interfaces.ISpecification zope.publisher.interfaces.browser.IBrowserRequest zope.publisher.interfaces.browser.IBrowserView plone.portlets.interfaces.IPortletManager"
+           provides="plone.portlets.interfaces.IPortletManagerRenderer" />
 
 
 </configure>
