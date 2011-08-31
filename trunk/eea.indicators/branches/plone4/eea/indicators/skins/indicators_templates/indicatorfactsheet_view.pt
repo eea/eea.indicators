@@ -22,7 +22,7 @@
   </div>
 
   <body>
-    <div class="factsheet_view" metal:fill-slot="content-core">
+    <div class="factsheet_view" metal:fill-slot="content-core" id='region-content'>
       <metal:main_macro define-macro="main">
 
         <metal:versions use-macro="here/portlet_versions/macros/versions">
