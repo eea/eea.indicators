@@ -17,7 +17,7 @@
     </p>
     <p class="documentDescription">
       Assessment made on <tal:block define="value context/getAssessment_date"
-        content="python:context.toLocalizedTime(value, long_format=0)" />
+        content="python:toLocalizedTime(value, long_format=0, translate=False)" />
     </p>
   </div>
 

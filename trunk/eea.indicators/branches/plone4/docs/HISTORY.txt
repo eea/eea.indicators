@@ -6,6 +6,8 @@ Changelog
 
  * TODO: fix "related policy document" button in specification aggedit 
  
+ * Bugfix: Fixed wrong date formats [szabozo0 #4510]
+ 
  * Change: Migrated legacy left and right_slots portlets, created specific portlet manager renderer to display readiness portlet in top [szabozo0 #4493]
  
  * Change: removed the old themes portlet, now part of the main template as viewlet [demarant]
