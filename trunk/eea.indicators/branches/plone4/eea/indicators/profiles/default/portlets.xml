@@ -1,6 +1,24 @@
 <?xml version="1.0"?>
 <portlets>
 
+    <assignment 
+        name="readiness" 
+        category="content_type" 
+        key="Assessment" 
+        manager="plone.leftcolumn" 
+        type="portlets.Readiness" 
+        visible="False"
+        remove="True"/>
+        
+    <assignment 
+        name="readiness" 
+        category="content_type" 
+        key="Specification" 
+        manager="plone.leftcolumn" 
+        type="portlets.Readiness" 
+        visible="False"
+        remove="True"/>
+        
     <assignment
         manager="plone.rightcolumn"
         category="content_type"

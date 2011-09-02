@@ -3,6 +3,7 @@ Changelog
 
 4.0-dev - (unreleased)
 ----------------------
+ * Bugfix: Removed readiness portlet from left column [szabozo0 #4493]
 
  * TODO: fix "related policy document" button in specification aggedit 
  
