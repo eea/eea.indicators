@@ -172,8 +172,8 @@ with the following exceptions:
 
     >>> from eea.indicators.browser.assessment import create_version as assessment_create_version
     >>> from eea.versions.versions import create_version as base_create_version
-    Event: ...
     >>> versioned_figure = base_create_version(figure_1)
+    Event: ...
     >>> versioned_assessment = assessment_create_version(assessment)
     Event: ...
     >>> print versioned_assessment
