@@ -157,6 +157,7 @@ a copy of the old, with the following exceptions:
  * the rest of the contained content items are copied
 
     >>> version_url = spec.unrestrictedTraverse('@@createVersion')()
+    Event: ...
     >>> print version_url
     http://nohost/plone/ims/spec2-1
     >>> versioned_spec = ims[version_url.split('/')[-1]]
@@ -171,8 +172,10 @@ with the following exceptions:
 
     >>> from eea.indicators.browser.assessment import create_version as assessment_create_version
     >>> from eea.versions.versions import create_version as base_create_version
+    Event: ...
     >>> versioned_figure = base_create_version(figure_1)
     >>> versioned_assessment = assessment_create_version(assessment)
+    Event: ...
     >>> print versioned_assessment
     <Assessment at ...>
     >>> assessment_part = versioned_assessment.objectValues('AssessmentPart')[0]
@@ -186,6 +189,7 @@ Versioning again the new assessment will result in the EEAFigure being preserved
 as there is no more another newer version:
 
     >>> versioned_assessment_2 = assessment_create_version(versioned_assessment)
+    Event: ...
     >>> assessment_part = versioned_assessment_2.objectValues('AssessmentPart')[0]
     >>> figure_2 = filter(lambda x:x.meta_type=='EEAFigure', assessment_part.getRelatedItems())[0]
     >>> figure_2.absolute_url() == versioned_figure.absolute_url()
@@ -284,7 +288,7 @@ implement eea.workflow.interfaces.IHasMandatoryWorkflowFields:
     >>> def percentage(val):
     ...     return int(float(val) /total_fields * 100.0)
 
-A specification has 21 fields. 
+A specification has 21 fields.
 
 NOTE plone4: they used to be 22. What happened?
 
@@ -530,12 +534,16 @@ its children assessments as well.
 
     >>> spec5  = make_obj(ims, "Specification", 'spec5')
     >>> vspec5 = make_version(spec5)
+    Event: ...
     >>> as5    = make_obj(spec5, "Assessment", 'as5')
     >>> vas5   = make_version(as5)
+    Event: ...
     >>> as6    = make_obj(spec5, "Assessment", "as6")
     >>> vas6   = make_version(as6)
+    Event: ...
     >>> spec6  = make_obj(ims, "Specification", 'spec6')
     >>> vspec6 = make_version(spec6)
+    Event: ...
 
 Each object involved has a different version id:
 
