@@ -54,8 +54,6 @@ We depend on:
     <FSPageTemplate at datagridwidget>
     >>> print portal.userandgroupselect
     <FSPageTemplate at userandgroupselect>
-    >>> print portal.portlet_readiness
-    <FSPageTemplate at portlet_readiness>
     >>> print portal.portlet_versions
     <FSPageTemplate at portlet_versions>
 
