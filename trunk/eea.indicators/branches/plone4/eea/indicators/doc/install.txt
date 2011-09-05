@@ -32,10 +32,11 @@ install process. They are assumed to be already installed.
     * ATVocabularyManager
     * RedirectionTool
 
-#>>> typestools = getToolByName(portal, 'portal_types')
-#>>> types = typestools.listContentTypes()
-#>>> ('EEAFigure' in types) and ('Data' in types)
-#True
+    >>> from Products.CMFCore.utils import getToolByName
+    >>> typestools = getToolByName(portal, 'portal_types')
+    >>> types = typestools.listContentTypes()
+    >>> ('EEAFigure' in types) and ('Data' in types)
+    True
 
 Hard dependencies
 ~~~~~~~~~~~~~~~~~
@@ -48,7 +49,6 @@ We depend on:
     * eea.workflow
     * eea.versions
 
-    >>> from Products.CMFCore.utils import getToolByName
     >>> relations = getToolByName(portal, 'portal_relations')
     >>> print portal.datagridwidget
     <FSPageTemplate at datagridwidget>
