@@ -1,25 +1,24 @@
 Instalation
 ===========
 
-This product is installable from the Plone Control Panel / Add/Remove Products page. In the case of a 
-busy website with a large catalog, it is advisable that the following portal_setup steps are manually 
+This product is installable from the Plone Control Panel / Add/Remove Products page. In the case of a
+busy website with a large catalog, it is advisable that the following portal_setup steps are manually
 applied (of course, with the eea.indicators profile activated):
 
-	* Dependend QI installables for indicators
-	* manual coded post-install for indicators
-	* eea.indicators: Install vocabularies with ATVocabularyManager
-	* eea.indicators: Setup various
-	* Update Workflow role mappings for indicators
-	* Role / Permission Map
-	* Skins Tool
-	* Types Tool
-	* Workflow Tool
-	* Portal Factory Tool
-	* Javascript registry
-	* Catalog Tool
-	* Stylesheet registry
-	* Possible Relations Settings
-
+    * Dependend QI installables for indicators
+    * manual coded post-install for indicators
+    * eea.indicators: Install vocabularies with ATVocabularyManager
+    * eea.indicators: Setup various
+    * Update Workflow role mappings for indicators
+    * Role / Permission Map
+    * Skins Tool
+    * Types Tool
+    * Workflow Tool
+    * Portal Factory Tool
+    * Javascript registry
+    * Catalog Tool
+    * Stylesheet registry
+    * Possible Relations Settings
 
 Dependencies
 ------------
@@ -35,7 +34,7 @@ install process. They are assumed to be already installed.
 
 #>>> typestools = getToolByName(portal, 'portal_types')
 #>>> types = typestools.listContentTypes()
-#>>> ('EEAFigure' in types) and ('Data' in types) 
+#>>> ('EEAFigure' in types) and ('Data' in types)
 #True
 
 Hard dependencies
@@ -49,17 +48,16 @@ We depend on:
     * eea.workflow
     * eea.versions
 
-	>>> from Products.CMFCore.utils import getToolByName
-	>>> relations = getToolByName(portal, 'portal_relations')
-	>>> print portal.datagridwidget
-	<FSPageTemplate at datagridwidget>
-	>>> print portal.userandgroupselect
-	<FSPageTemplate at userandgroupselect>
-	>>> print portal.portlet_readiness
-	<FSPageTemplate at portlet_readiness>
-	>>> print portal.portlet_versions
-	<FSPageTemplate at portlet_versions>
-
+    >>> from Products.CMFCore.utils import getToolByName
+    >>> relations = getToolByName(portal, 'portal_relations')
+    >>> print portal.datagridwidget
+    <FSPageTemplate at datagridwidget>
+    >>> print portal.userandgroupselect
+    <FSPageTemplate at userandgroupselect>
+    >>> print portal.portlet_readiness
+    <FSPageTemplate at portlet_readiness>
+    >>> print portal.portlet_versions
+    <FSPageTemplate at portlet_versions>
 
 If eea.facetednavigation is not installed
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

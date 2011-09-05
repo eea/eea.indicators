@@ -463,23 +463,23 @@ Schemata dialog edit
 Several content types can be edited from the aggregated edit view in a full popup edit form.
 They are: WorkItems, MethodologyReferences, RationaleReferences and PolicyQuestions
 
-	>>> pq = spec.objectValues('PolicyQuestion')[0]
-	>>> url = pq.absolute_url()
-	>>> browser.open(url + '/schemata_edit?fieldset=default')
-	>>> browser.getControl(name="title").value = 'First question'
-	>>> browser.getForm(name="edit_form").submit()
-	>>> print browser.contents		#doctest: +NORMALIZE_WHITESPACE
-	<script>...close_dialog...</script>
+    >>> pq = spec.objectValues('PolicyQuestion')[0]
+    >>> url = pq.absolute_url()
+    >>> browser.open(url + '/schemata_edit?fieldset=default')
+    >>> browser.getControl(name="title").value = 'First question'
+    >>> browser.getForm(name="edit_form").submit()
+    >>> print browser.contents        #doctest: +NORMALIZE_WHITESPACE
+    <script>...close_dialog...</script>
 
 If the form that was submited fails validation, it is redisplayed. Because we have edited
 the title, the PolicyQuestion's id was changed, so let's get it again.
 
-	>>> url = pq.absolute_url()
-	>>> browser.open(url + '/schemata_edit?fieldset=default')
-	>>> browser.getControl(name="title").value = ''
-	>>> browser.getForm(name="edit_form").submit()
-	>>> print browser.contents		#doctest: +NORMALIZE_WHITESPACE
-	<...form...>
+    >>> url = pq.absolute_url()
+    >>> browser.open(url + '/schemata_edit?fieldset=default')
+    >>> browser.getControl(name="title").value = ''
+    >>> browser.getForm(name="edit_form").submit()
+    >>> print browser.contents        #doctest: +NORMALIZE_WHITESPACE
+    <...form...>
 
 
 Specification codes validation
@@ -557,4 +557,3 @@ Each object involved has a different version id:
     True
     >>> get_version_id(as6) == va5
     True
-
