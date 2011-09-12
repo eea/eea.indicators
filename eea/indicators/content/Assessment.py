@@ -38,7 +38,6 @@ import logging
 logger = logging.getLogger('eea.indicators.content.Assessment')
 
 
-
 schema = Schema((
 
     StringField(

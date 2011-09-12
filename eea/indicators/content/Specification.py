@@ -727,10 +727,13 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
             alsoProvides(ast, IVersionEnhanced)
 
         #create assessment parts for each policy question
+        import pdb; pdb.set_trace()
         for pq in self.objectValues("PolicyQuestion"):
+            print "PolicyQuestion", pq
             aid = ast.invokeFactory(type_name="AssessmentPart",
                     id=ast.generateUniqueId("AssessmentPart"),)
             ap = ast[aid]
+            print "Created AP", aid, ap
             ap.setRelatedItems(pq)
             try:
                 ap.reindexObject()
@@ -824,36 +827,51 @@ class Specification2Surf(ATCT2Surf):
             fieldAdapter = queryMultiAdapter((field, self.session),
                                              interface=IATField2Surf)
             if fieldAdapter.exportable:
-                value = fieldAdapter.value(context)
-                if value:
+
+
+                try:
+                    value = fieldAdapter.value(context)
+                except TypeError:
+                    log.log('RDF marshaller error for context[field]'
+                            ' "%s[%s]": \n%s: %s' % 
+                            (context.absolute_url(), fieldName, 
+                             sys.exc_info()[0], sys.exc_info()[1]), 
+                             severity=log.logging.WARN)
+                    continue
+
+                if fieldName == "codes":
+                    value = ["%s%s" % (c['set'], c['code'])
+                             for c in value]
+
+                if (value and value != "None") or \
+                        (isinstance(value, basestring) and value.strip()) :
                     prefix = self.prefix
-
-                    #concatenate the codes field
-                    if fieldName == "codes":
-                        value = ["%s%s" % (c['set'], c['code'])
-                                 for c in value]
-
-                    if isinstance(value, (list, tuple)):
-                        value = list(value)
-                    else:
-                        value = (unicode(value, 
-                                         getattr(sys.stdout, 'encoding', 'UTF-8'), 
-                                         'replace'), language)
                     if fieldName in self.field_map:
                         fieldName = self.field_map.get(fieldName)
                     elif fieldName in self.dc_map:
                         fieldName = self.dc_map.get(fieldName)
-                        prefix = 'dc'
+                        prefix = 'dcterms'   #'dcterm'
+
+                    if isinstance(value, (list, tuple)):
+                        value = list(value)
+                    elif isinstance(value, DateTime):
+                        value = (value.HTML4(), None, 'http://www.w3.org/2001/XMLSchema#dateTime')
+                    elif isinstance(value, unicode):
+                        pass
+                    else:
+                        try:
+                            value = (unicode(value, 'utf-8', 'replace'), language)
+                        except TypeError:
+                            value = str(value)
+
                     try:
-                        setattr(resource, '%s_%s' %
-                                (prefix, fieldName), value)
+                        setattr(resource, '%s_%s' % (prefix, fieldName), value)
                     except Exception:
-                        log.log(('RDF marshaller error for context[field] '
-                                 '"%s[%s]": \n%s: %s') % (
-                                     context.absolute_url(),
-                                     fieldName, sys.exc_info()[0],
-                                     sys.exc_info()[1]),
-                                severity=log.logging.WARN)
+                        log.log('RDF marshaller error for context[field]'
+                                '"%s[%s]": \n%s: %s' % 
+                                (context.absolute_url(), fieldName, 
+                                 sys.exc_info()[0], sys.exc_info()[1]), 
+                                 severity=log.logging.WARN)
 
         parent = getattr(aq_inner(context), 'aq_parent', None)
         if parent is not None:
