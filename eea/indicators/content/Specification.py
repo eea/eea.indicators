@@ -727,7 +727,6 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
             alsoProvides(ast, IVersionEnhanced)
 
         #create assessment parts for each policy question
-        import pdb; pdb.set_trace()
         for pq in self.objectValues("PolicyQuestion"):
             print "PolicyQuestion", pq
             aid = ast.invokeFactory(type_name="AssessmentPart",
