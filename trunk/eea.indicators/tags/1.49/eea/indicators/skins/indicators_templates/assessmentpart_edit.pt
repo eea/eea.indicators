@@ -1,0 +1,19 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+	lang="en"
+	i18n:domain="indicators">
+
+	<head>
+		<metal:slot metal:define-macro="javascript_head">
+			<script type="text/javascript"
+				tal:attributes="src context/++resource++indicators.js">
+			</script>
+			<script type="text/javascript" 
+				tal:attributes="src string:${context/portal_url}/eeareferencebrowser.js">
+			</script>
+		</metal:slot>
+
+		<metal:slot metal:define-macro="css"></metal:slot>
+	</head>
+	<body />
+</html>
+
