@@ -1,8 +1,8 @@
 Changelog
 =========
 
-1.48-dev - (unreleased)
------------------------
+1.48 - (2011-09-13)
+-------------------
  * Bug fix: synced code with latest eea.rdfmarshaller [tiberrich #4530, #4531]
 
 1.47 - (2011-08-03)
