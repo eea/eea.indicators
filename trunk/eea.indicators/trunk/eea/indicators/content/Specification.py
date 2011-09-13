@@ -728,11 +728,9 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
 
         #create assessment parts for each policy question
         for pq in self.objectValues("PolicyQuestion"):
-            print "PolicyQuestion", pq
             aid = ast.invokeFactory(type_name="AssessmentPart",
                     id=ast.generateUniqueId("AssessmentPart"),)
             ap = ast[aid]
-            print "Created AP", aid, ap
             ap.setRelatedItems(pq)
             try:
                 ap.reindexObject()
