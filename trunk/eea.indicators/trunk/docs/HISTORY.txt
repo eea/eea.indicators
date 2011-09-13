@@ -1,6 +1,9 @@
 Changelog
 =========
 
+1.50-dev - (unreleased)
+-----------------------
+
 1.49 - (2011-09-13)
 -------------------
  * Removed debugging print statements [tiberich]
