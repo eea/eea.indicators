@@ -418,11 +418,11 @@ The management plan needs to be filled in:
 
     >>> asp.setManagement_plan((2001, '1.2.3'))
     >>> catalog.reindexObject(asp)
-    >>> #asp.check_flag = True
+    >>> asp.check_flag = True
     >>> info = asp.unrestrictedTraverse('@@get_readiness').get_info_for('published')
-    >>> #print info
     >>> asp.unrestrictedTraverse('@@get_readiness').is_ready_for('published')
     True
+    >>> asp.check_flag = False
 
 
 Simple field editing and schemata editing

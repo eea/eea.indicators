@@ -318,14 +318,14 @@ registerType(Assessment, PROJECTNAME)
 def hasWrongVersionId(context):
     """Determines if the assessment belongs to a wrong version group"""
 
-    #if getattr(context, "check_flag", False):
-        #import pdb; pdb.set_trace()
     cat = getToolByName(context, 'portal_catalog')
 
     #parent based checks; this also does codes check because
     #assessments inherit codes from their parent specification
     spec = aq_parent(aq_inner(context))
     spec_versions = get_versions_api(spec).versions.values()
+    if not spec in spec_versions:
+        spec_versions.append(spec)
 
     all_assessments = []
     for spec in spec_versions:
