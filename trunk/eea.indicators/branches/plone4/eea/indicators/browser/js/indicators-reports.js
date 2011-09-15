@@ -1,4 +1,5 @@
 function ajaxize(target, url) {
+(function($) {
     $(target).load(url, function(){
         $(".report form", target).submit(
             function(){
@@ -15,9 +16,11 @@ function ajaxize(target, url) {
             }
         );
     });
+})(jQuery);
 }
 
 function set_generic_ajax_forms(){
+(function($) {
   $(".generic_ajax_forms form").submit(function(e){
     var form = this;
     var data = $(":input", form).serialize();
@@ -39,9 +42,10 @@ function set_generic_ajax_forms(){
     });
     return false;
   });
+})(jQuery);
 }
 
-$(document).ready(function () {
+jQuery(document).ready(function ($) {
     $(".fix_btn").click(function(){
         var parent = $(this).parent();
 

@@ -1,3 +1,4 @@
+(function($) {
 function block_ui(){
   var scr_x = jQuery(window).scrollLeft();
   var scr_y = jQuery(window).scrollTop();
@@ -716,3 +717,4 @@ function toggle_creator_option(el){
   $(a).attr('href', a.original_href + "&create_in_latest_spec=" + $(el).attr('value'));
 }
 // vim: set sw=2 ts=2 softtabstop=2 et:
+})(jQuery);

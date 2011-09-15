@@ -3,6 +3,9 @@ Changelog
 
 4.0-dev - (unreleased)
 ----------------------
+ * Bugfix: Fixed IE JS errors, fixed code that uses jQuery to avoid conflicts
+   with other JS frameworks [szabozo0 #4542]
+
  * Bugfix: Removed readiness portlet from left column [szabozo0 #4493]
 
  * TODO: fix "related policy document" button in specification aggedit 
