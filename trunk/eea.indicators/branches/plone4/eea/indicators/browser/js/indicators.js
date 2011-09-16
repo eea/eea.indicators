@@ -1,5 +1,5 @@
-(function($) {
 function block_ui(){
+(function($) {
   var scr_x = jQuery(window).scrollLeft();
   var scr_y = jQuery(window).scrollTop();
   var dim_x = jQuery(window).width();
@@ -30,6 +30,7 @@ function block_ui(){
   jQuery('body').append(loading);
   overlay.show();
   loading.show();
+})(jQuery);
 }
 
 function unblock_ui(){
@@ -40,6 +41,7 @@ function unblock_ui(){
 function set_sortables() {
   // make certain DOM elements sortable with jquery UI sortable
 
+(function($) {
   $('.sortable_spec').each(function(){
     var handler = $(".metadata .handler", this).text();
     $(this).sortable({
@@ -70,11 +72,13 @@ function set_sortables() {
     $('.sortable_spec').disableSelection();
 
   });
+})(jQuery);
 }
 
 function init_tinymce(el){
   // init tinymce edit fields
 
+(function($) {
   $('.mce_editable', el).each(function(){
     var id = $(this).attr('id');
 
@@ -136,11 +140,13 @@ function init_tinymce(el){
     delete InitializedTinyMCEInstances[id]
     config.init();
   });
+})(jQuery);
 }
 
 function ajaxify(el, fieldname){
   // This will make a form submit and resubmit itself using AJAX
 
+(function($) {
   init_tinymce(el);
 
   $("form", el).submit(
@@ -170,11 +176,13 @@ function ajaxify(el, fieldname){
       });
       return false;
     });
+})(jQuery);
 }
 
 function set_relation_widgets() {
   // activates the relation widgets
 
+(function($) {
   $(".indicators_relations_widget").each(function(){
     var fieldname = $(".metadata .fieldName", this).text();
     var realfieldname = $(".metadata .realFieldName", this).text();
@@ -196,15 +204,19 @@ function set_relation_widgets() {
     }
 
   });
+})(jQuery);
 }
 
 function bootstrap_select_widgets() {
+(function($) {
   $(".dummy-org-selector").each(function(i,v){
     var widget = new MultiSelectAutocompleteWidget($(v));
   });
+})(jQuery);
 }
 
 function set_generic_ajax_forms(){
+(function($) {
   $(".generic_ajax_forms form").submit(function(e){
     var form = this;
     var data = $(":input", form).serialize();
@@ -229,10 +241,12 @@ function set_generic_ajax_forms(){
     });
     return false;
   });
+})(jQuery);
 }
 
 function bootstrap_relations_widgets(){
   // bootstraps reference widgets for the assessment aggedit
+(function($) {
   $('.eea-widget-referencebrowser').each(
     function(){
       // If it has a metadata then it's a widget from assessmentpart.
@@ -259,6 +273,7 @@ function bootstrap_relations_widgets(){
       }
     }
   );
+})(jQuery);
 }
 
 function on_load_dom() {
@@ -273,6 +288,7 @@ function on_load_dom() {
 
 function reload_region(el){
   //console.info("doing reload region");
+(function($) {
   block_ui();
   var update_handler = $(".metadata .region_update_handler", el).text();
   var also_reload = $(".metadata .also_reload", el);
@@ -307,12 +323,14 @@ function reload_region(el){
   });
 
   return false;
+})(jQuery);
 }
 
 function set_actives(){
   // adds effects for active fields; this should be executed whenever the DOM is reloaded
 
   // make the Cancel link from dialogs close the form
+(function($) {
   $("#dialog-inner .cancel-btn").live('click', function(e){
     $("#dialog-inner").dialog("close");
     return false;
@@ -327,12 +345,14 @@ function set_actives(){
     $(this).removeClass("active_field_hovered");
     return false;
   });
+})(jQuery);
 }
 
 function schemata_ajaxify(el, active_region){
         //console.info("doing schemata ajaxify");
   
 
+(function($) {
   set_actives();
   init_tinymce(el);
 
@@ -372,9 +392,11 @@ function schemata_ajaxify(el, active_region){
       });
       return false;
     });
+})(jQuery);
 }
 
 function set_inout(el){
+(function($) {
   if (!el.length) { return false; }
   var divs = $("div div", el);
   var last_div = divs.get(divs.length-1);
@@ -430,11 +452,13 @@ function set_inout(el){
       select.options[i] = arr[i];
     }
   });
+})(jQuery);
 }
 
 function dialog_edit(url, title, callback, options){
   // Opens a modal dialog with the given title
 
+(function($) {
   block_ui();
   options = options || {
     'height':null,
@@ -484,11 +508,13 @@ function dialog_edit(url, title, callback, options){
       callback();
     }
   });
+})(jQuery);
 }
 
 function set_editors(){
   // Set handlers for Edit (full schemata) buttons
 
+(function($) {
   $('a.schemata_edit').live('click', function(){
     block_ui();
     var link = $(this).attr('href');
@@ -510,11 +536,13 @@ function set_editors(){
 
   return false;
 });
+})(jQuery);
 }
 
 function set_edit_buttons() {
   // activate single active fields
 
+(function($) {
   $('.active_field .control a').disableSelection();
   $('.active_field .control a').live('click', function(){
 
@@ -551,11 +579,13 @@ function set_edit_buttons() {
     }, options);
     return false;
   });
+})(jQuery);
 }
 
 function set_creators(){
   // Set handlers for Create buttons
 
+(function($) {
   $('a.object_creator').live('click', function(){
     block_ui();
     var link = $(this).attr('href');
@@ -619,11 +649,13 @@ function set_creators(){
 
     return false;
   });
+})(jQuery);
 }
 
 function set_deleters(){
   // Set handlers for Delete buttons
 
+(function($) {
   $('a.object_delete').live('click', function(){
     block_ui();
     var link = $(this).attr('href');
@@ -645,12 +677,14 @@ function set_deleters(){
     });
     return false;
   });
+})(jQuery);
 }
 
 
 function closer(fieldname, active_region, url){
   // reloads a region and closes the dialog based on an active field name
 
+(function($) {
   var field = "#active_field-"+fieldname;
   var region = null;
   if (active_region) {
@@ -672,29 +706,37 @@ function closer(fieldname, active_region, url){
 
   $("#dialog-inner").dialog("close");
   return false;
+})(jQuery);
 }
 
 function close_dialog(region){
+(function($) {
   reload_region($("#"+region));
   $("#dialog-inner").dialog("close");
+})(jQuery);
 }
 
 
 function open_relations_widget(widget_dom_id, selected_tab){
+(function($) {
   var widget = $("#"+widget_dom_id).get(0)._widget;
   window._selected_tab = selected_tab;// will be read by the relations widget and set as selected tab
 
   $("#" + widget_dom_id + " :input").trigger('click');
   return false;
+})(jQuery);
 }
+
 function preselect_relations_tab(region_id, selected_tab){
+(function($) {
   $("#" + region_id + " .searchButton").click(function(){
     window._selected_tab = selected_tab;// will be read by the relations widget and set as selected tab
     return true;
   });
+})(jQuery);
 }
 
-$(document).ready(function () {
+jQuery(document).ready(function ($) {
 
   set_editors();
   set_actives();
@@ -709,12 +751,13 @@ $(document).ready(function () {
 // this.contentWindow.focus();//this should solve the problem that requires pressing the bold button
 
 function toggle_creator_option(el){
+(function($) {
   var a = $(el).parent().parent().children('a.object_creator').get(0);
   var href = $(a).attr('href');
   if (!a.original_href) {
     a.original_href = href;
   }
   $(a).attr('href', a.original_href + "&create_in_latest_spec=" + $(el).attr('value'));
+})(jQuery);
 }
 // vim: set sw=2 ts=2 softtabstop=2 et:
-})(jQuery);
