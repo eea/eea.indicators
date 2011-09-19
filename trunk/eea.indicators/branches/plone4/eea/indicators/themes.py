@@ -25,6 +25,14 @@ class AssessmentThemes(object):
         """ do nothing on set"""
         pass
 
-    #return property(get, set)
     tags = property(gett, sett)
 
+    def get_nondeprecated_tags(self):
+        """ use the parent tags """
+        return IThemeTagging(self.parent).nondeprecated_tags
+
+    def set_nondeprecated_tags(self, value):
+        """ do nothing on set"""
+        pass
+
+    nondeprecated_tags = property(get_nondeprecated_tags, set_nondeprecated_tags)
