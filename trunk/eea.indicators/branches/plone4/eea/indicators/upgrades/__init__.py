@@ -10,6 +10,8 @@ import logging
 logger = logging.getLogger('eea.indicators.migration')
 
 def assign_iversionenhanced_to_content(gstool):
+    """ Update IMS content to provide IVersionEnhanced if they should
+    """
     portal = getToolByName(gstool, 'portal_url').getPortalObject()
 
     catalog = portal.portal_catalog

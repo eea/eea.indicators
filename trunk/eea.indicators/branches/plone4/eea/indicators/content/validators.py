@@ -10,7 +10,6 @@ __credits__ = """contributions: Alec Ghica, Tiberiu Ichim"""
 from Acquisition import aq_inner, aq_parent
 from Products.CMFPlone.UnicodeSplitter import process_unicode
 from Products.CMFPlone.utils import getToolByName
-from Products.validation import validation
 from Products.validation.interfaces.IValidator import IValidator
 from zope.interface import implements
 
@@ -34,20 +33,14 @@ class UniquePolicyDocTitleValidator:
         query = {'portal_type': 'PolicyDocumentReference',
                  'Title': list(words)}
         oid = kwargs['instance'].UID()
-        brains = filter(
-                    lambda b:b.Title == value and b.getObject().UID() != oid,
-                    cat(**query)
-                )
+        brains = [b for b in cat(**query)
+                  if (b.Title == value and b.getObject().UID() != oid)]
 
         if brains:
             return ("Validation failed, there is already an Policy "
                     "Document with this title.")
 
         return True
-
-validation.register(
-    UniquePolicyDocTitleValidator('unique_policy_title_validator'))
-
 
 class UniquePolicyDocUrlValidator:
     """Validator"""
@@ -73,10 +66,8 @@ class UniquePolicyDocUrlValidator:
                         "Policy Document pointing to this URL.")
         return 1
 
-validation.register(UniquePolicyDocUrlValidator('unique_policy_url_validator'))
-
-
 class OneAssessmentPartPerQuestionValidator:
+    """ Validator """
     implements(IValidator)
 
     def __init__(self,
@@ -108,6 +99,3 @@ class OneAssessmentPartPerQuestionValidator:
             #            " that answers this question")
 
         return True
-
-validation.register(
-    OneAssessmentPartPerQuestionValidator('one_assessment_per_question'))

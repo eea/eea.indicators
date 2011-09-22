@@ -15,7 +15,8 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 
 class AggregatedEditPage(BrowserView):
     """Aggregated edit"""
-    template = ViewPageTemplateFile('templates/indicatorfactsheet/aggregated_edit.pt')
+    template = ViewPageTemplateFile(
+        'templates/indicatorfactsheet/aggregated_edit.pt')
 
     __call__ = template
 

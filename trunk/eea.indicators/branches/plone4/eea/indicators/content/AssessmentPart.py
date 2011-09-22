@@ -2,6 +2,8 @@
 #
 # $Id$
 #
+""" Assessment Part
+"""
 
 from AccessControl import ClassSecurityInfo
 from Acquisition import aq_inner, aq_parent
@@ -9,9 +11,8 @@ from Products.ATContentTypes.content.base import ATCTContent
 from Products.ATContentTypes.content.folder import ATFolder, ATFolderSchema
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema
 from Products.Archetypes.atapi import TextField, StringField, TextAreaWidget
-from Products.Archetypes.atapi import Schema, RichWidget, registerType
+from Products.Archetypes.atapi import Schema, RichWidget
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
-from eea.indicators.config import PROJECTNAME
 from eea.indicators.content.base import ModalFieldEditableAware
 from eea.indicators.content.base import CustomizedObjectFactory
 from eea.indicators.content.interfaces import ISpecification
@@ -36,7 +37,7 @@ schema = Schema((
         searchable=True,
         required=True,
         required_for_published=True,
-        allowable_content_types=('text/plain', 'text/structured', 
+        allowable_content_types=('text/plain', 'text/structured',
              'text/html', 'application/msword',),
         default_output_type="text/x-html-safe",
         ),
@@ -90,7 +91,7 @@ AssessmentPart_schema = ATFolderSchema.copy() + \
 AssessmentPart_schema.moveField('relatedItems', pos=0)
 finalizeATCTSchema(AssessmentPart_schema)
 
-class AssessmentPart(ATFolder, ModalFieldEditableAware,  
+class AssessmentPart(ATFolder, ModalFieldEditableAware,
         CustomizedObjectFactory, ATCTContent, BrowserDefaultMixin):
     """Assessment part
     """
@@ -148,7 +149,7 @@ class AssessmentPart(ATFolder, ModalFieldEditableAware,
         """get spec path"""
         #returns the path to the specification, used by the ReferenceWidget
         #Specification -> Assessment -> AssessmentPart
-        spec = aq_parent(aq_inner(self)) 
+        spec = aq_parent(aq_inner(self))
         return spec.getPhysicalPath()
 
     def factory_EEAFigure(self):
@@ -158,7 +159,7 @@ class AssessmentPart(ATFolder, ModalFieldEditableAware,
         figure = info['obj']
 
         try:
-            spec = get_specific_parent(self, 
+            spec = get_specific_parent(self,
                                       lambda o:ISpecification.providedBy(o))
             themes = spec.getThemes()
         except ValueError:
@@ -167,5 +168,3 @@ class AssessmentPart(ATFolder, ModalFieldEditableAware,
         figure.setThemes(themes)
         return {'obj':figure, 'subview':'edit', 'direct_edit':True}
 
-
-registerType(AssessmentPart, PROJECTNAME)

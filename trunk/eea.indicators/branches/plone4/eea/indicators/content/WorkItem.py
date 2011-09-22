@@ -1,18 +1,19 @@
 # -*- coding: utf-8 -*-
 #
 # $Id$
+""" Work item
+"""
 
 from AccessControl import ClassSecurityInfo
 from Products.ATContentTypes.content.base import ATCTContent
 from Products.ATContentTypes.content.base import ATContentTypeSchema
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema
-from Products.Archetypes.atapi import RichWidget, registerType, DateTimeField
+from Products.Archetypes.atapi import RichWidget, DateTimeField
 from Products.Archetypes.atapi import Schema, TextField, StringField
 from Products.Archetypes.atapi import SelectionWidget
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 from Products.CMFPlone.utils import getToolByName
 from eea.indicators import msg_factory as _
-from eea.indicators.config import PROJECTNAME
 from eea.indicators.content import interfaces
 from zope.interface import implements
 import logging
@@ -33,7 +34,7 @@ schema = Schema((
     ),
     TextField(
         name='description',
-        allowable_content_types=('text/plain', 'text/structured', 
+        allowable_content_types=('text/plain', 'text/structured',
              'text/html', 'application/msword',),
         widget=RichWidget(
             label='Description',
@@ -46,7 +47,7 @@ schema = Schema((
     ),
     TextField(
         name='needs',
-        allowable_content_types=('text/plain', 'text/structured', 
+        allowable_content_types=('text/plain', 'text/structured',
             'text/html', 'application/msword',),
         widget=RichWidget(
             label='Needs',
@@ -84,7 +85,7 @@ WorkItem_schema = ATContentTypeSchema.copy() + \
     schema.copy()
 
 finalizeATCTSchema(WorkItem_schema)
-WorkItem_schema['relatedItems'].widget.visible = {'view':'invisible', 
+WorkItem_schema['relatedItems'].widget.visible = {'view':'invisible',
                                                   'edit':'invisible'}
 
 class WorkItem(ATCTContent, BrowserDefaultMixin):
@@ -110,7 +111,7 @@ class WorkItem(ATCTContent, BrowserDefaultMixin):
 
         duedate = self.toLocalizedTime(self.getDue_date(), long_format=0)
         title = _("work-work-aggregated",
-                default="Work due ${due}",  #${status} 
+                default="Work due ${due}",  #${status}
                 mapping = {
                     #'status':self.getStatus(),
                     'due':duedate,
@@ -128,6 +129,3 @@ class WorkItem(ATCTContent, BrowserDefaultMixin):
         except UnicodeDecodeError, err:
             logger.info(err)
         return text
-
-
-registerType(WorkItem, PROJECTNAME)

@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+""" Specification controllers
+"""
 
 __author__ = """European Environment Agency (EEA)"""
 __docformat__ = 'plaintext'
@@ -39,7 +41,7 @@ class AggregatedEditPage(BrowserView):
 
 
 class SchemataCounts(BrowserView):
-    """Provides a dictionary of fields that are required for publishing 
+    """Provides a dictionary of fields that are required for publishing
     grouped by schematas
 
     TODO: see if able/worthy to move this to eea.workflow
@@ -50,7 +52,7 @@ class SchemataCounts(BrowserView):
         for field in self.context.schema.fields():
             if not field.schemata in schematas:
                 schematas[field.schemata] = []
-            req = getMultiAdapter((self.context, field), 
+            req = getMultiAdapter((self.context, field),
                     IFieldIsRequiredForState)('published')
             if req:
                 adapter = getMultiAdapter((self.context, field), IValueProvider)
@@ -87,6 +89,8 @@ class AssessmentVersions(BrowserView):
 
 
 def create_version(original, request=None):
+    """ Create version
+    """
     new_spec = base_create_version(original, False)
     new_spec.setEffectiveDate(None)
 
@@ -100,7 +104,7 @@ def create_version(original, request=None):
         obj.setCreationDate(DateTime())
 
     new_spec.reindexObject()
-    original.reindexObject() #some indexed values of the context may 
+    original.reindexObject() #some indexed values of the context may
                              #depend on versions
     return new_spec
 
@@ -119,14 +123,14 @@ class WorkflowStateReadiness(ObjectReadiness):
     #TODO: translate messages here
     checks = {'published':(
             (
-                lambda o: not has_one_of(('Data', 'ExternalDataSpec'), 
+                lambda o: not has_one_of(('Data', 'ExternalDataSpec'),
                                             o.getRelatedItems()),
                 "You need to point to at least one EEA Data or ExternalData"),
             (
                 lambda o:not bool(o.objectValues("PolicyQuestion")),
                 "You need to add at least one Policy Question"),
             (
-                lambda o:not filter(lambda x:x.getIs_key_question(), 
+                lambda o:not filter(lambda x:x.getIs_key_question(),
                                     o.objectValues('PolicyQuestion')),
                 "At least one PolicyQuestion needs to be main policy question"),
             (
@@ -206,9 +210,9 @@ class SetCodes(BrowserView):
 
     def __call__(self):
         #this is a list of form ['APE', '009', 'CSI', '001', 'CLIM', '003']
-        codes = self.request.form.get("codes")  
+        codes = self.request.form.get("codes")
 
-        value = [{'set':setc, 'code':code} 
+        value = [{'set':setc, 'code':code}
                     for setc, code in zip(codes[::2], codes[1::2])]
 
         field = self.context.schema['codes']

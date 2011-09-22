@@ -9,10 +9,9 @@ from AccessControl import ClassSecurityInfo
 from Products.ATContentTypes.content.file import ATFile, ATFileSchema
 from Products.Archetypes.atapi import Schema, StringField
 from Products.Archetypes.atapi import TextField, TextAreaWidget
-from Products.Archetypes.atapi import registerType, FileWidget
+from Products.Archetypes.atapi import FileWidget
 from Products.CMFCore.permissions import View
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
-from eea.indicators.config import PROJECTNAME
 from eea.indicators.content import interfaces
 from plone.app.blob.field import BlobField
 from zope.interface import implements
@@ -96,5 +95,3 @@ class FactSheetDocument(ATFile, BrowserDefaultMixin):
         #if data:
         #    return data.index_html(REQUEST, RESPONSE)
         ## TODO what should be returned if no data is present?
-
-registerType(FactSheetDocument, PROJECTNAME)

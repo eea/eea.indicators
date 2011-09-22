@@ -7,6 +7,8 @@ from zope.interface import implements
 
 
 class IndicatorsSortingWidget(SortingWidget):
+    """ Custom sorting widget for eea.facetednavigation
+    """
     widget_type = 'indicators_sorting'
     widget_label = 'Indicators sorting'
 

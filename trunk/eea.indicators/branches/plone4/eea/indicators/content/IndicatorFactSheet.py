@@ -1,21 +1,18 @@
 """Indicator fact sheet"""
 
 from AccessControl import ClassSecurityInfo
-from Acquisition import aq_inner, aq_parent
 from Products.ATContentTypes.content.folder import ATFolder, ATFolderSchema
 from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
 from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
 from Products.Archetypes.atapi import Schema, TextField, TextAreaWidget
 from Products.Archetypes.atapi import SelectionWidget, ComputedField
 from Products.Archetypes.atapi import StringField, RichWidget, DateTimeField
-from Products.Archetypes.atapi import registerType
 from Products.CMFCore.utils import getToolByName
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 from Products.DataGridField import DataGridField, DataGridWidget
 from Products.DataGridField.Column import Column
 from Products.DataGridField.SelectColumn import SelectColumn
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from eea.indicators.config import PROJECTNAME
 from eea.indicators.content import interfaces
 from eea.indicators.content.IndicatorMixin import IndicatorMixin
 from eea.indicators.content.base import ModalFieldEditableAware
@@ -195,7 +192,8 @@ IndicatorFactSheet_schema = ATFolderSchema.copy() + \
 IndicatorFactSheet_schema.moveField('relatedItems', after='dpsir')
 
 
-class IndicatorFactSheet(ATFolder, ModalFieldEditableAware, BrowserDefaultMixin, IndicatorMixin):
+class IndicatorFactSheet(ATFolder, ModalFieldEditableAware,
+                         BrowserDefaultMixin, IndicatorMixin):
     """IndicatorFactSheet content class
     """
     security = ClassSecurityInfo()
@@ -348,6 +346,3 @@ class IndicatorFactSheet(ATFolder, ModalFieldEditableAware, BrowserDefaultMixin,
             return len(self.getReplyReplies(self))
         except AttributeError:
             return 0    #this happens in tests
-
-
-registerType(IndicatorFactSheet, PROJECTNAME)

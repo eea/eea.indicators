@@ -5,9 +5,10 @@ from Products.CMFPlone.utils import normalizeString
 from Products.Five import BrowserView
 from eea.workflow.interfaces import IValueProvider
 from zope.component import getMultiAdapter
-from zope.interface import Interface, implements
+from zope.interface import implements
 from Products.CMFCore.utils import getToolByName
 from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
+from eea.indicators.browser.interfaces import IIndicatorUtils
 #import logging
 
 
@@ -25,22 +26,6 @@ class Sorter(BrowserView):
                 #logging.info("Moved %s from position %s to %s", id, old_i, i)
 
         return "<done />"
-
-
-class IIndicatorUtils(Interface):
-    """This view can provide various utilities"""
-    #str_to_id = Attribute(u"String to Id conversion")
-
-    def str_to_id(): 
-        """Convert an ordinary string (maybe title) to something that
-           can be used as a DOM element ID
-        """
-
-    def field_has_value(fieldname, context): 
-        """Return True if the given field has a value
-           for the given context object
-        """
-
 
 class IndicatorUtils(BrowserView):
     """Various utils for Indicators"""

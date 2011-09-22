@@ -10,7 +10,7 @@ from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
 from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
 from Products.Archetypes.atapi import MultiSelectionWidget, Schema, RichWidget
 from Products.Archetypes.atapi import SelectionWidget, LinesField
-from Products.Archetypes.atapi import StringField, TextField, registerType
+from Products.Archetypes.atapi import StringField, TextField
 from Products.Archetypes.atapi import TextAreaWidget
 from Products.Archetypes.utils import addStatusMessage
 from Products.CMFCore import permissions
@@ -27,7 +27,7 @@ from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 from Products.UserAndGroupSelectionWidget import UserAndGroupSelectionWidget
 from eea.indicators import msg_factory as _
 from eea.indicators.browser.assessment import create_version as createVersion
-from eea.indicators.config import PROJECTNAME, templates_dir
+from eea.indicators.config import templates_dir
 from eea.indicators.content.IndicatorMixin import IndicatorMixin
 from eea.indicators.content.base import CustomizedObjectFactory
 from eea.indicators.content.base import ModalFieldEditableAware
@@ -780,10 +780,6 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
         except AttributeError:
             return 0    #this happens in tests
 
-
-registerType(Specification, PROJECTNAME)
-
-
 #placed here so that it will be found by extraction utility
 _titlemsg = _('label-newly-created-type',
         default="Newly created ${type_name}",
@@ -892,7 +888,8 @@ def assign_version(context, new_version):
     #reassign version ids to context assessments + assessments
     #from related specifications
     vid = get_assessment_vid_for_spec_vid(context, new_version)
-    for asmt in (list(context.objectValues('Assessment')) + list(other_assessments)):
+    for asmt in (list(context.objectValues('Assessment')) +
+                 list(other_assessments)):
         if not IVersionEnhanced.providedBy(asmt):
             alsoProvides(asmt, IVersionEnhanced)
         IVersionControl(asmt).setVersionId(vid)

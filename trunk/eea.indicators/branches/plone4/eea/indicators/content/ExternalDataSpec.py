@@ -11,12 +11,11 @@ from Products.ATContentTypes.content.base import ATCTContent
 from Products.ATContentTypes.content.base import ATContentTypeSchema
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema
 from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
-from Products.Archetypes.atapi import RichWidget, registerType, SelectionWidget
+from Products.Archetypes.atapi import RichWidget, SelectionWidget
 from Products.Archetypes.atapi import StringField, Schema, TextField
 from Products.Archetypes.utils import shasattr
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 from Products.CMFPlone.utils import getToolByName
-from eea.indicators.config import PROJECTNAME
 from eea.indicators.content import interfaces
 from eea.themecentre.interfaces import IThemeTagging
 from zope.component import adapts
@@ -189,33 +188,26 @@ class ExternalDataSpec(ATCTContent, BrowserDefaultMixin):
 
     security.declarePublic("getThemes")
     def getThemes(self):
-        """Get themes"""
+        """Get themes
+        """
         themes = []
-        map(
-            lambda o:themes.extend(o.getThemes()),
-            filter(
-                lambda o:shasattr(o, 'getThemes'),
-                self.getBRefs()
-            )
-        )
+        for ref in self.getBRefs():
+            if not shasattr(ref, 'getThemes'):
+                continue
+            themes.extend(ref.getThemes())
         return sorted(list(set(themes)))
 
     security.declarePublic('Subject')
     def Subject(self):
         """Overwrite standard Subject method to dynamically get all
-           keywords from other specifications"""
+           keywords from other specifications
+        """
         result = []
-        map(
-            lambda o:result.extend(o.Subject()),
-            filter(
-                lambda o:o.portal_type=="Specification",
-                self.getBRefs()
-            )
-        )
+        for ref in self.getBRefs():
+            if ref.portal_type != "Specification":
+                continue
+            result.extend(ref.Subject())
         return sorted(list(set(result)))
-
-
-registerType(ExternalDataSpec, PROJECTNAME)
 
 
 class ExternalDataSpecThemes(object):

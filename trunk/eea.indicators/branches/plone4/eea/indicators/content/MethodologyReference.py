@@ -9,11 +9,10 @@ from AccessControl import ClassSecurityInfo
 from Products.ATContentTypes.content.link import ATLink, ATLinkSchema
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema
 from Products.Archetypes.atapi import StringField, Schema, TextField
-from Products.Archetypes.atapi import registerType, RichWidget
+from Products.Archetypes.atapi import RichWidget
 from Products.CMFCore import permissions
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 from Products.CMFPlone.utils import getToolByName
-from eea.indicators.config import PROJECTNAME
 from eea.indicators.content import interfaces
 from zope.interface import implements
 import logging
@@ -46,7 +45,7 @@ schema = Schema((
         searchable=True,
         required=True,
         required_for_published=True,
-        allowable_content_types=('text/plain', 'text/structured', 
+        allowable_content_types=('text/plain', 'text/structured',
                                  'text/html', 'application/msword',),
         default_output_type="text/x-html-safe",
         accessor="getDescription",
@@ -59,8 +58,11 @@ MethodologyReference_schema = ATLinkSchema.copy() + \
     getattr(ATLink, 'schema', Schema(())).copy() + \
     schema.copy()
 
-MethodologyReference_schema['relatedItems'].widget.visible = {'view':'invisible',  
-                                                              'edit':'invisible'}
+MethodologyReference_schema['relatedItems'].widget.visible = {
+    'view':'invisible',
+    'edit':'invisible'
+}
+
 finalizeATCTSchema(MethodologyReference_schema)
 
 class MethodologyReference(ATLink, BrowserDefaultMixin):
@@ -91,6 +93,3 @@ class MethodologyReference(ATLink, BrowserDefaultMixin):
         """ returns url"""
         field = self.getField('remoteUrl')
         return field.getAccessor(self)()
-
-
-registerType(MethodologyReference, PROJECTNAME)

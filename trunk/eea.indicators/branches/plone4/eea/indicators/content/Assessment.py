@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 """ Assessment content class and utilities
 """
 
@@ -10,17 +8,18 @@ from Acquisition import aq_inner, aq_parent
 from Products.ATContentTypes.content.folder import ATFolder
 from Products.ATContentTypes.content.folder import ATFolderSchema
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema
-from Products.Archetypes.atapi import RichWidget, ComputedField, registerType
+from Products.Archetypes.atapi import RichWidget, ComputedField
 from Products.Archetypes.atapi import Schema, StringField, TextField
 from Products.CMFCore.utils import getToolByName
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
-from Products.EEAContentTypes.content.validators import ManagementPlanCodeValidator
+from Products.EEAContentTypes.content.validators import (
+    ManagementPlanCodeValidator,
+)
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from datetime import datetime
 from eea.forms.fields.ManagementPlanField import ManagementPlanField
 from eea.forms.widgets.ManagementPlanWidget import ManagementPlanWidget
 from eea.indicators import msg_factory as _
-from eea.indicators.config import PROJECTNAME
 from eea.indicators.content.base import CustomizedObjectFactory
 from eea.indicators.content.base import ModalFieldEditableAware
 from eea.indicators.content.interfaces import IAssessment, IIndicatorAssessment
@@ -33,7 +32,6 @@ from eea.workflow.utils import ATFieldValueProvider
 from zope.component import adapts
 from zope.interface import implements
 import logging
-#from eea.dataservice.vocabulary import DatasetYears
 
 logger = logging.getLogger('eea.indicators.content.Assessment')
 
@@ -186,7 +184,7 @@ class Assessment(ATFolder, ModalFieldEditableAware,
             if time is None:
                 time = self.creation_date
                 msg = _("assessment-title-draft",
-                        default=u"Assessment published with invalid published date")
+                    default=u"Assessment published with invalid published date")
                 return spec_title + ' - ' + self.translate(msg)
 
             msg = _("assessment-title-published",
@@ -309,12 +307,6 @@ class Assessment(ATFolder, ModalFieldEditableAware,
         thread = self.plone_utils.getDiscussionThread(self)
         return len(thread) - 1
 
-        #old, plone2.5
-        return len(self.getReplyReplies(self))
-
-registerType(Assessment, PROJECTNAME)
-
-
 def hasWrongVersionId(context):
     """Determines if the assessment belongs to a wrong version group"""
 
@@ -334,10 +326,12 @@ def hasWrongVersionId(context):
     #now also checking IndicatorFactSheets, using codes to do matching
     codes = ["%s%s" % (c['set'], c['code']) for c in context.getCodes()]
     factsheets = []
-    map(lambda code:factsheets.extend(
-            [b.getObject() for b in cat.searchResults(get_codes=code,
-                                            portal_type="IndicatorFactSheet")]
-        ), codes)
+
+    for code in codes:
+        factsheets.extend([
+            b.getObject() for b in cat.searchResults(
+                get_codes=code, portal_type="IndicatorFactSheet")
+        ])
 
     version_ids = {}
     for a in (all_assessments + factsheets):
@@ -376,11 +370,13 @@ def getPossibleVersionsId(context):
         all_assessments.extend(spec.objectValues("Assessment"))
 
     codes = ["%s%s" % (c['set'], c['code']) for c in context.getCodes()]
+
     factsheets = []
-    map(lambda code:factsheets.extend(
-            [b.getObject() for b in cat.searchResults(get_codes=code,
-                                            portal_type="IndicatorFactSheet")]
-        ), codes)
+    for code in codes:
+        factsheets.extend([
+            b.getObject() for b in cat.searchResults(
+                get_codes=code, portal_type="IndicatorFactSheet")
+        ])
 
     version_ids = {}
     for a in all_assessments + factsheets:
@@ -396,9 +392,13 @@ def getPossibleVersionsId(context):
 
 
 class ManagementPlanFieldValueProvider(ATFieldValueProvider):
+    """ Validator
+    """
     adapts(Assessment, ManagementPlanField)
 
     def has_value(self, **kwargs):
+        """ Has value?
+        """
         vd = ManagementPlanCodeValidator('management_plan_code_validator')
         if not vd(self.get_value()) == 1:
             return False

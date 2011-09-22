@@ -2,15 +2,12 @@
 
 from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
 from Products.CMFCore.utils import getToolByName
-from eea.indicators.config import DEPENDENCIES
 import logging
-import transaction
 from eea.indicators.config import (
     CODES,
     DPSIR,
     TYPOLOGY,
     CATEGORY_OF_USE,
-    PROFILE_DEPENDENCIES
 )
 
 logger = logging.getLogger('indicators: setuphandlers')

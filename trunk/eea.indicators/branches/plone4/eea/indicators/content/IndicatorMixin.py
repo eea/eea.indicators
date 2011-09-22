@@ -1,11 +1,12 @@
 """A mixin class for objects that function as indicators"""
 
-
+import logging
 from Products.CMFCore.utils import getToolByName
 from AccessControl import ClassSecurityInfo
 from eea.versions.versions import get_versions_api
 from Missing import Value as MissingValue
 
+logger = logging.getLogger("eea.indicators.content")
 
 class IndicatorMixin(object):
     """A mixin for Specification and IndicatorFactSheet"""
@@ -22,10 +23,8 @@ class IndicatorMixin(object):
     def get_duplicated_codes(self):
         """Returns codes that are duplicated by some other indicator"""
 
-        versions = map(
-                lambda v:'/'.join(v.getPhysicalPath()),
-                get_versions_api(self).versions.values()
-            )
+        versions = ['/'.join(v.getPhysicalPath())
+                    for v in get_versions_api(self).versions.values()]
 
         cat = getToolByName(self, 'portal_catalog')
         codes = self.getCodes()
@@ -52,7 +51,7 @@ class IndicatorMixin(object):
             if not_same:
                 d = []
                 for b in not_same:
-                    if not filter(lambda o:o.getPath() == b.getPath(), d):
+                    if not [o for o in d if o.getPath() == b.getPath()]:
                         d.append(b)
                 _d = {}
                 for b in d:
@@ -61,9 +60,11 @@ class IndicatorMixin(object):
                         try:
                             _d[v] = b
                         except Exception, e:
-                            import pdb; pdb.set_trace()
+                            logger.exception(e)
                     else:
-                        print "Missing versionid value: ", b.getObject()
+                        logger.warn(
+                            "Missing versionid value: %s", b.getObject())
+
                 duplicated_codes.append((code, _d.values()))
 
         return duplicated_codes
@@ -92,7 +93,7 @@ class IndicatorMixin(object):
         main = self.getCodes()[0]
         other = spec.getCodes()
 
-        return [main] + list(filter(lambda c:c!=main, other))
+        return [main] + [c for c in other if c != main]
 
     security.declarePublic('format_codes')
     def format_codes(self, codes):

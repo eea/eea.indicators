@@ -2,17 +2,15 @@
 #
 # $Id$
 #
-
-"""KeyMessage content class
+""" KeyMessage content class
 """
 
 from AccessControl import ClassSecurityInfo
 from Products.ATContentTypes.content.base import ATCTContent
 from Products.ATContentTypes.content.base import ATContentTypeSchema
 from Products.Archetypes.atapi import TextField, Schema
-from Products.Archetypes.atapi import registerType, RichWidget
+from Products.Archetypes.atapi import RichWidget
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
-from eea.indicators.config import PROJECTNAME
 from zope.interface import implements
 from eea.indicators.content import interfaces
 
@@ -20,7 +18,7 @@ schema = Schema((
 
     TextField(
         name='message',
-        allowable_content_types=('text/plain', 'text/structured', 
+        allowable_content_types=('text/plain', 'text/structured',
                       'text/html', 'application/msword',),
         required_for_published=True,
         widget=RichWidget(
@@ -38,7 +36,7 @@ KeyMessage_schema = ATContentTypeSchema.copy() + \
     schema.copy()
 
 KeyMessage_schema['title'].required = False
-KeyMessage_schema['relatedItems'].widget.visible = {'view':'invisible', 
+KeyMessage_schema['relatedItems'].widget.visible = {'view':'invisible',
                                                     'edit':'invisible'}
 
 class KeyMessage(ATCTContent, BrowserDefaultMixin):
@@ -57,6 +55,3 @@ class KeyMessage(ATCTContent, BrowserDefaultMixin):
     def Title(self):
         """Returns title"""
         return self.getId()
-
-
-registerType(KeyMessage, PROJECTNAME)

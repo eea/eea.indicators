@@ -1,6 +1,7 @@
+""" Event handlers
+"""
 from itertools import chain
 from Products.CMFCore.utils import getToolByName
-
 
 def syncWorkflowStateRelatedFigures(context, dest_state):
     """ Event handler"""
@@ -12,27 +13,30 @@ def syncWorkflowStateRelatedFigures(context, dest_state):
                "is also published") % indcodes
 
     for ap in context.objectValues('AssessmentPart'):
-        for figure in filter(lambda o:o.portal_type=="EEAFigure", 
-                ap.getRelatedItems()):
+        for figure in (o for o in ap.getRelatedItems()
+                       if o.portal_type=="EEAFigure"):
             figState = wftool.getInfoFor(figure, 'review_state')
             if figState != dest_state:
 
                 # get possible transitions for object in current state
-                for obj in chain([figure], figure.objectValues('EEAFigureFile')):
+                for obj in chain([figure],
+                                 figure.objectValues('EEAFigureFile')):
 
                     state = wftool.getInfoFor(obj, 'review_state')
-                    if state == dest_state: #sometimes the child is in the 
+                    if state == dest_state: #sometimes the child is in the
                         continue            #desired state
 
                     workflow = wftool.getWorkflowsFor(obj)[0]
                     transitions = workflow.transitions
-                    available_transitions = [transitions[i['id']] for i in 
+                    available_transitions = [transitions[i['id']] for i in
                                                 wftool.getTransitionsFor(obj)]
-                    to_do = filter(lambda i:i.new_state_id == dest_state, 
-                                   available_transitions)
+
+                    to_do = [k for k in available_transitions
+                             if k.new_state_id == dest_state]
+
                     if not to_do:
                         raise ValueError(
-"""Could not find a transition that would bring the object to destination 
+"""Could not find a transition that would bring the object to destination
 state. This may be due to having the FigureFile at different workflow state
 than its parent Figure.""")
 

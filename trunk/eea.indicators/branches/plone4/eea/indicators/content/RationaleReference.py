@@ -9,12 +9,11 @@
 from AccessControl import ClassSecurityInfo
 from Products.ATContentTypes.content.link import ATLink, ATLinkSchema
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema
-from Products.Archetypes.atapi import Schema, StringField, registerType
+from Products.Archetypes.atapi import Schema, StringField
 from Products.Archetypes.atapi import TextField, RichWidget, SelectionWidget
 from Products.CMFCore import permissions
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 from Products.CMFPlone.utils import getToolByName
-from eea.indicators.config import PROJECTNAME
 from eea.indicators.content import interfaces
 from zope.interface import implements
 import logging
@@ -43,8 +42,8 @@ schema = Schema((
             i18n_domain='indicators',
         ),
         required=True,
-        vocabulary=[("",""), ("RationaleRefType_01", "Scientific reference"), 
-            ("RationaleRefType_02", "Reference to other indicator initiative") ],
+        vocabulary=[("",""), ("RationaleRefType_01", "Scientific reference"),
+           ("RationaleRefType_02", "Reference to other indicator initiative") ],
         required_for_published=True,
     ),
     TextField(
@@ -57,7 +56,7 @@ schema = Schema((
         default_content_type="text/html",
         searchable=True,
         required_for_published=True,
-        allowable_content_types=('text/plain', 'text/structured', 'text/html', 
+        allowable_content_types=('text/plain', 'text/structured', 'text/html',
                                  'application/msword',),
         default_output_type="text/x-html-safe",
         accessor="getDescription",
@@ -70,12 +69,12 @@ RationaleReference_schema = ATLinkSchema.copy() + \
     getattr(ATLink, 'schema', Schema(())).copy() + \
     schema.copy()
 
-RationaleReference_schema['relatedItems'].widget.visible = {'view':'invisible', 
+RationaleReference_schema['relatedItems'].widget.visible = {'view':'invisible',
                                                             'edit':'invisible'}
 finalizeATCTSchema(RationaleReference_schema)
 
 class RationaleReference(ATLink, BrowserDefaultMixin):
-    """
+    """ Rationale Reference
     """
     security = ClassSecurityInfo()
 
@@ -85,7 +84,6 @@ class RationaleReference(ATLink, BrowserDefaultMixin):
     _at_rename_after_creation = True
 
     schema = RationaleReference_schema
-
 
     security.declarePublic("Description")
     def Description(self):
@@ -100,9 +98,6 @@ class RationaleReference(ATLink, BrowserDefaultMixin):
 
     security.declareProtected(permissions.View, 'getUrl')
     def getUrl(self):
-        """ """
+        """ URL """
         field = self.getField('remoteUrl')
         return field.getAccessor(self)()
-
-
-registerType(RationaleReference, PROJECTNAME)

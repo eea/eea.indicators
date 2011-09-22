@@ -11,7 +11,7 @@ from zope.lifecycleevent import ObjectModifiedEvent
 
 class ExtendedMessage(object):
     """An string to be rendered as HTML
-    
+
     It holds metadata about the contained information
     """
 
@@ -165,7 +165,7 @@ class CustomizedObjectFactory(object):
     def _error(self, error):
         """Returns error structure"""
         return ExtendedMessage(
-            u"<div class='metadata'><div class='error'>%(msg)s</div></div>", 
+            u"<div class='metadata'><div class='error'>%(msg)s</div></div>",
             'FAILURE',
             msg=error
             )
@@ -178,7 +178,8 @@ class CustomizedObjectFactory(object):
         f = kw.get('direct_edit') and "<div class='direct_edit' />" or ''
 
         return ExtendedMessage(
-            u"<div class='metadata'>%(msg)s<div class='object_edit_url'>%(url)s</div></div>",
+            (u"<div class='metadata'>%(msg)s"
+             u"<div class='object_edit_url'>%(url)s</div></div>"),
             'SUCCESS',
             msg=f, url=url
             )
@@ -186,7 +187,7 @@ class CustomizedObjectFactory(object):
     security.declareProtected(AddPortalContent, 'object_factory')
     def object_factory(self):
         """Create an object according to special rules for that object.
-        
+
         This is callable TTW by ajax agg editing"""
 
         type_name = self.REQUEST['type_name']

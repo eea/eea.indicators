@@ -1,14 +1,13 @@
 """ ims.py """
 
+import re
+import DateTime
 from Products.CMFPlone.utils import getToolByName
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from eea.indicators.browser.interfaces import IIndicatorsPermissionsOverview
 from eea.indicators.content.Assessment import hasWrongVersionId
-from plone.app.portlets.portlets.base import Renderer
 from zope.interface import implements
-import DateTime
-import re
 
 codesre = re.compile(r"([a-zA-Z]+)(\d+)")
 
@@ -55,10 +54,8 @@ class BaseIndicatorsReport(object):
         #      with the spec > children
 
         #checks if spec id is in assessment path segments
-        return filter(
-                lambda b:spec.id == b.getPath().split('/')[-2],
-                self.assessments
-            )
+        return [b for b in self.assessments
+                if spec.id == b.getPath().split('/')[-2]]
 
 
 class IndicatorsOverview(BrowserView, BaseIndicatorsReport):
@@ -208,14 +205,14 @@ class IndicatorsTimeline(BrowserView, BaseIndicatorsReport):
                         if earliest_year == 0:
                             earliest_year = year
 
-                    result[setc][code][year] = result[setc][code].get(year, []) \
-                          + [{
-                              'type':'a',
-                              'url':a.getURL(),
-                              'state':p,
-                              'title':a.Title,
-                              'comments':a.comments,
-                              'readiness':a.published_readiness}]
+                    result[setc][code][year] = result[setc][code].get(
+                        year, []) + [{
+                              'type': 'a',
+                              'url': a.getURL(),
+                              'state': p,
+                              'title': a.Title,
+                              'comments': a.comments,
+                              'readiness': a.published_readiness}]
 
         for fs in self.factsheets:
             for setcode in (get_codes(fs.get_codes) or none):
@@ -254,7 +251,7 @@ class ReportWrongVersionAssessments(BrowserView):
         catalog = getToolByName(self.context, 'portal_catalog')
         assessments = catalog.searchResults(portal_type='Assessment')
 
-        return filter(lambda a:hasWrongVersionId(a.getObject()), assessments)
+        return [a for a in assessments if hasWrongVersionId(a.getObject())]
 
 
 class ReportWrongVersionSpecifications(BrowserView):
@@ -263,9 +260,7 @@ class ReportWrongVersionSpecifications(BrowserView):
     def wrongs(self):
         """returns wrong specifications"""
         objs = self.context.objectValues(['Specification'])
-
-        wrongs = filter(lambda o:o.has_duplicated_code(), objs)
-        return wrongs
+        return [o for o in objs if o.has_duplicated_code()]
 
 
 class ReportWrongMainCodeSpecifications(BrowserView):
@@ -274,14 +269,13 @@ class ReportWrongMainCodeSpecifications(BrowserView):
     def wrongs(self):
         """returns wrong specifications"""
         objs = self.context.objectValues(['Specification'])
-        wrongs = filter(lambda o:bool(o.get_diff_vers_setcode()), objs)
-        return wrongs
+        return [o for o in objs if bool(o.get_diff_vers_setcode())]
 
 #class ReadinessRenderer(Renderer):
     #render = ViewPageTemplateFile('templates/portlet_readiness.pt')
 
 class IncludeJqueryUI(BrowserView):
-    """
+    """ Include jQuery UI
     """
     def __call__(self):
         return True

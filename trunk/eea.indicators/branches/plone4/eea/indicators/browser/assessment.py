@@ -1,3 +1,5 @@
+""" Assessment controllers
+"""
 from Acquisition import aq_inner, aq_parent
 from DateTime import DateTime
 from Products.CMFCore.utils import getToolByName
@@ -77,7 +79,7 @@ def create_version(original, request=None):
 
     # Delete comment files
     file_ids = []
-    for file_ob in ver.getFolderContents(contentFilter={'portal_type':'File'}, 
+    for file_ob in ver.getFolderContents(contentFilter={'portal_type':'File'},
             full_objects=True):
         file_ids.append(file_ob.getId())
     ver.manage_delObjects(ids=file_ids)
@@ -108,10 +110,10 @@ def create_version(original, request=None):
         ap.reindexObject()
 
     # Set new state
-    #IVersionControl(ver).setVersionId(version_id)   
+    #IVersionControl(ver).setVersionId(version_id)
     #setting the version ID to the assessments group version id
     ver.reindexObject()
-    original.reindexObject()    # _reindex(original)  
+    original.reindexObject()    # _reindex(original)
     #some indexed values of the context may depend on versions
 
     return ver
@@ -141,7 +143,7 @@ class WorkflowStateReadiness(ObjectReadiness):
                             getInfoFor(aq_parent(aq_inner(o)), 'review_state'),
         "The Indicator Specification needs to be published"
         ),
-        (lambda o:not filter(lambda part: has_one_of(["EEAFigure"], 
+        (lambda o:not filter(lambda part: has_one_of(["EEAFigure"],
                     part.getRelatedItems()), o.objectValues("AssessmentPart")),
         "The answered policy questions need to point to at least one Figure"),
     )}
@@ -166,10 +168,8 @@ class WrongVersionReport(BrowserView):
 
         res = {}
         for v in versions:
-            res[v] = map(
-                    lambda b:b.getObject(),
-                    catalog.searchResults(getVersionId=v))
-
+            res[v] = [b.getObject()
+                      for b in catalog.searchResults(getVersionId=v)]
         return res
 
     def get_version_for(self, obj):

@@ -109,7 +109,7 @@ function init_tinymce(el){
       //"tablecontrols",
       "code",
       "fullscreen",
-      "",
+      ""
     ];
     config.widget_config.styles = [
       "Invisible grid|table|invisible",
@@ -135,9 +135,9 @@ function init_tinymce(el){
       "Even row|tr|even",
       "Heading cell|th|",
       "Page break (print only)|div|pageBreak",
-      "Clear floats|div|visualClear",
+      "Clear floats|div|visualClear"
     ];
-    delete InitializedTinyMCEInstances[id]
+    delete InitializedTinyMCEInstances[id];
     config.init();
   });
 })(jQuery);
@@ -350,7 +350,7 @@ function set_actives(){
 
 function schemata_ajaxify(el, active_region){
         //console.info("doing schemata ajaxify");
-  
+
 
 (function($) {
   set_actives();
