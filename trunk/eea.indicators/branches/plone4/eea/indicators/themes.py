@@ -13,22 +13,43 @@ class AssessmentThemes(object):
         self.context = context
         self.parent = aq_parent(aq_inner(self.context))
 
-    @property
-    def tags(self):
-        """ use the parent tags """
+    def _get_tags(self):
         return IThemeTagging(self.parent).tags
 
-    @tags.setter
-    def tags(self, value):
+    def _set_tags(self, value):
         """ do nothing on set"""
         pass
 
-    @property
-    def nondeprecated_tags(self):
+    tags = property(_get_tags, _set_tags)
+
+    def _get_nondeprecated_tags(self):
         """ use the parent tags """
         return IThemeTagging(self.parent).nondeprecated_tags
 
-    @nondeprecated_tags.setter
-    def nondeprecated_tags(self, value):
+    def _set_nondeprecated_tags(self):
         """ do nothing on set"""
         pass
+
+    nondeprecated_tags = property(_get_nondeprecated_tags, 
+                                  _set_nondeprecated_tags)
+
+
+    #@property
+    #def tags(self):
+        #""" use the parent tags """
+        #return IThemeTagging(self.parent).tags
+
+    #@tags.setter
+    #def tags(self, value):
+        #""" do nothing on set"""
+        #pass
+
+    #@property
+    #def nondeprecated_tags(self):
+        #""" use the parent tags """
+        #return IThemeTagging(self.parent).nondeprecated_tags
+
+    #@nondeprecated_tags.setter
+    #def nondeprecated_tags(self, value):
+        #""" do nothing on set"""
+        #pass
