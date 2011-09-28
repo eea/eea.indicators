@@ -31,7 +31,7 @@
             </thead>
             <tbody>
               <tal:rep tal:repeat="entry python:setcodes[set]">
-                <tal:defs tal:define="codes entry/spec/get_codes; 
+                <tal:defs tal:define="codes entry/spec/get_codes;
                   codeset python:view.codeset_for(codes, set);">
                   <tr>
                     <td>
@@ -39,8 +39,8 @@
                     </td>
                     <td class="ims-overview-spec" tal:define="spec python:entry['spec']" >
                       <img tal:attributes="src string:$portal_url/Specification.gif" />
-                      <a href="" 
-                        tal:attributes="href spec/getURL" 
+                      <a href=""
+                        tal:attributes="href spec/getURL"
                         tal:content="spec/Title">Spec title</a>
                     </td>
                     <td >
@@ -50,16 +50,16 @@
                       <span tal:content="entry/state" />
                     </td>
                   </tr>
-                  <tr tal:repeat="as entry/assessments">
+                  <tr tal:repeat="asm entry/assessments">
                     <td><span tal:content="string:${codeset/set} ${codeset/code}" /></td>
                     <td class="ims-overview-assessment">
                       <img tal:attributes="src string:$portal_url/Assessment.gif" />
-                      <a href=""><span tal:content="python:as[0].Title" />
+                      <a href=""><span tal:content="python:asm[0].Title" />
                     </a></td>
                     <td>
                       <span tal:content="entry/manager_id" />
                     </td>
-                    <td><span tal:content="python:as[1]" /></td>
+                    <td><span tal:content="python:asm[1]" /></td>
                   </tr>
                 </tal:defs>
               </tal:rep>

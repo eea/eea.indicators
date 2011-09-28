@@ -71,7 +71,7 @@ class ModalFieldEditableAware(object):
 
         # Set things by calling the mutator
         mutator = field.getMutator(self)
-        __traceback_info__ = (self, field, mutator) #tiberich: is it needed?
+        #__traceback_info__ = (self, field, mutator) #was this line used?
         result[1]['field'] = field.__name__
         mapply(mutator, result[0], **result[1])
 
