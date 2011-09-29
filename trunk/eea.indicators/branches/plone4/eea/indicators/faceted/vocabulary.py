@@ -1,7 +1,7 @@
 """Vocabularies used in custom eea.facetednavigation extensions"""
 
 from zope.interface import alsoProvides
-from zope.app.schema.vocabulary import IVocabularyFactory
+from zope.schema.interfaces import IVocabularyFactory
 from zope.schema.vocabulary import SimpleVocabulary
 from zope.schema.vocabulary import SimpleTerm
 
