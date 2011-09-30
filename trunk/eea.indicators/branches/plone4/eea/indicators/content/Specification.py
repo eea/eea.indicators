@@ -704,8 +704,8 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
         #create a new Assessment from scratch
         #id = self.generateUniqueId(type_name)
         aid = make_id('assessment', self.objectIds())
-        new_id = self.invokeFactory(type_name=type_name,
-                id=aid,
+        new_id = self.invokeFactory(type_name,
+                aid,
                 base_impl=True,
                 title=self.translate(
                     msgid='label-newly-created-type',

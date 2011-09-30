@@ -6,7 +6,7 @@ The Indicators Database
 We have several main content types. The most important are the Specification and their Assessments.
 
     >>> import urllib
-    >>> from Products.Five.testbrowser import Browser
+    >>> from Testing.testbrowser import Browser
     >>> from Products.PloneTestCase import PloneTestCase
     >>> from Products.CMFPlone.utils import getToolByName
 

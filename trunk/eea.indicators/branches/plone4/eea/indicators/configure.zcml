@@ -1,7 +1,7 @@
 <configure xmlns="http://namespaces.zope.org/zope"
-           xmlns:five="http://namespaces.zope.org/five"
-           xmlns:cmf="http://namespaces.zope.org/cmf"
-           i18n_domain="eea">
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:cmf="http://namespaces.zope.org/cmf"
+    i18n_domain="eea">
 
     <five:registerPackage package="." initialize=".initialize" />
 
@@ -16,89 +16,92 @@
 
     <interface interface="eea.indicators.content.interfaces.IIndicatorsDatabase" />
 
-    <five:implements class=".content.Specification.Specification"
-                     interface="eea.workflow.interfaces.IHasMandatoryWorkflowFields" />
+    <class class=".content.Specification.Specification">
+        <implements interface="eea.workflow.interfaces.IHasMandatoryWorkflowFields" />
+    </class>
 
-    <five:implements class=".content.Assessment.Assessment"
-                     interface="eea.workflow.interfaces.IHasMandatoryWorkflowFields" />
+    <class class=".content.Assessment.Assessment">
+        <implements interface="eea.workflow.interfaces.IHasMandatoryWorkflowFields" />
+    </class>
 
-    <five:implements class=".content.AssessmentPart.AssessmentPart"
-                     interface="eea.workflow.interfaces.IHasMandatoryWorkflowFields" />
+    <class class=".content.AssessmentPart.AssessmentPart">
+        <implements interface="eea.workflow.interfaces.IHasMandatoryWorkflowFields" />
+    </class>
 
     <adapter factory=".content.ExternalDataSpec.ExternalDataSpecThemes" />
 
     <adapter factory=".content.Specification.Specification2Surf" />
 
     <adapter for="eea.indicators.content.interfaces.IIndicatorFactSheet
-                  eea.rdfmarshaller.interfaces.ISurfSession"
-             provides="eea.rdfmarshaller.interfaces.IArchetype2Surf"
-             factory=".content.Specification.Specification2Surf" />
+        eea.rdfmarshaller.interfaces.ISurfSession"
+        provides="eea.rdfmarshaller.interfaces.IArchetype2Surf"
+        factory=".content.Specification.Specification2Surf" />
 
     <adapter factory=".content.Assessment.ManagementPlanFieldValueProvider" />
 
     <subscriber for=".content.interfaces.ISpecification
-                     zope.lifecycleevent.interfaces.IObjectCreatedEvent"
-                handler="eea.versions.versions.versionIdHandler" />
+        zope.lifecycleevent.interfaces.IObjectCreatedEvent"
+        handler="eea.versions.versions.versionIdHandler" />
 
     <subscriber for=".content.interfaces.ISpecification
-                     zope.lifecycleevent.interfaces.IObjectModifiedEvent"
-                handler="eea.versions.versions.versionIdHandler" />
+        zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+        handler="eea.versions.versions.versionIdHandler" />
 
     <subscriber for=".content.interfaces.IAssessment
-                     zope.lifecycleevent.interfaces.IObjectCreatedEvent"
-                handler="eea.versions.versions.versionIdHandler" />
+        zope.lifecycleevent.interfaces.IObjectCreatedEvent"
+        handler="eea.versions.versions.versionIdHandler" />
 
     <subscriber for=".content.interfaces.IAssessment
-                     zope.lifecycleevent.interfaces.IObjectModifiedEvent"
-                handler="eea.versions.versions.versionIdHandler" />
+        zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+        handler="eea.versions.versions.versionIdHandler" />
 
     <subscriber for=".content.interfaces.IIndicatorFactSheet
-                     zope.lifecycleevent.interfaces.IObjectCreatedEvent"
-                handler="eea.versions.versions.versionIdHandler" />
+        zope.lifecycleevent.interfaces.IObjectCreatedEvent"
+        handler="eea.versions.versions.versionIdHandler" />
 
     <subscriber for=".content.interfaces.IIndicatorFactSheet
-                     zope.lifecycleevent.interfaces.IObjectModifiedEvent"
-                handler="eea.versions.versions.versionIdHandler" />
+        zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+        handler="eea.versions.versions.versionIdHandler" />
 
     <subscriber for=".content.interfaces.IAssessment
-                     Products.CMFCore.interfaces.IActionSucceededEvent"
-                handler="eea.indicators.events.handle_assessment_state_change" />
+        Products.CMFCore.interfaces.IActionSucceededEvent"
+        handler="eea.indicators.events.handle_assessment_state_change" />
 
     <adapter for="eea.indicators.content.interfaces.ISpecification"
-             provides="eea.relations.interfaces.IAutoRelations"
-             factory=".autorelations.LatestFigures"/>
+        provides="eea.relations.interfaces.IAutoRelations"
+        factory=".autorelations.LatestFigures"/>
 
     <adapter for="eea.indicators.content.interfaces.IAssessment"
-             provides="eea.themecentre.interfaces.IThemeTagging"
-             factory=".themes.AssessmentThemes"/>
+        provides="eea.themecentre.interfaces.IThemeTagging"
+        factory=".themes.AssessmentThemes"/>
 
     <adapter for="eea.indicators.content.interfaces.ISpecification"
-             provides="zope.traversing.interfaces.ITraversable"
-             factory=".traverse.SpecificationTraverser"/>
+        provides="zope.traversing.interfaces.ITraversable"
+        factory=".traverse.SpecificationTraverser"/>
 
     <subscriber for=".content.interfaces.IAssessmentPart
-                     zope.lifecycleevent.interfaces.IObjectModifiedEvent"
-                handler="eea.indicators.events.handle_assessmentpart_modification" />
+        zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+        handler="eea.indicators.events.handle_assessmentpart_modification" />
 
     <subscriber for=".content.interfaces.ISpecification
-                     zope.lifecycleevent.interfaces.IObjectModifiedEvent"
-                handler="eea.indicators.events.handle_specification_state_change" />
+        zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+        handler="eea.indicators.events.handle_specification_state_change" />
 
     <subscriber for=".content.interfaces.IPolicyQuestion
-                     zope.lifecycleevent.interfaces.IObjectModifiedEvent"
-                handler="eea.indicators.events.handle_policyquestion_modification" />
+        zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+        handler="eea.indicators.events.handle_policyquestion_modification" />
 
     <!--<class class="eea.indicators.content.Assessment.Assessment">-->
         <!--<implements interface="eea.versions.interfaces.IVersionEnhanced" />-->
-    <!--</class>-->
+        <!--</class>-->
 
     <!--<class class="eea.indicators.content.Specification.Specification">-->
         <!--<implements interface="eea.versions.interfaces.IVersionEnhanced" />-->
-    <!--</class>-->
+        <!--</class>-->
 
     <!--<class class="eea.indicators.content.IndicatorFactSheet.IndicatorFactSheet">-->
         <!--<implements interface="eea.versions.interfaces.IVersionEnhanced" />-->
-    <!--</class>-->
+        <!--</class>-->
 
     <include package=".upgrades" />
 

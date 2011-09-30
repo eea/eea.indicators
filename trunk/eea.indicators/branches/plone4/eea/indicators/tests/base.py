@@ -7,9 +7,9 @@
 """
 
 from Products.Five import fiveconfigure
-from Products.Five import zcml
 from Products.PloneTestCase import PloneTestCase
 from Products.PloneTestCase.layer import onsetup
+from Zope2.App import zcml 
 
 PRODUCTS = [
     'DataGridField', 

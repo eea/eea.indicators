@@ -207,8 +207,9 @@ class CustomizedObjectFactory(object):
     def _generic_factory(self, type_name):
         """Generic factory"""
         gid = self.generateUniqueId(type_name)
-        new_id = self.invokeFactory(type_name=type_name,
-                id=gid,
+        new_id = self.invokeFactory(
+                type_name,
+                gid,
                 base_impl=True,
                 title=self.translate(
                     msgid='label-newly-created-type',
