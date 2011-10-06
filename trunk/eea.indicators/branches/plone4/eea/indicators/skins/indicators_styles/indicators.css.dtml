@@ -4,15 +4,13 @@
  */
 
 #box-classification {
-    border:1px solid #E9EFCD;
-    float:right;
     margin-top:0px;
-    padding:6px;
-    width:70%;
+    height:380px;
 }
 
 #box-classification h4 {
     margin: 0 0 1em 0;
+    padding-top:1em;
 }
 
 #box-classification-col1 {
@@ -265,7 +263,7 @@ display:inherit !important;
     opacity:0.3;
     FILTER: Alpha(Opacity=30);
 }
-.keyMessage {
+.keyMessage, #box-classification {
     background: #E6E6E6;
     background-image: -webkit-linear-gradient(top,#E6E6E6,#D6D6D6);
     background: -webkit-linear-gradient(#E6E6E6, #D6D6D6); /* Safari 5.1+, Chrome 10+ */  

@@ -117,10 +117,12 @@
          <metal:related use-macro="here/dataset_view/macros/geo-coverage" />
         </div>
       </div>
-
+      
+      <div class="visualClear">&nbsp;</div>
       <tal:block define="queryString string:h2:not(.notoc)">
         <metal:toc use-macro="here/portlet_toc/macros/portlet"/>
       </tal:block>
+      
       <div class="metadata-switch metadata-switch-show standardButton">Switch to full indicator view</div>
 
       <div class="visualClear"><!-- --></div>
