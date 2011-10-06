@@ -290,6 +290,12 @@ display:inherit !important;
 
 /* Assessment view
 ================== */
+
+#document-toc {
+   padding: 0.5em 2em 4.5em 1em;
+   margin-bottom: -70px !important;
+}
+
 .metadata-switch {
     padding-left: 1.5em;
     background-position: left center;
@@ -297,6 +303,9 @@ display:inherit !important;
     font-weight: bold;
     cursor: pointer;
     font-size: 130%;
+    position: relative;
+    margin-left:50px;
+    margin-bottom: 2em;
 }
 .metadata-switch-show {
     background-image: url(bullet_add.png);

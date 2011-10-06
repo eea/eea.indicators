@@ -3,6 +3,9 @@ Changelog
 
 4.0-dev - (unreleased)
 ----------------------
+
+ * Change: Updated design of the assessment view page [demarant]
+ 
  * Bugfix: Fixed IE JS errors, fixed code that uses jQuery to avoid conflicts
    with other JS frameworks [szabozo0 #4542]
 

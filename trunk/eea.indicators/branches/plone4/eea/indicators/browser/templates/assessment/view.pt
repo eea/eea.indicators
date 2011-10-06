@@ -334,9 +334,7 @@
         <metal:basicmeta use-macro="context/versions_macros/macros/permalinks" />
       </div>
 
-      <div class="metadata-switch metadata-switch-show standardButton">Switch to full indicator view</div>
-
-      <metal:versions use-macro="here/portlet_versions/macros/versions">
+     <metal:versions use-macro="here/portlet_versions/macros/versions">
         <metal:new fill-slot="new" />
       </metal:versions>
     </div>
