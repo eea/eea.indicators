@@ -3,7 +3,59 @@
   i18n:domain="indicators">
 
   <!-- #TODO: * i18n:translate -->
+ <metal:javascript fill-slot="javascript_head_slot">
+    <script type="text/javascript">
 
+      function figuresNumber() {
+        var figures = jQuery(".figure-title");
+        var count = 1;
+
+        jQuery.each(figures, function(i, figure) {
+          var figure_title = figure.innerHTML;
+          figure.innerHTML = 'Fig. ' + count + ': ' + figure_title;
+          count += 1;
+        })
+      }
+
+      function setMetadataSwitchBtn() {
+        jQuery(".metadata-switch").click(function () { showMetadata() });
+      };
+
+      function clearToc() {
+        jQuery('#document-toc dd.portletItem ol').empty();
+      };
+
+      function showMetadata() {
+        if (jQuery('.metadata-switch').hasClass('metadata-switch-show')) {
+          jQuery(".metadata-info-switchable h2").toggleClass('notoc');
+          jQuery(".metadata-info-switchable").fadeIn("slow", function() {
+              jQuery('.metadata-switch').removeClass('metadata-switch-show');
+              jQuery('.metadata-switch').addClass('metadata-switch-hide');
+              jQuery('.metadata-switch').html('Switch to short indicator view');
+              clearToc();
+              build_toc();
+              });
+        }
+        else
+        if (jQuery('.metadata-switch').hasClass('metadata-switch-hide')) {
+          jQuery(".metadata-info-switchable h2").toggleClass('notoc');
+          jQuery(".metadata-info-switchable").fadeOut("slow", function() {
+              jQuery('.metadata-switch').removeClass('metadata-switch-hide');
+              jQuery('.metadata-switch').addClass('metadata-switch-show');
+              jQuery('.metadata-switch').html('Switch to full indicator view');
+              clearToc();
+              build_toc();
+              });
+        };
+      };
+
+      jQuery(document).ready(function () {
+          figuresNumber();
+          setMetadataSwitchBtn();
+      });
+    </script>
+  </metal:javascript>
+  
   <body>
     <div metal:fill-slot="content-title" class="specification_view">
       <h1 class="documentFirstHeading" tal:content="context/Title">Title here</h1>
@@ -32,8 +84,8 @@
         <tal:block define="queryString string:h2">
           <metal:toc use-macro="here/portlet_toc/macros/portlet"/>
         </tal:block>
-
-        <tal:assessment_versions define="assessments context/@@assessment_versions;
+        
+        <div id="assessment-versions" tal:define="assessments context/@@assessment_versions;
           published python:assessments['published'];
           draft python:assessments['draft']">
           <a name="versions"></a>
@@ -59,7 +111,7 @@
               </li>
             </ul>
           </tal:draft_versions>
-        </tal:assessment_versions>
+        </div>
 
         <div id="justification-and-references" metal:define-macro="justification-and-references">
           <h2>Justification for indicator selection</h2>

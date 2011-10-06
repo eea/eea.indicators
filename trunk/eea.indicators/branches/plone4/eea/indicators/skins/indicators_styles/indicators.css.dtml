@@ -288,6 +288,10 @@ display:inherit !important;
     text-shadow: 0 1px 1px #fff;
 }
 
+#assessment-versions {
+    margin-top: 70px;
+}
+
 /* Assessment view
 ================== */
 
@@ -316,6 +320,7 @@ display:inherit !important;
 .metadata-info-switchable {
     display: none;
 }
+
 
 /* Update ui images path
 ======================== */
