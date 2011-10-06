@@ -3,16 +3,6 @@
 <dtml-call "REQUEST.set('portal_url', portal_url())">
  */
 
-.headed-box {
-    border:1px solid #E9EFCD;
-    clear:both;
-    margin-top:20px;
-    padding:6px;
-}
-.headed-box h4 {
-    margin:0.33em 0;
-}
-
 #box-classification {
     border:1px solid #E9EFCD;
     float:right;

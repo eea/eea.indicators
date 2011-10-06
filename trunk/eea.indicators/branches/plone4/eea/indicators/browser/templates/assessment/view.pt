@@ -121,7 +121,7 @@
       <tal:block define="queryString string:h2:not(.notoc)">
         <metal:toc use-macro="here/portlet_toc/macros/portlet"/>
       </tal:block>
-      <div class="metadata-switch metadata-switch-show">Switch to full indicator view</div>
+      <div class="metadata-switch metadata-switch-show standardButton">Switch to full indicator view</div>
 
       <div class="visualClear"><!-- --></div>
       <div class="metadata-info-switchable">
@@ -276,8 +276,8 @@
       <h2 id="methodology">More information about this indicator</h2>
       <p>See this <a href="..">indicator specification</a> for more details.</p>
 
-      <div class='headed-box'>
-        <h2>Contacts and ownership</h2>
+      <div id="contact-and-ownership">
+      <h2>Contacts and ownership</h2>
         <h4>EEA Contact Info</h4>
         <tal:contact define="manager_id context/getManager_user_id">
           <tal:manager condition="manager_id">
@@ -312,7 +312,7 @@
           tal:content="python:'%s %s' % context.getManagement_plan()"></a>(note: EEA internal system)
       </div>
 
-      <div class='headed-box'>
+      <div id="timestamps-info">
         <h4>Dates</h4>
         <div>
           First draft created: <span tal:content="context/creation_date">creation date</span>
@@ -327,12 +327,12 @@
         </div>
       </div>
 
-      <div class='headed-box'>
+      <div id="permalinks-info">
         <h4>Permalinks</h4>
         <metal:basicmeta use-macro="context/versions_macros/macros/permalinks" />
       </div>
 
-      <div class="metadata-switch metadata-switch-show">Switch to full indicator view</div>
+      <div class="metadata-switch metadata-switch-show standardButton">Switch to full indicator view</div>
 
       <metal:versions use-macro="here/portlet_versions/macros/versions">
         <metal:new fill-slot="new" />
