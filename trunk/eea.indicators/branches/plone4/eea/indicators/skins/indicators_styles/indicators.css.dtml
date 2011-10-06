@@ -26,20 +26,6 @@
 }
 
 
-
-.headed-box h5 {
-    background-color:white;
-    float:left;
-    top:-14px;
-    padding:0 6px;
-    position:relative;
-    margin:0 0 0 20px;
-}
-.headed-box p, .headed-box h6, .headed-box div.wrapper {
-    padding-top:0px;
-    margin:15px 0 0;
-}
-
 /* Completeness status portlet
 ============================== */
 #readiness-status .percentage, #readiness-status .missingRequiredNr{
