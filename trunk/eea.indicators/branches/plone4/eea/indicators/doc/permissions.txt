@@ -1,7 +1,7 @@
 Permissions and security in IMS
 ===============================
 
-    >>> from Products.Five.testbrowser import Browser
+    >>> from Testing.testbrowser import Browser
     >>> from Products.PloneTestCase import PloneTestCase
 
     >>> self.loginAsPortalOwner()
