@@ -18,20 +18,20 @@ def test_suite():
     s1 = ZopeDocFileSuite('install.txt',
                          package='eea.indicators.doc',
                          test_class=BaseIndicatorsTestCase,
-                         options=OPTIONFLAGS
+                         #options=OPTIONFLAGS
                          )
 
     s2 = ZopeDocFileSuite('contenttypes.txt',
                          package='eea.indicators.doc',
                          test_class=BaseIndicatorsTestCase,
-                         options=OPTIONFLAGS
+                         #options=OPTIONFLAGS
                          )
     s2.layer = PloneSite
 
     s3 = ZopeDocFileSuite('permissions.txt',
                          package='eea.indicators.doc',
                          test_class=BaseIndicatorsTestCase,
-                         options=OPTIONFLAGS
+                         #options=OPTIONFLAGS
                          )
     s3.layer = PloneSite
     return TestSuite((s1, s2, s3))

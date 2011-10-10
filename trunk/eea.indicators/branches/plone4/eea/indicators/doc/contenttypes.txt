@@ -179,8 +179,8 @@ with the following exceptions:
     >>> print versioned_assessment
     <Assessment at ...>
     >>> assessment_part = versioned_assessment.objectValues('AssessmentPart')[0]
-    >>> print sorted(assessment_part.getRelatedItems(), lambda a,b:cmp(a.__class__.__name__, b.__class__.__name__))
-    [<EEAFigure at ...>, <PolicyQuestion at ...> ]  #doctest: +ELLIPSIS
+    >>> print [o.__class__.__name__ for o in sorted(assessment_part.getRelatedItems(), lambda a,b:cmp(a.__class__.__name__, b.__class__.__name__))]
+    ['EEAFigure', 'PolicyQuestion']
     >>> figure_2 = filter(lambda x:x.meta_type=='EEAFigure', assessment_part.getRelatedItems())[0]
     >>> figure_2.absolute_url() == versioned_figure.absolute_url()
     True
