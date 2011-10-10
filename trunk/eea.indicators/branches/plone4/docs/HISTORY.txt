@@ -3,6 +3,8 @@ Changelog
 
 4.0-dev - (unreleased)
 ----------------------
+ * Change: Updated design of the assessment view page [demarant] 
+
  * Synced copied code with the latest eea.rdfmarshaller [tiberich #4530, #4531]
  * Create AssessmentParts for newly added PolicyQuestions when versioning an Assessment [tiberich #4451]
  * Fixed a problem with boolean widgets in aggedit [tiberich #4450]
