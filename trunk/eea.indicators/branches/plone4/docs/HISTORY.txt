@@ -3,9 +3,11 @@ Changelog
 
 4.0-dev - (unreleased)
 ----------------------
+ * Synced copied code with the latest eea.rdfmarshaller [tiberich #4530, #4531]
+ * Create AssessmentParts for newly added PolicyQuestions when versioning an Assessment [tiberich #4451]
+ * Fixed a problem with boolean widgets in aggedit [tiberich #4450]
+ * Fix a unicode bug in specification/@@rdf view [tiberich #4448]
 
- * Change: Updated design of the assessment view page [demarant]
- 
  * Bugfix: Fixed IE JS errors, fixed code that uses jQuery to avoid conflicts
    with other JS frameworks [szabozo0 #4542]
 

@@ -503,7 +503,13 @@ function dialog_edit(url, title, callback, options){
       // it is not possible to click inside the text inputs anymore
       // surprisingly, clicking on their label activates the fields
       // this happens only in Internet Explorer
-      $("#dialog-inner label").trigger('click');
+      //
+      $("#dialog-inner div.ArchetypesRichWidget > label").each(function(){ 
+          var label = this; 
+          if ($(label).parents('.ArchetypesRichWidget').length) { 
+            $(label).trigger('click'); 
+          } 
+      }); 
       set_inout($("#archetypes-fieldname-themes"));
       callback();
     }

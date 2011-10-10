@@ -4,6 +4,7 @@
 """
 from AccessControl import ClassSecurityInfo
 from Acquisition import aq_inner
+from DateTime import DateTime
 from Products.ATContentTypes.content.folder import ATFolder, ATFolderSchema
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema
 from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
@@ -824,8 +825,24 @@ class Specification2Surf(ATCT2Surf):
             fieldAdapter = queryMultiAdapter((field, self.session),
                                              interface=IATField2Surf)
             if fieldAdapter.exportable:
-                value = fieldAdapter.value(context)
-                if value:
+ 
+                try:
+                    value = fieldAdapter.value(context) 
+                except TypeError: 
+                    log.log('RDF marshaller error for context[field]' 
+                            ' "%s[%s]": \n%s: %s' %  
+                            (context.absolute_url(), fieldName,  
+                             sys.exc_info()[0], sys.exc_info()[1]),  
+                             severity=log.logging.WARN) 
+                    continue 
+ 
+                if fieldName == "codes": 
+                    value = ["%s%s" % (c['set'], c['code']) 
+                             for c in value] 
+ 
+                if (value and value != "None") or \
+                        (isinstance(value, basestring) and value.strip()): 
+
                     prefix = self.prefix
 
                     #concatenate the codes field
@@ -835,13 +852,24 @@ class Specification2Surf(ATCT2Surf):
 
                     if isinstance(value, (list, tuple)):
                         value = list(value)
-                    else:
-                        value = (str(value), language)
+                    elif isinstance(value, DateTime): 
+                        value = (value.HTML4(), None, 'http://www.w3.org/2001/XMLSchema#dateTime') 
+                    elif isinstance(value, unicode): 
+                        pass 
+                    else: 
+                        try: 
+                            value = (unicode(value,  
+                                         getattr(sys.stdout, 'encoding', 'UTF-8'),  
+                                         'replace'), language) 
+                        except TypeError: 
+                            value = str(value) 
+
                     if fieldName in self.field_map:
                         fieldName = self.field_map.get(fieldName)
                     elif fieldName in self.dc_map:
                         fieldName = self.dc_map.get(fieldName)
-                        prefix = 'dc'
+                        prefix = 'dcterms'
+
                     try:
                         setattr(resource, '%s_%s' %
                                 (prefix, fieldName), value)
