@@ -731,6 +731,7 @@ function open_relations_widget(widget_dom_id, selected_tab){
   $("#" + widget_dom_id + " :input").trigger('click');
   return false;
 })(jQuery);
+return false;
 }
 
 function preselect_relations_tab(region_id, selected_tab){

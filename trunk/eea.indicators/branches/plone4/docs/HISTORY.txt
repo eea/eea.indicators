@@ -3,6 +3,7 @@ Changelog
 
 4.0-dev - (unreleased)
 ----------------------
+ * Bug fix: fix broken related policy docs widget [tiberich #4627]
  * Change: Updated design of the assessment view page [demarant] 
 
  * Synced copied code with the latest eea.rdfmarshaller [tiberich #4530, #4531]
