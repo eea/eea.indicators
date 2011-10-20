@@ -825,44 +825,45 @@ class Specification2Surf(ATCT2Surf):
             fieldAdapter = queryMultiAdapter((field, self.session),
                                              interface=IATField2Surf)
             if fieldAdapter.exportable:
- 
+
                 try:
-                    value = fieldAdapter.value(context) 
-                except TypeError: 
-                    log.log('RDF marshaller error for context[field]' 
-                            ' "%s[%s]": \n%s: %s' %  
-                            (context.absolute_url(), fieldName,  
-                             sys.exc_info()[0], sys.exc_info()[1]),  
-                             severity=log.logging.WARN) 
-                    continue 
- 
-                if fieldName == "codes": 
-                    value = ["%s%s" % (c['set'], c['code']) 
-                             for c in value] 
- 
+                    value = fieldAdapter.value(context)
+                except TypeError:
+                    log.log('RDF marshaller error for context[field]'
+                            ' "%s[%s]": \n%s: %s' %
+                            (context.absolute_url(), fieldName,
+                             sys.exc_info()[0], sys.exc_info()[1]),
+                             severity=log.logging.WARN)
+                    continue
+
+                if fieldName == "codes":
+                    value = ["%s%s" % (c['set'], c['code'])
+                             for c in value]
+
                 if (value and value != "None") or \
-                        (isinstance(value, basestring) and value.strip()): 
+                        (isinstance(value, basestring) and value.strip()):
 
                     prefix = self.prefix
 
                     #concatenate the codes field
                     if fieldName == "codes":
-                        value = ["%s%s" % (c['set'], c['code'])
-                                 for c in value]
+                        value = ["%s%s" % (v['set'], v['code'])
+                                 for v in value]
 
                     if isinstance(value, (list, tuple)):
                         value = list(value)
-                    elif isinstance(value, DateTime): 
-                        value = (value.HTML4(), None, 'http://www.w3.org/2001/XMLSchema#dateTime') 
-                    elif isinstance(value, unicode): 
-                        pass 
-                    else: 
-                        try: 
-                            value = (unicode(value,  
-                                         getattr(sys.stdout, 'encoding', 'UTF-8'),  
-                                         'replace'), language) 
-                        except TypeError: 
-                            value = str(value) 
+                    elif isinstance(value, DateTime):
+                        value = (value.HTML4(), None,
+                                 'http://www.w3.org/2001/XMLSchema#dateTime')
+                    elif isinstance(value, unicode):
+                        pass
+                    else:
+                        try:
+                            value = (unicode(value,
+                                       getattr(sys.stdout, 'encoding', 'UTF-8'),
+                                       'replace'), language)
+                        except TypeError:
+                            value = str(value)
 
                     if fieldName in self.field_map:
                         fieldName = self.field_map.get(fieldName)
