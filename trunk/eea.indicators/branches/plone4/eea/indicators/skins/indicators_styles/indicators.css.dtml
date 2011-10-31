@@ -475,6 +475,13 @@ display:inherit !important;
 .active_region {
     /* padding:1em 0; */
 }
+/*.active_region.disabled .content {*/
+    /*background-color:#ddd;*/
+/*}*/
+
+.active_region.disabled .control {
+    background-color:#CCC;
+}
 
 .active_field .metadata, .active_field_hovered .metadata, .active_region .metadata {
     display:none;

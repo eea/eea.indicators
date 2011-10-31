@@ -15,6 +15,7 @@
 							<div class="width">400</div>
 							<div class="height">180</div>
 							<div class="reload_page">true</div>
+              <div class="disabler" tal:condition="python:context.Title() == 'Untitled indicator'">true</div>
 							<div class="dialog_title">Edit Title</div>
 						</metal:slot>
 					</metal:macro>

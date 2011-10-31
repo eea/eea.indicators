@@ -552,6 +552,10 @@ function set_edit_buttons() {
   $('.active_field .control a').disableSelection();
   $('.active_field .control a').live('click', function(){
 
+    // check if the control belongs in a disabled region
+    var is_disabled = $(this).parents('.active_region').hasClass('disabled');
+    if (is_disabled) {return false};
+
     // check if this handler is not disabled through metadata
     var meta_disable = $(this).parents('.active_field').children('.metadata .disable_handler').length;
 
@@ -658,6 +662,23 @@ function set_creators(){
 })(jQuery);
 }
 
+function set_disablers(){
+  // first, we look if there are any active_regions that are "disabler"
+  if ($('.active_region .disabler').length)) {
+
+    // next, we disable all active_regions that are not a disabler
+    $('.active_region').each(function(){
+        var node = this;
+        $(node).removeClass('disabled');
+        if ($('.metadata > .disabler', node).length) {
+          // we skip the disabler regions
+        } else {
+          $(node).addClass('disabled');
+        }
+    });
+  }
+}
+
 function set_deleters(){
   // Set handlers for Delete buttons
 
@@ -750,6 +771,7 @@ jQuery(document).ready(function ($) {
   set_creators();
   set_deleters();
   set_edit_buttons();
+  set_disablers();
 
   on_load_dom();
 
