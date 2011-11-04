@@ -165,27 +165,27 @@ class Assessment(ATFolder, ModalFieldEditableAware,
         if parent:  #the parent seems to be missing in tests
             spec_title = parent.getTitle()
         else:
-            spec_title = "Missing parent"
+            spec_title = u"Missing parent"
 
         try:
             wftool = getToolByName(self, 'portal_workflow')
         except AttributeError:
             #the object has not finished its creation process
-            return spec_title + ' - newly created assessment'
-
-        info = wftool.getStatusOf('indicators_workflow', self)
-        if not info:
-            #the object has not finished its creation process
-            return spec_title + ' - newly created assessment'
+            title = spec_title + u' - newly created assessment'
+            return title.encode('utf-8')
 
         time = self.getEffectiveDate()
+        info = wftool.getStatusOf('indicators_workflow', self)
 
-        if info['review_state'] == "published":
+        if not info:
+            #the object has not finished its creation process
+            title = spec_title + u' - newly created assessment'
+        elif info['review_state'] == "published":
             if time is None:
                 time = self.creation_date
                 msg = _("assessment-title-draft",
                     default=u"Assessment published with invalid published date")
-                return spec_title + ' - ' + self.translate(msg)
+                return spec_title + u' - ' + self.translate(msg)
 
             msg = _("assessment-title-published",
                     default=u"Assessment published ${date}",
@@ -193,7 +193,7 @@ class Assessment(ATFolder, ModalFieldEditableAware,
                              (time.Mon(), time.year())
                              }
                     )
-            return spec_title + ' - ' + self.translate(msg)
+            title = spec_title + u' - ' + self.translate(msg)
         else:
             if time is None:
                 time = self.creation_date
@@ -203,8 +203,9 @@ class Assessment(ATFolder, ModalFieldEditableAware,
                              (time.Mon(), time.year())
                              }
                     )
-            return spec_title + ' - ' + self.translate(msg)
+            title = spec_title + u' - ' + self.translate(msg)
 
+        return title.encode('utf-8')
 
     security.declarePublic('Subject')
     def Subject(self):

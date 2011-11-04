@@ -130,7 +130,7 @@ class AssessmentPart(ATFolder, ModalFieldEditableAware,
         question = self.get_related_question()
 
         if question:
-            return question.Title()
+            return question.Title().encode('utf-8')
         else:
             return "Answer to unknown question"
 

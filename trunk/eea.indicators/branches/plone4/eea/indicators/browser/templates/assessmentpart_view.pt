@@ -7,7 +7,7 @@
 	<body>
 		<div metal:fill-slot="main">
 			<h1 tal:content="context/Title">Title here</h1>
-			<div tal:replace="structure context/getAssessment">Assessment text here</div>
+			<div tal:replace="context/getAssessment">Assessment text here</div>
 
 			<h2>Figures</h2>
 

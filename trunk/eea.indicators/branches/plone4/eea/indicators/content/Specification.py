@@ -526,16 +526,16 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
         """ Return title with codes """
         codes = self.getCodes()
 
-        res = ''
+        res = u''
         for code in codes:
             if code:
-                res = res + "%s %s/" % (code['set'], code['code'])
+                res = res + u"%s %s/" % (code['set'], code['code'])
         if res:
-            res = self.title + ' (' + res[:-1] + ')'
+            res = self.title + u' (' + res[:-1] + u')'
         else:
             res = self.title
 
-        return res
+        return res.encode('utf-8')
 
     #security.declarePublic('left_slots')
     #def left_slots(self):
