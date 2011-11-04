@@ -3,6 +3,7 @@ Changelog
 
 4.0-dev - (unreleased)
 ----------------------
+ * Bug fix:added workaround for specification view page being sent as png image [tiberich #4671] 
  * Bug fix: Fixed js errors on assessment aggregated edit [szabozo0 #4667]
  * Bug fix: return strings instead of unicode in Titles of IMS content [tiberich #4660]
  * Feature: disable all agg edit buttons until the title is filled in for Specification [tiberich #4629]
