@@ -664,16 +664,16 @@ function set_creators(){
 
 function set_disablers(){
   // first, we look if there are any active_regions that are "disabler"
-  if ($('.active_region .disabler').length)) {
+  if (jQuery('.active_region .disabler').length) {
 
     // next, we disable all active_regions that are not a disabler
-    $('.active_region').each(function(){
+    jQuery('.active_region').each(function(){
         var node = this;
-        $(node).removeClass('disabled');
-        if ($('.metadata > .disabler', node).length) {
+        jQuery(node).removeClass('disabled');
+        if (jQuery('.metadata > .disabler', node).length) {
           // we skip the disabler regions
         } else {
-          $(node).addClass('disabled');
+          jQuery(node).addClass('disabled');
         }
     });
   }
