@@ -554,7 +554,7 @@ function set_edit_buttons() {
 
     // check if the control belongs in a disabled region
     var is_disabled = $(this).parents('.active_region').hasClass('disabled');
-    if (is_disabled) {return false};
+    if (is_disabled) {return false;}
 
     // check if this handler is not disabled through metadata
     var meta_disable = $(this).parents('.active_field').children('.metadata .disable_handler').length;
@@ -670,9 +670,7 @@ function set_disablers(){
     jQuery('.active_region').each(function(){
         var node = this;
         jQuery(node).removeClass('disabled');
-        if (jQuery('.metadata > .disabler', node).length) {
-          // we skip the disabler regions
-        } else {
+        if !(jQuery('.metadata > .disabler', node).length) {
           jQuery(node).addClass('disabled');
         }
     });
