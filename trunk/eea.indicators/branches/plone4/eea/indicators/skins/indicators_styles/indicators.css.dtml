@@ -5,7 +5,8 @@
 
 #box-classification {
     margin-top:0px;
-    height:380px;
+    min-height:380px;
+    float: left;
 }
 
 #box-classification h4 {
