@@ -670,7 +670,7 @@ function set_disablers(){
     jQuery('.active_region').each(function(){
         var node = this;
         jQuery(node).removeClass('disabled');
-        if !(jQuery('.metadata > .disabler', node).length) {
+        if (!jQuery('.metadata > .disabler', node).length) {
           jQuery(node).addClass('disabled');
         }
     });
