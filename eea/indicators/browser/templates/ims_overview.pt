@@ -1,0 +1,73 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+  metal:use-macro="here/main_template/macros/master"
+  i18n:domain="indicators">
+  <head>
+    <metal:slot fill-slot="head_slot">
+      <title>Permissions Overview for Indicators Database</title>
+    </metal:slot>
+    <metal:slot fill-slot="css_slot">
+      <link type="text/css" rel="stylesheet" media="all" tal:attributes="href string:$portal_url/indicators.css" />
+    </metal:slot>
+  </head>
+  <body>
+    <div metal:fill-slot="main">
+
+      <h1>Permissions Overview for Indicators Database</h1>
+      <tal:block define="queryString string:h2">
+        <metal:toc use-macro="here/portlet_toc/macros/portlet"/>
+      </tal:block>
+
+      <div tal:define="setcodes view/get_setcodes_map">
+        <div tal:repeat="set python:sorted(setcodes.keys())">
+          <h2 tal:define="set python:set or 'Indicators without set codes'" tal:content="set"/>
+          <table class="listing">
+            <thead>
+              <tr>
+                <th>code</th>
+                <th>indicator</th>
+                <th>indicator manager</th>
+                <th>state</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tal:rep tal:repeat="entry python:setcodes[set]">
+                <tal:defs tal:define="codes entry/spec/get_codes; 
+                  codeset python:view.codeset_for(codes, set);">
+                  <tr>
+                    <td>
+                      <span tal:content="string:${codeset/set} ${codeset/code}">CSI 001</span>
+                    </td>
+                    <td class="ims-overview-spec" tal:define="spec python:entry['spec']" >
+                      <img tal:attributes="src string:$portal_url/Specification.gif" />
+                      <a href="" 
+                        tal:attributes="href spec/getURL" 
+                        tal:content="spec/Title">Spec title</a>
+                    </td>
+                    <td >
+                      <span tal:content="entry/manager_id" />
+                    </td>
+                    <td >
+                      <span tal:content="entry/state" />
+                    </td>
+                  </tr>
+                  <tr tal:repeat="as entry/assessments">
+                    <td><span tal:content="string:${codeset/set} ${codeset/code}" /></td>
+                    <td class="ims-overview-assessment">
+                      <img tal:attributes="src string:$portal_url/Assessment.gif" />
+                      <a href=""><span tal:content="python:as[0].Title" />
+                    </a></td>
+                    <td>
+                      <span tal:content="entry/manager_id" />
+                    </td>
+                    <td><span tal:content="python:as[1]" /></td>
+                  </tr>
+                </tal:defs>
+              </tal:rep>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </body>
+</html>

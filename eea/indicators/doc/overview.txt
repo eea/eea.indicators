@@ -1,0 +1,36 @@
+Overview of the Indicators
+==========================
+
+We have skin folders installed. We have several workflows installed.
+Test views. Test workflows. Test permissions.
+
+:vim: set ft=doctest:
+
+Versioning
+----------
+
+Specifications have versions; a version of a specification is a new revision of the Spec; 
+it is a completely restructured specification, with new format for Assessments. This is implemented
+with eea.versions
+ 
+Assessments have versions, each year the specifications get new assessments. 
+
+When creating a new version of a Specification, the new specification is a copy of the old, 
+with the following exceptions:
+
+ * none of the assessments are copied
+ * the work items are not copied
+ * the rest of the contained content items are copied
+
+When creating a new version of an Assessment, the new assessment is a copy of the old, 
+with the following exceptions:
+
+ * All the EEAFigures contained inside are copy of the ones in the previous assessment 
+   but must be linked as new versions of the figures in the older assessment.
+
+EEAFigures inside an assessment cannot be versioned via the Plone GUI. Only when a user 
+create a new Assessment new version of Figures are made and done by code (see above). 
+
+When creating a new Assessment for a Specification, the Assessment should already contain
+AssessmentParts created for all the PolicyQuestions
+

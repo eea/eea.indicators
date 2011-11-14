@@ -1,0 +1,27 @@
+<tal:def tal:define="submit_handler string:simple_edit; ">
+	<tal:def tal:define="region_name string:title_area;
+		region_update_handler string:fragment_title;">
+
+		<metal:macro metal:use-macro="context/indicators_macros/macros/active_region">
+			<metal:slot metal:fill-slot="content">
+        <a name="rfs_title" ></a>
+				<tal:def tal:define="fieldname string:title; fieldset string:default">
+					<metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
+						<metal:slot metal:fill-slot="content">
+							<h1 tal:content="context/Title" class="required-field" tal:condition="context/Title">Title here</h1>
+							<h1 tal:condition="not: context/Title" class="required-field" >Untitled Specification</h1>
+						</metal:slot>
+						<metal:slot metal:fill-slot="extra-metadata">
+							<div class="width">400</div>
+							<div class="height">180</div>
+							<div class="reload_page">true</div>
+							<div class="dialog_title">Edit Title</div>
+						</metal:slot>
+					</metal:macro>
+				</tal:def>
+
+			</metal:slot>
+		</metal:macro>
+
+	</tal:def>
+</tal:def>
