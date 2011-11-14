@@ -1,0 +1,20 @@
+<div class="report" tal:define="duplicate_codes view/get_duplicated_codes">
+  <p>
+    This object has version <strong tal:content="view/current_version">ZZZ</strong>
+  </p>
+  <div tal:repeat="code duplicate_codes">
+    <span tal:content="python:code[0]">CSI ZZZ</span> is also found in: <br/>
+    <tal:rep tal:repeat="brain python:code[1]">
+      <a href='' tal:attributes="href python:brain.getURL()" tal:content="python:brain.Title" />
+      ( <span tal:content="brain/getVersionId" /> )
+      <form method="POST" action="@@assign_version" style="display:inline"
+        tal:attributes="action string:${context/absolute_url}/@@assign_version">
+        <input type="hidden" name="new-version" value="" tal:attributes="value brain/getVersionId" />
+        <input type="hidden" name="nextURL" 
+          tal:attributes="value string:${context/absolute_url}/@@wrong_versions_report"/>
+        <input type="submit" name="submit" value="Assign to this version" />
+      </form> 
+      <br />
+    </tal:rep>
+  </div>
+</div>
