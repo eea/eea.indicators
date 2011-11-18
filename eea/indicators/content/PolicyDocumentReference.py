@@ -75,6 +75,7 @@ PolicyDocumentReference_schema['relatedItems'].widget.visible = {
     'view':'invisible',
     'edit':'invisible',
 }
+PolicyDocumentReference_schema['subject'].required = True
 
 class PolicyDocumentReference(ATCTContent, ATLink, BrowserDefaultMixin):
     """PolicyDocumentReference content class
