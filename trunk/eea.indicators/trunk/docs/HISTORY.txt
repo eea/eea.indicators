@@ -1,8 +1,8 @@
 Changelog
 =========
 
-4.0-dev - (unreleased)
-----------------------
+4.0 - (2011-11-18)
+------------------
  * Bug fix:added workaround for specification view page being sent as png image [tiberich #4671] 
  * Bug fix: Fixed js errors on assessment aggregated edit [szabozo0 #4667]
  * Bug fix: return strings instead of unicode in Titles of IMS content [tiberich #4660]
@@ -10,35 +10,23 @@ Changelog
  * Bug fix: renamed parameter to avoid triggering error when adding assessment from dropdown menu [tiberich #4629]
  * Bug fix: fix broken related policy docs widget [tiberich #4627]
  * Change: Updated design of the assessment view page [demarant] 
-
  * Synced copied code with the latest eea.rdfmarshaller [tiberich #4530, #4531]
  * Create AssessmentParts for newly added PolicyQuestions when versioning an Assessment [tiberich #4451]
  * Fixed a problem with boolean widgets in aggedit [tiberich #4450]
  * Fix a unicode bug in specification/@@rdf view [tiberich #4448]
-
  * Bugfix: Fixed IE JS errors, fixed code that uses jQuery to avoid conflicts
    with other JS frameworks [szabozo0 #4542]
-
  * Bugfix: Removed readiness portlet from left column [szabozo0 #4493]
-
  * TODO: fix "related policy document" button in specification aggedit 
- 
  * Bugfix: Fixed wrong date formats [szabozo0 #4510]
- 
  * Change: Migrated legacy left and right_slots portlets, created specific portlet manager renderer to display readiness portlet in top [szabozo0 #4493]
- 
  * Change: removed the old themes portlet, now part of the main template as viewlet [demarant]
-
  * Change: Added Products.RedirectionTool profile in metadata.xml
-
  * Change: Included ManagementPlan Field and Widget from eea.forms instead of eea.dataservice [szabozo0 #4423]
-
  * Feature: Added upgrade steps
   [voineali #4392]
-
  * Feature: Plone 4.0.4 compatible release
   [tiberich #4214]
-
 
 1.41 - (2011-05-20)
 -------------------
