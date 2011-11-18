@@ -14,6 +14,8 @@ from Products.Archetypes.atapi import TextField, RichWidget
 from Products.CMFCore import permissions
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 from Products.CMFPlone.utils import getToolByName
+from eea.themecentre.content.ThemeTaggable import ThemeTaggable
+from eea.themecentre.content.ThemeTaggable import ThemeTaggable_schema
 from eea.indicators.content import  interfaces
 from zope.interface import implements
 import logging
@@ -66,18 +68,24 @@ schema = Schema((
 )
 
 
-PolicyDocumentReference_schema = ATContentTypeSchema.copy() + \
-    getattr(ATLink, 'schema', Schema(())).copy() + \
+PolicyDocumentReference_schema = (
+    ATContentTypeSchema.copy() +
+    ThemeTaggable_schema.copy() +
+    getattr(ATLink, 'schema', Schema(())).copy() +
     schema.copy()
+)
 
 finalizeATCTSchema(PolicyDocumentReference_schema)
 PolicyDocumentReference_schema['relatedItems'].widget.visible = {
     'view':'invisible',
     'edit':'invisible',
 }
+PolicyDocumentReference_schema['location'].required = True
 PolicyDocumentReference_schema['subject'].required = True
+PolicyDocumentReference_schema['themes'].required = True
 
-class PolicyDocumentReference(ATCTContent, ATLink, BrowserDefaultMixin):
+class PolicyDocumentReference(ATCTContent, ATLink,
+                              BrowserDefaultMixin, ThemeTaggable):
     """PolicyDocumentReference content class
     """
     security = ClassSecurityInfo()
