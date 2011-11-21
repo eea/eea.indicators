@@ -1,0 +1,42 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+  metal:use-macro="here/main_template/macros/master"
+  i18n:domain="indicators">
+
+  <metal:block use-macro="here/global_defines/macros/defines" />
+
+  <metal:baseslot fill-slot="base">
+    <base href="" tal:attributes="href request/URL" />
+  </metal:baseslot>
+
+  <metal:jsslot fill-slot="javascript_head_slot">
+    <script type="text/javascript" tal:attributes="src string:${portal_url}/++resource++jquery.ui-1.7.js"></script>
+    <script type="text/javascript" tal:attributes="src string:${portal_url}/++resource++indicators.js"></script>
+    <script type="text/javascript" tal:attributes="src string:${portal_url}/eeareferencebrowser.js"></script>
+    <script type="text/javascript" tal:attributes="src string:${portal_url}/datagridwidget.js"></script>
+  </metal:jsslot>
+
+  <body>
+    <div metal:fill-slot="main" class="assessment_edit">
+
+      <div id="dialog_edit_target">
+        <!-- This div is used by active field editing -->
+      </div>
+
+      <div tal:replace="structure context/@@fragment_title" />
+
+      <h2>Indicator FactSheet versions</h2>
+      <metal:versions use-macro="here/portlet_versions/macros/versions">
+        <metal:new fill-slot="old" />
+      </metal:versions>
+
+      <div tal:replace="structure context/@@fragment_info" />
+      <div tal:replace="structure context/@@fragment_codes" />
+      <div tal:replace="structure context/@@fragment_related" />
+
+      <metal:versions use-macro="here/portlet_versions/macros/versions">
+        <metal:new fill-slot="new" />
+      </metal:versions>
+
+    </div>
+  </body>
+</html>
