@@ -223,3 +223,10 @@ class ExternalDataSpecThemes(object):
     def tags(self):
         """return tags"""
         return self.context.getThemes()
+
+
+    @tags.setter
+    def tags(self, value):
+        """ Tags is read-only
+        """
+        return
