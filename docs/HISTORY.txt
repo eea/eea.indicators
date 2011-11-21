@@ -1,6 +1,9 @@
 Changelog
 =========
 
+4.3-dev - (unreleased)
+----------------------
+
 4.2 - (2011-11-21)
 ------------------
 * Bug fix: Fixed "AttributeError: can't set attribute tags" for ExternalDataSpec
