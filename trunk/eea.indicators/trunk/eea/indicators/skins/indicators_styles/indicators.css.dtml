@@ -297,6 +297,7 @@ display:inherit !important;
 ================== */
 
 #document-toc {
+   float:left;
    padding: 0.5em 2em 4.5em 1em;
    margin-bottom: -70px !important;
 }
