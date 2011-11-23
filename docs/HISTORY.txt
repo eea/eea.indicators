@@ -3,6 +3,7 @@ Changelog
 
 4.3-dev - (unreleased)
 ----------------------
+ * Bug fix: fix @@rdf view [tiberich #4768]
 
 4.2 - (2011-11-21)
 ------------------

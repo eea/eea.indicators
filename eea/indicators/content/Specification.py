@@ -836,10 +836,6 @@ class Specification2Surf(ATCT2Surf):
                              severity=log.logging.WARN)
                     continue
 
-                if fieldName == "codes":
-                    value = ["%s%s" % (c['set'], c['code'])
-                             for c in value]
-
                 if (value and value != "None") or \
                         (isinstance(value, basestring) and value.strip()):
 
