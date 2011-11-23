@@ -3,6 +3,7 @@ Changelog
 
 4.3-dev - (unreleased)
 ----------------------
+ * Buf fix: fixed TOC [szabozo0 #4726]
  * Bug fix: fix @@rdf view [tiberich #4768]
 
 4.2 - (2011-11-21)
