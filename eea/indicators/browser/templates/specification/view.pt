@@ -61,7 +61,7 @@
       <h1 class="documentFirstHeading" tal:content="context/Title">Title here</h1>
     </div>
     <div metal:fill-slot="content-description"></div>
-    <div metal:fill-slot="content-core" class="specification_view" id='region-content'>
+    <div metal:fill-slot="content-core" class="specification_view clear-toc" id='region-content'>
       <metal:main_macro define-macro="main"
         tal:define="portal_type python:here.getPortalTypeName().lower().replace(' ', '_');
         base_macros here/base/macros;
