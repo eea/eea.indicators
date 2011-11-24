@@ -207,6 +207,9 @@ display:inherit !important;
     background: transparent url(Assessment.gif) no-repeat scroll 0 8px;
     padding: 10px 0 6px 30px;
 }
+.assessment_view .figure-title {
+    display:inherit;
+}
 .specification {
     background: transparent url(Specification.gif) no-repeat scroll 0 8px;
     padding: 10px 0 6px 30px;
