@@ -145,9 +145,7 @@
             <div tal:repeat="figure eea_figures" class="indicator-figure-plus-container">
               <div class="indicator-figure-plus" tal:attributes="id figure/getId">
                 <div class="indicator-figure-image">
-                  <a title="Downloads and more info"
-                    href=""
-                    tal:attributes="href figure/absolute_url">
+                  <a title="Downloads and more info" href="" tal:attributes="href figure/absolute_url">
                     <img alt="" title="" src=""
                       tal:attributes="alt figure/Title;
                       title figure/Title;

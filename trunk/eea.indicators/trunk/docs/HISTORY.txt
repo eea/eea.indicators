@@ -3,10 +3,11 @@ Changelog
 
 4.4-dev - (unreleased)
 ----------------------
+ * Bug fix: show figure title in assessment view [tiberich #4753]
 
 4.3 - (2011-11-23)
 ------------------
- * Buf fix: fixed TOC [szabozo0 #4726]
+ * Bug fix: fixed TOC [szabozo0 #4726]
  * Bug fix: fix @@rdf view [tiberich #4768]
 
 4.2 - (2011-11-21)
