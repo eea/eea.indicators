@@ -1,0 +1,130 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xml:lang="en"
+	lang="en"
+	xmlns:tal="http://xml.zope.org/namespaces/tal"
+	xmlns:metal="http://xml.zope.org/namespaces/metal"
+	xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+	i18n:domain="indicators">
+	<head><title></title></head>
+	<body>
+
+		<div metal:define-macro="body"
+			tal:define="portal_type portal_type|string:unknowntype">
+			<form name="edit_form" method="post"
+				enctype="multipart/form-data"
+				class="enableUnloadProtection atBaseEditForm"
+				action="" id=""
+				tal:attributes="action python:here.absolute_url()+'/'+template.id;
+												id string:${portal_type}-base-edit">
+
+				<metal:block define-slot="extra_top" />
+
+				<metal:block define-slot="widgets">
+					<div class="widgets-area">
+						<tal:fields repeat="field fields">
+							<metal:fieldMacro use-macro="python:here.widget(field.getName(), mode='edit')" />
+						</tal:fields>
+					</div>
+				</metal:block>
+
+				<metal:block define-slot="extra_bottom" />
+
+				<div class="formControls">
+
+					<input type="hidden" name="specific_field" tal:attributes="value specific_field" />
+
+					<input type="hidden"
+						name="fieldset"
+						value="default"
+						tal:attributes="value fieldset|request/fieldset"
+						/>
+					<input type="hidden"
+						name="form.submitted"
+						value="1"
+						/>
+					<input type="hidden"
+						name="add_reference.field:record"
+						value=""
+						/>
+					<input type="hidden"
+						name="add_reference.type:record"
+						value=""
+						/>
+					<input type="hidden"
+						name="add_reference.destination:record"
+						value=""
+						/>
+
+					<tal:env define="env request/controller_state/kwargs">
+						<tal:loop repeat="varname python:('reference_source_url', 'reference_source_field', 'reference_source_fieldset')">
+							<tal:reference define="items python:env.get(varname, request.get(varname))"
+								condition="items">
+								<input tal:repeat="item items"
+									type="hidden"
+									name="form_env.reference_source_url:list:record"
+									value="value"
+									tal:attributes="value item;
+									name string:form_env.${varname}:list:record"
+									/>
+							</tal:reference>
+						</tal:loop>
+					</tal:env>
+
+					<tal:comment replace="nothing">
+						Turn 'persistent_' variables from controller_state persistent
+					</tal:comment>
+					<tal:env repeat="env request/controller_state/kwargs/items">
+						<input type="hidden"
+							name="key"
+							value="value"
+							tal:define="key python:env[0];
+							value python:env[1]"
+							tal:condition="python:key.startswith('persistent_')"
+							tal:attributes="name string:form_env.${key}:record;
+							value value"
+							/>
+					</tal:env>
+
+					<tal:comment replace="nothing">
+						Turn 'persistent_' variables from forms (GET/POST) persistent
+					</tal:comment>
+					<tal:env repeat="env request/form">
+						<input type="hidden"
+							name="key"
+							value="value"
+							tal:define="key env;
+							value request/?env"
+							tal:condition="python:key.startswith('persistent_')"
+							tal:attributes="name string:form_env.${key}:record;
+							value value"
+							/>
+					</tal:env>
+
+					<tal:comment replace="nothing">
+						Store referrer to remember where to go back
+					</tal:comment>
+					<input type="hidden"
+						name="last_referer"
+						tal:define="last_referer python:here.session_restore_value('HTTP_REFERER', request.form.get('last_referer', request.get('HTTP_REFERER')))"
+						tal:attributes="value python:(last_referer and '%s/%s' % (here.absolute_url(), template.id) not in last_referer) and last_referer or (here.getParentNode() and here.getParentNode().absolute_url())"
+						/>
+
+					<metal:block define-slot="buttons">
+						<!-- <input class="context" -->
+						<!-- 	tabindex="" -->
+						<!-- 	type="submit" -->
+						<!-- 	name="form_submit" -->
+						<!-- 	value="Save" -->
+						<!-- 	i18n:attributes="value label_save;" -->
+						<!-- 	tal:attributes="tabindex tabindex/next; -->
+						<!-- 	disabled python:test(isLocked, 'disabled', None);" -->
+						<!-- 	/> -->
+						<!-- <a href="#" class="cancel-btn" i18n:translate="label_cancel">Cancel</a> -->
+					</metal:block>
+
+				</div>
+			</form>
+		</div>
+
+	</body>
+</html>
