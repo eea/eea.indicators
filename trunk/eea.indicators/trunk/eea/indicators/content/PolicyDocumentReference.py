@@ -80,9 +80,6 @@ PolicyDocumentReference_schema['relatedItems'].widget.visible = {
     'view':'invisible',
     'edit':'invisible',
 }
-PolicyDocumentReference_schema['location'].required = True
-PolicyDocumentReference_schema['subject'].required = True
-PolicyDocumentReference_schema['themes'].required = True
 
 class PolicyDocumentReference(ATCTContent, ATLink,
                               BrowserDefaultMixin, ThemeTaggable):
