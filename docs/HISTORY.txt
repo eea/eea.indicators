@@ -3,6 +3,8 @@ Changelog
 
 4.5-dev - (unreleased)
 ----------------------
+* Bug fix: Required themes and subject is handled by EEAContentTypes
+  [voineali #4694]
 
 4.4 - (2011-11-24)
 ------------------
