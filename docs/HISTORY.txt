@@ -1,6 +1,9 @@
 Changelog
 =========
 
+4.8-dev - (unreleased)
+----------------------
+
 4.7 - (2011-11-30)
 ------------------
  * Bug fix: fix versioning problem caused by previous version changes [tiberich #4777]
