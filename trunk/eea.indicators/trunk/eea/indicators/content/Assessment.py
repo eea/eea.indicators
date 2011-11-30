@@ -95,6 +95,7 @@ schema = Schema((
         keepReferencesOnCopy=True,
         multiValued=True,
         relationship='relatesTo',
+        referencesSortable=True,
         widget=EEAReferenceBrowserWidget(
             visible={'view':'invisible', 'edit':'invisible'},
             label='Related Item(s)',

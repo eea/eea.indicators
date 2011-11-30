@@ -73,6 +73,7 @@ schema = Schema((
         relationship='relatesTo',
         required=True,
         validators=('one_assessment_per_question',),
+        referencesSortable=True,
         widget=EEAReferenceBrowserWidget(
             label="Answers to policy question and related EEAFigures",
             description='Answers to policy question and related EEAFigures',

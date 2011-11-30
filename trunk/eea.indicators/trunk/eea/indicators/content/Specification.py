@@ -386,6 +386,7 @@ schema = Schema((
             multiValued=True,
             isMetadata=False,
             keepReferencesOnCopy=True,
+            referencesSortable=True,
             widget=EEAReferenceBrowserWidget(
                 label='External data references',
                 description=("References to external data sets, available on "
