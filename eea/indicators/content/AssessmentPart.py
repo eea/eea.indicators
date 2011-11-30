@@ -191,7 +191,6 @@ class AssessmentPart(ATFolder, ModalFieldEditableAware,
             return res
 
         res = [rd[uid] for uid in order if uid in rd.keys()]
-        print "Returning %s from get_related_items()" % res
         return res
 
     security.declareProtected('View', 'get_raw_related_items')
@@ -218,7 +217,6 @@ class AssessmentPart(ATFolder, ModalFieldEditableAware,
             return res
         res = [r for r in order if r in res]
 
-        print "Returning %s from get_raw_related_items()" % res
         return res
     
     security.declareProtected('View', 'getRelatedItems')
@@ -230,9 +228,40 @@ class AssessmentPart(ATFolder, ModalFieldEditableAware,
         instance = self
         field = self.getField('relatedItems')
         
-        field.set(self, value)
-        uids = self.get_raw_related_items()
+        tool = getToolByName(instance, REFERENCE_CATALOG)
+        targetUIDs = [ref.targetUID for ref in
+                      tool.getReferences(instance, field.relationship)]
 
-        instance.at_ordered_refs = {}
-        instance.at_ordered_refs[field.relationship] = tuple(filter(None, uids))
-        print "set raw related items to ", uids
+        if value is None:
+            value = ()
+
+        if not isinstance(value, (list, tuple)):
+            value = value,
+        elif not field.multiValued and len(value) > 1:
+            raise ValueError, \
+                  "Multiple values given for single valued field %r" % self
+
+        #convert objects to uids if necessary
+        uids = []
+        for v in value:
+            if isinstance(v, basestring):
+                uids.append(v)
+            else:
+                uids.append(IUUID(v, None))
+
+        add = [v for v in uids if v and v not in targetUIDs]
+        sub = [t for t in targetUIDs if t not in uids]
+
+        for uid in add:
+            __traceback_info__ = (instance, uid, value, targetUIDs)
+            # throws IndexError if uid is invalid
+            tool.addReference(instance, uid, field.relationship)
+
+        for uid in sub:
+            tool.deleteReference(instance, uid, field.relationship)
+
+        if not hasattr( aq_base(instance), 'at_ordered_refs'):
+            instance.at_ordered_refs = {}
+
+        instance.at_ordered_refs[field.relationship] = tuple( filter(None, uids) )
+
