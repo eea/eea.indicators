@@ -165,6 +165,7 @@ schema = Schema((
             relationship='relatesTo',
             multiValued=True,
             isMetadata=False,
+            referencesSortable=True,
             widget=EEAReferenceBrowserWidget(
                 label='Related Item(s)',
                 description='Specify related item(s).',
