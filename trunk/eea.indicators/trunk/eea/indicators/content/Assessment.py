@@ -343,6 +343,7 @@ def hasWrongVersionId(context):
     if len(version_ids) == 1:
         return False
 
+    print version_ids
     return True
 
     #needs python2.5
