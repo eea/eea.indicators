@@ -1,6 +1,9 @@
 Changelog
 =========
 
+4.7-dev - (unreleased)
+----------------------
+
 4.6 - (2011-11-30)
 ------------------
  * Bug fix: make all references fields sortable [tiberich #4777]
