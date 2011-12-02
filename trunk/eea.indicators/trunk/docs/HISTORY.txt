@@ -1,8 +1,8 @@
 Changelog
 =========
 
-4.8-dev - (unreleased)
-----------------------
+4.8 - (2011-12-02)
+------------------
  * Bug fix: don't use referencesSortable for any of our content [tiberich #4777]
  * Bug fix: set default add location for PolicyDocumentReference, used in eea.relations widget [tiberich #4810]
 
