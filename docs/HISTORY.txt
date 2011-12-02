@@ -1,6 +1,9 @@
 Changelog
 =========
 
+4.9-dev - (unreleased)
+----------------------
+
 4.8 - (2011-12-02)
 ------------------
  * Bug fix: don't use referencesSortable for any of our content [tiberich #4777]
