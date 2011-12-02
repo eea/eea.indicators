@@ -1,0 +1,63 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:tal="http://xml.zope.org/namespaces/tal"
+	xmlns:metal="http://xml.zope.org/namespaces/metal"
+	xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+	i18n:domain="indicators">
+
+	<head><title></title></head>
+
+	<body>
+
+		<metal:view_macro define-macro="view">
+			<div metal:use-macro="here/eeareferencebrowser/macros/view" />
+		</metal:view_macro>
+
+		<metal:popup_macro define-macro='popup'>
+			<div metal:use-macro="here/eeareferencebrowser/macros/popup" >
+				<metal:slot fill-slot="edit">
+					<input type="hidden" value=""
+						tal:condition="multiVal"
+						tal:attributes="name string:$fieldName:default" />
+					<select style="display:none" tal:attributes="
+						multiple python:multiVal and 'multiple' or None;
+						name string:$fieldName:list; id fieldName;">
+						<tal:uids repeat="uid uids">
+							<option selected="selected"
+								tal:condition="uid" tal:attributes="value uid" tal:content="uid" />
+						</tal:uids>
+					</select>
+				</metal:slot>
+
+				<metal:slot fill-slot="script">
+					<script type="text/javascript" 
+						tal:define="widget_dom_id string:active_field-$fieldName;" 
+						tal:content="string:
+							var popup = new EEAReferenceBrowser.Widget('$fieldName', {});;
+              try {
+                $$('#' + '$widget_dom_id').get(0)._widget = popup;;
+                } catch (err) {}
+
+							$$(popup.events).bind(popup.events.SAVED, function(evt){
+								ajaxify($$('#active_field-$fieldName'), '$fieldName');;
+								$$('#active_field-$fieldName form').trigger('submit');;
+							});
+							">
+						</script>
+				</metal:slot>
+			</div>
+		</metal:popup_macro>
+
+		<metal:edit_macro define-macro='edit'>
+			<metal:use use-macro="field_macro | here/widgets/field/macros/edit">
+				<metal:fill fill-slot="widget_body">
+					<metal:use use-macro="here/indicatorsrelationwidget/macros/popup" />
+				</metal:fill>
+			</metal:use>
+		</metal:edit_macro>
+
+		<metal:edit_macro define-macro='search'>
+			<div metal:use-macro="here/indicatorsrelationwidget/macros/edit"></div>
+		</metal:edit_macro>
+
+	</body>
+</html>

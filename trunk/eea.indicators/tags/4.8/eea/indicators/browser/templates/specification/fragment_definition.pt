@@ -1,0 +1,63 @@
+<tal:def tal:define="submit_handler string:simple_edit; ">
+  <tal:def tal:define="region_name string:definition_area;
+    region_update_handler string:fragment_definition;
+    also_reload python:['object_readiness'];
+    imsutils nocall:context/@@indicator_utils;
+    portal_url context/portal_url">
+
+    <metal:macro metal:use-macro="context/indicators_macros/macros/active_region">
+      <metal:slot metal:fill-slot="content">
+        <div class="logic_group">
+          <a name="rfs_definition" ></a>
+          <h2 id="indicator_definition">Indicator definition</h2>
+
+          <tal:def tal:define="fieldname string:definition; fieldset string:default">
+            <h4 tal:define="field python:context.getField('definition')">
+              <span metal:use-macro="context/indicators_macros/macros/tooltip" />
+              Definition
+            </h4>
+            <metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
+              <metal:slot metal:fill-slot="content">
+                <div tal:condition="python:not imsutils.field_has_value(fieldname, context)"
+                  class="placeholder">
+                  <span class="required">Please fill in</span>
+                </div>
+                <p tal:replace="structure context/getDefinition"></p>
+              </metal:slot>
+              <metal:slot metal:fill-slot="extra-metadata">
+                <div class="width">800</div>
+                <div class="height">435</div>
+                <div class="dialog_title">Edit Indicator Definition</div>
+              </metal:slot>
+            </metal:macro>
+          </tal:def>
+
+
+          <a name="rfs_units" ></a>
+          <h4 tal:define="field python:context.getField('units')">
+            <span metal:use-macro="context/indicators_macros/macros/tooltip" />
+            Units
+          </h4>
+          <tal:def tal:define="fieldname string:units; fieldset string:default">
+            <metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
+              <metal:slot metal:fill-slot="content">
+                <div tal:condition="python:not imsutils.field_has_value(fieldname, context)"
+                  class="placeholder">
+                  <span class="required">Please fill in</span>
+                </div>
+                <p tal:replace="structure context/getUnits"></p>
+              </metal:slot>
+              <metal:slot metal:fill-slot="extra-metadata">
+                <div class="width">800</div>
+                <div class="height">435</div>
+                <div class="dialog_title">Edit Indicator Units</div>
+              </metal:slot>
+            </metal:macro>
+          </tal:def>
+
+        </div>
+      </metal:slot>
+    </metal:macro>
+
+  </tal:def>
+</tal:def>
