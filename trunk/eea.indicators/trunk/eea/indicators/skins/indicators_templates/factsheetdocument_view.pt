@@ -10,15 +10,8 @@
   <head><title></title></head>
 
   <body>
-    <metal:fill fill-slot="main">
-      <metal:main_macro define-macro="main"
-        tal:define="portal_type python:here.getPortalTypeName().lower().replace(' ', '_');
-        base_macros here/base/macros;
-        view_template python:'%s_view' % portal_type;
-        view_macros python:path('here/%s/macros|nothing' % view_template);
-        header_macro view_macros/header | header_macro | base_macros/header;">
-
-        <metal:use_header use-macro="header_macro" />
+    <metal:fill fill-slot="content-core">
+      <metal:main_macro define-macro="content-core">
 
         <tal:block define="field python:context.getField('file');
           accessor python:field.getAccessor(context)();
