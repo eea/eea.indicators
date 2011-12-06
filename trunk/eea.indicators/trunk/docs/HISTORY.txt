@@ -3,7 +3,8 @@ Changelog
 
 4.9-dev - (unreleased)
 ----------------------
-* Bug fix: Fixed factsheetdocument_view
+ * Bug fix: fixed overlap of toc [ichimdav #4823]
+ * Bug fix: Fixed factsheetdocument_view
   [voineali #4821]
 
 4.8 - (2011-12-02)
