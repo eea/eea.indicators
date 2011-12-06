@@ -302,7 +302,7 @@ display:inherit !important;
 #document-toc {
    float:left;
    padding: 0.5em 2em 4.5em 1em;
-   margin-bottom: -70px !important;
+   margin-bottom: 0px !important;
 }
 
 .clear-toc #document-toc{
@@ -311,14 +311,19 @@ display:inherit !important;
 
 .metadata-switch {
     padding-left: 1.5em;
-    background-position: left center;
-    background-repeat: no-repeat;
+    /* background-position: left center; */
+    /* background-repeat: no-repeat; */
     font-weight: bold;
     cursor: pointer;
     font-size: 130%;
     position: relative;
     margin-left:50px;
-    margin-bottom: 2em;
+    margin-bottom: -54px !important;
+    top: -65px;
+    position: relative;
+    line-height: 22px !important;
+    width: 203px;
+    display: block !important;
 }
 .metadata-switch-show {
     background-image: url(bullet_add.png);
