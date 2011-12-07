@@ -177,12 +177,16 @@ class AssessmentPart(ATFolder, ModalFieldEditableAware,
 
     security.declareProtected('View', 'get_related_items')
     def get_related_items(self):
+        """ Related items
+        """
         field = self.getField('relatedItems')
         res = self.getRefs(relationship=field.relationship)
         rd = {}
-        [rd.__setitem__(IUUID(r, None), r) for r in res]
+        for r in res:
+            rd.__setitem__(IUUID(r, None), r)
 
-        if not hasattr(aq_base(self), 'at_ordered_refs'):   #not field.referencesSortable or 
+        #not field.referencesSortable or
+        if not hasattr(aq_base(self), 'at_ordered_refs'):
             return res
 
         refs = self.at_ordered_refs
@@ -195,6 +199,8 @@ class AssessmentPart(ATFolder, ModalFieldEditableAware,
 
     security.declareProtected('View', 'get_raw_related_items')
     def get_raw_related_items(self):
+        """ Raw related items
+        """
         instance = self
         field = self.getField('relatedItems')
 
@@ -202,7 +208,7 @@ class AssessmentPart(ATFolder, ModalFieldEditableAware,
         brains = rc(sourceUID=IUUID(instance, None),
                     relationship=field.relationship)
         res = [b.targetUID for b in brains]
-        if not field.multiValued and not aslist:
+        if not field.multiValued: #and not aslist:
             if res:
                 res = res[0]
             else:
@@ -218,16 +224,20 @@ class AssessmentPart(ATFolder, ModalFieldEditableAware,
         res = [r for r in order if r in res]
 
         return res
-    
+
     security.declareProtected('View', 'getRelatedItems')
     def getRelatedItems(self):
+        """ Related items
+        """
         return self.get_related_items()
 
     security.declareProtected('Modify portal content', 'set_related_items')
     def set_related_items(self, value):
+        """ Set related items
+        """
         instance = self
         field = self.getField('relatedItems')
-        
+
         tool = getToolByName(instance, REFERENCE_CATALOG)
         targetUIDs = [ref.targetUID for ref in
                       tool.getReferences(instance, field.relationship)]
@@ -249,11 +259,11 @@ class AssessmentPart(ATFolder, ModalFieldEditableAware,
             else:
                 uids.append(IUUID(v, None))
 
-        add = [v for v in uids if v and v not in targetUIDs]
+        add = [x for x in uids if x and x not in targetUIDs]
         sub = [t for t in targetUIDs if t not in uids]
 
         for uid in add:
-            __traceback_info__ = (instance, uid, value, targetUIDs)
+            #__traceback_info__ = (instance, uid, value, targetUIDs)
             # throws IndexError if uid is invalid
             tool.addReference(instance, uid, field.relationship)
 
@@ -263,5 +273,5 @@ class AssessmentPart(ATFolder, ModalFieldEditableAware,
         if not hasattr( aq_base(instance), 'at_ordered_refs'):
             instance.at_ordered_refs = {}
 
-        instance.at_ordered_refs[field.relationship] = tuple( filter(None, uids) )
-
+        instance.at_ordered_refs[field.relationship] = tuple(
+            uid for uid in uid if uid is not None)
