@@ -238,7 +238,7 @@ display:inherit !important;
     background: transparent url(PolicyQuestion.gif) no-repeat scroll 0 8px;
     padding: 10px 0 6px 30px;
 }
-#methodology {
+#methodology_header {
     background: transparent url(MethodologyReference.gif) no-repeat scroll 0 8px;
     padding: 10px 0 6px 30px;
 }
