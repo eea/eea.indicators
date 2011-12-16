@@ -1,0 +1,35 @@
+<tal:def tal:define="submit_handler string:simple_edit; ">
+	<tal:def tal:define="region_name string:relateditems_area;
+		region_update_handler string:fragment_relateditems;
+		imsutils nocall:context/@@indicator_utils;
+		portal_url context/portal_url;
+		tooltip_macro context/indicators_macros/macros/tooltip;
+		related_view nocall:context/@@related_items;
+		also_reload python:['policy_context_area', 'data_spec_area'];
+
+		field python:context.schema['relatedItems'];
+		value python:related_view.get_uids();
+		fieldName string:relatedItems;
+		realFieldName string:relatedItems;
+		default_selected_tab string:eea-data;
+		">
+
+		<metal:macro metal:use-macro="context/indicators_macros/macros/active_region">
+			<metal:slot metal:fill-slot="content">
+
+			<div class="logic_group">
+				<h2 id="related_items">
+					<span metal:use-macro="tooltip_macro" /> Related items
+				</h2>
+				<div class="portalMessage" tal:condition="python:not value">
+					You need to reference some related items
+				</div>
+
+				<div metal:use-macro="context/indicators_macros/macros/active_relation_field" />
+			</div>
+
+			</metal:slot>
+		</metal:macro>
+
+	</tal:def>
+</tal:def>
