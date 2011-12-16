@@ -1,6 +1,9 @@
 Changelog
 =========
 
+4.11-dev - (unreleased)
+-----------------------
+
 4.10 - (2011-12-16)
 -------------------
  * Bug fix: fixed editing of methodology field [tiberich #4812]
