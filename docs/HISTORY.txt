@@ -3,6 +3,7 @@ Changelog
 
 4.11-dev - (unreleased)
 -----------------------
+ * Bug fix: fixed editing of related items for AssessmentParts [tiberich #4863]
 
 4.10 - (2011-12-16)
 -------------------
