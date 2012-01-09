@@ -274,4 +274,4 @@ class AssessmentPart(ATFolder, ModalFieldEditableAware,
             instance.at_ordered_refs = {}
 
         instance.at_ordered_refs[field.relationship] = tuple(
-            uid for uid in uid if uid is not None)
+            uid for uid in uids if uid is not None)
