@@ -1,6 +1,9 @@
 Changelog
 =========
 
+4.13-dev - (unreleased)
+-----------------------
+
 4.12 - (2012-01-10)
 -------------------
  * Bug fix: use custom edit_accessor for the Title field for specifications [tiberich #4868]
