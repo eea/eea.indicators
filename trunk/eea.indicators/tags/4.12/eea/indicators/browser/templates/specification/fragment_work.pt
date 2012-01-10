@@ -1,0 +1,36 @@
+<tal:def tal:define="region_name string:work_area;
+	region_update_handler string:fragment_work;">
+
+	<metal:macro metal:use-macro="context/indicators_macros/macros/active_region">
+		<metal:slot metal:fill-slot="content">
+
+			<div class="logic_group">
+				<h2 id="further_work">Further work</h2>
+
+				<div tal:define="works python:context.objectValues('WorkItem');">
+					<a href='./object_factory?type_name=WorkItem' class="object_creator">+ Work Item</a>
+
+					<div tal:repeat="work works" class="work_item">
+						<a href=""
+							class="schemata_edit spec_control"
+							title="Edit Work Item"
+							i18n:attributes='title'
+							tal:attributes="href string:${work/absolute_url}/schemata_edit?fieldset=default">Edit</a>
+						<a href=""
+							class="object_delete spec_control"
+							tal:attributes="href string:${work/aq_parent/absolute_url}/obj_delete?id=${work/getId}">Delete</a>
+
+						<h5 tal:content="work/Title" />
+						<p tal:replace="structure work/Description"></p>
+						<h6>Resource needs</h6>
+						<p tal:replace="structure work/getNeeds"></p>
+					</div>
+
+					<div class="visualClear"><!-- --></div>
+				</div>
+			</div>
+
+		</metal:slot>
+	</metal:macro>
+
+</tal:def>

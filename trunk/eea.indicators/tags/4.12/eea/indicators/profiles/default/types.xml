@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<object name="portal_types"
+        meta_type="Plone Types Tool">
+ <object name="PolicyQuestion"
+         meta_type="Factory-based Type Information with dynamic views"/>
+ <object name="ExternalDataSpec"
+         meta_type="Factory-based Type Information with dynamic views"/>
+ <object name="MethodologyReference"
+         meta_type="Factory-based Type Information with dynamic views"/>
+ <object name="Specification"
+         meta_type="Factory-based Type Information with dynamic views"/>
+ <object name="Assessment"
+         meta_type="Factory-based Type Information with dynamic views"/>
+ <object name="RationaleReference"
+         meta_type="Factory-based Type Information with dynamic views"/>
+ <object name="AssessmentPart"
+         meta_type="Factory-based Type Information with dynamic views"/>
+ <object name="PolicyDocumentReference"
+         meta_type="Factory-based Type Information with dynamic views"/>
+ <object name="WorkItem"
+         meta_type="Factory-based Type Information with dynamic views"/>
+ <!-- ##code-section TYPES -->
+ <object name="FactSheetDocument"
+         meta_type="Factory-based Type Information with dynamic views"/>
+ <object name="IndicatorFactSheet"
+         meta_type="Factory-based Type Information with dynamic views"/>
+ <object name="KeyMessage"
+         meta_type="Factory-based Type Information with dynamic views"/>
+ <!-- ##/code-section TYPES -->
+</object>
