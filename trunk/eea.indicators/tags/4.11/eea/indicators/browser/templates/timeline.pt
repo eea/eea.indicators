@@ -1,0 +1,115 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+  metal:use-macro="here/main_template/macros/master"
+  i18n:domain="indicators">
+  <head>
+    <metal:slot fill-slot="head_slot">
+      <title>Permissions Overview for Indicators Database</title>
+    </metal:slot>
+    <metal:slot fill-slot="css_slot">
+      <link type="text/css" rel="stylesheet" media="all" tal:attributes="href string:$portal_url/indicators.css" />
+    </metal:slot>
+
+    <metal:slot fill-slot="javascript_head_slot">
+      <script type="text/javascript" tal:attributes="src context/++resource++jquery.qtip.js" ></script>
+      <script type="text/javascript" tal:attributes="src string:$portal_url/++resource++indicators-timeline.js" ></script>
+    </metal:slot>
+  </head>
+  <body>
+    <div metal:fill-slot="main"
+      tal:define="info view/get_timeline;
+      timeline python:info[1];
+      start python: info[0][0];
+      end python:info[0][1];
+      years python:range(start, end+1)">
+
+      <tal:block define="queryString string:h2">
+        <metal:toc use-macro="here/portlet_toc/macros/portlet"/>
+      </tal:block>
+
+      <h1>Indicators database</h1>
+      <tal:rep tal:repeat="set python:sorted(timeline.keys())">
+        <h2 tal:content="set">CSI</h2>
+        <table class='listing'>
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th tal:repeat="year years" tal:content="year">2002</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr tal:repeat="code python:sorted(timeline[set].keys())">
+              <td tal:content="code">CSI</td>
+              <td tal:repeat="year python:years" >
+
+                <tal:comment replace="nothing">
+                  <!-- <div tal:condition="python:timeline[set][code].get('missing') and not timeline[set][code].get(year)"  -->
+                    <!--   tal:define="specs python:timeline[set][code].get('missing')"> -->
+                    <!--   <a href="" tal:attributes="href python:spec[1]" tal:repeat="spec specs">No assessment</a> -->
+                    <!-- </div> -->
+                </tal:comment>
+
+                <tal:def tal:define="info python:timeline[set][code].get(year);">
+                  <div tal:repeat="entry info">
+                    <a href="#" class="not-ready-anchor" tal:condition="python:entry['readiness']!=100">
+                      <img tal:attributes="src string:$portal_url/cancel.png" />
+                    </a>
+                    <a href="" tal:condition="python:entry['type'] == 'a'"
+                      tal:attributes="href python:entry['url'];
+                      title python:entry['title'];
+                      class string:state-${entry/state};"
+                      tal:define="state python: entry['state'];
+                      state_label python: state == 'published' and 'Published' or 'Draft'"
+                      i18n:translate="see_assessment">
+                      <span i18n:name="state" tal:content="state_label" /> assessment
+                    </a>
+                    <a href="" tal:condition="python:entry['type'] == 's'"
+                      tal:attributes="href python:entry['url'];
+                      title python:entry['title'];
+                      class string:state-${entry/state};"
+                      tal:define="state python: entry['state'];
+                      state_label python: state == 'published' and 'Published' or 'Draft'"
+                      i18n:translate="see_specification">
+                      <span i18n:name="state" tal:content="state_label"/> specification
+                    </a>
+                    <a href="" tal:condition="python:entry['type'] == 'f'"
+                      tal:attributes="href python:entry['url'];
+                      title python:entry['title'];
+                      class string:state-${entry/state};"
+                      tal:define="state python: entry['state'];
+                      state_label python: state == 'published' and 'Published' or 'Draft'"
+                      i18n:translate="see_indicatorfactsheet">
+                      <span i18n:name="state" tal:content="state_label"/> factsheet
+                    </a>
+                    <a href=""
+                      tal:condition="python:entry['type'] == 'p'"
+                      tal:attributes="href python:entry[1]">See publication</a>
+
+                    <!-- Comments -->
+                    <ul tal:condition="python:int(entry['comments'] or 0)" class="timeline-comments" >
+                      <li>
+                        <a href=""
+                          tal:attributes="href python:entry['url'] + '#eea-comments'">See comments</a>
+                      </li>
+                    </ul>
+                  </div>
+                </tal:def>
+
+              </td>
+
+              <tal:comment replace="nothing">
+                <!-- <td tal:define="futures python:timeline[set][code]['future']"> -->
+                  <!--   <div tal:repeat="entry futures"> -->
+                    <!--     <a href="" tal:condition="python:entry[0] == 'f'" tal:attributes="href python:entry[1]">See assessment</a> -->
+                    <!--   </div> -->
+                  <!-- </td> -->
+              </tal:comment>
+            </tr>
+          </tbody>
+
+        </table>
+      </tal:rep>
+
+    </div>
+
+  </body>
+</html>
