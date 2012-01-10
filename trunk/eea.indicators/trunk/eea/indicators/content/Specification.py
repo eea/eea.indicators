@@ -74,6 +74,7 @@ schema = Schema((
         default="Untitled indicator",
         required=True,
         accessor="getTitle",
+        edit_accessor="get_raw_title",
         required_for_published=True,
         ),
     DataGridField(
@@ -537,6 +538,10 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
             res = self.title
 
         return res.encode('utf-8')
+
+    security.declarePublic("get_raw_title")
+    def get_raw_title(self):
+        return self.title
 
     #security.declarePublic('left_slots')
     #def left_slots(self):
