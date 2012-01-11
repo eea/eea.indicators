@@ -1,3 +1,6 @@
+<div tal:content='something' />
+This file is not used anymore and shouldn't be used
+
 <html xmlns="http://www.w3.org/1999/xhtml"
       xml:lang="en"
       lang="en"
