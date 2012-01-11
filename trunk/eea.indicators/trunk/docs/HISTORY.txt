@@ -1,8 +1,8 @@
 Changelog
 =========
 
-4.13-dev - (unreleased)
------------------------
+4.13 - (2012-01-11)
+-------------------
  * Bug fix: added a link in indicators_timeline and indicators_overview to make the overviews full screen [tiberich ]
  * Bug fix: disabled customization of edit_macros for Specification [tiberich #4869]
 
