@@ -11,6 +11,7 @@ from Products.CMFPlone import PloneMessageFactory as _
 from Products.CMFPlone.utils import getToolByName
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from ZPublisher.Client import querify
 from eea.indicators.browser.utils import has_one_of
 from eea.indicators.content.Specification import assign_version
 from eea.versions.versions import CreateVersion as BaseCreateVersion
@@ -224,3 +225,23 @@ class SetCodes(BrowserView):
         field.getStorage(self.context).set(field.getName(), self.context, value)
         return "Fixed"
 
+
+class FragmentMetadataView(BrowserView):
+    """View for fragment_metadata
+    """
+
+    schematas = ['categorization', 'dates', 'ownership', 'settings']
+    exclude = ['location', 'relatedItems', 'subject']
+
+    def field_names(self):
+        c = self.context
+        fields = c.schema.filterFields(lambda f:f.schemata in self.schematas)
+        fields = [f.getName() for f in fields if f.getName() not 
+                                                        in self.exclude]
+
+        return fields
+
+    def fields(self):
+        """returns a query for fields
+        """
+        return querify([('fields', self.field_names())])
