@@ -117,15 +117,15 @@ class WorkItem(ATCTContent, BrowserDefaultMixin):
                     'due':duedate,
                     }
                 )
-        return self.translate(title)
+        return self.translate(title).encode('utf-8')
 
     security.declarePublic("Description")
     def Description(self):
         """Description"""
         convert = getToolByName(self, 'portal_transforms').convert
         text = convert('html_to_text', self.getDescription()).getData()
-        try:
-            text = text.decode('utf-8', 'replace')
-        except UnicodeDecodeError, err:
-            logger.info(err)
+        #try:
+            #text = text.decode('utf-8', 'replace')
+        #except UnicodeDecodeError, err:
+            #logger.info(err)
         return text
