@@ -24,11 +24,9 @@ from Products.DataGridField.Column import Column
 from Products.DataGridField.SelectColumn import SelectColumn
 from Products.EEAContentTypes.content.ThemeTaggable import ThemeTaggable
 from Products.EEAContentTypes.content.ThemeTaggable import ThemeTaggable_schema
-from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 from Products.UserAndGroupSelectionWidget import UserAndGroupSelectionWidget
 from eea.indicators import msg_factory as _
 from eea.indicators.browser.assessment import create_version as createVersion
-from eea.indicators.config import templates_dir
 from eea.indicators.content.IndicatorMixin import IndicatorMixin
 from eea.indicators.content.base import CustomizedObjectFactory
 from eea.indicators.content.base import ModalFieldEditableAware
@@ -51,6 +49,9 @@ import datetime
 import logging
 import rdflib
 import sys
+
+#from Products.PageTemplates.PageTemplateFile import PageTemplateFile
+#from eea.indicators.config import templates_dir
 
 logger = logging.getLogger('eea.indicators.content.Specification')
 
@@ -477,7 +478,8 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
 
     #this template is customized to expose the number of remaining
     #unfilled fields that are mandatory for publishing
-    edit_macros = PageTemplateFile('edit_macros.pt', templates_dir)
+
+    #edit_macros = PageTemplateFile('edit_macros.pt', templates_dir)
 
     #portlet_readiness = \
             #ViewPageTemplateFile('../browser/templates/portlet_readiness.pt')
