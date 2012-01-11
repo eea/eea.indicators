@@ -330,6 +330,11 @@
           </div>
         </div>
 
+
+        <!--<h2 id="other_metadata">Other metadata</h2>-->
+        <!--<div tal:content="python:context.schema.filterFields(lambda f:f.schemata in ['categorization', 'dates', 'ownership', 'settings'])" />-->
+        <!--<div tal:content="python:[f.schemata for f in context.schema.fields()]" />-->
+
       </div>
 
     </metal:slot>
