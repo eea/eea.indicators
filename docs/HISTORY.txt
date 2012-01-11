@@ -3,6 +3,7 @@ Changelog
 
 4.14-dev - (unreleased)
 -----------------------
+ * Bug fix: fixed a problem with WorkItems crashing on edit [tiberich]
 
 4.13 - (2012-01-11)
 -------------------
