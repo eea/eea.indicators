@@ -32,6 +32,7 @@
       <div tal:replace="structure context/@@fragment_info" />
       <div tal:replace="structure context/@@fragment_codes" />
       <div tal:replace="structure context/@@fragment_related" />
+      <div tal:replace="structure context/@@fragment_metadata" />
 
       <metal:versions use-macro="here/portlet_versions/macros/versions">
         <metal:new fill-slot="new" />

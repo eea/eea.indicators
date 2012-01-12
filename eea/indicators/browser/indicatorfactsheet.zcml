@@ -43,4 +43,10 @@
                   template="templates/indicatorfactsheet/fragment_related.pt"
                   permission="cmf.ModifyPortalContent" />
 
+    <browser:page for="eea.indicators.content.interfaces.IIndicatorFactSheet"
+                  name="fragment_metadata"
+                  template="templates/indicatorfactsheet/fragment_metadata.pt"
+                  permission="cmf.ModifyPortalContent" 
+                  class=".specification.FragmentMetadataView"/>
+
 </configure>
