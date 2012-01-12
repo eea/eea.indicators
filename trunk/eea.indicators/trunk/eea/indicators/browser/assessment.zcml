@@ -18,6 +18,7 @@
 
     <browser:page for="eea.indicators.content.interfaces.IAssessment"
                   name="fragment_metadata"
+                  class=".specification.FragmentMetadataView"
                   template="templates/assessment/fragment_metadata.pt"
                   permission="cmf.ModifyPortalContent" />
 
