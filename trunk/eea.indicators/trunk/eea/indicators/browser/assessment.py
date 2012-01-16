@@ -196,3 +196,25 @@ class WrongVersionReport(BrowserView):
     def get_version_for(self, obj):
         """get version for"""
         return get_version_id(obj)
+
+
+
+class FragmentMetadataView(BrowserView):
+    """View for fragment_metadata
+    """
+
+    schematas = ['categorization', 'dates', 'ownership', 'settings']
+    exclude = ['relatedItems', 'subject']   #'location',  'subject'
+
+    def field_names(self):
+        c = self.context
+        fields = c.schema.filterFields(lambda f:f.schemata in self.schematas)
+        fields = [f.getName() for f in fields if f.getName() not 
+                                                        in self.exclude]
+
+        return fields
+
+    def fields(self):
+        """returns a query for fields
+        """
+        return querify([('fields', self.field_names())])

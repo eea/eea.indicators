@@ -31,6 +31,8 @@ from eea.workflow.interfaces import IObjectReadiness
 from eea.workflow.utils import ATFieldValueProvider
 from zope.component import adapts
 from zope.interface import implements
+from eea.indicators.browser.specification import FragmentMetadataView as \
+    BaseFragmentMetadataView
 import logging
 
 logger = logging.getLogger('eea.indicators.content.Assessment')

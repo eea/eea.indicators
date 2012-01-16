@@ -13,17 +13,19 @@ from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from ZPublisher.Client import querify
 from eea.indicators.browser.utils import has_one_of
-from eea.indicators.content.Specification import assign_version
+from eea.versions.interfaces import IVersionControl
 from eea.versions.versions import CreateVersion as BaseCreateVersion
 from eea.versions.versions import create_version as base_create_version
 from eea.versions.versions import get_version_id
+from eea.versions.versions import get_versions_api
 from eea.workflow.interfaces import IFieldIsRequiredForState, IValueProvider
 from eea.workflow.readiness import ObjectReadiness
 from plone.app.layout.globals.interfaces import IViewView
 from zope.component import getMultiAdapter
+from zope.interface import alsoProvides
 from zope.interface import implements
-
 import logging
+
 logger = logging.getLogger('eea.indicators.browser.specification')
 
 
@@ -180,6 +182,66 @@ class ContactInfo(BrowserView):
         return mtool.getMemberInfo(manager_id)
 
 
+def get_assessment_vid_for_spec_vid(context, versionid):
+    """Returns an assessment version id
+
+    Given a version id for a specification, returns the version id of the
+    assessments that are contained in any of the Specifications from that
+    versioning group.
+    """
+
+    vid = _get_random(context, 10)
+    cat = getToolByName(context, 'portal_catalog')
+    p = '/'.join(context.getPhysicalPath())
+    brains = cat.searchResults({'getVersionId':versionid,
+                                'portal_type':'Specification'})
+    brains = [b for b in brains if b.getPath() != p]
+
+    for brain in brains:
+        obj = brain.getObject()
+        children = obj.objectValues('Assessment')
+        if children:
+            vid = get_version_id(children[0])
+            break
+
+    return vid
+
+
+def spec_assign_version(context, new_version):
+    """Assign a specific version id to an object
+
+    We override the same method from eea.versions. We want to
+    be able to reassign version for children Assessments to be
+    at the same version as the children Assessments of the target
+    Specification version.
+
+    Also, we want to assign the new version to all specification
+    that had the old version.
+    """
+
+    #assign new version to context
+    base_assign_version(context, new_version)
+
+    #search for specifications with the old version and assign new version
+    other_assessments = []  #optimization: children assessments from other specs
+    versions = [o for o in get_versions_api(context).versions.values()
+                           if o.meta_type == "Specification"]
+    for o in versions:
+        IVersionControl(o).setVersionId(new_version)
+        o.reindexObject()
+        other_assessments.extend(o.objectValues("Assessment"))
+
+    #reassign version ids to context assessments + assessments
+    #from related specifications
+    vid = get_assessment_vid_for_spec_vid(context, new_version)
+    for asmt in (list(context.objectValues('Assessment')) +
+                 list(other_assessments)):
+        if not IVersionEnhanced.providedBy(asmt):
+            alsoProvides(asmt, IVersionEnhanced)
+        IVersionControl(asmt).setVersionId(vid)
+        asmt.reindexObject()
+
+
 class AssignVersion(object):
     """ Assign new version ID
     """
@@ -190,7 +252,7 @@ class AssignVersion(object):
         nextURL = self.request.form.get('nextURL', self.context.absolute_url())
 
         if new_version:
-            assign_version(self.context, new_version)
+            spec_assign_version(self.context, new_version)
             message = _(u'Version ID changed.')
         else:
             message = _(u'Please specify a valid Version ID.')
@@ -231,7 +293,7 @@ class FragmentMetadataView(BrowserView):
     """
 
     schematas = ['categorization', 'dates', 'ownership', 'settings']
-    exclude = ['relatedItems', 'subject']   #'location', 
+    exclude = ['relatedItems',]   #'location',  'subject'
 
     def field_names(self):
         c = self.context

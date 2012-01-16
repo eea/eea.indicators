@@ -284,6 +284,12 @@ function on_load_dom() {
   bootstrap_select_widgets();
   set_readiness_accordion();  // for portlet_readiness
   set_generic_ajax_forms();
+
+  //set the tags widget
+  var widgets = jQuery('.ArchetypesKeywordWidget');
+  if(widgets.length){
+      widgets.eeatags();
+  }
 }
 
 function reload_region(el){
