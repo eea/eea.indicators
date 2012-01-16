@@ -285,11 +285,6 @@ function on_load_dom() {
   set_readiness_accordion();  // for portlet_readiness
   set_generic_ajax_forms();
 
-  //set the tags widget
-  var widgets = jQuery('.ArchetypesKeywordWidget');
-  if(widgets.length){
-      widgets.eeatags();
-  }
 }
 
 function reload_region(el){
@@ -351,12 +346,19 @@ function set_actives(){
     $(this).removeClass("active_field_hovered");
     return false;
   });
+
+
+  //set the tags widget
+  var widgets = $('.ArchetypesKeywordWidget');
+  if(widgets.length){
+      widgets.eeatags();
+  }
+
 })(jQuery);
 }
 
 function schemata_ajaxify(el, active_region){
         //console.info("doing schemata ajaxify");
-
 
 (function($) {
   set_actives();
