@@ -23,6 +23,11 @@
             tal:attributes="src string:${portal_url}/datagridwidget.js"></script>
     <script type="text/javascript"
             tal:attributes="src string:${portal_url}/multiselectautocomplete_widget.js"></script>
+    <script type="text/javascript"
+            tal:attributes="src string:${portal_url}/++resource++eea.tags.js"></script>
+    <link type="text/css" rel="stylesheet" href="" 
+            tal:attributes="href string:${portal_url}/++resource++eea.tags.css"/>
+
   </metal:jsslot>
 
   <body>
