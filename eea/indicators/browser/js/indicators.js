@@ -360,7 +360,6 @@ function schemata_ajaxify(el, active_region){
 
   //set the tags widget
   var widgets = $('.ArchetypesKeywordWidget');
-  console.log(widgets);
   if(widgets.length){
     widgets.eeatags();
   }
