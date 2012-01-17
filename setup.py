@@ -41,7 +41,7 @@ setup(
      'eea.relations',
      "Products.kupu",
      'zope.traversing',
-     "eea.forms"
+     "eea.forms",
      'eea.tags',
  ],
  entry_points="""
