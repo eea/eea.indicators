@@ -549,8 +549,8 @@ Each object involved has a different version id:
     >>> va5, va6 = get_version_id(vas5), get_version_id(vas6)
     >>> len(set([va5, vs5, vs6, va6])) == 4
     True
-    >>> from eea.indicators.browser.specification import assign_version
-    >>> assign_version(spec6, vs5)
+    >>> from eea.indicators.browser.specification import spec_assign_version
+    >>> spec_assign_version(spec6, vs5)
     >>> get_version_id(spec6) == vs5
     True
     >>> get_version_id(as6) == va5
