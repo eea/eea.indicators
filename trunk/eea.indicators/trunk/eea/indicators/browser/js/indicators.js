@@ -348,12 +348,6 @@ function set_actives(){
   });
 
 
-  //set the tags widget
-  var widgets = $('.ArchetypesKeywordWidget');
-  if(widgets.length){
-      widgets.eeatags();
-  }
-
 })(jQuery);
 }
 
@@ -363,6 +357,14 @@ function schemata_ajaxify(el, active_region){
 (function($) {
   set_actives();
   init_tinymce(el);
+
+  //set the tags widget
+  var widgets = $('.ArchetypesKeywordWidget');
+  console.log(widgets);
+  if(widgets.length){
+    widgets.eeatags();
+  }
+
 
   $("form", el).submit(
     function(e){

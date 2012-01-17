@@ -293,7 +293,7 @@ class FragmentMetadataView(BrowserView):
     """
 
     schematas = ['categorization', 'dates', 'ownership', 'settings']
-    exclude = ['relatedItems',]   #'location',  'subject'
+    exclude = ['relatedItems', 'location']   #'location',  'subject'
 
     def field_names(self):
         c = self.context
