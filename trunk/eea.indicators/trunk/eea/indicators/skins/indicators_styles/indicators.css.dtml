@@ -772,6 +772,29 @@ div.ArchetypesDataGridWidget table td select {
 }
 /* end hide */
 
+
+ul.token-input-list-facebook {
+    overflow: hidden;
+    height: auto !important;
+    height: 1%;
+    width: 400px;
+    border: 1px solid #8496ba;
+    cursor: text;
+    font-size: 12px;
+    font-family: Verdana, sans-serif;
+    min-height: 1px;
+    z-index: 3000 !important;
+    margin: 0;
+    padding: 0;
+    background-color: #fff;
+    list-style-type: none;
+    clear: left;
+}
+
+.token-input-dropdown-facebook {
+    z-index:2999 !important;
+}
+
 /*
 </dtml-with>  (end of loaded base_properties variables)
  */
