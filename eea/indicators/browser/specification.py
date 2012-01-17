@@ -18,7 +18,6 @@ from eea.versions.interfaces import IVersionControl, IVersionEnhanced
 from eea.versions.versions import CreateVersion as BaseCreateVersion
 from eea.versions.versions import assign_version as base_assign_version
 from eea.versions.versions import create_version as base_create_version
-from eea.versions.versions import get_version_id
 from eea.versions.versions import get_versions_api
 from eea.workflow.interfaces import IFieldIsRequiredForState, IValueProvider
 from eea.workflow.readiness import ObjectReadiness

@@ -38,7 +38,6 @@ from eea.relations.field import EEAReferenceField
 from eea.relations.widget import EEAReferenceBrowserWidget
 from eea.versions.interfaces import IGetVersions
 from eea.versions.interfaces import IVersionControl, IVersionEnhanced
-from eea.versions.versions import get_version_id, _get_random
 from eea.versions.versions import isVersionEnhanced, get_versions_api
 from eea.workflow.interfaces import IHasMandatoryWorkflowFields
 from eea.workflow.interfaces import IObjectReadiness
