@@ -1,10 +1,12 @@
 """ Assessment controllers
 """
+
 from Acquisition import aq_inner, aq_parent
 from DateTime import DateTime
 from Products.CMFCore.utils import getToolByName
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from ZPublisher.Client import querify
 from eea.indicators.browser.utils import has_one_of
 from eea.indicators.content.Assessment import getPossibleVersionsId
 from eea.indicators.content.Assessment import hasWrongVersionId
