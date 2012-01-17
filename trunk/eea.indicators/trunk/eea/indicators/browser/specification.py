@@ -13,8 +13,10 @@ from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from ZPublisher.Client import querify
 from eea.indicators.browser.utils import has_one_of
-from eea.versions.interfaces import IVersionControl
+from eea.versions.versions import get_version_id, _get_random
+from eea.versions.interfaces import IVersionControl, IVersionEnhanced
 from eea.versions.versions import CreateVersion as BaseCreateVersion
+from eea.versions.versions import assign_version as base_assign_version
 from eea.versions.versions import create_version as base_create_version
 from eea.versions.versions import get_version_id
 from eea.versions.versions import get_versions_api
