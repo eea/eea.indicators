@@ -53,6 +53,10 @@ def setup_indicators():
     zcml.load_config('configure.zcml', eea.dataservice)
     PloneTestCase.installPackage('eea.dataservice')
 
+    import eea.tags
+    zcml.load_config('configure.zcml', eea.tags )
+    PloneTestCase.installPackage('eea.tags')
+
     fiveconfigure.debug_mode = False
 
     #for product in PRODUCTS:
