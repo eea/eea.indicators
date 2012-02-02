@@ -11,11 +11,6 @@
 <metal:main_macro define-macro="body"
                   tal:define="portal_url context/portal_url">
 
-  <tal:block define="field python:context.getField('description');
-                     value python:field.getAccessor(context)()"
-             condition="value">
-    <span tal:replace="structure value" />
-  </tal:block>
 
   <tal:tags define="facetId string:c9">
     <metal:related use-macro="here/dataset_view/macros/tags" />
@@ -24,33 +19,28 @@
   <div class="metadata-container">
 
     <dl>
-      <tal:block metal:define-macro="publish-date"
-                 define="field python:context.getField('effectiveDate');
-                         value python:field.getAccessor(context)()"
-                 condition="value">
-        <dt>
-          <metal:basic use-macro="here/dataset_view/macros/tooltip" />
-          <span  i18n:translate="publish_date">Publish date:</span>
-        </dt>
-        <dd tal:content="python:context.toLocalizedTime(value, long_format=0)" />
-      </tal:block>
-
-      <tal:block define="field python:context.getField('provider_name');
-                         value python:field.getAccessor(context)()"
-                 condition="value">
+      <tal:block define="field python:context.getField('provider_url');
+                         url python:field.getAccessor(context)()"
+                 condition="url">
         <dt>
           <metal:basic use-macro="here/dataset_view/macros/tooltip" />
           <span>Provider:</span>
         </dt>
-        <dd>
-          <a href=""
-             tal:condition="context/getProvider_url"
-             tal:attributes="href python:context.getProvider_url()[0]"
-             tal:content="value" />
-          <span tal:condition="not:context/getProvider_url"
-                tal:content="value" />
-        </dd>
+        
+        <tal:block define="org python:context.getOrganisationByUrl(url)">
+                <dd tal:condition="org">
+                    <a href="#" title=""
+                       tal:attributes="href org/getURL; title org/Title"
+                       tal:content="org/Title" />
+                </dd>
+                <dd tal:condition="not:org">
+                    <span tal:content="url" />
+                </dd>
+        </tal:block>
+
       </tal:block>
+      
+
 
       <tal:block define="field python:context.getField('dataset_url');
                          value python:field.getAccessor(context)()"
@@ -74,15 +64,6 @@
         <dd tal:content="structure value"></dd>
       </tal:block>
 
-      <tal:block define="field python:context.getField('timeliness');
-                         value python:field.getAccessor(context)()"
-                 condition="value">
-        <dt>
-          <metal:basic use-macro="here/dataset_view/macros/tooltip" />
-          <span>Timeliness:</span>
-        </dt>
-        <dd tal:content="structure value"></dd>
-      </tal:block>
 
       <tal:block define="field python:context.getField('other_comments');
         value python:field.getAccessor(context)()" tal:condition="value">
@@ -93,17 +74,6 @@
         <dd tal:content="structure value"></dd>
       </tal:block>
 
-      <tal:block define="field python:context.getField('category_of_use');
-                         value python:field.getAccessor(context)();
-                         vocab python:field.Vocabulary(context);
-                         label python:vocab.getValue(value)"
-        tal:condition="value">
-        <dt>
-          <metal:basic use-macro="here/dataset_view/macros/tooltip" />
-          <span>Category of use</span>
-        </dt>
-        <dd tal:content="structure label"></dd>
-      </tal:block>
 
     </dl>
   </div>
