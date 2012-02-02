@@ -3,6 +3,9 @@ Changelog
 
 4.15-dev - (unreleased)
 -----------------------
+ * Bug fix: show correct provider/owner name and url in external data spec, hide
+   deprecated metadata fields Timeliness, Category of use, old provider field.
+   clean up of view page. [demarant]
  * Feature: added editing of some metadata to Assessment, Specifications and IndicatorFactSheet [tiberich #]
 
 4.14 - (2012-01-11)

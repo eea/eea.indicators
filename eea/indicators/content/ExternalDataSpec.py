@@ -41,7 +41,7 @@ schema = Schema((
     StringField(
         name='provider_name',
         widget=StringField._properties['widget'](
-            visible={'view':'visible', 'edit':'visible'},
+            visible={'view':'hidden', 'edit':'hidden'},
             label="Dataset provider name",
             label_msgid='indicators_label_provider_name',
             i18n_domain='indicators',
@@ -97,6 +97,7 @@ schema = Schema((
             'text/html', 'application/msword',),
         widget=RichWidget(
             label="Timeliness",
+            visible={'view':'hidden', 'edit':'hidden'},
             label_msgid='indicators_label_timeliness',
             i18n_domain='indicators',
             description=" ",
@@ -125,6 +126,7 @@ schema = Schema((
         name='category_of_use',
         widget=SelectionWidget(
             label="Category of use",
+            visible={'view':'hidden', 'edit':'hidden'},
             label_msgid='indicators_label_category_of_use',
             i18n_domain='indicators',
             description=" ",
@@ -208,6 +210,18 @@ class ExternalDataSpec(ATCTContent, BrowserDefaultMixin):
                 continue
             result.extend(ref.Subject())
         return sorted(list(set(result)))
+    
+    def getOrganisationByUrl(self, url):
+        """ get Organisation by given url
+        """
+        cat = getToolByName(self, 'portal_catalog')
+        brains = cat.searchResults({
+            'portal_type' : 'Organisation',
+            'getUrl': url
+        })
+
+        if brains:
+            return brains[0]
 
 
 class ExternalDataSpecThemes(object):
