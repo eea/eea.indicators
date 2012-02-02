@@ -3,6 +3,8 @@ Changelog
 
 4.15-dev - (unreleased)
 -----------------------
+ * Change: Added featured style to readiness portlet [demarant]
+ * Bug fix: Disable left and right column on indicators overview pages [demarant]
  * Bug fix: show correct provider/owner name and url in external data spec, hide
    deprecated metadata fields Timeliness, Category of use, old provider field.
    clean up of view page. [demarant]
