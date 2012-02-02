@@ -166,7 +166,7 @@ ExternalDataSpec_schema.moveField('relatedItems', after='category_of_use')
 finalizeATCTSchema(ExternalDataSpec_schema)
 
 class ExternalDataSpec(ATCTContent, BrowserDefaultMixin):
-    """External data spec
+    """ External data spec
     """
     security = ClassSecurityInfo()
 
@@ -179,7 +179,8 @@ class ExternalDataSpec(ATCTContent, BrowserDefaultMixin):
 
     security.declarePublic("Description")
     def Description(self):
-        """description"""
+        """ Get description
+        """
         convert = getToolByName(self, 'portal_transforms').convert
         text = convert('html_to_text', self.getDescription()).getData()
         try:
@@ -190,7 +191,7 @@ class ExternalDataSpec(ATCTContent, BrowserDefaultMixin):
 
     security.declarePublic("getThemes")
     def getThemes(self):
-        """Get themes
+        """ Get themes
         """
         themes = []
         for ref in self.getBRefs():
@@ -201,8 +202,8 @@ class ExternalDataSpec(ATCTContent, BrowserDefaultMixin):
 
     security.declarePublic('Subject')
     def Subject(self):
-        """Overwrite standard Subject method to dynamically get all
-           keywords from other specifications
+        """ Overwrite standard Subject method to dynamically get all
+            keywords from other specifications
         """
         result = []
         for ref in self.getBRefs():
@@ -219,13 +220,19 @@ class ExternalDataSpec(ATCTContent, BrowserDefaultMixin):
             'portal_type' : 'Organisation',
             'getUrl': url
         })
-
         if brains:
             return brains[0]
 
+    security.declarePublic('getDataOwner')
+    def getDataOwner(self):
+        """ Return provider_url to be indexed under getDataOwner index
+            Used under Organisations view
+        """
+        return self.getProvider_url()
 
 class ExternalDataSpecThemes(object):
-    """ExternalDataSpec themes"""
+    """ ExternalDataSpec themes
+    """
 
     implements(IThemeTagging)
     adapts(interfaces.IExternalDataSpec)
@@ -235,7 +242,8 @@ class ExternalDataSpecThemes(object):
 
     @property
     def tags(self):
-        """return tags"""
+        """ Return tags
+        """
         return self.context.getThemes()
 
 
