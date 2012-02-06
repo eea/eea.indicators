@@ -63,6 +63,10 @@
         zope.lifecycleevent.interfaces.IObjectModifiedEvent"
         handler="eea.versions.versions.versionIdHandler" />
 
+    <subscriber for=".content.interfaces.ISpecification
+        zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+        handler="eea.indicators.events.handle_reindex_children" />
+
     <subscriber for=".content.interfaces.IAssessment
         Products.CMFCore.interfaces.IActionSucceededEvent"
         handler="eea.indicators.events.handle_assessment_state_change" />
