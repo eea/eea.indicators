@@ -3,6 +3,8 @@ Changelog
 
 4.15-dev - (unreleased)
 -----------------------
+ * Bug fix: fixed style for policy docs in specification aggregated edit [tiberich]
+ * Bug fix: get correct url for policy docs in specification aggregated edit [tiberich]
  * Change: Made ExternalDataSpec owner be indexed under getDataOwner [ghicaale #3474]
  * Change: Added featured style to readiness portlet [demarant]
  * Bug fix: Disable left and right column on indicators overview pages [demarant]
