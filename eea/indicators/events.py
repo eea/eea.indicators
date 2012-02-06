@@ -65,21 +65,25 @@ def handle_specification_state_change(context, event):
         to update their readiness
     """
     catalog = getToolByName(context, 'portal_catalog')
-    catalog.reindexObject(context, idxs=[], update_metadata=True)
+    for brain in context.getFolderContents():
+        obj = brain.getObject()
+        catalog.reindexObject(obj, idxs=[], update_metadata=True)
 
 def handle_policyquestion_modification(context, event):
     """ Event handler to reindex parent specification
         to update their readiness
     """
     catalog = getToolByName(context, 'portal_catalog')
-    catalog.reindexObject(context, idxs=[], update_metadata=True)
+    spec = context.aq_parent
+    catalog.reindexObject(spec, idxs=[], update_metadata=True)
 
 def handle_assessmentpart_modification(context, event):
     """ Event handler to reindex parent assessment
         to update their readiness
     """
     catalog = getToolByName(context, 'portal_catalog')
-    catalog.reindexObject(context, idxs=[], update_metadata=True)
+    assessment = context.aq_parent
+    catalog.reindexObject(assessment, idxs=[], update_metadata=True)
 
 def handle_reindex_children(context, event):
     """ Event handler to reindex all children of an
