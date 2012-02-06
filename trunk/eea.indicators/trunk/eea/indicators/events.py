@@ -79,3 +79,12 @@ def handle_assessmentpart_modification(context, event):
     #reindex parent assessment to update their readiness
     catalog = getToolByName(context, 'portal_catalog')
     catalog.reindexObject(context, idxs=[], update_metadata=True)
+
+def handle_reindex_children(context, event):
+    """ Event handler to reindex all children of an
+        indicator specification
+    """
+    catalog = getToolByName(context, 'portal_catalog')
+    for brain in context.getFolderContents():
+        catalog.reindexObject(brain, idxs=[], update_metadata=True)
+
