@@ -1,6 +1,9 @@
 Changelog
 =========
 
+4.17-dev - (unreleased)
+-----------------------
+
 4.16 - (2012-02-06)
 -------------------
  * Bug fix: reindex children objects when specification changes [tiberich #3474]
