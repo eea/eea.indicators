@@ -1,8 +1,9 @@
 Changelog
 =========
 
-4.17-dev - (unreleased)
------------------------
+4.17 - (2012-02-06)
+-------------------
+ * Bug fix: fix code that updates catalog metadata for ims content [tiberich]
 
 4.16 - (2012-02-06)
 -------------------
