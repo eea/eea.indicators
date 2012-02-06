@@ -111,6 +111,12 @@ display:inherit !important;
     padding: 0;
     width: 100%;
 }
+ul.sortable_spec {
+    list-style-type:none !important;
+    list-style-image:none !important;
+    margin: 0 !important;
+    padding: 0;
+}
 .sortable_spec .handler {
     /* position: absolute; margin-left: -1.3em;  */
     float:left;
