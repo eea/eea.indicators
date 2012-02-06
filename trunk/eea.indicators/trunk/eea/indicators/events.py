@@ -87,5 +87,6 @@ def handle_reindex_children(context, event):
     """
     catalog = getToolByName(context, 'portal_catalog')
     for brain in context.getFolderContents():
-        catalog.reindexObject(brain)
+        obj = brain.getObject()
+        catalog.reindexObject(obj)
 
