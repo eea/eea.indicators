@@ -33,11 +33,6 @@ logger = logging.getLogger('eea.indicators.browser.specification')
 class IndexPage(BrowserView):
     """ Index page """
 
-    def __call__(self):
-        result = self.index()
-        self.request.response.setHeader('Content-Type', 'text/html')
-        return result
-
 
 class AggregatedEditPage(BrowserView):
     """Agg edit page"""
