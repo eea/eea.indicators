@@ -182,7 +182,7 @@
   <property name="ct_type">EEAFigure</property>
   <property name="ct_interface"></property>
   <property 
-      name="ct_default_location">python:object.portal_url.getPortalPath() + "/data-and-maps/createObject?type_name=EEAFigure"</property>
+      name="ct_default_location">python:object.portal_url.getPortalPath() + "/data-and-maps/figures/createObject?type_name=EEAFigure"</property>
   <criteria>
    <criterion name="c0">
     <property name="widget">text</property>
