@@ -7,15 +7,8 @@
 	</metal:baseslot>
 
 	<metal:jsslot fill-slot="javascript_head_slot">
-		<script type="text/javascript" tal:attributes="src context/++resource++jquery.ui-1.7.js"></script>
 		<script type="text/javascript" tal:attributes="src context/++resource++indicators.js"></script>
 	</metal:jsslot>
-
-	<metal:cssslot fill-slot="css_slot">
-		<link media="screen" type="text/css" rel="stylesheet"
-			tal:attributes="href string:${context/++resource++jquery.ui.theme/jquery-ui-1.7.custom.css}"
-				/>
-	</metal:cssslot>
 
 	<body>
 		<div metal:fill-slot="main">
