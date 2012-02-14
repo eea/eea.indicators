@@ -269,7 +269,6 @@ ul.sortable_spec {
     padding: 13px 0 6px 35px;
 }
 .specification-overlay {
-    background-image:url("../../++resource++jquery.ui.theme/images/ui-bg_flat_0_aaaaaa_40x100.png");
     opacity:0.3;
     FILTER: Alpha(Opacity=30);
 }
@@ -377,39 +376,30 @@ ul.sortable_spec {
 }
 
 .ui-widget-content {
-    background-image: url(../../++resource++jquery.ui.theme/images/ui-bg_flat_75_ffffff_40x100.png);
 }
 
 .ui-widget-header {
-    background-image: url(../../++resource++jquery.ui.theme/images/ui-bg_highlight-soft_75_cccccc_1x100.png);
 }
 
 .ui-state-default, .ui-widget-content .ui-state-default {
-    background-image: url(../../++resource++jquery.ui.theme/images/ui-bg_glass_75_e6e6e6_1x400.png);
 }
 
 .ui-state-hover, .ui-widget-content .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus {
-    background-image: url(../../++resource++jquery.ui.theme/images/ui-bg_glass_75_dadada_1x400.png);
 }
 
 .ui-state-active, .ui-widget-content .ui-state-active {
-    background-image: url(../../++resource++jquery.ui.theme/images/ui-bg_glass_65_ffffff_1x400.png);
 }
 
 .ui-state-highlight, .ui-widget-content .ui-state-highlight {
-    background-image: url(../../++resource++jquery.ui.theme/images/ui-bg_glass_55_fbf9ee_1x400.png);
 }
 
 .ui-state-error, .ui-widget-content .ui-state-error {
-    background-image: url(../../++resource++jquery.ui.theme/images/ui-bg_glass_95_fef1ec_1x400.png);
 }
 
 .ui-widget-overlay {
-    background-image: url(../../++resource++jquery.ui.theme/images/ui-bg_flat_0_aaaaaa_40x100.png);
 }
 
 .ui-widget-shadow {
-    background-image: url(../../++resource++jquery.ui.theme/images/ui-bg_flat_0_aaaaaa_40x100.png);
 }
 
 /* jquery ui overrides
