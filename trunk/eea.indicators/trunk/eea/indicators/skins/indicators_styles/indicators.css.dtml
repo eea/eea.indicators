@@ -191,6 +191,11 @@ ul.sortable_spec {
     font-size:inherit;
 }
 
+#simple-visual-portal-wrapper .mceLayout {
+    width:100% !important;
+    height:245px;
+}
+
 /* Specification view
 ===================== */
 .documentContent th {
