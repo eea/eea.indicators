@@ -40,7 +40,7 @@
     display:none;
 }
 .required-field {
-    background:url(Warning.png) no-repeat scroll 0 0 transparent;
+    background:url(&dtml-portal_url;/Warning.png) no-repeat scroll 0 0 transparent;
     color:black;
     padding:0 0 0 2.5em;
     line-height:2em;
@@ -71,7 +71,7 @@
 #specification-base-edit #archetypes-fieldname-manager_user_id,
 #specification-base-edit #archetypes-fieldname-themes,
 #policyquestion-base-edit #archetypes-fieldname-title {
-    background:url(Warning.png) no-repeat scroll 0 0 transparent;
+    background:url(&dtml-portal_url;/Warning.png) no-repeat scroll 0 0 transparent;
     color:black;
     padding:3em 0 2em !important;
 }
@@ -208,69 +208,69 @@ ul.sortable_spec {
     margin-right: 25em;
 }
 /*#headline-assessment {*/
-    /*background: transparent url(Assessment.gif) no-repeat scroll 0 8px;*/
+    /*background: transparent url(&dtml-portal_url;/Assessment.gif) no-repeat scroll 0 8px;*/
 /*}*/
 .specification_view h1, .specification_edit h1 {
-    background: transparent url(Specification.gif) no-repeat scroll 0 8px;
+    background: transparent url(&dtml-portal_url;/Specification.gif) no-repeat scroll 0 8px;
     padding: 10px 0 6px 30px;
 }
 .assessment_view h1, .assessment_edit h1, .factsheet_view h1 {
-    background: transparent url(Assessment.gif) no-repeat scroll 0 8px;
+    background: transparent url(&dtml-portal_url;/Assessment.gif) no-repeat scroll 0 8px;
     padding: 10px 0 6px 30px;
 }
 .assessment_view .figure-title {
     display:inherit;
 }
 .specification {
-    background: transparent url(Specification.gif) no-repeat scroll 0 8px;
+    background: transparent url(&dtml-portal_url;/Specification.gif) no-repeat scroll 0 8px;
     padding: 10px 0 6px 30px;
 }
 #assessment_versions {
-    background: transparent url(Assessment.gif) no-repeat scroll 0 8px;
+    background: transparent url(&dtml-portal_url;/Assessment.gif) no-repeat scroll 0 8px;
     padding: 10px 0 6px 30px;
 }
 #assessment_title {
-    background: transparent url(Assessment.gif) no-repeat scroll 0 8px;
+    background: transparent url(&dtml-portal_url;/Assessment.gif) no-repeat scroll 0 8px;
     padding: 10px 0 6px 30px;
 }
 #rationale {
-    background: transparent url(RationaleReference.gif) no-repeat scroll 0 8px;
+    background: transparent url(&dtml-portal_url;/RationaleReference.gif) no-repeat scroll 0 8px;
     padding: 10px 0 6px 30px;
 }
 #indicator_definition {
-    background: transparent url(IMSDefinition.gif) no-repeat scroll 0 8px;
+    background: transparent url(&dtml-portal_url;/IMSDefinition.gif) no-repeat scroll 0 8px;
     padding: 10px 0 6px 30px;
 }
 #policy_context {
-    background: transparent url(PolicyContext.gif) no-repeat scroll 0 8px;
+    background: transparent url(&dtml-portal_url;/PolicyContext.gif) no-repeat scroll 0 8px;
     padding: 10px 0 6px 30px;
 }
 .policy_question {
-    background: transparent url(PolicyQuestion.gif) no-repeat scroll 0 8px;
+    background: transparent url(&dtml-portal_url;/PolicyQuestion.gif) no-repeat scroll 0 8px;
     padding: 10px 0 6px 30px;
 }
 #methodology_header {
-    background: transparent url(MethodologyReference.gif) no-repeat scroll 0 8px;
+    background: transparent url(&dtml-portal_url;/MethodologyReference.gif) no-repeat scroll 0 8px;
     padding: 10px 0 6px 30px;
 }
 #data_specifications {
-    background: transparent url(DataSpecification.gif) no-repeat scroll 0 8px;
+    background: transparent url(&dtml-portal_url;/DataSpecification.gif) no-repeat scroll 0 8px;
     padding: 10px 0 6px 30px;
 }
 #uncertainties {
-    background: transparent url(IMSUncertainties.gif) no-repeat scroll 0 8px;
+    background: transparent url(&dtml-portal_url;/IMSUncertainties.gif) no-repeat scroll 0 8px;
     padding: 10px 0 6px 30px;
 }
 #further_work {
-    background: transparent url(WorkItem.gif) no-repeat scroll 0 8px;
+    background: transparent url(&dtml-portal_url;/WorkItem.gif) no-repeat scroll 0 8px;
     padding: 10px 0 6px 30px;
 }
 #general_metadata {
-    background: transparent url(IMSDescription.gif) no-repeat scroll 0 8px;
+    background: transparent url(&dtml-portal_url;/IMSDescription.gif) no-repeat scroll 0 8px;
     padding: 10px 0 6px 30px;
 }
 #related_items {
-    background: transparent url(Relations.png) no-repeat scroll 0 8px;
+    background: transparent url(&dtml-portal_url;/Relations.png) no-repeat scroll 0 8px;
     padding: 13px 0 6px 35px;
 }
 .specification-overlay {
@@ -336,10 +336,10 @@ ul.sortable_spec {
     display: block !important;
 }
 .metadata-switch-show {
-    background-image: url(bullet_add.png);
+    background-image: url(&dtml-portal_url;/bullet_add.png);
 }
 .metadata-switch-hide {
-    background-image: url(bullet_delete.png);
+    background-image: url(&dtml-portal_url;/bullet_delete.png);
 }
 .metadata-info-switchable {
     display: none;
@@ -508,7 +508,7 @@ ul.sortable_spec {
 }
 
 .active_region .placeholder span.required {
-    background:url(Warning.png) no-repeat scroll 3px 3px  #FFEB9B;
+    background:url(&dtml-portal_url;/Warning.png) no-repeat scroll 3px 3px  #FFEB9B;
     padding:10px 0 10px 4em;
     line-height:20px;
     text-align:center;
