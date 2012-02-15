@@ -3,6 +3,7 @@ Changelog
 
 4.19-dev - (unreleased)
 -----------------------
+ * Bug fix: use portal_url to anchor images in indicators.css [tiberich #4956]
 
 4.18 - (2012-02-14)
 -------------------
