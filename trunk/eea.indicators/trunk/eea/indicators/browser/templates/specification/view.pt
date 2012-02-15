@@ -259,7 +259,6 @@
                         title item/title_or_id;
                         description item/description;
                         url item/absolute_url;
-                        thumb item/image_thumb | nothing;
                         source_info item/dataSource | nocall:title;
                         ">
                         <dt tal:content="structure source_info"></dt>
