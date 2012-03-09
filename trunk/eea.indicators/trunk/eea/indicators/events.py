@@ -65,8 +65,8 @@ def handle_specification_state_change(context, event):
         to update their readiness
     """
     catalog = getToolByName(context, 'portal_catalog')
-    for brain in context.getFolderContents():
-        obj = brain.getObject()
+    objs = context.objectValues()
+    for obj in objs:
         catalog.reindexObject(obj, idxs=[], update_metadata=True)
 
 def handle_policyquestion_modification(context, event):
@@ -90,7 +90,7 @@ def handle_reindex_children(context, event):
         indicator specification
     """
     catalog = getToolByName(context, 'portal_catalog')
-    for brain in context.getFolderContents():
-        obj = brain.getObject()
+    objs = context.objectValues()
+    for obj in objs:
         catalog.reindexObject(obj)
 

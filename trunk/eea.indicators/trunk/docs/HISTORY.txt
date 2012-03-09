@@ -3,6 +3,9 @@ Changelog
 
 4.21-dev - (unreleased)
 -----------------------
+ * Bug fix: use objectValues() instead of getFolderContents() to avoid
+   security error
+   [tiberich]
 
 4.20 - (2012-03-05)
 -------------------
