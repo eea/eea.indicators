@@ -3,6 +3,8 @@ Changelog
 
 4.22-dev - (unreleased)
 -----------------------
+ * Bug fix: improve compatibility with content creation popup js 
+   [tiberich #4982]
 
 4.21 - (2012-03-09)
 -------------------
