@@ -756,8 +756,6 @@ function close_dialog(info) {
         popups.push(popup);
     });
 
-    console.log(popups);
-
 
    if (info.search('http://') !== -1) {                                                                                                                              
        jq("#dialog-inner").dialog("close");                                                                                                                          
@@ -768,7 +766,6 @@ function close_dialog(info) {
             alert("could not get eea.reference popup");
         } else {
             jq(popups).each(function(){
-                console.log(this);
                 jq(this.events).trigger('EEA-REFERENCEBROWSER-BASKET-ADD', {url:info});
             });
         }
