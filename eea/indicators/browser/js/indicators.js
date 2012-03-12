@@ -743,13 +743,16 @@ function closer(fieldname, active_region, url){
 })(jQuery);
 }
 
-function close_dialog(region){
-(function($) {
-  reload_region($("#"+region));
-  $("#dialog-inner").dialog("close");
-})(jQuery);
+function close_dialog(info) {                                                                                                                                        
+   if (info.search('http://') !== -1) {                                                                                                                              
+       jq("#dialog-inner").dialog("close");                                                                                                                          
+       jq(window.popup.events).trigger('EEA-REFERENCEBROWSER-BASKET-ADD', {url:info});                                                                               
+   } else {                                                                                                                                                          
+       // compatibility with eea.indicators                                                                                                                          
+       reload_region($("#"+region));                                                                                                                                 
+       jq("#dialog-inner").dialog("close");                                                                                                                          
+   }                                                                                                                                                                 
 }
-
 
 function open_relations_widget(widget_dom_id, selected_tab){
 (function($) {
