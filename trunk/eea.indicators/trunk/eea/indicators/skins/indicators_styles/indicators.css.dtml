@@ -315,10 +315,6 @@ ul.sortable_spec {
    margin-bottom: 0px !important;
 }
 
-.clear-toc #document-toc{
-   display: none !important;
-}
-
 .metadata-switch {
     padding-left: 1.5em;
     /* background-position: left center; */

@@ -7,7 +7,6 @@
 
   <metal:javascript fill-slot="javascript_head_slot">
     <script type="text/javascript">
-
       function figuresNumber() {
         var figures = jQuery(".figure-title");
         var count = 1;
@@ -16,40 +15,44 @@
           var figure_title = figure.innerHTML;
           figure.innerHTML = 'Fig. ' + count + ': ' + figure_title;
           count += 1;
-        })
+        });
+      }
+
+      function clearToc(toc) {
+          toc.find(".portletItem").empty();
+      }
+
+      function showMetadata(metadata) {
+        var $document_toc = jQuery('#document-toc');
+        var $metadata = jQuery(metadata),
+            $metaddata_info_switchable = jQuery(".metadata-info-switchable");
+        if ($metadata.hasClass('metadata-switch-show')) {
+            $metaddata_info_switchable.find("h2").toggleClass('notoc');
+            $metaddata_info_switchable.fadeIn("slow", function() {
+                $metadata.removeClass('metadata-switch-show')
+                         .addClass('metadata-switch-hide')
+                         .html('Switch to short indicator view');
+                clearToc($document_toc);
+                build_toc($document_toc);
+            });
+        }
+        else
+        if ($metadata.hasClass('metadata-switch-hide')) {
+            $metaddata_info_switchable.find("h2").toggleClass('notoc');
+            $metaddata_info_switchable.fadeOut("slow", function() {
+                $metadata.removeClass('metadata-switch-hide')
+                         .addClass('metadata-switch-show')
+                         .html('Switch to full indicator view');
+                clearToc($document_toc);
+                build_toc($document_toc);
+            });
+        }
       }
 
       function setMetadataSwitchBtn() {
-        jQuery(".metadata-switch").click(function () { showMetadata() });
-      };
-
-      function clearToc() {
-        jQuery('#document-toc dd.portletItem ol').empty();
-      };
-
-      function showMetadata() {
-        if (jQuery('.metadata-switch').hasClass('metadata-switch-show')) {
-          jQuery(".metadata-info-switchable h2").toggleClass('notoc');
-          jQuery(".metadata-info-switchable").fadeIn("slow", function() {
-              jQuery('.metadata-switch').removeClass('metadata-switch-show');
-              jQuery('.metadata-switch').addClass('metadata-switch-hide');
-              jQuery('.metadata-switch').html('Switch to short indicator view');
-              clearToc();
-              build_toc();
-              });
-        }
-        else
-        if (jQuery('.metadata-switch').hasClass('metadata-switch-hide')) {
-          jQuery(".metadata-info-switchable h2").toggleClass('notoc');
-          jQuery(".metadata-info-switchable").fadeOut("slow", function() {
-              jQuery('.metadata-switch').removeClass('metadata-switch-hide');
-              jQuery('.metadata-switch').addClass('metadata-switch-show');
-              jQuery('.metadata-switch').html('Switch to full indicator view');
-              clearToc();
-              build_toc();
-              });
-        };
-      };
+          var $metadata_switch = jQuery(".metadata-switch");
+          $metadata_switch.click(function () { showMetadata(this); });
+      }
 
       jQuery(document).ready(function () {
           figuresNumber();
@@ -63,7 +66,7 @@
       <h1 class="documentFirstHeading" tal:content="context/Title">Title here</h1>
     </div>
     <div metal:fill-slot="content-description"></div>
-    <div metal:fill-slot="content-core" tal:define="specification context/getParentNode" class='assessment_view clear-toc' id='region-content'>
+    <div metal:fill-slot="content-core" tal:define="specification context/getParentNode" class='assessment_view' id='region-content'>
       <div id="content-more-updates-on"
         class="system-message warningMessage"
         tal:condition="context/getMore_updates_on"
@@ -119,7 +122,7 @@
       </div>
       
       <div class="visualClear">&nbsp;</div>
-      <tal:block define="queryString string:h2:not(.notoc)">
+      <tal:block define="queryString string:h2">
         <metal:toc use-macro="here/portlet_toc/macros/portlet"/>
       </tal:block>
       
