@@ -156,6 +156,9 @@
   <browser:resource name='indicators-reports.js'
                     file='js/indicators-reports.js' />
 
+  <browser:resource name='indicators-toc.js'
+                    file='js/indicators-toc.js' />
+
 
   <adapter factory=".manager.IndicatorsPortletManagerRenderer" 
            for="eea.indicators.content.interfaces.IIndicatorFactSheet zope.publisher.interfaces.browser.IBrowserRequest zope.publisher.interfaces.browser.IBrowserView plone.portlets.interfaces.IPortletManager" 
