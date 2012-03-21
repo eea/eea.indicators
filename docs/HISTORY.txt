@@ -7,6 +7,8 @@ Changelog
    instead of toc from plone [ichimdav #5014] 
  * Bug fix: improve compatibility with content creation popup js 
    [tiberich #4982]
+ * Bug fix: WIP: use proper code when creating a new version for Assessments 
+   [tiberich #5020]
 
 4.21 - (2012-03-09)
 -------------------

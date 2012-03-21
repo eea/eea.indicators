@@ -43,6 +43,13 @@
                   permission="cmf.ModifyPortalContent"
                   class=".assessment.CreateVersion" />
 
+    <browser:page
+        for="eea.indicators.content.interfaces.IAssessment"
+        name="createVersionAjax"
+        permission="cmf.ModifyPortalContent"
+        class=".assessment.CreateVersionAjax"
+        />
+
     <!--<browser:menuItem title="Create new version"
         for="eea.indicators.content.interfaces.IAssessment"
         menu="object_buttons"
