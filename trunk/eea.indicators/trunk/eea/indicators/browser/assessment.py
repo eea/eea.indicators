@@ -37,6 +37,7 @@ class CreateVersion(BaseCreateVersion):
 
     template = ViewPageTemplateFile('templates/assessment/create_version.pt')
     newer_spec = None
+    #has_custom_behaviour = True
 
     def __call__(self):
         spec = aq_parent(aq_inner(self.context))
@@ -63,6 +64,25 @@ class CreateVersion(BaseCreateVersion):
             return self.request.RESPONSE.redirect(version.absolute_url())
 
         raise ValueError("Unknown option for field choice")
+
+
+class CreateVersionAjax(BaseCreateVersion):
+    """ The @@createVersionAjax override view for Assessments
+
+    Due to the use of the background creation of versions, we need to 
+    tell eea.versions that, in some cases, we have a separate page
+    where we ask the user to make a choice.
+    """ 
+
+    def __call__(self):
+        spec = aq_parent(aq_inner(self.context))
+        latest = get_versions_api(spec).latest_version()
+
+        if spec.UID() == latest.UID():
+            version = create_version(self.context)
+            return "OK"
+
+        return "SEEURL: %s/@@createVersion" % self.context.absolute_url()
 
 
 def create_version(original, request=None):
