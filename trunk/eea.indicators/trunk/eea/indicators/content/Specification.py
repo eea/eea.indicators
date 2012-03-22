@@ -541,6 +541,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
 
     security.declarePublic("get_raw_title")
     def get_raw_title(self):
+        """ title """
         return self.title
 
     #security.declarePublic('left_slots')
