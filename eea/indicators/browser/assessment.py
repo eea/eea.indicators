@@ -56,11 +56,13 @@ class CreateVersion(BaseCreateVersion):
 
         if choice == "here":
             version = create_version(self.context)
-            return self.request.RESPONSE.redirect(version.absolute_url())
+            #return self.request.RESPONSE.redirect(version.absolute_url())
+            return "OK"
 
         if choice == "newest":
             version = latest.factory_Assessment()['obj']
-            return self.request.RESPONSE.redirect(version.absolute_url())
+            #return self.request.RESPONSE.redirect(version.absolute_url())
+            return "OK"
 
         raise ValueError("Unknown option for field choice")
 

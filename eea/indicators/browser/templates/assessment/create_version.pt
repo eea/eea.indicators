@@ -21,26 +21,25 @@
         <input type="submit" name="submit" value="Submit" />
       </form>
             <script>
-
+// <!--
 jq("#astcreateversion").submit(
 function(e){
     var form = this;
-    var data = jq(form).serialize();
+    var formdata = jq(form).serialize() + "&submit=1";
 
     // get the latest version url, before new version
     jq.ajax({ 
       url     : context_url+"/getLatestVersionUrl",
       success : function(data){
         latestVersionUrl = data;
-        jq.fancybox('<div style="text-align:center;width:250px;"><span>'+
-          'Please wait, a new version is being created.</span><br/><br/><img '+
-          'src="++resource++jqzoom/zoomloader.gif"/></div>', 
-          {'modal':true}
-        );
+        var el = jq('<div style="text-align:center;width:250px;"/>').
+                   text("Please wait, a new version is being created.").
+                   append(jq('<img/>').attr('src', "++resource++jqzoom/zoomloader.gif")).html();
+        jq.fancybox(el);
 
         // submit the form to create the new version
         jq.ajax({
-          "data": data,
+          "data": formdata,
           url: form.action,
           type:'POST',
           cache:false,
@@ -50,11 +49,9 @@ function(e){
               checkLatestVersion(true);
             }
             else {
-              jq.fancybox('<div style="text-align:center;width:250px;">'+
-                '<span>An internal error occured, please contact the administrator'+
-                '</span></div>',
-                {'modal':false}
-              );
+              var el = jq('<div style="text-align:center;width:250px;">').
+                        text("An internal error occured, please contact the administrator").html();
+              jq.fancybox(el, {'modal':false});
             }},
           success : function(data) {
             if (data.indexOf("SEEURL")===0){
@@ -69,6 +66,7 @@ function(e){
 
     return false;
 });
+// -->
             </script>
     </div>
   </body>
