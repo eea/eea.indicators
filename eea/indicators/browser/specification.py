@@ -121,6 +121,7 @@ class CreateVersion(BaseCreateVersion):
         return self.request.RESPONSE.redirect(new.absolute_url())
 
     def create(self):
+        """ create version"""
         new = create_version(self.context)
         return new
 
@@ -296,6 +297,8 @@ class FragmentMetadataView(BrowserView):
     exclude = ['relatedItems', 'location']   #'location',  'subject'
 
     def field_names(self):
+        """ field names
+        """
         c = self.context
         fields = c.schema.filterFields(lambda f:f.schemata in self.schematas)
         fields = [f.getName() for f in fields if f.getName() not 

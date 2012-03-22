@@ -236,6 +236,7 @@ class FragmentMetadataView(BrowserView):
     exclude = ['relatedItems', 'subject']   #'location',  'subject'
 
     def field_names(self):
+        """ field names"""
         c = self.context
         fields = c.schema.filterFields(lambda f:f.schemata in self.schematas)
         fields = [f.getName() for f in fields if f.getName() not 
