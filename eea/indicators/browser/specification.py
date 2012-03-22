@@ -117,8 +117,12 @@ class CreateVersion(BaseCreateVersion):
     """Create new version customizations for eea.versions """
 
     def __call__(self):
-        new = create_version(self.context)
+        new = self.create()
         return self.request.RESPONSE.redirect(new.absolute_url())
+
+    def create(self):
+        new = create_version(self.context)
+        return new
 
 
 class WorkflowStateReadiness(ObjectReadiness):
