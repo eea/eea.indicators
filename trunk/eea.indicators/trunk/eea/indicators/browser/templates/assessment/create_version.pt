@@ -49,7 +49,7 @@ function(e){
               checkLatestVersion(true);
             }
             else {
-              var el = jq('<div style="text-align:center;width:250px;">').
+              var el = jq('<div style="text-align:center;width:250px;" />').
                         text("An internal error occured, please contact the administrator").html();
               jq.fancybox(el, {'modal':false});
             }},
