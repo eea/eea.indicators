@@ -70,7 +70,7 @@
   <property name="ct_type">Specification</property>
   <property name="ct_interface"></property>
   <property 
-      name="ct_default_location">python:object.portal_url.getPortalPath() + "/data-and-maps/indicators/createObject?type_name=Specification"</property>
+      name="ct_default_location">python:object.restrictedTraverse("/www/SITE/data-and-maps/indicators/")</property>
   <criteria>
    <criterion name="c0">
     <property name="widget">text</property>
@@ -126,7 +126,7 @@
   <property name="ct_type">Data</property>
   <property name="ct_interface"></property>
   <property 
-      name="ct_default_location">python:object.portal_url.getPortalPath() + "/data-and-maps/createObject?type_name=Data"</property>
+      name="ct_default_location">python:object.restrictedTraverse("/www/SITE/data-and-maps/data")</property>
   <criteria>
    <criterion name="c0">
     <property name="widget">text</property>
@@ -182,7 +182,7 @@
   <property name="ct_type">EEAFigure</property>
   <property name="ct_interface"></property>
   <property 
-      name="ct_default_location">python:object.portal_url.getPortalPath() + "/data-and-maps/figures/createObject?type_name=EEAFigure"</property>
+      name="ct_default_location">python:object.restrictedTraverse("/www/SITE/data-and-maps/figures")</property>
   <criteria>
    <criterion name="c0">
     <property name="widget">text</property>
@@ -238,7 +238,7 @@
   <property name="ct_type">PolicyDocumentReference</property>
   <property name="ct_interface"></property>
   <property 
-      name="ct_default_location">python:object.portal_url.getPortalPath() + "/policy-documents/createObject?type_name=PolicyDocumentReference"</property>
+      name="ct_default_location">python:object.restrictedTraverse("/www/SITE/policy-documents/")</property>
   <criteria>
    <criterion name="c0">
     <property name="widget">text</property>
@@ -294,7 +294,7 @@
   <property name="ct_type">ExternalDataSpec</property>
   <property name="ct_interface"></property>
   <property 
-      name="ct_default_location">python:object.portal_url.getPortalPath() + "/data-and-maps/createObject?type_name=ExternalDataSpec"</property>
+      name="ct_default_location">python:object.restrictedTraverse("/www/SITE/data-and-maps/data/external-datasets-catalog")</property>
   <criteria>
    <criterion name="c0">
     <property name="widget">text</property>
@@ -350,7 +350,7 @@
   <property name="ct_type">AssessmentPart</property>
   <property name="ct_interface"></property>
   <property 
-      name="ct_default_location">python:object.portal_url.getPortalPath() + "/data-and-maps/createObject?type_name=AssessmentPart"</property>
+      name="ct_default_location">python:None</property>
   <criteria>
    <criterion name="c0">
     <property name="widget">text</property>
@@ -406,7 +406,7 @@
   <property name="ct_type">PolicyQuestion</property>
   <property name="ct_interface"></property>
   <property 
-      name="ct_default_location">string:../@@edit_aggregated</property>
+      name="ct_default_location">python:None</property>
   <criteria>
    <criterion name="c0">
     <property name="widget">text</property>
