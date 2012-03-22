@@ -25,7 +25,7 @@
 jq("#astcreateversion").submit(
 function(e){
     var form = this;
-    var data = ($(form).serialize();
+    var data = jq(form).serialize();
 
     // get the latest version url, before new version
     jq.ajax({ 
@@ -39,7 +39,7 @@ function(e){
         );
 
         // submit the form to create the new version
-        $.ajax({
+        jq.ajax({
           "data": data,
           url: form.action,
           type:'POST',
@@ -55,18 +55,17 @@ function(e){
                 '</span></div>',
                 {'modal':false}
               );
-            }
-          },
+            }},
           success : function(data) {
             if (data.indexOf("SEEURL")===0){
                 var url = data.replace("SEEURL:", ""); 
                 window.location.href = url;
             } else {
                 checkLatestVersion(true);
-            }
-          }
-       }
-    }
+            }}
+       });
+
+       }});
 
     return false;
 });
