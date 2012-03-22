@@ -1,25 +1,76 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
-	metal:use-macro="here/main_template/macros/master"
-	i18n:domain="indicators">
-	<head>
-		<title tal:content="context/Title"></title>
-	</head>
+  metal:use-macro="here/main_template/macros/master"
+  i18n:domain="indicators">
+  <head>
+    <title tal:content="context/Title"></title>
+  </head>
 
-	<body>
-		<div metal:fill-slot="main">
-			<h1>Create a new version of an Assessment</h1>
-			<form method="POST" action="." tal:attributes="action here/REQUEST/URL">
-				<p>This indicator has a newer version, 
-					<a href="" tal:attributes="href view/spec_url" tal:content="view/spec_title">Spec title</a> from
-					<span tal:replace="view/date" />.
-				</p>
-				<p>
-					Do you want to create this assessment
-					<input type="radio" name="choice" value="here" /> here or 
-					<input type="radio" name="choice" value="newest" checked="checked" /> in the latest version of the Specification?
-				</p>
-				<input type="submit" name="submit" value="Submit" />
-			</form>
-		</div>
-	</body>
+  <body>
+    <div metal:fill-slot="main">
+      <h1>Create a new version of an Assessment</h1>
+      <form method="POST" action="." tal:attributes="action here/REQUEST/URL" id="astcreateversion">
+        <p>This indicator has a newer version, 
+          <a href="" tal:attributes="href view/spec_url" tal:content="view/spec_title">Spec title</a> from
+          <span tal:replace="view/date" />.
+        </p>
+        <p>
+          Do you want to create this assessment
+          <input type="radio" name="choice" value="here" /> here or 
+          <input type="radio" name="choice" value="newest" checked="checked" /> in the latest version of the Specification?
+        </p>
+        <input type="submit" name="submit" value="Submit" />
+      </form>
+            <script>
+
+jq("#astcreateversion").submit(
+function(e){
+    var form = this;
+    var data = ($(form).serialize();
+
+    // get the latest version url, before new version
+    jq.ajax({ 
+      url     : context_url+"/getLatestVersionUrl",
+      success : function(data){
+        latestVersionUrl = data;
+        jq.fancybox('<div style="text-align:center;width:250px;"><span>'+
+          'Please wait, a new version is being created.</span><br/><br/><img '+
+          'src="++resource++jqzoom/zoomloader.gif"/></div>', 
+          {'modal':true}
+        );
+
+        // submit the form to create the new version
+        $.ajax({
+          "data": data,
+          url: form.action,
+          type:'POST',
+          cache:false,
+          // timeout: 2000,
+          error   : function(xhr, ajaxOptions, thrownError){
+            if (xhr.status == 504){
+              checkLatestVersion(true);
+            }
+            else {
+              jq.fancybox('<div style="text-align:center;width:250px;">'+
+                '<span>An internal error occured, please contact the administrator'+
+                '</span></div>',
+                {'modal':false}
+              );
+            }
+          },
+          success : function(data) {
+            if (data.indexOf("SEEURL")===0){
+                var url = data.replace("SEEURL:", ""); 
+                window.location.href = url;
+            } else {
+                checkLatestVersion(true);
+            }
+          }
+       }
+    }
+
+    return false;
+});
+            </script>
+    </div>
+  </body>
 </html>
