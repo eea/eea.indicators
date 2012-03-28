@@ -9,6 +9,21 @@ from Products.validation import validation
 from Products.Archetypes.atapi import registerType
 
 from eea.indicators.config import PROJECTNAME
+
+from eea.indicators.content.validators import (
+    UniquePolicyDocTitleValidator,
+    UniquePolicyDocUrlValidator,
+    OneAssessmentPartPerQuestionValidator,
+)
+
+# Validators
+validation.register(
+    UniquePolicyDocTitleValidator('unique_policy_title_validator'))
+validation.register(
+    UniquePolicyDocUrlValidator('unique_policy_url_validator'))
+validation.register(
+    OneAssessmentPartPerQuestionValidator('one_assessment_per_question'))
+
 from eea.indicators.content.PolicyQuestion import PolicyQuestion
 from eea.indicators.content.ExternalDataSpec import ExternalDataSpec
 from eea.indicators.content.MethodologyReference import MethodologyReference
@@ -24,22 +39,9 @@ from eea.indicators.content.PolicyDocumentReference import (
     PolicyDocumentReference,
 )
 
-from eea.indicators.content.validators import (
-    UniquePolicyDocTitleValidator,
-    UniquePolicyDocUrlValidator,
-    OneAssessmentPartPerQuestionValidator,
-)
-
 def register():
     """ Register custom content
     """
-    # Validators
-    validation.register(
-        UniquePolicyDocTitleValidator('unique_policy_title_validator'))
-    validation.register(
-        UniquePolicyDocUrlValidator('unique_policy_url_validator'))
-    validation.register(
-        OneAssessmentPartPerQuestionValidator('one_assessment_per_question'))
 
     # Content
     registerType(PolicyQuestion, PROJECTNAME)
