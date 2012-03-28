@@ -197,7 +197,7 @@ class AssessmentPart(ATFolder, ModalFieldEditableAware,
         res = [rd[uid] for uid in order if uid in rd.keys()]
         return res
 
-    security.declareProtected('View', 'get_raw_related_items')
+    #security.declareProtected('View', 'get_raw_related_items')
     def get_raw_related_items(self):
         """ Raw related items
         """

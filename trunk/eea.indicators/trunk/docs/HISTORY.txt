@@ -3,6 +3,8 @@ Changelog
 
 4.22-dev - (unreleased)
 -----------------------
+ * Bug fix: changed execution order to register validators without warning
+   [tiberich #5045]
  * Change: cleaned logic for toc in indicators because of sole use of eea-toc
    instead of toc from plone [ichimdav #5014] 
  * Bug fix: improve compatibility with content creation popup js 
