@@ -11,6 +11,8 @@ Changelog
    [tiberich #4982]
  * Bug fix: use proper code when creating a new version for Assessments 
    [tiberich #5020]
+ * Bug fix: set height to inherit for dom nodes in active field content boxes
+   [tiberich #5009]
 
 4.21 - (2012-03-09)
 -------------------
