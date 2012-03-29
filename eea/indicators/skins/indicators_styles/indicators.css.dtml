@@ -493,6 +493,10 @@ ul.sortable_spec {
     /* min-height:20px; */
 }
 
+.active_field .content * {
+    height:inherit !important;
+}
+
 .active_field h5 {
     margin-top:0;
 }
