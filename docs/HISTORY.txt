@@ -1,6 +1,9 @@
 Changelog
 =========
 
+4.23-dev - (unreleased)
+-----------------------
+
 4.22 - (2012-03-30)
 -------------------
  * Bug fix: changed execution order to register validators without warning
