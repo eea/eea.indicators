@@ -1,8 +1,8 @@
 Changelog
 =========
 
-4.22-dev - (unreleased)
------------------------
+4.22 - (2012-03-30)
+-------------------
  * Bug fix: changed execution order to register validators without warning
    [tiberich #5045]
  * Change: cleaned logic for toc in indicators because of sole use of eea-toc
