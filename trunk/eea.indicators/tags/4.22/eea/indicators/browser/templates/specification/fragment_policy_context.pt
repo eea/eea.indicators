@@ -1,0 +1,104 @@
+<tal:def tal:define="submit_handler string:simple_edit; ">
+  <tal:def tal:define="region_name string:policy_context_area;
+                       region_update_handler string:fragment_policy_context;
+                       imsutils nocall:context/@@indicator_utils;
+                       also_reload python:['object_readiness'];
+                       related_view nocall:context/@@related_items;
+                       portal_url context/portal_url">
+
+    <metal:macro metal:use-macro="context/indicators_macros/macros/active_region">
+      <metal:slot metal:fill-slot="content">
+        <div class="logic_group">
+
+          <h2 id="policy_context">Policy Context and targets</h2>
+
+          <a name="rfs_policy_context_description" ></a>
+          <h4 tal:define="field python:context.getField('policy_context_description')">
+            <span metal:use-macro="context/indicators_macros/macros/tooltip" />
+            Context description
+          </h4>
+          <tal:def tal:define="fieldname string:policy_context_description; fieldset string:PolicyContext">
+            <metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
+              <metal:slot metal:fill-slot="content">
+                <div tal:condition="python:not imsutils.field_has_value('policy_context_description', context)"
+                  class="placeholder">
+                  <span class="required">Please fill in</span>
+                </div>
+                <p tal:replace="structure context/getPolicy_context_description"></p>
+              </metal:slot>
+              <metal:slot metal:fill-slot="extra-metadata">
+                <div class="width">800</div>
+                <div class="height">435</div>
+                <div class="dialog_title">Edit Policy Context Description</div>
+              </metal:slot>
+            </metal:macro>
+          </tal:def>
+
+
+          <h4 tal:define="field python:context.getField('policy_context_targets')">
+            <span metal:use-macro="context/indicators_macros/macros/tooltip" />
+            Targets
+          </h4>
+          <tal:def tal:define="fieldname string:policy_context_targets; fieldset string:PolicyContext">
+            <metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
+              <metal:slot metal:fill-slot="content">
+                <div tal:condition="python:not imsutils.field_has_value('policy_context_targets', context)"
+                  class="placeholder">
+                  Please fill in
+                </div>
+                <p tal:replace="structure context/getPolicy_context_targets"></p>
+              </metal:slot>
+              <metal:slot metal:fill-slot="extra-metadata">
+                <div class="width">800</div>
+                <div class="height">435</div>
+                <div class="dialog_title">Edit Targets</div>
+              </metal:slot>
+            </metal:macro>
+          </tal:def>
+
+          <h4 tal:define="tooltip string:Related policy documents">
+            <span metal:use-macro="context/indicators_macros/macros/tooltip" />
+            Related policy documents
+          </h4>
+          <!-- #TODO: replace Edit related_policy_documents with Edit relatedItems -->
+
+          <tal:def tal:define="
+            fieldname string:relatedItems;
+            values python:related_view('PolicyDocumentReference');
+            selected_tab string:$fieldname-policy-document-reference;
+            ">
+            <metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
+              <metal:slot metal:fill-slot="content">
+                <div tal:condition="python:not values"
+                  class="placeholder">
+                  Please fill in
+                </div>
+                <ul>
+                  <li tal:repeat="ref values">
+                    <a href="" tal:attributes="href ref/absolute_url">
+                      <span tal:replace="ref/Title" />
+                    </a>
+                  </li>
+                </ul>
+              </metal:slot>
+              <metal:slot metal:fill-slot="control">
+                <div class="control-special-handler">
+                  <a href=""
+                    tal:attributes="onclick string:return open_relations_widget('active_field-$fieldname',
+                    '$selected_tab')">edit...</a>
+                </div>
+              </metal:slot>
+              <metal:slot metal:fill-slot="extra-metadata">
+                <div class="disable_handler">true</div>
+                <div class="dialog_title">Edit Policy Documents</div>
+              </metal:slot>
+
+            </metal:macro>
+          </tal:def>
+
+        </div>
+      </metal:slot>
+    </metal:macro>
+
+  </tal:def>
+</tal:def>
