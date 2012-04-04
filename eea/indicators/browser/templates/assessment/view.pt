@@ -117,13 +117,43 @@
                   </p>
                 </tal:description>
 
-                <tal:dataSource define="figure_dataSource figure/getDataSource">
-                  <p>
-                    <strong>Data source: </strong>
-                    <span tal:condition="not:figure_dataSource">N/A</span>
-                  </p>
-                  <p tal:condition="figure_dataSource" tal:content="structure figure_dataSource" />
-                </tal:dataSource>
+<!--TODO: confirm that we never show figure/getDataSource-->
+                <!--<tal:dataSource define="figure_dataSource figure/getDataSource">-->
+                  <!--<p>-->
+                    <!--<strong>Data source: </strong>-->
+                    <!--<span tal:condition="not:figure_dataSource">N/A</span>-->
+                  <!--</p>-->
+                  <!--<p tal:condition="figure_dataSource" tal:content="structure figure_dataSource" />-->
+                <!--</tal:dataSource>-->
+
+                <div tal:define="related python:[o for o in figure.getRelatedProducts() 
+                                                            if o.portal_type in ('ExternalDataSpec', 'Data')];">
+                    <strong>Data sources:</strong>
+                    <ul>
+                        <li tal:repeat="item related" style="list-style-position:inside">
+                            <tal:cond condition="python:item.portal_type == 'ExternalDataSpec'" >
+                                <tal:def tal:define="field python:item.getField('provider_url'); value python:field.getAccessor(item)()">
+                                    <!--<span tal:content="python:field, value, item" />-->
+                                    <span tal:content="python:item.getOrganisationByUrl(value).Title" />:
+                                    <a 
+                                        tal:content="item/Title" 
+                                        tal:attributes="href python:item.getDataset_url() or value">External Data Spec</a>
+                                </tal:def>
+                            </tal:cond>
+
+                            <tal:cond condition="python:item.portal_type == 'Data'" >
+                                <tal:def tal:define="field python:item.getField('dataOwner'); value python:field.getAccessor(item)()">
+                                    <!--<span tal:content="python:field, value, item" />-->
+                                    <span tal:content="python:item.getOrganisationName(value).Title" />:
+                                    <a 
+                                        tal:content="item/Title" 
+                                        tal:attributes="href item/absolute_url">Data Item</a>
+                                </tal:def>
+                            </tal:cond>
+
+                        </li>
+                    </ul>
+                </div>
 
                 <a tal:attributes="href figure/absolute_url">Downloads and more info</a>
                 <div class="visualClear"><!-- --></div>
