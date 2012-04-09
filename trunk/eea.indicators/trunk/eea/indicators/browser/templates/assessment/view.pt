@@ -117,18 +117,18 @@
                   </p>
                 </tal:description>
 
-<!--TODO: confirm that we never show figure/getDataSource-->
-                <!--<tal:dataSource define="figure_dataSource figure/getDataSource">-->
-                  <!--<p>-->
-                    <!--<strong>Data source: </strong>-->
-                    <!--<span tal:condition="not:figure_dataSource">N/A</span>-->
-                  <!--</p>-->
-                  <!--<p tal:condition="figure_dataSource" tal:content="structure figure_dataSource" />-->
-                <!--</tal:dataSource>-->
+                
 
                 <div tal:define="related python:[o for o in figure.getRelatedProducts() 
-                                                            if o.portal_type in ('ExternalDataSpec', 'Data')];">
+                                                            if o.portal_type in ('ExternalDataSpec', 'Data')];
+                                                           figure_dataSource figure/getDataSource ">
+
                     <strong>Data source:</strong>
+                    <!--TODO: confirm that we should never show dataSource here-->
+                    <p tal:condition="python:figure_dataSource and not related">
+                       <span tal:content="structure figure_dataSource" />
+                    </p>
+
                     <p tal:repeat="item related" >
                         <span tal:replace="structure item/@@related_title" />
                     </p>
