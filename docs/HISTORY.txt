@@ -3,6 +3,8 @@ Changelog
 
 4.23-dev - (unreleased)
 -----------------------
+ * Bug fix: don't show dataSource if relationship to ExternalDataSpec or Data
+   is available for a figure [tiberich #5066]
  * Bug fix: fixed close_dialog javascript function [tiberich #5059]
  * Bug fix: show externaldataspec/data in data sources in assessments
    [tiberich #5066]
