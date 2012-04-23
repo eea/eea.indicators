@@ -3,7 +3,9 @@ Changelog
 
 4.23-dev - (unreleased)
 -----------------------
- * Bug fix: added missing description on external data spec. [demarant]
+ * Bug fix: Display sources as list, since there can be multiple ones now with
+   related items (r27544). added missing description on external data spec.
+   [demarant refs #5066]
  * Bug fix: don't show dataSource if relationship to ExternalDataSpec or Data
    is available for a figure [tiberich #5066]
  * Bug fix: fixed close_dialog javascript function [tiberich #5059]
