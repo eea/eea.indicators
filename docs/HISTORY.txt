@@ -3,6 +3,7 @@ Changelog
 
 4.23-dev - (unreleased)
 -----------------------
+ * Change: Layout improvements [demarant]
  * Bug fix: Show data source info same way for assessments as for specific 
    assessments. Create browser view template for figures.
    [demarant fixes #5066]
