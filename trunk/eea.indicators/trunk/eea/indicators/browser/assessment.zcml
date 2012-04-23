@@ -10,6 +10,16 @@
                   template="templates/assessment/view.pt"
                   class=".assessment.IndexPage"
                   permission="zope2.View" />
+                  
+    <browser:page name="figures"
+                  for="eea.indicators.content.interfaces.IAssessment"
+                  template="templates/assessment/figures.pt"
+                  permission="zope2.View" />
+                  
+    <browser:page name="figures"
+                  for="eea.indicators.content.interfaces.IAssessmentPart"
+                  template="templates/assessment/figures.pt"
+                  permission="zope2.View" />
 
     <browser:page name="edit_aggregated"
                   for="eea.indicators.content.interfaces.IAssessment"

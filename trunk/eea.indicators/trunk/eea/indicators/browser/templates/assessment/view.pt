@@ -93,55 +93,8 @@
             <h3>Key messages</h3>
             <p tal:content="structure context/getKey_message" />
           </div>
-
-          <tal:figures define="relatedItems nocall:key/@@related_items;
-            eea_figures python:relatedItems('EEAFigure')">
-            <div tal:repeat="figure eea_figures" class="indicator-figure-plus-container">
-              <div class="indicator-figure-plus" tal:attributes="id figure/getId">
-                <div class="indicator-figure-image">
-                  <a title="Downloads and more info" href="" tal:attributes="href figure/absolute_url">
-                    <img alt="" title="" src=""
-                      tal:attributes="alt figure/Title;
-                      title figure/Title;
-                      src string:${figure/absolute_url}/image_preview" />
-                  </a>
-                </div>
-
-                <p class="figure-title" tal:content="figure/Title" />
-
-                <tal:description define="figure_description figure/Description">
-                  <p>
-                    <strong>Note: </strong>
-                    <span tal:condition="figure_description" tal:content="figure_description" />
-                    <span tal:condition="not:figure_description">N/A</span>
-                  </p>
-                </tal:description>
-
-                
-
-                <div tal:define="related python:[o for o in figure.getRelatedProducts() 
-                                                            if o.portal_type in ('ExternalDataSpec', 'Data')];
-                                                           figure_dataSource figure/getDataSource ">
-
-                    <strong>Data source:</strong>
-                    <!-- we only show deprecated datasource free text field,
-		    form old figures, otherwise we use the new approach 
-		    with related sources (which overrules the old one) -->
-                    <p tal:condition="python:figure_dataSource and not related">
-                       <span tal:content="structure figure_dataSource" />
-                    </p>
-		    <!-- show related data sources -->
-                    <ul tal:repeat="item related" >
-                        <li tal:content="structure item/@@related_title" />
-                    </ul>
-                </div>
-
-                <a tal:attributes="href figure/absolute_url">Downloads and more info</a>
-                <div class="visualClear"><!-- --></div>
-
-              </div>
-            </div>
-          </tal:figures>
+	  	    
+	  <tal:figures tal:replace="structure key/@@figures" />
 
           <h3>Key assessment</h3>
           <div tal:replace="structure python:key.getAssessment()">Question here</div>
@@ -149,46 +102,8 @@
 
         <tal:parts repeat="part secondary">
           <h2 class="policy_question">Specific policy question: <span tal:replace="part/Title" /></h2>
-
-          <tal:figures define="relatedItems nocall:part/@@related_items;
-            eea_figures python:relatedItems('EEAFigure')">
-            <div tal:repeat="figure eea_figures" class="indicator-figure-plus-container">
-              <div class="indicator-figure-plus" tal:attributes="id figure/getId">
-                <div class="indicator-figure-image">
-                  <a title="Downloads and more info"
-                    href=""
-                    tal:attributes="href figure/absolute_url">
-                    <img alt="" title="" src=""
-                      tal:attributes="alt figure/Title;
-                      title figure/Title;
-                      src string:${figure/absolute_url}/image_preview" />
-                  </a>
-                </div>
-
-                <p class="figure-title" tal:content="figure/Title" />
-
-                <tal:description define="figure_description figure/Description">
-                  <p>
-                    <strong>Note: </strong>
-                    <span tal:condition="figure_description" tal:content="figure_description" />
-                    <span tal:condition="not:figure_description">N/A</span>
-                  </p>
-                </tal:description>
-
-                <tal:dataSource define="figure_dataSource figure/getDataSource">
-                  <p>
-                    <strong>Data source: </strong>
-                    <span tal:condition="not:figure_dataSource">N/A</span>
-                  </p>
-                  <p tal:condition="figure_dataSource" tal:content="structure figure_dataSource" />
-                </tal:dataSource>
-
-                <a tal:attributes="href figure/absolute_url">Downloads and more info</a>
-                <div class="visualClear"><!-- --></div>
-
-              </div>
-            </div>
-          </tal:figures>
+	  
+	  <tal:figures tal:replace="structure part/@@figures" />
 
           <h3>Specific assessment</h3>
           <div tal:replace="structure part/assessment">Question here</div>
