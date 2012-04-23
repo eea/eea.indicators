@@ -3,6 +3,9 @@ Changelog
 
 4.23-dev - (unreleased)
 -----------------------
+ * Bug fix: Show data source info same way for assessments as for specific 
+   assessments. Create browser view template for figures.
+   [demarant fixes #5066]
  * Bug fix: Display sources as list, since there can be multiple ones now with
    related items (r27544). added missing description on external data spec.
    [demarant refs #5066]
