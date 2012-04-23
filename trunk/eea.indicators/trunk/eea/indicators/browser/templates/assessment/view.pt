@@ -124,14 +124,16 @@
                                                            figure_dataSource figure/getDataSource ">
 
                     <strong>Data source:</strong>
-                    <!--TODO: confirm that we should never show dataSource here-->
+                    <!-- we only show deprecated datasource free text field,
+		    form old figures, otherwise we use the new approach 
+		    with related sources (which overrules the old one) -->
                     <p tal:condition="python:figure_dataSource and not related">
                        <span tal:content="structure figure_dataSource" />
                     </p>
-
-                    <p tal:repeat="item related" >
-                        <span tal:replace="structure item/@@related_title" />
-                    </p>
+		    <!-- show related data sources -->
+                    <ul tal:repeat="item related" >
+                        <li tal:content="structure item/@@related_title" />
+                    </ul>
                 </div>
 
                 <a tal:attributes="href figure/absolute_url">Downloads and more info</a>

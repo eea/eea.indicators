@@ -67,10 +67,10 @@ schema = Schema((
     StringField(
         name='dataset_url',
         widget=StringField._properties['widget'](
-            label="URL where this dataset can be found",
+            label="Dataset URL",
+            description="Specific URL where this dataset can be found",
             label_msgid='indicators_label_dataset_url',
             i18n_domain='indicators',
-            description=" ",
         ),
         required=True,
         searchable=True,
