@@ -141,9 +141,7 @@ ul.sortable_spec {
     /* #policy_questions  */
     margin:6px 0;
 }
-.logic_group {
-    padding:1em;
-}
+
 #portal-column-one .logic_group {
     padding:0;
 }
