@@ -16,6 +16,7 @@ from Products.Archetypes.atapi import StringField, Schema, TextField
 from Products.Archetypes.utils import shasattr
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 from Products.CMFPlone.utils import getToolByName
+from eea.dataservice.widgets import OrganisationsWidget
 from eea.indicators.content import interfaces
 from eea.themecentre.interfaces import IThemeTagging
 from zope.component import adapts
@@ -52,11 +53,9 @@ schema = Schema((
     ),
     StringField(
         name='provider_url',
-        widget=SelectionWidget(
+        widget=OrganisationsWidget(
             label="Dataset provider/owner",
             description="Organisation providing access to this dataset.",
-            macro="organisation_widget",
-            helper_js=("selectautocomplete_widget.js", ),
             label_msgid='indicators_label_provider_url',
             i18n_domain='indicators',
         ),
@@ -211,7 +210,7 @@ class ExternalDataSpec(ATCTContent, BrowserDefaultMixin):
                 continue
             result.extend(ref.Subject())
         return sorted(list(set(result)))
-    
+
     def getOrganisationByUrl(self, url):
         """ get Organisation by given url
         """

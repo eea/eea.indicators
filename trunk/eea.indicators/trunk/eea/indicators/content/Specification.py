@@ -9,7 +9,7 @@ from Products.ATContentTypes.content.folder import ATFolder, ATFolderSchema
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema
 from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
 from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
-from Products.Archetypes.atapi import MultiSelectionWidget, Schema, RichWidget
+from Products.Archetypes.atapi import Schema, RichWidget
 from Products.Archetypes.atapi import SelectionWidget, LinesField
 from Products.Archetypes.atapi import StringField, TextField
 from Products.Archetypes.atapi import TextAreaWidget
@@ -41,6 +41,7 @@ from eea.versions.interfaces import IVersionControl, IVersionEnhanced
 from eea.versions.versions import isVersionEnhanced, get_versions_api
 from eea.workflow.interfaces import IHasMandatoryWorkflowFields
 from eea.workflow.interfaces import IObjectReadiness
+from eea.dataservice.widgets import MultiOrganisationsWidget
 from zope.component import adapts, queryMultiAdapter
 from zope.interface import alsoProvides, implements
 import datetime
@@ -156,12 +157,10 @@ schema = Schema((
             ),
     LinesField(
             name='ownership',
-            widget=MultiSelectionWidget(
+            widget=MultiOrganisationsWidget(
                 label="Owners",
                 description=("One or several institutions/organisations "
                              "sharing ownership for this indicator."),
-                macro="organisations_widget",
-                helper_js=("multiselectautocomplete_widget.js", ),
                 label_msgid='indicators_label_ownership',
                 i18n_domain='indicators',
                 ),

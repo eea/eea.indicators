@@ -3,8 +3,11 @@ Changelog
 
 4.23-dev - (unreleased)
 -----------------------
+ * Change: Use eea.dataservice organisation widgets instead of custom
+   macro, helper_js
+   [voineali refs #5072]
  * Change: Layout improvements [demarant]
- * Bug fix: Show data source info same way for assessments as for specific 
+ * Bug fix: Show data source info same way for assessments as for specific
    assessments. Create browser view template for figures.
    [demarant fixes #5066]
  * Bug fix: Display sources as list, since there can be multiple ones now with
@@ -21,10 +24,10 @@ Changelog
  * Bug fix: changed execution order to register validators without warning
    [tiberich #5045]
  * Change: cleaned logic for toc in indicators because of sole use of eea-toc
-   instead of toc from plone [ichimdav #5014] 
- * Bug fix: improve compatibility with content creation popup js 
+   instead of toc from plone [ichimdav #5014]
+ * Bug fix: improve compatibility with content creation popup js
    [tiberich #4982]
- * Bug fix: use proper code when creating a new version for Assessments 
+ * Bug fix: use proper code when creating a new version for Assessments
    [tiberich #5020]
  * Bug fix: set height to inherit for dom nodes in active field content boxes
    [tiberich #5009]
