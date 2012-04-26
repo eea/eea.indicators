@@ -1,8 +1,8 @@
 Changelog
 =========
 
-4.23-dev - (unreleased)
------------------------
+4.23 - (2012-04-26)
+-------------------
  * Change: Use eea.dataservice organisation widgets instead of custom
    macro, helper_js
    [voineali refs #5072]
