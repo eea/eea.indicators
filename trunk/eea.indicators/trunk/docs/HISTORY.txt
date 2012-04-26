@@ -1,6 +1,9 @@
 Changelog
 =========
 
+4.24-dev - (unreleased)
+-----------------------
+
 4.23 - (2012-04-26)
 -------------------
  * Change: Use eea.dataservice organisation widgets instead of custom
