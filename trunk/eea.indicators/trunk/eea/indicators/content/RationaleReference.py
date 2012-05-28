@@ -16,7 +16,6 @@ from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 from Products.CMFPlone.utils import getToolByName
 from eea.indicators.content import interfaces
 from zope.interface import implements
-from Products.validation import V_REQUIRED
 import logging
 
 logger = logging.getLogger('eea.indicators.content.RationaleReference')
