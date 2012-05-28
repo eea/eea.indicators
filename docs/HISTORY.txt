@@ -3,6 +3,7 @@ Changelog
 
 4.24-dev - (unreleased)
 -----------------------
+ * Bug fix: set isURL validator for RationaleReference links [tiberich #5212]
 
 4.23 - (2012-04-26)
 -------------------
