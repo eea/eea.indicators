@@ -16,6 +16,7 @@ from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 from Products.CMFPlone.utils import getToolByName
 from eea.indicators.content import interfaces
 from zope.interface import implements
+from Products.validation import V_REQUIRED
 import logging
 
 logger = logging.getLogger('eea.indicators.content.RationaleReference')
@@ -71,7 +72,8 @@ RationaleReference_schema = ATLinkSchema.copy() + \
 
 RationaleReference_schema['relatedItems'].widget.visible = {'view':'invisible',
                                                             'edit':'invisible'}
-RationaleReference_schema['remoteUrl'].validators = ('isURL',)
+RationaleReference_schema['remoteUrl'].validators = ('isURL', )
+RationaleReference_schema['remoteUrl']._validationLayer()
 
 finalizeATCTSchema(RationaleReference_schema)
 
