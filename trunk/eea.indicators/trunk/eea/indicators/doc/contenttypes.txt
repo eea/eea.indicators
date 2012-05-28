@@ -47,7 +47,6 @@ Specifications are containers for several types of objects:
 An Assessment can contain AssessmentParts:
 
     >>> asst = spec['as']
-    >>> #import pdb; pdb.set_trace()
     >>> ap = asst[asst.invokeFactory("AssessmentPart", 'ap')]
 
 Inside the ims folder, where the Specification was created, we will also create several
