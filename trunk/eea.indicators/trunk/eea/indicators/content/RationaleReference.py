@@ -71,6 +71,8 @@ RationaleReference_schema = ATLinkSchema.copy() + \
 
 RationaleReference_schema['relatedItems'].widget.visible = {'view':'invisible',
                                                             'edit':'invisible'}
+RationaleReference_schema['remoteUrl'].validators = ('isURL',)
+
 finalizeATCTSchema(RationaleReference_schema)
 
 class RationaleReference(ATLink, BrowserDefaultMixin):
