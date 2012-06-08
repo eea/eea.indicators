@@ -1,15 +1,13 @@
 """ Event handlers
 """
+
 from itertools import chain
 from Products.CMFCore.utils import getToolByName
+
 
 def syncWorkflowStateRelatedFigures(context, dest_state):
     """ Event handler
     """
-    print "*" * 80
-    print "Doing event handler"
-    print "*" * 80
-
     wftool = getToolByName(context, "portal_workflow")
 
     codes = context.get_codes()
@@ -40,7 +38,6 @@ def syncWorkflowStateRelatedFigures(context, dest_state):
                              if k.new_state_id == dest_state]
 
                     if not to_do:
-                        import pdb; pdb.set_trace()
                         raise ValueError(
 """Could not find a transition that would bring the object to destination
 state. This may be due to having the FigureFile at different workflow state
@@ -51,6 +48,7 @@ than its parent Figure.""")
                         workflow.doActionFor(obj, item.id, comment=comment)
                         obj.reindexObject()
                         break
+
 
 def handle_assessment_state_change(context, event):
     """ Event handler
@@ -65,6 +63,7 @@ def handle_assessment_state_change(context, event):
     else:
         context.allowDiscussion('on')
 
+
 def handle_specification_state_change(context, event):
     """ Event handler to reindex children assessments
         to update their readiness
@@ -74,6 +73,7 @@ def handle_specification_state_change(context, event):
     for obj in objs:
         catalog.reindexObject(obj, idxs=[], update_metadata=True)
 
+
 def handle_policyquestion_modification(context, event):
     """ Event handler to reindex parent specification
         to update their readiness
@@ -82,6 +82,7 @@ def handle_policyquestion_modification(context, event):
     spec = context.aq_parent
     catalog.reindexObject(spec, idxs=[], update_metadata=True)
 
+
 def handle_assessmentpart_modification(context, event):
     """ Event handler to reindex parent assessment
         to update their readiness
@@ -89,6 +90,7 @@ def handle_assessmentpart_modification(context, event):
     catalog = getToolByName(context, 'portal_catalog')
     assessment = context.aq_parent
     catalog.reindexObject(assessment, idxs=[], update_metadata=True)
+
 
 def handle_reindex_children(context, event):
     """ Event handler to reindex all children of an
