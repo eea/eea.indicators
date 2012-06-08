@@ -16,6 +16,7 @@ from eea.versions.versions import get_version_id
 from eea.versions.versions import get_versions_api
 from eea.workflow.interfaces import IObjectReadiness
 from eea.workflow.readiness import ObjectReadiness
+from itertools import chain
 from plone.app.layout.globals.interfaces import IViewView
 from zope.interface import implements
 
@@ -168,6 +169,20 @@ def create_version(original, request=None):
 
     return ver
 
+def hasUnpublishableFigure(ast):
+    for part in ast.objectValues("AssessmentPart"):
+        figures = [f for f in part.getRelatedItems() 
+                        if f.portal_type == 'EEAFigure']
+        for fig in figures:
+            if not IObjectReadiness(fig).is_ready_for('published'):
+                return True
+     
+            #for obj in chain([fig], fig.objectValues("EEAFigureFile")):
+                #if not IObjectReadiness(obj).is_ready_for('published'):
+                    #return True
+
+    return False
+    
 
 class WorkflowStateReadiness(ObjectReadiness):
     """ObjectReadiness customizations"""
@@ -182,7 +197,7 @@ class WorkflowStateReadiness(ObjectReadiness):
         (lambda o:filter(
             lambda p: not IObjectReadiness(p).is_ready_for('published'),
                                     o.objectValues("AssessmentPart")),
-        'You need to fill in the assessments for all the policy questions'),
+        'You need to fill in the assessments for all the policy questions.'),
 
         (lambda o:not IObjectReadiness(
                            aq_parent(aq_inner(o))).is_ready_for('published'),
@@ -191,17 +206,29 @@ class WorkflowStateReadiness(ObjectReadiness):
 
         (lambda o: 'published' != getToolByName(o, 'portal_workflow').
                             getInfoFor(aq_parent(aq_inner(o)), 'review_state'),
-        "The Indicator Specification needs to be published"
+        "The Indicator Specification needs to be published."
         ),
         (lambda o:not filter(lambda part: has_one_of(["EEAFigure"],
                     part.getRelatedItems()), o.objectValues("AssessmentPart")),
-        "The answered policy questions need to point to at least one Figure"),
+        "The answered policy questions need to point to at least one Figure."),
+        (lambda o:hasUnpublishableFigure(o),
+        'All the linked Figures and their FigureFiles should be ready '
+        'to be published. '),
+
     )}
 
     @property
     def depends_on(self):
         """see interface"""
         return self.context.objectValues("AssessmentPart")
+
+
+#class AssessmentPartWorkflowReadiness(ObjectReadiness):
+    #checks = {
+    #'published':
+        #[(lambda o:hasUnpublishableFigure(o),
+        #'Not all linked figures are ready to be published',)]
+        #}
 
 
 class WrongVersionReport(BrowserView):

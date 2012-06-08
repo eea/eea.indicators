@@ -5,6 +5,9 @@
     <adapter factory=".assessment.WorkflowStateReadiness"
              for="eea.indicators.content.interfaces.IAssessment" />
 
+    <!--adapter factory=".assessment.AssessmentPartWorkflowReadiness"*
+             /*for="eea.indicators.content.interfaces.IAssessmentPart" /-->
+
     <browser:page name="view"
                   for="eea.indicators.content.interfaces.IAssessment"
                   template="templates/assessment/view.pt"
