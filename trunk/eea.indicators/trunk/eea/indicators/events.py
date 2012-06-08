@@ -6,6 +6,10 @@ from Products.CMFCore.utils import getToolByName
 def syncWorkflowStateRelatedFigures(context, dest_state):
     """ Event handler
     """
+    print "*" * 80
+    print "Doing event handler"
+    print "*" * 80
+
     wftool = getToolByName(context, "portal_workflow")
 
     codes = context.get_codes()
@@ -36,6 +40,7 @@ def syncWorkflowStateRelatedFigures(context, dest_state):
                              if k.new_state_id == dest_state]
 
                     if not to_do:
+                        import pdb; pdb.set_trace()
                         raise ValueError(
 """Could not find a transition that would bring the object to destination
 state. This may be due to having the FigureFile at different workflow state

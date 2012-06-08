@@ -3,6 +3,9 @@ Changelog
 
 4.24-dev - (unreleased)
 -----------------------
+* Bug fix: take figure readiness into consideration for 
+  Assessment ready for publishing
+  [tiberich #5256]
 * Bug fix: fixed markup of HISTORY.txt file
   [ciobabog refs #5231]
 * Bug fix: set isURL validator for RationaleReference links
