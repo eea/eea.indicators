@@ -602,7 +602,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
         for assessment in self.objectValues('Assessment'):
             assessment.reindexObject()
 
-        #TODO: discuss and implement this:
+        #ZZZ: discuss and implement this:
         #when changing the code to something unique, all versions of this
         #indicator should get that code
 
@@ -684,7 +684,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
 
         version_id = None
         spec_versions = get_versions_api(self).versions.values()
-        #TODO: versions also contains self. Is this normal?
+        #ZZZ: versions also contains self. Is this normal?
         for spec in spec_versions:
             asts = spec.objectValues("Assessment")
             if asts:
@@ -735,7 +735,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
             try:
                 ap.reindexObject()
             except AttributeError:
-                log("#TODO: this happens when executed from test")
+                log("#ZZZ: this happens when executed from test")
 
         ast.reindexObject()
         return {'obj':ast, 'subview':'@@edit_aggregated', 'direct_edit':True}

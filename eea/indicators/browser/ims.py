@@ -27,7 +27,7 @@ def get_codes(codes):
     return res
 
 
-#TODO: write test for this sorting
+#ZZZ: write test for this sorting
 def _get_code(sets):
     """Usable as key in a comparision function"""
     def _wrapped(info):
@@ -50,7 +50,7 @@ class BaseIndicatorsReport(object):
 
     def get_child_assessments(self, spec):
         """Returns child assessments"""
-        #TODO: rewrite this code so that it uses a map that's initialized
+        #ZZZ: rewrite this code so that it uses a map that's initialized
         #      with the spec > children
 
         #checks if spec id is in assessment path segments
