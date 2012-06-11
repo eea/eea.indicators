@@ -272,7 +272,7 @@ class IndicatorFactSheet(ATFolder, ModalFieldEditableAware,
         #append indicator codes
         result.extend(self.get_codes())
 
-        #TODO: append themes, they are tags as well
+        #ZZZ: append themes, they are tags as well
         #result.extend(self.getThemes())
 
         for ob in self.getRelatedItems():

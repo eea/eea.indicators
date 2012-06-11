@@ -48,7 +48,7 @@ class SchemataCounts(BrowserView):
     """Provides a dictionary of fields that are required for publishing
     grouped by schematas
 
-    TODO: see if able/worthy to move this to eea.workflow
+    ZZZ: see if able/worthy to move this to eea.workflow
     """
 
     def __call__(self):
@@ -102,7 +102,7 @@ def create_version(original, request=None):
     new_spec.manage_delObjects(ids=new_spec.objectIds('Assessment'))
     new_spec.manage_delObjects(ids=new_spec.objectIds('WorkItem'))
 
-    #TODO: should we reindex the objects here?
+    #ZZZ: should we reindex the objects here?
     for obj in new_spec.objectValues():
         obj.setEffectiveDate(None)
         obj.setCreationDate(DateTime())
@@ -129,7 +129,7 @@ class CreateVersion(BaseCreateVersion):
 class WorkflowStateReadiness(ObjectReadiness):
     """Overrides default readiness adapter"""
 
-    #TODO: translate messages here
+    #ZZZ: translate messages here
     checks = {'published':(
             (
                 lambda o: not has_one_of(('Data', 'ExternalDataSpec'),

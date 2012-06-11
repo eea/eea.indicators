@@ -228,7 +228,7 @@ class Assessment(ATFolder, ModalFieldEditableAware,
                 if ob.portal_type == 'EEAFigure':
                     result.extend(ob.Subject())
 
-        #TODO: keywords from datasets, work but needs to be double checked
+        #ZZZ: keywords from datasets, work but needs to be double checked
         #      with content experts
         #spec = aq_parent(aq_inner(self))
         #for ob in spec.getRelatedItems():

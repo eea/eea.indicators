@@ -90,12 +90,4 @@ class OneAssessmentPartPerQuestionValidator:
             if ap.getPhysicalPath() == path:    #same object
                 continue
 
-            #TODO: fix this validator. At this moment it is short-circuited
-            #because when this validator was conceived, relatedItems was single
-            #valued. A fix would be to move the AssessmentPart -> PolicyQuestion
-            #into a new field
-            #if ap.getRelatedItems().getPhysicalPath() == q_path:
-            #    return ("Validation failed, there's already an Assessment Part"
-            #            " that answers this question")
-
         return True

@@ -16,7 +16,6 @@ from eea.versions.versions import get_version_id
 from eea.versions.versions import get_versions_api
 from eea.workflow.interfaces import IObjectReadiness
 from eea.workflow.readiness import ObjectReadiness
-from itertools import chain
 from plone.app.layout.globals.interfaces import IViewView
 from zope.interface import implements
 
@@ -96,7 +95,7 @@ class CreateVersionAjax(BaseCreateVersion):
 def create_version(original, request=None):
     """Creates a new version of an Assessment. Returns the new version object
     """
-    #TODO: check if the following is still applied. It is true in any case
+    #ZZZ: check if the following is still applied. It is true in any case
     #we want all Assessments for all spec versions to have the
     #same version id.
     #>>>if the parent Specification has versions, then the Assessment
@@ -114,7 +113,7 @@ def create_version(original, request=None):
         file_ids.append(file_ob.getId())
     ver.manage_delObjects(ids=file_ids)
 
-    #TODO: should we reindex the objects here?
+    #ZZZ: should we reindex the objects here?
     for obj in ver.objectValues():
         obj.setEffectiveDate(None)
         obj.setCreationDate(DateTime())
@@ -187,9 +186,10 @@ def hasUnpublishableFigure(ast):
 class WorkflowStateReadiness(ObjectReadiness):
     """ObjectReadiness customizations"""
 
-    #TODO: translate messages
+    #ZZZ: translate messages
 
     checks = {'published':(
+
         (lambda o:hasWrongVersionId(o),
         'This Assessment belongs to the wrong version group. To fix this '
         'please visit the Indicator Specification edit page.'),
@@ -208,9 +208,11 @@ class WorkflowStateReadiness(ObjectReadiness):
                             getInfoFor(aq_parent(aq_inner(o)), 'review_state'),
         "The Indicator Specification needs to be published."
         ),
+
         (lambda o:not filter(lambda part: has_one_of(["EEAFigure"],
                     part.getRelatedItems()), o.objectValues("AssessmentPart")),
         "The answered policy questions need to point to at least one Figure."),
+
         (lambda o:hasUnpublishableFigure(o),
         'All the linked Figures and their FigureFiles should be ready '
         'to be published. '),
