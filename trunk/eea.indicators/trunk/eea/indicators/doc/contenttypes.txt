@@ -415,8 +415,12 @@ The management plan needs to be filled in:
     >>> asp.setManagement_plan((2001, '1.2.3'))
     >>> catalog.reindexObject(asp)
     >>> info = asp.unrestrictedTraverse('@@get_readiness').get_info_for('published')
+    >>> info['extra']
+    [('error', 'All the linked Figures and their FigureFiles should be ready to be published. ')]
+    >>> info['rfs_field_names']
+    []
     >>> asp.unrestrictedTraverse('@@get_readiness').is_ready_for('published')
-    True
+    False
 
 
 Simple field editing and schemata editing
