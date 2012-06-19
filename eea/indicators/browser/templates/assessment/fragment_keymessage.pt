@@ -11,7 +11,7 @@
         <a name="rfs_key_message"></a>
         <h2 tal:define="field python:context.getField('key_message')">
           <span metal:use-macro="context/indicators_macros/macros/tooltip" />
-          Key message
+          <tal:block i18n:translate="">Key message</tal:block>
         </h2>
 
         <tal:def tal:define="fieldname string:key_message;
@@ -20,7 +20,7 @@
             <metal:slot metal:fill-slot="content">
               <div tal:condition="python:not imsutils.field_has_value('key_message', context)"
                 class="placeholder">
-                <span class="required">Please fill in</span>
+                <span class="required" i18n:translate="">Please fill in</span>
               </div>
               <div tal:replace="structure context/getKey_message" />
             </metal:slot>

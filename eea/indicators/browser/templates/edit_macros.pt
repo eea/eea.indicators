@@ -1,5 +1,5 @@
 <div tal:content='something' />
-This file is not used anymore and shouldn't be used
+<tal:block i18n:translate="">This file is not used anymore and shouldn't be used</tal:block>
 
 <html xmlns="http://www.w3.org/1999/xhtml"
       xml:lang="en"
@@ -7,7 +7,7 @@ This file is not used anymore and shouldn't be used
       xmlns:tal="http://xml.zope.org/namespaces/tal"
       xmlns:metal="http://xml.zope.org/namespaces/metal"
       xmlns:i18n="http://xml.zope.org/namespaces/i18n"
-      i18n:domain="plone">
+      i18n:domain="eea">
   <head><title></title></head>
   <body>
 

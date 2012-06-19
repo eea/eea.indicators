@@ -19,9 +19,9 @@
 
 			<div class="logic_group">
 				<h2 id="related_items">
-					<span metal:use-macro="tooltip_macro" /> Related items
+					<span metal:use-macro="tooltip_macro" i18n:translate=""> Related items</span>
 				</h2>
-				<div class="portalMessage" tal:condition="python:not value">
+				<div class="portalMessage" tal:condition="python:not value" i18n:translate="">
 					You need to reference some related items
 				</div>
 

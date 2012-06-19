@@ -22,7 +22,7 @@
 
       <h1 id="headline-assessment" tal:content="context/Title">Title here</h1>
 
-      <h2>Assessment versions</h2>
+      <h2 i18n:translate="">Assessment versions</h2>
       <metal:versions use-macro="here/portlet_versions/macros/versions">
         <metal:new fill-slot="old" />
       </metal:versions>

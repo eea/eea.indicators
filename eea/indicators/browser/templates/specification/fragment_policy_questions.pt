@@ -9,19 +9,20 @@
         <h2 class="policy_questions"
             tal:define="tooltip string:Add Policy Questions">
           <span metal:use-macro="context/indicators_macros/macros/tooltip" />
-          Policy Questions
+          <tal:block i18n:translate="">Policy Questions</tal:block>
         </h2>
         <tal:defs tal:define="
           check_question python:lambda o:o.getIs_key_question();
           main_question python:filter(check_question, questions)">
           <div class="portalMessage"
             tal:condition="python:not((main_question and questions) or main_question)">
-            You need to have at least one main Policy Question
+            <tal:block i18n:translate="">You need to have at least one main Policy Question</tal:block>
           </div>
         </tal:defs>
         <div class="grouped_field">
 
-          <a href='./object_factory?type_name=PolicyQuestion' class="object_creator">+ Policy Question</a>
+          <a href='./object_factory?type_name=PolicyQuestion' 
+             class="object_creator" i18n:translate="">+ Policy Question</a>
 
           <div id="policy_questions" class="sortable_spec" tal:condition="questions">
             <div class="metadata">
@@ -30,16 +31,19 @@
             </div>
             <div tal:repeat="question questions"
               class="list-item" tal:attributes="id question/getId">
-              <span title="Drag & drop to set order"
-                class="handler ui-icon ui-icon-arrowthick-2-n-s"></span>
+              <span title="Drag and drop to set order" 
+                    i18n:attributes="title"
+                    class="handler ui-icon ui-icon-arrowthick-2-n-s"></span>
               <a href=""
                 class="schemata_edit spec_control"
                 title="Edit Policy Question"
                 i18n:attributes="title"
+                i18n:translate="edit"
                 tal:attributes="href string:${question/absolute_url}/schemata_edit?fieldset=default">Edit</a>
               <a href=""
                 class="object_delete spec_control"
-                tal:attributes="href string:${question/aq_parent/absolute_url}/@@obj_delete?id=${question/getId}">Delete</a>
+                tal:attributes="href string:${question/aq_parent/absolute_url}/@@obj_delete?id=${question/getId}"
+                i18n:translate="delete">Delete</a>
               <strong tal:content="question/Title">Question title</strong>
               <span tal:condition="question/getIs_key_question">(Main question)</span>
             </div>

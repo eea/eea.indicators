@@ -3,7 +3,7 @@
       xmlns:tal="http://xml.zope.org/namespaces/tal"
       xmlns:metal="http://xml.zope.org/namespaces/metal"
       lang="en"
-      i18n:domain="userandgroupselectionwidget"
+      i18n:domain="eea"
       tal:define="view context/@@userandgroupselectpopup_view;
                   dummy view/initialize;
                   multiVal view/multiValued;
@@ -68,10 +68,9 @@
             }
         }
 
-
 		function toggleUidsSelect(field) {
             checkboxes = document.getElementsByName('uids');
-            for (i = 0; i < checkboxes.length; i++) {
+            for (i = 0; i &lt; checkboxes.length; i++) {
                 checkboxes[i].checked = field.checked;
 	        }
         }
@@ -186,6 +185,7 @@
                          name="selectButton"
                          title="Select all items"
                          onClick="toggleUidsSelect(this);"
+                         i18n:attributes="title"
                          tal:condition="multiVal"
                          tal:attributes="src string:$portal_url/select_all_icon.gif"/>
                 </th>

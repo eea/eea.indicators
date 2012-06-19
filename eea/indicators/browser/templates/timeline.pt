@@ -5,7 +5,7 @@
   i18n:domain="indicators">
   <head>
     <metal:slot fill-slot="head_slot">
-      <title>Timeline overview for indicators database</title>
+      <title i18n:translate="">Timeline overview for indicators database</title>
     </metal:slot>
     <metal:slot fill-slot="css_slot">
       <link type="text/css" rel="stylesheet" media="all" tal:attributes="href string:$portal_url/indicators.css" />
@@ -29,15 +29,15 @@
         <metal:toc use-macro="here/portlet_toc/macros/portlet"/>
       </tal:block>
 
-      <a href="#" style="float:right" class="make_fullscreen">Make fullscreen</a>
+      <a href="#" style="float:right" class="make_fullscreen" i18n:translate="">Make fullscreen</a>
 
-      <h1>Timeline overview for indicators database</h1>
+      <h1 i18n:translate="">Timeline overview for indicators database</h1>
       <tal:rep tal:repeat="set python:sorted(timeline.keys())">
         <h2 tal:content="set">CSI</h2>
         <table class='listing'>
           <thead>
             <tr>
-              <th>No.</th>
+              <th i18n:translate="">No.</th>
               <th tal:repeat="year years" tal:content="year">2002</th>
             </tr>
           </thead>
@@ -93,7 +93,8 @@
                     <ul tal:condition="python:int(entry['comments'] or 0)" class="timeline-comments" >
                       <li>
                         <a href=""
-                          tal:attributes="href python:entry['url'] + '#eea-comments'">See comments</a>
+                          tal:attributes="href python:entry['url'] + '#eea-comments'" 
+                          i18n:translate="">See comments</a>
                       </li>
                     </ul>
                   </div>

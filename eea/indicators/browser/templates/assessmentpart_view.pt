@@ -1,6 +1,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
 	metal:use-macro="here/main_template/macros/master"
-	i18n:domain="indicators">
+	i18n:domain="eea">
 	<head>
 		<title tal:content="context/Title"></title>
 	</head>
@@ -9,7 +9,7 @@
 			<h1 tal:content="context/Title">Title here</h1>
 			<div tal:replace="context/getAssessment">Assessment text here</div>
 
-			<h2>Figures</h2>
+			<h2 i18n:translate="figures">Figures</h2>
 
 			<tal:mapsandgraphs tal:define="figures here/getFolderContents"
 				tal:condition="figures">
@@ -20,7 +20,9 @@
 					b_start python:request.get('b_start', 0);
 					template_id string:;
 					folderContents python:Batch(figures, 12, int(b_start), orphan=1)">
-					<h4 id="maps-and-graphs" style="display: none">Fancybox relations</h4>
+					<h4 id="maps-and-graphs" 
+					    style="display: none" 
+					    i18n:translate="fancy-relations">Fancybox relations</h4>
 					<metal:figures use-macro="here/atct_album_view/macros/listing" />
 				</div>
 			</tal:mapsandgraphs>

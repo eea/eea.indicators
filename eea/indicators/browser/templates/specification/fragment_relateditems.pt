@@ -19,7 +19,8 @@
 
 			<div class="logic_group">
 				<h2 id="related_items">
-					<span metal:use-macro="tooltip_macro" /> Related items
+					<span metal:use-macro="tooltip_macro" /> 
+					<tal:block i18n:translate="">Related items</tal:block>
 				</h2>
 				<div class="portalMessage" tal:condition="python:not value">
 					You need to reference some related items

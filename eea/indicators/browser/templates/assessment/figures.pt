@@ -3,7 +3,10 @@
   <div tal:repeat="figure eea_figures" class="indicator-figure-plus-container">
               <div class="indicator-figure-plus" tal:attributes="id figure/getId">
                 <div class="indicator-figure-image">
-                  <a title="Downloads and more info" href="" tal:attributes="href figure/absolute_url">
+                  <a title="Downloads and more info"
+                     i18n:attributes="title"
+                     href="" 
+                     tal:attributes="href figure/absolute_url">
                     <img alt="" title="" src=""
                       tal:attributes="alt figure/Title;
                       title figure/Title;
@@ -15,7 +18,7 @@
 
                 <tal:description define="figure_description figure/Description">
                   <p>
-                    <strong>Note: </strong>
+                    <strong i18n:translate="">Note: </strong>
                     <span tal:condition="figure_description" tal:content="figure_description" />
                     <span tal:condition="not:figure_description">N/A</span>
                   </p>
@@ -25,7 +28,7 @@
                                                             if o.portal_type in ('ExternalDataSpec', 'Data')];
                                                            figure_dataSource figure/getDataSource ">
 
-                    <strong>Data source:</strong>
+                    <strong i18n:translate="">Data source:</strong>
                     <!-- we only show deprecated datasource free text field,
 		    form old figures, otherwise we use the new approach 
 		    with related sources (which overrules the old one) -->
@@ -38,7 +41,7 @@
                     </ul>
                 </div>
 
-                <a tal:attributes="href figure/absolute_url">Downloads and more info</a>
+                <a tal:attributes="href figure/absolute_url" i18n:translate="">Downloads and more info</a>
                 <div class="visualClear"><!-- --></div>
 
               </div>
