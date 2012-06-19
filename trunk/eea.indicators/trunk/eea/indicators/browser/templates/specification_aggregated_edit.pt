@@ -1,6 +1,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
 	metal:use-macro="here/main_template/macros/master"
-	i18n:domain="indicators">
+	i18n:domain="eea">
 
 	<metal:baseslot fill-slot="base">
 		<base href="" tal:attributes="href request/URL" />
@@ -35,19 +35,19 @@
 			<div tal:replace="structure context/fragment_data_specifications" />
 			<div tal:replace="structure context/fragment_uncertainties" />
 
-			<h2 class="further_work">Further work</h2>
+			<h2 class="further_work" i18n:translate="">Further work</h2>
 			<div tal:replace="structure context/fragment_work" />
 
 			<metal:versions use-macro="here/portlet_versions/macros/versions">
 				<metal:new fill-slot="new" />
 			</metal:versions>
 
-			<h2 class="metadata">General metadata</h2>
+			<h2 class="metadata" i18n:translate="">General metadata</h2>
 
 			<div class='headed-box'>
-				<h5>Responsability and ownership</h5>
+				<h5 i18n:translate="">Responsability and ownership</h5>
 
-				<h6>Ownership</h6>
+				<h6 i18n:translate="">Ownership</h6>
 				<ul>
 					<li tal:repeat="info context/getOwnership" >
 						<a tal:content="python:context.getOrganisationName(info).Title" tal:attributes="href info">EEA</a>
@@ -57,44 +57,46 @@
 			</div>
 
 			<div class='headed-box'>
-				<h5>Identification</h5>
+				<h5 i18n:translate="">Identification</h5>
 				<div class="wrapper" >
 					<div tal:define="codes context/getCodes">
-						<strong>Indicator code</strong>
+						<strong i18n:translate="">Indicator code</strong>
 						<div tal:repeat="code codes" tal:content="string:${code/set} ${code/code}">
 							CSI 001
 						</div>
 					</div>
-					<strong>Specification</strong>
-					<div>Link: <a href="" tal:attributes="href context/absolute_url"
-							tal:content="context/getId">ISpecification1235</a>
+					<strong i18n:translate="">Specification</strong>
+					<div i18n:translate="">Link: <a href="" tal:attributes="href context/absolute_url"
+					                                i18n:name="specification"
+							                        tal:content="context/getId">ISpecification1235</a>
 					</div>
-					<div>
+					<div i18n:translate="">
 						Version id: <tal:version_id define="getVersions nocall:context/@@getVersions;
 										    version_number getVersions/version_number"
-									    content="version_number" />
+									    content="version_number"
+									    i18n:name="version-number" />
 					</div>
 
-					<div>
-						First draft created: <span tal:content="context/creation_date">creation date</span>
+					<div i18n:translate="">
+						First draft created: <span tal:content="context/creation_date" i18n:name="creation-date">creation date</span>
 					</div>
 
-					<div>
-						Publish date: <span tal:content="context/effective_date">effective date</span>
+					<div i18n:translate="">
+						Publish date: <span tal:content="context/effective_date" i18n:name="effective-date">effective date</span>
 					</div>
-					<div>
-						Last modified: <span tal:content="context/modified">Modified date</span>
+					<div i18n:translate="">
+						Last modified: <span tal:content="context/modified" i18n:name="modified-date">Modified date</span>
 					</div>
 				</div>
 			</div>
 
 			<div class='headed-box'>
-				<h5>Classification</h5>
+				<h5 i18n:translate="">Classification</h5>
 				<div class="visualClear"><!-- --></div>
-				<strong>DPSIR</strong>: <span tal:define="dpsirLabel nocall:context/@@dpsir_label"
+				<strong i18n:translate="">DPSIR</strong>: <span tal:define="dpsirLabel nocall:context/@@dpsir_label"
 							      tal:replace="python:dpsirLabel(context.getDpsir())" />
 				<br/>
-				<strong>Typology</strong>: <span tal:define="typologyLabel nocall:context/@@typology_label"
+				<strong i18n:translate="">Typology</strong>: <span tal:define="typologyLabel nocall:context/@@typology_label"
 								 tal:replace="python:typologyLabel(context.getTypology())" />
 				<br/>
 				<!-- <strong>EEA Themes</strong>: -->

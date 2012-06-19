@@ -24,7 +24,7 @@
                  condition="url">
         <dt>
           <metal:basic use-macro="here/dataset_view/macros/tooltip" />
-          <span>Provider:</span>
+          <span i18n:translate="provider">Provider:</span>
         </dt>
         
         <tal:block define="org python:context.getOrganisationByUrl(url)">
@@ -47,7 +47,7 @@
                  tal:condition="value">
         <dt>
           <metal:basic use-macro="here/dataset_view/macros/tooltip" />
-          <span>Dataset URL:</span>
+          <span i18n:translate="dataset-url">Dataset URL:</span>
         </dt>
         <dd>
           <a href="" tal:attributes="href value" tal:content="value" />
@@ -59,7 +59,7 @@
                  condition="value">
         <dt>
           <metal:basic use-macro="here/dataset_view/macros/tooltip" />
-          <span>Dataset path:</span>
+          <span i18n:translate="dataset-path">Dataset path:</span>
         </dt>
         <dd tal:content="structure value"></dd>
       </tal:block>
@@ -69,7 +69,7 @@
         value python:field.getAccessor(context)()" tal:condition="value">
         <dt>
           <metal:basic use-macro="here/dataset_view/macros/tooltip" />
-          <span>Other comments:</span>
+          <span i18n:translate="other-comments">Other comments:</span>
         </dt>
         <dd tal:content="structure value"></dd>
       </tal:block>

@@ -1,6 +1,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
   metal:use-macro="here/main_template/macros/master"
-  i18n:domain="indicators">
+  i18n:domain="eea">
 
   <metal:block use-macro="here/global_defines/macros/defines" />
 
@@ -23,7 +23,7 @@
 
       <div tal:replace="structure context/@@fragment_title" />
 
-      <h2>Indicator FactSheet versions</h2>
+      <h2 i18n:translate="">Indicator FactSheet versions</h2>
       <metal:versions use-macro="here/portlet_versions/macros/versions">
         <metal:new fill-slot="old" />
       </metal:versions>

@@ -1,11 +1,11 @@
 <tal:def tal:define="
-    submit_handler string:simple_edit; 
-    imsutils nocall:context/@@indicator_utils;
-  region_name python:context.UID();
-  also_reload python:['object_readiness'];
-    region_update_handler string:${context/absolute_url}/fragment_assessment_part;
-  figures python:context.getFolderContents();
-  UID context/UID">
+        submit_handler string:simple_edit; 
+        imsutils nocall:context/@@indicator_utils;
+        region_name python:context.UID();
+        also_reload python:['object_readiness'];
+        region_update_handler string:${context/absolute_url}/fragment_assessment_part;
+        figures python:context.getFolderContents();
+        UID context/UID">
 
     <metal:block use-macro="here/global_defines/macros/defines" />
 
@@ -42,7 +42,7 @@
                         <metal:slot metal:fill-slot="content">
               <a name="rfs_assessment_id" tal:attributes="name string:rfs_${fieldname}_${context/getId}"></a>
                             <div tal:condition="python:not imsutils.field_has_value('assessment', context)" class="placeholder">
-                <span class="required">Please fill in</span>
+                <span class="required" i18n:translate="">Please fill in</span>
                             </div>
                             <div tal:replace="structure context/assessment" />
                         </metal:slot>

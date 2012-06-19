@@ -3,7 +3,7 @@
   i18n:domain="indicators">
   <head>
     <metal:slot fill-slot="head_slot">
-      <title>Permissions Overview for Indicators Database</title>
+      <title i18n:translate="">Permissions Overview for Indicators Database</title>
     </metal:slot>
     <metal:slot fill-slot="css_slot">
       <link type="text/css" rel="stylesheet" media="all" tal:attributes="href string:$portal_url/indicators.css" />
@@ -14,7 +14,7 @@
   </head>
   <body>
     <div metal:fill-slot="main">
-      <h1>Indicators that have wrong version ids</h1>
+      <h1 i18n:translate="">Indicators that have wrong version ids</h1>
       <ul>
         <li tal:repeat="obj view/wrongs">
           <strong tal:content="obj/portal_type">Specification</strong> - 

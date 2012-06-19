@@ -10,26 +10,26 @@
       <metal:slot metal:fill-slot="content">
         <div class="logic_group">
 
-          <h2 id="policy_context">Policy Context and targets</h2>
+          <h2 id="policy_context" i18n:translate="">Policy Context and targets</h2>
 
           <a name="rfs_policy_context_description" ></a>
           <h4 tal:define="field python:context.getField('policy_context_description')">
             <span metal:use-macro="context/indicators_macros/macros/tooltip" />
-            Context description
+            <tal:block i18n:translate="">Context description</tal:block>
           </h4>
           <tal:def tal:define="fieldname string:policy_context_description; fieldset string:PolicyContext">
             <metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
               <metal:slot metal:fill-slot="content">
                 <div tal:condition="python:not imsutils.field_has_value('policy_context_description', context)"
                   class="placeholder">
-                  <span class="required">Please fill in</span>
+                  <span class="required" i18n:translate="">Please fill in</span>
                 </div>
                 <p tal:replace="structure context/getPolicy_context_description"></p>
               </metal:slot>
               <metal:slot metal:fill-slot="extra-metadata">
                 <div class="width">800</div>
                 <div class="height">435</div>
-                <div class="dialog_title">Edit Policy Context Description</div>
+                <div class="dialog_title" i18n:translate="">Edit Policy Context Description</div>
               </metal:slot>
             </metal:macro>
           </tal:def>
@@ -37,7 +37,7 @@
 
           <h4 tal:define="field python:context.getField('policy_context_targets')">
             <span metal:use-macro="context/indicators_macros/macros/tooltip" />
-            Targets
+            <tal:block i18n:translate="">Targets</tal:block>
           </h4>
           <tal:def tal:define="fieldname string:policy_context_targets; fieldset string:PolicyContext">
             <metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
@@ -51,14 +51,14 @@
               <metal:slot metal:fill-slot="extra-metadata">
                 <div class="width">800</div>
                 <div class="height">435</div>
-                <div class="dialog_title">Edit Targets</div>
+                <div class="dialog_title" i18n:translate="">Edit Targets</div>
               </metal:slot>
             </metal:macro>
           </tal:def>
 
           <h4 tal:define="tooltip string:Related policy documents">
             <span metal:use-macro="context/indicators_macros/macros/tooltip" />
-            Related policy documents
+            <tal:block i18n:translate="">Related policy documents</tal:block>
           </h4>
           <!-- #TODO: replace Edit related_policy_documents with Edit relatedItems -->
 
@@ -84,13 +84,13 @@
               <metal:slot metal:fill-slot="control">
                 <div class="control-special-handler">
                   <a href=""
-                    tal:attributes="onclick string:return open_relations_widget('active_field-$fieldname',
-                    '$selected_tab')">edit...</a>
+                    tal:attributes="onclick string:return open_relations_widget('active_field-$fieldname','$selected_tab')"
+                    i18n:translate="">edit...</a>
                 </div>
               </metal:slot>
               <metal:slot metal:fill-slot="extra-metadata">
-                <div class="disable_handler">true</div>
-                <div class="dialog_title">Edit Policy Documents</div>
+                <div class="disable_handler" i18n:translate="true">true</div>
+                <div class="dialog_title" i18n:translate="">Edit Policy Documents</div>
               </metal:slot>
 
             </metal:macro>

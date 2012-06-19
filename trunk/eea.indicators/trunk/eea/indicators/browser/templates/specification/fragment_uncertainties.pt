@@ -10,17 +10,17 @@
       <metal:macro metal:use-macro="context/indicators_macros/macros/active_region">
         <metal:slot metal:fill-slot="content">
 
-          <h2 id="uncertainties">Uncertainties</h2>
+          <h2 id="uncertainties" i18n:translate="">Uncertainties</h2>
 
           <h4 tal:define="field python:context.getField('methodology_uncertainty')">
             <span metal:use-macro="tooltip_macro" />
-            Methodology uncertainty
+            <span i18n:translate="">Methodology uncertainty</span>
           </h4>
           <tal:def tal:define="fieldname string:methodology_uncertainty; fieldset string:Methodology">
             <metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
               <metal:slot metal:fill-slot="content">
                 <div tal:condition="python:not imsutils.field_has_value('methodology_uncertainty', context)"
-                  class="placeholder">
+                  class="placeholder" i18n:translate="">
                   Please fill in
                 </div>
                 <p tal:replace="structure context/getMethodology_uncertainty"></p>
@@ -28,7 +28,7 @@
               <metal:slot metal:fill-slot="extra-metadata">
                 <div class="width">800</div>
                 <div class="height">435</div>
-                <div class="dialog_title">Edit Methodology Uncertainty</div>
+                <div class="dialog_title" i18n:translate="">Edit Methodology Uncertainty</div>
               </metal:slot>
             </metal:macro>
           </tal:def>
@@ -36,13 +36,13 @@
 
           <h4 tal:define="field python:context.getField('data_uncertainty')">
             <span metal:use-macro="tooltip_macro" />
-            Data sets uncertainty
+            <span i18n:translate="">Data sets uncertainty</span>
           </h4>
           <tal:def tal:define="fieldname string:data_uncertainty; fieldset string:DataSpecs">
             <metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
               <metal:slot metal:fill-slot="content">
                 <div tal:condition="python:not imsutils.field_has_value('data_uncertainty', context)"
-                  class="placeholder">
+                  class="placeholder" i18n:translate="">
                   Please fill in
                 </div>
                 <p tal:replace="structure context/getData_uncertainty"></p>
@@ -50,7 +50,7 @@
               <metal:slot metal:fill-slot="extra-metadata">
                 <div class="width">800</div>
                 <div class="height">435</div>
-                <div class="dialog_title">Edit Data Sets Uncertainty</div>
+                <div class="dialog_title" i18n:translate="">Edit Data Sets Uncertainty</div>
               </metal:slot>
             </metal:macro>
           </tal:def>
@@ -58,13 +58,13 @@
           <a name="rfs_rationale_uncertainty" ></a>
           <h4 tal:define="field python:context.getField('rationale_uncertainty')">
             <span metal:use-macro="tooltip_macro" />
-            Rationale uncertainty
+            <span i18n:translate="">Rationale uncertainty</span>
           </h4>
           <tal:def tal:define="fieldname string:rationale_uncertainty; fieldset string:Rationale">
             <metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
               <metal:slot metal:fill-slot="content">
                 <div tal:condition="python:not imsutils.field_has_value('rationale_uncertainty', context)"
-                  class="placeholder">
+                  class="placeholder" i18n:translate="">
                   Please fill in
                 </div>
                 <p tal:replace="structure context/getRationale_uncertainty"></p>
@@ -72,7 +72,7 @@
               <metal:slot metal:fill-slot="extra-metadata">
                 <div class="width">800</div>
                 <div class="height">435</div>
-                <div class="dialog_title">Edit Rationale Uncertainty</div>
+                <div class="dialog_title" i18n:translate="">Edit Rationale Uncertainty</div>
               </metal:slot>
             </metal:macro>
           </tal:def>

@@ -11,7 +11,7 @@
 
 					<h3 tal:define="field python:context.getField('related_external_indicator')">
 						<span metal:use-macro="context/indicators_macros/macros/tooltip" />
-						Related External Indicator
+						<tal:block i18n:translate="">Related External Indicator</tal:block>
 					</h3>
 					<tal:def tal:define="fieldname string:related_external_indicator; fieldset string:default">
 						<metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
@@ -25,7 +25,7 @@
 							<metal:slot metal:fill-slot="extra-metadata">
 								<div class="width">800</div>
 								<div class="height">435</div>
-								<div class="dialog_title">Edit Related External Indicator</div>
+								<div class="dialog_title" i18n:translate="">Edit Related External Indicator</div>
 							</metal:slot>
 						</metal:macro>
 					</tal:def>

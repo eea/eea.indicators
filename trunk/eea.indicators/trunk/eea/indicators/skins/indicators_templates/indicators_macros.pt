@@ -35,9 +35,8 @@
 	<metal:slot metal:define-slot="control">
 		<div class="control">
 			<a href=""
-				tal:attributes="href
-				string:${thiscontext/absolute_url}/${submit_handler}?fieldset=${fieldset}&specific_field=$fieldname">
-				edit...
+				tal:attributes="href string:${thiscontext/absolute_url}/${submit_handler}?fieldset=${fieldset}&amp;specific_field=$fieldname"
+				i18n:translate="">edit...
 			</a>
 		</div>
 	</metal:slot>
@@ -92,7 +91,7 @@ The name of the region fragment that will be updated;
 			<div class="realFieldName" tal:content="realFieldName"></div>
 		</div>
 		<div class="content">
-			<div tal:condition="python:not value" class="placeholder">
+			<div tal:condition="python:not value" class="placeholder" i18n:translate="">
 				Please fill in
 			</div>
 

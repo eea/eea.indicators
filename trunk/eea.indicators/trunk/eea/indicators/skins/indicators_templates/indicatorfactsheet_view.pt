@@ -5,7 +5,7 @@
   xmlns:metal="http://xml.zope.org/namespaces/metal"
   xmlns:i18n="http://xml.zope.org/namespaces/i18n"
   metal:use-macro="here/main_template/macros/master"
-  i18n:domain="plone">
+  i18n:domain="eea">
 
   <head><title></title></head>
 
@@ -16,7 +16,8 @@
       Description
     </p>
     <p class="documentDescription">
-      Assessment made on <tal:block define="value context/getAssessment_date"
+      <tal:block i18n:translate="">Assessment made on</tal:block>&nbsp; 
+      <tal:block define="value context/getAssessment_date"
         content="python:toLocalizedTime(value, long_format=0, translate=False)" />
     </p>
   </div>
@@ -32,8 +33,8 @@
         <div class="visualClear"><!-- --></div>
 
         <div id="box-classification">
-          <h3 id="general_metadata">Generic metadata</h3>
-          <h4>Classification</h4>
+          <h3 id="general_metadata" i18n:translate="">Generic metadata</h3>
+          <h4 i18n:translate="">Classification</h4>
           <tal:block define="themesView here/@@themes-object|nothing;
             themes themesView/full_items;
             primaryTheme python:themes and themes[0] or None">
@@ -56,12 +57,12 @@
           <tal:tags define="facetId string:c9">
             <metal:related use-macro="here/dataset_view/macros/tags" />
           </tal:tags>
-          <strong>DPSIR</strong>: <span tal:define="dpsirLabel nocall:context/@@dpsir_label"
+          <strong i18n:translate="">DPSIR</strong>: <span tal:define="dpsirLabel nocall:context/@@dpsir_label"
             tal:replace="python:dpsirLabel(context.getDpsir())" />
           <br/>
-          <h4>Identification</h4>
+          <h4 i18n:translate="">Identification</h4>
           <div tal:define="codes context/getCodes">
-            <strong>Indicator codes</strong>
+            <strong i18n:translate="">Indicator codes</strong>
             <ul>
               <li tal:repeat="code codes" tal:content="string:${code/set} ${code/code}">CSI 001</li>
             </ul>
@@ -78,13 +79,16 @@
 
         <tal:policy_question define="policy_question context/getPolicy_question"
           condition="policy_question">
-          <h2>Policy issue: <span tal:replace="policy_question" /></h2>
+          <h2>
+              <tal:block i18n:translate="policy-issue">Policy issue</tal:block>:&nbsp;
+              <span tal:replace="policy_question" />
+          </h2>
         </tal:policy_question>
 
         <tal:key_messages define="key_messages context/@@key_messages"
           condition="key_messages">
           <div class="keyMessage">
-            <h2>Key messages</h2>
+            <h2 i18n:translate="">Key messages</h2>
             <ul><li tal:repeat="message key_messages" tal:content="structure message/getMessage"></li></ul>
           </div>
 
@@ -92,24 +96,24 @@
 
         <tal:mapsandgraphs tal:define="figures context/@@figures_for_album"
           tal:condition="figures">
-          <h2>Figures</h2>
+          <h2 i18n:translate="">Figures</h2>
           <div metal:define-macro="figures-album" class="map-photo-album"
             tal:define="Batch python:modules['Products.CMFPlone'].Batch;
             figure_context python:True;
             b_start python:request.get('b_start', 0);
             template_id string:;
             folderContents python:Batch(figures, 12, int(b_start), orphan=1)">
-            <h4 id="maps-and-graphs" style="display: none">Fancybox relations</h4>
+            <h4 id="maps-and-graphs" style="display: none" i18n:translate="">Fancybox relations</h4>
             <metal:figures use-macro="here/atct_album_view/macros/listing" />
           </div>
         </tal:mapsandgraphs>
 
-        <h2>Key assessment</h2>
+        <h2 i18n:translate="">Key assessment</h2>
         <div tal:content="structure context/getAssessment" />
 
         <tal:factSheetDocuments define="documents context/@@fact_sheet_documents"
           condition="documents">
-          <h2>Download detailed information and factsheets</h2>
+          <h2 i18n:translate="download-detailed-info">Download detailed information and factsheets</h2>
           <!-- #TODO: there was also a display of "complete_report_link" -->
           <ul>
             <tal:block repeat="file documents">
@@ -135,7 +139,7 @@
         </tal:factSheetDocuments>
 
         <div class='headed-box'>
-          <h4>Permalinks</h4>
+          <h4 i18n:translate="">Permalinks</h4>
           <metal:basicmeta use-macro="context/versions_macros/macros/permalinks" />
         </div>
 
