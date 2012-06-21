@@ -7,11 +7,12 @@
 
 from AccessControl import ClassSecurityInfo
 from Products.ATContentTypes.content.file import ATFile, ATFileSchema
+from Products.Archetypes.atapi import FileWidget
 from Products.Archetypes.atapi import Schema, StringField
 from Products.Archetypes.atapi import TextField, TextAreaWidget
-from Products.Archetypes.atapi import FileWidget
 from Products.CMFCore.permissions import View
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
+from Products.validation import V_REQUIRED
 from eea.indicators.content import interfaces
 from plone.app.blob.field import BlobField
 from zope.interface import implements
@@ -47,6 +48,8 @@ schema = Schema((
     BlobField('file',
         required=False,
         primary=True,
+        validators = (('isNonEmptyFile', V_REQUIRED), 
+                      ('checkFileMaxSize', V_REQUIRED)),
         widget = FileWidget(
             description = "Select the file to be added by "
                           "clicking the 'Browse' button.",

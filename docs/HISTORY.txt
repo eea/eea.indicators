@@ -5,6 +5,8 @@ Changelog
 -----------------------
 * Bug Fix: Fixed i18n missing tags in eea.indicators 
   [prospchr refs #5162]
+* Bug fix: added max file size validator for FactSheetDocument
+  [tiberich #5259]
 
 4.24 - (2012-06-12)
 -------------------
