@@ -1,6 +1,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
 	lang="en"
-	i18n:domain="indicators">
+	i18n:domain="eea">
 
 	<head>
 		<metal:slot metal:define-macro="javascript_head">
