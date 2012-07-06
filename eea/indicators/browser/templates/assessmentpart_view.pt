@@ -9,7 +9,7 @@
 			<h1 tal:content="context/Title">Title here</h1>
 			<div tal:replace="context/getAssessment">Assessment text here</div>
 
-			<h2 i18n:translate="figures">Figures</h2>
+			<h2 i18n:translate="">Figures</h2>
 
 			<tal:mapsandgraphs tal:define="figures here/getFolderContents"
 				tal:condition="figures">
