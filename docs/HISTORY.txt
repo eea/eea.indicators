@@ -3,7 +3,7 @@ Changelog
 
 4.25-dev - (unreleased)
 -----------------------
-* Bug Fix: Fixed i18n missing tags and i18n:domain in *.zpt 
+* Bug Fix: Fixed i18n missing tags, i18n:domain and duplicate key in *.zpt 
   [prospchr refs #5162]
 * Bug fix: added max file size validator for FactSheetDocument
   [tiberich #5259]
