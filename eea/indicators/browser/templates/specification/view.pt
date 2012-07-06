@@ -348,9 +348,9 @@
                   status python: myear and mcode">
                   <li tal:condition="status">
                     <strong tal:content="assessment/Title" />
-                    <span i18n:translate="ear">year:</span>
+                    <span i18n:translate="">year</span>:
                     <tal:block content="myear" />,
-                    <span i18n:translate="code">code:</span>
+                    <span i18n:translate="">code</span>:
                     <tal:block content="mcode" />
                   </li>
                   <li tal:condition="not:status">
