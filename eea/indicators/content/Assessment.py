@@ -198,7 +198,7 @@ class Assessment(ATFolder, ModalFieldEditableAware,
         else:
             if time is None:
                 time = self.creation_date
-            msg = _("assessment-title-draft",
+            msg = _("assessment-draft-created",
                     default=u"Assessment DRAFT created ${date}",
                     mapping={'date':u"%s %s" %
                              (time.Mon(), time.year())
