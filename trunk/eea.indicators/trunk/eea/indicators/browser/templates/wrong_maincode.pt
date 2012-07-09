@@ -41,8 +41,8 @@
                   <form method="POST" action="./@@set_codes" style="display:inline"
                     tal:attributes="action string:${spec/absolute_url}/@@set_codes" >
                     <p i18n:translate="">The codes will be changed from 
-                      <strong tal:content="python:format_codes(spec.getCodes())" i18n:name="spec-code" /> to 
-                      <strong tal:content="python:format_codes(wrong_spec.getCodes())" i18n:name="wrong-spec-code" />.
+                      <strong tal:content="python:format_codes(spec.getCodes())" i18n:name="code" /> to 
+                      <strong tal:content="python:format_codes(wrong_spec.getCodes())" i18n:name="new-code" />.
                     </p>
                     <tal:rep tal:repeat="code wrong_spec/getCodes">
                       <input name="codes:list" tal:attributes="value python:code['set']" type="hidden" />

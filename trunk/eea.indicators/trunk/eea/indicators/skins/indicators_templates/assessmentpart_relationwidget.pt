@@ -67,7 +67,7 @@ It may be that we can collapse the changes into the regular indicatorsrelations.
 
 			<metal:slot define-slot="button">
 				<input class="searchButton eea-ref-popup-button" type="button"
-					value="Edit..." i18n:attributes="value"/>
+					value="Edit" i18n:attributes="value"/>
 			</metal:slot>
 
 			<metal:slot define-slot="script"></metal:slot>

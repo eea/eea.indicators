@@ -261,8 +261,8 @@
                               <form method="POST" action="./@@set_codes" style="display:inline"
                                 tal:attributes="action string:${spec/absolute_url}/@@set_codes" >
                                 <p i18n:translate="">The codes will be changed from 
-                                  <strong tal:content="python:context.format_codes(spec.getCodes())" i18n:name="spec-code" /> to 
-                                  <strong tal:content="python:context.format_codes(context.getCodes())" i18n:name="other-code" />.
+                                  <strong tal:content="python:context.format_codes(spec.getCodes())" i18n:name="code" /> to 
+                                  <strong tal:content="python:context.format_codes(context.getCodes())" i18n:name="new-code" />.
                                 </p>
                                 <tal:rep tal:repeat="code context/getCodes">
                                   <input name="codes:list" tal:attributes="value python:code['set']" type="hidden" />
@@ -277,8 +277,8 @@
                                 tal:define="candidates python: context.getCandidateFixedCode(spec)">
                                 <p i18n:translate="">
                                   The codes will be changed from 
-                                  <strong tal:content="python:context.format_codes(spec.getCodes())" i18n:name="spec-code" /> to 
-                                  <strong tal:content="python:context.format_codes(candidates)" i18n:name="candidates-code" />.
+                                  <strong tal:content="python:context.format_codes(spec.getCodes())" i18n:name="code" /> to 
+                                  <strong tal:content="python:context.format_codes(candidates)" i18n:name="new-code" />.
                                 </p>
                                 <tal:rep tal:repeat="code candidates">
                                   <input name="codes:list" tal:attributes="value python:code['set']" type="hidden" />
