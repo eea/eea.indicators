@@ -215,7 +215,7 @@
                         source_info item/dataSource | nocall:title;
                         ">
                         <dt tal:content="structure source_info"></dt>
-                        <dd i18n:translate="">Used in figure <a tal:attributes="href url;" tal:content="title"></a></dd>
+                        <dd i18n:translate="">Used in figure <a tal:attributes="href url;" tal:content="title" i18n:name="link"></a></dd>
                       </dl>
                     </tal:related>
                   </tal:figures>
@@ -375,12 +375,12 @@
             <strong i18n:translate="">Specification</strong>
             <div i18n:translate="">Link: <a href="" tal:attributes="href context/absolute_url"
                                            tal:content="context/getId"
-                                           i18n:name="link-specification">ISpecification1235</a>
+                                           i18n:name="link">ISpecification1235</a>
             </div>
             <div i18n:translate="">
               Version id: <tal:version_id define="getVersions nocall:context/@@getVersions;
                 version_number getVersions/version_number"
-                i18n:name="version-num"
+                i18n:name="version-number"
                 content="version_number" />
             </div>
             <div i18n:translate="">
