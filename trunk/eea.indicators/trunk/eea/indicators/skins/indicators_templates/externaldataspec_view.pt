@@ -20,14 +20,18 @@
 
     <dl>
       <tal:block define="field python:context.getField('provider_url');
-                         url python:field.getAccessor(context)()"
-                 condition="url">
+                         url python:field.getAccessor(context)()">
         <dt>
           <metal:basic use-macro="here/dataset_view/macros/tooltip" />
           <span i18n:translate="provider">Provider:</span>
         </dt>
-        
-        <tal:block define="org python:context.getOrganisationByUrl(url)">
+        <tal:block define="field python:context.getField('provider_name');
+                         value python:field.getAccessor(context)()"
+                 tal:condition="python: value and not url">
+         <dd tal:content="value" /> 
+        </tal:block>
+        <tal:block condition="url" 
+                   define="org python:context.getOrganisationByUrl(url)">
                 <dd tal:condition="org">
                     <a href="#" title=""
                        tal:attributes="href org/getURL; title org/Title"
@@ -37,9 +41,10 @@
                     <span tal:content="url" />
                 </dd>
         </tal:block>
-
+        
       </tal:block>
       
+
 
 
       <tal:block define="field python:context.getField('dataset_url');
