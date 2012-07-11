@@ -13,7 +13,7 @@
 
     <div metal:define-macro="header">
 
-      <h1 i18n:translate=""
+   <h1 i18n:translate="heading_edit_item" class="documentFirstHeading"
           metal:define-slot="title">
         Edit
         <span i18n:name="itemtype"

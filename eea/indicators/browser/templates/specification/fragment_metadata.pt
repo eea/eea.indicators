@@ -309,7 +309,7 @@
               <tal:block i18n:translate="">Specification</tal:block>
             </h4>
             <div class="active_field">
-              <div i18n:translate=""
+<div i18n:translate="">Link: <a href="" tal:attributes="href context/absolute_url"
                                               i18n:name="link"
                                               tal:content="context/getId">ISpecification1235</a>
               </div>
