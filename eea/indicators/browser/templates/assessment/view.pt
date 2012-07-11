@@ -54,10 +54,10 @@
           <metal:related use-macro="here/dataset_view/macros/tags" />
         </tal:tags>
         <div class="visualClear"><!-- --></div>
-        <strong i18n:translate="">DPSIR</strong>: <span tal:define="dpsirLabel nocall:context/@@dpsir_label"
+        <strong i18n:translate=""
           tal:replace="python:dpsirLabel(context.getDpsir())" />
         <br/>
-        <strong i18n:translate="">Typology</strong>: <span tal:define="typologyLabel nocall:context/@@typology_label"
+        <strong i18n:translate=""
           tal:replace="python:typologyLabel(context.getTypology())" />
         </div>
         <div id="box-classification-col2">
@@ -89,7 +89,7 @@
         key nocall:assessments/key;
         secondary assessments/secondary;">
         <div tal:condition="key" >
-          <h2 class="policy_question" i18n:translate="">Key policy question: <span tal:content="key/Title" i18n:name="title"></span></h2>
+          <h2 class="policy_question" i18n:translate=""></span></h2>
           <div class="keyMessage">
             <h3 i18n:translate="">Key messages</h3>
             <p tal:content="structure context/getKey_message" />
@@ -155,7 +155,7 @@
       </div>
 
       <h2 id="methodology" i18n:translate="">More information about this indicator</h2>
-      <p i18n:translate="">See this <span i18n:name="indicator-specs"><a href=".." i18n:translate="">indicator specification</a></span> for more details.</p>
+      <p i18n:translate="">indicator specification</a></span> for more details.</p>
 
       <div id="contact-and-ownership">
       <h2 i18n:translate="">Contacts and ownership</h2>

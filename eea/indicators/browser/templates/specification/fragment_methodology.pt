@@ -75,11 +75,11 @@
                 class="schemata_edit spec_control"
                 title="Edit Methodology Reference"
                 i18n:attributes="title"
-                i18n:translate="edit"
+                i18n:translate=""
                 tal:attributes="href string:${ref/absolute_url}/schemata_edit?fieldset=default">Edit</a>
               <a href=""
                 class="object_delete spec_control"
-                i18n:translate="delete"
+                i18n:translate=""
                 tal:attributes="href string:${ref/aq_parent/absolute_url}/@@obj_delete?id=${ref/getId}">Delete</a>
               <a href="" tal:attributes="href ref/getRemoteUrl"><strong tal:content="ref/Title">Ref</strong></a>
               <p tal:replace="structure ref/getDescription" />

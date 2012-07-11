@@ -14,8 +14,8 @@
 						<metal:slot metal:fill-slot="extra-metadata">
 							<div class="width">400</div>
 							<div class="height">180</div>
-							<div class="reload_page" i18n:translate="true">true</div>
-              <div class="disabler" tal:condition="python:context.Title() == 'Untitled indicator'" i18n:translate="true">true</div>
+							<div class="reload_page" i18n:translate="">true</div>
+              <div class="disabler" tal:condition="python:context.Title() == 'Untitled indicator'" i18n:translate="">true</div>
 							<div class="dialog_title" i18n:translate="">Edit Title</div>
 						</metal:slot>
 					</metal:macro>

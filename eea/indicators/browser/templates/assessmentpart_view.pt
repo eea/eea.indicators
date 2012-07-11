@@ -13,7 +13,7 @@
 
 			<tal:mapsandgraphs tal:define="figures here/getFolderContents"
 				tal:condition="figures">
-				<h2 i18n:translate="publication_maps_and_graphs">Maps and graphs</h2>
+				<h2 i18n:translate="">Maps and graphs</h2>
 				<div metal:define-macro="figures-album" class="map-photo-album"
 					tal:define="Batch python:modules['Products.CMFPlone'].Batch;
 					figure_context python:True;
@@ -22,7 +22,7 @@
 					folderContents python:Batch(figures, 12, int(b_start), orphan=1)">
 					<h4 id="maps-and-graphs" 
 					    style="display: none" 
-					    i18n:translate="fancy-relations">Fancybox relations</h4>
+					    i18n:translate="">Fancybox relations</h4>
 					<metal:figures use-macro="here/atct_album_view/macros/listing" />
 				</div>
 			</tal:mapsandgraphs>

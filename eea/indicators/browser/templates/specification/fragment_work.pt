@@ -19,11 +19,11 @@
 							title="Edit Work Item"
 							i18n:attributes='title'
 							tal:attributes="href string:${work/absolute_url}/schemata_edit?fieldset=default"
-							i18n:translate="edit">Edit</a>
+							i18n:translate="">Edit</a>
 						<a href=""
 							class="object_delete spec_control"
 							tal:attributes="href string:${work/aq_parent/absolute_url}/obj_delete?id=${work/getId}"
-							i18n:translate="delete">Delete</a>
+							i18n:translate="">Delete</a>
 
 						<h5 tal:content="work/Title" />
 						<p tal:replace="structure work/Description"></p>

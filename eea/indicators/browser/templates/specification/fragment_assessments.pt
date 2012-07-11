@@ -36,10 +36,10 @@
           </tal:def>
 
           <h2 id="assessment_versions" i18n:translate="">Assessment versions</h2>
-          <div tal:condition="not:has_pq" class="portalMessage" i18n:translate="assessment-versions-desc">
+          <div tal:condition="not:has_pq" class="portalMessage" i18n:translate="">
             You can't create new Assessments until you have defined a main Policy Question
           </div>
-          <div tal:condition="spec_has_newer_version" class="portalMessage" i18n:translate="assessment-versions-new-desc">
+          <div tal:condition="spec_has_newer_version" class="portalMessage" i18n:translate="">
             You can't create new Assessments in a Specification that has newer versions
           </div>
           <div class="grouped_field">

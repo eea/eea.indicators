@@ -43,7 +43,7 @@
           draft python:assessments['draft']">
           <a name="versions"></a>
           <h2 id="assessment_versions" i18n:translate="">Assessment versions</h2>
-          <h5 i18n:translate="publishe-review-done">Published (reviewed and quality assured)</h5>
+          <h5 i18n:translate="">Published (reviewed and quality assured)</h5>
           <ul>
             <li tal:condition="not:published" i18n:translate="">No published assessments</li>
             <li tal:repeat="assessment published">
@@ -54,7 +54,7 @@
           </ul>
 
           <tal:draft_versions condition="not:context/@@plone_portal_state/anonymous">
-            <h5 i18n:translate="draft-not-published-yet">Draft (not yet published - not quality assured)</h5>
+            <h5 i18n:translate="">Draft (not yet published - not quality assured)</h5>
             <ul>
               <li tal:condition="not:draft">No drafts available</li>
               <li tal:repeat="assessment draft">
@@ -156,7 +156,7 @@
           <tal:methodology_gapfilling define="methodology_gapfilling context/getMethodology_gapfilling">
           <h3 i18n:translate="">Methodology for gap filling</h3>
           <p tal:condition="methodology_gapfilling" tal:content="structure methodology_gapfilling" />
-          <p tal:condition="not:methodology_gapfilling" i18n:translate="no-methodology-desc">
+          <p tal:condition="not:methodology_gapfilling" i18n:translate="">
             No methodology for gap filling has been specified.
             Probably this info has been added together with indicator calculation.</p>
           </tal:methodology_gapfilling>
@@ -215,7 +215,7 @@
                         source_info item/dataSource | nocall:title;
                         ">
                         <dt tal:content="structure source_info"></dt>
-                        <dd i18n:translate="">Used in figure <a tal:attributes="href url;" tal:content="title" i18n:name="link"></a></dd>
+                        <dd i18n:translate=""></a></dd>
                       </dl>
                     </tal:related>
                   </tal:figures>
@@ -251,7 +251,7 @@
 
         <tal:def tal:define="works context/get_work; short works/short; long works/long">
           <h3 i18n:translate="">Short term work</h3>
-          <p i18n:translate="short-term-desc">Work specified here requires to be completed within 1 year from now.</p>
+          <p i18n:translate="">Work specified here requires to be completed within 1 year from now.</p>
           <div tal:repeat="work short">
             <h4 i18n:translate="">Work description</h4>
             <tal:description define="description work/Description">
@@ -272,7 +272,7 @@
             <p tal:replace="structure work/getDue_date"></p>
           </div>
           <h3 i18n:translate="">Long term work</h3>
-          <p i18n:translate="long-term-desc">Work specified here will require more than 1 year (from now) to be completed.</p>
+          <p i18n:translate="">Work specified here will require more than 1 year (from now) to be completed.</p>
           <div tal:repeat="work long">
             <h4 i18n:translate="">Work description</h4>
             <tal:description define="description work/Description">
@@ -355,7 +355,7 @@
                   </li>
                   <li tal:condition="not:status">
                     <strong tal:content="assessment/Title" />
-                    <span i18n:translate="unplanned">unplanned as usual :D</span>
+                    <span i18n:translate="">unplanned as usual :D</span>
                   </li>
                 </tal:block>
               </tal:assessment>
@@ -373,7 +373,7 @@
               </div>
             </div>
             <strong i18n:translate="">Specification</strong>
-            <div i18n:translate="">Link: <a href="" tal:attributes="href context/absolute_url"
+            <div i18n:translate=""
                                            tal:content="context/getId"
                                            i18n:name="link">ISpecification1235</a>
             </div>
@@ -428,10 +428,10 @@
         <div class='headed-box'>
           <h3 i18n:translate="">Classification</h3>
           <div class="visualClear"><!-- --></div>
-          <strong i18n:translate="">DPSIR</strong>: <span tal:define="dpsirLabel nocall:context/@@dpsir_label"
+          <strong i18n:translate=""
             tal:replace="python:dpsirLabel(context.getDpsir())" />
           <br/>
-          <strong i18n:translate="">Typology</strong>: <span tal:define="typologyLabel nocall:context/@@typology_label"
+          <strong i18n:translate=""
             tal:replace="python:typologyLabel(context.getTypology())" />
           <br/>
         </div>

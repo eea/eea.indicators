@@ -309,7 +309,7 @@
               <tal:block i18n:translate="">Specification</tal:block>
             </h4>
             <div class="active_field">
-              <div i18n:translate="">Link: <a href="" tal:attributes="href context/absolute_url"
+              <div i18n:translate=""
                                               i18n:name="link"
                                               tal:content="context/getId">ISpecification1235</a>
               </div>
@@ -346,7 +346,7 @@
             title="Edit Metadata"
             i18n:attributes="title"
             tal:attributes="href string:${context/absolute_url}/schemata_edit?${view/fields}"
-            i18n:translate="edit">Edit</a>
+            i18n:translate="">Edit</a>
           <div tal:repeat="field view/field_names">
             <strong tal:content="python:context.getField(field).widget.label" />:
             <metal:field use-macro="python:context.widget(field, mode='view')" />
