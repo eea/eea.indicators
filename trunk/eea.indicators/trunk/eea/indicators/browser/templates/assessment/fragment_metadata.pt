@@ -39,7 +39,7 @@
             class="schemata_edit spec_control"
             title="Edit Metadata"
             i18n:attributes="title"
-            i18n:translate="edit"
+            i18n:translate=""
             tal:attributes="href string:${context/absolute_url}/schemata_edit?${view/fields}">Edit</a>
           <div tal:repeat="field view/field_names">
             <strong tal:content="python:context.getField(field).widget.label" />:

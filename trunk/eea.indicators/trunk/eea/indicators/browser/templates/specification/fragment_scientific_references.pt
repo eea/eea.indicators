@@ -49,12 +49,12 @@
                   class="schemata_edit"
                   title="Edit Scientific Reference"
                   i18n:attributes="title"
-                  i18n:translate="edit"
+                  i18n:translate=""
                   tal:attributes="href string:${ref/absolute_url}/schemata_edit?fieldset=default">Edit</a>
                 <a href=""
                   class="object_delete"
                   tal:attributes="href string:${ref/aq_parent/absolute_url}/obj_delete?id=${ref/getId}"
-                  i18n:translate="delete">Delete</a>
+                  i18n:translate="">Delete</a>
                 <a href="" tal:define="remote_url python: callable(ref.getRemoteUrl) and ref.getRemoteUrl() or None" 
                   tal:attributes="href python:remote_url or ref.absolute_url()"
                   tal:content="ref/Title">Ref title</a>

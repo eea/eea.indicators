@@ -3,7 +3,7 @@
     This object has version <strong tal:content="view/current_version" i18n:name="version">ZZZ</strong>
   </p>
   <div tal:repeat="code duplicate_codes">
-    <span tal:content="python:code[0]">CSI ZZZ</span> <span i18n:translate="also-found-in">is also found in:</span> <br/>
+    <span tal:content="python:code[0]">CSI ZZZ</span> <span i18n:translate="">is also found in:</span> <br/>
     <tal:rep tal:repeat="brain python:code[1]">
       <a href='' tal:attributes="href python:brain.getURL()" tal:content="python:brain.Title" />
       ( <span tal:content="brain/getVersionId" /> )

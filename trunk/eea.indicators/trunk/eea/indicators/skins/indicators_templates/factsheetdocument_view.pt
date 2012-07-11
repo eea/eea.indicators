@@ -19,7 +19,7 @@
           filename accessor/filename | nothing;
           size accessor/get_size | python:accessor and len(accessor) or 0;"
           condition="filename">
-          <dt i18n:translate="dataset_download_link">Uploaded file</dt>
+          <dt i18n:translate="">Uploaded file</dt>
           <dd>
             <a href="" tal:attributes="href string:${context/absolute_url}/at_download/file">
               <img tal:condition="icon" src=""

@@ -91,7 +91,7 @@
           style="white-space:nowrap">
 
         <div>
-          <strong><span i18n:translate="text_member_search">Search Member:</span></strong><br />
+          <strong><span i18n:translate="">Search Member:</span></strong><br />
 
           <input id="search-box"
                  name="searchabletext"
@@ -111,7 +111,7 @@
         </div>
 
         <div>
-          <strong><span i18n:translate="text_existing_groups">Groups:</span></strong><br />
+          <strong><span i18n:translate="">Groups:</span></strong><br />
 
           <select name="selectgroup" size="5" id="userandgroupselect-group-filter" multiple="multiple"
                   tal:condition="python: view.multiValued()">
@@ -189,7 +189,7 @@
                          tal:condition="multiVal"
                          tal:attributes="src string:$portal_url/select_all_icon.gif"/>
                 </th>
-                <th i18n:translate="listingheader_name">Name</th>
+                <th i18n:translate="">Name</th>
             </thead>
             <tbody>
                 <tr tal:repeat="entry entries">

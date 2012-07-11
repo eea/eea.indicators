@@ -65,11 +65,11 @@
               </table>
 
 
-              <div tal:condition="diff_codes" class="portalMessage warningMessage" i18n:translate="diff-code-warning-message">
+              <div tal:condition="diff_codes" class="portalMessage warningMessage" i18n:translate="">
                 The main code for this Indicator Specification is not consistent with the rest of the related Indicators.
               </div>
 
-              <div tal:condition="diff_codes" class="generic_ajax_forms" i18n:translate="diff-codes-generic">
+              <div tal:condition="diff_codes" class="generic_ajax_forms" i18n:translate="">
                 The following Indicator Specifications belong to the same versioning group but have a different main code. There are
                 two ways of fixing this: either assign all the codes of this current specification, or assign just the maincode of this
                 specification.

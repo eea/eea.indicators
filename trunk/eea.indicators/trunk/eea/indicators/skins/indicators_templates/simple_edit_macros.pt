@@ -119,7 +119,7 @@
 						<!-- 	tal:attributes="tabindex tabindex/next; -->
 						<!-- 	disabled python:test(isLocked, 'disabled', None);" -->
 						<!-- 	/> -->
-						<!-- <a href="#" class="cancel-btn" i18n:translate="label_cancel">Cancel</a> -->
+						<!-- <a href="#" class="cancel-btn" i18n:translate="">Cancel</a> -->
 					</metal:block>
 
 				</div>
