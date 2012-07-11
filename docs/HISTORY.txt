@@ -3,6 +3,9 @@ Changelog
 
 4.25-dev - (unreleased)
 -----------------------
+* Feature: Show old provider name for legacy reasons on old external data spec
+  which misses a real Organisation.
+  [demarant fixes #5232]
 * Bug Fix: Fixed i18n missing tags, i18n:domain and duplicate key in *.zpt 
   [prospchr refs #5162]
 * Bug fix: added max file size validator for FactSheetDocument
