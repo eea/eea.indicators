@@ -66,7 +66,7 @@
 						</div>
 					</div>
 					<strong i18n:translate="">Specification</strong>
-					<div i18n:translate=""
+				<div i18n:translate="">Link: <a href="" tal:attributes="href context/absolute_url"	
 					                                i18n:name="specification"
 							                        tal:content="context/getId">ISpecification1235</a>
 					</div>
@@ -93,10 +93,10 @@
 			<div class='headed-box'>
 				<h5 i18n:translate="">Classification</h5>
 				<div class="visualClear"><!-- --></div>
-				<strong i18n:translate=""
+				<strong i18n:translate="">DPSIR</strong>: <span tal:define="dpsirLabel nocall:context/@@dpsir_label"
 							      tal:replace="python:dpsirLabel(context.getDpsir())" />
 				<br/>
-				<strong i18n:translate=""
+				<strong i18n:translate="">Typology</strong>: <span tal:define="typologyLabel nocall:context/@@typology_label"
 								 tal:replace="python:typologyLabel(context.getTypology())" />
 				<br/>
 				<!-- <strong>EEA Themes</strong>: -->

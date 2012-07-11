@@ -215,7 +215,7 @@
                         source_info item/dataSource | nocall:title;
                         ">
                         <dt tal:content="structure source_info"></dt>
-                        <dd i18n:translate=""></a></dd>
+                        <dd i18n:translate="">Used in figure <a tal:attributes="href url;" tal:content="title" i18n:name="link"></a></dd>
                       </dl>
                     </tal:related>
                   </tal:figures>
@@ -373,7 +373,7 @@
               </div>
             </div>
             <strong i18n:translate="">Specification</strong>
-            <div i18n:translate=""
+             <div i18n:translate="">Link: <a href="" tal:attributes="href context/absolute_url" 
                                            tal:content="context/getId"
                                            i18n:name="link">ISpecification1235</a>
             </div>
@@ -428,10 +428,10 @@
         <div class='headed-box'>
           <h3 i18n:translate="">Classification</h3>
           <div class="visualClear"><!-- --></div>
-          <strong i18n:translate=""
+           <strong i18n:translate="">DPSIR</strong>: <span tal:define="dpsirLabel nocall:context/@@dpsir_label" 
             tal:replace="python:dpsirLabel(context.getDpsir())" />
           <br/>
-          <strong i18n:translate=""
+          <strong i18n:translate="">Typology</strong>: <span tal:define="typologyLabel nocall:context/@@typology_label"
             tal:replace="python:typologyLabel(context.getTypology())" />
           <br/>
         </div>
