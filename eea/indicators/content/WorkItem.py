@@ -104,14 +104,10 @@ class WorkItem(ATCTContent, BrowserDefaultMixin):
     def Title(self):
         """title"""
         if not(self.getDue_date()):
-            return _(
-                    "title-work-get-title-none",
-                    default="Newly created work item"
-                    )
+            return _(u"Newly created work item")
 
         duedate = self.toLocalizedTime(self.getDue_date(), long_format=0)
-        title = _("work-work-aggregated",
-                default="Work due ${due}",  #${status}
+        title = _(u"Work due ${due}",  #${status}
                 mapping = {
                     #'status':self.getStatus(),
                     'due':duedate,
