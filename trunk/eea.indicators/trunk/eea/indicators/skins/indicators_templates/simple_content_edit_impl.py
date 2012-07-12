@@ -46,11 +46,9 @@ if reference_source_url is not None:
     portal = context.portal_url.getPortalObject()
     reference_obj = portal.restrictedTraverse(reference_source_url)
 
-    portal_status_message = _(u'message_reference_added',
-                              default=u'Reference added.')
+    portal_status_message = _(u'Reference added.')
 
-    edited_reference_message = _(u'message_reference_edited',
-                                 default=u'Reference edited.')
+    edited_reference_message = _(u'Reference edited.')
 
     # XXX disabled mark creation flag
     ## context.remove_creation_mark(old_id)

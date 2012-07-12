@@ -13,7 +13,7 @@
 
     <div metal:define-macro="header">
 
-   <h1 i18n:translate="heading_edit_item" class="documentFirstHeading"
+   <h1 i18n:translate="" class="documentFirstHeading"
           metal:define-slot="title">
         Edit
         <span i18n:name="itemtype"
@@ -172,7 +172,7 @@
                        type="submit"
                        name="form_previous"
                        value="Previous"
-                       i18n:attributes="value label_previous;"
+                       i18n:attributes="value"
                        tal:attributes="disabled python:test(isLocked, 'disabled', None);"
                        />
                 <input tal:condition="python:fieldset_index &lt; n_fieldsets - 1"
@@ -180,21 +180,21 @@
                        type="submit"
                        name="form_next"
                        value="Next"
-                       i18n:attributes="value label_next;"
+                       i18n:attributes="value"
                        tal:attributes="disabled python:test(isLocked, 'disabled', None);"
                        />
                 <input class="context"
                        type="submit"
                        name="form_submit"
                        value="Save"
-                       i18n:attributes="value label_save;"
+                       i18n:attributes="value"
                        tal:attributes="disabled python:test(isLocked, 'disabled', None);"
                        />
                 <input class="standalone"
                        type="submit"
                        name="form.button.cancel"
                        value="Cancel"
-                       i18n:attributes="value label_cancel;"
+                       i18n:attributes="value"
                        />
             </metal:block>
 

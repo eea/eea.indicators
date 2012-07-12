@@ -184,12 +184,10 @@ class Assessment(ATFolder, ModalFieldEditableAware,
         elif info['review_state'] == "published":
             if time is None:
                 time = self.creation_date
-                msg = _("assessment-title-draft",
-                    default=u"Assessment published with invalid published date")
+                msg = _(u"Assessment published with invalid published date")
                 return spec_title + u' - ' + self.translate(msg)
 
-            msg = _("assessment-title-published",
-                    default=u"Assessment published ${date}",
+            msg = _(u"Assessment published ${date}",
                     mapping={'date':u"%s %s" %
                              (time.Mon(), time.year())
                              }
@@ -198,8 +196,7 @@ class Assessment(ATFolder, ModalFieldEditableAware,
         else:
             if time is None:
                 time = self.creation_date
-            msg = _("assessment-draft-created",
-                    default=u"Assessment DRAFT created ${date}",
+            msg = _(u"Assessment DRAFT created ${date}",
                     mapping={'date':u"%s %s" %
                              (time.Mon(), time.year())
                              }
@@ -214,7 +211,7 @@ class Assessment(ATFolder, ModalFieldEditableAware,
            keywords from other objects used in this assessment. """
         result = []
 
-        #append assessment own subjects
+        #append assesisment own subjects
         result.extend(self.schema['subject'].getRaw(self))
 
         #append	indicator codes
