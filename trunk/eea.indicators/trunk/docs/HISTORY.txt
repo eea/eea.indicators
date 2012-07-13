@@ -1,8 +1,8 @@
 Changelog
 =========
 
-4.25-dev - (unreleased)
------------------------
+5.0 - (2012-07-13)
+------------------
 * Feature: Show old provider name for legacy reasons on old external data spec
   which misses a real Organisation.
   [demarant fixes #5232]
