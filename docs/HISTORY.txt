@@ -3,6 +3,8 @@ Changelog
 
 5.1-dev - (unreleased)
 ----------------------
+* Change: made description and data path optional field for external data spec.
+  [demarant fixes #5478]
 * Bug fix: when creating a new assessment, properly copy the related items
   [tiberich refs #5462]
 
