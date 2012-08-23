@@ -34,5 +34,6 @@ def test_suite():
                          #options=OPTIONFLAGS
                          )
     s3.layer = PloneSite
+
     return TestSuite((s1, s2, s3))
 

@@ -144,7 +144,7 @@ def create_version(original, request=None):
             else:
                 rels.append(o)
 
-        ap.setRelatedItems(rels)
+        ap.set_related_items(rels)
         ap.reindexObject()
 
     #creating missing policy questions
@@ -153,7 +153,7 @@ def create_version(original, request=None):
         aid = assessment.invokeFactory(type_name="AssessmentPart",
                 id=assessment.generateUniqueId("AssessmentPart"),)
         ap = assessment[aid]
-        ap.setRelatedItems(spec[oid])
+        ap.set_related_items(spec[oid])
         try:
             ap.reindexObject()
         except AttributeError:
