@@ -3,7 +3,7 @@
 
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
-from valentine.imagescales.browser.interfaces import IImageView
+from eea.imagescales.browser.interfaces import IImageView
 from zope.component import queryMultiAdapter
 from zope.interface import implements
 from zope.publisher.interfaces import NotFound

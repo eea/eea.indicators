@@ -7,13 +7,13 @@
   <include file="assessment.zcml" />
   <include file="indicatorfactsheet.zcml" />
 
-  <plone:portletRenderer 
+  <plone:portletRenderer
       portlet="eea.workflow.portlets.readiness.IReadinessPortlet"
       for="eea.indicators.content.interfaces.ISpecification"
       template="templates/portlet_readiness.pt"
       />
 
-  <plone:portletRenderer 
+  <plone:portletRenderer
       portlet="eea.workflow.portlets.readiness.IReadinessPortlet"
       for="eea.indicators.content.interfaces.IAssessment"
       template="templates/portlet_readiness.pt"
@@ -104,13 +104,13 @@
                 name="imgview"
                 class=".imgview.ImageViewAssessment"
                 permission="zope.Public"
-                allowed_interface="valentine.imagescales.browser.interfaces.IImageView" />
+                allowed_interface="eea.imagescales.browser.interfaces.IImageView" />
 
   <browser:page for="..content.interfaces.IIndicatorFactSheet"
                 name="imgview"
                 class=".imgview.ImageViewIndicatorFactSheet"
                 permission="zope.Public"
-                allowed_interface="valentine.imagescales.browser.interfaces.IImageView" />
+                allowed_interface="eea.imagescales.browser.interfaces.IImageView" />
 
   <!-- subviews -->
   <browser:page name="fulldetail"
@@ -160,15 +160,15 @@
                     file='js/indicators-toc.js' />
 
 
-  <adapter factory=".manager.IndicatorsPortletManagerRenderer" 
-           for="eea.indicators.content.interfaces.IIndicatorFactSheet zope.publisher.interfaces.browser.IBrowserRequest zope.publisher.interfaces.browser.IBrowserView plone.portlets.interfaces.IPortletManager" 
+  <adapter factory=".manager.IndicatorsPortletManagerRenderer"
+           for="eea.indicators.content.interfaces.IIndicatorFactSheet zope.publisher.interfaces.browser.IBrowserRequest zope.publisher.interfaces.browser.IBrowserView plone.portlets.interfaces.IPortletManager"
            provides="plone.portlets.interfaces.IPortletManagerRenderer" />
 
-  <adapter factory=".manager.IndicatorsPortletManagerRenderer" 
+  <adapter factory=".manager.IndicatorsPortletManagerRenderer"
            for="eea.indicators.content.interfaces.IAssessment zope.publisher.interfaces.browser.IBrowserRequest zope.publisher.interfaces.browser.IBrowserView plone.portlets.interfaces.IPortletManager"
            provides="plone.portlets.interfaces.IPortletManagerRenderer" />
 
-  <adapter factory=".manager.IndicatorsPortletManagerRenderer" 
+  <adapter factory=".manager.IndicatorsPortletManagerRenderer"
            for="eea.indicators.content.interfaces.ISpecification zope.publisher.interfaces.browser.IBrowserRequest zope.publisher.interfaces.browser.IBrowserView plone.portlets.interfaces.IPortletManager"
            provides="plone.portlets.interfaces.IPortletManagerRenderer" />
 
