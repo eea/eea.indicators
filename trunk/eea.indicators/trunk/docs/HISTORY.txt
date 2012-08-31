@@ -3,6 +3,8 @@ Changelog
 
 5.2-dev - (unreleased)
 ----------------------
+* Change: Update references to eea.imagescales (formerly valentine.imagescales)
+  [voineali refs #5497]
 
 5.1 - (2012-08-27)
 ------------------
@@ -16,14 +18,14 @@ Changelog
 * Feature: Show old provider name for legacy reasons on old external data spec
   which misses a real Organisation.
   [demarant fixes #5232]
-* Bug Fix: Fixed i18n missing tags, i18n:domain and duplicate key in .zpt 
+* Bug Fix: Fixed i18n missing tags, i18n:domain and duplicate key in .zpt
   [prospchr refs #5162]
 * Bug fix: added max file size validator for FactSheetDocument
   [tiberich #5259]
 
 4.24 - (2012-06-12)
 -------------------
-* Bug fix: take figure readiness into consideration for 
+* Bug fix: take figure readiness into consideration for
   Assessment ready for publishing
   [tiberich #5256]
 * Bug fix: fixed markup of HISTORY.txt file
