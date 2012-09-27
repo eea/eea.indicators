@@ -1,8 +1,8 @@
 Changelog
 =========
 
-5.2-dev - (unreleased)
-----------------------
+5.2 - (2012-09-27)
+------------------
 * Change: Update references to eea.depiction (formerly valentine.imagescales)
   [voineali refs #5497]
 
