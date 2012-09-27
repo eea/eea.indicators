@@ -1,0 +1,49 @@
+<tal:figures define="relatedItems nocall:context/@@related_items;
+            eea_figures python:relatedItems('EEAFigure')">
+  <div tal:repeat="figure eea_figures" class="indicator-figure-plus-container">
+              <div class="indicator-figure-plus" tal:attributes="id figure/getId">
+                <div class="indicator-figure-image">
+                  <a title="Downloads and more info"
+                     i18n:attributes="title"
+                     href="" 
+                     tal:attributes="href figure/absolute_url">
+                    <img alt="" title="" src=""
+                      tal:attributes="alt figure/Title;
+                      title figure/Title;
+                      src string:${figure/absolute_url}/image_preview" />
+                  </a>
+                </div>
+
+                <p class="figure-title" tal:content="figure/Title" />
+
+                <tal:description define="figure_description figure/Description">
+                  <p>
+                    <strong i18n:translate="">Note: </strong>
+                    <span tal:condition="figure_description" tal:content="figure_description" />
+                    <span tal:condition="not:figure_description">N/A</span>
+                  </p>
+                </tal:description>
+
+                <div tal:define="related python:[o for o in figure.getRelatedProducts() 
+                                                            if o.portal_type in ('ExternalDataSpec', 'Data')];
+                                                           figure_dataSource figure/getDataSource ">
+
+                    <strong i18n:translate="">Data source:</strong>
+                    <!-- we only show deprecated datasource free text field,
+		    form old figures, otherwise we use the new approach 
+		    with related sources (which overrules the old one) -->
+                    <p tal:condition="python:figure_dataSource and not related">
+                       <span tal:content="structure figure_dataSource" />
+                    </p>
+		    <!-- show related data sources -->
+                    <ul tal:repeat="item related" >
+                        <li tal:content="structure item/@@related_title" />
+                    </ul>
+                </div>
+
+                <a tal:attributes="href figure/absolute_url" i18n:translate="">Downloads and more info</a>
+                <div class="visualClear"><!-- --></div>
+
+              </div>
+  </div>
+</tal:figures>
