@@ -3,6 +3,8 @@ Changelog
 
 5.3-dev - (unreleased)
 ----------------------
+* Bug fix: adapt rdfmarshaller code to api changes in eea.rdfmarshaller
+  [tiberich #3981]
 
 5.2 - (2012-09-27)
 ------------------
