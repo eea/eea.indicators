@@ -32,8 +32,9 @@ from eea.indicators.content.base import CustomizedObjectFactory
 from eea.indicators.content.base import ModalFieldEditableAware
 from eea.indicators.content.interfaces import ISpecification
 from eea.indicators.content.utils import get_dgf_value
-from eea.rdfmarshaller.interfaces import IATField2Surf, ISurfSession
-from eea.rdfmarshaller.marshaller import ATCT2Surf
+from eea.rdfmarshaller.interfaces import ISurfSession
+from eea.rdfmarshaller.archetypes.interfaces import IATField2Surf
+from eea.rdfmarshaller.archetypes import Archetype2Surf
 from eea.relations.field import EEAReferenceField
 from eea.relations.widget import EEAReferenceBrowserWidget
 from eea.versions.interfaces import IGetVersions

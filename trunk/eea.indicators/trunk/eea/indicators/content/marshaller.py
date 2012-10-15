@@ -1,6 +1,10 @@
+from Products.Archetypes.interfaces import IField
 from eea.rdfmarshaller.archetypes.fields import ATField2Surf
+from eea.rdfmarshaller.interfaces import ISurfSession
+from zope.component import adapts
+from zope.interface import Interface
 
-class CodesField2Surf(ATFiled2Surf):
+class CodesField2Surf(ATField2Surf):
     """rdfmarshaller field adapter for the codes field
     """
     adapts(IField, Interface, ISurfSession)
