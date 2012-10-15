@@ -169,6 +169,8 @@ def create_version(original, request=None):
     return ver
 
 def hasUnpublishableFigure(ast):
+    """ has this assessment a relation to a figure that's not publishable?
+    """
     for part in ast.objectValues("AssessmentPart"):
         figures = [f for f in part.getRelatedItems() 
                         if f.portal_type == 'EEAFigure']
