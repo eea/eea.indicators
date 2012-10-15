@@ -3,8 +3,6 @@
 """ Specification content class and utilities
 """
 from AccessControl import ClassSecurityInfo
-from Acquisition import aq_inner
-from DateTime import DateTime
 from Products.ATContentTypes.content.folder import ATFolder, ATFolderSchema
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema
 from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
@@ -25,6 +23,7 @@ from Products.DataGridField.SelectColumn import SelectColumn
 from Products.EEAContentTypes.content.ThemeTaggable import ThemeTaggable
 from Products.EEAContentTypes.content.ThemeTaggable import ThemeTaggable_schema
 from Products.UserAndGroupSelectionWidget import UserAndGroupSelectionWidget
+from eea.dataservice.widgets import MultiOrganisationsWidget
 from eea.indicators import msg_factory as _
 from eea.indicators.browser.assessment import create_version as createVersion
 from eea.indicators.content.IndicatorMixin import IndicatorMixin
@@ -32,9 +31,6 @@ from eea.indicators.content.base import CustomizedObjectFactory
 from eea.indicators.content.base import ModalFieldEditableAware
 from eea.indicators.content.interfaces import ISpecification
 from eea.indicators.content.utils import get_dgf_value
-from eea.rdfmarshaller.interfaces import ISurfSession
-from eea.rdfmarshaller.archetypes.interfaces import IATField2Surf
-from eea.rdfmarshaller.archetypes import Archetype2Surf
 from eea.relations.field import EEAReferenceField
 from eea.relations.widget import EEAReferenceBrowserWidget
 from eea.versions.interfaces import IGetVersions
@@ -42,13 +38,9 @@ from eea.versions.interfaces import IVersionControl, IVersionEnhanced
 from eea.versions.versions import isVersionEnhanced, get_versions_api
 from eea.workflow.interfaces import IHasMandatoryWorkflowFields
 from eea.workflow.interfaces import IObjectReadiness
-from eea.dataservice.widgets import MultiOrganisationsWidget
-from zope.component import adapts, queryMultiAdapter
 from zope.interface import alsoProvides, implements
 import datetime
 import logging
-import rdflib
-import sys
 
 #from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 #from eea.indicators.config import templates_dir
