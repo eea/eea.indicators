@@ -13,7 +13,8 @@ class CodesField2Surf(ATField2Surf):
     def value(self):
         """return value suitable for surf
         """
-        if not self.value:
+        value = self.field.getAccessor(self.context)()
+        if not value:
             return None
         return ["%s%s" % (v['set'], v['code'])
-                                 for v in self.value]
+                                 for v in value]

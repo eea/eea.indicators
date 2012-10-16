@@ -35,5 +35,12 @@ def test_suite():
                          )
     s3.layer = PloneSite
 
-    return TestSuite((s1, s2, s3))
+    s4 = ZopeDocFileSuite('marshaller.txt',
+                         package='eea.indicators.doc',
+                         test_class=BaseIndicatorsTestCase,
+                         #options=OPTIONFLAGS
+                         )
+    s4.layer = PloneSite
+
+    return TestSuite((s1, s2, s3, s4))
 
