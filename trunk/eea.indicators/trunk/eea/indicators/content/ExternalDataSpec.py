@@ -228,6 +228,7 @@ class ExternalDataSpec(ATCTContent, BrowserDefaultMixin):
         """
         return self.getProvider_url()
 
+
 class ExternalDataSpecThemes(object):
     """ ExternalDataSpec themes
     """
@@ -238,15 +239,16 @@ class ExternalDataSpecThemes(object):
     def __init__(self, context):
         self.context = context
 
-    @property
-    def tags(self):
+
+    def _get_tags(self):
         """ Return tags
         """
         return self.context.getThemes()
 
-
-    @tags.setter
-    def tags(self, value):
+    def _set_tags(self, value):
         """ Tags is read-only
         """
         return
+
+    tags = property(_get_tags, _set_tags)
+
