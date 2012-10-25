@@ -1,3 +1,6 @@
+""" eea.rdfmarshaller customizations
+"""
+
 from Products.Archetypes.interfaces import IField
 from eea.rdfmarshaller.archetypes.fields import ATField2Surf
 from eea.rdfmarshaller.interfaces import ISurfSession

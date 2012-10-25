@@ -139,8 +139,8 @@ class WorkflowStateReadiness(ObjectReadiness):
                 lambda o:not bool(o.objectValues("PolicyQuestion")),
                 "You need to add at least one Policy Question"),
             (
-                lambda o:not filter(lambda x:x.getIs_key_question(),
-                                    o.objectValues('PolicyQuestion')),
+                lambda o: not bool([x for x in o.objectValues('PolicyQuestion') 
+                                    if x.getIs_key_question()]),
                 "At least one PolicyQuestion needs to be main policy question"),
             (
                 lambda o:not bool(o.getThemes()),
