@@ -196,9 +196,8 @@ class WorkflowStateReadiness(ObjectReadiness):
         'This Assessment belongs to the wrong version group. To fix this '
         'please visit the Indicator Specification edit page.'),
 
-        (lambda o:filter(
-            lambda p: not IObjectReadiness(p).is_ready_for('published'),
-                                    o.objectValues("AssessmentPart")),
+        (lambda o: not [p for p in o.objectValues("AssessmentPart")) 
+                        if not IObjectReadiness(p).is_ready_for('published')],
         'You need to fill in the assessments for all the policy questions.'),
 
         (lambda o:not IObjectReadiness(
@@ -211,8 +210,8 @@ class WorkflowStateReadiness(ObjectReadiness):
         "The Indicator Specification needs to be published."
         ),
 
-        (lambda o:not filter(lambda part: has_one_of(["EEAFigure"],
-                    part.getRelatedItems()), o.objectValues("AssessmentPart")),
+        (lambda o: not [part for part in o.objectValues("AssessmentPart") 
+                        if has_one_of(["EEAFigure"], part.getRelatedItems())],
         "The answered policy questions need to point to at least one Figure."),
 
         (lambda o:hasUnpublishableFigure(o),

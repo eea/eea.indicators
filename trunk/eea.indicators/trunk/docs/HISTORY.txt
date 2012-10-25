@@ -5,6 +5,8 @@ Changelog
 ----------------------
 * Bug fix: adapt rdfmarshaller code to api changes in eea.rdfmarshaller
   [tiberich #3981]
+* Code cleanup in several modules to clean pyflakes warnings
+  [tiberich]
 
 5.2 - (2012-09-27)
 ------------------
