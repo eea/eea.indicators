@@ -104,7 +104,7 @@ class WorkItem(ATCTContent, BrowserDefaultMixin):
     def Title(self):
         """title"""
         if not(self.getDue_date()):
-            return _(u"Newly created work item")
+            return (_(u"Newly created work item")).encode('utf-8')
 
         duedate = self.toLocalizedTime(self.getDue_date(), long_format=0)
         title = _(u"Work due ${due}",  #${status}
