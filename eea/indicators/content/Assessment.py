@@ -185,7 +185,8 @@ class Assessment(ATFolder, ModalFieldEditableAware,
             if time is None:
                 time = self.creation_date
                 msg = _(u"Assessment published with invalid published date")
-                return spec_title + u' - ' + self.translate(msg)
+                return (spec_title + u' - ' + 
+                            self.translate(msg)).encode('utf-8')
 
             msg = _(u"Assessment published ${date}",
                     mapping={'date':u"%s %s" %

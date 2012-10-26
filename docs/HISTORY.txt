@@ -3,7 +3,7 @@ Changelog
 
 5.3-dev - (unreleased)
 ----------------------
-* Bug fix: always return a string from a WorkItem Title
+* Bug fix: always return a string from customized Titles
   [tiberich #5630]
 * Bug fix: adapt rdfmarshaller code to api changes in eea.rdfmarshaller
   [tiberich #3981]
