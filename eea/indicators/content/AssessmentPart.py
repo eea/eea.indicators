@@ -275,3 +275,15 @@ class AssessmentPart(ATFolder, ModalFieldEditableAware,
 
         uids = tuple([u for u in uids if u is not None])
         instance.at_ordered_refs[field.relationship] = uids
+
+    security.declareProtected('Modify portal content', 'set_daviz_charts')
+    def set_daviz_charts(self, info):
+        """info is a dict of uid:[list of chart ids] values
+        """
+        self.__annotations__['DAVIZ_CHARTS'] = info
+
+    security.declareProtected('View', "get_daviz_charts")
+    def get_daviz_charts(self):
+        """return daviz charts as a dict of uid:[list of chart ids]
+        """
+        return __annotations__['DAVIZ_CHARTS']
