@@ -235,6 +235,7 @@ class AssessmentPart(ATFolder, ModalFieldEditableAware,
     def set_related_items(self, value):
         """ Set related items
         """
+        #import pdb; pdb.set_trace()
         instance = self
         field = self.getField('relatedItems')
 
