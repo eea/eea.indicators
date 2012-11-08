@@ -215,8 +215,8 @@ class WorkflowStateReadiness(ObjectReadiness):
         "The answered policy questions need to point to at least one Figure."),
 
         (lambda o:hasUnpublishableFigure(o),
-        'All the linked Figures and their FigureFiles should be ready '
-        'to be published. '),
+        'Some of the figures in this indicator are not completed, please check'
+        ' each of the figures to see what required information is missing.'),
 
     )}
 
