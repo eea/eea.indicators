@@ -2,6 +2,7 @@
 """
 
 from itertools import chain
+from Products.statusmessage.interfaces import IStatusMessage
 from Products.CMFCore.utils import getToolByName
 
 
@@ -38,10 +39,12 @@ def syncWorkflowStateRelatedFigures(context, dest_state):
                              if k.new_state_id == dest_state]
 
                     if not to_do:
-                        raise ValueError(
-"""Could not find a transition that would bring the object to destination
-state. This may be due to having the FigureFile at different workflow state
-than its parent Figure.""")
+                        err = """
+Could not find a transition that would bring the object %s to destination 
+state. This may be due to having the FigureFile at different workflow state than 
+its parent Figure.""" % obj.absolute_url()
+                        IStatusMessage(context.REQUEST).add(err, 'warn')
+                        raise ValueError(err)
 
                     # find transition that brings to the state of parent object
                     for item in to_do:

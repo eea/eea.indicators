@@ -3,6 +3,9 @@ Changelog
 
 5.3-dev - (unreleased)
 ----------------------
+* Bug fix: add a status message when failing to set figure files in the
+  same state as their parents during assessment state change
+  [tiberich refs #9974]
 * WIP: added a selection widget for a daviz visualization chart in related
   item  [tiberich #9571]
 * Bug fix: always return a string from customized Titles
