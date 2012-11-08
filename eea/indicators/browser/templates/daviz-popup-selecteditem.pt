@@ -7,6 +7,7 @@
   wftool python:view.context.portal_workflow;
   state python:wftool.getInfoFor(item, 'review_state', 'visible');
   ">
+
   <input type="checkbox" checked="checked" style="display: none"
     tal:condition="python:view.mode == 'edit'"
     tal:attributes="
@@ -42,18 +43,33 @@
       </tal:cond>
     </tal:rep>
   </div>
+
+    <tal:cond tal:condition="python:view.mode=='view'">
+        <div class="daviz_chart_select_container">
+            <input type="button" class="popup_btn" value="Select chart" />
+            <div style="display:none">
+            </div>
+            <span style="display:none" class="metadata">
+                <span class="vizualization_uid" tal:attributes="value item/UID" />
+                <span class="daviz_uid" tal:content="item/UID" />
+                <span class="url" tal:content="string:${context/absolute_url}/@@set_daviz_chart"  />
+                <select class="chart_options" multiple="multiple" 
+                    tal:define="davizview nocall:item/@@daviz-view.html">
+                   <option tal:repeat="tab davizview/tabs" 
+                           tal:content="tab/title" tal:attributes="value tab/name"></option>
+                </select>
+            </span>
+        </div>
+        <script >
+        if (!window.hasOwnProperty('_attached_daviz_click_evt')) {
+            $('.daviz_chart_select_container .popup_btn').click(function(evt){
+                new DavizChartSelection(this);
+                evt.stopPropagation();
+            });
+            window._attached_daviz_click_evt = true;
+        }
+        </script>
+    </tal:cond>
+
   <div class="visualClear"></div>
-
-    <tal:def define="select_id string:chartselect_${item/UID}">
-    <form method="POST" action="" tal:attributes="action string:${context/absolute_url}/@@set_daviz_chart; id select_id" >
-        <input type="hidden" name="vizualization_uid" tal:attributes="value item/UID" />
-        <label for="select">Select chart:</label>
-        <select name="chart" multiple="multiple" tal:define="davizview nocall:item/@@daviz-view.html">
-            <option tal:repeat="tab davizview/tabs" tal:content="tab/title" tal:attributes="value tab/name"></option>
-        </select>
-    </form>
-    <script tal:content="string:$$('#${select_id} select').onchange=function(){this.parents('form').submit()}">
-    </script>
-</tal:def>
-
 </div>

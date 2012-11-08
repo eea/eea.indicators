@@ -260,6 +260,7 @@ function bootstrap_relations_widgets(){
       var fieldname = $(".metadata .fieldname", this).text();
       var domid = $(".metadata .domid", this).text();    //$(this).attr('id');
       var popup = new EEAReferenceBrowser.Widget(domid, {'fieldname':fieldname});
+      $('#' + domid).get(0)._widget = popup;
       var region = $(this).parents('.active_region'); // TODO: is this needed? doesn't look like
 
       try {
