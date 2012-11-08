@@ -13,8 +13,8 @@ def syncWorkflowStateRelatedFigures(context, dest_state):
 
     codes = context.get_codes()
     indcodes = codes and codes[-1] or "_missing_"
-    comment = ("Automatically published since related indicator (%s) "
-               "is also published") % indcodes
+    comment = ("Automatic state change since related indicator (%s) "
+               "has also changed state") % indcodes
 
     for ap in context.objectValues('AssessmentPart'):
         for figure in (o for o in ap.getRelatedItems()
