@@ -24,18 +24,18 @@
                   </p>
                 </tal:description>
 
-                <div tal:define="related python:[o for o in figure.getRelatedProducts() 
+                <div tal:define="related python:[o for o in figure.getRelatedItems()
                                                             if o.portal_type in ('ExternalDataSpec', 'Data')];
-                                                           figure_dataSource figure/getDataSource ">
+                                 figure_dataSource figure/getDataSource ">
 
                     <strong i18n:translate="">Data source:</strong>
-                    <!-- we only show deprecated datasource free text field,
-		    form old figures, otherwise we use the new approach 
-		    with related sources (which overrules the old one) -->
+                    <!-- We only show deprecated datasource free text field,
+                         form old figures, otherwise we use the new approach
+                         with related sources (which overrules the old one) -->
                     <p tal:condition="python:figure_dataSource and not related">
                        <span tal:content="structure figure_dataSource" />
                     </p>
-		    <!-- show related data sources -->
+                    <!-- Show related data sources -->
                     <ul tal:repeat="item related" >
                         <li tal:content="structure item/@@related_title" />
                     </ul>
