@@ -2,7 +2,7 @@
 """
 
 from itertools import chain
-from Products.statusmessage.interfaces import IStatusMessage
+from Products.statusmessages.interfaces import IStatusMessage
 from Products.CMFCore.utils import getToolByName
 
 
