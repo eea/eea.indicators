@@ -287,4 +287,4 @@ class AssessmentPart(ATFolder, ModalFieldEditableAware,
     def get_daviz_charts(self):
         """return daviz charts as a dict of uid:[list of chart ids]
         """
-        return __annotations__['DAVIZ_CHARTS']
+        return self.__annotations__['DAVIZ_CHARTS']
