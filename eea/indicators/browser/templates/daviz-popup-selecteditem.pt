@@ -45,18 +45,35 @@
   </div>
 
     <tal:cond tal:condition="python:view.mode=='view'">
-        <div class="daviz_chart_select_container">
-            <input type="button" class="popup_btn" value="Select chart" />
-            <div style="display:none">
-            </div>
-            <span style="display:none" class="metadata">
+        <style>
+        .chart-title {
+            padding:2px;
+            background-color:#005E7D;
+            color:white;
+            display:block;
+            float:left;
+            margin-right:2px;
+        }
+        </style>
+        <div class="daviz_chart_select_container" 
+            tal:define="objcontext python:view.kwargs['context']; 
+                        daviz_uid item/UID; 
+                        davizview nocall:item/@@daviz-view.html;
+                        selected_charts python:objcontext.get_daviz_charts().get(daviz_uid, ()) ">
+                <div class="chart-titles" style="overflow:hidden">
+                    <div style="width:550px"><strong class="label">Selected charts:</strong></div>
+                    <span class="chart-title" tal:repeat="chart selected_charts" 
+                        tal:content="python:[x for x in davizview.tabs if x['name'] == chart][0]['title']" />
+                </div>
+                <div> <input type="button" class="popup_btn" value="Select chart" /></div>
+            <span class="metadata" style="display:none" >
                 <span class="vizualization_uid" tal:attributes="value item/UID" />
-                <span class="daviz_uid" tal:content="item/UID" />
-                <span class="url" tal:content="string:${context/absolute_url}/@@set_daviz_chart"  />
-                <select class="chart_options" multiple="multiple" 
-                    tal:define="davizview nocall:item/@@daviz-view.html">
+                <span class="daviz_uid" tal:content="daviz_uid" />
+                <span class="url" tal:content="string:${objcontext/absolute_url}/@@set_daviz_chart"  />
+                <select class="chart_options" multiple="multiple" name="chart" >
                    <option tal:repeat="tab davizview/tabs" 
-                           tal:content="tab/title" tal:attributes="value tab/name"></option>
+                           tal:content="tab/title" 
+                           tal:attributes="value tab/name; selected python:tab['name'] in selected_charts"></option>
                 </select>
             </span>
         </div>
