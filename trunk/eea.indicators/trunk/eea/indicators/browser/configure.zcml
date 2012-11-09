@@ -179,7 +179,7 @@
                 permission="zope2.View"
                 allowed_attributes="mode" />
 
-  <browser:page for="eea.indicators.content.interfaces.IAssessmentPart"                                                                                                                                                                        
+  <browser:page for="*"                                                                                                                                                                        
                 name="set_daviz_chart"
                 class=".daviz.SetDavizChart"
                 permission="cmf.ModifyPortalContent"
