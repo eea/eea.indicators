@@ -21,10 +21,9 @@ class SetDavizChart(BrowserView):
 
     def __call__(self):
         uid = self.request.form.get("vizualization_uid")
-        chart = self.request.form.get("chart")
+        #chart = self.request.form.get("chart")
 
         annot = self.context.__annotations__['DAVIZ_CHARTS']
         annot[uid.strip()] = None
         
-        import pdb; pdb.set_trace()
         return "done"
