@@ -185,11 +185,10 @@
                 permission="cmf.ModifyPortalContent"
                 />
 
-    <!--browser:page
-        for="eea.daviz.content.interfaces.IDavizVisualization"
-        name="faceted-preview-item"
-        template="templates/daviz-faceted-preview.pt"
-        permission="zope.Public"
-        /-->
+  <browser:page for="*"                                                                                                                                                                        
+                name="get_daviz_chart"
+                class=".daviz.GetDavizChart"
+                permission="zope2.View"
+                />
 
 </configure>

@@ -23,7 +23,6 @@ from eea.indicators.content.utils import get_specific_parent
 from eea.relations.field import EEAReferenceField
 from eea.relations.widget import EEAReferenceBrowserWidget
 from plone.uuid.interfaces import IUUID
-from zope.annotation.interfaces import IAnnotations
 from zope.interface import implements
 
 
@@ -278,14 +277,3 @@ class AssessmentPart(ATFolder, ModalFieldEditableAware,
         uids = tuple([u for u in uids if u is not None])
         instance.at_ordered_refs[field.relationship] = uids
 
-    security.declareProtected('Modify portal content', 'set_daviz_charts')
-    def set_daviz_charts(self, info):
-        """info is a dict of uid:[list of chart ids] values
-        """
-        IAnnotations(self)['DAVIZ_CHARTS'] = info
-
-    security.declareProtected('View', "get_daviz_charts")
-    def get_daviz_charts(self):
-        """return daviz charts as a dict of uid:[list of chart ids]
-        """
-        return IAnnotations(self).get('DAVIZ_CHARTS', {})
