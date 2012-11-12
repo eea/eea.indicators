@@ -13,6 +13,8 @@ class SetDavizChart(BrowserView):
     """
 
     def __call__(self):
+        """info is a dict of uid:[list of chart ids] values
+        """
         uid = self.request.form.get("daviz_uid")
         chart = self.request.form.get("chart")
         if chart:
@@ -38,3 +40,19 @@ class SetDavizChart(BrowserView):
         print obj, annot['DAVIZ_CHARTS'].items()
         
         return "done"
+
+
+class GetDavizChart(BrowserView):
+    """Get the chart for a daviz presentation that's set as related
+    """
+
+    def __call__(self):
+        """
+        """
+        return self
+
+    def get_charts(self, uid):
+        """return daviz charts as a dict of uid:[list of chart ids]
+        """
+        annot = IAnnotations(self.context).get('DAVIZ_CHARTS', {})
+        return annot.get(uid, [])

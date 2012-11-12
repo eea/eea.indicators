@@ -59,7 +59,8 @@
             tal:define="objcontext python:view.kwargs['context']; 
                         daviz_uid item/UID; 
                         davizview nocall:item/@@daviz-view.html;
-                        selected_charts python:objcontext.get_daviz_charts().get(daviz_uid, ()) ">
+                        get_daviz_charts nocall:objcontext/@@get_daviz_chart;
+                        selected_charts python:get_daviz_charts.get_charts(daviz_uid);">
                 <div class="chart-titles" style="overflow:hidden">
                     <div style="width:550px"><strong class="label">Selected charts:</strong></div>
                     <span class="chart-title" tal:repeat="chart selected_charts" 
@@ -78,13 +79,16 @@
             </span>
         </div>
         <script >
-        if (!window.hasOwnProperty('_attached_daviz_click_evt')) {
-            $('.daviz_chart_select_container .popup_btn').click(function(evt){
-                new DavizChartSelection(this);
-                evt.stopPropagation();
+            $('.daviz_chart_select_container .popup_btn').each(function(){
+                var btn = $(this);
+                if (btn.hasClass('initialized')) { return null; };
+                btn.addClass('initialized');
+                btn.click(function(evt){
+                    new DavizChartSelection(this);
+                    evt.stopPropagation();
+                    return false;
+                });
             });
-            window._attached_daviz_click_evt = true;
-        }
         </script>
     </tal:cond>
 
