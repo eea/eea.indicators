@@ -48,27 +48,42 @@
       </div>
   </div>
   <div tal:repeat="viz visualizations" class="indicator-figure-plus-container">
-      <div class="indicator-figure-plus" tal:attributes="id viz/getId">
-        <div class="indicator-figure-image">
-          <a title="Downloads and more info"
-             i18n:attributes="title"
-             href="" 
+      <div class="indicator-figure-plus" tal:attributes="id viz/getId" 
+        tal:define="uid viz/UID; 
+                    daviz_view nocall:context/@@get_daviz_chart; 
+                    davidz daviz_view/get_daviz;
+                    charts python:davidz.get(uid, [])">
+          <a title="Interact" i18n:attributes="title" href="" 
+             tal:attributes="href python:viz.absolute_url()+'#' + chart[0]">
+            <img alt="" title="" src=""
+              tal:attributes="alt python:chart[1];
+              title python:chart[1];
+              src python:chart[2]+'/image_preview'" />
+          </a>
+        </div>
+        <div class="indicator-figure-image" tal:condition="not: charts">
+          Missing chart information, using default chart:<br/>
+          <a title="Interact" i18n:attributes="title" href="" 
              tal:attributes="href viz/absolute_url">
             <img alt="" title="" src=""
-              tal:attributes="alt figure/Title;
-              title figure/Title;
-              src string:${figure/absolute_url}/image_preview" />
+              tal:attributes="alt viz/Title; 
+              title  viz/Title;
+              src string:${viz/absolute_url}/image_preview" />
           </a>
         </div>
 
-        <p class="figure-title" tal:content="figure/Title" />
+        <p class="figure-title" tal:content="viz/Title" />
 
-        <tal:description define="figure_description figure/Description">
+        <tal:description define="figure_description viz/Description">
           <p>
             <strong i18n:translate="">Note: </strong>
             <span tal:condition="figure_description" tal:content="figure_description" />
             <span tal:condition="not:figure_description">N/A</span>
           </p>
         </tal:description>
-  </div>
+      </div>
+
+        <a tal:attributes="href viz/absolute_url" i18n:translate="">Explore data interactively</a>
+        <div class="visualClear"><!-- --></div>
+   </div>
 </tal:figures>

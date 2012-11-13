@@ -3,9 +3,13 @@
 
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
-from zope.annotation.interfaces import IAnnotations
 from persistent.mapping import PersistentMapping
+from zope.annotation.interfaces import IAnnotations
+from zope.component import getMultiAdapter
 import urlparse
+import logging
+
+logger = logging.getLogger("eea.indicators")
 
 
 class SetDavizChart(BrowserView):
@@ -21,13 +25,10 @@ class SetDavizChart(BrowserView):
             selected_charts = urlparse.parse_qs(chart)['chart']
         else:
             selected_charts = []
-        context_uid = self.request.form.get("context_uid")
 
-
+        #context_uid = self.request.form.get("context_uid")
         #looks like relatedItems-96797d03-1e39-432f-ae82-8c3eedcf2342-widget
         #obj_uid = context_uid[13:-7]
-        #uids_cat = getToolByName(self.context, 'uid_catalog')
-        #obj = uids_cat.searchResults(UID=obj_uid)[0].getObject()
 
         obj = self.context
         annot = IAnnotations(obj)
@@ -58,10 +59,25 @@ class GetDavizChart(BrowserView):
         return annot.get(uid, [])
 
     def get_daviz(self):
+        """Given an object, it will return the daviz+charts assigned
         """
-        """
+        annot = IAnnotations(self.context).get('DAVIZ_CHARTS', {})
 
+        uids_cat = getToolByName(self.context, 'uid_catalog')
+        info = {}
+        for uid in annot.keys():
+            brains = uids_cat.searchResults(UID=uid)
+            if not brains:
+                logger.warning("Could not find visualization with UID %s" % uid)
+            obj = brains[0].getObject()
+            tabs = getMultiAdapter((obj, self.request), name="daviz-view.html").tabs
+            charts = []
+            for chart in annot[uid]:
+                for tab in tabs:
+                    if tab['name'] == chart:
+                        charts.append((chart, tab['title'], tab['fallback-image']))
+            info[uid] = (obj, charts)
 
-class Object2Daviz(BrowserView):
-    """Given an object, it will return the 
-    """
+        #print info
+        return info
+
