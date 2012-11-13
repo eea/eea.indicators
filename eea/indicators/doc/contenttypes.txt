@@ -6,6 +6,7 @@ The Indicators Database
 We have several main content types. The most important are the Specification and their Assessments.
 
     >>> import urllib
+    >>> import pprint
     >>> from Testing.testbrowser import Browser
     >>> from Products.PloneTestCase import PloneTestCase
     >>> from Products.CMFPlone.utils import getToolByName
@@ -21,6 +22,10 @@ We have several main content types. The most important are the Specification and
     ...     types = [t.__class__.__name__ for t in container.objectValues()]
     ...     return sorted(types)
     >>> catalog = portal.portal_catalog
+    >>> def pp(obj):
+    ...     v = obj.unrestrictedTraverse("@@get_readiness")
+    ...     pprint.pprint(v.get_info_for('published'))
+    ... 
 
 
 Containments
@@ -400,6 +405,14 @@ We need to set the key message, set a figure as related and publish the specific
     >>> ap = asp.objectValues("AssessmentPart")[0]
     >>> rels = ap.getRelatedItems()
     >>> ap.setRelatedItems(rels + [figure_1])
+    >>> figure_1.setGeographicCoverage(["ro", 'it', 'dk'])
+    >>> figure_1.setTemporalCoverage(["1990"])
+    >>> figure_1.setRelatedItems([ims['eds']])
+    >>> figure_1.setTitle("Figure 1")
+    >>> figure_1.setDataOwner("someone")
+    >>> figure_1.setFigureType("map")
+    >>> figure_1.setContact("someone here")
+    >>> ap.setAssessment("something or other")
     >>> asp.unrestrictedTraverse('@@get_readiness').is_ready_for('published')
     False
     >>> wftool = portal.portal_workflow
@@ -407,6 +420,8 @@ We need to set the key message, set a figure as related and publish the specific
     ...     wftool.doActionFor(spec, 'quickPublish')
     ... except:
     ...     pass
+    >>> print wftool.getInfoFor(spec, 'review_state')
+    published
     >>> ap.setAssessment("assessment comes here")
     >>> asp.unrestrictedTraverse('@@get_readiness').is_ready_for('published')
     False
@@ -416,12 +431,8 @@ The management plan needs to be filled in:
     >>> asp.setManagement_plan((2001, '1.2.3'))
     >>> catalog.reindexObject(asp)
     >>> info = asp.unrestrictedTraverse('@@get_readiness').get_info_for('published')
-    >>> info['extra']
-    [('error', 'All the linked Figures and their FigureFiles should be ready to be published. ')]
-    >>> info['rfs_field_names']
-    []
     >>> asp.unrestrictedTraverse('@@get_readiness').is_ready_for('published')
-    False
+    True
 
 
 Simple field editing and schemata editing
@@ -495,9 +506,8 @@ code
 
 The portlet_readiness will inform us of the situation:
 
-    >>> browser.open(spec.absolute_url() + '/portlet_readiness_live')
-    >>> print browser.contents
-    <...is already used by some other document in IMS...
+    >>> pp(spec)
+    {...is already used by some other document in IMS...
 
 The fragment_metadata, which contains the codes, will tell us that the CSI001
 code is duplicated and offer a link to link it as a version of the other specification:
