@@ -53,6 +53,8 @@
                     daviz_view nocall:context/@@get_daviz_chart; 
                     davidz daviz_view/get_daviz;
                     charts python:davidz.get(uid, [])">
+      <div class="indicator-figure-plus" tal:attributes="id viz/getId" 
+        tal:repeat="chart python:charts[1]">
           <a title="Interact" i18n:attributes="title" href="" 
              tal:attributes="href python:viz.absolute_url()+'#' + chart[0]">
             <img alt="" title="" src=""
