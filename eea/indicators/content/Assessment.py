@@ -223,7 +223,7 @@ class Assessment(ATFolder, ModalFieldEditableAware,
 
         for assessment_part in self.objectValues('AssessmentPart'):
             for ob in assessment_part.getRelatedItems():
-                if ob.portal_type == 'EEAFigure':
+                if ob.portal_type in ['EEAFigure', 'DavizVisualization']:
                     result.extend(ob.Subject())
 
         #ZZZ: keywords from datasets, work but needs to be double checked

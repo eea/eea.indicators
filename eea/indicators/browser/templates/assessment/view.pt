@@ -17,7 +17,8 @@
       <h1 class="documentFirstHeading" tal:content="context/Title">Title here</h1>
     </div>
     <div metal:fill-slot="content-description"></div>
-    <div metal:fill-slot="content-core" tal:define="specification context/getParentNode" class='assessment_view' id='region-content'>
+    <div metal:fill-slot="content-core" tal:define="specification context/getParentNode" 
+    class='assessment_view' id='region-content'>
       <div id="content-more-updates-on"
         class="system-message warningMessage"
         tal:condition="context/getMore_updates_on"

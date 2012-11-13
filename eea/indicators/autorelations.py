@@ -33,5 +33,6 @@ class LatestFigures(object):
             related_items = getMultiAdapter((part, self.request),
                                    name=u'related_items')
             figs = related_items('EEAFigure')
+            viz = related_items('DavizVisualization')
 
-        return [('Latest figures', figs)]
+        return [('Latest figures and vizualizations', figs + viz)]

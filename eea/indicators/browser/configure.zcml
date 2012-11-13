@@ -54,6 +54,7 @@
                 template="templates/timeline.pt"
                 permission="zope2.View" />
 
+  ZZZ: is this used anywhere?
   <browser:page for="eea.indicators.content.interfaces.IAssessmentPart"
                 name="view"
                 template="templates/assessmentpart_view.pt"
