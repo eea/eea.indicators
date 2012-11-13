@@ -35,6 +35,8 @@ class ImageViewAssessment(BrowserView):
                         eeafile = rel_ob
                         break
 
+        #TODO: also take into account DavizVisualizations
+
         self.img = queryMultiAdapter((eeafile, request), name=u'imgview')
 
     def display(self, scalename='thumb'):
@@ -66,6 +68,7 @@ class ImageViewIndicatorFactSheet(BrowserView):
                 if state in ['published', 'visible']:
                     eeafile = rel_ob
                     break
+        #TODO: also take into account DavizVisualizations
 
         self.img = queryMultiAdapter((eeafile, request), name=u'imgview')
 

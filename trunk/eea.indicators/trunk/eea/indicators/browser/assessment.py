@@ -173,15 +173,12 @@ def hasUnpublishableFigure(ast):
     """
     for part in ast.objectValues("AssessmentPart"):
         figures = [f for f in part.getRelatedItems() 
-                        if f.portal_type == 'EEAFigure']
+                        if f.portal_type in ('EEAFigure', 
+                                             'DavizVisualization')]
         for fig in figures:
             if not IObjectReadiness(fig).is_ready_for('published'):
                 return True
      
-            #for obj in chain([fig], fig.objectValues("EEAFigureFile")):
-                #if not IObjectReadiness(obj).is_ready_for('published'):
-                    #return True
-
     return False
     
 
@@ -211,8 +208,10 @@ class WorkflowStateReadiness(ObjectReadiness):
         ),
 
         (lambda o: not [part for part in o.objectValues("AssessmentPart") 
-                        if has_one_of(["EEAFigure"], part.getRelatedItems())],
-        "The answered policy questions need to point to at least one Figure."),
+                        if has_one_of(["EEAFigure", "DavizVisualization"], 
+                                      part.getRelatedItems())],
+        "The answered policy questions need to point to at least one "
+        "Figure or Daviz Visualization."),
 
         (lambda o:hasUnpublishableFigure(o),
         'Some of the figures in this indicator are not completed, please check'
@@ -224,14 +223,6 @@ class WorkflowStateReadiness(ObjectReadiness):
     def depends_on(self):
         """see interface"""
         return self.context.objectValues("AssessmentPart")
-
-
-#class AssessmentPartWorkflowReadiness(ObjectReadiness):
-    #checks = {
-    #'published':
-        #[(lambda o:hasUnpublishableFigure(o),
-        #'Not all linked figures are ready to be published',)]
-        #}
 
 
 class WrongVersionReport(BrowserView):
@@ -255,7 +246,6 @@ class WrongVersionReport(BrowserView):
     def get_version_for(self, obj):
         """get version for"""
         return get_version_id(obj)
-
 
 
 class FragmentMetadataView(BrowserView):

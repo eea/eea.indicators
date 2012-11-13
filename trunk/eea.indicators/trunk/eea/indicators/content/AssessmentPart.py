@@ -161,6 +161,7 @@ class AssessmentPart(ATFolder, ModalFieldEditableAware,
 
     def factory_EEAFigure(self):
         """Factory for eea figures"""
+        #TODO: is this used anymore?
         type_name = 'EEAFigure'
         info = self._generic_factory(type_name)
         figure = info['obj']
