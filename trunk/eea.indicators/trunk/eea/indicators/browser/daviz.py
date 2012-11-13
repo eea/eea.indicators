@@ -56,3 +56,12 @@ class GetDavizChart(BrowserView):
         """
         annot = IAnnotations(self.context).get('DAVIZ_CHARTS', {})
         return annot.get(uid, [])
+
+    def get_daviz(self):
+        """
+        """
+
+
+class Object2Daviz(BrowserView):
+    """Given an object, it will return the 
+    """

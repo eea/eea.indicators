@@ -196,8 +196,8 @@ class WorkflowStateReadiness(ObjectReadiness):
         'This Assessment belongs to the wrong version group. To fix this '
         'please visit the Indicator Specification edit page.'),
 
-        (lambda o: not [p for p in o.objectValues("AssessmentPart") 
-                        if not IObjectReadiness(p).is_ready_for('published')],
+        (lambda o: bool([p for p in o.objectValues("AssessmentPart") 
+                        if not IObjectReadiness(p).is_ready_for('published')]),
         'You need to fill in the assessments for all the policy questions.'),
 
         (lambda o:not IObjectReadiness(

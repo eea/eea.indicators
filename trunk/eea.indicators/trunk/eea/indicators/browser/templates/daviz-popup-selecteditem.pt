@@ -65,12 +65,14 @@
                     <div style="width:550px"><strong class="label">Selected charts:</strong></div>
                     <span class="chart-title" tal:repeat="chart selected_charts" 
                         tal:content="python:[x for x in davizview.tabs if x['name'] == chart][0]['title']" />
+                    <span tal:condition="not:selected_charts">No chart selected</span>
                 </div>
                 <div> <input type="button" class="popup_btn" value="Select chart" /></div>
             <span class="metadata" style="display:none" >
                 <span class="vizualization_uid" tal:attributes="value item/UID" />
                 <span class="daviz_uid" tal:content="daviz_uid" />
                 <span class="url" tal:content="string:${objcontext/absolute_url}/@@set_daviz_chart"  />
+                <div tal:content="nocall:davizview/tabs" />
                 <select class="chart_options" multiple="multiple" name="chart" >
                    <option tal:repeat="tab davizview/tabs" 
                            tal:content="tab/title" 

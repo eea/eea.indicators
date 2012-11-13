@@ -95,7 +95,7 @@
             <p tal:content="structure context/getKey_message" />
           </div>
 	  	    
-	  <tal:figures tal:replace="structure key/@@figures" />
+          <tal:figures tal:replace="structure key/@@figures" />
 
           <h3 i18n:translate="">Key assessment</h3>
           <div tal:replace="structure python:key.getAssessment()">Question here</div>

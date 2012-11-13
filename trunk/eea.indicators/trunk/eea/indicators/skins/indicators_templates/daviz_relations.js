@@ -22,7 +22,11 @@ var DavizChartSelection = function (btnel) {
                 'OK':function(){
                     select.replaceWith(cloned_select);
                     chart_titles.find('span').remove();
-                    $(cloned_select).find('option:selected').each(function(){
+                    var selected_options = $(cloned_select).find('option:selected');
+                    if (!selected_options.length) {
+                        chart_titles.append("<span>No chart selected</span>");
+                    };
+                    selected_options.each(function(){
                         var span = $("<span>");
                         span.addClass("chart-title");
                         span.text($(this).text());
