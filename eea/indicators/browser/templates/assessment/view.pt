@@ -120,7 +120,7 @@
         <li tal:repeat="data datasets" tal:condition="datasets">
 	  <a href=""
             tal:attributes="href string:${context/portal_url}/data-and-maps/data/ds_resolveuid/${data/@@getLatestVersionLink}"
-            tal:content="data/title">Dataset title</a> provided by 
+            tal:content="data/title">Dataset title</a><br/>provided by 
           <span tal:repeat="url python:data.getDataOwner()">
            <tal:organisations condition="python:specification.getOrganisationName(url)">
             <strong tal:content="python:specification.getOrganisationName(url).Title" />
@@ -131,11 +131,10 @@
         <li tal:repeat="data extdatasets" tal:condition="extdatasets">
 	  <a href=""
             tal:attributes="href data/absolute_url"
-            tal:content="data/title">Dataset title</a> provided by 
-          <span tal:repeat="url python:data.getProvider_url()">
+            tal:content="data/title">Dataset title</a><br/>provided by 
+          <span tal:define="url python:data.getProvider_url()">
             <tal:organisations condition="python:specification.getOrganisationName(url)">
       	    <strong tal:content="python:specification.getOrganisationName(url).Title" />
-            <span tal:condition="not: repeat/url/end" tal:replace="string:, " />
             </tal:organisations>
        	  </span>
         </li>
