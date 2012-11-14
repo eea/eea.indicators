@@ -474,6 +474,19 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
     #portlet_readiness = \
             #ViewPageTemplateFile('../browser/templates/portlet_readiness.pt')
 
+    #def __getitem__(self, key):
+
+        #if key.startswith('IAssessment'):
+            #assessments = self.objectValues('Assessment')
+            #for assessment in assessments:
+                #anno = IAnnotations(assessment)
+                #anno_url = anno.get(ANNO_MARKER)
+                #old_url = anno_url[ANNO_MARKER]
+                #if name in old_url:
+                    #return assessment
+
+        #return ATFolder.__getitem__(self, key)
+
     def get_work(self):
         """get work info"""
         in_future = datetime.datetime.now() + ONE_YEAR
