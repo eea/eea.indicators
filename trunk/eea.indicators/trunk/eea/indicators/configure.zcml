@@ -74,14 +74,10 @@
         provides="eea.themecentre.interfaces.IThemeTagging"
         factory=".themes.AssessmentThemes"/>
 
-    <!--adapter for="eea.indicators.content.interfaces.ISpecification"
+    <adapter for="eea.indicators.content.interfaces.ISpecification"
         provides="zope.traversing.interfaces.ITraversable"
-        factory=".traverse.SpecificationTraverser"/-->
+        factory=".traverse.SpecificationTraverser"/>
 
-    <!--adapter 
-        for="eea.indicators.content.interfaces.ISpecification zope.publisher.interfaces.browser.IBrowserRequest" 
-        provides="zope.publisher.interfaces.IPublishTraverse" 
-        factory=".traverse.SpecificationTraverser" /-->
 
     <subscriber for=".content.interfaces.IAssessmentPart
         zope.lifecycleevent.interfaces.IObjectModifiedEvent"
