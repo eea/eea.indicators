@@ -27,6 +27,7 @@ class LatestFigures(object):
 
         #get the figures for each assessment part, we can use related_items view
         figs = []
+        viz = []
         if latest_assessment:
             #take the key part
             part = latest_assessment.objectValues('AssessmentPart')[-1]
