@@ -3,6 +3,9 @@ Changelog
 
 5.3-dev - (unreleased)
 ----------------------
+* Bug fix: data providers name is now correctly shown for external data.
+  regression issue was introduced in refs #9217.
+  [demarant fixes #9988]
 * Bug fix: add a status message when failing to set figure files in the
   same state as their parents during assessment state change
   [tiberich refs #9974]
