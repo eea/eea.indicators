@@ -3,6 +3,7 @@
 
 from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
+from eea.app.visualization.interfaces import IDataProvenance
 from persistent.mapping import PersistentMapping
 from zope.annotation.interfaces import IAnnotations
 from zope.component import getMultiAdapter
@@ -81,3 +82,15 @@ class GetDavizChart(BrowserView):
         #print info
         return info
 
+
+class DavizDataSource(BrowserView):
+    """Info about data source for daviz
+    """
+
+    def __call__(self):
+        adapter = IDataProvenance(self.context)
+        return {
+            'title':adapter.title,
+            'link':adapter.link,
+            'owner':adapter.owner
+        }

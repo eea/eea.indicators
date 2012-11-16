@@ -55,34 +55,33 @@ class ObjectDelete(BrowserView):
 
 
 class RelatedItems(BrowserView):
-    """ Return filtered related items
-    """
+    """ Return filtered related items """
 
-    def __call__(self, ctype=None, state=None):
+    def _get_items(self, ctype, state):
+        """get filtered items """
+
         if ctype == None:
             return self.context.getRelatedItems()
+
         if type(ctype) not in (list, tuple):
             ctype = [ctype]
 
-        res = [rel for rel in self.context.getRelatedItems()
+        items = [rel for rel in self.context.getRelatedItems()
                     if rel.portal_type in ctype]
 
         if state:
-            wf_tool = getToolByName(self, 'portal_workflow')
-            return [rell for rell in res
-                         if wf_tool.getInfoFor(rell, 'review_state') in state]
-        return res
+            wf_tool = getToolByName(self.context, 'portal_workflow')
+            items = [rell for rell in items
+                      if wf_tool.getInfoFor(rell, 'review_state') in state]
+        return items
+
+    def __call__(self, ctype=None, state=None):
+        return self._get_items(ctype, state)
 
     def get_uids(self, ctype=None):
         """ returns uids """
-        if ctype == None:
-            return self.context.getRawRelatedItems()
 
-        if type(ctype) not in (list, tuple):
-            ctype = [ctype]
-
-        return [rel.UID() for rel in self.context.getRelatedItems()
-                if rel.portal_type in ctype]
+        return [rel.UID() for rel in self._get_items(ctype)]
 
 
 class DpsirLabel(BrowserView):
