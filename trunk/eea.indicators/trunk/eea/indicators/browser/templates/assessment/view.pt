@@ -9,7 +9,6 @@
 <script type="text/javascript"
     tal:attributes="src string:${context/portal_url}/++resource++indicators-toc.js">
  </script>
-
   </metal:javascript>
 
   <body>
