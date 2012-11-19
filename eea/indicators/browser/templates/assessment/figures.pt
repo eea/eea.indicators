@@ -50,76 +50,67 @@
 
 
     <!-- daviz rendering -->
-    <div class="indicator-figure-plus" tal:attributes="id obj/getId" 
-        tal:condition="python:obj.portal_type=='DavizVisualization'"
-        tal:define="uid obj/UID; 
-                    daviz_view nocall:context/@@get_daviz_chart; 
-                    davidz daviz_view/get_daviz;
-                    charts python:davidz.get(uid, ['',[]])">
+        <div class="indicator-figure-plus" tal:attributes="id obj/getId" 
+            tal:condition="python:obj.portal_type=='DavizVisualization'"
+            tal:define="uid obj/UID; 
+                        daviz_view nocall:context/@@get_daviz_chart; 
+                        davidz daviz_view/get_daviz;
+                        charts python:davidz.get(uid, ['',[]])">
 
-    <div class="indicator-figure-image">
-        <ul class="daviz-chart-tabs">
-            <li tal:repeat="chart python:charts[1]" >
-                <a href="#" tal:content="python:chart[1]" >
-                </a>
-            </li>
-            <li tal:condition="not:charts">Missing chart</li>
-        </ul>
-      <div class="daviz-chart-panes">
-        <div tal:repeat="chart python:charts[1]">
-              <a title="Interact" i18n:attributes="title" href="" 
-                 tal:attributes="href python:obj.absolute_url()+'#' + chart[0]">
-                <img alt="" title="" src=""
-                  tal:attributes="alt python:chart[1];
-                  title python:chart[1];
-                  src python:chart[2]+'/image_preview'" />
-              </a>
-        </div>
-        <div tal:condition="not: charts" >
-          <div i18n:translate="">Missing chart information, using default chart:</div>
-          <a title="Interact" i18n:attributes="title" href="" 
-             tal:attributes="href obj/absolute_url">
-            <img alt="" title="" src=""
-              tal:attributes="alt obj/Title; 
-              title  obj/Title;
-              src string:${obj/absolute_url}/image_preview" />
-          </a>
-        </div>
-      </div>
-   </div>
+            <div class="indicator-figure-image">
+                <dl class="enableFormTabbing">
+                    <tal:rep repeat="chart python:charts[1]">
+                        <dt id="fieldsetlegend-1" tal:attributes="id string:fieldsetlegend-${uid}" 
+                            tal:content="python:chart[1]"></dt>
+                        <dd id="fieldset-1" tal:attributes="id string:fieldset-${uid}">
+                        
+                              <a title="Interact" i18n:attributes="title" href="" 
+                                 tal:attributes="href python:obj.absolute_url()+'#' + chart[0]">
+                                <img alt="" title="" src=""
+                                  tal:attributes="alt python:chart[1];
+                                  title python:chart[1];
+                                  src python:chart[2]+'/image_preview'" />
+                              </a>
+                        
+                        </dd>
+                    </tal:rep>
+                </dl>
 
-        <p class="figure-title" tal:content="obj/Title" />
+                <div tal:condition="python: not charts[1]" >
+                  <div i18n:translate="">Missing chart information, using default chart:</div>
+                  <a title="Interact" i18n:attributes="title" href="" 
+                     tal:attributes="href obj/absolute_url">
+                    <img alt="" title="" src=""
+                      tal:attributes="alt obj/Title; 
+                      title  obj/Title;
+                      src string:${obj/absolute_url}/image_preview" />
+                  </a>
+                </div>
+            </div>
 
-        <tal:description tal:define="figure_description obj/Description">
-          <p>
-            <strong i18n:translate="">Note: </strong>
-            <span tal:condition="figure_description" tal:content="figure_description" />
-            <span tal:condition="not:figure_description">N/A</span>
-          </p>
-        </tal:description>
+            <p class="figure-title" tal:content="obj/Title" />
 
-        <div tal:define="info obj/@@data_source">
-            <strong i18n:translate="">Data source:</strong>
-            <p tal:content="info/owner" />
-            <p>
-            <a href="" tal:attributes="href info/link" tal:content="info/title">Data source</a>
-            </p>
-        </div>
+            <tal:description tal:define="figure_description obj/Description">
+              <p>
+                <strong i18n:translate="">Note: </strong>
+                <span tal:condition="figure_description" tal:content="figure_description" />
+                <span tal:condition="not:figure_description">N/A</span>
+              </p>
+            </tal:description>
 
-        <a tal:attributes="href obj/absolute_url" 
-           class="standardButton" i18n:translate="">Explore chart interactively</a>
-      </div>
+            <div tal:define="info obj/@@data_source">
+                <strong i18n:translate="">Data source:</strong>
+                <p tal:content="info/owner" />
+                <p>
+                <a href="" tal:attributes="href info/link" tal:content="info/title">Data source</a>
+                </p>
+            </div>
 
-    <div class="visualClear"><!-- --></div>
+            <a tal:attributes="href obj/absolute_url" 
+               class="standardButton" i18n:translate="">Explore chart interactively</a>
+          </div>
+
+          <div class="visualClear"><!-- --></div>
 
   </div>
 </tal:figures>
-
-    <script>
-    jQuery(document).ready(function(){
-        console.log(jQuery(".daviz-chart-tabs"));
-        console.log(jQuery(".daviz-chart-panes > div"));
-        jQuery(".daviz-chart-tabs").tabs(".daviz-chart-panes > div");
-        console.log('done tabs');
-    });
-    </script>
