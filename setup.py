@@ -43,6 +43,7 @@ setup(
      'zope.traversing',
      "eea.forms",
      'eea.tags',
+     'eea.app.visualization',
  ],
  entry_points="""
  # -*- Entry points: -*-

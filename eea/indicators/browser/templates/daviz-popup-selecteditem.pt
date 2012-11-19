@@ -48,7 +48,7 @@
         <style>
         .chart-title {
             padding:2px;
-            background-color:#005E7D;
+            background-color:#005E7D; 
             color:white;
             display:block;
             float:left;
@@ -63,8 +63,12 @@
                         selected_charts python:get_daviz_charts.get_charts(daviz_uid);">
                 <div class="chart-titles" style="overflow:hidden">
                     <div style="width:550px"><strong class="label">Selected charts:</strong></div>
-                    <span class="chart-title" tal:repeat="chart selected_charts" 
-                        tal:content="python:[x for x in davizview.tabs if x['name'] == chart][0]['title']" />
+                    <span class="chart-title" tal:repeat="chart selected_charts" >
+                        <tal:def define="thischart python:[x for x in davizview.tabs if x['name'] == chart][0]" >
+                            <img tal:attributes="src string:${thischart/fallback-image}/image_icon" />
+                            <span tal:content="thischart/title" />
+                        </tal:def>
+                    </span>
                     <span tal:condition="not:selected_charts">No chart selected</span>
                 </div>
                 <div> <input type="button" class="popup_btn" value="Select chart" /></div>
@@ -76,7 +80,9 @@
                 <select class="chart_options" multiple="multiple" name="chart" >
                    <option tal:repeat="tab davizview/tabs" 
                            tal:content="tab/title" 
-                           tal:attributes="value tab/name; selected python:tab['name'] in selected_charts"></option>
+                           tal:attributes="value tab/name; 
+                                           selected python:tab['name'] in selected_charts; 
+                                           rel tab/fallback-image"></option>
                 </select>
             </span>
         </div>
