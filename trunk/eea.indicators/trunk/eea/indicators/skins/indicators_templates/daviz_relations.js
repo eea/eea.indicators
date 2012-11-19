@@ -30,6 +30,10 @@ var DavizChartSelection = function (btnel) {
                         var span = $("<span>");
                         span.addClass("chart-title");
                         span.text($(this).text());
+                        var img = $("<img>");
+                        var url = $(this).attr('rel');
+                        img.attr('src', url+'/image_icon');
+                        span.prepend(img);
                         chart_titles.append(span);
                     });
                     var b = this;
