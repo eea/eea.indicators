@@ -168,15 +168,29 @@ def create_version(original, request=None):
 
     return ver
 
+
 def hasUnpublishableFigure(ast):
-    """ has this assessment a relation to a figure that's not publishable?
+    """ Assessment has a relation to a figure that's not publishable?
+
+    Also check that the figure is actually publishable
     """
+
+    wftool = getToolByName(ast, 'portal_workflow')
+
     for part in ast.objectValues("AssessmentPart"):
         figures = [f for f in part.getRelatedItems() 
                         if f.portal_type in ('EEAFigure', 
                                              'DavizVisualization')]
         for fig in figures:
-            if not IObjectReadiness(fig).is_ready_for('published'):
+            #skip published figures
+            if wftools.getInfoFor(fig, 'review_state') == 'published':
+                continue
+            #fail on not finished figures
+            if not IObjectReadiness(fig).is_ready_for('published'): and \
+                return True
+            #check that the figures are actually publishable
+            if not [t for t in wftool.getTransitionsFor(fig) if 
+                    t['id'] in ('publish', 'quickPublish')]:
                 return True
      
     return False
