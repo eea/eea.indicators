@@ -183,10 +183,10 @@ def hasUnpublishableFigure(ast):
                                              'DavizVisualization')]
         for fig in figures:
             #skip published figures
-            if wftools.getInfoFor(fig, 'review_state') == 'published':
+            if wftool.getInfoFor(fig, 'review_state') == 'published':
                 continue
             #fail on not finished figures
-            if not IObjectReadiness(fig).is_ready_for('published'): and \
+            if not IObjectReadiness(fig).is_ready_for('published'):
                 return True
             #check that the figures are actually publishable
             if not [t for t in wftool.getTransitionsFor(fig) if 
