@@ -1,8 +1,10 @@
 Changelog
 =========
 
-5.4-dev - (unreleased)
-----------------------
+5.4 - (2012-11-22)
+------------------
+* Bug fix: fixed layout issue when message is large.
+  [demarant]
 
 5.3 - (2012-11-22)
 ------------------

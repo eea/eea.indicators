@@ -203,7 +203,6 @@ ul.sortable_spec {
 }
 #content-more-updates-on {
     background-color: #d0df86;
-    margin-right: 25em;
 }
 /*#headline-assessment {*/
     /*background: transparent url(&dtml-portal_url;/Assessment.gif) no-repeat scroll 0 8px;*/
