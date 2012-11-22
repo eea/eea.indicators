@@ -1,0 +1,116 @@
+<tal:figures define="objects python:path('nocall:context/@@related_items')(['EEAFigure', 'DavizVisualization']);">
+
+  <div tal:repeat="obj objects" class="indicator-figure-plus-container">
+
+      <!-- figure rendering -->
+      <div class="indicator-figure-plus" tal:attributes="id obj/getId" 
+           tal:condition="python:obj.portal_type == 'EEAFigure'">
+        <div class="indicator-figure-image">
+          <a title="Downloads and more info"
+             i18n:attributes="title"
+             href="" 
+             tal:attributes="href obj/absolute_url">
+            <img alt="" title="" src=""
+              tal:attributes="alt obj/Title;
+              title obj/Title;
+              src string:${obj/absolute_url}/image_preview" />
+          </a>
+        </div>
+
+        <p class="figure-title" tal:content="obj/Title" />
+
+        <tal:description define="figure_description obj/Description">
+          <p>
+            <strong i18n:translate="">Note: </strong>
+            <span tal:condition="figure_description" tal:content="figure_description" />
+            <span tal:condition="not:figure_description">N/A</span>
+          </p>
+        </tal:description>
+
+        <div tal:define="related python:[o for o in obj.getRelatedItems()
+                                                    if o.portal_type in ('ExternalDataSpec', 'Data')];
+                         figure_dataSource obj/getDataSource ">
+
+            <strong i18n:translate="">Data source:</strong>
+            <!-- We only show deprecated datasource free text field,
+                 form old figures, otherwise we use the new approach
+                 with related sources (which overrules the old one) -->
+            <p tal:condition="python:figure_dataSource and not related">
+               <span tal:content="structure figure_dataSource" />
+            </p>
+            <!-- Show related data sources -->
+            <ul tal:repeat="item related" >
+                <li tal:content="structure item/@@related_title" />
+            </ul>
+        </div>
+
+        <a tal:attributes="href obj/absolute_url" i18n:translate="">Downloads and more info</a>
+
+    </div>
+
+
+    <!-- daviz rendering -->
+        <div class="indicator-figure-plus" tal:attributes="id obj/getId" 
+            tal:condition="python:obj.portal_type=='DavizVisualization'"
+            tal:define="uid obj/UID; 
+                        daviz_view nocall:context/@@get_daviz_chart; 
+                        davidz daviz_view/get_daviz;
+                        charts python:davidz.get(uid, ['',[]])">
+
+            <div class="indicator-figure-image">
+                <dl class="enableFormTabbing">
+                    <tal:rep repeat="chart python:charts[1]">
+                        <dt id="fieldsetlegend-1" tal:attributes="id string:fieldsetlegend-${uid}" 
+                            tal:content="python:chart[1]"></dt>
+                        <dd id="fieldset-1" tal:attributes="id string:fieldset-${uid}">
+                        
+                              <a title="Interact" i18n:attributes="title" href="" 
+                                 tal:attributes="href python:obj.absolute_url()+'#' + chart[0]">
+                                <img alt="" title="" src=""
+                                  tal:attributes="alt python:chart[1];
+                                  title python:chart[1];
+                                  src python:chart[2]+'/image_preview'" />
+                              </a>
+                        
+                        </dd>
+                    </tal:rep>
+                </dl>
+
+                <div tal:condition="python: not charts[1]" >
+                  <div i18n:translate="">Missing chart information, using default chart:</div>
+                  <a title="Interact" i18n:attributes="title" href="" 
+                     tal:attributes="href obj/absolute_url">
+                    <img alt="" title="" src=""
+                      tal:attributes="alt obj/Title; 
+                      title  obj/Title;
+                      src string:${obj/absolute_url}/image_preview" />
+                  </a>
+                </div>
+            </div>
+
+            <p class="figure-title" tal:content="obj/Title" />
+
+            <tal:description tal:define="figure_description obj/Description">
+              <p>
+                <strong i18n:translate="">Note: </strong>
+                <span tal:condition="figure_description" tal:content="figure_description" />
+                <span tal:condition="not:figure_description">N/A</span>
+              </p>
+            </tal:description>
+
+            <div tal:define="info obj/@@data_source">
+                <strong i18n:translate="">Data source:</strong>
+                <p tal:content="info/owner" />
+                <p>
+                <a href="" tal:attributes="href info/link" tal:content="info/title">Data source</a>
+                </p>
+            </div>
+
+            <a tal:attributes="href obj/absolute_url" 
+               class="standardButton" i18n:translate="">Explore chart interactively</a>
+          </div>
+
+          <div class="visualClear"><!-- --></div>
+
+  </div>
+</tal:figures>
