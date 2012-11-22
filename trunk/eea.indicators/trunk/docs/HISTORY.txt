@@ -21,6 +21,9 @@ Changelog
   [tiberich]
 * Change: removed references to relatedProducts
   [ghicaale #6773]
+* Upgrade Step: import "EEA Daviz:eea.relations integration" -> javascripts in
+  portal_setup
+  [tiberich refs #9571]
 
 5.2 - (2012-09-27)
 ------------------
