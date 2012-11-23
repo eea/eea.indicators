@@ -44,7 +44,7 @@ setup(
      "eea.forms",
      'eea.tags',
      'eea.app.visualization',
-     'eea.daviz>=6.2'
+     #'eea.daviz>=6.2'
  ],
  entry_points="""
  # -*- Entry points: -*-
