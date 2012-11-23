@@ -55,7 +55,8 @@
             tal:define="uid obj/UID; 
                         daviz_view nocall:context/@@get_daviz_chart; 
                         davidz daviz_view/get_daviz;
-                        charts python:davidz.get(uid, ['',[]])">
+                        charts python:davidz.get(uid, ['',[]])"
+            tal:on-error="nothing">
 
             <div class="indicator-figure-image">
                 <dl class="enableFormTabbing">
