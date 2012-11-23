@@ -57,7 +57,7 @@ class ObjectDelete(BrowserView):
 class RelatedItems(BrowserView):
     """ Return filtered related items """
 
-    def _get_items(self, ctype, state):
+    def _get_items(self, ctype, state=None):
         """get filtered items """
 
         if ctype == None:
