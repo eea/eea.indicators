@@ -3,6 +3,8 @@ Changelog
 
 5.5-dev - (unreleased)
 ----------------------
+* Bug fix: fix small bug introduced by refactoring in RelatedItems view
+  [tiberich]
 
 5.4 - (2012-11-22)
 ------------------
