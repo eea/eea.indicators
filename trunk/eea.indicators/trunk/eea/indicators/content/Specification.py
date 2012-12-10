@@ -781,8 +781,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
             return 0    #this happens in tests
 
 #placed here so that it will be found by extraction utility
-_titlemsg = _(u"Newly created ${type_name}",
-        )
+_titlemsg = _(u"Newly created ${type_name}",)
 
 
 def make_id(BASE, names):
