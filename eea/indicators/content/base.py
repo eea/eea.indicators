@@ -2,6 +2,8 @@
 """
 
 from AccessControl import ClassSecurityInfo
+from Products.Archetypes.event import ObjectEditedEvent
+from Products.Archetypes.event import ObjectInitializedEvent                                                                                                                                   
 from Products.Archetypes.utils import mapply
 from Products.CMFCore import permissions
 from Products.CMFCore.permissions import AddPortalContent
@@ -96,10 +98,12 @@ class ModalFieldEditableAware(object):
         # Post create/edit hooks
         if is_new_object:
             self.at_post_create_script()
+            event.notify(ObjectInitializedEvent(self))
         else:
             self.at_post_edit_script()
+            event.notify(ObjectEditedEvent(self))
 
-        event.notify(ObjectModifiedEvent(self))
+        #event.notify(ObjectModifiedEvent(self))
         return
 
     security.declareProtected(permissions.View, 'simple_validate')
