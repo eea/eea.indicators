@@ -8,7 +8,7 @@ from Products.Archetypes.utils import mapply
 from Products.CMFCore import permissions
 from Products.CMFCore.permissions import AddPortalContent
 from zope import event
-from zope.lifecycleevent import ObjectModifiedEvent
+from zope.lifecycleevent import ObjectModifiedEvent, ObjectAddedEvent
 
 
 class ExtendedMessage(object):
@@ -98,6 +98,7 @@ class ModalFieldEditableAware(object):
         # Post create/edit hooks
         if is_new_object:
             self.at_post_create_script()
+            event.notify(ObjectAddedEvent(self))
             event.notify(ObjectInitializedEvent(self))
         else:
             self.at_post_edit_script()

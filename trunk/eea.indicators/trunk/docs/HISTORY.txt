@@ -3,7 +3,8 @@ Changelog
 
 5.6-dev - (unreleased)
 ----------------------
-* Bug fix: send proper AT events when editing in aggregated edit
+* Bug fix: send proper AT events when editing in aggregated edit; fixes
+  plone.app.contentrules integration
   [tiberich #10038]
 
 5.5 - (2012-11-23)
