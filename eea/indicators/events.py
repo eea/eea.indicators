@@ -23,34 +23,28 @@ def syncWorkflowStateRelatedFigures(context, dest_state):
             if figState != dest_state:
 
                 # get possible transitions for object in current state
-                for obj in chain([figure],
-                                 figure.objectValues('EEAFigureFile')):
 
-                    state = wftool.getInfoFor(obj, 'review_state')
-                    if state == dest_state: #sometimes the child is in the
-                        continue            #desired state
+                workflow = wftool.getWorkflowsFor(figure)[0]
+                transitions = workflow.transitions
+                available_transitions = [transitions[i['id']] for i in
+                                            wftool.getTransitionsFor(figure)]
 
-                    workflow = wftool.getWorkflowsFor(obj)[0]
-                    transitions = workflow.transitions
-                    available_transitions = [transitions[i['id']] for i in
-                                                wftool.getTransitionsFor(obj)]
+                to_do = [k for k in available_transitions
+                         if k.new_state_id == dest_state]
 
-                    to_do = [k for k in available_transitions
-                             if k.new_state_id == dest_state]
-
-                    if not to_do:
-                        err = """
+                if not to_do:
+                    err = """
 Could not find a transition that would bring the object %s to destination 
 state. This may be due to having the FigureFile at different workflow state than 
-its parent Figure.""" % obj.absolute_url()
-                        IStatusMessage(context.REQUEST).add(err, 'warn')
-                        raise ValueError(err)
+its parent Figure.""" % figure.absolute_url()
+                    IStatusMessage(context.REQUEST).add(err, 'warn')
+                    raise ValueError(err)
 
-                    # find transition that brings to the state of parent object
-                    for item in to_do:
-                        workflow.doActionFor(obj, item.id, comment=comment)
-                        obj.reindexObject()
-                        break
+                # find transition that brings to the state of parent object
+                for item in to_do:
+                    workflow.doActionFor(figure, item.id, comment=comment)
+                    figure.reindexObject()
+                    break
 
 
 def handle_assessment_state_change(context, event):
