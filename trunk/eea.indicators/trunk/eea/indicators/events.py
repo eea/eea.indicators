@@ -1,7 +1,6 @@
 """ Event handlers
 """
 
-from itertools import chain
 from Products.statusmessages.interfaces import IStatusMessage
 from Products.CMFCore.utils import getToolByName
 
