@@ -3,12 +3,12 @@
 
 from AccessControl import ClassSecurityInfo
 from Products.Archetypes.event import ObjectEditedEvent
-from Products.Archetypes.event import ObjectInitializedEvent                                                                                                                                   
+from Products.Archetypes.event import ObjectInitializedEvent
 from Products.Archetypes.utils import mapply
 from Products.CMFCore import permissions
 from Products.CMFCore.permissions import AddPortalContent
 from zope import event
-from zope.lifecycleevent import ObjectModifiedEvent, ObjectAddedEvent
+from zope.lifecycleevent import ObjectAddedEvent
 
 
 class ExtendedMessage(object):
@@ -104,7 +104,6 @@ class ModalFieldEditableAware(object):
             self.at_post_edit_script()
             event.notify(ObjectEditedEvent(self))
 
-        #event.notify(ObjectModifiedEvent(self))
         return
 
     security.declareProtected(permissions.View, 'simple_validate')
