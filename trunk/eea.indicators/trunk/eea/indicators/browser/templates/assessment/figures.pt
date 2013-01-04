@@ -70,7 +70,7 @@
                                 <img alt="" title="" src=""
                                   tal:attributes="alt python:chart[1];
                                   title python:chart[1];
-                                  src python:chart[2]+'/image_thumb'" />
+                                  src python:chart[3].strip()+'/image_large'" />
                               </a>
                         
                         </dd>
@@ -84,7 +84,7 @@
                     <img alt="" title="" src=""
                       tal:attributes="alt obj/Title; 
                       title  obj/Title;
-                      src string:${obj/absolute_url}/image_thumb" />
+                      src string:${obj/absolute_url}/image_large" />
                   </a>
                 </div>
             </div>
