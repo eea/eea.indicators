@@ -28,10 +28,6 @@
           tal:content="structure context/getMore_updates_on" />
 
         <metal:versions use-macro="here/portlet_versions/macros/versions">
-          <metal:new fill-slot="old" />
-        </metal:versions>
-        <metal:versions use-macro="here/portlet_versions/macros/versions">
-          <metal:new fill-slot="new" />
         </metal:versions>
         
         <tal:block define="queryString string:h2">

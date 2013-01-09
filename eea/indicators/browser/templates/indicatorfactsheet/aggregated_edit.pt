@@ -25,17 +25,12 @@
 
       <h2 i18n:translate="">Indicator FactSheet versions</h2>
       <metal:versions use-macro="here/portlet_versions/macros/versions">
-        <metal:new fill-slot="old" />
       </metal:versions>
 
       <div tal:replace="structure context/@@fragment_info" />
       <div tal:replace="structure context/@@fragment_codes" />
       <div tal:replace="structure context/@@fragment_related" />
       <div tal:replace="structure context/@@fragment_metadata" />
-
-      <metal:versions use-macro="here/portlet_versions/macros/versions">
-        <metal:new fill-slot="new" />
-      </metal:versions>
 
     </div>
   </body>

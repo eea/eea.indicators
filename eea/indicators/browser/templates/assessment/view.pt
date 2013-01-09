@@ -25,7 +25,6 @@
         tal:content="structure context/getMore_updates_on" />
 
       <metal:versions use-macro="here/portlet_versions/macros/versions">
-        <metal:new fill-slot="old" />
       </metal:versions>
 
 
@@ -215,9 +214,6 @@
         <metal:basicmeta use-macro="context/versions_macros/macros/permalinks" />
       </div>
 
-     <metal:versions use-macro="here/portlet_versions/macros/versions">
-        <metal:new fill-slot="new" />
-      </metal:versions>
     </div>
   </body>
 </html>
