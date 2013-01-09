@@ -12,6 +12,9 @@ Changelog
 * Change: don't try to change workflow for EEAFigureFiles anymore, as
   they don't have an workflow anymore 
   [tiberich #9976]
+* Change: use inline live and image previews for DavizVizualizations
+  in assessment view
+  [tiberich #9571]
 
 5.5 - (2012-11-23)
 ------------------

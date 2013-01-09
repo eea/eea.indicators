@@ -7,9 +7,10 @@
   </head>
 
   <metal:javascript fill-slot="javascript_head_slot">
-<script type="text/javascript"
-    tal:attributes="src string:${context/portal_url}/++resource++indicators-toc.js">
- </script>
+    <script type="text/javascript"
+        tal:attributes="src string:${context/portal_url}/++resource++indicators-toc.js">
+     </script>
+    <script tal:replace="structure context/embed-inline-includes"> </script>
   </metal:javascript>
 
   <body>
