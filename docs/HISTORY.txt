@@ -3,6 +3,9 @@ Changelog
 
 5.6-dev - (unreleased)
 ----------------------
+* Change:  moved the olderVersions to the portalMessage div that displays the 
+  old versions link for eea.indicators templates
+  [ichimdav #10182]
 * Bug fix: send proper AT events when editing in aggregated edit; fixes
   plone.app.contentrules integration
   [tiberich #10038]
