@@ -41,7 +41,6 @@
       </tal:block>
 
       <metal:versions use-macro="here/portlet_versions/macros/versions">
-        <metal:new fill-slot="old" />
       </metal:versions>
 
       <div tal:replace="structure context/fragment_assessments" />
@@ -56,10 +55,6 @@
       <div tal:replace="structure context/fragment_metadata" />
       <div tal:replace="structure context/fragment_info" />
       <div tal:replace="structure context/fragment_work" />
-
-      <metal:versions use-macro="here/portlet_versions/macros/versions">
-        <metal:new fill-slot="new" />
-      </metal:versions>
 
     </div>
   </body>
