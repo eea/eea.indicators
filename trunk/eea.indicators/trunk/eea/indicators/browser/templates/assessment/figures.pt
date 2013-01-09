@@ -55,38 +55,56 @@
             tal:define="uid obj/UID; 
                         daviz_view nocall:context/@@get_daviz_chart; 
                         davidz daviz_view/get_daviz;
-                        charts python:davidz.get(uid, ['',[]])"
-            tal:on-error="nothing">
+                        charts python:davidz.get(uid, [None, {'live':[], 'preview':[]}]);
+                        preview python:charts[1]['preview'];
+                        live python:charts[1]['live'];
+                        all_charts python:sorted(preview + live, lambda x,y:cmp(x[0], y[0]));
+                        inline_chart nocall:obj/@@embed-inline | nothing;"
+            >
+
+<tal:comment tal:replace="nothing">
+<!--Structure of charts:-->
+<!--(<DavizVisualization at /www/SITE/data-and-maps/daviz/copy_of_european-union-greenhouse-gas-emissions-8>, -->
+    <!--{'live': [('chart_3', u'New Chart', None, u'http://127.0.0.1:7771/www/SITE/data-and-maps/daviz/copy_of_european-union-greenhouse-gas-emissions-8/chart_3.png')], -->
+    <!--'preview': [('chart_1', u'Million tonnes CO2 equivalent', None, u'http://127.0.0.1:7771/www/SITE/data-and-maps/daviz/copy_of_european-union-greenhouse-gas-emissions-8/chart_1.png'), -->
+                <!--('chart_2', u'Table', None, u'http://127.0.0.1:7771/www/SITE/data-and-maps/daviz/copy_of_european-union-greenhouse-gas-emissions-8/googlechart.table.preview.png')]})-->
+</tal:comment>
 
             <div class="indicator-figure-image">
-                <dl class="enableFormTabbing">
-                    <tal:rep repeat="chart python:charts[1]">
-                        <dt id="fieldsetlegend-1" tal:attributes="id string:fieldsetlegend-${uid}" 
+                <dl class="enableFormTabbing" tal:condition="all_charts">
+                    <tal:rep repeat="chart all_charts">
+                        <dt id="fieldsetlegend-1" tal:attributes="id string:fieldsetlegend-${uid}"
                             tal:content="python:chart[1]"></dt>
                         <dd id="fieldset-1" tal:attributes="id string:fieldset-${uid}">
                         
-                              <a title="Interact" i18n:attributes="title" href="" 
-                                 tal:attributes="href python:obj.absolute_url()+'#tab-' + chart[0]">
-                                <img alt="" title="" src=""
-                                  tal:attributes="alt python:chart[1];
-                                  title python:chart[1];
-                                  src python:chart[3].strip()+'/image_large'" />
-                              </a>
+                              <tal:live tal:condition="python:chart[0] in [x[0] for x in live]"
+                                tal:replace="structure python:inline_chart(chart=chart[0])" />
+
+                              <tal:preview tal:condition="python:chart[0] in [x[0] for x in preview]">
+                                  <a title="Interact" i18n:attributes="title" href=""
+                                     tal:attributes="href python:obj.absolute_url()+'#tab-' + chart[0]">
+                                    <img alt="" title="" src=""
+                                      tal:attributes="alt python:chart[1];
+                                      title python:chart[1];
+                                      src python:chart[3].strip()+'/image_large'" />
+                                  </a>
+                              </tal:preview>
                         
                         </dd>
                     </tal:rep>
                 </dl>
 
-                <div tal:condition="python: not charts[1]" >
+                <div tal:condition="python: not all_charts" >
                   <div i18n:translate="">Missing chart information, using default chart:</div>
-                  <a title="Interact" i18n:attributes="title" href="" 
-                     tal:attributes="href obj/absolute_url">
+                  <a title="Interact" i18n:attributes="title" href=""
+                        tal:attributes="href obj/absolute_url">
                     <img alt="" title="" src=""
-                      tal:attributes="alt obj/Title; 
+                      tal:attributes="alt obj/Title;
                       title  obj/Title;
                       src string:${obj/absolute_url}/image_large" />
                   </a>
                 </div>
+
             </div>
 
             <p class="figure-title" tal:content="obj/Title" />
