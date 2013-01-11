@@ -15,6 +15,10 @@ Changelog
 * Change: use inline live and image previews for DavizVizualizations
   in assessment view
   [tiberich #9571]
+* Upgrade Step:
+    * go to /data-and-maps/indicators/configure_faceted.html
+    * add a new Plone Portlet, with title: "IMS Overview" 
+      and path here/portlet_ims_overview/macros/portlet
 
 5.5 - (2012-11-23)
 ------------------
