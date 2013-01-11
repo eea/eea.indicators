@@ -17,6 +17,7 @@
     <div metal:fill-slot="content-title" class="assessment_view" >
       <h1 class="documentFirstHeading" tal:content="context/Title">Title here</h1>
     </div>
+
     <div metal:fill-slot="content-description"></div>
     <div metal:fill-slot="content-core" tal:define="specification context/getParentNode" 
     class='assessment_view' id='region-content'>
@@ -24,6 +25,8 @@
         class="system-message warningMessage"
         tal:condition="context/getMore_updates_on"
         tal:content="structure context/getMore_updates_on" />
+
+      <div tal:replace="structure context/@@readiness" tal:condition="not:isAnon"/>
 
       <metal:versions use-macro="here/portlet_versions/macros/versions">
       </metal:versions>
