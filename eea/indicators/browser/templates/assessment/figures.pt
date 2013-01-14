@@ -5,6 +5,8 @@
       <!-- figure rendering -->
       <div class="indicator-figure-plus" tal:attributes="id obj/getId" 
            tal:condition="python:obj.portal_type == 'EEAFigure'">
+        <p class="figure-title" tal:content="obj/Title" />
+
         <div class="indicator-figure-image">
           <a title="Downloads and more info"
              i18n:attributes="title"
@@ -13,11 +15,9 @@
             <img alt="" title="" src=""
               tal:attributes="alt obj/Title;
               title obj/Title;
-              src string:${obj/absolute_url}/image_preview" />
+              src string:${obj/absolute_url}/image_xlarge" />
           </a>
         </div>
-
-        <p class="figure-title" tal:content="obj/Title" />
 
         <tal:description define="figure_description obj/Description">
           <p>
@@ -44,7 +44,7 @@
             </ul>
         </div>
 
-        <a tal:attributes="href obj/absolute_url" i18n:translate="">Downloads and more info</a>
+        <a tal:attributes="href obj/absolute_url" class="standardButton" i18n:translate="">Downloads and more info</a>
 
     </div>
 
@@ -62,6 +62,8 @@
                         inline_chart nocall:obj/@@embed-inline | nothing;"
             >
 
+            <p class="figure-title" tal:content="obj/Title" />
+
 <tal:comment tal:replace="nothing">
 <!--Structure of charts:-->
 <!--(<DavizVisualization at /www/SITE/data-and-maps/daviz/copy_of_european-union-greenhouse-gas-emissions-8>, -->
@@ -71,16 +73,22 @@
 </tal:comment>
 
             <div class="indicator-figure-image">
-                <dl class="enableFormTabbing" tal:condition="all_charts">
+                <dl class="enableFormTabbing">
                     <tal:rep repeat="chart all_charts">
                         <dt id="fieldsetlegend-1" tal:attributes="id string:fieldsetlegend-${uid}"
                             tal:content="python:chart[1]"></dt>
                         <dd id="fieldset-1" tal:attributes="id string:fieldset-${uid}">
                         
-                              <tal:live tal:condition="python:chart[0] in [x[0] for x in live]"
-                                tal:replace="structure python:inline_chart(chart=chart[0])" />
+                              <div class="figure-chart-live">
+                                <script tal:condition="python:chart[0] in [x[0] for x in live]"
+                                tal:content="structure python:inline_chart(chart=chart[0])" ></script>
 
-                              <tal:preview tal:condition="python:chart[0] in [x[0] for x in preview]">
+                                 <div class="visualClear" />
+                                 <a tal:attributes="href obj/absolute_url" 
+                                     class="standardButton" i18n:translate="">Downloads and more info</a>
+                              </div>
+
+                              <div class="figure-chart-preview" tal:condition="python:chart[0] in [x[0] for x in preview]">
                                   <a title="Interact" i18n:attributes="title" href=""
                                      tal:attributes="href python:obj.absolute_url()+'#tab-' + chart[0]">
                                     <img alt="" title="" src=""
@@ -88,45 +96,56 @@
                                       title python:chart[1];
                                       src python:chart[3].strip()+'/image_large'" />
                                   </a>
-                              </tal:preview>
-                        
+                                  <div class="visualClear" />
+
+                                  <div tal:define="notes_view nocall:obj/chart-notes; figure_description python:notes_view(chart[0])">
+                                    <strong i18n:translate="">Note: </strong>
+                                    <span tal:condition="figure_description" 
+                                        tal:content="structure python:'<br/>'.join(figure_description)" />
+                                    <span tal:condition="not:figure_description">N/A</span>
+                                  </div>
+
+                                  <a tal:attributes="href obj/absolute_url" 
+                                     class="standardButton" i18n:translate="">Explore chart interactively</a>
+                              </div>
+
+                              <div tal:define="info obj/@@data_source">
+                                  <strong i18n:translate="">Data source:</strong>
+                                  <p tal:content="info/owner" />
+                                  <p>
+                                      <a href="" tal:attributes="href info/link" tal:content="info/title">Data source</a>
+                                  </p>
+                              </div>
                         </dd>
                     </tal:rep>
+
+                    <dd tal:condition="python: not all_charts" >
+                      <div i18n:translate="" style="display:none">Missing chart information, using default chart:</div>
+                      <a title="Interact" i18n:attributes="title" href=""
+                            tal:attributes="href obj/absolute_url">
+                        <img alt="" title="" src=""
+                          tal:attributes="alt obj/Title;
+                          title  obj/Title;
+                          src string:${obj/absolute_url}/image_xlarge" />
+                      </a>
+                      <div class="visualClear" />
+                      <p tal:define="figure_description obj/Description">
+                        <strong i18n:translate="">Note: </strong>
+                        <span tal:condition="figure_description" tal:content="figure_description" />
+                        <span tal:condition="not:figure_description">N/A</span>
+                      </p>
+                      <div tal:define="info obj/@@data_source">
+                          <strong i18n:translate="">Data source:</strong>
+                          <p tal:content="info/owner" />
+                          <p>
+                              <a href="" tal:attributes="href info/link" tal:content="info/title">Data source</a>
+                          </p>
+                      </div>
+                    </dd>
                 </dl>
-
-                <div tal:condition="python: not all_charts" >
-                  <div i18n:translate="">Missing chart information, using default chart:</div>
-                  <a title="Interact" i18n:attributes="title" href=""
-                        tal:attributes="href obj/absolute_url">
-                    <img alt="" title="" src=""
-                      tal:attributes="alt obj/Title;
-                      title  obj/Title;
-                      src string:${obj/absolute_url}/image_large" />
-                  </a>
-                </div>
-
             </div>
 
-            <p class="figure-title" tal:content="obj/Title" />
 
-            <tal:description tal:define="figure_description obj/Description">
-              <p>
-                <strong i18n:translate="">Note: </strong>
-                <span tal:condition="figure_description" tal:content="figure_description" />
-                <span tal:condition="not:figure_description">N/A</span>
-              </p>
-            </tal:description>
-
-            <div tal:define="info obj/@@data_source">
-                <strong i18n:translate="">Data source:</strong>
-                <p tal:content="info/owner" />
-                <p>
-                <a href="" tal:attributes="href info/link" tal:content="info/title">Data source</a>
-                </p>
-            </div>
-
-            <a tal:attributes="href obj/absolute_url" 
-               class="standardButton" i18n:translate="">Explore chart interactively</a>
           </div>
 
           <div class="visualClear"><!-- --></div>
