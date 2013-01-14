@@ -100,8 +100,9 @@
 
                                   <div tal:define="notes_view nocall:obj/chart-notes; figure_description python:notes_view(chart[0])">
                                     <strong i18n:translate="">Note: </strong>
-                                    <span tal:condition="figure_description" 
-                                        tal:content="structure python:'<br/>'.join(figure_description)" />
+                                    <tal:rep tal:repeat="info figure_description" >
+                                        <span tal:content="structure info/text" />
+                                        </tal:rep>
                                     <span tal:condition="not:figure_description">N/A</span>
                                   </div>
 
