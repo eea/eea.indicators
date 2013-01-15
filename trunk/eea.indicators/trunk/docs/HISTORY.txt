@@ -16,6 +16,9 @@ Changelog
   in assessment view
   [tiberich #9571]
 * Upgrade Step:
+    * go to ZMI portal_properties/imaging_properties/manage_workspace,
+      add a new size "xlarge 950:950"
+* Upgrade Step:
     * go to /data-and-maps/indicators/configure_faceted.html
     * add a new Plone Portlet, with title: "IMS Overview" 
       and path here/portlet_ims_overview/macros/portlet
