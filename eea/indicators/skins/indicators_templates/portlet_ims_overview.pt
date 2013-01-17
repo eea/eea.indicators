@@ -1,4 +1,5 @@
-<metal:macro metal:define-macro="portlet">
+<metal:macro metal:define-macro="portlet" 
+             tal:define="isAnon context/@@plone_portal_state/anonymous;">
     <div class="featured" tal:condition="not:isAnon">
     <dt class="portletHeader" i18n:translate="">IMS Overviews</dt>
     <ul style="padding-bottom:15px">
