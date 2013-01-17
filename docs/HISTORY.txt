@@ -5,6 +5,8 @@ Changelog
 ----------------------
 * Bug fix: fixed portlet_ims_overview access to isAnon variable
   [demarant]
+* Bug fix: fix rendering of live daviz charts
+  [tiberich #9571]
 
 5.6 - (2013-01-15)
 ------------------
