@@ -616,7 +616,7 @@ div.kupu-fulleditor-zoomed .kupu-editor-iframe {
 }
 
 .indicator-figure-plus .figure-title {
-    font-size: 1.2em;
+    font-size: 1.6em !important;
 }
 
 /*start datagridwidget */
