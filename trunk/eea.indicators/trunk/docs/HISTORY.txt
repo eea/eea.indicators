@@ -3,6 +3,8 @@ Changelog
 
 5.7-dev - (unreleased)
 ----------------------
+* Bug fix: fixed portlet_ims_overview access to isAnon variable
+  [demarant]
 
 5.6 - (2013-01-15)
 ------------------
