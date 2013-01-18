@@ -1,0 +1,8 @@
+<div tal:define="
+	assessments context/get_assessments; 
+	key nocall:assessments/key;
+	secondary nocall:assessments/secondary;">
+	<tal:parts repeat="part python:[key] + secondary">
+		<div tal:replace="structure part/fragment_assessment_part" tal:condition="part" />
+	</tal:parts>
+</div>
