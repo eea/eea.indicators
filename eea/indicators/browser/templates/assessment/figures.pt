@@ -19,6 +19,7 @@
           </a>
         </div>
 
+        <div class="visualClear" />
         <tal:description define="figure_description obj/Description">
           <p>
             <strong i18n:translate="">Note: </strong>
@@ -63,8 +64,6 @@
             >
 
             <p class="figure-title" tal:content="obj/Title" />
-
-
 
             <div class="indicator-figure-image">
                 <dl class="enableFormTabbing">
@@ -138,7 +137,6 @@
                     </dd>
                 </dl>
             </div>
-
 
           </div>
 

@@ -3,6 +3,8 @@ Changelog
 
 5.8-dev - (unreleased)
 ----------------------
+* Bug fix: add a clear for notes on figures to force spacing
+  [tiberich #9571]
 
 5.7 - (2013-01-17)
 ------------------
