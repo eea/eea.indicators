@@ -3,6 +3,8 @@ Changelog
 
 5.9-dev - (unreleased)
 ----------------------
+* Bug fix: fix chart mouseover popup in indicators view for visualizations
+  [tiberich #9571]
 
 5.8 - (2013-01-18)
 ------------------
