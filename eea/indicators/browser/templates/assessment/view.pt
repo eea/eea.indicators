@@ -4,7 +4,10 @@
       i18n:domain="eea">
   <head>
   <title tal:content="context/Title"></title>
-  </head>
+
+    <metal:baseslot fill-slot="base">
+         <base tal:attributes="href python:request.URL.replace('@@','')" /><!--[if lt IE 7]></base><![endif]-->
+    </metal:baseslot>
 
   <metal:javascript fill-slot="javascript_head_slot">
     <script type="text/javascript"
@@ -12,6 +15,7 @@
      </script>
     <script tal:replace="structure context/embed-inline-includes"> </script>
   </metal:javascript>
+  </head>
 
   <body>
     <div metal:fill-slot="content-title" class="assessment_view" >
