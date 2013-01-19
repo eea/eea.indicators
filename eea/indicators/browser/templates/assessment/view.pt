@@ -24,7 +24,7 @@
 
     <div metal:fill-slot="content-description"></div>
     <div metal:fill-slot="content-core" tal:define="specification context/getParentNode" 
-    class='assessment_view' id='region-content'>
+    class='assessment_view'>
       <div id="content-more-updates-on"
         class="system-message warningMessage"
         tal:condition="context/getMore_updates_on"
@@ -100,7 +100,7 @@
           <h2 class="policy_question" i18n:translate="">Key policy question: <span tal:content="key/Title" i18n:name="title"></span></h2>
           <div class="keyMessage">
             <h3 i18n:translate="">Key messages</h3>
-            <p tal:content="structure context/getKey_message" />
+            <p tal:replace="structure context/getKey_message" />
           </div>
 	  	    
           <tal:figures tal:replace="structure key/@@figures" />
@@ -162,7 +162,8 @@
       </div>
 
       <h2 id="methodology" i18n:translate="">More information about this indicator</h2>
-      <p i18n:translate="">See this <span i18n:name="indicator-specs"><a href=".." i18n:translate="">indicator specification</a></span> for more details.</p>
+      <p i18n:translate="">See this
+          <tal:specs i18n:name="indicator-specs"><a href=".." class="link-plain" i18n:translate="">indicator specification</a></tal:specs> for more details.</p>
 
       <div id="contact-and-ownership">
       <h2 i18n:translate="">Contacts and ownership</h2>

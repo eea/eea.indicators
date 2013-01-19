@@ -37,7 +37,7 @@
                  form old figures, otherwise we use the new approach
                  with related sources (which overrules the old one) -->
             <p tal:condition="python:figure_dataSource and not related">
-               <span tal:content="structure figure_dataSource" />
+               <tal:datasource tal:replace="structure figure_dataSource"></tal:datasource>
             </p>
             <!-- Show related data sources -->
             <ul tal:repeat="item related" >

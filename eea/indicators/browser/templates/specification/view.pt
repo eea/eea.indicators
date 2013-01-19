@@ -141,7 +141,7 @@
         </tal:policy_question>
 
         <div id="methodology-and-references" metal:define-macro="methodology-and-references">
-          <h2 id="methodology" class="notoc" i18n:translate="">Methodology</h2>
+          <h2 class="notoc" i18n:translate="">Methodology</h2>
 
           <tal:methodology define="methodology context/getMethodology">
           <h3 i18n:translate="">Methodology for indicator calculation</h3>
@@ -151,7 +151,8 @@
 
           <tal:methodology_gapfilling define="methodology_gapfilling context/getMethodology_gapfilling">
           <h3 i18n:translate="">Methodology for gap filling</h3>
-          <p tal:condition="methodology_gapfilling" tal:content="structure methodology_gapfilling" />
+          <p tal:condition="methodology_gapfilling"
+             tal:replace="structure methodology_gapfilling" />
           <p tal:condition="not:methodology_gapfilling" i18n:translate="">
             No methodology for gap filling has been specified.
             Probably this info has been added together with indicator calculation.</p>
