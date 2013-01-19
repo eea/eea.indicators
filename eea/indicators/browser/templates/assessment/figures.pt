@@ -19,7 +19,7 @@
           </a>
         </div>
 
-        <div class="visualClear" />
+        <div class="visualClear" ><!-- --></div>
         <tal:description define="figure_description obj/Description">
           <p>
             <strong i18n:translate="">Note: </strong>
@@ -75,7 +75,8 @@
                               <div class="figure-chart-live" tal:condition="python:chart[0] in [x[0] for x in live]" >
                                 <script tal:replace="structure python:inline_chart(chart=chart[0])" ></script>
 
-                                 <div class="visualClear" />
+                                 <div class="visualClear" ><!-- --></div>
+
                                  <a tal:attributes="href obj/absolute_url" 
                                      class="standardButton" i18n:translate="">Downloads and more info</a>
                               </div>
@@ -88,7 +89,7 @@
                                       title python:chart[1];
                                       src python:chart[3].strip()+'/image_large'" />
                                   </a>
-                                  <div class="visualClear" />
+                                  <div class="visualClear"><!-- --></div>
 
                                   <div tal:define="notes_view nocall:obj/chart-notes; figure_description python:notes_view(chart[0])">
                                     <strong i18n:translate="">Note: </strong>
@@ -121,7 +122,7 @@
                           title  obj/Title;
                           src string:${obj/absolute_url}/image_xlarge" />
                       </a>
-                      <div class="visualClear" />
+                      <div class="visualClear" ><!-- --></div>
                       <p tal:define="figure_description obj/Description">
                         <strong i18n:translate="">Note: </strong>
                         <span tal:condition="figure_description" tal:content="figure_description" />
