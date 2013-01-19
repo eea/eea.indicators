@@ -3,6 +3,8 @@ Changelog
 
 6.1-dev - (unreleased)
 ----------------------
+* Bug fix: fixed a couple of html5 validation errors found on assestment pages
+  [ichimdav]
 
 6.0 - (2013-01-19)
 ------------------
