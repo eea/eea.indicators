@@ -3,6 +3,8 @@ Changelog
 
 6.0-dev - (unreleased)
 ----------------------
+* Bug fix: fix figures display in assessment view
+  [tiberich #9571]
 
 5.9 - (2013-01-18)
 ------------------
