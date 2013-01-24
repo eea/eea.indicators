@@ -30,23 +30,9 @@
         tal:condition="context/getMore_updates_on"
         tal:content="structure context/getMore_updates_on" />
 
-      <tal:cond tal:condition="not:isAnon">
-          <div id="readiness-spot">
-              <img tal:attributes="src context/++resource++eea.jquery.images/ajax-loader.gif"/> 
-              <span i18n:translate="" style="display:none">Please wait, loading readines Editing progress info</span>
-          </div>
-          <script tal:content="string:
-            var url = '${context/absolute_url}/@@readiness';
-            jQuery(document).ready(function(){
-                jQuery('#readiness-spot').load(url);
-            });
-          ">
-          </script>
-      </tal:cond>
+      <div tal:condition="not:isAnon" tal:replace="structure context/@@readiness" />
 
-      <metal:versions use-macro="here/portlet_versions/macros/versions">
-      </metal:versions>
-
+      <metal:versions use-macro="here/portlet_versions/macros/versions"></metal:versions>
 
       <div id="box-classification">
       <h4 i18n:translate="">Generic metadata</h4>
