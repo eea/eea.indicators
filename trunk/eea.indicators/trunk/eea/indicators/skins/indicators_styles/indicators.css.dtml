@@ -589,6 +589,9 @@ div.kupu-fulleditor-zoomed .kupu-editor-iframe {
 .timeline-comments li {
     margin:0 0 0 1em;
 }
+.indicators_timeline table.listing td, .indicators_timeline table.listing th {
+   padding: 0.2em !important;
+}
 
 /* EEAFigures display
  * =================== */
@@ -613,7 +616,7 @@ div.kupu-fulleditor-zoomed .kupu-editor-iframe {
     margin: 0 1em 0 0;
     border: medium none;
     vertical-align: middle;
-    min-width: 100%;
+    width: 100%;
 }
 
 .indicator-figure-plus .figure-title {
