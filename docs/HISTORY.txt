@@ -1,8 +1,8 @@
 Changelog
 =========
 
-6.1-dev - (unreleased)
-----------------------
+6.1 - (2013-01-25)
+------------------
 * Change: made inddicators-figure-plus img span 100% min-width since some 
   files are too small and they should fit the width of the container
   [ichimdav]
