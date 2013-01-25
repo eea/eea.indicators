@@ -169,9 +169,9 @@ ul.sortable_spec {
     border-left:1px solid #4F7BFF;
     padding-left:6px;
 }
-.work_item {margin-bottom:5px}
-.work_item h5 {margin:0}
-.work_item h6 {margin:0}
+.work_item {margin-bottom:5px;}
+.work_item h5 {margin:0;}
+.work_item h6 {margin:0;}
 .grouped_field {
     border:1px dotted black;
     padding:1em;
@@ -325,7 +325,7 @@ ul.sortable_spec {
     top: -65px;
     position: relative;
     line-height: 22px !important;
-    width: 203px;
+    width: 215px;
     display: block !important;
 }
 .metadata-switch-show {
@@ -540,7 +540,7 @@ a.object_creator-disabled {
 .object_creator_options {
     text-align:center;
     background-color:transparent;
-    margin-bottom:5px
+    margin-bottom:5px;
 }
 
 a.schemata_edit, a.object_delete {
