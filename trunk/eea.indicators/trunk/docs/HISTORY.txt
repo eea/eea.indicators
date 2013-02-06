@@ -3,6 +3,9 @@ Changelog
 
 6.3-dev - (unreleased)
 ----------------------
+* Bug fix: don't call assessment key when checking for it in condition to 
+  avoid assestment part calling
+  [ichimdav #13771]
 
 6.2 - (2013-02-05)
 ------------------

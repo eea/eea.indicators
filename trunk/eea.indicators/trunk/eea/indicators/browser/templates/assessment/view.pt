@@ -94,7 +94,7 @@
       <div tal:define="assessments context/get_assessments;
         key nocall:assessments/key;
         secondary assessments/secondary;">
-        <div tal:condition="key" >
+        <div tal:condition="nocall:key">
           <h2 class="policy_question" i18n:translate="">Key policy question: <span tal:content="key/Title" i18n:name="title"></span></h2>
           <div class="keyMessage">
             <h3 i18n:translate="">Key messages</h3>
