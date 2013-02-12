@@ -216,7 +216,11 @@ class Assessment(ATFolder, ModalFieldEditableAware,
         result.extend(self.schema['subject'].getRaw(self))
 
         #append	indicator codes
-        result.extend(self.get_codes())
+        try:
+            codes = self.aq_parent.get_codes()
+        except AttributeError:
+            codes = []
+        result.extend(codes)
 
         #append themes, they are tags as well
         result.extend(self.getThemes())
