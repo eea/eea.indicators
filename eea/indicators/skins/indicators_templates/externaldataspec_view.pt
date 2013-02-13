@@ -1,6 +1,6 @@
 <metal:tooltip define-macro="tooltip"
                tal:define="tooltip field/widget/description|nothing"
-               tal:condition="tooltip">
+               tal:condition="python:tooltip">
   <img class="eea-flexible-tooltip-bottom"
        src="information.png"
        title=""
@@ -30,14 +30,14 @@
                  tal:condition="python: value and not url">
          <dd tal:content="value" /> 
         </tal:block>
-        <tal:block condition="url" 
+        <tal:block condition="python:url"
                    define="org python:context.getOrganisationByUrl(url)">
                 <dd tal:condition="org">
                     <a href="#" title=""
                        tal:attributes="href org/getURL; title org/Title"
                        tal:content="org/Title" />
                 </dd>
-                <dd tal:condition="not:org">
+                <dd tal:condition="python:not org">
                     <span tal:content="url" />
                 </dd>
         </tal:block>
@@ -49,7 +49,7 @@
 
       <tal:block define="field python:context.getField('dataset_url');
                          value python:field.getAccessor(context)()"
-                 tal:condition="value">
+                 tal:condition="python:value">
         <dt>
           <metal:basic use-macro="here/dataset_view/macros/tooltip" />
           <span i18n:translate="">Dataset URL:</span>
@@ -61,7 +61,7 @@
 
       <tal:block define="field python:context.getField('dataset_path');
                          value python:field.getAccessor(context)()"
-                 condition="value">
+                 condition="python:value">
         <dt>
           <metal:basic use-macro="here/dataset_view/macros/tooltip" />
           <span i18n:translate="">Dataset path:</span>
@@ -71,7 +71,7 @@
 
 
       <tal:block define="field python:context.getField('other_comments');
-        value python:field.getAccessor(context)()" tal:condition="value">
+        value python:field.getAccessor(context)()" tal:condition="python:value">
         <dt>
           <metal:basic use-macro="here/dataset_view/macros/tooltip" />
           <span i18n:translate="">Other comments:</span>

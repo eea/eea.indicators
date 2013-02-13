@@ -18,11 +18,11 @@
           icon accessor/getBestIcon | nothing;
           filename accessor/filename | nothing;
           size accessor/get_size | python:accessor and len(accessor) or 0;"
-          condition="filename">
+          condition="python:filename">
           <dt i18n:translate="">Uploaded file</dt>
           <dd>
             <a href="" tal:attributes="href string:${context/absolute_url}/at_download/file">
-              <img tal:condition="icon" src=""
+              <img tal:condition="python:icon" src=""
                 tal:attributes="src string:${context/portal_url}/$icon"/>
               <span tal:content="filename" />
             </a>

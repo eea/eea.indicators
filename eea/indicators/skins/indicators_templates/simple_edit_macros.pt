@@ -58,7 +58,7 @@
 					<tal:env define="env request/controller_state/kwargs">
 						<tal:loop repeat="varname python:('reference_source_url', 'reference_source_field', 'reference_source_fieldset')">
 							<tal:reference define="items python:env.get(varname, request.get(varname))"
-								condition="items">
+								condition="python:items">
 								<input tal:repeat="item items"
 									type="hidden"
 									name="form_env.reference_source_url:list:record"
