@@ -24,7 +24,7 @@
           <a href='./object_factory?type_name=PolicyQuestion' 
              class="object_creator" i18n:translate="">+ Policy Question</a>
 
-          <div id="policy_questions" class="sortable_spec" tal:condition="questions">
+          <div id="policy_questions" class="sortable_spec" tal:condition="python:questions">
             <div class="metadata">
               <span class="handler"
                 tal:content="string:${context/absolute_url}/change_order"></span>
