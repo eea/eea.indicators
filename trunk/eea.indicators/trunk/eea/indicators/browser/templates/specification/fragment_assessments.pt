@@ -36,10 +36,13 @@
           </tal:def>
 
           <h2 id="assessment_versions" i18n:translate="">Assessment versions</h2>
-          <div tal:condition="not:has_pq" class="portalMessage" i18n:translate="">
+          <div tal:condition="python:not has_pq" class="portalMessage"
+               i18n:translate="">
             You can't create new Assessments until you have defined a main Policy Question
           </div>
-          <div tal:condition="spec_has_newer_version" class="portalMessage" i18n:translate="">
+          <div tal:condition="python:spec_has_newer_version"
+               class="portalMessage"
+               i18n:translate="">
             You can't create new Assessments in a Specification that has newer versions
           </div>
           <div class="grouped_field">
@@ -56,7 +59,8 @@
             <div style="width:49%; float:left">
               <h5 i18n:translate="">Published (reviewed and quality assured)</h5>
               <ul>
-                <li tal:condition="not:published">No published assessments</li>
+                <li tal:condition="python:not published">No published
+                    assessments</li>
                 <li tal:repeat="ast published">
                   <a tal:attributes="href ast/absolute_url" tal:content="ast/Title">
                     Assessment title here
@@ -68,7 +72,7 @@
             <div style="width:49%; float:left">
               <h5 i18n:translate="">Draft (not yet published - not quality assured)</h5>
               <ul>
-                <li tal:condition="not:draft">No drafts available</li>
+                <li tal:condition="python:not draft">No drafts available</li>
                 <li tal:repeat="ast python:draft">
                   <a tal:attributes="href ast/absolute_url" tal:content="ast/Title">
                     Assessment title here

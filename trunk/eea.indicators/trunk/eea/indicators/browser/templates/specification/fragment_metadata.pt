@@ -25,21 +25,21 @@
                 </div>
                 <p tal:replace="structure context/getManager_user_id"></p>
                 <tal:contact define="manager_id context/getManager_user_id">
-                  <tal:manager condition="manager_id">
+                  <tal:manager condition="python:manager_id">
                     <tal:block define="manager_ob context/@@indicator_contact_info">
                       <a href=""
-                        tal:condition="manager_ob"
+                        tal:condition="python:manager_ob"
                         title="Contact indicator manager"
                         i18n:attributes="title"
                         tal:attributes="href string:http://www.eionet.europa.eu/sitedirsearch?name=${manager_ob/username}"
                         tal:content="manager_ob/fullname">Contact</a>
-                      <p tal:condition="not:manager_ob">
+                      <p tal:condition="python:not manager_ob">
                         <span i18n:translate="">User not found:</span>
                         <tal:manager_id tal:content="manager_id" />
                       </p>
                     </tal:block>
                   </tal:manager>
-                  <tal:contact condition="not:manager_id">
+                  <tal:contact condition="python:not manager_id">
                     <p i18n:translate="">no user info</p>
                   </tal:contact>
                 </tal:contact>
@@ -64,7 +64,7 @@
                 <div tal:condition="python:not owners" class="placeholder">
                   <span class="required" i18n:translate="">Please fill in</span>
                 </div>
-                <ul tal:condition="owners">
+                <ul tal:condition="python:owners">
                   <li tal:repeat="info owners" >
                     <a tal:content="python:context.getOrganisationName(info).Title" 
                       tal:on-error="python:info" tal:attributes="href info">EEA</a>
@@ -140,7 +140,7 @@
             fieldset string:Classification;
             vocab python:context.Vocabulary(fieldname);
             themes context/getThemes">
-            <div class="portalMessage" tal:condition="not:themes">
+            <div class="portalMessage" tal:condition="python:not themes">
               You need to assign a primary theme
             </div>
             <metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
@@ -152,7 +152,7 @@
                   view nocall:context/@@themes-object;
                   items view/short_items;
                   title title|view/title"
-                  tal:condition="items"
+                  tal:condition="python:items"
                   tal:omit-tag="">
 
                   <dt class="portletItem" tal:repeat="item items">
@@ -199,12 +199,12 @@
                     <div tal:repeat="code codes" tal:content="string:${code/set} ${code/code}">
                       CSI 001
                     </div>
-                    <div tal:condition="duplicate_codes" 
+                    <div tal:condition="python:duplicate_codes"
                          class="portalMessage warningMessage">
                       Unrelated Indicators Specifications have the same codes.
                     </div>
 
-                    <p tal:condition="duplicate_codes">
+                    <p tal:condition="python:duplicate_codes">
                       In case you have specified the wrong code for the current Indicator, use the "Edit" button
                       to change it. If you believe the following indicators should be related to each other, use the 
                       "Apply fix" button on each one to connect them as versions.
@@ -236,11 +236,11 @@
                     </table>
 
 
-                    <div tal:condition="diff_codes" class="portalMessage warningMessage">
+                    <div tal:condition="python:diff_codes" class="portalMessage warningMessage">
                       The main code for this Indicator Specification is not consistent with the rest of the related Indicators.
                     </div>
 
-                    <div tal:condition="diff_codes" class="generic_ajax_forms">
+                    <div tal:condition="python:diff_codes" class="generic_ajax_forms">
                       The following Indicator Specifications belong to the same versioning group but have a different main code. There are
                       two ways of fixing this: either assign all the codes of this current specification, or assign just the maincode of this
                       specification.
