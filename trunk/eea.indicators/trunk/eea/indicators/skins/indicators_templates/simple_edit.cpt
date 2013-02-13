@@ -42,7 +42,7 @@
         i18n:domain="indicators">
 
         <metal:head fill-slot="top_slot">
-            <tal:block define="macro edit_macros/topslot | nothing" condition="macro">
+            <tal:block define="macro edit_macros/topslot | nothing" condition="python:macro">
                 <metal:block use-macro="macro" />
             </tal:block>
         </metal:head>

@@ -16,14 +16,14 @@
 			<div metal:use-macro="here/eeareferencebrowser/macros/popup" >
 				<metal:slot fill-slot="edit">
 					<input type="hidden" value=""
-						tal:condition="multiVal"
+						tal:condition="python:multiVal"
 						tal:attributes="name string:$fieldName:default" />
 					<select style="display:none" tal:attributes="
 						multiple python:multiVal and 'multiple' or None;
 						name string:$fieldName:list; id fieldName;">
 						<tal:uids repeat="uid uids">
 							<option selected="selected"
-								tal:condition="uid" tal:attributes="value uid" tal:content="uid" />
+								tal:condition="python:uid" tal:attributes="value uid" tal:content="uid" />
 						</tal:uids>
 					</select>
 				</metal:slot>

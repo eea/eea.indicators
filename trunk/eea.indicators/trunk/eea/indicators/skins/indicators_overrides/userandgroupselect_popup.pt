@@ -120,7 +120,7 @@
                     <option tal:condition="python: not selected"
                             tal:content="python: group[1]"
                             tal:attributes="value python: group[0]">Group</option>
-                    <option tal:condition="selected"
+                    <option tal:condition="python:selected"
                             tal:attributes="value python: group[0];
                                             selected string:selected"
                             tal:content="python: group[1]">group</option>
@@ -135,7 +135,7 @@
                     <option tal:condition="python: not selected"
                             tal:content="python: group[1]"
                             tal:attributes="value python: group[0]">Group</option>
-                    <option tal:condition="selected"
+                    <option tal:condition="python:selected"
                             tal:attributes="value python: group[0];
                                             selected string:selected"
                             tal:content="python: group[1]">group</option>
@@ -186,7 +186,7 @@
                          title="Select all items"
                          onClick="toggleUidsSelect(this);"
                          i18n:attributes="title"
-                         tal:condition="multiVal"
+                         tal:condition="python:multiVal"
                          tal:attributes="src string:$portal_url/select_all_icon.gif"/>
                 </th>
                 <th i18n:translate="">Name</th>
@@ -210,7 +210,7 @@
           </table>
     </div>
 
-    <div tal:condition="multiVal">
+    <div tal:condition="python:multiVal">
       <input type="button"
              i18n:attributes="value"
              value="add selected users"

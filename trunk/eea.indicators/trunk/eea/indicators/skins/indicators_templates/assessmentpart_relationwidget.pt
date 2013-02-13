@@ -36,14 +36,14 @@ It may be that we can collapse the changes into the regular indicatorsrelations.
 
 			<metal:slot define-slot="edit">
 				<input type="hidden" value=""
-					tal:condition="multiVal"
+					tal:condition="python:multiVal"
 					tal:attributes="name string:$fieldName:default" />
 				<select style="display:none" tal:attributes="
 					multiple python:multiVal and 'multiple' or None;
 					name string:$fieldName:list; id domid;">
 					<tal:uids repeat="uid uids">
 						<option selected="selected"
-							tal:condition="uid" tal:attributes="value uid" tal:content="uid" />
+							tal:condition="python:uid" tal:attributes="value uid" tal:content="uid" />
 					</tal:uids>
 				</select>
 			</metal:slot>

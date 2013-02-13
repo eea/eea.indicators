@@ -3,7 +3,7 @@
 <!-- Tooltip macro -->
 <metal:tooltip define-macro="tooltip"
 	tal:define="tooltip tooltip|field/widget/description|nothing"
-	tal:condition="tooltip">
+	tal:condition="python:tooltip">
 	<img class="eea-flexible-tooltip-bottom"
 		src="information.png"
 		title=""
@@ -20,7 +20,7 @@
 		<div class="metadata" style="display:none" tal:define="also_reload also_reload|nothing">
 			<div class="region_update_handler"
 				tal:content="region_update_handler"></div>
-			<div class="also_reload" tal:condition="also_reload">
+			<div class="also_reload" tal:condition="python:also_reload">
 				<span tal:repeat="reg also_reload" tal:content="reg" />
 			</div>
 			<metal:slot metal:define-slot="extra-metadata"></metal:slot>
@@ -105,14 +105,14 @@ The name of the region fragment that will be updated;
 
 					<metal:slot fill-slot="edit">
 						<input type="hidden" value=""
-							tal:condition="multiVal"
+							tal:condition="python:multiVal"
 							tal:attributes="name string:$realFieldName:default" />
 						<select style="display:none" tal:attributes="
 							multiple python:multiVal and 'multiple' or None;
 							name string:$realFieldName:list; id fieldName;">
 							<tal:uids repeat="uid uids">
 								<option selected="selected"
-									tal:condition="uid" tal:attributes="value uid" tal:content="uid" />
+									tal:condition="python:uid" tal:attributes="value uid" tal:content="uid" />
 							</tal:uids>
 						</select>
 					</metal:slot>
