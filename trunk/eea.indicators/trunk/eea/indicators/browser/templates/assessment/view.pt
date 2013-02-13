@@ -23,7 +23,7 @@
     </div>
 
     <div metal:fill-slot="content-description"></div>
-    <div metal:fill-slot="content-core" tal:define="specification context/getParentNode" 
+    <div metal:fill-slot="content-core" tal:define="specification context/getParentNode"
     class='assessment_view'>
       <div id="content-more-updates-on"
         class="system-message warningMessage"
@@ -41,7 +41,8 @@
           themes themesView/full_items;
           primaryTheme python:themes and themes[0] or None">
           <strong i18n:translate="">Topics</strong>:<br /><br />
-          <tal:primaryTheme repeat="theme themes" condition="primaryTheme">
+          <tal:primaryTheme repeat="theme themes"
+                            condition="python:primaryTheme">
             <a href="" title="" style="text-decoration: none"
               tal:attributes="href theme_url;
               title theme_title"
@@ -77,12 +78,12 @@
          <metal:related use-macro="here/dataset_view/macros/geo-coverage" />
         </div>
       </div>
-      
+
       <div class="visualClear">&nbsp;</div>
       <tal:block define="queryString string:h2">
         <metal:toc use-macro="here/portlet_toc/macros/portlet"/>
       </tal:block>
-      
+
       <div class="metadata-switch metadata-switch-show standardButton"
            i18n:translate="">Switch to full indicator view</div>
 
@@ -94,13 +95,13 @@
       <div tal:define="assessments context/get_assessments;
         key nocall:assessments/key;
         secondary assessments/secondary;">
-        <div tal:condition="nocall:key">
+        <div tal:condition="python:key">
           <h2 class="policy_question" i18n:translate="">Key policy question: <span tal:content="key/Title" i18n:name="title"></span></h2>
           <div class="keyMessage">
             <h3 i18n:translate="">Key messages</h3>
             <p tal:replace="structure context/getKey_message" />
           </div>
-	  	    
+
           <tal:figures tal:replace="structure key/@@figures" />
 
           <h3 i18n:translate="">Key assessment</h3>
@@ -111,7 +112,7 @@
           <h2 class="policy_question" i18n:translate="">
               Specific policy question: <span tal:replace="part/Title" i18n:name="title" />
           </h2>
-	  
+
 	  <tal:figures tal:replace="structure part/@@figures" />
 
           <h3 i18n:translate="">Specific assessment</h3>
@@ -122,21 +123,21 @@
       <h2 id="data_specifications" i18n:translate="">Data sources</h2>
       <ul tal:define="datasetsView nocall:specification/@@related_items;
         datasets python:datasetsView('Data'); extdatasets python:datasetsView('ExternalDataSpec')">
-        <li tal:repeat="data datasets" tal:condition="datasets">
+        <li tal:repeat="data datasets" tal:condition="python:datasets">
 	  <a href=""
             tal:attributes="href string:${context/portal_url}/data-and-maps/data/ds_resolveuid/${data/@@getLatestVersionLink}"
-            tal:content="data/title">Dataset title</a><br/>provided by 
+            tal:content="data/title">Dataset title</a><br/>provided by
           <span tal:repeat="url python:data.getDataOwner()">
            <tal:organisations condition="python:specification.getOrganisationName(url)">
             <strong tal:content="python:specification.getOrganisationName(url).Title" />
-            <span tal:condition="not: repeat/url/end" tal:replace="string:, " />
+            <span tal:condition="not:repeat/url/end" tal:replace="string:, " />
            </tal:organisations>
           </span>
         </li>
-        <li tal:repeat="data extdatasets" tal:condition="extdatasets">
+        <li tal:repeat="data extdatasets" tal:condition="python:extdatasets">
 	  <a href=""
             tal:attributes="href data/absolute_url"
-            tal:content="data/title">Dataset title</a><br/>provided by 
+            tal:content="data/title">Dataset title</a><br/>provided by
           <span tal:define="url python:data.getProvider_url()">
             <tal:organisations condition="python:specification.getOrganisationName(url)">
       	    <strong tal:content="python:specification.getOrganisationName(url).Title" />
@@ -167,21 +168,21 @@
       <h2 i18n:translate="">Contacts and ownership</h2>
         <h4 i18n:translate="">EEA Contact Info</h4>
         <tal:contact define="manager_id context/getManager_user_id">
-          <tal:manager condition="manager_id">
+          <tal:manager condition="python:manager_id">
             <tal:block define="manager_ob context/@@indicator_contact_info">
               <a href=""
-                tal:condition="manager_ob"
+                tal:condition="python:manager_ob"
                 title="Contact indicator manager"
                 i18n:attributes="title"
                 tal:attributes="href string:http://www.eionet.europa.eu/sitedirsearch?name=${manager_ob/username}"
                 tal:content="manager_ob/fullname">Contact</a>
-              <p tal:condition="not:manager_ob">
+              <p tal:condition="python:not manager_ob">
                 <span i18n:translate="">User not found:</span>
                 <tal:manager_id tal:content="manager_id" />
               </p>
             </tal:block>
           </tal:manager>
-          <tal:contact condition="not:manager_id">
+          <tal:contact condition="python:not manager_id">
             <p i18n:translate="">no contact info</p>
           </tal:contact>
         </tal:contact>
