@@ -29,11 +29,12 @@
               <div tal:repeat="code codes" tal:content="string:${code/set} ${code/code}">
                 CSI 001
               </div>
-              <div tal:condition="duplicate_codes" class="portalMessage warningMessage">
+              <div tal:condition="python:duplicate_codes"
+                   class="portalMessage warningMessage">
                 Unrelated Indicators Specifications have the same codes.
               </div>
 
-              <p tal:condition="duplicate_codes">
+              <p tal:condition="python:duplicate_codes">
                 In case you have specified the wrong code for the current Indicator, use the "Edit" button
                 to change it. If you believe the following indicators should be related to each other, use the 
                 "Apply fix" button on each one to connect them as versions.
@@ -65,11 +66,13 @@
               </table>
 
 
-              <div tal:condition="diff_codes" class="portalMessage warningMessage" i18n:translate="">
+              <div tal:condition="python:diff_codes"
+                   class="portalMessage warningMessage" i18n:translate="">
                 The main code for this Indicator Specification is not consistent with the rest of the related Indicators.
               </div>
 
-              <div tal:condition="diff_codes" class="generic_ajax_forms" i18n:translate="">
+              <div tal:condition="python:diff_codes"
+                   class="generic_ajax_forms" i18n:translate="">
                 The following Indicator Specifications belong to the same versioning group but have a different main code. There are
                 two ways of fixing this: either assign all the codes of this current specification, or assign just the maincode of this
                 specification.
