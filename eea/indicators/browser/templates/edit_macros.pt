@@ -26,7 +26,7 @@
 
       <div id="archetypes-schemata-links" 
 				tal:define="schemata_counts here/@@get_schemata_count | nothing;"
-				tal:condition="fieldsets">
+				tal:condition="python:fieldsets">
         <tal:block repeat="set fieldsets">
           <tal:current condition="python:set == fieldset and fieldsets != ['default']">
 						<strong>[<span tal:content="set" i18n:translate="" />
@@ -44,7 +44,7 @@
       <metal:block define-slot="extra_info" />
 
       <p class="portalMessage"
-         tal:condition="isLocked"
+         tal:condition="python:isLocked"
          i18n:translate="">
         This item is in use by someone else and cannot be modified
       </p>
@@ -55,7 +55,7 @@
         <tal:description tal:define="msgid here/typeDescMsgId | nothing;
                                      default here/typeDescription| nothing;
                                      default_translated python:here.translate(default);"
-                         tal:condition="default">
+                         tal:condition="python:default">
 
           <p class="discreet" tal:content="python:here.translate(msgid=msgid, default=default_translated)">
             type description
@@ -112,7 +112,7 @@
             <tal:env define="env request/controller_state/kwargs">
               <tal:loop repeat="varname python:('reference_source_url', 'reference_source_field', 'reference_source_fieldset')">
                 <tal:reference define="items python:env.get(varname, request.get(varname))"
-                               condition="items">
+                               condition="python:items">
                   <input tal:repeat="item items"
                          type="hidden"
                          name="form_env.reference_source_url:list:record"

@@ -12,7 +12,7 @@
 			<h2 i18n:translate="">Figures</h2>
 
 			<tal:mapsandgraphs tal:define="figures here/getFolderContents"
-				tal:condition="figures">
+				tal:condition="python:figures">
 				<h2 i18n:translate="">Maps and graphs</h2>
 				<div metal:define-macro="figures-album" class="map-photo-album"
 					tal:define="Batch python:modules['Products.CMFPlone'].Batch;
