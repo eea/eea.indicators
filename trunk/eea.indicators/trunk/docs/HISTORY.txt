@@ -3,6 +3,8 @@ Changelog
 
 6.3-dev - (unreleased)
 ----------------------
+* Bug fix: fix adding Assessments from add new item menu
+  [tiberich #13897]
 * Bug fix: don't fail when reindexing object outside aquisition context
   [tiberich #13836]
 * Bug fix: don't call assessment key when checking for it in condition to 
