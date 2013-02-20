@@ -3,6 +3,9 @@ Changelog
 
 6.3-dev - (unreleased)
 ----------------------
+* Bug fix: fixed data provenance information logic and layout consistency.
+  use existing data.info view.
+  [demarant refs #9561 and #9571]
 * Bug fix: fix adding Assessments from add new item menu
   [tiberich #13897]
 * Bug fix: don't fail when reindexing object outside aquisition context
