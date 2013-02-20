@@ -279,8 +279,7 @@
             <h4 i18n:translate="">Status</h4>
             <tal:status define="status work/getStatus">
               <p tal:condition="python:status" tal:replace="structure status"></p>
-              <p tal:condition="python:not status" i18n:translate="">No statu
-                  s has been specified</p>
+              <p tal:condition="python:not status" i18n:translate="">No status has been specified</p>
             </tal:status>
             <h4 i18n:translate="">Deadline</h4>
             <p tal:replace="structure work/getDue_date"></p>

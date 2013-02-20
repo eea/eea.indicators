@@ -10,6 +10,8 @@ Changelog
 * Bug fix: don't call assessment key when checking for it in condition to 
   avoid assestment part calling
   [ichimdav #13771]
+* Bug fix: Corrected wrong spelling. 
+  [prospchr refs #13827]
 
 6.2 - (2013-02-05)
 ------------------
