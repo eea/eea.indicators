@@ -3,6 +3,9 @@ Changelog
 
 6.3-dev - (unreleased)
 ----------------------
+
+6.3-dev - (2013-02-21)
+------------------
 * Bug fix: Display charts only when tab is clicked
   [szabozo0 refs #13673]
 * Bug fix: fixed data provenance information logic and layout consistency.
