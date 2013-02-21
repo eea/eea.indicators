@@ -1,10 +1,12 @@
 Changelog
 =========
 
-6.3 - (2013-02-21)
-------------------
+6.4-dev - (2013-02-21)
+---------------------
+* Bug fix: fix content rules integration for Assessment
+  [tiberich #10038]
 
-6.3-dev - (2013-02-21)
+6.3 - (2013-02-21)
 ------------------
 * Bug fix: Display charts only when tab is clicked
   [szabozo0 refs #13673]

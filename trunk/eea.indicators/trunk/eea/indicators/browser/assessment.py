@@ -4,6 +4,7 @@
 from Acquisition import aq_inner, aq_parent
 from DateTime import DateTime
 from Products.CMFCore.utils import getToolByName
+from Products.Archetypes.event import ObjectInitializedEvent
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from ZPublisher.Client import querify
@@ -18,6 +19,7 @@ from eea.workflow.interfaces import IObjectReadiness
 from eea.workflow.readiness import ObjectReadiness
 from plone.app.layout.globals.interfaces import IViewView
 from zope.interface import implements
+from zope.event import notify
 
 
 class IndexPage(BrowserView):
@@ -163,6 +165,7 @@ def create_version(original, request=None):
     #IVersionControl(ver).setVersionId(version_id)
     #setting the version ID to the assessments group version id
     ver.reindexObject()
+    notify(ObjectInitializedEvent(ver))
     original.reindexObject()    # _reindex(original)
     #some indexed values of the context may depend on versions
 

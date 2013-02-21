@@ -11,6 +11,7 @@ from Products.Archetypes.atapi import Schema, RichWidget
 from Products.Archetypes.atapi import SelectionWidget, LinesField
 from Products.Archetypes.atapi import StringField, TextField
 from Products.Archetypes.atapi import TextAreaWidget
+from Products.Archetypes.event import ObjectInitializedEvent
 from Products.Archetypes.utils import addStatusMessage
 from Products.CMFCore import permissions
 from Products.CMFCore.permissions import AddPortalContent
@@ -38,6 +39,7 @@ from eea.versions.interfaces import IVersionControl, IVersionEnhanced
 from eea.versions.versions import isVersionEnhanced, get_versions_api
 from eea.workflow.interfaces import IHasMandatoryWorkflowFields
 from eea.workflow.interfaces import IObjectReadiness
+from zope.event import notify
 from zope.interface import alsoProvides, implements
 import datetime
 import logging
@@ -731,6 +733,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
                 log("#ZZZ: this happens when executed from test")
 
         ast.reindexObject()
+        notify(ObjectInitializedEvent(ast))
         return {'obj':ast, 'subview':'@@edit_aggregated', 'direct_edit':True}
 
     def has_newer_version(self):
