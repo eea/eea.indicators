@@ -43,22 +43,22 @@ Inside this folder we will add Specifications:
 
 Specifications are containers for several types of objects:
 
-    >>> id = spec.invokeFactory("PolicyQuestion", 'pq', base_impl=True)
-    >>> id = spec.invokeFactory("MethodologyReference", "mr", base_impl=True)
-    >>> id = spec.invokeFactory("RationaleReference", "rr", base_impl=True)
-    >>> id = spec.invokeFactory("WorkItem", "wi", base_impl=True)
-    >>> id = spec.invokeFactory("Assessment", 'as', base_impl=True)
+    >>> id = spec.invokeFactory(type_name="PolicyQuestion", id='pq', base_impl=True)
+    >>> id = spec.invokeFactory(type_name="MethodologyReference", id="mr", base_impl=True)
+    >>> id = spec.invokeFactory(type_name="RationaleReference", id="rr", base_impl=True)
+    >>> id = spec.invokeFactory(type_name="WorkItem", id="wi", base_impl=True)
+    >>> id = spec.invokeFactory(type_name="Assessment", id='as', base_impl=True)
 
 An Assessment can contain AssessmentParts:
 
     >>> asst = spec['as']
-    >>> ap = asst[asst.invokeFactory("AssessmentPart", 'ap')]
+    >>> ap = asst[asst.invokeFactory(type_name="AssessmentPart", id='ap')]
 
 Inside the ims folder, where the Specification was created, we will also create several
 other objects that can be referenced from the Specification.
 
-    >>> id = ims.invokeFactory("ExternalDataSpec", 'eds')
-    >>> id = ims.invokeFactory("PolicyDocumentReference", 'pdr')
+    >>> id = ims.invokeFactory(type_name="ExternalDataSpec", id='eds')
+    >>> id = ims.invokeFactory(type_name="PolicyDocumentReference", id='pdr')
 
 EEAFigures sit in a separate folder, not under the IMS control:
 
@@ -377,7 +377,7 @@ It's not yet ready for published because there's an override to the default prov
 get_readiness that adds a few extra checks: we need to have at least one
 main policy question and some related items:
 
-    >>> id = spec.invokeFactory("PolicyQuestion", 'pq', base_impl=True)
+    >>> id = spec.invokeFactory(type_name="PolicyQuestion", id='pq', base_impl=True)
     >>> pq = spec.objectValues('PolicyQuestion')[0]
     >>> pq.setIs_key_question(True)
     >>> spec.setRelatedItems([ims['dt'], ims['eds'], ims['pdr']])
@@ -391,7 +391,7 @@ We'll reindex this object because we need it later for some entries in the catal
 
 Assessment readiness for publication:
 
-    >>> id = spec.invokeFactory("Assessment", 'asp')
+    >>> id = spec.invokeFactory(type_name="Assessment", id='asp')
     >>> asp = spec[id]
 
 By default, a newly created assessment is not ready to be published:
@@ -537,9 +537,9 @@ its children assessments as well.
 
     >>> def make_obj(parent, type_name, id):
     ...     if type_name == "Assessment":
-    ...         return parent[parent.invokeFactory(type_name, id, base_impl=True)]
+    ...         return parent[parent.invokeFactory(type_name=type_name, id=id, base_impl=True)]
     ...     else:
-    ...         return parent[parent.invokeFactory(type_name, id)]
+    ...         return parent[parent.invokeFactory(type_name=type_name, id=id)]
 
     >>> spec5  = make_obj(ims, "Specification", 'spec5')
     >>> vspec5 = make_version(spec5)
