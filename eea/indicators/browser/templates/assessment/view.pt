@@ -14,6 +14,25 @@
         tal:attributes="src string:${context/portal_url}/++resource++indicators-toc.js">
      </script>
     <script tal:replace="structure context/embed-inline-includes"> </script>
+
+  <script type="text/javascript">
+    jQuery(document).ready(function($){
+        jQuery(".embedded-daviz-visualization").find("ul.formTabs a").bind("click", function(){
+            var embedded_obj = jQuery("#fieldset-"+jQuery(this).attr("id").substr(15)).find(".googlechart_dashboard")
+            if (embedded_obj[0].innerHTML.trim().length != 0){
+                return;
+            }
+            var id = embedded_obj.attr("id").substr(22);
+            if (embedded_obj.hasClass("isChart")){
+                drawChart(window["settings_" + id], window["other_options_" + id]);
+            }
+            else{
+                drawDashboardEmbed(window["settings_" + id]);
+            }
+        });
+    });
+  </script>
+
   </metal:javascript>
   </head>
 
