@@ -704,8 +704,8 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
         #create a new Assessment from scratch
         #id = self.generateUniqueId(type_name)
         aid = make_id('assessment', self.objectIds())
-        new_id = self.invokeFactory(type_name,
-                aid,
+        new_id = self.invokeFactory(type_name=type_name,
+                id=aid,
                 base_impl=True,
                 title=self.translate(
                     msgid='label-newly-created-type',
@@ -743,19 +743,17 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
         return False
 
     security.declareProtected(AddPortalContent, 'invokeFactory')
-    def invokeFactory(self, id=None, type_name=None, RESPONSE=None,
+    def invokeFactory(self, type_name=None, id=None, RESPONSE=None,
                       base_impl=False, *args, **kw):
         """invoke the factory"""
         if base_impl:
-            return super(Specification, self).invokeFactory(type_name, id,
-                                                            RESPONSE, *args,
-                                                            **kw)
+            return super(Specification, self).invokeFactory(
+                        type_name, id, RESPONSE, *args, **kw)
         factory_name = 'factory_' + type_name
         factory = getattr(self, factory_name, None)
         if not factory:
-            return super(Specification, self).invokeFactory(type_name, id,
-                                                            RESPONSE, *args,
-                                                            **kw)
+            return super(Specification, self).invokeFactory(
+                        type_name, id, RESPONSE, *args, **kw)
         try:
             res = factory()
         except ValueError, e:
