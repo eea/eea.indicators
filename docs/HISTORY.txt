@@ -1,6 +1,9 @@
 Changelog
 =========
 
+6.4-dev - (unreleased)
+----------------------
+
 6.4-dev - (2013-02-21)
 ---------------------
 * Bug fix: fix content rules integration for Assessment
