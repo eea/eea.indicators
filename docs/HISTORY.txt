@@ -3,6 +3,9 @@ Changelog
 
 6.4 - (2013-02-25)
 ------------------
+* Bug fix: don't break on specification publishing due to discussion API
+  changes
+  [tiberich]
 
 6.4-dev - (2013-02-21)
 ---------------------
