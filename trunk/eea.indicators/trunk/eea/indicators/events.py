@@ -55,9 +55,9 @@ def handle_assessment_state_change(context, event):
         syncWorkflowStateRelatedFigures(context, dest_state)
 
     if dest_state in ['visible', 'published_eionet']:
-        context.allowDiscussion('off')
+        context.allowDiscussion(0)
     else:
-        context.allowDiscussion('on')
+        context.allowDiscussion(1)
 
 
 def handle_specification_state_change(context, event):
