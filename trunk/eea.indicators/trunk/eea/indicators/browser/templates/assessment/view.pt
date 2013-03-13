@@ -19,7 +19,7 @@
     jQuery(document).ready(function($){
         jQuery(".embedded-daviz-visualization").find("ul.formTabs a").bind("click", function(){
             var embedded_obj = jQuery("#fieldset-"+jQuery(this).attr("id").substr(15)).find(".googlechart_dashboard")
-            if (embedded_obj[0].innerHTML.trim().length != 0){
+            if ((embedded_obj.length === 0) || (embedded_obj[0].innerHTML.trim().length != 0)){
                 return;
             }
             var id = embedded_obj.attr("id").substr(22);
