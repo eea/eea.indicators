@@ -6,6 +6,9 @@ Changelog
 * Bug fix: don't break on specification publishing due to discussion API
   changes
   [tiberich]
+* Bug fix: conform to api changes in eea.daviz to allow sortable relations
+  to Daviz Vizualizations charts
+  [tiberich #13993]
 
 6.4-dev - (2013-02-21)
 ---------------------

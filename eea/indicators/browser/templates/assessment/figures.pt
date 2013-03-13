@@ -56,31 +56,24 @@
             tal:condition="python:obj.portal_type=='DavizVisualization'"
             tal:define="uid obj/UID;
                         daviz_view nocall:context/@@get_daviz_chart;
-                        davidz daviz_view/get_daviz;
-                        charts python:davidz.get(uid, [None, {'live':[], 'preview':[]}]);
-                        preview python:charts[1]['preview'];
-                        live python:charts[1]['live'];
-                        all_charts python:sorted(preview + live, lambda x,y:cmp(x[0], y[0]));
-                        inline_chart nocall:obj/@@embed-inline | nothing;"
-            >
+                        charts python:daviz_view.get_charts(uid);
+                        inline_chart nocall:obj/@@embed-inline | nothing;" >
 
             <p class="figure-title" tal:content="obj/Title" />
 
             <div class="indicator-figure-image">
                 <dl class="enableFormTabbing">
-                    <tal:rep repeat="chart all_charts">
+                    <tal:rep repeat="chart charts">
                         <dt id="fieldsetlegend-1" tal:attributes="id string:fieldsetlegend-${uid}-${repeat/chart/index}"
                             tal:content="python:chart[1]"></dt>
                         <dd id="fieldset-1" tal:attributes="id string:fieldset-${uid}-${repeat/chart/index}">
 
-                              <div class="figure-chart-live" tal:condition="python:chart[0] in [x[0] for x in live]" >
+                              <div class="figure-chart-live" tal:condition="python:chart[2] == 'live'" >
                                 <script tal:replace="structure python:inline_chart(chart=chart[0])" ></script>
-
                                  <div class="visualClear" ><!-- --></div>
-
                               </div>
 
-                              <div class="figure-chart-preview" tal:condition="python:chart[0] in [x[0] for x in preview]">
+                              <div class="figure-chart-preview" tal:condition="python:chart[2] == 'preview'">
                                   <a title="Interact" i18n:attributes="title" href=""
                                      tal:attributes="href python:obj.absolute_url()+'#tab-' + chart[0]">
                                     <img alt="" title="" src=""
@@ -90,11 +83,12 @@
                                   </a>
                                   <div class="visualClear"><!-- --></div>
 
-                                  <div tal:define="notes_view nocall:obj/chart-notes; figure_description python:notes_view(chart[0])">
+                                  <div tal:define="notes_view nocall:obj/chart-notes; 
+                                                   figure_description python:notes_view(chart[0])">
                                     <strong i18n:translate="">Note: </strong>
                                     <tal:rep tal:repeat="info figure_description" >
                                         <span tal:content="structure info/text" />
-                                        </tal:rep>
+                                    </tal:rep>
                                     <span tal:condition="python:not figure_description">N/A</span>
                                   </div>
 
@@ -120,7 +114,7 @@
                         </dd>
                     </tal:rep>
 
-                    <dd tal:condition="python:not all_charts" >
+                    <dd tal:condition="python:not charts" >
                       <div i18n:translate="" style="display:none">Missing chart information, using default chart:</div>
                       <a title="Interact" i18n:attributes="title" href=""
                             tal:attributes="href obj/absolute_url">
@@ -143,7 +137,9 @@
                 </dl>
             </div>
 
-          </div>
+          
+
+</div>
 
           <div class="visualClear"><!-- --></div>
 
