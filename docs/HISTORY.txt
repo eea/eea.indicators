@@ -1,8 +1,8 @@
 Changelog
 =========
 
-6.4 - (2013-02-25)
-------------------
+6.5-dev - (unreleased)
+----------------------
 * Bug fix: don't break on specification publishing due to discussion API
   changes
   [tiberich]
@@ -10,7 +10,7 @@ Changelog
   to Daviz Vizualizations charts
   [tiberich #13993]
 
-6.4-dev - (2013-02-21)
+6.4 - (2013-02-21)
 ---------------------
 * Bug fix: fix content rules integration for Assessment
   [tiberich #13895]
