@@ -1,0 +1,228 @@
+<tal:def tal:define="submit_handler string:simple_edit; ">
+  <tal:def tal:define="region_name string:info_area;
+    region_update_handler string:fragment_info;
+    also_reload python:[];
+    imsutils nocall:context/@@indicator_utils;
+    portal_url context/portal_url">
+
+    <metal:macro metal:use-macro="context/indicators_macros/macros/active_region">
+      <metal:slot metal:fill-slot="content">
+
+        <tal:def tal:define="fieldname string:assessment; fieldset string:default">
+          <h3 tal:define="field python:context.getField(fieldname)">
+            <span metal:use-macro="context/indicators_macros/macros/tooltip" />
+            <span i18n:translate="">Assessment</span>
+          </h3>
+          <metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
+            <metal:slot metal:fill-slot="content">
+              <div tal:condition="python:not imsutils.field_has_value(fieldname, context)"
+                class="placeholder">
+                <span i18n:translate="">Please fill in</span>
+              </div>
+              <p tal:replace="structure python:context.getField(fieldname).getAccessor(context)()">PQ here</p>
+            </metal:slot>
+            <metal:slot metal:fill-slot="extra-metadata">
+              <div class="width">800</div>
+              <div class="height">435</div>
+              <div class="dialog_title" i18n:translate="">Edit assessment</div>
+            </metal:slot>
+          </metal:macro>
+        </tal:def>
+
+
+        <tal:def tal:define="fieldname string:policy_question; fieldset string:default;
+          value python:context.getField(fieldname).getAccessor(context)()">
+          <h4 tal:define="field python:context.getField(fieldname)">
+            <span metal:use-macro="context/indicators_macros/macros/tooltip" />
+            <span i18n:translate="">Policy Question</span>
+          </h4>
+          <metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
+            <metal:slot metal:fill-slot="content">
+              <div tal:condition="python:not imsutils.field_has_value(fieldname, context)" class="placeholder">
+                <span class="required" i18n:translate="">Please fill in</span>
+              </div>
+              <p tal:replace="value"></p>
+            </metal:slot>
+            <metal:slot metal:fill-slot="extra-metadata">
+              <div class="width">800</div>
+              <div class="height">500</div>
+              <div class="dialog_title" i18n:translate="">Edit policy question</div>
+            </metal:slot>
+          </metal:macro>
+        </tal:def>
+
+        <tal:def tal:define="fieldname string:dpsir; fieldset string:default;
+          value python:context.getField(fieldname).getAccessor(context)()">
+          <h4 tal:define="field python:context.getField(fieldname)">
+            <span metal:use-macro="context/indicators_macros/macros/tooltip" />
+            <span i18n:translate="">DPSIR Information</span>
+          </h4>
+          <metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
+            <metal:slot metal:fill-slot="content">
+              <div tal:condition="python:not imsutils.field_has_value(fieldname, context)" class="placeholder">
+                <span class="required" i18n:translate="">Please fill in</span>
+              </div>
+              <span tal:define="dpsirLabel nocall:context/@@dpsir_label"
+                tal:replace="python:dpsirLabel(value)" />
+            </metal:slot>
+            <metal:slot metal:fill-slot="extra-metadata">
+              <div class="width">800</div>
+              <div class="height">500</div>
+              <div class="dialog_title" i18n:translate="">Edit DPSIR</div>
+            </metal:slot>
+          </metal:macro>
+        </tal:def>
+
+        <tal:def tal:define="fieldname string:assessment_date; fieldset string:default;
+          value python:context.getField(fieldname).getAccessor(context)()">
+          <h4 tal:define="field python:context.getField(fieldname)">
+            <span metal:use-macro="context/indicators_macros/macros/tooltip" />
+            <span i18n:translate="">Assessment date</span>
+          </h4>
+          <metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
+            <metal:slot metal:fill-slot="content">
+              <div tal:condition="python:not imsutils.field_has_value(fieldname, context)" class="placeholder">
+                <span class="required" i18n:translate="">Please fill in</span>
+              </div>
+              <p tal:replace="value"></p>
+            </metal:slot>
+            <metal:slot metal:fill-slot="extra-metadata">
+              <div class="width">800</div>
+              <div class="height">500</div>
+              <div class="dialog_title" i18n:translate="">Edit assessment date</div>
+            </metal:slot>
+          </metal:macro>
+        </tal:def>
+
+        <tal:def tal:define="fieldname string:source_code; fieldset string:default;
+          value python:context.getField(fieldname).getAccessor(context)()">
+          <h4 tal:define="field python:context.getField(fieldname)">
+            <span metal:use-macro="context/indicators_macros/macros/tooltip" />
+            <span i18n:translate="">Source code</span>
+          </h4>
+          <metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
+            <metal:slot metal:fill-slot="content">
+              <div tal:condition="python:not imsutils.field_has_value(fieldname, context)" class="placeholder">
+                <span class="required" i18n:translate="">Please fill in</span>
+              </div>
+              <p tal:replace="value"></p>
+            </metal:slot>
+            <metal:slot metal:fill-slot="extra-metadata">
+              <div class="width">800</div>
+              <div class="height">500</div>
+              <div class="dialog_title" i18n:translate="">Edit source code</div>
+            </metal:slot>
+          </metal:macro>
+        </tal:def>
+
+        <tal:def tal:define="fieldname string:data_source_providers; fieldset string:default;
+          value python:context.getField(fieldname).getAccessor(context)()">
+          <h4 tal:define="field python:context.getField(fieldname)">
+            <span metal:use-macro="context/indicators_macros/macros/tooltip" />
+            <span i18n:translate="">Data source providers</span>
+          </h4>
+          <metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
+            <metal:slot metal:fill-slot="content">
+              <div tal:condition="python:not imsutils.field_has_value(fieldname, context)" class="placeholder">
+                <span class="required" i18n:translate="">Please fill in</span>
+              </div>
+              <p tal:replace="value"></p>
+            </metal:slot>
+            <metal:slot metal:fill-slot="extra-metadata">
+              <div class="width">800</div>
+              <div class="height">500</div>
+              <div class="dialog_title" i18n:translate="">Edit data source providers</div>
+            </metal:slot>
+          </metal:macro>
+        </tal:def>
+
+        <tal:def tal:define="fieldname string:data_source_info; fieldset string:default;
+          value python:context.getField(fieldname).getAccessor(context)()">
+          <h4 tal:define="field python:context.getField(fieldname)">
+            <span metal:use-macro="context/indicators_macros/macros/tooltip" />
+            <span i18n:translate="">Data source info</span>
+          </h4>
+          <metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
+            <metal:slot metal:fill-slot="content">
+              <div tal:condition="python:not imsutils.field_has_value(fieldname, context)" class="placeholder">
+                <span class="required" i18n:translate="">Please fill in</span>
+              </div>
+              <p tal:replace="value"></p>
+            </metal:slot>
+            <metal:slot metal:fill-slot="extra-metadata">
+              <div class="width">800</div>
+              <div class="height">500</div>
+              <div class="dialog_title" i18n:translate="">Edit data source info</div>
+            </metal:slot>
+          </metal:macro>
+        </tal:def>
+
+        <tal:def tal:define="fieldname string:EEA_responsible; fieldset string:default;
+          value python:context.getField(fieldname).getAccessor(context)()">
+          <h4 tal:define="field python:context.getField(fieldname)">
+            <span metal:use-macro="context/indicators_macros/macros/tooltip" />
+            <span i18n:translate="">EEA Responsible</span>
+          </h4>
+          <metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
+            <metal:slot metal:fill-slot="content">
+              <div tal:condition="python:not imsutils.field_has_value(fieldname, context)" class="placeholder">
+                <span class="required" i18n:translate="">Please fill in</span>
+              </div>
+              <p tal:replace="value"></p>
+            </metal:slot>
+            <metal:slot metal:fill-slot="extra-metadata">
+              <div class="width">800</div>
+              <div class="height">500</div>
+              <div class="dialog_title" i18n:translate="">Edit EEA Responsible</div>
+            </metal:slot>
+          </metal:macro>
+        </tal:def>
+
+        <tal:def tal:define="fieldname string:DEV_responsible; fieldset string:default;
+          value python:context.getField(fieldname).getAccessor(context)()">
+          <h4 tal:define="field python:context.getField(fieldname)">
+            <span metal:use-macro="context/indicators_macros/macros/tooltip" />
+            <span i18n:translate="">DEV Responsible</span>
+          </h4>
+          <metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
+            <metal:slot metal:fill-slot="content">
+              <div tal:condition="python:not imsutils.field_has_value(fieldname, context)" class="placeholder">
+                <span class="required" i18n:translate="">Please fill in</span>
+              </div>
+              <p tal:replace="value"></p>
+            </metal:slot>
+            <metal:slot metal:fill-slot="extra-metadata">
+              <div class="width">800</div>
+              <div class="height">500</div>
+              <div class="dialog_title" i18n:translate="">Edit DEV Responsible</div>
+            </metal:slot>
+          </metal:macro>
+        </tal:def>
+
+        <tal:def tal:define="fieldname string:priority_data_flows; fieldset string:default;
+          value python:context.getField(fieldname).getAccessor(context)()">
+          <h4 tal:define="field python:context.getField(fieldname)">
+            <span metal:use-macro="context/indicators_macros/macros/tooltip" />
+            <span i18n:translate="">Priority data flows</span>
+          </h4>
+          <metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
+            <metal:slot metal:fill-slot="content">
+              <div tal:condition="python:not imsutils.field_has_value(fieldname, context)" class="placeholder">
+                <span class="required" i18n:translate="">Please fill in</span>
+              </div>
+              <p tal:replace="value"></p>
+            </metal:slot>
+            <metal:slot metal:fill-slot="extra-metadata">
+              <div class="width">800</div>
+              <div class="height">500</div>
+              <div class="dialog_title" i18n:translate="">Edit priority data flows </div>
+            </metal:slot>
+          </metal:macro>
+        </tal:def>
+
+      </metal:slot>
+    </metal:macro>
+
+  </tal:def>
+</tal:def>
+
