@@ -20,10 +20,12 @@
           </h2>
           <tal:def tal:define="fieldname string:more_updates_on; fieldset string:default">
             <metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
-              <metal:slot metal:fill-slot="content">
-                <div tal:condition="python:not imsutils.field_has_value(fieldname, context)"
-                  class="placeholder" i18n:translate="">
-                  Please fill in
+              <metal:slot metal:fill-slot="content" 
+                     tal:define="value_info python:imsutils.field_value_info(fieldname, context)" >
+                <div tal:condition="not: value_info/has_value" class="placeholder">
+                  <span i18n:translate="">
+                    Please fill in. <span i18n:name="msg" tal:replace="value_info/msg" />
+                  </span>
                 </div>
                 <p tal:replace="structure context/getMore_updates_on"></p>
               </metal:slot>

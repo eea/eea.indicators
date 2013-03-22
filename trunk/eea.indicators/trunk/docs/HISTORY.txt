@@ -3,6 +3,9 @@ Changelog
 
 6.6-dev - (unreleased)
 ----------------------
+* Bug fix: give better information to users about 2 words minimum 
+  requirement in IMS text content
+  [tiberich #14175]
 
 6.5 - (2013-03-15)
 ------------------

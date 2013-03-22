@@ -44,6 +44,11 @@ class IndicatorUtils(BrowserView):
         vp = getMultiAdapter((context, field), IValueProvider)
         return vp.has_value()
 
+    def field_value_info(self, fieldname, context):
+        field = context.schema[fieldname]
+        vp = getMultiAdapter((context, field), IValueProvider)
+        return vp.value_info()
+
 
 class ObjectDelete(BrowserView):
     """Delete objects from this container"""

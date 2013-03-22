@@ -19,10 +19,12 @@
           </h4>
           <tal:def tal:define="fieldname string:policy_context_description; fieldset string:PolicyContext">
             <metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
-              <metal:slot metal:fill-slot="content">
-                <div tal:condition="python:not imsutils.field_has_value('policy_context_description', context)"
-                  class="placeholder">
-                  <span class="required" i18n:translate="">Please fill in</span>
+              <metal:slot metal:fill-slot="content" 
+                    tal:define="value_info python:imsutils.field_value_info(fieldname, context)">
+                <div tal:condition="not: value_info/has_value" class="placeholder">
+                  <span class="required" i18n:translate="">
+                    Please fill in. <span i18n:name="msg" tal:replace="value_info/msg" />
+                  </span>
                 </div>
                 <p tal:replace="structure context/getPolicy_context_description"></p>
               </metal:slot>
@@ -34,17 +36,18 @@
             </metal:macro>
           </tal:def>
 
-
           <h4 tal:define="field python:context.getField('policy_context_targets')">
             <span metal:use-macro="context/indicators_macros/macros/tooltip" />
             <tal:block i18n:translate="">Targets</tal:block>
           </h4>
           <tal:def tal:define="fieldname string:policy_context_targets; fieldset string:PolicyContext">
             <metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
-              <metal:slot metal:fill-slot="content">
-                <div tal:condition="python:not imsutils.field_has_value('policy_context_targets', context)"
-                  class="placeholder">
-                  Please fill in
+              <metal:slot metal:fill-slot="content" 
+                    tal:define="value_info python:imsutils.field_value_info(fieldname, context)">
+                <div tal:condition="not: value_info/has_value" class="placeholder">
+                  <span i18n:translate="">
+                    Please fill in. <span i18n:name="msg" tal:replace="value_info/msg" />
+                  </span>
                 </div>
                 <p tal:replace="structure context/getPolicy_context_targets"></p>
               </metal:slot>
