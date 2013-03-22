@@ -18,10 +18,13 @@
         </h4>
         <tal:def tal:define="fieldname string:methodology; fieldset string:Methodology">
           <metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
-            <metal:slot metal:fill-slot="content">
-              <div tal:condition="python:not imsutils.field_has_value('methodology', context)"
-                class="placeholder">
-                <span class="required" i18n:translate="">Please fill in</span>
+
+              <metal:slot metal:fill-slot="content" 
+                     tal:define="value_info python:imsutils.field_value_info(fieldname, context)" >
+              <div tal:condition="not: value_info/has_value" class="placeholder">
+                <span i18n:translate="" class="required">
+                  Please fill in. <span i18n:name="msg" tal:replace="value_info/msg" />
+              </span>
               </div>
               <p tal:replace="structure context/getMethodology" />
             </metal:slot>
@@ -39,11 +42,13 @@
         </h4>
         <tal:def tal:define="fieldname string:methodology_gapfilling; fieldset string:Methodology">
           <metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
-            <metal:slot metal:fill-slot="content">
-              <div tal:condition="python:not imsutils.field_has_value('methodology_gapfilling', context)"
-                class="placeholder">
-                Please fill in
-              </div>
+              <metal:slot metal:fill-slot="content" 
+                    tal:define="value_info python:imsutils.field_value_info(fieldname, context)">
+                <div tal:condition="not: value_info/has_value" class="placeholder">
+                  <span i18n:translate="">
+                    Please fill in. <span i18n:name="msg" tal:replace="value_info/msg" />
+                  </span>
+                </div>
               <p tal:replace="structure context/getMethodology_gapfilling" />
             </metal:slot>
             <metal:slot metal:fill-slot="extra-metadata">
