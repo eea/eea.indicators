@@ -67,7 +67,7 @@
 
           <tal:def tal:define="
             fieldname string:relatedItems;
-            values python:related_view('PolicyDocumentReference');
+            values python:related_view('PolicyDocumentReference', sort=True);
             selected_tab string:$fieldname-policy-document-reference;
             ">
             <metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
