@@ -118,7 +118,7 @@
           </tal:policy_targets>
 
           <tal:policy_documents define="policyDocuments nocall:specification/@@related_items;
-          policy_documents python:policyDocuments('PolicyDocumentReference')">
+          policy_documents python:policyDocuments('PolicyDocumentReference', sort=True)">
           <h3 i18n:translate="">Related policy documents</h3>
           <ul tal:condition="python:policy_documents">
             <li tal:repeat="doc policy_documents">

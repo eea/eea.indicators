@@ -6,6 +6,8 @@ Changelog
 * Bug fix: give better information to users about 2 words minimum 
   requirement in IMS text content
   [tiberich #14175]
+* Bug fix: alphabetically sort Related Policy Documents in aggregated edit
+  and specification view.
 
 6.5 - (2013-03-15)
 ------------------

@@ -1,15 +1,15 @@
 """Browser utilities
 """
 
+from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
+from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone.CatalogTool import sortable_title
 from Products.CMFPlone.utils import normalizeString
 from Products.Five import BrowserView
+from eea.indicators.browser.interfaces import IIndicatorUtils
 from eea.workflow.interfaces import IValueProvider
 from zope.component import getMultiAdapter
 from zope.interface import implements
-from Products.CMFCore.utils import getToolByName
-from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
-from eea.indicators.browser.interfaces import IIndicatorUtils
-#import logging
 
 
 class Sorter(BrowserView):
@@ -62,11 +62,14 @@ class ObjectDelete(BrowserView):
 class RelatedItems(BrowserView):
     """ Return filtered related items """
 
-    def _get_items(self, ctype, state=None):
+    def _get_items(self, ctype, state=None, sort=False):
         """get filtered items """
 
         if ctype == None:
-            return self.context.getRelatedItems()
+            res = self.context.getRelatedItems()
+            if sort:
+                return sorted(res, key=lambda obj: sortable_title(obj)())
+            return res
 
         if type(ctype) not in (list, tuple):
             ctype = [ctype]
@@ -78,10 +81,13 @@ class RelatedItems(BrowserView):
             wf_tool = getToolByName(self.context, 'portal_workflow')
             items = [rell for rell in items
                       if wf_tool.getInfoFor(rell, 'review_state') in state]
+        if sort:
+            return sorted(items, key=lambda obj: sortable_title(obj)())
+
         return items
 
-    def __call__(self, ctype=None, state=None):
-        return self._get_items(ctype, state)
+    def __call__(self, ctype=None, state=None, sort=False):
+        return self._get_items(ctype, state, sort)
 
     def get_uids(self, ctype=None):
         """ returns uids """
