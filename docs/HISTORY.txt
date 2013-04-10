@@ -8,6 +8,8 @@ Changelog
   [tiberich #14175]
 * Bug fix: alphabetically sort Related Policy Documents in aggregated edit
   and specification view.
+* Bug fix: fix data source provenance in assessment view
+  [tiberich #14273]
 
 6.5 - (2013-03-15)
 ------------------
