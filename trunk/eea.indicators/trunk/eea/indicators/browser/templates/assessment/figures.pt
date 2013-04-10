@@ -100,7 +100,7 @@
                                 <strong i18n:translate="">Data source:</strong>
                                 <ul tal:condition="data_info">
                                     <li>
-                                    <a tal:attributes="href context/absolute_url; title context/Title"
+                                    <a tal:attributes="href data_info/source/url; title data_info/source/title"
                                        tal:content="data_info/source/title">Data Title</a>
                                       <tal:block i18n:translate="">provided by</tal:block>&nbsp;
                                       <strong tal:content="data_info/owner/title">Data owner</strong>
