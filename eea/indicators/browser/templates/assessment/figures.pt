@@ -109,7 +109,7 @@
                                 <p tal:condition="python:not data_info" i18n:translate="">Data provenance info is missing.</p>
                               </tal:data>  
                               <a tal:attributes="href obj/absolute_url"
-                                     class="standardButton" i18n:translate="">Downloads and more info</a>
+                                     class="standardButton" i18n:translate="">Explore chart interactively</a>
 
                         </dd>
                     </tal:rep>
@@ -131,7 +131,7 @@
                         <span tal:condition="python:not figure_description">N/A</span>
                       </p>
                       <a tal:attributes="href obj/absolute_url"
-                             class="standardButton" i18n:translate="">Downloads and more info</a>
+                             class="standardButton" i18n:translate="">Explore chart interactively</a>
 
                     </dd>
                 </dl>

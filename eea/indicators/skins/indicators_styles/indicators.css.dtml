@@ -24,6 +24,17 @@
    width: 48%;
 }
 
+/* Style adjustments 
+   related to Daviz integration
+============================== */
+
+dl.enableFormTabbing dd {
+   margin-left: 0 !important;
+}
+
+.figure-chart-live {
+   margin-bottom: 1em;
+}
 
 /* Completeness status portlet
 ============================== */
