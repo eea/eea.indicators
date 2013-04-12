@@ -3,6 +3,9 @@ Changelog
 
 6.6-dev - (unreleased)
 ----------------------
+* Change: Removed unnecessary margin for Daviz in indicator.
+  Better wording on buttons.
+  [demarant refs #9571]
 * Bug fix: give better information to users about 2 words minimum 
   requirement in IMS text content
   [tiberich #14175]
