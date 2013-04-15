@@ -3,6 +3,8 @@ Changelog
 
 6.6-dev - (unreleased)
 ----------------------
+* Bug fix: don't fail for already published figures when syncing state.
+  [demarant refs #9974, #10001]
 * Change: Removed unnecessary margin for Daviz in indicator.
   Better wording on buttons.
   [demarant refs #9571]
