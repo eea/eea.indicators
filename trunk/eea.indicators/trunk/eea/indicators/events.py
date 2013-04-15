@@ -19,7 +19,9 @@ def syncWorkflowStateRelatedFigures(context, dest_state):
         for figure in (o for o in ap.getRelatedItems()
                        if o.portal_type=="EEAFigure"):
             figState = wftool.getInfoFor(figure, 'review_state')
-            if figState != dest_state:
+            
+            # ignore already published figures
+            if (figState != dest_state and figState != 'published'):
 
                 # get possible transitions for object in current state
 
@@ -33,9 +35,8 @@ def syncWorkflowStateRelatedFigures(context, dest_state):
 
                 if not to_do:
                     err = """
-Could not find a transition that would bring the object %s to destination 
-state. This may be due to having the FigureFile at different workflow state than 
-its parent Figure.""" % figure.absolute_url()
+The figure %s has an incompatible worklfow state. Please contact web admin. 
+""" % figure.absolute_url()
                     IStatusMessage(context.REQUEST).add(err, 'warn')
                     raise ValueError(err)
 
