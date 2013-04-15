@@ -3,6 +3,9 @@ Changelog
 
 6.6-dev - (unreleased)
 ----------------------
+* Feature: Automatically synch daviz workflow state as we do for
+  static figures.
+  [demarant fixes #14298]
 * Bug fix: don't fail for already published figures when syncing state.
   [demarant refs #9974, #10001]
 * Change: Removed unnecessary margin for Daviz in indicator.
