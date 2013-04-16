@@ -68,6 +68,7 @@
           </div>
           <metal:related use-macro="here/dataset_view/macros/temp-coverage" />
           <metal:related use-macro="here/dataset_view/macros/geo-coverage" />
+          <metal:related use-macro="here/dataset_view/macros/geotags-map" />
         </div>
 
         <tal:block define="queryString string:h2">
