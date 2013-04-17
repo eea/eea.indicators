@@ -1,8 +1,8 @@
 Changelog
 =========
 
-6.6-dev - (unreleased)
-----------------------
+6.6 - (2013-04-17)
+------------------
 * Change: use esri map and geotags widget instead of geo coverage for Assessments
   [ichimdav #8523]
 * Feature: Automatically synch daviz workflow state as we do for
