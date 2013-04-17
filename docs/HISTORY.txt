@@ -1,6 +1,9 @@
 Changelog
 =========
 
+6.7-dev - (unreleased)
+----------------------
+
 6.6 - (2013-04-17)
 ------------------
 * Change: use esri map and geotags widget instead of geo coverage for Assessments
