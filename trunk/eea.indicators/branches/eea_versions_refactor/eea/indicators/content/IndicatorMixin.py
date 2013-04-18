@@ -3,7 +3,8 @@
 import logging
 from Products.CMFCore.utils import getToolByName
 from AccessControl import ClassSecurityInfo
-from eea.versions.versions import get_versions_api
+#from eea.versions.versions import get_versions_api
+from eea.versions.interfaces import IGetVersions
 from Missing import Value as MissingValue
 
 logger = logging.getLogger("eea.indicators.content")
@@ -23,49 +24,38 @@ class IndicatorMixin(object):
     def get_duplicated_codes(self):
         """Returns codes that are duplicated by some other indicator"""
 
-        versions = ['/'.join(v.getPhysicalPath())
-                    for v in get_versions_api(self).versions.values()]
+        #TODO: refactor using UID, it's more natural
 
-        cat = getToolByName(self, 'portal_catalog')
+        versions = [v.UID() for v in IGetVersions(self).versions]
+
+        search = getToolByName(self, 'portal_catalog').searchResults
         codes = self.getCodes()
-        self_path = '/'.join(self.getPhysicalPath())
+        self_UID = self.UID()
 
         #We want to see if there are other specs with the same code
         #that are not versions of this object.
-        #if any version has the same path as the checked object,
+        #if any version has the same UID as the checked object,
         #then we consider all versions to be the same as the object
 
         duplicated_codes = []
         for code in codes:
-
             code = code['set'] + code['code']
-            brains = cat(portal_type="Specification", get_codes=[code])
+            brains = search(portal_type="Specification", get_codes=[code])
             #brains += cat(portal_type="IndicatorFactSheet", get_codes=[code])
 
-            not_same = []
-            for b in brains:
-                p = b.getPath()
-                if (p not in versions) and (p != self_path):
-                    not_same.append(b)
+            not_same = [b for b in brains if (b.UID() not in versions) 
+                                         and (b.UID() != self_UID)]
 
-            if not_same:
-                d = []
-                for b in not_same:
-                    if not [o for o in d if o.getPath() == b.getPath()]:
-                        d.append(b)
-                _d = {}
-                for b in d:
-                    v = b.getVersionId.strip()
-                    if v != MissingValue:
-                        try:
-                            _d[v] = b
-                        except Exception, e:
-                            logger.exception(e)
-                    else:
-                        logger.warn(
-                            "Missing versionid value: %s", b.getObject())
+            # now we filter the specification based on their versionId; 
+            # we don't want to report all specifications in the versionId group
+            _d = {}
+            for b in not_same:
+                if b.versionId == MissingValue: #this doesn't tipically happen
+                    logger.warn( "Missing versionid value: %s", b.getObject())
+                    continue
+                _d[b.versionId.strip()] = b
 
-                duplicated_codes.append((code, _d.values()))
+            duplicated_codes.append((code, _d.values()))
 
         return duplicated_codes
 
@@ -80,7 +70,7 @@ class IndicatorMixin(object):
             return diff
 
         code = codes[0]
-        for v in get_versions_api(self).versions.values():
+        for v in IGetVersions(self).versions:
             if v.getCodes() and v.getCodes()[0] != code:
                 diff.append(v)
         return diff

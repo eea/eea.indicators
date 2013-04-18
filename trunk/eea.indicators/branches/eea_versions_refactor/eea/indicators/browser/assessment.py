@@ -13,14 +13,15 @@ from eea.indicators.content.Assessment import getPossibleVersionsId
 from eea.indicators.content.Assessment import hasWrongVersionId
 from eea.versions.versions import CreateVersion as BaseCreateVersion
 from eea.versions.versions import create_version as base_create_version
-from eea.versions.versions import get_version_id
-from eea.versions.versions import get_versions_api
+from eea.versions.interfaces import IGetVersions
 from eea.workflow.interfaces import IObjectReadiness
 from eea.workflow.readiness import ObjectReadiness
 from plone.app.layout.globals.interfaces import IViewView
 from zope.interface import implements
 from zope.event import notify
 
+#from eea.versions.versions import get_version_id
+#from eea.versions.versions import get_versions_api
 
 class IndexPage(BrowserView):
     """The Assessment index page"""
@@ -247,7 +248,7 @@ class WrongVersionReport(BrowserView):
 
     def current_version(self):
         """current version"""
-        return get_version_id(self.context)
+        return IGetVersions(self.context).versionId
 
     def possible_versions(self):
         """possible versions"""

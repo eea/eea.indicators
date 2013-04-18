@@ -3,7 +3,8 @@ Changelog
 
 6.7-dev - (unreleased)
 ----------------------
-* Change: directly implement IVersionEnhanced for ims versioned content
+* Change: directly implement IVersionEnhanced for ims versioned content; 
+  refactored code to simplify and conform to eea.versions api changes
   [tiberich #14008]
 
 6.6 - (2013-04-17)

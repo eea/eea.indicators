@@ -13,12 +13,12 @@ from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from ZPublisher.Client import querify
 from eea.indicators.browser.utils import has_one_of
-from eea.versions.versions import get_version_id, _get_random
 from eea.versions.interfaces import IVersionControl, IVersionEnhanced
 from eea.versions.versions import CreateVersion as BaseCreateVersion
 from eea.versions.versions import assign_version as base_assign_version
 from eea.versions.versions import create_version as base_create_version
-from eea.versions.versions import get_versions_api
+from eea.versions.versions import _random_id
+from eea.versions.interfaces import IGetVersions
 from eea.workflow.interfaces import IFieldIsRequiredForState, IValueProvider
 from eea.workflow.readiness import ObjectReadiness
 from plone.app.layout.globals.interfaces import IViewView
@@ -202,7 +202,7 @@ def get_assessment_vid_for_spec_vid(context, versionid):
         obj = brain.getObject()
         children = obj.objectValues('Assessment')
         if children:
-            vid = get_version_id(children[0])
+            vid = IGetVersion(children[0]).versionId
             break
 
     return vid
@@ -225,7 +225,7 @@ def spec_assign_version(context, new_version):
 
     #search for specifications with the old version and assign new version
     other_assessments = []  #optimization: children assessments from other specs
-    versions = [o for o in get_versions_api(context).versions.values()
+    versions = [o for o in IGetVersions(context).versions
                            if o.meta_type == "Specification"]
     for o in versions:
         IVersionControl(o).setVersionId(new_version)
