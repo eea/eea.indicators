@@ -26,7 +26,7 @@ class IndicatorMixin(object):
 
         #TODO: refactor using UID, it's more natural
 
-        versions = [v.UID() for v in IGetVersions(self).versions]
+        versions = [v.UID() for v in IGetVersions(self).versions()]
 
         search = getToolByName(self, 'portal_catalog').searchResults
         codes = self.getCodes()
@@ -43,19 +43,20 @@ class IndicatorMixin(object):
             brains = search(portal_type="Specification", get_codes=[code])
             #brains += cat(portal_type="IndicatorFactSheet", get_codes=[code])
 
-            not_same = [b for b in brains if (b.UID() not in versions) 
-                                         and (b.UID() != self_UID)]
+            not_same = [b for b in brains if (b.UID not in versions) 
+                                         and (b.UID != self_UID)]
 
             # now we filter the specification based on their versionId; 
             # we don't want to report all specifications in the versionId group
             _d = {}
             for b in not_same:
-                if b.versionId == MissingValue: #this doesn't tipically happen
+                if b.getVersionId == MissingValue: #this doesn't tipically happen
                     logger.warn( "Missing versionid value: %s", b.getObject())
                     continue
-                _d[b.versionId.strip()] = b
+                _d[b.getVersionId.strip()] = b
 
-            duplicated_codes.append((code, _d.values()))
+            if _d:
+                duplicated_codes.append((code, _d.values()))
 
         return duplicated_codes
 
@@ -70,7 +71,7 @@ class IndicatorMixin(object):
             return diff
 
         code = codes[0]
-        for v in IGetVersions(self).versions:
+        for v in IGetVersions(self).versions():
             if v.getCodes() and v.getCodes()[0] != code:
                 diff.append(v)
         return diff

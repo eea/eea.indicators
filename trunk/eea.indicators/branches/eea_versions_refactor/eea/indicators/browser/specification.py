@@ -191,7 +191,7 @@ def get_assessment_vid_for_spec_vid(context, versionid):
     versioning group.
     """
 
-    vid = _get_random(context, 10)
+    vid = _random_id(context, 10)
     cat = getToolByName(context, 'portal_catalog')
     p = '/'.join(context.getPhysicalPath())
     brains = cat.searchResults({'getVersionId':versionid,
@@ -202,7 +202,7 @@ def get_assessment_vid_for_spec_vid(context, versionid):
         obj = brain.getObject()
         children = obj.objectValues('Assessment')
         if children:
-            vid = IGetVersion(children[0]).versionId
+            vid = IGetVersions(children[0]).versionId
             break
 
     return vid
@@ -225,7 +225,7 @@ def spec_assign_version(context, new_version):
 
     #search for specifications with the old version and assign new version
     other_assessments = []  #optimization: children assessments from other specs
-    versions = [o for o in IGetVersions(context).versions
+    versions = [o for o in IGetVersions(context).versions()
                            if o.meta_type == "Specification"]
     for o in versions:
         IVersionControl(o).setVersionId(new_version)

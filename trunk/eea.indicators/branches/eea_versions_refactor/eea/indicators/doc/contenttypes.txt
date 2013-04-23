@@ -5,6 +5,8 @@ The Indicators Database
 
 We have several main content types. The most important are the Specification and their Assessments.
 
+TODO: add getVersionId index in catalog
+
     >>> import urllib
     >>> import pprint
     >>> from Testing.testbrowser import Browser
@@ -22,6 +24,9 @@ We have several main content types. The most important are the Specification and
     ...     types = [t.__class__.__name__ for t in container.objectValues()]
     ...     return sorted(types)
     >>> catalog = portal.portal_catalog
+    >>> indexes = catalog.indexes()
+    >>> if 'getVersionId' not in indexes:
+    ...     catalog.addIndex('getVersionId', 'FieldIndex')
     >>> def pp(obj):
     ...     v = obj.unrestrictedTraverse("@@get_readiness")
     ...     pprint.pprint(v.get_info_for('published'))
@@ -174,6 +179,9 @@ with the following exceptions:
  * The new AssessmentParts will point to the latest version of the EEAFigures that
    were referenced by the old AssessmentParts
 
+    >>> assessment_part = assessment.objectValues('AssessmentPart')[0]
+    >>> #print sorted([o.__class__.__name__ for o in assessment_part.getRelatedItems()])
+
     >>> from eea.indicators.browser.assessment import create_version as assessment_create_version
     >>> from eea.versions.versions import create_version as base_create_version
     >>> versioned_figure = base_create_version(figure_1)
@@ -181,8 +189,7 @@ with the following exceptions:
     >>> print versioned_assessment
     <Assessment at ...>
     >>> assessment_part = versioned_assessment.objectValues('AssessmentPart')[0]
-    >>> print [o.__class__.__name__ for o in sorted(assessment_part.getRelatedItems(), 
-    ...         lambda a,b:cmp(a.__class__.__name__, b.__class__.__name__))]
+    >>> print sorted([o.__class__.__name__ for o in assessment_part.getRelatedItems()])
     ['EEAFigure', 'PolicyQuestion']
     >>> figure_2 = filter(lambda x:x.meta_type=='EEAFigure', assessment_part.getRelatedItems())[0]
     >>> figure_2.absolute_url() == versioned_figure.absolute_url()
@@ -204,7 +211,9 @@ needs to have the same versionid (group id) as the previous assessments.
 
     >>> browser.open("%s/object_factory?type_name=Assessment" % version_url)
     >>> ast = versioned_spec.objectValues("Assessment")[0]
-    >>> versions = ast.unrestrictedTraverse('@@getVersions')().values()
+    >>> versions = ast.unrestrictedTraverse('@@getVersions').versions()
+    >>> print versions
+    [<Assessment at /plone/ims/spec2/assessment>, <Assessment at /plone/ims/spec2/assessment-1>, <Assessment at /plone/ims/spec2/assessment-2>, <Assessment at /plone/ims/spec2-1/assessment>]
     >>> assert len(versions) > 1
 
 TODO: at this moment we need to use the special object factory to achieve this.
@@ -311,7 +320,9 @@ By default the title is filled in and one condition is True, so we will be at 11
     >>> info['rfs_required'] == total_fields
     True
 
-'rfs_with_value' is the number of fields that have content filled in and are required for that state
+'rfs_with_value' is the number of fields that have content filled in and are required for that state.
+The title field is filled in, and the condition that checks that the
+specification doesn't have an invalid specification code.
 
     >>> info['rfs_with_value']
     2
@@ -320,7 +331,6 @@ By default the title is filled in and one condition is True, so we will be at 11
 
     >>> info['optional_empty']
     9
-    >>> #print info
 
 'total_fields' is the grand total number of fields. There are 21 fields
 
@@ -335,6 +345,7 @@ Let's fill in another field, this time 'codes':
     >>> info = view.get_info_for('published')
     >>> info['rfs_done'] == percentage(3)
     True
+
     >>> info['rfs_with_value']
     3
 
@@ -365,6 +376,7 @@ All required fields are filled in, but the extra checks are not met:
 Now we should be at 82% (round(14*100/17)):
 
     >>> info = spec.unrestrictedTraverse('@@get_readiness').get_info_for('published')
+
     >>> info['rfs_done'] == percentage(14)
     True
     >>> info['rfs_with_value']
@@ -523,7 +535,7 @@ Reassigning versions for Specifications
 When manually reasigning versions for a specification, we want to reassign versions for
 its children assessments as well.
 
-    >>> from eea.versions.versions import get_version_id
+    >>> from eea.versions.interfaces import IGetVersions
     >>> from eea.indicators.browser.specification import create_version as spec_create_version
     >>> from eea.indicators.browser.assessment import create_version as assessment_create_version
 
@@ -552,13 +564,13 @@ its children assessments as well.
 
 Each object involved has a different version id:
 
-    >>> vs5, vs6 = get_version_id(vspec5), get_version_id(vspec6)
-    >>> va5, va6 = get_version_id(vas5), get_version_id(vas6)
+    >>> vs5, vs6 = IGetVersions(vspec5).versionId, IGetVersions(vspec6).versionId
+    >>> va5, va6 = IGetVersions(vas5).versionId, IGetVersions(vas6).versionId
     >>> len(set([va5, vs5, vs6, va6])) == 4
     True
     >>> from eea.indicators.browser.specification import spec_assign_version
     >>> spec_assign_version(spec6, vs5)
-    >>> get_version_id(spec6) == vs5
+    >>> IGetVersions(spec6).versionId == vs5
     True
-    >>> get_version_id(as6) == va5
+    >>> IGetVersions(as6).versionId == va5
     True

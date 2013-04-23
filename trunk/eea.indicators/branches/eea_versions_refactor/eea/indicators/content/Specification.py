@@ -678,7 +678,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
         #if this Specification is already versioned, so we try get a versionId
 
         version_id = None
-        spec_versions = IGetVersions(self).versions
+        spec_versions = IGetVersions(self).versions()
         #ZZZ: versions also contains self. Is this normal?
         for spec in spec_versions:
             asts = spec.objectValues("Assessment")

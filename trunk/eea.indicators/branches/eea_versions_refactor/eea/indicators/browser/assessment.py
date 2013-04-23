@@ -43,7 +43,7 @@ class CreateVersion(BaseCreateVersion):
 
     def __call__(self):
         spec = aq_parent(aq_inner(self.context))
-        latest = get_versions_api(spec).latest_version()
+        latest = IGetVersions(spec).latest_version()
 
         if spec.UID() == latest.UID():
             version = create_version(self.context)
@@ -86,7 +86,7 @@ class CreateVersionAjax(BaseCreateVersion):
 
     def __call__(self):
         spec = aq_parent(aq_inner(self.context))
-        latest = get_versions_api(spec).latest_version()
+        latest = IGetVersions(spec).latest_version()
 
         if spec.UID() == latest.UID():
             create_version(self.context)
@@ -135,12 +135,7 @@ def create_version(original, request=None):
         rels = []
         for o in ap.getRelatedItems():
             if o.meta_type == "EEAFigure":
-                api = get_versions_api(o)
-                new = api.latest_version()
-                if new:
-                    rels.append(new)
-                else:
-                    rels.append(o)
+                rels.append(IGetVersions(o).latest_version())
             elif o.meta_type == "PolicyQuestion":
                 rels.append(o)
                 assigned_pqs.add(o.getId())
