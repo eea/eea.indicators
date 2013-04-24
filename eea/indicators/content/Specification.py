@@ -7,6 +7,9 @@ from Products.ATContentTypes.content.folder import ATFolder, ATFolderSchema
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema
 from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
 from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
+from Products.Archetypes.atapi import CalendarWidget
+from Products.Archetypes.atapi import DateTimeField
+from Products.Archetypes.atapi import IntegerField, IntegerWidget
 from Products.Archetypes.atapi import Schema, RichWidget
 from Products.Archetypes.atapi import SelectionWidget, LinesField
 from Products.Archetypes.atapi import StringField, TextField
@@ -18,6 +21,8 @@ from Products.CMFCore.permissions import AddPortalContent
 from Products.CMFCore.utils import getToolByName
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 from Products.CMFPlone.utils import log
+from Products.CompoundField.CompoundField import CompoundField
+from Products.CompoundField.CompoundWidget import CompoundWidget
 from Products.DataGridField import DataGridField, DataGridWidget
 from Products.DataGridField.Column import Column
 from Products.DataGridField.SelectColumn import SelectColumn
@@ -50,6 +55,44 @@ import logging
 logger = logging.getLogger('eea.indicators.content.Specification')
 
 ONE_YEAR = datetime.timedelta(weeks=52)
+
+
+frequency_of_updates_schema = Schema((
+    IntegerField(
+        name='frequency_years',
+        default=1,
+        required=True,
+        widget=IntegerWidget(
+            label="Frequency (years)",
+            description="The indicator is published every <x> years"
+        ),
+    ),
+    StringField(
+        name='time_of_year',
+        required=True,
+        widget=SelectionWidget(
+            label="Time of year",
+            description="In which trimester the indicator is published"
+        ),
+        vocabulary=['Q1', 'Q2', 'Q3', 'Q4']
+    ),
+    DateTimeField(
+        name='starting_date',
+        required=True,
+        widget=CalendarWidget(
+            label="Date when this started to be published"
+        ),
+        default_method='get_default_frequency_of_updates_starting_date',
+    ),
+    DateTimeField(
+        name='ending_date',
+        required=False,
+        widget=CalendarWidget(
+            label="Date after which indicator is no longer published"
+        ),
+        default_method='get_default_frequency_of_updates_ending_date',
+    ),
+))
 
 schema = Schema((
 
@@ -390,8 +433,19 @@ schema = Schema((
                 description_msgid='indicators_help_specRelatedItems',
                 macro="indicatorsrelationwidget",
                 )),
-            ),
-)
+    CompoundField(
+        name='frequency_of_updates',
+        schema=frequency_of_updates_schema,
+        schemata='default',
+        required_for_published=True,
+        widget=CompoundWidget(
+            label="Frequency of updates",
+            description="How often is this indicators assessments updates?",
+            label_msgid='indicators_label_frequency_of_updates',
+            description_msgid='indicators_help_frequency_of_updates',
+        ),
+    ),
+))
 
 Specification_schema = ATFolderSchema.copy() + \
         getattr(ATFolder, 'schema', Schema(())).copy() + \
@@ -411,7 +465,7 @@ _field_order = [
             'name':'default',
             'fields':['title', 'description', 'more_updates_on',
                       'definition', 'units', 'related_external_indicator',
-                      'manager_user_id']
+                      'manager_user_id', 'frequency_of_updates']
             },
         {
             'name':'Rationale',
@@ -780,6 +834,17 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
             return len(self.getReplyReplies(self))
         except AttributeError:
             return 0    #this happens in tests
+
+    def get_default_frequency_of_updates_starting_date(self):
+        print "return starting date"
+        print self.CreationDate()
+        return self.CreationDate()
+
+    def get_default_frequency_of_updates_ending_date(self):
+        print "get expiration date"
+        print self.getExpirationDate()
+        return self.getExpirationDate()
+
 
 #placed here so that it will be found by extraction utility
 _titlemsg = _(u"Newly created ${type_name}",)

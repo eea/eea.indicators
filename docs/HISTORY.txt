@@ -3,6 +3,8 @@ Changelog
 
 6.7-dev - (unreleased)
 ----------------------
+* Feature: WIP: added a new compound field, frequency_of_updates
+  [tiberich #14361]
 
 6.6 - (2013-04-17)
 ------------------
