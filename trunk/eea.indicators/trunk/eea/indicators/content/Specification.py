@@ -845,6 +845,29 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
         print self.getExpirationDate()
         return self.getExpirationDate()
 
+    security.declarePublic("get_frequency_of_updates")
+    def get_frequency_of_updates(self):
+        """human readable frequency of updates
+        """
+
+        info = self.getFrequency_of_updates()
+        now = datetime.datetime.now()
+
+        if info['ending_date'] < now():
+            return ("This indicator is discontinued. No more "
+                    "assessments will be produced.")
+
+        #TODO: refactor eea.workflow IValueProvider to have named adapters
+        #based on fieldname
+        #write IValueProvider for frequency_of_updates field
+
+        return ("New updates for this indicator are planned to be "
+                "published in %s every %s, starting from %s" % 
+                (info['time_of_year'], 
+                 info(['frequency_years'],
+                 info['starting_date'])))
+
+
 
 #placed here so that it will be found by extraction utility
 _titlemsg = _(u"Newly created ${type_name}",)
