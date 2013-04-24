@@ -54,6 +54,7 @@
       <div tal:replace="structure context/fragment_relateditems" />
       <div tal:replace="structure context/fragment_metadata" />
       <div tal:replace="structure context/fragment_info" />
+      <div tal:replace="structure context/fragment_frequency_of_updates" />
       <div tal:replace="structure context/fragment_work" />
 
     </div>
