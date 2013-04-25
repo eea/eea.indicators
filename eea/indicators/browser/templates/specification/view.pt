@@ -61,6 +61,8 @@
               </li>
             </ul>
           </tal:draft_versions>
+
+          <div id="frequency_of_updates" class="system-message" tal:content="context/get_frequency_of_updates" />
         </div>
 
         <div id="justification-and-references" metal:define-macro="justification-and-references">

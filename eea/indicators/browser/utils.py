@@ -5,11 +5,16 @@ from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.CatalogTool import sortable_title
 from Products.CMFPlone.utils import normalizeString
+from Products.CompoundField.CompoundField import CompoundField
 from Products.Five import BrowserView
 from eea.indicators.browser.interfaces import IIndicatorUtils
 from eea.workflow.interfaces import IValueProvider
-from zope.component import getMultiAdapter
-from zope.interface import implements
+from eea.workflow.utils import ATFieldValueProvider
+from zope.component import getMultiAdapter, queryMultiAdapter, adapts
+from zope.interface import implements, Interface
+import logging
+
+logger = logging.getLogger('eea.indicators')
 
 
 class Sorter(BrowserView):
@@ -27,10 +32,20 @@ class Sorter(BrowserView):
 
         return "<done />"
 
+
 class IndicatorUtils(BrowserView):
     """Various utils for Indicators"""
 
     implements(IIndicatorUtils)
+
+    def adapter(self, context, fieldname):
+        field = context.schema[fieldname]
+
+        vp = queryMultiAdapter((context, field), IValueProvider, 
+                                name=fieldname)
+        if vp is None:
+            vp = getMultiAdapter((context, field), IValueProvider)
+        return vp
 
     def str_to_id(self, s, context):
         """make an id from a string"""
@@ -38,16 +53,49 @@ class IndicatorUtils(BrowserView):
         return s.replace(".", "_")
 
     def field_has_value(self, fieldname, context):
-        """This is a dumb implementation that assumes only richtext for now"""
-
-        field = context.schema[fieldname]
-        vp = getMultiAdapter((context, field), IValueProvider)
-        return vp.has_value()
+        """ field has value"""
+        return self.adapter(context, fieldname).has_value()
 
     def field_value_info(self, fieldname, context):
-        field = context.schema[fieldname]
-        vp = getMultiAdapter((context, field), IValueProvider)
-        return vp.value_info()
+        """complete info about the field's value
+        """
+        return self.adapter(context, fieldname).value_info()
+
+
+class FrequencyOfUpdatesFieldValueProvider(ATFieldValueProvider):
+    """An IValueProvider implementation for Text Fields"""
+
+    adapts(Interface, CompoundField)
+
+    def has_value(self, **kwargs):
+        """ Returns true if text field has at least 2 words in it
+        """
+        accessor = self.field.getAccessor(self.context)
+        if not accessor:
+            logger.warning("Field %s for %s has no accessor" % 
+                            (self.field, self.context))
+            return False
+        value = accessor()
+
+        #all field except ending_date are optional
+
+        fields = ['frequency_years', 'time_of_year', 'starting_date']
+        for f in fields:
+            if not value[f]:
+                return False
+
+        return True
+
+    def value_info(self, **kwargs):
+        """ Get value info
+        """
+        return {
+            'raw_value':self.field.getAccessor(self.context)(),
+            'value':self.field.getAccessor(self.context)(),
+            'has_value':self.has_value(**kwargs),
+            'msg':('Information about frequency of update for this '
+                   'indicator is missing.') #needs i18n
+        }
 
 
 class ObjectDelete(BrowserView):
