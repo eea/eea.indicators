@@ -46,6 +46,7 @@ from eea.workflow.interfaces import IHasMandatoryWorkflowFields
 from eea.workflow.interfaces import IObjectReadiness
 from zope.event import notify
 from zope.interface import alsoProvides, implements
+from DateTime import DateTime
 import datetime
 import logging
 
@@ -66,6 +67,8 @@ frequency_of_updates_schema = Schema((
             label="Frequency (years)",
             description="The indicator is published every <x> years"
         ),
+        validators=("validate_frequency_years",),
+        vocabulary = range(1,11),
     ),
     StringField(
         name='time_of_year',
@@ -74,7 +77,8 @@ frequency_of_updates_schema = Schema((
             label="Time of year",
             description="In which trimester the indicator is published"
         ),
-        vocabulary=['Q1', 'Q2', 'Q3', 'Q4']
+        vocabulary=['Q1', 'Q2', 'Q3', 'Q4'],
+        default="Q1"
     ),
     DateTimeField(
         name='starting_date',
@@ -836,13 +840,10 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
             return 0    #this happens in tests
 
     def get_default_frequency_of_updates_starting_date(self):
-        print "return starting date"
-        print self.CreationDate()
-        return self.CreationDate()
+        first_specification = IGetVersions(self).earliest_version()
+        return first_specification.CreationDate()
 
     def get_default_frequency_of_updates_ending_date(self):
-        print "get expiration date"
-        print self.getExpirationDate()
         return self.getExpirationDate()
 
     security.declarePublic("get_frequency_of_updates")
@@ -853,20 +854,27 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
         info = self.getFrequency_of_updates()
         now = datetime.datetime.now()
 
-        if info['ending_date'] < now():
-            return ("This indicator is discontinued. No more "
-                    "assessments will be produced.")
+        ending = info['ending_date']
+        if type(ending) is type(now):
+            if ending < now:
+                return ("This indicator is discontinued. No more "
+                        "assessments will be produced.")
 
-        #TODO: refactor eea.workflow IValueProvider to have named adapters
-        #based on fieldname
-        #write IValueProvider for frequency_of_updates field
+        starting = (info['starting_date'] and DateTime(info['starting_date']) or 
+                         self.creation_date)
+        #import pdb; pdb.set_trace()
+        starting = "%s, %s %s" % (starting.year, starting.day, 
+                                  starting.Month())
+
+        if info['frequency_years'] in [None, ""]:
+            return "Information about frequency of update for this " \
+                   "indicator is missing."
 
         return ("New updates for this indicator are planned to be "
-                "published in %s every %s, starting from %s" % 
+                "published in %s every %s year(s), starting from %s" % 
                 (info['time_of_year'], 
-                 info(['frequency_years'],
-                 info['starting_date'])))
-
+                 info['frequency_years'],
+                 info['starting_date']))
 
 
 #placed here so that it will be found by extraction utility

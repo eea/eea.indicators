@@ -7,6 +7,9 @@
   <include file="assessment.zcml" />
   <include file="indicatorfactsheet.zcml" />
 
+  <adapter factory=".utils.FrequencyOfUpdatesFieldValueProvider"
+              name="frequency_of_updates"/>
+
   <plone:portletRenderer
       portlet="eea.workflow.portlets.readiness.IReadinessPortlet"
       for="eea.indicators.content.interfaces.ISpecification"

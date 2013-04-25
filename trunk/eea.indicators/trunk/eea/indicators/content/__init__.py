@@ -14,6 +14,7 @@ from eea.indicators.content.validators import (
     UniquePolicyDocTitleValidator,
     UniquePolicyDocUrlValidator,
     OneAssessmentPartPerQuestionValidator,
+    FrequencyUpdateValidator
 )
 
 # Validators
@@ -23,6 +24,8 @@ validation.register(
     UniquePolicyDocUrlValidator('unique_policy_url_validator'))
 validation.register(
     OneAssessmentPartPerQuestionValidator('one_assessment_per_question'))
+validation.register(
+    FrequencyUpdateValidator('validate_frequency_years'))
 
 from eea.indicators.content.PolicyQuestion import PolicyQuestion
 from eea.indicators.content.ExternalDataSpec import ExternalDataSpec
