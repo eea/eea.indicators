@@ -289,6 +289,11 @@ class SetCodes(BrowserView):
         return "Fixed"
 
 
+class FragmentFrequencyOfUpdatesView(BrowserView):
+    """View for fragment_frequency_of_updatesik
+    """
+
+
 class FragmentMetadataView(BrowserView):
     """View for fragment_metadata
     """

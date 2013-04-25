@@ -91,3 +91,33 @@ class OneAssessmentPartPerQuestionValidator:
                 continue
 
         return True
+
+
+class FrequencyUpdateValidator:
+    """Validates the frequency_years of frequency_of_updates
+    """
+    implements(IValidator)
+
+    def __init__(self,
+                 name,
+                 title='Frequency in years validity',
+                 description="Check if the frequency in years is valid"):
+        self.name = name
+        self.title = title or name
+        self.description = description
+
+    def __call__(self, value, *args, **kwargs):
+        instance = kwargs['instance']
+
+        if not value and isinstance(value, basestring):
+            return False
+
+        if not value.digit():
+            return False
+
+        v = int(value)
+
+        if not v in range(1, 10):
+            return False
+
+        return True

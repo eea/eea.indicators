@@ -44,6 +44,7 @@ setup(
      "eea.forms",
      'eea.tags',
      'eea.app.visualization',
+     'Products.CompoundField',
      #'eea.daviz>=6.2'
  ],
  entry_points="""

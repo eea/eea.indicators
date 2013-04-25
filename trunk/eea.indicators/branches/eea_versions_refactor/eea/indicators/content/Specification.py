@@ -7,6 +7,9 @@ from Products.ATContentTypes.content.folder import ATFolder, ATFolderSchema
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema
 from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
 from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
+from Products.Archetypes.atapi import CalendarWidget
+from Products.Archetypes.atapi import DateTimeField
+from Products.Archetypes.atapi import IntegerField, IntegerWidget
 from Products.Archetypes.atapi import Schema, RichWidget
 from Products.Archetypes.atapi import SelectionWidget, LinesField
 from Products.Archetypes.atapi import StringField, TextField
@@ -18,6 +21,8 @@ from Products.CMFCore.permissions import AddPortalContent
 from Products.CMFCore.utils import getToolByName
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 from Products.CMFPlone.utils import log
+from Products.CompoundField.CompoundField import CompoundField
+from Products.CompoundField.CompoundWidget import CompoundWidget
 from Products.DataGridField import DataGridField, DataGridWidget
 from Products.DataGridField.Column import Column
 from Products.DataGridField.SelectColumn import SelectColumn
@@ -41,6 +46,7 @@ from eea.workflow.interfaces import IHasMandatoryWorkflowFields
 from eea.workflow.interfaces import IObjectReadiness
 from zope.event import notify
 from zope.interface import alsoProvides, implements
+from DateTime import DateTime
 import datetime
 import logging
 
@@ -50,6 +56,47 @@ import logging
 logger = logging.getLogger('eea.indicators.content.Specification')
 
 ONE_YEAR = datetime.timedelta(weeks=52)
+
+
+frequency_of_updates_schema = Schema((
+    IntegerField(
+        name='frequency_years',
+        default=1,
+        required=True,
+        widget=IntegerWidget(
+            label="Frequency (years)",
+            description="The indicator is published every <x> years"
+        ),
+        validators=("validate_frequency_years",),
+        vocabulary = range(1,11),
+    ),
+    StringField(
+        name='time_of_year',
+        required=True,
+        widget=SelectionWidget(
+            label="Time of year",
+            description="In which trimester the indicator is published"
+        ),
+        vocabulary=['Q1', 'Q2', 'Q3', 'Q4'],
+        default="Q1"
+    ),
+    DateTimeField(
+        name='starting_date',
+        required=True,
+        widget=CalendarWidget(
+            label="Date when this started to be published"
+        ),
+        default_method='get_default_frequency_of_updates_starting_date',
+    ),
+    DateTimeField(
+        name='ending_date',
+        required=False,
+        widget=CalendarWidget(
+            label="Date after which indicator is no longer published"
+        ),
+        default_method='get_default_frequency_of_updates_ending_date',
+    ),
+))
 
 schema = Schema((
 
@@ -390,8 +437,19 @@ schema = Schema((
                 description_msgid='indicators_help_specRelatedItems',
                 macro="indicatorsrelationwidget",
                 )),
-            ),
-)
+    CompoundField(
+        name='frequency_of_updates',
+        schema=frequency_of_updates_schema,
+        schemata='default',
+        required_for_published=True,
+        widget=CompoundWidget(
+            label="Frequency of updates",
+            description="How often is this indicators assessments updates?",
+            label_msgid='indicators_label_frequency_of_updates',
+            description_msgid='indicators_help_frequency_of_updates',
+        ),
+    ),
+))
 
 Specification_schema = ATFolderSchema.copy() + \
         getattr(ATFolder, 'schema', Schema(())).copy() + \
@@ -411,7 +469,7 @@ _field_order = [
             'name':'default',
             'fields':['title', 'description', 'more_updates_on',
                       'definition', 'units', 'related_external_indicator',
-                      'manager_user_id']
+                      'manager_user_id', 'frequency_of_updates']
             },
         {
             'name':'Rationale',
@@ -775,6 +833,44 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
             return len(self.getReplyReplies(self))
         except AttributeError:
             return 0    #this happens in tests
+
+    def get_default_frequency_of_updates_starting_date(self):
+        first_specification = IGetVersions(self).earliest_version()
+        return first_specification.CreationDate()
+
+    def get_default_frequency_of_updates_ending_date(self):
+        return self.getExpirationDate()
+
+    security.declarePublic("get_frequency_of_updates")
+    def get_frequency_of_updates(self):
+        """human readable frequency of updates
+        """
+
+        info = self.getFrequency_of_updates()
+        now = datetime.datetime.now()
+
+        ending = info['ending_date']
+        if type(ending) is type(now):
+            if ending < now:
+                return ("This indicator is discontinued. No more "
+                        "assessments will be produced.")
+
+        starting = (info['starting_date'] and DateTime(info['starting_date']) or 
+                         self.creation_date)
+        #import pdb; pdb.set_trace()
+        starting = "%s, %s %s" % (starting.year, starting.day, 
+                                  starting.Month())
+
+        if info['frequency_years'] in [None, ""]:
+            return "Information about frequency of update for this " \
+                   "indicator is missing."
+
+        return ("New updates for this indicator are planned to be "
+                "published in %s every %s year(s), starting from %s" % 
+                (info['time_of_year'], 
+                 info['frequency_years'],
+                 info['starting_date']))
+
 
 #placed here so that it will be found by extraction utility
 _titlemsg = _(u"Newly created ${type_name}",)
