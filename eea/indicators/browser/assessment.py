@@ -13,14 +13,15 @@ from eea.indicators.content.Assessment import getPossibleVersionsId
 from eea.indicators.content.Assessment import hasWrongVersionId
 from eea.versions.versions import CreateVersion as BaseCreateVersion
 from eea.versions.versions import create_version as base_create_version
-from eea.versions.versions import get_version_id
-from eea.versions.versions import get_versions_api
+from eea.versions.interfaces import IGetVersions
 from eea.workflow.interfaces import IObjectReadiness
 from eea.workflow.readiness import ObjectReadiness
 from plone.app.layout.globals.interfaces import IViewView
 from zope.interface import implements
 from zope.event import notify
 
+#from eea.versions.versions import get_version_id
+#from eea.versions.versions import get_versions_api
 
 class IndexPage(BrowserView):
     """The Assessment index page"""
@@ -42,7 +43,7 @@ class CreateVersion(BaseCreateVersion):
 
     def __call__(self):
         spec = aq_parent(aq_inner(self.context))
-        latest = get_versions_api(spec).latest_version()
+        latest = IGetVersions(spec).latest_version()
 
         if spec.UID() == latest.UID():
             version = create_version(self.context)
@@ -85,7 +86,7 @@ class CreateVersionAjax(BaseCreateVersion):
 
     def __call__(self):
         spec = aq_parent(aq_inner(self.context))
-        latest = get_versions_api(spec).latest_version()
+        latest = IGetVersions(spec).latest_version()
 
         if spec.UID() == latest.UID():
             create_version(self.context)
@@ -134,12 +135,7 @@ def create_version(original, request=None):
         rels = []
         for o in ap.getRelatedItems():
             if o.meta_type == "EEAFigure":
-                api = get_versions_api(o)
-                new = api.latest_version()
-                if new:
-                    rels.append(new)
-                else:
-                    rels.append(o)
+                rels.append(IGetVersions(o).latest_version())
             elif o.meta_type == "PolicyQuestion":
                 rels.append(o)
                 assigned_pqs.add(o.getId())
@@ -247,7 +243,7 @@ class WrongVersionReport(BrowserView):
 
     def current_version(self):
         """current version"""
-        return get_version_id(self.context)
+        return IGetVersions(self.context).versionId
 
     def possible_versions(self):
         """possible versions"""

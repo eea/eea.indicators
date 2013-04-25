@@ -25,13 +25,14 @@ from eea.indicators.content.base import ModalFieldEditableAware
 from eea.indicators.content.interfaces import IAssessment, IIndicatorAssessment
 from eea.relations.field import EEAReferenceField
 from eea.relations.widget import EEAReferenceBrowserWidget
-from eea.versions.versions import get_versions_api, get_version_id
+from eea.versions.interfaces import IGetVersions
 from eea.workflow.interfaces import IHasMandatoryWorkflowFields
 from eea.workflow.interfaces import IObjectReadiness
 from eea.workflow.utils import ATFieldValueProvider
 from zope.component import adapts
 from zope.interface import implements
 import logging
+#from eea.versions.versions import get_version_id    #get_versions_api, 
 
 logger = logging.getLogger('eea.indicators.content.Assessment')
 
@@ -319,7 +320,7 @@ def hasWrongVersionId(context):
     #parent based checks; this also does codes check because
     #assessments inherit codes from their parent specification
     spec = aq_parent(aq_inner(context))
-    spec_versions = get_versions_api(spec).versions.values()
+    spec_versions = IGetVersions(spec).versions()
     if not spec in spec_versions:
         spec_versions.append(spec)
 
@@ -339,7 +340,7 @@ def hasWrongVersionId(context):
 
     version_ids = {}
     for a in (all_assessments + factsheets):
-        vid = get_version_id(a)
+        vid = IGetVersions(a).versionId
         version_ids[vid] = version_ids.get(vid, []) + [a]
 
     if len(version_ids) == 1:
@@ -366,7 +367,7 @@ def getPossibleVersionsId(context):
     cat = getToolByName(context, 'portal_catalog')
 
     spec = aq_parent(aq_inner(context))
-    spec_versions = get_versions_api(spec).versions.values()
+    spec_versions = get_versions_api(spec).versions().values()
     vid = get_version_id(context)
 
     all_assessments = []

@@ -41,7 +41,7 @@ from eea.relations.field import EEAReferenceField
 from eea.relations.widget import EEAReferenceBrowserWidget
 from eea.versions.interfaces import IGetVersions
 from eea.versions.interfaces import IVersionControl, IVersionEnhanced
-from eea.versions.versions import isVersionEnhanced, get_versions_api
+from eea.versions.versions import isVersionEnhanced
 from eea.workflow.interfaces import IHasMandatoryWorkflowFields
 from eea.workflow.interfaces import IObjectReadiness
 from zope.event import notify
@@ -736,7 +736,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
         #if this Specification is already versioned, so we try get a versionId
 
         version_id = None
-        spec_versions = get_versions_api(self).versions.values()
+        spec_versions = IGetVersions(self).versions()
         #ZZZ: versions also contains self. Is this normal?
         for spec in spec_versions:
             asts = spec.objectValues("Assessment")
@@ -796,12 +796,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
 
     def has_newer_version(self):
         """has newer version"""
-        versions = get_versions_api(self)
-        newest = versions.newest()
-
-        if isVersionEnhanced(self) and newest:
-            return True
-        return False
+        return bool(IGetVersions(self).later_versions())
 
     security.declareProtected(AddPortalContent, 'invokeFactory')
     def invokeFactory(self, type_name=None, id=None, RESPONSE=None,

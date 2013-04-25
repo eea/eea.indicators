@@ -18,14 +18,20 @@
 
     <class class=".content.Specification.Specification">
         <implements interface="eea.workflow.interfaces.IHasMandatoryWorkflowFields" />
+        <implements interface="eea.versions.interfaces.IVersionEnhanced" />
     </class>
 
     <class class=".content.Assessment.Assessment">
         <implements interface="eea.workflow.interfaces.IHasMandatoryWorkflowFields" />
+        <implements interface="eea.versions.interfaces.IVersionEnhanced" />
     </class>
 
     <class class=".content.AssessmentPart.AssessmentPart">
         <implements interface="eea.workflow.interfaces.IHasMandatoryWorkflowFields" />
+    </class>
+
+    <class class="eea.indicators.content.IndicatorFactSheet.IndicatorFactSheet">
+        <implements interface="eea.versions.interfaces.IVersionEnhanced" />
     </class>
 
     <adapter factory=".content.marshaller.CodesField2Surf" name="codes" />
@@ -33,30 +39,6 @@
     <adapter factory=".content.ExternalDataSpec.ExternalDataSpecThemes" />
 
     <adapter factory=".content.Assessment.ManagementPlanFieldValueProvider" />
-
-    <subscriber for=".content.interfaces.ISpecification
-        zope.lifecycleevent.interfaces.IObjectCreatedEvent"
-        handler="eea.versions.versions.versionIdHandler" />
-
-    <subscriber for=".content.interfaces.ISpecification
-        zope.lifecycleevent.interfaces.IObjectModifiedEvent"
-        handler="eea.versions.versions.versionIdHandler" />
-
-    <subscriber for=".content.interfaces.IAssessment
-        zope.lifecycleevent.interfaces.IObjectCreatedEvent"
-        handler="eea.versions.versions.versionIdHandler" />
-
-    <subscriber for=".content.interfaces.IAssessment
-        zope.lifecycleevent.interfaces.IObjectModifiedEvent"
-        handler="eea.versions.versions.versionIdHandler" />
-
-    <subscriber for=".content.interfaces.IIndicatorFactSheet
-        zope.lifecycleevent.interfaces.IObjectCreatedEvent"
-        handler="eea.versions.versions.versionIdHandler" />
-
-    <subscriber for=".content.interfaces.IIndicatorFactSheet
-        zope.lifecycleevent.interfaces.IObjectModifiedEvent"
-        handler="eea.versions.versions.versionIdHandler" />
 
     <subscriber for=".content.interfaces.ISpecification
         zope.lifecycleevent.interfaces.IObjectModifiedEvent"
@@ -90,18 +72,6 @@
     <subscriber for=".content.interfaces.IPolicyQuestion
         zope.lifecycleevent.interfaces.IObjectModifiedEvent"
         handler="eea.indicators.events.handle_policyquestion_modification" />
-
-    <!--<class class="eea.indicators.content.Assessment.Assessment">-->
-        <!--<implements interface="eea.versions.interfaces.IVersionEnhanced" />-->
-        <!--</class>-->
-
-    <!--<class class="eea.indicators.content.Specification.Specification">-->
-        <!--<implements interface="eea.versions.interfaces.IVersionEnhanced" />-->
-        <!--</class>-->
-
-    <!--<class class="eea.indicators.content.IndicatorFactSheet.IndicatorFactSheet">-->
-        <!--<implements interface="eea.versions.interfaces.IVersionEnhanced" />-->
-        <!--</class>-->
 
     <include package=".upgrades" />
 
