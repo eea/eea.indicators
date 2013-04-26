@@ -190,7 +190,7 @@
             <li tal:condition="python:not datasets" i18n:translate="">No datasets have been specified here.</li>
             <li tal:repeat="data datasets" tal:condition="python:datasets">
               <a href=""
-                tal:attributes="href string:${context/portal_url}/data-and-maps/data/ds_resolveuid/${data/@@getLatestVersionLink}"
+                tal:attributes="href string:${context/portal_url}/data-and-maps/data/ds_resolveuid/${data/@@getVersions/versionId}"
                 tal:content="data/title">Dataset title</a><!-- TODO: to show title from latest dataset version -->
                 provided by 
                   <span tal:repeat="url python:data.getDataOwner()">
