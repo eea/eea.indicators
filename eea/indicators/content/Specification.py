@@ -10,7 +10,7 @@ from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
 from Products.Archetypes.atapi import CalendarWidget
 from Products.Archetypes.atapi import DateTimeField
 from Products.Archetypes.atapi import IntegerField, IntegerWidget
-from Products.Archetypes.atapi import Schema, RichWidget
+from Products.Archetypes.atapi import Schema, RichWidget, SelectionWidget
 from Products.Archetypes.atapi import SelectionWidget, LinesField
 from Products.Archetypes.atapi import StringField, TextField
 from Products.Archetypes.atapi import TextAreaWidget
@@ -65,7 +65,8 @@ frequency_of_updates_schema = Schema((
         required=True,
         widget=IntegerWidget(
             label="Frequency (years)",
-            description="The indicator is published every <x> years"
+            description="The indicator is published every <x> years",
+            macro="widget_frequency_years",
         ),
         validators=("validate_frequency_years",),
         vocabulary = range(1,11),
@@ -78,7 +79,7 @@ frequency_of_updates_schema = Schema((
             description="In which trimester the indicator is published"
         ),
         vocabulary=['Q1', 'Q2', 'Q3', 'Q4'],
-        default="Q1"
+        default=" "
     ),
     DateTimeField(
         name='starting_date',
@@ -531,9 +532,6 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
 
     #edit_macros = PageTemplateFile('edit_macros.pt', templates_dir)
 
-    #portlet_readiness = \
-            #ViewPageTemplateFile('../browser/templates/portlet_readiness.pt')
-
     def get_work(self):
         """get work info"""
         in_future = datetime.datetime.now() + ONE_YEAR
@@ -595,21 +593,6 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
     def get_raw_title(self):
         """ title """
         return self.title
-
-    #security.declarePublic('left_slots')
-    #def left_slots(self):
-        #"""left slots"""
-        #_slot = 'here/portlet_readiness/macros/portlet'
-        ##_assigned = self.getProperty('left_slots') or []
-
-        #parent = aq_parent(aq_inner(self))
-        #base_slots = getattr(parent, 'left_slots', [])
-        #if callable(base_slots):
-            #base_slots = base_slots()
-
-        #base_slots = list(base_slots)
-        #base_slots.insert(0, _slot)
-        #return base_slots
 
     def get_indicator_codes(self):
         """get indicator codes"""
@@ -835,10 +818,32 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
             return 0    #this happens in tests
 
     def get_default_frequency_of_updates_starting_date(self):
-        first_specification = IGetVersions(self).earliest_version()
-        return first_specification.CreationDate()
+        """Default value for frequency_of_updates starting_date.
+
+        We want to say since when this indicator has started to be published,
+        so we look for the first assessment in this indicator group.
+        """
+        specs = IGetVersions(self).versions()
+        ast = None
+        for spec in specs:
+            for ast in spec.objectValues('Assessment'):
+                break
+
+        if ast is None:
+            #fallback to looking up at specifications
+            first_specification = IGetVersions(self).first_version()
+            return first_specification.CreationDate()
+
+        last_ast = IGetVersions(ast).first_version()
+        return last_ast.CreationDate()
 
     def get_default_frequency_of_updates_ending_date(self):
+        """Default value for frequency_of_updates ending_date.
+
+        Logic is: no more assessment are to be published when this indicator
+        expires
+        """
+        #TODO: when changing ending_date, also change expirationDate and viceversa
         return self.getExpirationDate()
 
     security.declarePublic("get_frequency_of_updates")
@@ -849,27 +854,26 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
         info = self.getFrequency_of_updates()
         now = datetime.datetime.now()
 
+        if info['frequency_years'] in [None, ""]:
+            return "Information about frequency of update for this " \
+                   "indicator is missing."
+
         ending = info['ending_date']
         if type(ending) is type(now):
             if ending < now:
                 return ("This indicator is discontinued. No more "
                         "assessments will be produced.")
 
-        starting = (info['starting_date'] and DateTime(info['starting_date']) or 
+        s = (info['starting_date'] and DateTime(info['starting_date']) or 
                          self.creation_date)
-        #import pdb; pdb.set_trace()
-        starting = "%s, %s %s" % (starting.year, starting.day, 
-                                  starting.Month())
+        s = "%s %s %s" % (s.day(), s.Month(), s.year())
 
-        if info['frequency_years'] in [None, ""]:
-            return "Information about frequency of update for this " \
-                   "indicator is missing."
 
         return ("New updates for this indicator are planned to be "
                 "published in %s every %s year(s), starting from %s" % 
                 (info['time_of_year'], 
                  info['frequency_years'],
-                 info['starting_date']))
+                 s))
 
 
 #placed here so that it will be found by extraction utility

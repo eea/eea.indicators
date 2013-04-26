@@ -146,7 +146,7 @@
         datasets python:datasetsView('Data'); extdatasets python:datasetsView('ExternalDataSpec')">
         <li tal:repeat="data datasets" tal:condition="python:datasets">
 	  <a href=""
-            tal:attributes="href string:${context/portal_url}/data-and-maps/data/ds_resolveuid/${data/@@getLatestVersionLink}"
+            tal:attributes="href string:${context/portal_url}/data-and-maps/data/ds_resolveuid/${data/@@getVersions/versionId}"
             tal:content="data/title">Dataset title</a><br/>provided by
           <span tal:repeat="url python:data.getDataOwner()">
            <tal:organisations condition="python:specification.getOrganisationName(url)">
