@@ -84,6 +84,9 @@ class FrequencyOfUpdatesFieldValueProvider(ATFieldValueProvider):
             if not value[f]:
                 return False
 
+        if value['time_of_year'] not in ['Q1', 'Q2', 'Q3', 'Q4']:
+            return False
+
         return True
 
     def value_info(self, **kwargs):

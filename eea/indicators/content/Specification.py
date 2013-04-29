@@ -57,6 +57,7 @@ logger = logging.getLogger('eea.indicators.content.Specification')
 
 ONE_YEAR = datetime.timedelta(weeks=52)
 
+trimesters = ['Q1', 'Q2', 'Q3', 'Q4']
 
 frequency_of_updates_schema = Schema((
     IntegerField(
@@ -78,7 +79,7 @@ frequency_of_updates_schema = Schema((
             label="Time of year",
             description="In which trimester the indicator is published"
         ),
-        vocabulary=['Q1', 'Q2', 'Q3', 'Q4'],
+        vocabulary=trimesters,
         default=" "
     ),
     DateTimeField(
@@ -868,12 +869,16 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
                          self.creation_date)
         s = "%s %s %s" % (s.day(), s.Month(), s.year())
 
-
-        return ("New updates for this indicator are planned to be "
+        msg = ("New updates for this indicator are planned to be "
                 "published in %s every %s year(s), starting from %s" % 
-                (info['time_of_year'], 
-                 info['frequency_years'],
-                 s))
+                (info['time_of_year'], info['frequency_years'], s))
+
+        next_year = now.year + 1
+
+        msg += ("Next update expect in %s %s" % 
+                    (info['frequency_years'], next_year))
+
+        return msg
 
 
 #placed here so that it will be found by extraction utility
