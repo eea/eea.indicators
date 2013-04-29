@@ -1,4 +1,5 @@
-"""Indicator fact sheet"""
+""" Indicator fact sheet
+"""
 
 from AccessControl import ClassSecurityInfo
 from Products.ATContentTypes.content.folder import ATFolder, ATFolderSchema
@@ -195,7 +196,7 @@ IndicatorFactSheet_schema.moveField('relatedItems', after='dpsir')
 
 class IndicatorFactSheet(ATFolder, ModalFieldEditableAware,
                          BrowserDefaultMixin, IndicatorMixin):
-    """IndicatorFactSheet content class
+    """ IndicatorFactSheet content class
     """
     security = ClassSecurityInfo()
 
@@ -228,7 +229,8 @@ class IndicatorFactSheet(ATFolder, ModalFieldEditableAware,
 
     security.declarePublic("getGeographicCoverage")
     def getGeographicCoverage(self):
-        """ Geographic coverage """
+        """ Geographic coverage
+        """
         result = {}
         wftool = getToolByName(self, 'portal_workflow')
 
@@ -242,7 +244,8 @@ class IndicatorFactSheet(ATFolder, ModalFieldEditableAware,
 
     security.declarePublic("getTemporalCoverage")
     def getTemporalCoverage(self):
-        """ temporal coverage"""
+        """ temporal coverage
+        """
         result = {}
         wftool = getToolByName(self, 'portal_workflow')
 
@@ -255,36 +258,33 @@ class IndicatorFactSheet(ATFolder, ModalFieldEditableAware,
         return list(result.keys())
 
     def get_indicator_codes(self):
-        "indicator codes"
+        """ indicator codes
+        """
         atvm = getToolByName(self, ATVOCABULARYTOOL)
         vocab = getattr(atvm, 'indicator_codes')
         return vocab.getDisplayList(self)
 
     security.declarePublic('Subject')
     def Subject(self):
-        """Overwrite standard Subject method to dynamically get all
-           keywords from other objects used in this assessment. """
+        """ Overwrite standard Subject method to dynamically get all
+            keywords from other objects used in this assessment.
+        """
         result = []
 
-        #append assessment own subjects
+        # append assessment own subjects
         result.extend(self.schema['subject'].getRaw(self))
-
-        #append indicator codes
-        result.extend(self.get_codes())
-
-        #ZZZ: append themes, they are tags as well
-        #result.extend(self.getThemes())
 
         for ob in self.getRelatedItems():
             if ob.portal_type == 'EEAFigure':
                 result.extend(ob.Subject())
 
-        #return results list without duplicates
+        # return results list without duplicates
         return list(set(result))
 
     security.declarePublic("getTitle")
     def getTitle(self):
-        """ Return title with codes.  """
+        """ Return title with codes.
+        """
         codes = self.getCodes()
 
         res = u''
@@ -299,7 +299,7 @@ class IndicatorFactSheet(ATFolder, ModalFieldEditableAware,
 
     security.declarePublic('get_codes')
     def get_codes(self):
-        """Returns a list of indicator codes, for indexing.
+        """ Returns a list of indicator codes, for indexing.
 
         Indexes the codes of this specification in the form of
         a KeywordIndex with ['SETA', "SETA001", "SETB", "SETB009"]
@@ -319,8 +319,9 @@ class IndicatorFactSheet(ATFolder, ModalFieldEditableAware,
 
     security.declareProtected("Modify portal content", 'setCodes')
     def setCodes(self, value):
-        """Set the codes"""
-        #we want to filter rows that don't have a number filled in
+        """ Set the codes
+        """
+        # we want to filter rows that don't have a number filled in
         field = self.schema['codes']
         instance = self
         value = get_dgf_value(field, value)
@@ -333,7 +334,8 @@ class IndicatorFactSheet(ATFolder, ModalFieldEditableAware,
 
     security.declarePublic('SearchableText')
     def SearchableText(self):
-        """Searchable text """
+        """ Searchable text
+        """
         searchable_text = super(IndicatorFactSheet, self).SearchableText()
         for code in self.get_codes():
             searchable_text += '%s ' % code.encode('utf-8')
@@ -341,9 +343,9 @@ class IndicatorFactSheet(ATFolder, ModalFieldEditableAware,
 
     security.declarePublic("comments")
     def comments(self):
-        """Return the number of comments"""
-
+        """ Return the number of comments
+        """
         try:
             return len(self.getReplyReplies(self))
         except AttributeError:
-            return 0    #this happens in tests
+            return 0    # this happens in tests

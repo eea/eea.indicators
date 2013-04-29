@@ -32,7 +32,7 @@ from eea.workflow.utils import ATFieldValueProvider
 from zope.component import adapts
 from zope.interface import implements
 import logging
-#from eea.versions.versions import get_version_id    #get_versions_api, 
+#from eea.versions.versions import get_version_id    #get_versions_api,
 
 logger = logging.getLogger('eea.indicators.content.Assessment')
 
@@ -145,7 +145,8 @@ class Assessment(ATFolder, ModalFieldEditableAware,
 
     security.declarePublic('get_assessments')
     def get_assessments(self):
-        """Returns assessment parts"""
+        """ Returns assessment parts
+        """
         parts = self.objectValues('AssessmentPart')
         key = None
         secondary = []
@@ -162,9 +163,10 @@ class Assessment(ATFolder, ModalFieldEditableAware,
 
     security.declarePublic("Title")
     def Title(self):
-        """ return title based on parent specification title"""
+        """ return title based on parent specification title
+        """
         parent = aq_parent(aq_inner(self))
-        if parent:  #the parent seems to be missing in tests
+        if parent:  # the parent seems to be missing in tests
             spec_title = parent.getTitle()
         else:
             spec_title = u"Missing parent"
@@ -172,7 +174,7 @@ class Assessment(ATFolder, ModalFieldEditableAware,
         try:
             wftool = getToolByName(self, 'portal_workflow')
         except AttributeError:
-            #the object has not finished its creation process
+            # the object has not finished its creation process
             title = spec_title + u' - newly created assessment'
             return title.encode('utf-8')
 
@@ -180,13 +182,13 @@ class Assessment(ATFolder, ModalFieldEditableAware,
         info = wftool.getStatusOf('indicators_workflow', self)
 
         if not info:
-            #the object has not finished its creation process
+            # the object has not finished its creation process
             title = spec_title + u' - newly created assessment'
         elif info['review_state'] == "published":
             if time is None:
                 time = self.creation_date
                 msg = _(u"Assessment published with invalid published date")
-                return (spec_title + u' - ' + 
+                return (spec_title + u' - ' +
                             self.translate(msg)).encode('utf-8')
 
             msg = _(u"Assessment published ${date}",
@@ -209,22 +211,13 @@ class Assessment(ATFolder, ModalFieldEditableAware,
 
     security.declarePublic('Subject')
     def Subject(self):
-        """Overwrite standard Subject method to dynamically get all
-           keywords from other objects used in this assessment. """
+        """ Overwrite standard Subject method to dynamically get all
+            keywords from other objects used in this assessment.
+        """
         result = []
 
-        #append assesisment own subjects
+        # append assessment's own subjects
         result.extend(self.schema['subject'].getRaw(self))
-
-        #append	indicator codes
-        try:
-            codes = self.aq_parent.get_codes()
-        except AttributeError:
-            codes = []
-        result.extend(codes)
-
-        #append themes, they are tags as well
-        result.extend(self.getThemes())
 
         for assessment_part in self.objectValues('AssessmentPart'):
             for ob in assessment_part.getRelatedItems():
@@ -238,13 +231,13 @@ class Assessment(ATFolder, ModalFieldEditableAware,
         #       if ob.portal_type == 'Data':
         #           result.extend(ob.Subject())
 
-        #return results list without duplicates
+        # return results list without duplicates
         return list(set(result))
-
 
     security.declarePublic('getThemes')
     def getThemes(self):
-        """Returns parent themes"""
+        """ Returns parent themes
+        """
         parent = aq_parent(aq_inner(self))
         return parent.getThemes()
 
@@ -261,7 +254,8 @@ class Assessment(ATFolder, ModalFieldEditableAware,
 
     security.declarePublic("Description")
     def Description(self):
-        """Returns description"""
+        """ Returns description
+        """
         convert = getToolByName(self, 'portal_transforms').convert
         text = convert('html_to_text', self.getKey_message()).getData()
         try:
@@ -272,7 +266,8 @@ class Assessment(ATFolder, ModalFieldEditableAware,
 
     security.declarePublic("getGeographicCoverage")
     def getGeographicCoverage(self):
-        """ Return geographic coverage """
+        """ Return geographic coverage
+        """
         result = {}
         wftool = getToolByName(self, 'portal_workflow')
 
@@ -287,7 +282,8 @@ class Assessment(ATFolder, ModalFieldEditableAware,
 
     security.declarePublic("getTemporalCoverage")
     def getTemporalCoverage(self):
-        """ Return temporal coverage """
+        """ Return temporal coverage
+        """
         result = {}
         wftool = getToolByName(self, 'portal_workflow')
 
@@ -302,7 +298,8 @@ class Assessment(ATFolder, ModalFieldEditableAware,
 
     security.declarePublic("published_readiness")
     def published_readiness(self):
-        """Used as index for readiness """
+        """Used as index for readiness
+        """
         return IObjectReadiness(self).get_info_for('published')['rfs_done']
 
     security.declarePublic("comments")
@@ -313,12 +310,13 @@ class Assessment(ATFolder, ModalFieldEditableAware,
         return len(thread) - 1
 
 def hasWrongVersionId(context):
-    """Determines if the assessment belongs to a wrong version group"""
+    """ Determines if the assessment belongs to a wrong version group
+    """
 
     cat = getToolByName(context, 'portal_catalog')
 
-    #parent based checks; this also does codes check because
-    #assessments inherit codes from their parent specification
+    # parent based checks; this also does codes check because
+    # assessments inherit codes from their parent specification
     spec = aq_parent(aq_inner(context))
     spec_versions = IGetVersions(spec).versions()
     if not spec in spec_versions:
@@ -328,7 +326,7 @@ def hasWrongVersionId(context):
     for spec in spec_versions:
         all_assessments.extend(spec.objectValues("Assessment"))
 
-    #now also checking IndicatorFactSheets, using codes to do matching
+    # now also checking IndicatorFactSheets, using codes to do matching
     codes = ["%s%s" % (c['set'], c['code']) for c in context.getCodes()]
     factsheets = []
 
@@ -363,7 +361,8 @@ def hasWrongVersionId(context):
 
 
 def getPossibleVersionsId(context):
-    """Returns possible version ids that could be attributed to the context"""
+    """ Returns possible version ids that could be attributed to the context
+    """
     cat = getToolByName(context, 'portal_catalog')
 
     spec = aq_parent(aq_inner(context))
