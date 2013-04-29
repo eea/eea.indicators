@@ -870,13 +870,13 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
         s = "%s %s %s" % (s.day(), s.Month(), s.year())
 
         msg = ("New updates for this indicator are planned to be "
-                "published in %s every %s year(s), starting from %s" % 
+                "published in %s every %s year(s), starting from %s. " % 
                 (info['time_of_year'], info['frequency_years'], s))
 
         next_year = now.year + 1
 
-        msg += ("Next update expect in %s %s" % 
-                    (info['frequency_years'], next_year))
+        msg += ("Next update expected in %s %s" % 
+                    (info['time_of_year'], next_year))
 
         return msg
 
