@@ -258,7 +258,7 @@ class WrongVersionReport(BrowserView):
 
     def get_version_for(self, obj):
         """get version for"""
-        return get_version_id(obj)
+        return IGetVersions(obj).versionId
 
 
 class FragmentMetadataView(BrowserView):

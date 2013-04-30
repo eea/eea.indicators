@@ -107,8 +107,6 @@ class FrequencyUpdateValidator:
         self.description = description
 
     def __call__(self, value, *args, **kwargs):
-        instance = kwargs['instance']
-
         if not value and isinstance(value, basestring):
             return False
 

@@ -366,8 +366,8 @@ def getPossibleVersionsId(context):
     cat = getToolByName(context, 'portal_catalog')
 
     spec = aq_parent(aq_inner(context))
-    spec_versions = get_versions_api(spec).versions().values()
-    vid = get_version_id(context)
+    spec_versions = IGetVersions(spec).versions()
+    vid = IGetVersions(context).versionId
 
     all_assessments = []
     for spec in spec_versions:
@@ -384,7 +384,7 @@ def getPossibleVersionsId(context):
 
     version_ids = {}
     for a in all_assessments + factsheets:
-        vid = get_version_id(a)
+        vid = IGetVersions(a).versionId
         _asts = version_ids.get(vid, [])
         version_ids[vid] = _asts + [a]
 
