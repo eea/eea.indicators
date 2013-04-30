@@ -110,7 +110,7 @@ class FrequencyUpdateValidator:
         if not value and isinstance(value, basestring):
             return False
 
-        if not value.digit():
+        if not value.isdigit():
             return False
 
         v = int(value)
@@ -119,3 +119,26 @@ class FrequencyUpdateValidator:
             return False
 
         return True
+
+
+class TimeOfYearValidator:
+    """Validates the time_of_year of frequency_of_updates
+    """
+    implements(IValidator)
+
+    def __init__(self,
+                 name,
+                 title='Time of year',
+                 description="Check if the trimester is valid"):
+        self.name = name
+        self.title = title or name
+        self.description = description
+
+    def __call__(self, value, *args, **kwargs):
+        if not value and isinstance(value, basestring):
+            return False
+
+        if value in ["Q1", "Q2", "Q3", "Q4"]:
+            return True
+
+        return False
