@@ -79,8 +79,9 @@ frequency_of_updates_schema = Schema((
             label="Time of year",
             description="In which trimester the indicator is published"
         ),
-        vocabulary=trimesters,
-        default=" "
+        vocabulary= [" "] + trimesters,
+        default=" ",
+        validators=("validate_time_of_year")
     ),
     DateTimeField(
         name='starting_date',
@@ -444,6 +445,8 @@ schema = Schema((
         schema=frequency_of_updates_schema,
         schemata='default',
         required_for_published=True,
+        #validator='validate_frequency_of_updates', #not supported by simple_edit ?
+        required=True,
         widget=CompoundWidget(
             label="Frequency of updates",
             description="How often is this indicators assessments updates?",
@@ -879,6 +882,24 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
                     (info['time_of_year'], next_year))
 
         return msg
+
+    security.declarePublic("validator_frequency_of_updates")
+    def validator_frequency_of_updates(self):
+        """human readable frequency of updates
+        """
+        info = self.getFrequency_of_updates()
+        msgs = []
+
+        if not info['time_of_year'] in ['Q1', 'Q2', 'Q3', 'Q4']:
+            msgs.append("Time of year is not properly set.")
+
+        if not info['frequency_years'] in range(1,11):
+            msgs.append("Frequency needs to be a number between 1 and 10.")
+
+        if not info['starting_date']:
+            msgs.append("Starting date needs to be filled in.")
+
+        return " ".join(msgs)
 
 
 #placed here so that it will be found by extraction utility

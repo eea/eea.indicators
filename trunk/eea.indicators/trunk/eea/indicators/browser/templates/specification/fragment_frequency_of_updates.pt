@@ -18,7 +18,7 @@
 							<metal:slot metal:fill-slot="content">
 								<div tal:condition="python:not imsutils.field_has_value(fieldname, context)"
 									class="placeholder">
-									Please fill in
+									Please fill in. <span tal:replace="context/validator_frequency_of_updates" />
 								</div>
 								<p tal:replace="structure context/get_frequency_of_updates"></p>
 							</metal:slot>
