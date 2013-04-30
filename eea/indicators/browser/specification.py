@@ -267,7 +267,7 @@ class WrongVersionReport(BrowserView):
 
     def current_version(self):
         """current version"""
-        return get_version_id(self.context)
+        return IGetVersions(self.context).versionId
 
     def get_duplicated_codes(self):
         """gets duplicated codes"""

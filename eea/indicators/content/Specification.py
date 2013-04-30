@@ -10,7 +10,7 @@ from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
 from Products.Archetypes.atapi import CalendarWidget
 from Products.Archetypes.atapi import DateTimeField
 from Products.Archetypes.atapi import IntegerField, IntegerWidget
-from Products.Archetypes.atapi import Schema, RichWidget, SelectionWidget
+from Products.Archetypes.atapi import Schema, RichWidget
 from Products.Archetypes.atapi import SelectionWidget, LinesField
 from Products.Archetypes.atapi import StringField, TextField
 from Products.Archetypes.atapi import TextAreaWidget
@@ -41,7 +41,6 @@ from eea.relations.field import EEAReferenceField
 from eea.relations.widget import EEAReferenceBrowserWidget
 from eea.versions.interfaces import IGetVersions
 from eea.versions.interfaces import IVersionControl, IVersionEnhanced
-from eea.versions.versions import isVersionEnhanced
 from eea.workflow.interfaces import IHasMandatoryWorkflowFields
 from eea.workflow.interfaces import IObjectReadiness
 from zope.event import notify
@@ -51,6 +50,7 @@ import datetime
 import logging
 
 #from Products.PageTemplates.PageTemplateFile import PageTemplateFile
+#from eea.versions.versions import isVersionEnhanced
 #from eea.indicators.config import templates_dir
 
 logger = logging.getLogger('eea.indicators.content.Specification')
