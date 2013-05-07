@@ -298,13 +298,14 @@ class Assessment(ATFolder, ModalFieldEditableAware,
 
     security.declarePublic("published_readiness")
     def published_readiness(self):
-        """Used as index for readiness
+        """ Used as index for readiness
         """
         return IObjectReadiness(self).get_info_for('published')['rfs_done']
 
     security.declarePublic("comments")
     def comments(self):
-        """Return the number of comments"""
+        """ Return the number of comments
+        """
 
         thread = self.plone_utils.getDiscussionThread(self)
         return len(thread) - 1
