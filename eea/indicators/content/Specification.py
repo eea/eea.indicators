@@ -66,7 +66,7 @@ frequency_of_updates_schema = Schema((
         required=True,
         widget=IntegerWidget(
             label="Frequency (years)",
-            description="The indicator is published every <x> years",
+            description="The indicator is published every &lt;x&gt; years",
             macro="widget_frequency_years",
         ),
         validators=("validate_frequency_years",),
@@ -87,7 +87,8 @@ frequency_of_updates_schema = Schema((
         name='starting_date',
         required=True,
         widget=CalendarWidget(
-            label="Date when this started to be published"
+            label="Starting with this date, indicator is published at " \
+                  "regular intervals"
         ),
         default_method='get_default_frequency_of_updates_starting_date',
     ),
@@ -95,7 +96,8 @@ frequency_of_updates_schema = Schema((
         name='ending_date',
         required=False,
         widget=CalendarWidget(
-            label="Date after which indicator is no longer published"
+            label="Date after which indicator is discontinued, meaning " \
+                  "no longer being updated regularly"
         ),
         default_method='get_default_frequency_of_updates_ending_date',
     ),
@@ -855,31 +857,34 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
         """human readable frequency of updates
         """
 
-        info = self.getFrequency_of_updates()
-        now = DateTime()
+        info            = self.getFrequency_of_updates()
+        ending          = info['ending_date']
+        time_of_year    = info['time_of_year'].strip()
+        frequency_years = info['frequency_years']
+        now             = DateTime()
 
-        if info['frequency_years'] in [None, ""]:
-            return "Information about frequency of update for this " \
-                   "indicator is missing."
-
-        ending = info['ending_date']
         if type(ending) is type(now):
             if ending < now:
                 return ("This indicator is discontinued. No more "
                         "assessments will be produced.")
 
-        s = (info['starting_date'] and DateTime(info['starting_date']) or 
-                         self.creation_date)
-        s = "%s %s %s" % (s.day(), s.Month(), s.year())
-        time_of_year = info['time_of_year'].strip() or "<missing value>"
+        if frequency_years in [None, ""]:
+            return "Required information is not filled in: Information about " \
+                   "frequency of update for this indicator is missing."
+
+        if not time_of_year:
+            return "Required information is not filled in: " \
+                   "Information about trimester is missing"
+
+#code commented, waiting for decision on how to show starting date
+#       s = (info['starting_date'] and DateTime(info['starting_date']) or 
+#                        self.creation_date)
+#       s = "%s %s %s" % (s.day(), s.Month(), s.year())
+        time_of_year = time_of_year or "<missing value>"
         next_year = now.year() + 1
 
-        msg = ( "New updates for this indicator are planned to be "
-                "published in %s every %s year(s), starting from %s. " % 
-                (time_of_year, info['frequency_years'], s))
-        msg += ("Next update expected in %s %s" % (time_of_year, next_year))
-
-        return msg
+        return "Updates are scheduled every %s year(s) in %s" % \
+                                    (info['frequency_years'], time_of_year)
 
     security.declarePublic("validator_frequency_of_updates")
     def validator_frequency_of_updates(self):
@@ -898,6 +903,16 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
             msgs.append("Starting date needs to be filled in.")
 
         return " ".join(msgs)
+
+    security.declarePublic("should_show_frequency_of_updates")
+    def should_show_frequency_of_updates(self):
+        """Should the frequency of updates message box be shown?
+
+        This is used in the view pages for Assessment and Specification.
+        If the proper data is not filled in, then human readable information
+        about frequency_of_updates is not shown
+        """
+        return not bool(self.validate_frequency_of_updates().strip())
 
     def can_create_assessments(self):
         info = self.getFrequency_of_updates()

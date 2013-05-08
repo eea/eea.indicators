@@ -1,7 +1,7 @@
 <tal:def tal:define="region_name string:metadata_area; portal_url context/portal_url; 
   submit_handler string:simple_edit; 
   region_update_handler string:fragment_metadata;
-  also_reload python:['object_readiness'];
+  also_reload python:['object_readiness', 'assessments_area'];
   imsutils nocall:context/@@indicator_utils;"
   i18n:domain="eea">
   <metal:macro metal:use-macro="context/indicators_macros/macros/active_region"  >
@@ -306,17 +306,48 @@
 
             </div>
 
+            <div class="logic_group">
+                <h3 tal:define="field python:context.getField('frequency_of_updates')">
+                <span metal:use-macro="context/indicators_macros/macros/tooltip" />
+                    <tal:block i18n:translate="">Frequency of Updates</tal:block>
+                </h3>
+                <tal:def tal:define="fieldname string:frequency_of_updates; fieldset string:default">
+                    <metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
+                        <metal:slot metal:fill-slot="content">
+                            <div tal:condition="python:not imsutils.field_has_value(fieldname, context)" class="placeholder">
+                                Please fill in. <span tal:replace="context/validator_frequency_of_updates" />
+                            </div>
+                            <p tal:replace="structure context/get_frequency_of_updates"></p>
+                            <dl tal:define="values context/getFrequency_of_updates; 
+                                            widgets python:context.Schema().getField('frequency_of_updates').schema.widgets()">
+                                <tal:rep tal:repeat="key python:widgets.keys()">
+                                    <tal:def define="widget python:widgets[key]; label widget/label; field_name python:key.split('|')[1]" >
+                                    <dt tal:content="label">Widget label</dt>
+                                    <dd tal:content="python:values[field_name]" />
+                                    </tal:def>
+                                </tal:rep>
+                            </dl>
+                        </metal:slot>
+                        <metal:slot metal:fill-slot="extra-metadata">
+                            <div class="width">800</div>
+                            <div class="height">435</div>
+                            <div class="dialog_title" i18n:translate="">Edit Frequency of Updates</div>
+                        </metal:slot>
+                    </metal:macro>
+                </tal:def>
+            </div>
+
             <h4 tal:define="tooltip string:Specification">
               <span metal:use-macro="context/indicators_macros/macros/tooltip" />
               <tal:block i18n:translate="">Specification</tal:block>
             </h4>
             <div class="active_field">
-<div i18n:translate="">Link: <a href="" tal:attributes="href context/absolute_url"
+              <div i18n:translate="">Link: <a href="" tal:attributes="href context/absolute_url"
                                               i18n:name="link"
                                               tal:content="context/getId">ISpecification1235</a>
               </div>
               <div i18n:translate="">
-                Version id: <tal:version_id define="getVersions nocall:context/@@getVersions;
+                Revision number: <tal:version_id define="getVersions nocall:context/@@getVersions;
                   version_number getVersions/version_number"
                   i18n:name="number"
                   content="version_number" />

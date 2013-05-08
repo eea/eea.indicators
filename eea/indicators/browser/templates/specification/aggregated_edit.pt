@@ -43,7 +43,7 @@
       <metal:versions use-macro="here/portlet_versions/macros/versions">
       </metal:versions>
 
-      <div tal:replace="structure context/fragment_frequency_of_updates" />
+      <!--<div tal:replace="structure context/fragment_frequency_of_updates" />-->
       <div tal:replace="structure context/fragment_assessments" />
       <div tal:replace="structure context/fragment_scientific_references" />
       <div tal:replace="structure context/fragment_definition" />

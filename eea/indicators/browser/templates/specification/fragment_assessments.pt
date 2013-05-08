@@ -53,8 +53,8 @@
               class="object_creator"
               tal:attributes="class string:object_creator${can_add} direct_edit"
               i18n:translate="" tal:condition="can_create_assessments">+ Indicator Assessment</a>
-            <div tal:condition="not:can_create_assessments">The ending date in
-            frequency of updates is in the past, creating new Assessments is no longer possible</div>
+            <div tal:condition="not:can_create_assessments">This indicator has
+            been discontinued, no new Assessments can be made. See <a href="">frequency of updates</a>.</div>
 
             <!-- <div class="object_creator_options"> -->
             <!--   <input type="radio" name="create_in_new" value="true" onclick="toggle_creator_option(this)"/>Create in latest Specification &nbsp; -->
