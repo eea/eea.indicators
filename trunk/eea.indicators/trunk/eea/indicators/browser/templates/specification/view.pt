@@ -39,6 +39,7 @@
           draft python:assessments['draft']">
           <a name="versions"></a>
           <h2 id="assessment_versions" i18n:translate="">Assessment versions</h2>
+          <div id="frequency_of_updates" class="system-message" tal:content="context/get_frequency_of_updates" />
           <h5 i18n:translate="">Published (reviewed and quality assured)</h5>
           <ul>
             <li tal:condition="python:not published" i18n:translate="">No
@@ -62,7 +63,6 @@
             </ul>
           </tal:draft_versions>
 
-          <div id="frequency_of_updates" class="system-message" tal:content="context/get_frequency_of_updates" />
         </div>
 
         <div id="justification-and-references" metal:define-macro="justification-and-references">

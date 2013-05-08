@@ -856,7 +856,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
         """
 
         info = self.getFrequency_of_updates()
-        now = datetime.datetime.now()
+        now = DateTime()
 
         if info['frequency_years'] in [None, ""]:
             return "Information about frequency of update for this " \
@@ -871,15 +871,13 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
         s = (info['starting_date'] and DateTime(info['starting_date']) or 
                          self.creation_date)
         s = "%s %s %s" % (s.day(), s.Month(), s.year())
+        time_of_year = info['time_of_year'].strip() or "<missing value>"
+        next_year = now.year() + 1
 
-        msg = ("New updates for this indicator are planned to be "
+        msg = ( "New updates for this indicator are planned to be "
                 "published in %s every %s year(s), starting from %s. " % 
-                (info['time_of_year'], info['frequency_years'], s))
-
-        next_year = now.year + 1
-
-        msg += ("Next update expected in %s %s" % 
-                    (info['time_of_year'], next_year))
+                (time_of_year, info['frequency_years'], s))
+        msg += ("Next update expected in %s %s" % (time_of_year, next_year))
 
         return msg
 
@@ -901,6 +899,15 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
 
         return " ".join(msgs)
 
+    def can_create_assessments(self):
+        info = self.getFrequency_of_updates()
+        now = DateTime()
+        ending = info['ending_date']
+        if type(ending) is type(now):
+            if ending < now:
+                return False 
+
+        return True
 
 #placed here so that it will be found by extraction utility
 _titlemsg = _(u"Newly created ${type_name}",)

@@ -577,3 +577,49 @@ Each object involved has a different version id:
     True
     >>> IGetVersions(as6).versionId == va5
     True
+
+
+Frequency of updates
+--------------------
+
+The frequency of updates field is set on the Specification and impacts when
+new assessments can be created. We have a method that displays labels for
+users in both assessment and specifications, letting them know when they can
+expect new updates.
+
+    >>> spec = ims['spec1']
+    >>> print spec.get_frequency_of_updates()
+    New updates for this indicator are planned to be published in <missing value> every 1 year(s), starting from ...
+
+The time_of_year shows as <missing value> because it's not filled in. Let's
+fill it in:
+
+    >>> updates = spec.getFrequency_of_updates()
+    >>> updates['time_of_year'] = 'Q1'
+    >>> spec.setFrequency_of_updates(updates)
+    >>> print spec.get_frequency_of_updates()
+    New updates for this indicator are planned to be published in Q1 every 1 year(s), starting from ...
+
+Setting an ending date in the future has no impact in what is shown:
+
+    >>> from DateTime import DateTime
+    >>> now = DateTime()
+    >>> ending = now + 10   #10 days in the future
+    >>> updates['ending_date'] = ending
+    >>> spec.setFrequency_of_updates(updates)
+    >>> print spec.get_frequency_of_updates()
+    New updates for this indicator are planned to be published in Q1 every 1 year(s), starting from ...
+    >>> print spec.can_create_assessments()
+    True
+
+Setting the ending date in the past will prevent new assessments from being
+created:
+
+    >>> ending = now - 10   #10 days in the past
+    >>> updates['ending_date'] = ending
+    >>> spec.setFrequency_of_updates(updates)
+    >>> print spec.get_frequency_of_updates()
+    This indicator is discontinued. No more assessments will be produced.
+    >>> print spec.can_create_assessments()
+    False
+
