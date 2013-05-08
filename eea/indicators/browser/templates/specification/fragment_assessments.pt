@@ -47,12 +47,15 @@
                i18n:translate="">
             You can't create new Assessments in a Specification that has newer versions
           </div>
-          <div class="grouped_field">
+          <div class="grouped_field" tal:define="can_create_assessments context/can_create_assessments">
 
             <a href='./object_factory?type_name=Assessment'
               class="object_creator"
               tal:attributes="class string:object_creator${can_add} direct_edit"
-              i18n:translate="">+ Indicator Assessment</a>
+              i18n:translate="" tal:condition="can_create_assessments">+ Indicator Assessment</a>
+            <div tal:condition="not:can_create_assessments">The ending date in
+            frequency of updates is in the past, creating new Assessments is no longer possible</div>
+
             <!-- <div class="object_creator_options"> -->
             <!--   <input type="radio" name="create_in_new" value="true" onclick="toggle_creator_option(this)"/>Create in latest Specification &nbsp; -->
             <!--   <input type="radio" name="create_in_new" value="false" checked="checked" onclick="toggle_creator_option(this)"/>Create here -->
