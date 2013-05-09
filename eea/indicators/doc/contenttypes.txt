@@ -589,16 +589,15 @@ expect new updates.
 
     >>> spec = ims['spec1']
     >>> print spec.get_frequency_of_updates()
-    New updates for this indicator are planned to be published in <missing value> every 1 year(s), starting from ...
+    Required information is not filled in: Information about trimester is missing
 
-The time_of_year shows as <missing value> because it's not filled in. Let's
-fill it in:
+Fill in time_of_year
 
     >>> updates = spec.getFrequency_of_updates()
     >>> updates['time_of_year'] = 'Q1'
     >>> spec.setFrequency_of_updates(updates)
     >>> print spec.get_frequency_of_updates()
-    New updates for this indicator are planned to be published in Q1 every 1 year(s), starting from ...
+    Updates are scheduled every 1 year(s) in Q1
 
 Setting an ending date in the future has no impact in what is shown:
 
@@ -608,7 +607,7 @@ Setting an ending date in the future has no impact in what is shown:
     >>> updates['ending_date'] = ending
     >>> spec.setFrequency_of_updates(updates)
     >>> print spec.get_frequency_of_updates()
-    New updates for this indicator are planned to be published in Q1 every 1 year(s), starting from ...
+    Updates are scheduled every 1 year(s) in Q1
     >>> print spec.can_create_assessments()
     True
 
