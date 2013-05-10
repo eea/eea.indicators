@@ -608,8 +608,8 @@ Setting an ending date in the future has no impact in what is shown:
     >>> spec.setFrequency_of_updates(updates)
     >>> print spec.get_frequency_of_updates()
     Updates are scheduled every 1 year(s) in Q1
-    >>> print spec.can_create_assessments()
-    True
+    >>> print spec.is_discontinued()
+    False
 
 Setting the ending date in the past will prevent new assessments from being
 created:
@@ -619,6 +619,6 @@ created:
     >>> spec.setFrequency_of_updates(updates)
     >>> print spec.get_frequency_of_updates()
     This indicator is discontinued. No more assessments will be produced.
-    >>> print spec.can_create_assessments()
-    False
+    >>> print spec.is_discontinued()
+    True
 
