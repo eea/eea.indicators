@@ -912,17 +912,20 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
         If the proper data is not filled in, then human readable information
         about frequency_of_updates is not shown
         """
-        return not bool(self.validate_frequency_of_updates().strip())
+        return not bool(self.validator_frequency_of_updates().strip())
 
-    def can_create_assessments(self):
+    security.declarePublic("is_discontinued")
+    def is_discontinued(self):
+        """Returns true if this indicator should no longer be updated
+        """
         info = self.getFrequency_of_updates()
         now = DateTime()
         ending = info['ending_date']
         if type(ending) is type(now):
             if ending < now:
-                return False 
+                return True 
 
-        return True
+        return False
 
 #placed here so that it will be found by extraction utility
 _titlemsg = _(u"Newly created ${type_name}",)

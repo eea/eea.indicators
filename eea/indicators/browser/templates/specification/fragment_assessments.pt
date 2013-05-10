@@ -47,7 +47,7 @@
                i18n:translate="">
             You can't create new Assessments in a Specification that has newer versions
           </div>
-          <div class="grouped_field" tal:define="can_create_assessments context/can_create_assessments">
+          <div class="grouped_field" tal:define="can_create_assessments not:context/is_discontinued">
 
             <a href='./object_factory?type_name=Assessment'
               class="object_creator"
