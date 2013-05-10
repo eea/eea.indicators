@@ -40,7 +40,7 @@ from eea.indicators.content.utils import get_dgf_value
 from eea.relations.field import EEAReferenceField
 from eea.relations.widget import EEAReferenceBrowserWidget
 from eea.versions.interfaces import IGetVersions
-from eea.versions.interfaces import IVersionControl, IVersionEnhanced
+from eea.versions.interfaces import IVersionControl
 from eea.workflow.interfaces import IHasMandatoryWorkflowFields
 from eea.workflow.interfaces import IObjectReadiness
 from zope.event import notify
@@ -651,8 +651,6 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
         #whenever we change the code to something unique we give
         #a new version id
 
-        #if not IVersionEnhanced.providedBy(self):
-            #alsoProvides(self, IVersionEnhanced)
         #new_version = _get_random(10)
         #assign_version(self, new_version)
 
@@ -726,7 +724,6 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
 
         version_id = None
         spec_versions = IGetVersions(self).versions()
-        #ZZZ: versions also contains self. Is this normal?
         for spec in spec_versions:
             asts = spec.objectValues("Assessment")
             if asts:
@@ -766,7 +763,6 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
 
         if version_id:
             IVersionControl(ast).setVersionId(version_id)
-            alsoProvides(ast, IVersionEnhanced)
 
         #create assessment parts for each policy question
         for pq in self.objectValues("PolicyQuestion"):
