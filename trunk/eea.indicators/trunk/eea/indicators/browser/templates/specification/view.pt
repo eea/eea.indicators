@@ -29,6 +29,10 @@
 
         <metal:versions use-macro="here/portlet_versions/macros/versions">
         </metal:versions>
+
+        <div id="frequency_of_updates" class="system-message" 
+            tal:content="context/get_frequency_of_updates" 
+            tal:condition="context/is_discontinued"/>
         
         <tal:block define="queryString string:h2">
           <metal:toc use-macro="here/portlet_toc/macros/portlet"/>
@@ -39,9 +43,6 @@
           draft python:assessments['draft']">
           <a name="versions"></a>
           <h2 id="assessment_versions" i18n:translate="">Assessment versions</h2>
-          <div id="frequency_of_updates" class="system-message" 
-                tal:content="context/get_frequency_of_updates" 
-                tal:condition="context/should_show_frequency_of_updates"/>
           <h5 i18n:translate="">Published (reviewed and quality assured)</h5>
           <ul>
             <li tal:condition="python:not published" i18n:translate="">No
@@ -390,6 +391,7 @@
                 CSI 001
               </div>
             </div>
+
             <strong i18n:translate="">Specification</strong>
              <div i18n:translate="">Link: <a href="" tal:attributes="href context/absolute_url" 
                                            tal:content="context/getId"
@@ -441,6 +443,11 @@
         <div class='headed-box'>
           <h4 i18n:translate="">Permalinks</h4>
           <metal:basicmeta use-macro="context/versions_macros/macros/permalinks" />
+        </div>
+
+        <div class='headed-box' tal:condition="context/should_show_frequency_of_updates">
+          <h4 i18n:translate="">Frequency of updates</h4>
+          <div tal:content="context/get_frequency_of_updates" />
         </div>
 
         <div class='headed-box'>

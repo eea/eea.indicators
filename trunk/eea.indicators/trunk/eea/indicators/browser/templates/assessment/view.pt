@@ -52,9 +52,10 @@
       <div tal:condition="not:isAnon" tal:replace="structure context/@@readiness" />
 
       <metal:versions use-macro="here/portlet_versions/macros/versions"></metal:versions>
+
       <div id="frequency_of_updates" class="system-message" 
             tal:content="context/get_frequency_of_updates" 
-            tal:condition="context/should_show_frequency_of_updates"/>
+            tal:condition="context/is_discontinued"/>
 
       <div id="box-classification">
       <h4 i18n:translate="">Generic metadata</h4>
@@ -245,6 +246,10 @@
         <metal:basicmeta use-macro="context/versions_macros/macros/permalinks" />
       </div>
 
+      <div class='headed-box' tal:condition="context/should_show_frequency_of_updates">
+        <h4 i18n:translate="">Frequency of updates</h4>
+        <div tal:content="context/get_frequency_of_updates" />
+      </div>
     </div>
   </body>
 </html>
