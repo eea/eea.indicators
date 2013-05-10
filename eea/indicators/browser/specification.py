@@ -13,7 +13,7 @@ from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from ZPublisher.Client import querify
 from eea.indicators.browser.utils import has_one_of
-from eea.versions.interfaces import IVersionControl, IVersionEnhanced
+from eea.versions.interfaces import IVersionControl
 from eea.versions.versions import CreateVersion as BaseCreateVersion
 from eea.versions.versions import assign_version as base_assign_version
 from eea.versions.versions import create_version as base_create_version
@@ -237,8 +237,6 @@ def spec_assign_version(context, new_version):
     vid = get_assessment_vid_for_spec_vid(context, new_version)
     for asmt in (list(context.objectValues('Assessment')) +
                  list(other_assessments)):
-        if not IVersionEnhanced.providedBy(asmt):
-            alsoProvides(asmt, IVersionEnhanced)
         IVersionControl(asmt).setVersionId(vid)
         asmt.reindexObject()
 
