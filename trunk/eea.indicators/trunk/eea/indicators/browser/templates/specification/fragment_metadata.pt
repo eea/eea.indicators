@@ -311,6 +311,7 @@
                 <span metal:use-macro="context/indicators_macros/macros/tooltip" />
                     <tal:block i18n:translate="">Frequency of Updates</tal:block>
                 </h3>
+                <a name="rfs_frequency_of_updates"></a>
                 <tal:def tal:define="fieldname string:frequency_of_updates; fieldset string:default">
                     <metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
                         <metal:slot metal:fill-slot="content">
