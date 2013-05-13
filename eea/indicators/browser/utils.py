@@ -8,6 +8,7 @@ from Products.CMFPlone.utils import normalizeString
 from Products.CompoundField.CompoundField import CompoundField
 from Products.Five import BrowserView
 from eea.indicators.browser.interfaces import IIndicatorUtils
+from eea.versions.versions import VersionControl
 from eea.workflow.interfaces import IValueProvider
 from eea.workflow.utils import ATFieldValueProvider
 from zope.component import getMultiAdapter, queryMultiAdapter, adapts
@@ -196,3 +197,14 @@ def has_one_of(has, in_list):
             return True
     return False
 
+
+class IMSVersionControl(VersionControl):
+    """Override for IVersionControl.can_version
+    """
+
+    def can_version(self):
+        """custom behaviour
+        """
+        #relies on acquisition
+        discontinued = self.context.is_discontinued()
+        return not discontinued
