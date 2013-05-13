@@ -833,11 +833,11 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
 
         if ast is None:
             #fallback to looking up at specifications
-            first_specification = IGetVersions(self).first_version()
-            return first_specification.CreationDate()
+            s = IGetVersions(self).first_version()
+            return s.getEffectiveDate() or s.CreationDate()
 
         last_ast = IGetVersions(ast).first_version()
-        return last_ast.CreationDate()
+        return last_ast.getEffectiveDate() or last_ast.CreationDate()
 
     def get_default_frequency_of_updates_ending_date(self):
         """Default value for frequency_of_updates ending_date.
@@ -922,6 +922,20 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
                 return True 
 
         return False
+
+    security.declareProtected('Modify portal content', 
+                              'setFrequency_of_updates')
+    def setFrequency_of_updates(self, *args, **kwargs):
+        raise ValueError
+        #Needs work here
+        #import pdb; pdb.set_trace()
+        #self = <Specification at trends-in-share-of-expenditure>
+        #args = ({'ending_date': ('1996-01-01 00:00', {}), 
+        #        'frequency_years': ('1', {}), 
+        #        'time_of_year': ('Q2', {}), 
+        #        'starting_date': ('2012-03-26 11:45', {})},)
+        #kwargs = {'field': 'frequency_of_updates'}
+
 
 #placed here so that it will be found by extraction utility
 _titlemsg = _(u"Newly created ${type_name}",)
