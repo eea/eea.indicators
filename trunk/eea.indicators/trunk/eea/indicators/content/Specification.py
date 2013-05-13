@@ -925,16 +925,45 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
 
     security.declareProtected('Modify portal content', 
                               'setFrequency_of_updates')
-    def setFrequency_of_updates(self, *args, **kwargs):
-        raise ValueError
-        #Needs work here
-        #import pdb; pdb.set_trace()
-        #self = <Specification at trends-in-share-of-expenditure>
-        #args = ({'ending_date': ('1996-01-01 00:00', {}), 
-        #        'frequency_years': ('1', {}), 
-        #        'time_of_year': ('Q2', {}), 
-        #        'starting_date': ('2012-03-26 11:45', {})},)
-        #kwargs = {'field': 'frequency_of_updates'}
+    def setFrequency_of_updates(self, value, field='frequency_of_updates'):
+        """override the default mutator to set the expiration date for this 
+        specification and its children to that value
+
+        self = <Specification at trends-in-share-of-expenditure>
+        args = ({'ending_date': ('1996-01-01 00:00', {}), 
+                'frequency_years': ('1', {}), 
+                'time_of_year': ('Q2', {}), 
+                'starting_date': ('2012-03-26 11:45', {})},)
+        kwargs = {'field': 'frequency_of_updates'}
+        """
+        ending_date = value['ending_date'][0].strip()
+        if ending_date:
+            ending_date = DateTime(ending_date)
+        else:
+            ending_date = None
+
+        starting_date = value['starting_date'][0].strip()
+        if starting_date:
+            starting_date = DateTime(starting_date)
+        else:
+            starting_date = None
+
+        frequency_years = int(value['frequency_years'][0].strip())
+        time_of_year = value['time_of_year'][0].strip() or ' '
+        
+        d = {
+            'frequency_years':frequency_years,
+            'time_of_year':time_of_year,
+            'starting_date':starting_date,
+            'ending_date':ending_date,
+        }
+        
+        atfield = self.getField(field)
+        atfield.set(self, d)
+
+        if ending_date and ending_date != self.getExpirationDate():
+            for obj in ([self] + list(self.objectValues('Assessment'))):
+                obj.setExpirationDate(ending_date)
 
 
 #placed here so that it will be found by extraction utility

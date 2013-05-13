@@ -61,18 +61,16 @@ Ending date/expiration date
 If we have an end-date (expiration date) on specification AND it has passed, 
 it has the following effects:
 
- * [TODO Creation of new assessment versions is disabled. Editors can't create new 
-   assessment and specification versions.]
+ * Creation of new assessment versions is disabled. Editors can't create new 
+   assessment and specification versions.
  * [TODO The indicator is not listed in the indicators listings 
    (faceted navigation and collections). We need to filter them out.]
  * [TODO the indicators that are discontinued will be listed in a 
    dedicated collection/facetednav]
  * a very visible box on the indicator page show that it is discontinued
 
-[TODO Setting the ending date on an specification means setting the expiration date
-for that spec and its children assessment.] Antonio will double check if this
-applies to the whole version group.
-
+Setting the ending date on an specification means setting the expiration date
+for that spec and its children assessment. 
 
 Need input from editors group
 -----------------------------
@@ -85,4 +83,6 @@ Need input from editors group
  * Unsure info, needs confirmation: starting date should be removed as
    editable, automatically compute it for showing purposes (effective date of
    first assessment). 
+ * Setting expiration date applies to spec + children assessments, or to the
+   whole version group?
 
