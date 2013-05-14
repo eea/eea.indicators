@@ -44,7 +44,7 @@ from eea.versions.interfaces import IVersionControl
 from eea.workflow.interfaces import IHasMandatoryWorkflowFields
 from eea.workflow.interfaces import IObjectReadiness
 from zope.event import notify
-from zope.interface import alsoProvides, implements
+from zope.interface import implements
 from DateTime import DateTime
 import datetime
 import logging
@@ -447,7 +447,7 @@ schema = Schema((
         schema=frequency_of_updates_schema,
         schemata='default',
         required_for_published=True,
-        #validator='validate_frequency_of_updates', #not supported by simple_edit ?
+        #validator='validate_frequency_of_updates',#not supported by simple_edit
         required=True,
         widget=CompoundWidget(
             label="Frequency of updates",
@@ -507,8 +507,8 @@ _field_order = [
 
 old_order = Specification_schema._names
 new_order = []
-for info in _field_order:
-    new_order.extend(info['fields'])
+for _info in _field_order:
+    new_order.extend(_info['fields'])
 
 #add fields that are not in our specified list at the end of the schema
 for name in old_order:
@@ -845,7 +845,6 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
         Logic is: no more assessment are to be published when this indicator
         expires
         """
-        #TODO: when changing ending_date, also change expirationDate and viceversa
         return self.getExpirationDate()
 
     security.declarePublic("get_frequency_of_updates")
@@ -876,8 +875,8 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
 #       s = (info['starting_date'] and DateTime(info['starting_date']) or 
 #                        self.creation_date)
 #       s = "%s %s %s" % (s.day(), s.Month(), s.year())
+        #next_year = now.year() + 1
         time_of_year = time_of_year or "<missing value>"
-        next_year = now.year() + 1
 
         return "Updates are scheduled every %s year(s) in %s" % \
                                     (info['frequency_years'], time_of_year)
@@ -892,7 +891,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
         if not info['time_of_year'] in ['Q1', 'Q2', 'Q3', 'Q4']:
             msgs.append("Time of year is not properly set.")
 
-        if not info['frequency_years'] in range(1,11):
+        if not info['frequency_years'] in range(1, 11):
             msgs.append("Frequency needs to be a number between 1 and 10.")
 
         if not info['starting_date']:
@@ -924,6 +923,8 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
         return False
 
     def _extract_value(self, v, factory):
+        """convert possible input to value for frequency_of_updates mutator
+        """
         
         if isinstance(v, (tuple, list)):
             v = v[0].strip()
