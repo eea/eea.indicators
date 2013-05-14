@@ -923,6 +923,21 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
 
         return False
 
+    def _extract_value(self, v, factory):
+        
+        if isinstance(v, (tuple, list)):
+            v = v[0].strip()
+            if v:
+                v = factory(v)
+        elif isinstance(v, factory):
+            pass
+        elif isinstance(v, basestring):
+            v = factory(v)
+        else:
+            v = None
+
+        return v
+
     security.declareProtected('Modify portal content', 
                               'setFrequency_of_updates')
     def setFrequency_of_updates(self, value, field='frequency_of_updates'):
@@ -936,20 +951,15 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
                 'starting_date': ('2012-03-26 11:45', {})},)
         kwargs = {'field': 'frequency_of_updates'}
         """
-        ending_date = value['ending_date'][0].strip()
-        if ending_date:
-            ending_date = DateTime(ending_date)
-        else:
-            ending_date = None
+        if value is None:
+            return
 
-        starting_date = value['starting_date'][0].strip()
-        if starting_date:
-            starting_date = DateTime(starting_date)
-        else:
-            starting_date = None
-
-        frequency_years = int(value['frequency_years'][0].strip())
-        time_of_year = value['time_of_year'][0].strip() or ' '
+        ending_date     = self._extract_value(value['ending_date'], DateTime)
+        starting_date   = self._extract_value(value['starting_date'], DateTime)
+        frequency_years = self._extract_value(value['frequency_years'], int)
+        time_of_year    = self._extract_value(value['time_of_year'], str)
+        if time_of_year and time_of_year.strip() == "":
+            time_of_year = ' '
         
         d = {
             'frequency_years':frequency_years,
@@ -964,6 +974,28 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
         if ending_date and ending_date != self.getExpirationDate():
             for obj in ([self] + list(self.objectValues('Assessment'))):
                 obj.setExpirationDate(ending_date)
+
+    security.declareProtected(permissions.View, 'getLocallyAllowedTypes')
+    def getLocallyAllowedTypes(self, context=None):
+        """        
+        We override default because we don't want to allow adding assessments
+        if the indicator has been discontinued
+        """
+        if self.is_discontinued():
+            return ()
+
+        return super(Specification, self).getLocallyAllowedTypes()
+
+    security.declareProtected(permissions.View, 'getImmediatelyAddableTypes')
+    def getImmediatelyAddableTypes(self, context=None):
+        """        
+        We override default because we don't want to allow adding assessments
+        if the indicator has been discontinued
+        """
+        if self.is_discontinued():
+            return ()
+
+        return super(Specification, self).getImmediatelyAddableTypes()
 
 
 #placed here so that it will be found by extraction utility
