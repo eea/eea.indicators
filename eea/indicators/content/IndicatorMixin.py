@@ -24,8 +24,6 @@ class IndicatorMixin(object):
     def get_duplicated_codes(self):
         """Returns codes that are duplicated by some other indicator"""
 
-        #TODO: refactor using UID, it's more natural
-
         versions = [v.UID() for v in IGetVersions(self).versions()]
 
         search = getToolByName(self, 'portal_catalog').searchResults
@@ -50,7 +48,7 @@ class IndicatorMixin(object):
             # we don't want to report all specifications in the versionId group
             _d = {}
             for b in not_same:
-                if b.getVersionId == MissingValue: #this doesn't tipically happen
+                if b.getVersionId == MissingValue: #this is infrequent
                     logger.warn( "Missing versionid value: %s", b.getObject())
                     continue
                 _d[b.getVersionId.strip()] = b

@@ -40,6 +40,8 @@ class IndicatorUtils(BrowserView):
     implements(IIndicatorUtils)
 
     def adapter(self, context, fieldname):
+        """get the proper IValueProvider adapter
+        """
         field = context.schema[fieldname]
 
         vp = queryMultiAdapter((context, field), IValueProvider, 
@@ -73,8 +75,9 @@ class FrequencyOfUpdatesFieldValueProvider(ATFieldValueProvider):
         """
         accessor = self.field.getAccessor(self.context)
         if not accessor:
-            logger.warning("Field %s for %s has no accessor" % 
-                            (self.field, self.context))
+            msg = "Field %s for %s has no accessor" % (self.field, 
+                                                       self.context)
+            logger.warning(msg)
             return False
         value = accessor()
 
