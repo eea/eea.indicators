@@ -3,6 +3,9 @@ Changelog
 
 6.7-dev - (unreleased)
 ----------------------
+* Upgrade Step: go to /aq_parent/portal_factory/manage_portal_factory_types
+  and set the ExternalDataSpec as factory type
+  [tiberich #14467]
 * Upgrade Step: go to
   http://www.eea.europa.eu/aq_parent/portal_actions/object_buttons/create_version/manage_propertiesForm
   Change the "Condition (Expression)" to:
