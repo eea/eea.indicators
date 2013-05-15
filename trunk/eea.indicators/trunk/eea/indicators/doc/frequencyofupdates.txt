@@ -70,10 +70,6 @@ it has the following effects:
 
  * Creation of new assessment versions is disabled. Editors can't create new 
    assessment and specification versions.
- * [TODO The indicator is not listed in the indicators listings 
-   (faceted navigation and collections). We need to filter them out.]
- * [TODO the indicators that are discontinued will be listed in a 
-   dedicated collection/facetednav]
  * a very visible box on the indicator page show that it is discontinued
 
 Ending date MUST NOT be synched to EXPIRATION DATE. Because we do not
@@ -84,14 +80,6 @@ that are just one year old disappears from searches, it is too aggressive.
 Need input from editors group
 -----------------------------
 
- * I will ask if they want this field must be in sync for all the
-   specification versions for the same indicator or if one can have different
-   "frequency of updates" for different specification versions. I feel the first
-   option is less complex for the user... but we look at this when I know more
-   what they want.
  * Unsure info, needs confirmation: starting date should be removed as
    editable, automatically compute it for showing purposes (effective date of
    first assessment). 
- * Setting expiration date applies to spec + children assessments, or to the
-   whole version group?
-
