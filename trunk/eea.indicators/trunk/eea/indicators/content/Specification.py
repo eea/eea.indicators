@@ -939,43 +939,6 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
 
         return v
 
-    security.declareProtected('Modify portal content', 
-                              'setFrequency_of_updates')
-    def setFrequency_of_updates(self, value, field='frequency_of_updates'):
-        """override the default mutator to set the expiration date for this 
-        specification and its children to that value
-
-        self = <Specification at trends-in-share-of-expenditure>
-        args = ({'ending_date': ('1996-01-01 00:00', {}), 
-                'frequency_years': ('1', {}), 
-                'time_of_year': ('Q2', {}), 
-                'starting_date': ('2012-03-26 11:45', {})},)
-        kwargs = {'field': 'frequency_of_updates'}
-        """
-        if value is None:
-            return
-
-        ending_date     = self._extract_value(value['ending_date'], DateTime)
-        starting_date   = self._extract_value(value['starting_date'], DateTime)
-        frequency_years = self._extract_value(value['frequency_years'], int)
-        time_of_year    = self._extract_value(value['time_of_year'], str)
-        if time_of_year and time_of_year.strip() == "":
-            time_of_year = ' '
-        
-        d = {
-            'frequency_years':frequency_years,
-            'time_of_year':time_of_year,
-            'starting_date':starting_date,
-            'ending_date':ending_date,
-        }
-        
-        atfield = self.getField(field)
-        atfield.set(self, d)
-
-        if ending_date and ending_date != self.getExpirationDate():
-            for obj in ([self] + list(self.objectValues('Assessment'))):
-                obj.setExpirationDate(ending_date)
-
     security.declareProtected(permissions.View, 'getLocallyAllowedTypes')
     def getLocallyAllowedTypes(self, context=None):
         """        

@@ -28,6 +28,13 @@ This field is editable from the aggregated edit of Specification, and it's
 placed in the metadata section. Here, it should always show what the real
 values are entered.
 
+Frequency of update info is Specification-specific, that means it apply only
+to the current specification and its children assessments. When a new
+specification version is made the "Frequency of update" is copied over to the
+new version. So, different specifications may have different frequency of
+updates.
+
+
 Default value of starting date:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Default value the earliest published (or creation date) for all assessments in
@@ -69,8 +76,10 @@ it has the following effects:
    dedicated collection/facetednav]
  * a very visible box on the indicator page show that it is discontinued
 
-Setting the ending date on an specification means setting the expiration date
-for that spec and its children assessment. 
+Ending date MUST NOT be synched to EXPIRATION DATE. Because we do not
+want the case when a frequency of update ends on a certain date and indicators
+that are just one year old disappears from searches, it is too aggressive.
+
 
 Need input from editors group
 -----------------------------
