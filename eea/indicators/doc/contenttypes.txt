@@ -31,6 +31,8 @@ TODO: add getVersionId index in catalog
     ...     v = obj.unrestrictedTraverse("@@get_readiness")
     ...     pprint.pprint(v.get_info_for('published'))
     ... 
+    >>> from DateTime import DateTime
+    >>> now = DateTime()
 
 
 Containments
@@ -368,6 +370,7 @@ Let's move on making this spec ready for publishing:
     >>> spec.setOwnership([u'something'])
     >>> updates = spec.getFrequency_of_updates()
     >>> updates['time_of_year'] = 'Q1'
+    >>> updates['starting_date'] = now
     >>> spec.setFrequency_of_updates(updates)
     >>> catalog.reindexObject(spec)
 
@@ -589,25 +592,24 @@ expect new updates.
 
     >>> spec = ims['spec1']
     >>> print spec.get_frequency_of_updates()
-    Required information is not filled in: Information about trimester is missing
+    Required information is not filled in: Information about the starting date of the publishing schedule is missing.
 
 Fill in time_of_year
 
     >>> updates = spec.getFrequency_of_updates()
     >>> updates['time_of_year'] = 'Q1'
+    >>> updates['starting_date'] = now
     >>> spec.setFrequency_of_updates(updates)
     >>> print spec.get_frequency_of_updates()
-    Updates are scheduled every 1 year(s) in Q1
+    Updates are scheduled every 1 year(s) in January-March (Q1)
 
 Setting an ending date in the future has no impact in what is shown:
 
-    >>> from DateTime import DateTime
-    >>> now = DateTime()
     >>> ending = now + 10   #10 days in the future
     >>> updates['ending_date'] = ending
     >>> spec.setFrequency_of_updates(updates)
     >>> print spec.get_frequency_of_updates()
-    Updates are scheduled every 1 year(s) in Q1
+    Updates are scheduled every 1 year(s) in January-March (Q1)
     >>> print spec.is_discontinued()
     False
 
