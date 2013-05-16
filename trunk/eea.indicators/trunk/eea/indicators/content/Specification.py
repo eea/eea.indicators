@@ -90,7 +90,7 @@ frequency_of_updates_schema = Schema((
             label="Starting with this date, indicator is published at " \
                   "regular intervals"
         ),
-        default_method='get_default_frequency_of_updates_starting_date',
+        #default_method='get_default_frequency_of_updates_starting_date',
     ),
     DateTimeField(
         name='ending_date',
@@ -99,7 +99,7 @@ frequency_of_updates_schema = Schema((
             label="Date after which indicator is discontinued, meaning " \
                   "no longer being updated regularly"
         ),
-        default_method='get_default_frequency_of_updates_ending_date',
+        #default_method='get_default_frequency_of_updates_ending_date',
     ),
 ))
 
@@ -819,33 +819,33 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
         except AttributeError:
             return 0    #this happens in tests
 
-    def get_default_frequency_of_updates_starting_date(self):
-        """Default value for frequency_of_updates starting_date.
+#   def get_default_frequency_of_updates_starting_date(self):
+#       """Default value for frequency_of_updates starting_date.
 
-        We want to say since when this indicator has started to be published,
-        so we look for the first assessment in this indicator group.
-        """
-        specs = IGetVersions(self).versions()
-        ast = None
-        for spec in specs:
-            for ast in spec.objectValues('Assessment'):
-                break
+#       We want to say since when this indicator has started to be published,
+#       so we look for the first assessment in this indicator group.
+#       """
+#       specs = IGetVersions(self).versions()
+#       ast = None
+#       for spec in specs:
+#           for ast in spec.objectValues('Assessment'):
+#               break
 
-        if ast is None:
-            #fallback to looking up at specifications
-            s = IGetVersions(self).first_version()
-            return s.getEffectiveDate() or s.CreationDate()
+#       if ast is None:
+#           #fallback to looking up at specifications
+#           s = IGetVersions(self).first_version()
+#           return s.getEffectiveDate() or s.CreationDate()
 
-        last_ast = IGetVersions(ast).first_version()
-        return last_ast.getEffectiveDate() or last_ast.CreationDate()
+#       last_ast = IGetVersions(ast).first_version()
+#       return last_ast.getEffectiveDate() or last_ast.CreationDate()
 
-    def get_default_frequency_of_updates_ending_date(self):
-        """Default value for frequency_of_updates ending_date.
+#   def get_default_frequency_of_updates_ending_date(self):
+#       """Default value for frequency_of_updates ending_date.
 
-        Logic is: no more assessment are to be published when this indicator
-        expires
-        """
-        return self.getExpirationDate()
+#       Logic is: no more assessment are to be published when this indicator
+#       expires
+#       """
+#       return self.getExpirationDate()
 
     security.declarePublic("get_frequency_of_updates")
     def get_frequency_of_updates(self):
@@ -854,9 +854,14 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
 
         info            = self.getFrequency_of_updates()
         ending          = info['ending_date']
+        starting        = info['starting_date']
         time_of_year    = info['time_of_year'].strip()
         frequency_years = info['frequency_years']
         now             = DateTime()
+
+        if type(starting) is not type(now):
+            return ("Required information is not filled in: Information about "
+                    "the starting date of the publishing schedule is missing.")
 
         if type(ending) is type(now):
             if ending < now:
@@ -871,12 +876,15 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
             return "Required information is not filled in: " \
                    "Information about trimester is missing"
 
-#code commented, waiting for decision on how to show starting date
-#       s = (info['starting_date'] and DateTime(info['starting_date']) or 
-#                        self.creation_date)
-#       s = "%s %s %s" % (s.day(), s.Month(), s.year())
-        #next_year = now.year() + 1
-        time_of_year = time_of_year or "<missing value>"
+        trimesters = {
+            'Q1':'January-March',
+            'Q2':'April-June',
+            'Q3':'July-September',
+            'Q4':'October-December',
+            }
+
+        time_of_year = "%s (%s)" % (trimesters.get(time_of_year),
+                                    time_of_year)
 
         return "Updates are scheduled every %s year(s) in %s" % \
                                     (info['frequency_years'], time_of_year)

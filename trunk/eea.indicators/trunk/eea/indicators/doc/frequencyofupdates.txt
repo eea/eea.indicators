@@ -37,11 +37,9 @@ updates.
 
 Default value of starting date:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-Default value the earliest published (or creation date) for all assessments in
-the version group of that specification. If there are no assessment, then it
-defaults to the publish/creation date of the first version of that
-Specification. [TODO When creating a new spec that has no assessment, automatically
-assign a value when its first assessment has been published.]
+"Frequency of update > starting date" will default as "None". It must be
+entered by Indicator manager. It indicates from when the frequency of update
+scheduling is valid.
 
 
 Readiness for publication
@@ -79,7 +77,4 @@ that are just one year old disappears from searches, it is too aggressive.
 
 Need input from editors group
 -----------------------------
-
- * Unsure info, needs confirmation: starting date should be removed as
-   editable, automatically compute it for showing purposes (effective date of
-   first assessment). 
+nothing here
