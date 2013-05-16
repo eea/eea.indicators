@@ -876,14 +876,14 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
             return "Required information is not filled in: " \
                    "Information about trimester is missing"
 
-        trimesters = {
+        _trims = {
             'Q1':'January-March',
             'Q2':'April-June',
             'Q3':'July-September',
             'Q4':'October-December',
             }
 
-        time_of_year = "%s (%s)" % (trimesters.get(time_of_year),
+        time_of_year = "%s (%s)" % (_trims.get(time_of_year),
                                     time_of_year)
 
         return "Updates are scheduled every %s year(s) in %s" % \
