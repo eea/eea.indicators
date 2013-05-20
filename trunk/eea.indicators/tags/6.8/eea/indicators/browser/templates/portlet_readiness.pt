@@ -1,0 +1,11 @@
+<tal:def tal:define="submit_handler string:simple_edit; ">
+  <div tal:define="region_name string:assessments_area;
+    region_update_handler string:portlet_readiness_live;"
+    tal:condition="not:context/portal_membership/isAnonymousUser">
+    <div metal:use-macro="here/portlet_readiness_live/macros/portlet">
+      <div metal:fill-slot="content">
+        <div tal:replace="structure context/@@readiness" />
+      </div>
+    </div>
+  </div>
+</tal:def>
