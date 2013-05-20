@@ -20,4 +20,16 @@
 
   </genericsetup:upgradeSteps>
 
+  <genericsetup:upgradeSteps
+    source="*"
+    destination="6.7"
+    profile="eea.indicators:default">
+
+    <genericsetup:upgradeStep
+      title="Cleanup erased daviz information from AssessmentParts"
+      handler="eea.indicators.upgrades.cleanup_assessmentparts"
+      />
+
+  </genericsetup:upgradeSteps>
+
 </configure>
