@@ -3,6 +3,8 @@ Changelog
 
 6.8-dev - (unreleased)
 ----------------------
+* Bug fix: fixed ReST merkup under HISTORY.txt
+  [ghicaale refs #14554]
 
 6.7 - (2013-05-20)
 ------------------
@@ -12,11 +14,10 @@ Changelog
 * Upgrade Step: go to /aq_parent/portal_factory/manage_portal_factory_types
   and set the ExternalDataSpec as factory type
   [tiberich #14467]
-* Upgrade Step: go to
-  http://www.eea.europa.eu/aq_parent/portal_actions/object_buttons/create_version/manage_propertiesForm
-  Change the "Condition (Expression)" to:
-    python: object.restrictedTraverse('@@can_version')()
-  [tiberich #14361]
+* Upgrade Step:
+    * go to http://www.eea.europa.eu/aq_parent/portal_actions/object_buttons/create_version/manage_propertiesForm
+    * Change the "Condition (Expression)" to: python: object.restrictedTraverse('@@can_version')()
+    * [tiberich #14361]
 * Feature: WIP: added a new compound field, frequency_of_updates
   [tiberich #14361]
 * Upgrade Step: create a new faceted navigation page that lists expired
