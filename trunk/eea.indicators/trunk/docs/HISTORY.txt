@@ -3,6 +3,8 @@ Changelog
 
 6.9-dev - (unreleased)
 ----------------------
+* Bug fix: fix small bug in validator for frequency_of_updates
+  [tiberich #14628]
 
 6.8 - (2013-05-20)
 ------------------
