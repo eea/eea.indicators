@@ -1,6 +1,9 @@
 Changelog
 =========
 
+7.0-dev - (unreleased)
+----------------------
+
 6.9 - (2013-05-27)
 ------------------
 * Bug fix: make frequency_of_updates and its subfields not required; 
