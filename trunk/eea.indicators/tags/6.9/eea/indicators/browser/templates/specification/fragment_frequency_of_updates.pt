@@ -1,0 +1,39 @@
+<tal:def tal:define="submit_handler string:simple_edit; ">
+	<tal:def tal:define="region_name string:frequency_of_updates_area;
+		region_update_handler string:fragment_frequency_of_updates;
+		also_reload python:['object_readiness', 'assessments_area'];
+		imsutils nocall:context/@@indicator_utils;
+		portal_url context/portal_url">
+
+		<metal:macro metal:use-macro="context/indicators_macros/macros/active_region">
+			<metal:slot metal:fill-slot="content">
+				<div class="logic_group">
+
+					<h3 tal:define="field python:context.getField('frequency_of_updates')">
+						<span metal:use-macro="context/indicators_macros/macros/tooltip" />
+						<tal:block i18n:translate="">Frequency of Updates</tal:block>
+					</h3>
+					<tal:def tal:define="fieldname string:frequency_of_updates; fieldset string:default">
+						<metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
+							<metal:slot metal:fill-slot="content">
+								<div tal:condition="python:not imsutils.field_has_value(fieldname, context)"
+									class="placeholder">
+									Please fill in. <span tal:replace="context/validator_frequency_of_updates" />
+								</div>
+								<p tal:replace="structure context/get_frequency_of_updates"></p>
+							</metal:slot>
+							<metal:slot metal:fill-slot="extra-metadata">
+								<div class="width">800</div>
+								<div class="height">435</div>
+								<div class="dialog_title" i18n:translate="">Edit Frequency of Updates</div>
+							</metal:slot>
+						</metal:macro>
+					</tal:def>
+
+				</div>
+			</metal:slot>
+		</metal:macro>
+
+	</tal:def>
+</tal:def>
+

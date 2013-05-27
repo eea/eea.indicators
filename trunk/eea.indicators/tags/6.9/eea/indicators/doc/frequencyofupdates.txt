@@ -1,0 +1,80 @@
+Frequency of updates
+====================
+
+This document is intended to track details on functionality of frequency 
+of updates field and its development. It is a more coherent copy of comments 
+entered on the ticket http://taskman.eionet.europa.eu/issues/14361
+
+
+Field description
+-----------------
+Frequency of updates describes how often new versions of Assessments are 
+produced for an indicator.
+
+Frequency of updates is a composite field with 4 sub-fields:
+
+ * Frequency (years): The indicator is published. 
+   Every <select integer 1-10> years. Default: none [REQUIRED]
+ * Time of the year: Select Q1, Q2, Q3, Q4. Default: none [REQUIRED]
+ * Starting date: date picker. Default: see below [REQUIRED]
+ * Ending date: date picker. default None. [OPTIONAL]. 
+   This date defaults to expiration date. Setting it has the effect of setting
+   an expiration date.
+
+Make sure user enter proper value and that defaults are not just stored
+without user noticing it. Time of year should not have a default value.
+
+This field is editable from the aggregated edit of Specification, and it's
+placed in the metadata section. Here, it should always show what the real
+values are entered.
+
+Frequency of update info is Specification-specific, that means it apply only
+to the current specification and its children assessments. When a new
+specification version is made the "Frequency of update" is copied over to the
+new version. So, different specifications may have different frequency of
+updates.
+
+
+Default value of starting date:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"Frequency of update > starting date" will default as "None". It must be
+entered by Indicator manager. It indicates from when the frequency of update
+scheduling is valid.
+
+
+Readiness for publication
+-------------------------
+The entire field is "Required for Published" for Specification. If not filled
+in it must appear in the completeness report. If field is missing write
+feedback as follow: "Information about frequency of update for this indicator
+is missing." If indicator expired, then a very visible box appears saying
+indicator has been discontinued.
+
+
+Information display
+-------------------
+This information is shown both in the specification and assessment. This
+information is shown in the metadata box, near bottom. When indicator has been
+terminated, then show a very visible box at the top, informing that the
+indicator has been discontinued.
+
+If the field is not properly filled in, don't show anything in the views.
+
+
+Ending date/expiration date
+---------------------------
+If we have an end-date (expiration date) on specification AND it has passed, 
+it has the following effects:
+
+ * Creation of new assessment versions is disabled. Editors can't create new 
+   assessment and specification versions.
+ * a very visible box on the indicator page show that it is discontinued
+
+Ending date MUST NOT be synched to EXPIRATION DATE. Because we do not
+want the case when a frequency of update ends on a certain date and indicators
+that are just one year old disappears from searches, it is too aggressive.
+
+
+Need input from editors group
+-----------------------------
+nothing here
