@@ -930,23 +930,6 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
 
         return False
 
-    def _extract_value(self, v, factory):
-        """convert possible input to value for frequency_of_updates mutator
-        """
-        
-        if isinstance(v, (tuple, list)):
-            v = v[0].strip()
-            if v:
-                v = factory(v)
-        elif isinstance(v, factory):
-            pass
-        elif isinstance(v, basestring):
-            v = factory(v)
-        else:
-            v = None
-
-        return v
-
     security.declareProtected(permissions.View, 'getLocallyAllowedTypes')
     def getLocallyAllowedTypes(self, context=None):
         """        
