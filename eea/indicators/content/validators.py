@@ -110,7 +110,7 @@ class FrequencyUpdateValidator:
         if not value and isinstance(value, basestring):
             return False
 
-        if not value.isdigit():
+        if isinstance(value, basestring) and not value.isdigit():
             return False
 
         v = int(value)
