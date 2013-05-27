@@ -3,7 +3,9 @@ Changelog
 
 6.9-dev - (unreleased)
 ----------------------
-* Bug fix: fix small bug in validator for frequency_of_updates
+* Bug fix: make frequency_of_updates and its subfields not required; 
+  override mutator for frequency of updates, fix its validator to 
+  allow schemata_edit to work properly and ignore this field
   [tiberich #14628]
 
 6.8 - (2013-05-20)
