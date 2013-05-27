@@ -63,7 +63,7 @@ frequency_of_updates_schema = Schema((
     IntegerField(
         name='frequency_years',
         default=1,
-        required=True,
+        #required=True,
         widget=IntegerWidget(
             label="Frequency (years)",
             description="The indicator is published every &lt;x&gt; years",
@@ -74,7 +74,7 @@ frequency_of_updates_schema = Schema((
     ),
     StringField(
         name='time_of_year',
-        required=True,
+        #required=True,
         widget=SelectionWidget(
             label="Time of year",
             description="In which trimester the indicator is published"
@@ -85,7 +85,7 @@ frequency_of_updates_schema = Schema((
     ),
     DateTimeField(
         name='starting_date',
-        required=True,
+        #required=True,
         widget=CalendarWidget(
             label="Starting with this date, indicator is published at " \
                   "regular intervals"
@@ -448,7 +448,7 @@ schema = Schema((
         schemata='default',
         required_for_published=True,
         #validator='validate_frequency_of_updates',#not supported by simple_edit
-        required=True,
+        #required=True,
         widget=CompoundWidget(
             label="Frequency of updates",
             description="How often is this indicators assessments updates?",
@@ -968,6 +968,56 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
             return ()
 
         return super(Specification, self).getImmediatelyAddableTypes()
+
+    def _extract_value(self, v, factory):
+        """convert possible input to value for frequency_of_updates mutator
+        """
+        
+        if isinstance(v, (tuple, list)):
+            v = v[0].strip()
+            if v:
+                v = factory(v)
+        elif isinstance(v, factory):
+            pass
+        elif isinstance(v, basestring):
+            v = factory(v)
+        else:
+            v = None
+
+        return v
+
+    security.declareProtected('Modify portal content', 
+                              'setFrequency_of_updates')
+    def setFrequency_of_updates(self, value, field='frequency_of_updates'):
+        """override the default mutator to solve a problem in CompundField
+        mutator
+ 
+        self = <Specification at trends-in-share-of-expenditure>
+        args = ({'ending_date': ('1996-01-01 00:00', {}), 
+                'frequency_years': ('1', {}), 
+                'time_of_year': ('Q2', {}), 
+                'starting_date': ('2012-03-26 11:45', {})},)
+        kwargs = {'field': 'frequency_of_updates'}
+        """
+        if value is None:
+            return
+
+        ending_date     = self._extract_value(value['ending_date'], DateTime)
+        starting_date   = self._extract_value(value['starting_date'], DateTime)
+        frequency_years = self._extract_value(value['frequency_years'], int)
+        time_of_year    = self._extract_value(value['time_of_year'], str)
+        if time_of_year and time_of_year.strip() == "":
+            time_of_year = ' '
+        
+        d = {
+            'frequency_years':frequency_years,
+            'time_of_year':time_of_year,
+            'starting_date':starting_date,
+            'ending_date':ending_date,
+        }
+        
+        atfield = self.getField(field)
+        atfield.set(self, d)
 
 
 #placed here so that it will be found by extraction utility
