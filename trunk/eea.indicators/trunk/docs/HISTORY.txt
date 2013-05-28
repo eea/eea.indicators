@@ -3,6 +3,8 @@ Changelog
 
 7.0-dev - (unreleased)
 ----------------------
+* Bug fix: improvements to layout and formatting of IMS
+  [tiberich #14562]
 
 6.9 - (2013-05-27)
 ------------------
