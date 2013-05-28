@@ -40,7 +40,7 @@
         </h4>
         <div class="active_field">
           <a href=""
-            class="schemata_edit spec_control"
+            class="schemata_edit spec_control standardButton"
             title="Edit Metadata"
             i18n:attributes="title"
             i18n:translate=""
