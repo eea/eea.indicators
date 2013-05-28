@@ -35,7 +35,7 @@
                     i18n:attributes="title"
                     class="handler ui-icon ui-icon-arrowthick-2-n-s"></span>
               <a href=""
-                class="schemata_edit spec_control"
+                class="schemata_edit spec_control standardButton"
                 title="Edit Policy Question"
                 i18n:attributes="title"
                 i18n:translate=""

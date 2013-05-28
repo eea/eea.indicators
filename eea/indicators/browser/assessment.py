@@ -212,8 +212,7 @@ class WorkflowStateReadiness(ObjectReadiness):
 
         (lambda o:not IObjectReadiness(
                            aq_parent(aq_inner(o))).is_ready_for('published'),
-         "You need to finish the <a href='../'>"
-         "Indicator Specification</a> first!"),
+     "You need to finish the <a href='../'>Indicator Specification</a> first!"),
 
         (lambda o: 'published' != getToolByName(o, 'portal_workflow').
                             getInfoFor(aq_parent(aq_inner(o)), 'review_state'),

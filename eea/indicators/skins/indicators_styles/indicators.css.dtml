@@ -57,6 +57,13 @@ dl.enableFormTabbing dd {
     line-height:2em;
 }
 
+#content-core .readiness_accordion {overflow:hidden;}
+#content-core .readiness_accordion a { display:inline; }
+#content-core .readiness_accordion .error { width:inherit; }
+#content-core .portletHeader { float:left; width:200px; }
+#content-core .percentageDone { float:right; clear:none;} 
+
+
 /* Fields that are required for publication
 =========================================== */
 #assessment-base-edit #archetypes-fieldname-key_message,
@@ -479,6 +486,18 @@ ul.sortable_spec {
     background-color:#F3F3F3;
 }
 
+.active_field .standardButton, .active_field .eea-ref-popup-button {
+    float:right;
+}
+.active_field .standardButton > a {
+    padding:4px;
+}
+
+.active_field {
+    overflow:hidden;
+}
+
+/**********commented
 .active_field .control, .active_field_hovered .control, .active_field .control-special-handler {
     display:block !important;
     float:right;
@@ -494,6 +513,7 @@ ul.sortable_spec {
     font-weight:bold;
     text-decoration:none;
 }
+***********/
 
 .active_field {
     border:1px dotted black;
@@ -554,6 +574,7 @@ a.object_creator-disabled {
     margin-bottom:5px;
 }
 
+/**************
 a.schemata_edit, a.object_delete {
     padding:1px 6px;
     background-color:#CEE2A8;
@@ -574,6 +595,7 @@ a.schemata_edit:hover, a.object_delete:hover {
     color:white;
     border:none;
 }
+*************/
 
 /* Kupu and calendar fixes for modal edit
  * ====================================== */
