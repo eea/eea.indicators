@@ -60,8 +60,8 @@ dl.enableFormTabbing dd {
 #content-core .readiness_accordion {overflow:hidden;}
 #content-core .readiness_accordion a { display:inline; }
 #content-core .readiness_accordion .error { width:inherit; }
-#content-core .portletHeader { float:left; width:200px; }
 #content-core .percentageDone { float:right; clear:none;} 
+#readiness-status .portletHeader { float:left; width:200px; }
 
 
 /* Fields that are required for publication
@@ -488,9 +488,11 @@ ul.sortable_spec {
 
 .active_field .standardButton, .active_field .eea-ref-popup-button {
     float:right;
+    padding:3px 9px !important;
 }
-.active_field .standardButton > a {
-    padding:4px;
+
+.aggregated_edit .standardButton {
+    padding:3px 9px !important;
 }
 
 .active_field {
@@ -797,6 +799,11 @@ ul.token-input-list-facebook {
 
 .token-input-dropdown-facebook {
     z-index:2999 !important;
+}
+
+/* generic fixes  */
+.suppressVisualEditor {
+    margin-top:0 !important;
 }
 
 /*

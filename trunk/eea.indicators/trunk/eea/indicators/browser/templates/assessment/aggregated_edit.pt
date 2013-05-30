@@ -16,7 +16,7 @@
   </metal:jsslot>
 
   <body>
-    <div metal:fill-slot="main" class="assessment_edit">
+    <div metal:fill-slot="main" class="assessment_edit aggregated_edit">
 
       <div id="dialog_edit_target">
         <!-- This div is used by active field editing -->

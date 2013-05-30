@@ -84,10 +84,11 @@ function init_tinymce(el){
 
     var config = new TinyMCEConfig(id);
     // TODO: resize tinymce to a more decent size
-    config.widget_config.editor_height = 800;
+    //config.widget_config.editor_height = 800;
     //config.widget_config.autoresize = true;
-    //config.widget_config.resizing = false;
-    config.widget_config.resizing_use_cookie = false;
+    //config.widget_config.autoresize_min_height = 800;
+    //config.widget_config.autoresize_max_height = 800;
+    //config.widget_config.resizing_use_cookie = false;
     config.widget_config.buttons = [
       "save",
       "style",
@@ -139,6 +140,7 @@ function init_tinymce(el){
     ];
     delete InitializedTinyMCEInstances[id];
     config.init();
+    jQuery(".mceIframeContainer iframe").attr('style', 'height:200px');
   });
 })(jQuery);
 }

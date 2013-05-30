@@ -41,7 +41,7 @@
             <span i18n:translate="">Scientific references</span>
           </h4>
           <div class="grouped_field">
-            <a href='./object_factory?type_name=RationaleReference' class="object_creator" i18n:translate="">+ Scientific Reference</a>
+            <a href='./object_factory?type_name=RationaleReference' class="object_creator standardButton" i18n:translate="">+ Scientific Reference</a>
             <ul tal:define="refs python:context.objectValues('RationaleReference')" class="sortable_spec scientific_references">
               <li tal:repeat="ref refs" class="list-item">
                 <span title="Drag and drop to set order"
@@ -54,7 +54,7 @@
                   i18n:translate=""
                   tal:attributes="href string:${ref/absolute_url}/schemata_edit?fieldset=default">Edit</a>
                 <a href=""
-                  class="object_delete"
+                  class="object_delete standardButton"
                   tal:attributes="href string:${ref/aq_parent/absolute_url}/obj_delete?id=${ref/getId}"
                   i18n:translate="">Delete</a>
                 <a href="" tal:define="remote_url python: callable(ref.getRemoteUrl) and ref.getRemoteUrl() or None" 

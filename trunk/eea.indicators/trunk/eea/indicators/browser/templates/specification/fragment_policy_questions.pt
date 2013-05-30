@@ -22,7 +22,7 @@
         <div class="grouped_field">
 
           <a href='./object_factory?type_name=PolicyQuestion' 
-             class="object_creator" i18n:translate="">+ Policy Question</a>
+             class="object_creator standardButton" i18n:translate="">+ Policy Question</a>
 
           <div id="policy_questions" class="sortable_spec" tal:condition="python:questions">
             <div class="metadata">
@@ -41,7 +41,7 @@
                 i18n:translate=""
                 tal:attributes="href string:${question/absolute_url}/schemata_edit?fieldset=default">Edit</a>
               <a href=""
-                class="object_delete spec_control"
+                class="object_delete spec_control standardButton"
                 tal:attributes="href string:${question/aq_parent/absolute_url}/@@obj_delete?id=${question/getId}"
                 i18n:translate="">Delete</a>
               <strong tal:content="question/Title">Question title</strong>

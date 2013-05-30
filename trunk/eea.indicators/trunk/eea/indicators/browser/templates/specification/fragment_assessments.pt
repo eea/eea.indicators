@@ -50,7 +50,7 @@
           <div class="grouped_field" tal:define="can_create_assessments not:context/is_discontinued">
 
             <a href='./object_factory?type_name=Assessment'
-              class="object_creator"
+              class="object_creator standardButton"
               tal:attributes="class string:object_creator${can_add} direct_edit"
               i18n:translate="" tal:condition="can_create_assessments">+ Indicator Assessment</a>
             <div tal:condition="not:can_create_assessments">This indicator has
