@@ -95,19 +95,23 @@
                                   <a tal:attributes="href obj/absolute_url"
                                      class="standardButton" i18n:translate="">Explore chart interactively</a>
                               </div>
-                              
+
                               <tal:data tal:define="data_info obj/@@data.info | python:{}">
-                                <strong i18n:translate="">Data source:</strong>
-                                <ul tal:condition="data_info">
-                                    <li>
-                                    <a tal:attributes="href data_info/source/url; title data_info/source/title"
-                                       tal:content="data_info/source/title">Data Title</a>
-                                      <tal:block i18n:translate="">provided by</tal:block>&nbsp;
-                                      <strong tal:content="data_info/owner/title">Data owner</strong>
-                                    </li>
+                                <strong i18n:translate="">Data sources:</strong>
+                                <ul tal:condition="data_info" tal:define="provenances data_info/provenances | python:[]">
+                                    <tal:block tal:repeat="provenance provenances">
+                                        <li tal:define="source provenance/source | python:{};
+                                            owner provenance/owner | python:{}">
+                                            <a tal:attributes="href source/url | python:''"
+                                                tal:content="source/title | python:''">Data Title</a>
+                                            <tal:block i18n:translate="">provided by</tal:block>&nbsp;
+                                            <strong tal:content="owner/title | python:''">Data owner</strong>
+                                        </li>
+                                    </tal:block>
                                 </ul>
+
                                 <p tal:condition="python:not data_info" i18n:translate="">Data provenance info is missing.</p>
-                              </tal:data>  
+                              </tal:data>
                               <a tal:attributes="href obj/absolute_url"
                                      class="standardButton" i18n:translate="">Explore chart interactively</a>
 
@@ -145,3 +149,4 @@
 
   </div>
 </tal:figures>
+

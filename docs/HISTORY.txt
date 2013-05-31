@@ -3,6 +3,8 @@ Changelog
 
 7.0-dev - (unreleased)
 ----------------------
+* Change: updated figures.pt for multiple data provenances
+  [szabozo0 #9561]
 * Bug fix: improvements to layout and formatting of IMS
   [tiberich #14562]
 
