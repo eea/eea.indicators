@@ -64,7 +64,7 @@ class UniquePolicyDocUrlValidator:
               kwargs['instance'].UID() != obj.UID():
                 return ("Validation failed, there is already an "
                         "Policy Document pointing to this URL.")
-        return 1
+        return True
 
 class OneAssessmentPartPerQuestionValidator:
     """ Validator """
