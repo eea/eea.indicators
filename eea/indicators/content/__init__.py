@@ -14,7 +14,7 @@ from eea.indicators.content.validators import (
     UniquePolicyDocTitleValidator,
     UniquePolicyDocUrlValidator,
     OneAssessmentPartPerQuestionValidator,
-    FrequencyUpdateValidator, 
+    FrequencyUpdateValidator,
     TimeOfYearValidator,
 )
 

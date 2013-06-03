@@ -926,13 +926,13 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
         ending = info['ending_date']
         if type(ending) is type(now):
             if ending < now:
-                return True 
+                return True
 
         return False
 
     security.declareProtected(permissions.View, 'getLocallyAllowedTypes')
     def getLocallyAllowedTypes(self, context=None):
-        """        
+        """
         We override default because we don't want to allow adding assessments
         if the indicator has been discontinued
         """
@@ -943,7 +943,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
 
     security.declareProtected(permissions.View, 'getImmediatelyAddableTypes')
     def getImmediatelyAddableTypes(self, context=None):
-        """        
+        """
         We override default because we don't want to allow adding assessments
         if the indicator has been discontinued
         """
@@ -955,7 +955,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
     def _extract_value(self, v, factory):
         """convert possible input to value for frequency_of_updates mutator
         """
-        
+
         if isinstance(v, (tuple, list)):
             v = v[0].strip()
             if v:
@@ -969,16 +969,16 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
 
         return v
 
-    security.declareProtected('Modify portal content', 
+    security.declareProtected('Modify portal content',
                               'setFrequency_of_updates')
     def setFrequency_of_updates(self, value, field='frequency_of_updates'):
         """override the default mutator to solve a problem in CompundField
         mutator
- 
+
         self = <Specification at trends-in-share-of-expenditure>
-        args = ({'ending_date': ('1996-01-01 00:00', {}), 
-                'frequency_years': ('1', {}), 
-                'time_of_year': ('Q2', {}), 
+        args = ({'ending_date': ('1996-01-01 00:00', {}),
+                'frequency_years': ('1', {}),
+                'time_of_year': ('Q2', {}),
                 'starting_date': ('2012-03-26 11:45', {})},)
         kwargs = {'field': 'frequency_of_updates'}
         """
@@ -991,14 +991,14 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
         time_of_year    = self._extract_value(value['time_of_year'], str)
         if time_of_year and time_of_year.strip() == "":
             time_of_year = ' '
-        
+
         d = {
             'frequency_years':frequency_years,
             'time_of_year':time_of_year,
             'starting_date':starting_date,
             'ending_date':ending_date,
         }
-        
+
         atfield = self.getField(field)
         atfield.set(self, d)
 
