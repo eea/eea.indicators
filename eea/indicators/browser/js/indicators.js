@@ -140,7 +140,7 @@ function init_tinymce(el){
     ];
     delete InitializedTinyMCEInstances[id];
     config.init();
-    jQuery(".mceIframeContainer iframe").attr('style', 'height:200px');
+    jQuery(".mceIframeContainer iframe").attr('style', 'height:300px; width:770px');
   });
 })(jQuery);
 }

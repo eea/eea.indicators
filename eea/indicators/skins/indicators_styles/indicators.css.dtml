@@ -356,6 +356,7 @@ ul.sortable_spec {
     display: none;
 }
 
+.metadata_date div {display:inline }
 
 /* Update ui images path
 ======================== */
@@ -497,6 +498,12 @@ ul.sortable_spec {
 
 .active_field {
     overflow:hidden;
+}
+
+p.aggedit_frequency_of_updates {
+    margin-bottom:10px;
+    font-weight:bold;
+    font-size: 14px;
 }
 
 /**********commented
