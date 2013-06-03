@@ -403,19 +403,19 @@
                 i18n:name="version-number"
                 content="version_number" />
             </div>
-            <div i18n:translate="">
-              First draft created: <span tal:content="context/creation_date" i18n:name="creation-date">creation date</span>
-            </div>
 
-            <div i18n:translate="">
-              Publish date: <span tal:content="context/getEffectiveDate" i18n:name="effective-date">effective date</span>
+            <div i18n:translate="" class="metadata_date">
+              First draft created: <metal:field i18n:name="creation-date" use-macro="python:context.widget('creation_date', mode='view')" />
             </div>
-            <div i18n:translate="">
-              Last modified: <span tal:content="context/modified" i18n:name="modified-date">Modified date</span>
+            <div i18n:translate="" class="metadata_date">
+              Publish date: <metal:field i18n:name="effective-date" use-macro="python:context.widget('effectiveDate', mode='view')" />
+            </div>
+            <div i18n:translate="" class="metadata_date">
+              Last modified: <metal:field i18n:name="modified-date" use-macro="python:context.widget('modification_date', mode='view')" />
             </div>
 
             <div>
-              <tal:block i18n:translate="">Primary theme:</tal:block><br />
+              <tal:block i18n:translate="">Primary theme:</tal:block>
               <tal:block define="themesView here/@@themes-object|nothing;
                 themes themesView/full_items;
                 primaryTheme python:themes and themes[0] or None">

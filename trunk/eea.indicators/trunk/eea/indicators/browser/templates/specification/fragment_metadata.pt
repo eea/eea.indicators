@@ -318,13 +318,17 @@
                             <div tal:condition="python:not imsutils.field_has_value(fieldname, context)" class="placeholder">
                                 Please fill in. <span tal:replace="context/validator_frequency_of_updates" />
                             </div>
-                            <p tal:replace="structure context/get_frequency_of_updates"></p>
+                            <p class="aggedit_frequency_of_updates" tal:content="structure context/get_frequency_of_updates"></p>
                             <dl tal:define="values context/getFrequency_of_updates; 
                                             widgets python:context.Schema().getField('frequency_of_updates').schema.widgets()">
                                 <tal:rep tal:repeat="key python:widgets.keys()">
-                                    <tal:def define="widget python:widgets[key]; label widget/label; field_name python:key.split('|')[1]" >
+                                    <tal:def define="widget python:widgets[key]; 
+                                                     label widget/label; 
+                                                     field_name python:key.split('|')[1]; 
+                                                     value python:values[field_name]" >
                                     <dt tal:content="label">Widget label</dt>
-                                    <dd tal:content="python:values[field_name]" />
+                                    <dd tal:content="value" tal:condition="value" />
+                                    <dd tal:condition="not:value">Not set</dd>
                                     </tal:def>
                                 </tal:rep>
                             </dl>
