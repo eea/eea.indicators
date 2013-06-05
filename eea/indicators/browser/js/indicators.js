@@ -83,12 +83,6 @@ function init_tinymce(el){
     var id = $(this).attr('id');
 
     var config = new TinyMCEConfig(id);
-    // TODO: resize tinymce to a more decent size
-    //config.widget_config.editor_height = 800;
-    //config.widget_config.autoresize = true;
-    //config.widget_config.autoresize_min_height = 800;
-    //config.widget_config.autoresize_max_height = 800;
-    //config.widget_config.resizing_use_cookie = false;
     config.widget_config.buttons = [
       "save",
       "style",
@@ -138,18 +132,24 @@ function init_tinymce(el){
       "Page break (print only)|div|pageBreak",
       "Clear floats|div|visualClear"
     ];
+
     delete InitializedTinyMCEInstances[id];
     config.init();
-
-    jQuery(window.tinyMCE.editors).each(function(){
-      console.log(this);
-    });
-    //jQuery(".mceIframeContainer iframe").attr('style', 'height:300px; width:770px');
-    //console.log("Initied mce", jQuery(".mceIframeContainer iframe"));
 
   });
 })(jQuery);
 }
+
+window.tinyMCE.onAddEditor.add(function(tiny, editor){
+  editor.settings.theme_advanced_resizing = false;
+  editor.settings.theme_advanced_resizing_use_cookie = false;
+  editor.settings.theme_advanced_resize_horizontal = false;
+  editor.onInit.add(function(ed){
+    var width = 'width:'+jQuery(ed.contentAreaContainer).width()+'px;';
+    jQuery('iframe', ed.contentAreaContainer).attr('style','height:400px !important; '+width);
+  });
+  //debugger; 
+});
 
 function ajaxify(el, fieldname){
   // This will make a form submit and resubmit itself using AJAX
@@ -478,9 +478,11 @@ function dialog_edit(url, title, callback, options){
 
 (function($) {
   block_ui();
-  options = options || {
-    'height':null,
-    'width':800
+  var height = $(window).height() - 40;
+  var width = $(window).width() - 40;
+  var options = options || {
+    'height':height,
+    'width':width
   };
   var target = $('#dialog_edit_target');
   $("#dialog-inner").remove();     // temporary, apply real fix
@@ -546,17 +548,17 @@ function set_editors(){
     var region = $(this).parents(".active_region")[0];
 
     // rewrite this to take advantage of metadata
-    var options = {
-      'width':800,
-      'height':600
-    };
+    var options = {};
+    //var options = {
+      //'width':800,
+      //'height':600
+    //};
     var active_region = region.id; //the region that will be reloaded
 
     dialog_edit(link, title, function(text, status, xhr){
       schemata_ajaxify($("#dialog-inner"), active_region);
       unblock_ui();
-    },
-  options);
+    }, options);
 
   return false;
 });
@@ -593,7 +595,7 @@ function set_edit_buttons() {
     var fieldname = $('.metadata > .fieldname', field).text();
     var title = $('.metadata > .dialog_title', field).text();
 
-    var options = { 'width':800, 'height':600 };
+    var options = { }; //'width':800, 'height':600 };
     options.height = Number($('.metadata > .height', field).text()) || options.height;
     options.width = Number($('.metadata > .width', field).text()) || options.width;
 
@@ -620,10 +622,10 @@ function set_creators(){
     var is_direct_edit = $(this).hasClass('direct_edit');
     var region = $(this).parents(".active_region")[0];
     var title = "Edit";
-    var options = {
-      'width':800,
-      'height':600
-    };
+    var options = {};
+      //'width':800,
+      //'height':600
+    //};
     //console.info("doing ajax set creators");
     $.ajax({
       url: link,
