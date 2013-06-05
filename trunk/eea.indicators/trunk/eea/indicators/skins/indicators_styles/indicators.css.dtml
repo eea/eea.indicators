@@ -66,6 +66,7 @@ dl.enableFormTabbing dd {
 
 /* Fields that are required for publication
 =========================================== */
+
 #assessment-base-edit #archetypes-fieldname-key_message,
 #externaldataspec-base-edit #archetypes-fieldname-provider_name,
 #externaldataspec-base-edit #archetypes-fieldname-provider_url,
@@ -400,9 +401,7 @@ ul.sortable_spec {
     display: block;
 }
 
-#archetypes-fieldname-title input{
-    width: auto;
-}
+/* #archetypes-fieldname-title input{ width: auto; } */
 
 #archetypes-fieldname-vocabulary select {
     width: 25em;
@@ -434,10 +433,9 @@ ul.sortable_spec {
     padding-left:2em;
 }
 #dialog-inner .field {
-    /* margin:2em 2em 0 0; */
     background-color:inherit !important;
     padding:inherit !important;
-    margin:0 1em 0 0 !important;
+    margin:0 1em 2em 0 !important;
 }
 #dialog-inner label {
     /* display:none; */
@@ -489,11 +487,20 @@ ul.sortable_spec {
 
 .active_field .standardButton, .active_field .eea-ref-popup-button {
     float:right;
-    padding:3px 9px !important;
 }
 
+.active_field .eea-ref-popup-button {padding:3px 9px !important}
+
 .aggregated_edit .standardButton {
+    /* padding:3px 9px !important; */
+    padding:0px;
+}
+.aggregated_edit .standardButton a, .aggregated_edit a.standardButton {
+    display:block;
     padding:3px 9px !important;
+}
+a.schemata_edit, a.object_delete {
+    display:inline !important;
 }
 
 .active_field {
