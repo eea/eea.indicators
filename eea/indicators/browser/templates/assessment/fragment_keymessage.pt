@@ -26,8 +26,7 @@
               <div tal:replace="structure context/getKey_message" />
             </metal:slot>
             <metal:slot metal:fill-slot="extra-metadata">
-              <div class="width">800</div>
-              <div class="height">600</div>
+                <div class="dialog_title" i18n:translate="">Edit Key Message</div>
             </metal:slot>
           </metal:macro>
         </tal:def>
