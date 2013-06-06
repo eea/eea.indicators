@@ -27,8 +27,6 @@
                 <p tal:replace="structure context/rationale_justification"></p>
               </metal:slot>
               <metal:slot metal:fill-slot="extra-metadata">
-                <div class="width">800</div>
-                <div class="height">435</div>
                 <div class="dialog_title" i18n:translate="">Edit Rationale</div>
               </metal:slot>
             </metal:macro>
