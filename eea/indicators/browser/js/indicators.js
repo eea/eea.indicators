@@ -57,7 +57,6 @@ function set_sortables() {
           data += "&order:list=" + this;
         });
         block_ui();
-        //console.info("doing ajax set sortables");
         $.ajax({
           'url':handler,
           'type':'POST',
@@ -164,7 +163,6 @@ function ajaxify(el, fieldname){
       var form = this;
       var data = ($(form).serialize() + "&form_submit=Save&form.submitted=1");
 
-      //console.info("doing ajax ajaxify");
       $.ajax({
         "data": data,
         url: this.action,
@@ -232,7 +230,6 @@ function set_generic_ajax_forms(){
 
     block_ui();
 
-    //console.info("doing ajax set generic ajax forms");
     $.ajax({
       'url':url,
       type:'POST',
@@ -297,7 +294,6 @@ function on_load_dom() {
 }
 
 function reload_region(el){
-  //console.info("doing reload region");
 (function($) {
   block_ui();
   var update_handler = $(".metadata .region_update_handler", el).text();
@@ -311,7 +307,6 @@ function reload_region(el){
     });
   }
 
-  //console.info("doing ajax reload region");
   $.ajax({
     url: update_handler,
     type:'GET',
@@ -361,7 +356,6 @@ function set_actives(){
 }
 
 function schemata_ajaxify(el, active_region){
-        //console.info("doing schemata ajaxify");
 
 (function($) {
   set_actives();
@@ -372,7 +366,6 @@ function schemata_ajaxify(el, active_region){
   if(widgets.length){
     widgets.eeatags();
   }
-
 
   $("form", el).submit(
     function(e){
@@ -389,7 +382,6 @@ function schemata_ajaxify(el, active_region){
       data = $(form).serialize();
       data += "&_active_region=" + active_region;
       data += "&form_submit=Save&form.submitted=1";
-        //console.info("doing ajax schemata ajaxify");
 
       $.ajax({
         "data": data,
@@ -480,10 +472,10 @@ function dialog_edit(url, title, callback, options){
   block_ui();
   var height = $(window).height() - 40;
   var width = $(window).width() - 40;
-  var options = options || {
+  options = $.extend({
     'height':height,
     'width':width
-  };
+  }, options);
   var target = $('#dialog_edit_target');
   $("#dialog-inner").remove();     // temporary, apply real fix
   $(target).append("<div id='dialog-inner'></div>");
@@ -509,7 +501,6 @@ function dialog_edit(url, title, callback, options){
       return true;
     }
   });
-        //console.info("doing ajax dialog edit ");
 
   $.ajax({
     'url':url,
@@ -595,7 +586,7 @@ function set_edit_buttons() {
     var fieldname = $('.metadata > .fieldname', field).text();
     var title = $('.metadata > .dialog_title', field).text();
 
-    var options = { }; //'width':800, 'height':600 };
+    var options = {}; //'width':800, 'height':600 };
     options.height = Number($('.metadata > .height', field).text()) || options.height;
     options.width = Number($('.metadata > .width', field).text()) || options.width;
 
@@ -623,10 +614,7 @@ function set_creators(){
     var region = $(this).parents(".active_region")[0];
     var title = "Edit";
     var options = {};
-      //'width':800,
-      //'height':600
-    //};
-    //console.info("doing ajax set creators");
+
     $.ajax({
       url: link,
       type:'GET',
@@ -705,7 +693,7 @@ function set_deleters(){
     block_ui();
     var link = $(this).attr('href');
     var region = $(this).parents(".active_region")[0];
-    //console.info("doing ajax set deleters");
+
     $.ajax({
       url: link,
       type:'GET',

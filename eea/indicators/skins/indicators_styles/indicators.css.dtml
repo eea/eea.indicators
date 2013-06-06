@@ -212,6 +212,10 @@ ul.sortable_spec {
     width:100% !important;
     height:245px;
 }
+#simple-visual-portal-wrapper textarea {
+    width:100%;
+    height:276px;
+}
 
 /* Specification view
 ===================== */

@@ -12,8 +12,8 @@
 							<h1 tal:condition="not: context/Title" class="required-field" >Untitled Specification</h1>
 						</metal:slot>
 						<metal:slot metal:fill-slot="extra-metadata">
-							<div class="width">500</div>
-							<div class="height">230</div>
+							<div class="width">600</div>
+							<div class="height">260</div>
 							<div class="reload_page" i18n:translate="">true</div>
               <div class="disabler" tal:condition="python:context.Title() == 'Untitled indicator'" i18n:translate="">true</div>
 							<div class="dialog_title" i18n:translate="">Edit Title</div>
