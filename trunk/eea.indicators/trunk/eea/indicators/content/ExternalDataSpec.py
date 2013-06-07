@@ -19,6 +19,7 @@ from Products.CMFPlone.utils import getToolByName
 from eea.dataservice.widgets import OrganisationsWidget
 from eea.indicators.content import interfaces
 from eea.themecentre.interfaces import IThemeTagging
+from Products.EEAContentTypes.content.ThemeTaggable import ThemeTaggable_schema
 from zope.component import adapts
 from zope.interface import implements
 import logging
@@ -155,6 +156,8 @@ schema = Schema((
 
 schema['provider_url'].validators = ('isURL',)
 schema['dataset_url'].validators = ('isURL',)
+schema = schema + ThemeTaggable_schema.copy()
+schema['themes'].visible = {'view':'hidden', 'edit':'hidden'}
 
 ExternalDataSpec_schema = ATContentTypeSchema.copy() + \
     getattr(ATCTContent, 'schema', Schema(())).copy() + \
