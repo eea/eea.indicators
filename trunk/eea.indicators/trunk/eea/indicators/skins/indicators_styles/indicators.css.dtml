@@ -825,12 +825,15 @@ ul.token-input-list-facebook {
     margin-top:0 !important;
 }
 
-/* ==============proposed improvements ============*/
-  
-h3 { margin-bottom:5px !important; margin-top:40px !important; padding-bottom:0 !important; }
-h4 { border-bottom: 1px solid #ECECEC; color: #000000; font-size: 110%; margin: 1em 0 0.2em; padding: 0; }
 .table-document-actions {width:100%}
 #archetypes-fieldname-more_updates_on textarea { width: 100% !important; height:280px !important; }
+
+/* ==============proposed improvements ============*/
+  
+/*
+h3 { margin-bottom:5px !important; margin-top:40px !important; padding-bottom:0 !important; }
+h4 { border-bottom: 1px solid #ECECEC; color: #000000; font-size: 110%; margin: 1em 0 0.2em; padding: 0; }
+*/
 
 
 
