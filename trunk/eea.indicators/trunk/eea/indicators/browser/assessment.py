@@ -529,7 +529,127 @@ class AssessmentAsXML(BrowserView):
                         M.Value("Not available"),
                         conceptID="COMPLETENESS", 
                     ),
-                    conceptID="QUALITY_MGMNT", 
+                    conceptID="RELEVANCE", 
+                ),
+                M.ReportedAttribute(    #ACCURACY
+                    M.Value(),
+                    M.ReportedAttribute(
+                        M.Value("Not available"),
+                        conceptID="ACCURACY_OVERALL", 
+                    ),
+                    M.ReportedAttribute(
+                        M.Value("Not applicable"),
+                        conceptID="SAMPLING_ERR", 
+                    ),
+                    M.ReportedAttribute(
+                        M.Value("Not applicable"),
+                        conceptID="NONSAMPLING_ERR", 
+                    ),
+                    conceptID="ACCURACY", 
+                ),
+                M.ReportedAttribute(    #TIMELINESS_PUNCT
+                    M.Value(),
+                    M.ReportedAttribute(
+                        M.Value("Not available"),
+                        conceptID="TIMELINESS", 
+                    ),
+                    M.ReportedAttribute(
+                        M.Value("Not available"),
+                        conceptID="PUNCTUALITY", 
+                    ),
+                    conceptID="TIMELINESS_PUNCT", 
+                ),
+                M.ReportedAttribute(    #COMPARABILITY
+                    M.Value(),
+                    M.ReportedAttribute(
+                        M.Value("Not available"),
+                        M.ReportedAttribute(
+                            M.Value("Not available"),
+                            conceptID="COMPAR_GEO_COVER", 
+                        ),
+                        M.ReportedAttribute(
+                            M.Value("Not available"),
+                            conceptID="COMPAR_GEO_COMMENT", 
+                        ),
+                        conceptID="COMPAR_GEO", 
+                    ),
+                    M.ReportedAttribute(
+                        M.Value("Not available"),
+                        M.ReportedAttribute(
+                            M.Value("Not available"),
+                            conceptID="COMPAR_TIME_COVER", 
+                        ),
+                        M.ReportedAttribute(
+                            M.Value("Not available"),
+                            conceptID="COMPAR_TIME_COMMENT", 
+                        ),
+                        conceptID="COMPAR_TIME", 
+                    ),
+                    conceptID="COMPARABILITY", 
+                ),
+                M.ReportedAttribute(    #COHERENCE
+                    M.Value(),
+                    M.ReportedAttribute(
+                        M.Value("Not available"),
+                        conceptID="COHER_X_DOM", 
+                    ),
+                    M.ReportedAttribute(
+                        M.Value("Not available"),
+                        conceptID="COHER_INTERNAL", 
+                    ),
+                    conceptID="COHERENCE", 
+                ),
+                M.ReportedAttribute(
+                    M.Value("Not applicable"),
+                    conceptID="COST_BURDEN", 
+                ),
+                M.ReportedAttribute(    #DATA_REV
+                    M.Value(),
+                    M.ReportedAttribute(
+                        M.Value(),  #TODO
+                        conceptID="REV_POLICY", 
+                    ),
+                    M.ReportedAttribute(
+                        M.Value(),  #TODO
+                        conceptID="REV_PRACTICE", 
+                    ),
+                    conceptID="DATA_REV", 
+                ),
+                M.ReportedAttribute(    #STAT_PROCESS
+                    M.Value(),
+                    M.ReportedAttribute(
+                        M.Value("Not available"),
+                        conceptID="SOURCE_TYPE", 
+                    ),
+                    M.ReportedAttribute(
+                        M.Value("Not available"),
+                        conceptID="FREQ_COLL", 
+                    ),
+                    M.ReportedAttribute(
+                        M.Value("Not available"),
+                        conceptID="COLL_METHOD", 
+                    ),
+                    M.ReportedAttribute(
+                        M.Value("Not available"),
+                        conceptID="DATA_VALIDATION", 
+                    ),
+                    M.ReportedAttribute(
+                        M.Value(),  #TODO
+                        conceptID="DATA_COMP", 
+                    ),
+                    M.ReportedAttribute(
+                        M.Value(),  #TODO
+                        conceptID="ADJUSTMENT", 
+                    ),
+                    conceptID="STAT_PROCESS", 
+                ),
+                M.ReportedAttribute(
+                    M.Value("Please note that more metadata and additional "
+"information about this indicator is available online at %s. For technical "
+"issues contact EEA web team at http://www.eea.europa.eu/help/contact-info. "
+"Metadata extracted automatically by EEA IMS at %s." % 
+(self.context.absolute_url(), now.isoformat())),
+                    conceptID="COMMENT_DSET", 
                 ),
             ),
         )
