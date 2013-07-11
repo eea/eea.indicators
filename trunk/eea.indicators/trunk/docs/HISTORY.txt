@@ -3,6 +3,9 @@ Changelog
 
 7.1-dev - (unreleased)
 ----------------------
+* WIP: Feature: added @@xml view for assessments to export information
+  according to ESMS metadata format
+  [tiberich #14871 EEA]
 
 7.0 - (2013-06-17)
 ------------------
