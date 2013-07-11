@@ -320,13 +320,13 @@ class AssessmentAsXML(BrowserView):
 
         header = E.Header(
             E.ID("B5_ESMSIPEEA_A"),
-            E.Prepared(now.isoformat()), #TODO
+            E.Prepared(now.isoformat()),
             E.Sender(id="4D0"),
-            E.DataSetID("MDF_B5_ESMSIPEEA_A_1353407791410"),  #TODO
+            E.DataSetID("MDF_B5_ESMSIPEEA_A_1353407791410"),
             E.DataSetAction("Append"),
-            E.Extracted(now.isoformat()),  #TODO,
-            E.ReportingBegin(year_start.isoformat()), #TODO
-            E.ReportingEnd(year_end.isoformat()), #TODO
+            E.Extracted(now.isoformat()),
+            E.ReportingBegin(year_start.isoformat()),
+            E.ReportingEnd(year_end.isoformat()),
         )
 
         M = ElementMaker(namespace=NAMESPACES['GenericMetadata'], 
@@ -343,13 +343,194 @@ class AssessmentAsXML(BrowserView):
                     M.ComponentValue("4D0", component="DATA_PROVIDER", object="DataProvider"),
                     M.ComponentValue("B5_ESMSIPEEA_A", component="DATAFLOW", object="DataFlow"),
                 ),
-                M.ReportedAttribute(
+                M.ReportedAttribute(    #CONTACT
                     M.Value(),
                     M.ReportedAttribute(
                         M.Value('European Environment Agency (EEA)'),
-                        conceptID="CONTACT_ORGANISATION", ),
+                        conceptID="CONTACT_ORGANISATION", 
+                    ),
+                    M.ReportedAttribute(
+                        M.Value('Not available'),
+                        conceptID="ORGANISATION_UNIT", 
+                    ),
+                    M.ReportedAttribute(
+                        M.Value('Martin Adam'), #TODO: FIXME
+                        conceptID="CONTACT_NAME", 
+                    ),
+                    M.ReportedAttribute(
+                        M.Value('Not available'),
+                        conceptID="CONTACT_FUNC", 
+                    ),
+                    M.ReportedAttribute(
+                        M.Value('Kongens Nytorv 6, 1050, Copenhagen K, Denmark'),
+                        conceptID="CONTACT_MAIL", 
+                    ),
+                    M.ReportedAttribute(
+                        M.Value('Not available'),
+                        conceptID="CONTACT_EMAIL", 
+                    ),
+                    M.ReportedAttribute(
+                        M.Value('Not available'),
+                        conceptID="CONTACT_PHONE", 
+                    ),
+                    M.ReportedAttribute(
+                        M.Value('Not available'),
+                        conceptID="CONTACT_FAX", 
+                    ),
                     conceptID="CONTACT",
-                )
+                ),
+                M.ReportedAttribute(    #META_UPDATE
+                    M.Value(),
+                    M.ReportedAttribute(
+                        M.Value('2012-12-21'),
+                        conceptID="META_CERTIFIED", 
+                    ),
+                    M.ReportedAttribute(
+                        M.Value('2012-12-21'),
+                        conceptID="META_POSTED", 
+                    ),
+                    M.ReportedAttribute(
+                        M.Value('2012-12-21'),
+                        conceptID="META_LAST_UPDATE", 
+                    ),
+                    conceptID="META_UPDATE",
+                ),
+                M.ReportedAttribute(    #STAT_PRES
+                    M.Value(),
+                    M.ReportedAttribute(
+                        M.Value(self.context.Description()),
+                        conceptID="DATA_DESCR", 
+                    ),
+                    M.ReportedAttribute(
+                        M.Value(),  #TODO
+                        conceptID="CLASS_SYSTEM", 
+                    ),
+                    M.ReportedAttribute(
+                        M.Value(),  #TODO
+                        conceptID="COVERAGE_SECTOR", 
+                    ),
+                    M.ReportedAttribute(
+                        M.Value("Not available"),
+                        conceptID="STAT_CONC_DEF", 
+                    ),
+                    M.ReportedAttribute(
+                        M.Value("Not available"),
+                        conceptID="STAT_UNIT", 
+                    ),
+                    M.ReportedAttribute(
+                        M.Value("Not available"),
+                        conceptID="STAT_POP", 
+                    ),
+                    M.ReportedAttribute(
+                        M.Value(),  #TODO
+                        conceptID="COVERAGE_TIME", 
+                    ),
+                    M.ReportedAttribute(
+                        M.Value("Not available"),
+                        conceptID="BASE_PER", 
+                    ),
+                    conceptID="STAT_PRES"
+                ),
+                M.ReportedAttribute(
+                    M.Value(),  #TODO
+                    conceptID="UNIT_MEASURE", 
+                ),
+                M.ReportedAttribute(
+                    M.Value("Not available"),
+                    conceptID="REF_PERIOD", 
+                ),
+                M.ReportedAttribute(    #INST_MANDATE
+                    M.Value(),
+                    M.ReportedAttribute(
+                        M.Value("Regulation (EC) No 401/2009 of the European "
+"Parliament and of the Council of 23 April 2009 (available at "
+"http://eur-lex.europa.eu/LexUriServ/LexUriServ.do?uri=CELEX:32009R0401:EN:NOT)"),
+                        conceptID="INST_MAN_LA_OA", 
+                    ),
+                    M.ReportedAttribute(
+                        M.Value("Regulation (EC) No 401/2009 of the European "
+"Parliament and of the Council of 23 April 2009 (available at "
+"http://eur-lex.europa.eu/LexUriServ/LexUriServ.do?uri=CELEX:32009R0401:EN:NOT)"),
+                        conceptID="INST_MAN_SHAR", 
+                    ),
+                    conceptID="INST_MANDATE", 
+                ),
+                M.ReportedAttribute(    #CONF
+                    M.Value(),
+                    M.ReportedAttribute(
+                        M.Value("Not applicable"),
+                        conceptID="CONF_DATA_TR", 
+                    ),
+                    M.ReportedAttribute(
+                        M.Value("Not applicable"),
+                        conceptID="CONF_POLICY", 
+                    ),
+                    conceptID="CONF", 
+                ),
+                M.ReportedAttribute(    #REL_POLICY
+                    M.Value(),
+                    M.ReportedAttribute(
+                        M.Value("Not available"),
+                        conceptID="REL_CAL_POLICY", 
+                    ),
+                    M.ReportedAttribute(
+                        M.Value("Not available"),
+                        conceptID="REL_CAL_ACCESS", 
+                    ),
+                    M.ReportedAttribute(
+                        M.Value("All EEA indicators are public"),
+                        conceptID="REL_POL_US_AC", 
+                    ),
+                    conceptID="REL_POLICY", 
+                ),
+                M.ReportedAttribute(
+                    M.Value("Not available"),
+                    conceptID="FREQ_DISS", 
+                ),
+                M.ReportedAttribute(
+                    M.Value("Not available"),
+                    conceptID="DISS_FORMAT", 
+                ),
+                M.ReportedAttribute(    #ACCESS_DOC
+                    M.Value(),
+                    M.ReportedAttribute(
+                        M.Value(),      #TODO
+                        conceptID="DOC_METHOD", 
+                    ),
+                    M.ReportedAttribute(
+                        M.Value("Not available"),
+                        conceptID="QUALITY_DOC", 
+                    ),
+                    conceptID="ACCESS_DOC", 
+                ),
+                M.ReportedAttribute(    #QUALITY_MGMNT
+                    M.Value(),
+                    M.ReportedAttribute(
+                        M.Value("Not available"),
+                        conceptID="QUALITY_ASSURE", 
+                    ),
+                    M.ReportedAttribute(
+                        M.Value(),  #TODO
+                        conceptID="QUALITY_ASSMNT", 
+                    ),
+                    conceptID="QUALITY_MGMNT", 
+                ),
+                M.ReportedAttribute(    #RELEVANCE
+                    M.Value(),
+                    M.ReportedAttribute(
+                        M.Value(),  #TODO
+                        conceptID="USER_NEEDS", 
+                    ),
+                    M.ReportedAttribute(
+                        M.Value("Not applicable"),
+                        conceptID="USER_SAT", 
+                    ),
+                    M.ReportedAttribute(
+                        M.Value("Not available"),
+                        conceptID="COMPLETENESS", 
+                    ),
+                    conceptID="QUALITY_MGMNT", 
+                ),
             ),
         )
 
