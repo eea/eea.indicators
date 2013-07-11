@@ -265,6 +265,8 @@
           <p tal:condition="python:not rationale_uncertainty" i18n:translate="">No uncertainty has been specified</p>
           </tal:rationale_uncertainty>
         </div>
+
+
         <h2 id="further_work" i18n:translate="">Further work</h2>
 
         <tal:def tal:define="works context/get_work; short works/short; long works/long">

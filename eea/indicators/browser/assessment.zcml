@@ -8,6 +8,11 @@
     <!--adapter factory=".assessment.AssessmentPartWorkflowReadiness"*
              /*for="eea.indicators.content.interfaces.IAssessmentPart" /-->
 
+    <browser:page name="xml"
+                  for="eea.indicators.content.interfaces.IAssessment"
+                  class=".assessment.AssessmentAsXML"
+                  permission="zope2.View" />
+
     <browser:page name="view"
                   for="eea.indicators.content.interfaces.IAssessment"
                   template="templates/assessment/view.pt"

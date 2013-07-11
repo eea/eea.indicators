@@ -3,22 +3,25 @@
 
 from Acquisition import aq_inner, aq_parent
 from DateTime import DateTime
-from Products.CMFCore.utils import getToolByName
 from Products.Archetypes.event import ObjectInitializedEvent
+from Products.CMFCore.utils import getToolByName
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from ZPublisher.Client import querify
 from eea.indicators.browser.utils import has_one_of
 from eea.indicators.content.Assessment import getPossibleVersionsId
 from eea.indicators.content.Assessment import hasWrongVersionId
+from eea.versions.interfaces import IGetVersions
 from eea.versions.versions import CreateVersion as BaseCreateVersion
 from eea.versions.versions import create_version as base_create_version
-from eea.versions.interfaces import IGetVersions
 from eea.workflow.interfaces import IObjectReadiness
 from eea.workflow.readiness import ObjectReadiness
+from lxml.builder import ElementMaker
 from plone.app.layout.globals.interfaces import IViewView
-from zope.interface import implements
 from zope.event import notify
+from zope.interface import implements
+import datetime
+import lxml
 
 #from eea.versions.versions import get_version_id
 #from eea.versions.versions import get_versions_api
@@ -280,3 +283,79 @@ class FragmentMetadataView(BrowserView):
         """returns a query for fields
         """
         return querify([('fields', self.field_names())])
+
+
+NAMESPACES = {  #shortcut:full ns
+    None:"http://www.SDMX.org/resources/SDMXML/schemas/v2_0/message",
+    'GenericMetadata':
+        "http://www.SDMX.org/resources/SDMXML/schemas/v2_0/genericmetadata",
+    'common':"http://www.SDMX.org/resources/SDMXML/schemas/v2_0/common",
+    'compact':"http://www.SDMX.org/resources/SDMXML/schemas/v2_0/common",
+    'cross':"http://www.SDMX.org/resources/SDMXML/schemas/v2_0/cross",
+    'generic':"http://www.SDMX.org/resources/SDMXML/schemas/v2_0/generic",
+    'structure':"http://www.SDMX.org/resources/SDMXML/schemas/v2_0/structure",
+    'xsi':"http://www.w3.org/2001/XMLSchema-instance",
+}
+
+
+def nsel(el, ns=None):
+    """Returns a proper string for lxml to construct a namespaced element
+    """
+    return "{%s}%s" % (NAMESPACES[ns], el)
+
+
+class AssessmentAsXML(BrowserView):
+    """The @@xml view according to ESTAT specification
+    """
+
+    def __call__(self):
+        self.request.response.setHeader('Content-Type','text/xml')
+
+        now = datetime.datetime.now()
+        year_start = datetime.datetime(year=now.year, month=1, day=1)
+        year_end = datetime.datetime(year=now.year, month=12, day=31)
+        #maybe it should be done as timedelta of 1sec from previous year
+
+        E = ElementMaker(nsmap=NAMESPACES)
+
+        header = E.Header(
+            E.ID("B5_ESMSIPEEA_A"),
+            E.Prepared(now.isoformat()), #TODO
+            E.Sender(id="4D0"),
+            E.DataSetID("MDF_B5_ESMSIPEEA_A_1353407791410"),  #TODO
+            E.DataSetAction("Append"),
+            E.Extracted(now.isoformat()),  #TODO,
+            E.ReportingBegin(year_start.isoformat()), #TODO
+            E.ReportingEnd(year_end.isoformat()), #TODO
+        )
+
+        M = ElementMaker(namespace=NAMESPACES['GenericMetadata'], 
+                         nsmap=NAMESPACES)
+
+        metadata = M.MetadataSet(
+            M.MetadataStructureRef('ESMSIPEEA_MSD'),
+            M.MetadataStructureAgencyRef("ESTAT"),
+            M.ReportRef('ESMS_REPORT_FULL'),
+            M.AttributeValueSet(
+                M.TargetRef("FULL_ESMS"),
+                M.TargetValues(
+                    M.ComponentValue("2013-A0", component="TIME_PERIOD", object="TimeDimension"),   #TODO: Check here
+                    M.ComponentValue("4D0", component="DATA_PROVIDER", object="DataProvider"),
+                    M.ComponentValue("B5_ESMSIPEEA_A", component="DATAFLOW", object="DataFlow"),
+                ),
+                M.ReportedAttribute(
+                    M.Value(),
+                    M.ReportedAttribute(
+                        M.Value('European Environment Agency (EEA)'),
+                        conceptID="CONTACT_ORGANISATION", ),
+                    conceptID="CONTACT",
+                )
+            ),
+        )
+
+        root = lxml.etree.Element(nsel("GenericMetadata"), nsmap=NAMESPACES)
+        root.append(header)
+        root.append(metadata)
+
+        return lxml.etree.tostring(root)
+
