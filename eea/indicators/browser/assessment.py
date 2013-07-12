@@ -3,6 +3,7 @@
 
 from Acquisition import aq_inner, aq_parent
 from DateTime import DateTime
+from Products.ATVocabularyManager import NamedVocabulary
 from Products.Archetypes.event import ObjectInitializedEvent
 from Products.CMFCore.utils import getToolByName
 from Products.Five import BrowserView
@@ -21,10 +22,11 @@ from plone.app.layout.globals.interfaces import IViewView
 from zope.event import notify
 from zope.interface import implements
 import datetime
+import logging
 import lxml
 
-#from eea.versions.versions import get_version_id
-#from eea.versions.versions import get_versions_api
+logger = logging.getLogger("eea.indicators.browser.assessment")
+
 
 class IndexPage(BrowserView):
     """The Assessment index page"""
@@ -303,6 +305,15 @@ def nsel(el, ns=None):
     """
     return "{%s}%s" % (NAMESPACES[ns], el)
 
+def _toUnicode(value):
+    if not isinstance(value, unicode):
+        try:
+            value = value.decode('utf-8')
+        except UnicodeDecodeError:
+            logger.error("Could not convert to unicode utf8: %s", value)
+
+    return value
+    
 
 class AssessmentAsXML(BrowserView):
     """The @@xml view according to ESTAT specification
@@ -316,6 +327,71 @@ class AssessmentAsXML(BrowserView):
         year_end = datetime.datetime(year=now.year, month=12, day=31)
         #maybe it should be done as timedelta of 1sec from previous year
 
+        convert = getToolByName(self.context, 'portal_transforms').convert
+        getText = lambda value:convert('html_to_text', 
+                                        _toUnicode(value)).getData().strip()
+
+        #we extract some info here to simplify code down below
+        spec = self.context.aq_parent
+        manager_id = spec.getManager_user_id()
+        mtool = getToolByName(spec, 'portal_membership')
+        manager_name = (mtool.getMemberInfo(manager_id) 
+                        or {}).get('fullname', 'Missing')
+
+        dpsir_vocab = NamedVocabulary('indicator_dpsir'
+                                        ).getVocabularyDict(spec)
+        typology_vocab = NamedVocabulary('indicator_typology'
+                                        ).getVocabularyDict(spec)
+
+        dpsir = dpsir_vocab.get(spec.getDpsir())
+        typology = typology_vocab.get(spec.getTypology())
+        dpsir_typology = "DPSIR: %s - Typology: %s" % (dpsir, typology)
+
+        themes_vocab = dict(spec._getMergedThemes())
+        themes = ", ".join([themes_vocab.get(l) for l in spec.getThemes()])
+
+        #we assume there are no gaps in selected time
+        t = self.context.getTemporalCoverage()
+        if t:
+            temporal_coverage = " - ".join([t[0], t[-1]])
+        else:
+            temporal_coverage = ""
+
+        units = getText(spec.getUnits())
+
+        mrefs = [b.getObject() for b in spec.getFolderContents(
+                        contentFilter={'portal_type':'MethodologyReference'})]
+        methodology_reference = "\n".join(
+            [(o.Title() + "\n" + getText(o.getDescription())) for o in mrefs])
+
+
+        uncertainties = getText(spec.getMethodology_uncertainty()) +\
+                        getText(spec.getData_uncertainty()) +\
+                        getText(spec.getRationale_uncertainty())
+
+        
+        questions = [b.getObject() for b in spec.getFolderContents(
+                        contentFilter={'portal_type':'PolicyQuestion'})]
+        qpart = ""
+        if questions:
+            main_q = None
+            for q in questions:
+                if q.getIs_key_question():
+                    main_q = q
+            if main_q is not None:
+                qpart += "Key policy question: %s\n" % main_q.Title()
+
+            for q in questions:
+                if q == main_q:
+                    continue
+                qpart += "Specific policy question: %s\n" % q.Title()
+
+        user_needs = getText(spec.getRationale_justification()) + "\n" + qpart
+
+        methodology = getText(spec.getMethodology())
+        methodology_gapfilling = getText(spec.getMethodology_gapfilling())
+
+        #The xml construction
         E = ElementMaker(nsmap=NAMESPACES)
 
         header = E.Header(
@@ -339,9 +415,12 @@ class AssessmentAsXML(BrowserView):
             M.AttributeValueSet(
                 M.TargetRef("FULL_ESMS"),
                 M.TargetValues(
-                    M.ComponentValue("2013-A0", component="TIME_PERIOD", object="TimeDimension"),   #TODO: Check here
-                    M.ComponentValue("4D0", component="DATA_PROVIDER", object="DataProvider"),
-                    M.ComponentValue("B5_ESMSIPEEA_A", component="DATAFLOW", object="DataFlow"),
+                    M.ComponentValue("2013-A0", component="TIME_PERIOD", 
+                                     object="TimeDimension"),
+                    M.ComponentValue("4D0", component="DATA_PROVIDER", 
+                                     object="DataProvider"),
+                    M.ComponentValue("B5_ESMSIPEEA_A", component="DATAFLOW", 
+                                     object="DataFlow"),
                 ),
                 M.ReportedAttribute(    #CONTACT
                     M.Value(),
@@ -354,7 +433,7 @@ class AssessmentAsXML(BrowserView):
                         conceptID="ORGANISATION_UNIT", 
                     ),
                     M.ReportedAttribute(
-                        M.Value('Martin Adam'), #TODO: FIXME
+                        M.Value(manager_name),
                         conceptID="CONTACT_NAME", 
                     ),
                     M.ReportedAttribute(
@@ -362,7 +441,8 @@ class AssessmentAsXML(BrowserView):
                         conceptID="CONTACT_FUNC", 
                     ),
                     M.ReportedAttribute(
-                        M.Value('Kongens Nytorv 6, 1050, Copenhagen K, Denmark'),
+                        M.Value('Kongens Nytorv 6, 1050, '
+                                'Copenhagen K, Denmark'),
                         conceptID="CONTACT_MAIL", 
                     ),
                     M.ReportedAttribute(
@@ -402,11 +482,11 @@ class AssessmentAsXML(BrowserView):
                         conceptID="DATA_DESCR", 
                     ),
                     M.ReportedAttribute(
-                        M.Value(),  #TODO
+                        M.Value(dpsir_typology),
                         conceptID="CLASS_SYSTEM", 
                     ),
                     M.ReportedAttribute(
-                        M.Value(),  #TODO
+                        M.Value(themes),
                         conceptID="COVERAGE_SECTOR", 
                     ),
                     M.ReportedAttribute(
@@ -422,7 +502,7 @@ class AssessmentAsXML(BrowserView):
                         conceptID="STAT_POP", 
                     ),
                     M.ReportedAttribute(
-                        M.Value(),  #TODO
+                        M.Value(temporal_coverage),
                         conceptID="COVERAGE_TIME", 
                     ),
                     M.ReportedAttribute(
@@ -432,7 +512,7 @@ class AssessmentAsXML(BrowserView):
                     conceptID="STAT_PRES"
                 ),
                 M.ReportedAttribute(
-                    M.Value(),  #TODO
+                    M.Value(units),
                     conceptID="UNIT_MEASURE", 
                 ),
                 M.ReportedAttribute(
@@ -444,13 +524,15 @@ class AssessmentAsXML(BrowserView):
                     M.ReportedAttribute(
                         M.Value("Regulation (EC) No 401/2009 of the European "
 "Parliament and of the Council of 23 April 2009 (available at "
-"http://eur-lex.europa.eu/LexUriServ/LexUriServ.do?uri=CELEX:32009R0401:EN:NOT)"),
+"http://eur-lex.europa.eu/LexUriServ/LexUriServ.do?uri="
+"CELEX:32009R0401:EN:NOT)"),
                         conceptID="INST_MAN_LA_OA", 
                     ),
                     M.ReportedAttribute(
                         M.Value("Regulation (EC) No 401/2009 of the European "
 "Parliament and of the Council of 23 April 2009 (available at "
-"http://eur-lex.europa.eu/LexUriServ/LexUriServ.do?uri=CELEX:32009R0401:EN:NOT)"),
+"http://eur-lex.europa.eu/LexUriServ/LexUriServ.do?uri="
+"CELEX:32009R0401:EN:NOT)"),
                         conceptID="INST_MAN_SHAR", 
                     ),
                     conceptID="INST_MANDATE", 
@@ -494,7 +576,7 @@ class AssessmentAsXML(BrowserView):
                 M.ReportedAttribute(    #ACCESS_DOC
                     M.Value(),
                     M.ReportedAttribute(
-                        M.Value(),      #TODO
+                        M.Value(methodology_reference),
                         conceptID="DOC_METHOD", 
                     ),
                     M.ReportedAttribute(
@@ -510,7 +592,7 @@ class AssessmentAsXML(BrowserView):
                         conceptID="QUALITY_ASSURE", 
                     ),
                     M.ReportedAttribute(
-                        M.Value(),  #TODO
+                        M.Value(uncertainties),
                         conceptID="QUALITY_ASSMNT", 
                     ),
                     conceptID="QUALITY_MGMNT", 
@@ -518,7 +600,7 @@ class AssessmentAsXML(BrowserView):
                 M.ReportedAttribute(    #RELEVANCE
                     M.Value(),
                     M.ReportedAttribute(
-                        M.Value(),  #TODO
+                        M.Value(user_needs),
                         conceptID="USER_NEEDS", 
                     ),
                     M.ReportedAttribute(
@@ -606,11 +688,19 @@ class AssessmentAsXML(BrowserView):
                 M.ReportedAttribute(    #DATA_REV
                     M.Value(),
                     M.ReportedAttribute(
-                        M.Value(),  #TODO
+                        M.Value("Indicator assessments are peer reviewed and "
+"CSIs go under extended country review process. Previous versions of "
+"indicators are available. Data coming from EEA's data flows have their own "
+"QA procedure. The quality of third part data is under responsibily of "
+"respective data providers."),
                         conceptID="REV_POLICY", 
                     ),
                     M.ReportedAttribute(
-                        M.Value(),  #TODO
+                        M.Value("Indicator assessments are peer reviewed and "
+"CSIs go under extended country review process. Previous versions of "
+"indicators are available. Data coming from EEA's data flows have their own "
+"QA procedure. The quality of third part data is under responsibily of "
+"respective data providers."),
                         conceptID="REV_PRACTICE", 
                     ),
                     conceptID="DATA_REV", 
@@ -634,11 +724,11 @@ class AssessmentAsXML(BrowserView):
                         conceptID="DATA_VALIDATION", 
                     ),
                     M.ReportedAttribute(
-                        M.Value(),  #TODO
+                        M.Value(methodology),
                         conceptID="DATA_COMP", 
                     ),
                     M.ReportedAttribute(
-                        M.Value(),  #TODO
+                        M.Value(methodology_gapfilling),
                         conceptID="ADJUSTMENT", 
                     ),
                     conceptID="STAT_PROCESS", 
