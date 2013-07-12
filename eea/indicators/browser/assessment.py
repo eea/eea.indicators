@@ -465,14 +465,14 @@ class AssessmentAsXML(BrowserView):
                     M.Value(),
                     M.ReportedAttribute(
                         M.Value('2012-12-21'),
-                        conceptID="META_CERTIFIED", 
+                        conceptID="META_CERTIFIED",     #TODO
                     ),
                     M.ReportedAttribute(
-                        M.Value('2012-12-21'),
+                        M.Value('2012-12-21'),  #TODO
                         conceptID="META_POSTED", 
                     ),
                     M.ReportedAttribute(
-                        M.Value('2012-12-21'),
+                        M.Value('2012-12-21'),  #TODO
                         conceptID="META_LAST_UPDATE", 
                     ),
                     conceptID="META_UPDATE",
@@ -480,7 +480,7 @@ class AssessmentAsXML(BrowserView):
                 M.ReportedAttribute(    #STAT_PRES
                     M.Value(),
                     M.ReportedAttribute(
-                        M.Value(self.context.Description()),
+                        M.Value(self.context.Description()),    #TODO
                         conceptID="DATA_DESCR", 
                     ),
                     M.ReportedAttribute(
@@ -498,7 +498,7 @@ class AssessmentAsXML(BrowserView):
                     M.ReportedAttribute(
                         M.Value("Not available"),
                         conceptID="STAT_UNIT", 
-                    ),
+                    ), #TODO: add REF_AREA
                     M.ReportedAttribute(
                         M.Value("Not available"),
                         conceptID="STAT_POP", 
@@ -574,7 +574,8 @@ class AssessmentAsXML(BrowserView):
                 M.ReportedAttribute(
                     M.Value("Not available"),
                     conceptID="DISS_FORMAT", 
-                ),
+                ),  #TODO: add NEWS_REL, PUBLICATIONS, ONLINE_DB, 
+                #TODO: add MICRO_DAT_ACC, DISS_OTHER
                 M.ReportedAttribute(    #ACCESS_DOC
                     M.Value(),
                     M.ReportedAttribute(
