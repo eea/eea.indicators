@@ -306,6 +306,8 @@ def nsel(el, ns=None):
     return "{%s}%s" % (NAMESPACES[ns], el)
 
 def _toUnicode(value):
+    """Convert an unknown string to unicode
+    """
     if not isinstance(value, unicode):
         try:
             value = value.decode('utf-8')

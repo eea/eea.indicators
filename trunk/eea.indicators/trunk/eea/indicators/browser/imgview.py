@@ -35,7 +35,7 @@ class ImageViewAssessment(BrowserView):
                         eeafile = rel_ob
                         break
 
-        #TODO: also take into account DavizVisualizations
+        #ZZZ: also take into account DavizVisualizations
 
         self.img = queryMultiAdapter((eeafile, request), name=u'imgview')
 
@@ -68,7 +68,7 @@ class ImageViewIndicatorFactSheet(BrowserView):
                 if state in ['published', 'visible']:
                     eeafile = rel_ob
                     break
-        #TODO: also take into account DavizVisualizations
+        #ZZZ: also take into account DavizVisualizations
 
         self.img = queryMultiAdapter((eeafile, request), name=u'imgview')
 

@@ -23,9 +23,9 @@ from eea.workflow.interfaces import IFieldIsRequiredForState, IValueProvider
 from eea.workflow.readiness import ObjectReadiness
 from plone.app.layout.globals.interfaces import IViewView
 from zope.component import getMultiAdapter
-from zope.interface import alsoProvides
 from zope.interface import implements
 import logging
+#from zope.interface import alsoProvides
 
 logger = logging.getLogger('eea.indicators.browser.specification')
 
