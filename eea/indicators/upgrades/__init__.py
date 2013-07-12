@@ -29,7 +29,7 @@ def assign_iversionenhanced_to_content(gstool):
                 if 'versionId' in obj.__annotations__.keys():
                     if not IVersionEnhanced in providedBy(obj):
                         alsoProvides(obj, IVersionEnhanced)
-                        logger.info(u"Added IVersionEnhanced to %s" % obj)
+                        logger.info(u"Added IVersionEnhanced to %s", obj)
 
 
 def cleanup_assessmentparts(gstool):
