@@ -51,7 +51,6 @@ class CreateVersion(BaseCreateVersion):
     def __call__(self):
         spec = aq_parent(aq_inner(self.context))
         latest = IGetVersions(spec).latest_version()
-        latest_version = IGetVersions(self.context).latest_version()
 
         if spec.UID() == latest.UID():
             version = create_version(self.context)
@@ -346,6 +345,7 @@ class AssessmentAsXML(BrowserView):
             publish_date = ""
 
         spec_modified = spec.modified().asdatetime().date().isoformat()
+        latest_version = IGetVersions(self.context).latest_version()
 
         cutil = getUtility(ICountryAvailability)
         countries = dict(cutil.getCountryListing())
@@ -473,7 +473,7 @@ class AssessmentAsXML(BrowserView):
                         conceptID="CONTACT_PHONE", 
                     ),
                     M.ReportedAttribute(
-                        M.Value('Not available'),
+                        M.Value('Not applicable'),
                         conceptID="CONTACT_FAX", 
                     ),
                     conceptID="CONTACT",
@@ -723,7 +723,7 @@ class AssessmentAsXML(BrowserView):
                 M.ReportedAttribute(    #COHERENCE
                     M.Value(),
                     M.ReportedAttribute(
-                        M.Value("Not available"),
+                        M.Value("Not applicable"),
                         conceptID="COHER_X_DOM", 
                     ),
                     M.ReportedAttribute(
