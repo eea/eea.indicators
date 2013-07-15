@@ -315,12 +315,20 @@ def _toUnicode(value):
             value = value.decode('utf-8')
         except UnicodeDecodeError:
             logger.error("Could not convert to unicode utf8: %s", value)
+            value = ''.join(c for c in value if _valid_XML_char_ordinal(ord(c)))
 
     return value
-    
 
-class AssessmentAsXML(BrowserView):
-    """The @@xml view according to ESTAT specification
+def _valid_XML_char_ordinal(i):
+    return ( # conditions ordered by presumed frequency
+        0x20 <= i <= 0xD7FF 
+        or i in (0x9, 0xA, 0xD)
+        or 0xE000 <= i <= 0xFFFD
+        or 0x10000 <= i <= 0x10FFFF
+        )
+
+class MetadataAsESMSXML(BrowserView):
+    """The XML output according to Euro SDMX metadata structure (ESMS).
     """
 
     def __call__(self):
@@ -364,7 +372,7 @@ class AssessmentAsXML(BrowserView):
 
         dpsir = dpsir_vocab.get(spec.getDpsir())
         typology = typology_vocab.get(spec.getTypology())
-        dpsir_typology = "DPSIR: %s - Typology: %s" % (dpsir, typology)
+        dpsir_typology = "DPSIR: %s - Typology: %s" % (dpsir, _toUnicode(typology))
 
         themes_vocab = dict(spec._getMergedThemes())
         themes = ", ".join([themes_vocab.get(l) for l in spec.getThemes()])
