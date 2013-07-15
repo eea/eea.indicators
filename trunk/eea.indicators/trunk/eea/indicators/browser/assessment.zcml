@@ -8,9 +8,9 @@
     <!--adapter factory=".assessment.AssessmentPartWorkflowReadiness"*
              /*for="eea.indicators.content.interfaces.IAssessmentPart" /-->
 
-    <browser:page name="xml"
+    <browser:page name="esms.xml"
                   for="eea.indicators.content.interfaces.IAssessment"
-                  class=".assessment.AssessmentAsXML"
+                  class=".assessment.MetadataAsESMSXML"
                   permission="zope2.View" />
 
     <browser:page name="view"
