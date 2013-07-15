@@ -19,6 +19,8 @@ from eea.workflow.interfaces import IObjectReadiness
 from eea.workflow.readiness import ObjectReadiness
 from lxml.builder import ElementMaker
 from plone.app.layout.globals.interfaces import IViewView
+from plone.i18n.locales.interfaces import ICountryAvailability
+from zope.component import getUtility
 from zope.event import notify
 from zope.interface import implements
 import datetime
@@ -335,6 +337,20 @@ class AssessmentAsXML(BrowserView):
 
         #we extract some info here to simplify code down below
         spec = self.context.aq_parent
+
+        effective = self.context.getEffectiveDate()
+        if effective:
+            publish_date = effective.asdatetime().date().isoformat()
+        else:
+            publish_date = ""
+
+        spec_modified = spec.modified().asdatetime().date().isoformat()
+
+        cutil = getUtility(ICountryAvailability)
+        countries = dict(cutil.getCountryListing())
+        ref_area = ", ".join(sorted([countries[x] for x in 
+                        self.context.getGeographicCoverage()]))
+
         manager_id = spec.getManager_user_id()
         mtool = getToolByName(spec, 'portal_membership')
         manager_name = (mtool.getMemberInfo(manager_id) 
@@ -464,15 +480,15 @@ class AssessmentAsXML(BrowserView):
                 M.ReportedAttribute(    #META_UPDATE
                     M.Value(),
                     M.ReportedAttribute(
-                        M.Value('2012-12-21'),
-                        conceptID="META_CERTIFIED",     #TODO
+                        M.Value(publish_date),
+                        conceptID="META_CERTIFIED",
                     ),
                     M.ReportedAttribute(
-                        M.Value('2012-12-21'),  #TODO
+                        M.Value(publish_date),
                         conceptID="META_POSTED", 
                     ),
                     M.ReportedAttribute(
-                        M.Value('2012-12-21'),  #TODO
+                        M.Value(spec_modified),
                         conceptID="META_LAST_UPDATE", 
                     ),
                     conceptID="META_UPDATE",
@@ -480,7 +496,8 @@ class AssessmentAsXML(BrowserView):
                 M.ReportedAttribute(    #STAT_PRES
                     M.Value(),
                     M.ReportedAttribute(
-                        M.Value(self.context.Description()),    #TODO
+                        M.Value(spec.Title() + " " + 
+                                self.context.Description()),
                         conceptID="DATA_DESCR", 
                     ),
                     M.ReportedAttribute(
@@ -496,12 +513,16 @@ class AssessmentAsXML(BrowserView):
                         conceptID="STAT_CONC_DEF", 
                     ),
                     M.ReportedAttribute(
-                        M.Value("Not available"),
+                        M.Value("Not applicable"),
                         conceptID="STAT_UNIT", 
-                    ), #TODO: add REF_AREA
+                    ), 
                     M.ReportedAttribute(
                         M.Value("Not available"),
                         conceptID="STAT_POP", 
+                    ),
+                    M.ReportedAttribute(
+                        M.Value(ref_area),
+                        conceptID="REF_AREA",
                     ),
                     M.ReportedAttribute(
                         M.Value(temporal_coverage),
@@ -573,9 +594,35 @@ class AssessmentAsXML(BrowserView):
                 ),
                 M.ReportedAttribute(
                     M.Value("Not available"),
+                    M.ReportedAttribute(
+                        M.Value("Not available"),
+                        conceptID="NEWS_REL", 
+                    ),
+                    M.ReportedAttribute(
+                        M.Value(),  #TODO
+                        conceptID="PUBLICATIONS", 
+                    ),
+                    M.ReportedAttribute(
+                        M.Value(
+                        "http://www.eea.europa.eu/data-and-maps/indicators"),
+                        conceptID="ONLINE_DB", 
+                    ),
+                    M.ReportedAttribute(
+                        M.Value("Not available"),
+                        conceptID="MICRO_DAT_ACC", 
+                    ),
+                    M.ReportedAttribute(
+                        M.Value("Twitter: Indicators are automatically "
+"announced via EEA’s Twitter channel (https://twitter.com/euenvironment), "
+"which users can follow. RSS feed: Indicators are automatically "
+"announced in a dedicated EEA indicators RSS feed "
+"(http://www.eea.europa.eu/data-and-maps/indicators/RSS2), which users can "
+"subscribe to. A catalogue of all indicators is available "
+"(http://www.eea.europa.eu/data-and-maps/indicators)."),
+                        conceptID="DISS_OTHER", 
+                    ),
                     conceptID="DISS_FORMAT", 
-                ),  #TODO: add NEWS_REL, PUBLICATIONS, ONLINE_DB, 
-                #TODO: add MICRO_DAT_ACC, DISS_OTHER
+                ),
                 M.ReportedAttribute(    #ACCESS_DOC
                     M.Value(),
                     M.ReportedAttribute(
