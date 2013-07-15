@@ -51,6 +51,7 @@ class CreateVersion(BaseCreateVersion):
     def __call__(self):
         spec = aq_parent(aq_inner(self.context))
         latest = IGetVersions(spec).latest_version()
+        latest_version = IGetVersions(self.context).latest_version()
 
         if spec.UID() == latest.UID():
             version = create_version(self.context)
@@ -599,7 +600,7 @@ class AssessmentAsXML(BrowserView):
                         conceptID="NEWS_REL", 
                     ),
                     M.ReportedAttribute(
-                        M.Value(),  #TODO
+                        M.Value(latest_version.absolute_url()),
                         conceptID="PUBLICATIONS", 
                     ),
                     M.ReportedAttribute(
@@ -613,7 +614,7 @@ class AssessmentAsXML(BrowserView):
                     ),
                     M.ReportedAttribute(
                         M.Value("Twitter: Indicators are automatically "
-"announced via EEA’s Twitter channel (https://twitter.com/euenvironment), "
+"announced via EEA's Twitter channel (https://twitter.com/euenvironment), "
 "which users can follow. RSS feed: Indicators are automatically "
 "announced in a dedicated EEA indicators RSS feed "
 "(http://www.eea.europa.eu/data-and-maps/indicators/RSS2), which users can "
