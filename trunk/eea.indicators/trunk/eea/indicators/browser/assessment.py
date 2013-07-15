@@ -389,7 +389,7 @@ class MetadataAsESMSXML(BrowserView):
         mrefs = [b.getObject() for b in spec.getFolderContents(
                         contentFilter={'portal_type':'MethodologyReference'})]
         methodology_reference = "\n".join(
-            [(o.Title() + "\n" + getText(o.getDescription())) for o in mrefs])
+            [(_toUnicode(o.Title()) + "\n" + getText(o.getDescription())) for o in mrefs])
 
 
         uncertainties = getText(spec.getMethodology_uncertainty()) +\
