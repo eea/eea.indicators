@@ -9,6 +9,7 @@ from Products.CMFCore.utils import getToolByName
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from ZPublisher.Client import querify
+from bs4 import UnicodeDammit, BeautifulSoup
 from eea.indicators.browser.utils import has_one_of
 from eea.indicators.content.Assessment import getPossibleVersionsId
 from eea.indicators.content.Assessment import hasWrongVersionId
@@ -307,25 +308,32 @@ def nsel(el, ns=None):
     """
     return "{%s}%s" % (NAMESPACES[ns], el)
 
+
 def _toUnicode(value):
     """Convert an unknown string to unicode
     """
     if not isinstance(value, unicode):
-        try:
-            value = value.decode('utf-8')
-        except UnicodeDecodeError:
-            logger.error("Could not convert to unicode utf8: %s", value)
-            value = ''.join(c for c in value if _valid_XML_char_ordinal(ord(c)))
-
+        value = UnicodeDammit(value).unicode_markup
     return value
 
-def _valid_XML_char_ordinal(i):
-    return ( # conditions ordered by presumed frequency
-        0x20 <= i <= 0xD7FF 
-        or i in (0x9, 0xA, 0xD)
-        or 0xE000 <= i <= 0xFFFD
-        or 0x10000 <= i <= 0x10FFFF
-        )
+    #if not isinstance(value, unicode):
+        #try:
+            #value = value.decode('utf-8')
+        #except UnicodeDecodeError:
+            #logger.error("Could not convert to unicode utf8: %s", value)
+            #value = ''.join(c for c in value if _valid_XML_char_ordinal(ord(c)))
+
+    #return value
+
+
+#def _valid_XML_char_ordinal(i):
+    #return ( # conditions ordered by presumed frequency
+        #0x20 <= i <= 0xD7FF 
+        #or i in (0x9, 0xA, 0xD)
+        #or 0xE000 <= i <= 0xFFFD
+        #or 0x10000 <= i <= 0x10FFFF
+        #)
+
 
 class MetadataAsESMSXML(BrowserView):
     """The XML output according to Euro SDMX metadata structure (ESMS).
@@ -339,9 +347,11 @@ class MetadataAsESMSXML(BrowserView):
         year_end = datetime.datetime(year=now.year, month=12, day=31)
         #maybe it should be done as timedelta of 1sec from previous year
 
-        convert = getToolByName(self.context, 'portal_transforms').convert
-        getText = lambda value:convert('html_to_text', 
-                                        _toUnicode(value)).getData().strip()
+#       convert = getToolByName(self.context, 'portal_transforms').convert
+#       getText = lambda value:convert('html_to_text', 
+#                                       _toUnicode(value)).getData().strip()
+
+        getText = lambda value:BeautifulSoup(value).get_text()
 
         #we extract some info here to simplify code down below
         spec = self.context.aq_parent
@@ -357,6 +367,8 @@ class MetadataAsESMSXML(BrowserView):
 
         cutil = getUtility(ICountryAvailability)
         countries = dict(cutil.getCountryListing())
+        countries['Balkan'] = "Balkan"
+        countries['yu'] = "Yugoslavia"
         ref_area = ", ".join(sorted([countries[x] for x in 
                         self.context.getGeographicCoverage()]))
 
@@ -389,8 +401,8 @@ class MetadataAsESMSXML(BrowserView):
         mrefs = [b.getObject() for b in spec.getFolderContents(
                         contentFilter={'portal_type':'MethodologyReference'})]
         methodology_reference = "\n".join(
-            [(_toUnicode(o.Title()) + "\n" + getText(o.getDescription())) for o in mrefs])
-
+            [(_toUnicode(o.Title()) + "\n" + getText(o.getDescription())) 
+                            for o in mrefs])
 
         uncertainties = getText(spec.getMethodology_uncertainty()) +\
                         getText(spec.getData_uncertainty()) +\
