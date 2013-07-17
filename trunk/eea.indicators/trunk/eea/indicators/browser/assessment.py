@@ -365,12 +365,7 @@ class MetadataAsESMSXML(BrowserView):
         spec_modified = spec.modified().asdatetime().date().isoformat()
         latest_version = IGetVersions(self.context).latest_version()
 
-        cutil = getUtility(ICountryAvailability)
-        countries = dict(cutil.getCountryListing())
-        countries['Balkan'] = "Balkan"
-        countries['yu'] = "Yugoslavia"
-        ref_area = ", ".join(sorted([countries[x] for x in 
-                        self.context.getGeographicCoverage()]))
+        ref_area = ", ".join(self.context.getGeographicCoverage())
 
         manager_id = spec.getManager_user_id()
         mtool = getToolByName(spec, 'portal_membership')
