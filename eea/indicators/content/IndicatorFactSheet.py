@@ -212,35 +212,20 @@ class IndicatorFactSheet(ATFolder, ModalFieldEditableAware,
     portlet_readiness = \
             ViewPageTemplateFile('../browser/templates/portlet_readiness.pt')
 
-#    security.declarePublic('left_slots')
-#    def left_slots(self):
-#        """left slots"""
-#        _slot = 'here/portlet_readiness/macros/portlet'
-#        #_assigned = self.getProperty('left_slots') or []
-
-#        parent = aq_parent(aq_inner(self))
-#        base_slots = getattr(parent, 'left_slots', [])
-#        if callable(base_slots):
-#            base_slots = base_slots()
-
-#        base_slots = list(base_slots)
-#        base_slots.insert(0, _slot)
-#        return base_slots
-
     security.declarePublic("getGeographicCoverage")
     def getGeographicCoverage(self):
         """ Geographic coverage
         """
-        result = {}
+        result = []
         wftool = getToolByName(self, 'portal_workflow')
 
-        for ob in self.getRelatedItems():
-            if ob.portal_type == 'EEAFigure':
-                state = wftool.getInfoFor(ob, 'review_state', '(Unknown)')
-                if state in ['published', 'visible']:
-                    for val in ob.getGeographicCoverage():
-                        result[val] = val
-        return list(result.keys())
+        for assessment_part in self.objectValues('AssessmentPart'):
+            for ob in assessment_part.getRelatedItems():
+                if ob.portal_type == 'EEAFigure':
+                    state = wftool.getInfoFor(ob, 'review_state', '(Unknown)')
+                    if state in ['published', 'visible']:
+                        result.extend(ob.getLocation())
+        return sorted(set(result))
 
     security.declarePublic("getTemporalCoverage")
     def getTemporalCoverage(self):

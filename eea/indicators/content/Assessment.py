@@ -267,8 +267,10 @@ class Assessment(ATFolder, ModalFieldEditableAware,
     security.declarePublic("getGeographicCoverage")
     def getGeographicCoverage(self):
         """ Return geographic coverage
+
+        This is only used in the @@esms.xml view
         """
-        result = {}
+        result = []
         wftool = getToolByName(self, 'portal_workflow')
 
         for assessment_part in self.objectValues('AssessmentPart'):
@@ -276,9 +278,8 @@ class Assessment(ATFolder, ModalFieldEditableAware,
                 if ob.portal_type == 'EEAFigure':
                     state = wftool.getInfoFor(ob, 'review_state', '(Unknown)')
                     if state in ['published', 'visible']:
-                        for val in ob.getGeographicCoverage():
-                            result[val] = val
-        return list(result.keys())
+                        result.extend(ob.getLocation())
+        return sorted(set(result))
 
     security.declarePublic("getTemporalCoverage")
     def getTemporalCoverage(self):
