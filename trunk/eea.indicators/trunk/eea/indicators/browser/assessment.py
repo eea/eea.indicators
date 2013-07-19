@@ -20,8 +20,7 @@ from eea.workflow.interfaces import IObjectReadiness
 from eea.workflow.readiness import ObjectReadiness
 from lxml.builder import ElementMaker
 from plone.app.layout.globals.interfaces import IViewView
-from plone.i18n.locales.interfaces import ICountryAvailability
-from zope.component import getUtility, getMultiAdapter
+from zope.component import getMultiAdapter
 from zope.event import notify
 from zope.interface import implements
 import datetime

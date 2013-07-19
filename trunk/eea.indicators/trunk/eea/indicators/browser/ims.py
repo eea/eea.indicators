@@ -6,7 +6,6 @@ from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from eea.indicators.browser.interfaces import IIndicatorsPermissionsOverview
 from eea.indicators.content.Assessment import hasWrongVersionId
-from operator import attrgetter
 from zope.interface import implements
 import DateTime
 import re
