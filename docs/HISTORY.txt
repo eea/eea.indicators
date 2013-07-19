@@ -3,6 +3,9 @@ Changelog
 
 7.1-dev - (unreleased)
 ----------------------
+* Bug fix: corrected the temporal coverage formatting by re-use existing
+  well working logic. Do not re-invent the wheel.
+  [demarant #14871]
 * Bug fix: corrected mapping of ESMS DATA_DESCR.
   [demarant #14871]
 * Bug fix: improved esms xml unicode handling for certain cases like typology metadata.

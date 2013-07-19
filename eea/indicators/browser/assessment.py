@@ -21,7 +21,7 @@ from eea.workflow.readiness import ObjectReadiness
 from lxml.builder import ElementMaker
 from plone.app.layout.globals.interfaces import IViewView
 from plone.i18n.locales.interfaces import ICountryAvailability
-from zope.component import getUtility
+from zope.component import getUtility, getMultiAdapter
 from zope.event import notify
 from zope.interface import implements
 import datetime
@@ -316,23 +316,6 @@ def _toUnicode(value):
         value = UnicodeDammit(value).unicode_markup
     return value
 
-    #if not isinstance(value, unicode):
-        #try:
-            #value = value.decode('utf-8')
-        #except UnicodeDecodeError:
-            #logger.error("Could not convert to unicode utf8: %s", value)
-            #value = ''.join(c for c in value if _valid_XML_char_ordinal(ord(c)))
-
-    #return value
-
-
-#def _valid_XML_char_ordinal(i):
-    #return ( # conditions ordered by presumed frequency
-        #0x20 <= i <= 0xD7FF 
-        #or i in (0x9, 0xA, 0xD)
-        #or 0xE000 <= i <= 0xFFFD
-        #or 0x10000 <= i <= 0x10FFFF
-        #)
 
 
 class MetadataAsESMSXML(BrowserView):
@@ -346,10 +329,6 @@ class MetadataAsESMSXML(BrowserView):
         year_start = datetime.datetime(year=now.year, month=1, day=1)
         year_end = datetime.datetime(year=now.year, month=12, day=31)
         #maybe it should be done as timedelta of 1sec from previous year
-
-#       convert = getToolByName(self.context, 'portal_transforms').convert
-#       getText = lambda value:convert('html_to_text', 
-#                                       _toUnicode(value)).getData().strip()
 
         getText = lambda value:BeautifulSoup(value).get_text()
 
@@ -384,12 +363,9 @@ class MetadataAsESMSXML(BrowserView):
         themes_vocab = dict(spec._getMergedThemes())
         themes = ", ".join([themes_vocab.get(l) for l in spec.getThemes()])
 
-        #we assume there are no gaps in selected time
-        t = self.context.getTemporalCoverage()
-        if t:
-            temporal_coverage = " - ".join([t[0], t[-1]])
-        else:
-            temporal_coverage = ""
+        #let's use the already well-formatted temporal coverage browser view
+        temporal_coverage = getMultiAdapter(
+            (self.context, self.request), name=u'formatTempCoverage')()
 
         units = getText(spec.getUnits())
 
