@@ -1,5 +1,6 @@
 """ ims.py """
 
+from eea.versions.interfaces import IGetVersions
 from Products.CMFPlone.utils import getToolByName
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
@@ -283,30 +284,25 @@ class IncludeJqueryUI(BrowserView):
 
 
 class LatestAssessmentVersions(BrowserView):
-    """Returns a list of all latest assessments
+    """Returns a list of urls for all latest assessments
+
+    It needs to be called as anonymous to get the published 
+    latest versions.
     """
     def __call__(self):
         cat = self.context.portal_catalog
         brains = cat.searchResults(portal_type="Assessment", 
                                    review_state="published")
+
         result = []
-        missing = []
 
-        #first we create a mapping of all versionID:[brains...]
-        _r = {}
         for b in brains:
-            v = b.getVersionId
-            if not v:
-                missing.append(b)
-                continue
-            x = _r.get(v, [])
-            x.append(b)
-            _r[v] = x
+            o = b.getObject()
+            latest = IGetVersions(o).latest_version()
+            result.append(latest.absolute_url())
 
-        for l in _r.values():
-            l.sort(key=attrgetter('EffectiveDate')) #a string, but sorting ok
-            result.append(l[-1])
+        result = sorted(list(set(result)))  #sort and keep only unique links
 
-        links = [b.getURL() for b in (result + missing)]
-        links.sort()
+        links = ["%s/@@esms.xml" % l for l in result] 
+
         return "\n".join(links)
