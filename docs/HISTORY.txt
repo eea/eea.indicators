@@ -3,6 +3,8 @@ Changelog
 
 7.1-dev - (unreleased)
 ----------------------
+* Bug fix: corrected mapping of ESMS DATA_DESCR.
+  [demarant #14871]
 * Bug fix: improved esms xml unicode handling for certain cases like typology metadata.
   [demarant #14871]
 * Feature: added @@esms.xml view for assessments to export information
