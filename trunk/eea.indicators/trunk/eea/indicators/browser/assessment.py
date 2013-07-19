@@ -423,7 +423,8 @@ class MetadataAsESMSXML(BrowserView):
         user_needs = getText(spec.getRationale_justification()) + "\n" + qpart
 
         methodology = getText(spec.getMethodology())
-        methodology_gapfilling = getText(spec.getMethodology_gapfilling())
+        methodology_gapfilling = getText(spec.getMethodology_gapfilling()) 
+        indicator_definition = getText(spec.getDefinition())
 
         #The xml construction
         E = ElementMaker(nsmap=NAMESPACES)
@@ -512,8 +513,8 @@ class MetadataAsESMSXML(BrowserView):
                 M.ReportedAttribute(    #STAT_PRES
                     M.Value(),
                     M.ReportedAttribute(
-                        M.Value(spec.Title() + " " + 
-                                self.context.Description()),
+                        M.Value(spec.Title() + ". " + 
+                                indicator_definition),
                         conceptID="DATA_DESCR", 
                     ),
                     M.ReportedAttribute(
