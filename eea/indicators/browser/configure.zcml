@@ -133,6 +133,13 @@
                 permission="zope2.View"
                 allowed_interface=".utils.IIndicatorUtils" />
 
+
+  <browser:page name="assessments_latest_versions_links"
+                for="zope.interface.Interface"
+                class=".ims.LatestAssessmentVersions"
+                permission="cmf.ManagePortal"
+                />
+
   <browser:page name="obj_delete"
                 for="eea.indicators.content.interfaces.ISpecification"
                 class=".utils.ObjectDelete"

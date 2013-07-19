@@ -1,13 +1,14 @@
 """ ims.py """
 
-import re
-import DateTime
 from Products.CMFPlone.utils import getToolByName
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from eea.indicators.browser.interfaces import IIndicatorsPermissionsOverview
 from eea.indicators.content.Assessment import hasWrongVersionId
+from operator import attrgetter
 from zope.interface import implements
+import DateTime
+import re
 
 codesre = re.compile(r"([a-zA-Z]+)(\d+)")
 
@@ -279,3 +280,33 @@ class IncludeJqueryUI(BrowserView):
     """
     def __call__(self):
         return True
+
+
+class LatestAssessmentVersions(BrowserView):
+    """Returns a list of all latest assessments
+    """
+    def __call__(self):
+        cat = self.context.portal_catalog
+        brains = cat.searchResults(portal_type="Assessment", 
+                                   review_state="published")
+        result = []
+        missing = []
+
+        #first we create a mapping of all versionID:[brains...]
+        _r = {}
+        for b in brains:
+            v = b.getVersionId
+            if not v:
+                missing.append(b)
+                continue
+            x = _r.get(v, [])
+            x.append(b)
+            _r[v] = x
+
+        for l in _r.values():
+            l.sort(key=attrgetter('EffectiveDate')) #a string, but sorting ok
+            result.append(l[-1])
+
+        links = [b.getURL() for b in (result + missing)]
+        links.sort()
+        return "\n".join(links)
