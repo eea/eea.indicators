@@ -349,6 +349,7 @@ class MetadataAsESMSXML(BrowserView):
         mtool = getToolByName(spec, 'portal_membership')
         manager_name = (mtool.getMemberInfo(manager_id) 
                         or {}).get('fullname', 'Missing')
+        manager_name = manager_name.decode('utf-8')
 
         dpsir_vocab = NamedVocabulary('indicator_dpsir'
                                         ).getVocabularyDict(spec)
