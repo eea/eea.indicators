@@ -10,6 +10,9 @@ Changelog
 * Feature: added @@esms.xml view for assessments to export information
   according to ESMS metadata format
   [tiberich, demarant #14871 EEA]
+* Feature: added a @@assessments_latest_versions_links view that retrieves a
+  list of all published assessments, only the latest versions
+  [tiberich #14871 EEA]
 
 7.0 - (2013-06-17)
 ------------------
