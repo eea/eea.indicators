@@ -375,8 +375,11 @@ class MetadataAsESMSXML(BrowserView):
             [(_toUnicode(o.Title()) + "\n" + getText(o.getDescription())) 
                             for o in mrefs])
 
-        uncertainties = getText(spec.getMethodology_uncertainty()) +\
+        uncertainties = 'Methodology uncertainty: ' +\
+                        getText(spec.getMethodology_uncertainty()) +\
+                        '\nData uncertainty: ' +\
                         getText(spec.getData_uncertainty()) +\
+                        '\nRationale uncertainty: ' +\
                         getText(spec.getRationale_uncertainty())
 
         
@@ -396,7 +399,8 @@ class MetadataAsESMSXML(BrowserView):
                     continue
                 qpart += "Specific policy question: %s\n" % q.Title()
 
-        user_needs = getText(spec.getRationale_justification()) + "\n" + qpart
+        user_needs = 'Justification for indicator selection: '+\
+            getText(spec.getRationale_justification()) + "\n" + qpart
 
         methodology = getText(spec.getMethodology())
         methodology_gapfilling = getText(spec.getMethodology_gapfilling()) 
