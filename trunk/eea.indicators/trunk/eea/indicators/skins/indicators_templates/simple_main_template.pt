@@ -2,7 +2,7 @@
 	<metal:block define-slot="top_slot" />
 
 	<metal:baseslot define-slot="base">
-		<base href="" tal:attributes="href here/renderBase" />
+		<base href="" tal:attributes="href context/@@plone/renderBase" />
 	</metal:baseslot>
 
 	<metal:noborder tal:define="dummy python:request.set('disable_border',1)" />

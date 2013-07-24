@@ -5,6 +5,7 @@
       lang="en"
       i18n:domain="eea"
       tal:define="view context/@@userandgroupselectpopup_view;
+                  plone_view context/@@plone;
                   dummy view/initialize;
                   multiVal view/multiValued;
                   fieldId request/fieldId;
@@ -12,7 +13,7 @@
 
   <head>
 
-    <base href="" tal:attributes="href here/renderBase" />
+    <base href="" tal:attributes="href plone_view/renderBase" />
 
     <tal:define define="language here/Language;
                         lang language | default_language;
