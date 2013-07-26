@@ -32,4 +32,16 @@
 
   </genericsetup:upgradeSteps>
 
+  <genericsetup:upgradeSteps
+    source="*"
+    destination="7.1"
+    profile="eea.indicators:default">
+
+    <genericsetup:upgradeDepends
+      title="Import all steps from eea.indicators upgrade 7.1 profile"
+      import_profile="eea.indicators:upgrade71"
+      />
+
+  </genericsetup:upgradeSteps>
+
 </configure>

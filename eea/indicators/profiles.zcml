@@ -11,6 +11,13 @@
     description="Extension profile for EEA Indicators."
     provides="Products.GenericSetup.interfaces.EXTENSION" />
 
+  <genericsetup:registerProfile
+    name="upgrade71"
+    title="EEA Indicators Upgrade to 7.1"
+    directory="profiles/upgrade_7.1"
+    description="Extension profile for EEA Indicators upgrade to 7.1."
+    provides="Products.GenericSetup.interfaces.EXTENSION" />
+
   <genericsetup:importStep
     name="indicators-postInstall"
     title="Manual coded post-install for indicators" description=""
