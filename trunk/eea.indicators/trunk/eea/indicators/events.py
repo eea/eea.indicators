@@ -55,11 +55,6 @@ def handle_assessment_state_change(context, event):
     if dest_state in ['published', 'visible']:
         syncWorkflowStateRelatedFigures(context, dest_state)
 
-    if dest_state in ['visible', 'published_eionet']:
-        context.allowDiscussion(0)
-    else:
-        context.allowDiscussion(1)
-
 
 def handle_specification_state_change(context, event):
     """ Event handler to reindex children assessments
