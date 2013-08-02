@@ -15,7 +15,7 @@ from Products.Archetypes.atapi import SelectionWidget, LinesField
 from Products.Archetypes.atapi import StringField, TextField
 from Products.Archetypes.atapi import TextAreaWidget
 from Products.Archetypes.event import ObjectInitializedEvent
-from Products.Archetypes.utils import addStatusMessage
+from Products.Archetypes.utils import addStatusMessage, DisplayList
 from Products.CMFCore import permissions
 from Products.CMFCore.permissions import AddPortalContent
 from Products.CMFCore.utils import getToolByName
@@ -60,6 +60,35 @@ ONE_YEAR = datetime.timedelta(weeks=52)
 trimesters = ['Q1', 'Q2', 'Q3', 'Q4']
 
 frequency_of_updates_schema = Schema((
+
+
+
+
+#this is part of work on #14929
+#   DataGridField(
+#       name='frequency',
+#       searchable=False,
+#       widget=DataGridWidget(
+#           label="Frequency of updates",
+#           description="""description here""",
+#           columns={'years_freq':Column("Code number"),
+#                    'time_of_year':SelectColumn(
+#                           "Set ID", vocabulary="get_trimesters_vocabulary",
+#                           #vocabulary=[" "] + trimesters
+#                           )},
+#           auto_insert=True,
+#           label_msgid='indicators_label_codes',
+#           i18n_domain='indicators',
+#           ),
+#       columns=("years_freq", "time_of_year"),
+#       required_for_published=True,
+#       #validators=('unique_specification_code',),
+#       #allow_empty_rows=True,
+#       ),
+
+
+
+
     IntegerField(
         name='frequency_years',
         default=1,
@@ -83,6 +112,8 @@ frequency_of_updates_schema = Schema((
         default=" ",
         validators=("validate_time_of_year")
     ),
+
+
     DateTimeField(
         name='starting_date',
         #required=True,
@@ -605,6 +636,10 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
         atvm = getToolByName(self, ATVOCABULARYTOOL)
         vocab = getattr(atvm, 'indicator_codes')
         return vocab.getDisplayList(self)
+
+    def get_trimesters_vocabulary(self):
+        """ get trimesters vocabulary """
+        return DisplayList([(x, x) for x in ([" "] + trimesters)])
 
     security.declarePublic('get_codes')
     def get_codes(self):
