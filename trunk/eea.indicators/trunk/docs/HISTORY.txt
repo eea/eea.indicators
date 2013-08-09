@@ -1,6 +1,9 @@
 Changelog
 =========
 
+7.2-dev - (unreleased)
+----------------------
+
 7.1 - (2013-08-09)
 ------------------
 * Bug fix: corrected the temporal coverage formatting by re-use existing
