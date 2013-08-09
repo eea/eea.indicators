@@ -1,0 +1,14 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+           i18n_domain="eea">
+
+    <include package="eea.facetednavigation"
+             file='meta.zcml' />
+    <include package="eea.relations"
+             file='meta.zcml' />
+    <include package="eea.dataservice" />
+    <include package="eea.workflow" />
+    <include package="eea.versions" />
+    <include package="Products.kupu" />
+    <include package="eea.relations" />
+
+</configure>
