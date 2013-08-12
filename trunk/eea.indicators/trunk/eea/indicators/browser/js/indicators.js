@@ -76,6 +76,8 @@ function set_sortables() {
 
 function init_tinymce(el){
   // init tinymce edit fields
+  window.initTinyMCE(document);
+  return ;      //plone43
 
 (function($) {
   $('.mce_editable', el).each(function(){
@@ -139,16 +141,16 @@ function init_tinymce(el){
 })(jQuery);
 }
 
-window.tinyMCE.onAddEditor.add(function(tiny, editor){
-  editor.settings.theme_advanced_resizing = false;
-  editor.settings.theme_advanced_resizing_use_cookie = false;
-  editor.settings.theme_advanced_resize_horizontal = false;
-  editor.onInit.add(function(ed){
-    var width = 'width:'+jQuery(ed.contentAreaContainer).width()+'px;';
-    jQuery('iframe', ed.contentAreaContainer).attr('style','height:400px !important; '+width);
-  });
-  //debugger; 
-});
+//window.tinyMCE.onAddEditor.add(function(tiny, editor){
+  //editor.settings.theme_advanced_resizing = false;
+  //editor.settings.theme_advanced_resizing_use_cookie = false;
+  //editor.settings.theme_advanced_resize_horizontal = false;
+  //editor.onInit.add(function(ed){
+    //var width = 'width:'+jQuery(ed.contentAreaContainer).width()+'px;';
+    //jQuery('iframe', ed.contentAreaContainer).attr('style','height:400px !important; '+width);
+  //});
+  ////debugger; 
+//});
 
 function ajaxify(el, fieldname){
   // This will make a form submit and resubmit itself using AJAX
