@@ -8,7 +8,6 @@
     <include package="eea.dataservice" />
     <include package="eea.workflow" />
     <include package="eea.versions" />
-    <include package="Products.kupu" />
     <include package="eea.relations" />
 
 </configure>

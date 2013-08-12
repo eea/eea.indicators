@@ -39,7 +39,6 @@ setup(
      "eea.dataservice",
      "eea.workflow",
      'eea.relations',
-     "Products.kupu",
      'zope.traversing',
      "eea.forms",
      'eea.tags',

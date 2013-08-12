@@ -3,6 +3,8 @@ Changelog
 
 7.2-dev - (unreleased)
 ----------------------
+* Bug fix: get rid of Products.kupu dependencies, we use TinyMCE now.
+  [tiberich]
 
 7.1 - (2013-08-09)
 ------------------
