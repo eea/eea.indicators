@@ -5,6 +5,9 @@ Changelog
 ----------------------
 * Bug fix: get rid of Products.kupu dependencies, we use TinyMCE now.
   [tiberich]
+* Bug fix: use new method of seting up TinyMCE, according to upstream
+  API changes
+  [tiberich #15645]
 
 7.1 - (2013-08-09)
 ------------------

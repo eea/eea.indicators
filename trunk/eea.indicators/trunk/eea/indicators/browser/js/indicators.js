@@ -76,81 +76,47 @@ function set_sortables() {
 
 function init_tinymce(el){
   // init tinymce edit fields
-  window.initTinyMCE(document);
+  var config = {
+      'theme_advanced_buttons1': "save,style,bold,italic,justifyleft,justifycenter," +
+                                 "justifyright,justifyfull,bullist,numlist,definitionlist," +
+                                 "outdent,indent,link,unlink,anchor,code,fullscreen",
+      'theme_advanced_buttons2':"",
+      'theme_advanced_buttons3':"",
+      'theme_advanced_buttons4':"",
+      "theme_advanced_styles":[
+
+    { title: "Invisible grid", tag: "table", className: "invisible", type: "Tables" },
+    { title: "Fancy listing", tag: "table", className: "listing", type: "Tables" },
+    { title: "Fancy grid listing", tag: "table", className: "grid listing", type: "Tables" },
+    { title: "Fancy vertical listing", tag: "table", className: "vertical listing", type: "Tables" },
+    { title: "Literal", tag: "pre", className: "", type: "Text" },
+    { title: "Discreet", tag: "span", className: "discreet", type: "Selection" },
+    { title: "Pull-quote", tag: "blockquote", className: "pullquote", type: "Text" },
+    { title: "Call-out", tag: "p", className: "callout", type: "Text" },
+    { title: "Highlight", tag: "span", className: "visualHighlight", type: "Selection" },
+    { title: "Disc", tag: "ul", className: "listTypeDisc", type: "Lists" },
+    { title: "Square", tag: "ul", className: "listTypeSquare", type: "Lists" },
+    { title: "Circle", tag: "ul", className: "listTypeCircle", type: "Lists" },
+    { title: "Numbers", tag: "ol", className: "listTypeDecimal", type: "Lists" },
+    { title: "Lower Alpha", tag: "ol", className: "listTypeLowerAlpha", type: "Lists" },                                                                                               
+    { title: "Upper Alpha", tag: "ol", className: "listTypeUpperAlpha", type: "Lists" },
+    { title: "Lower Roman", tag: "ol", className: "listTypeLowerRoman", type: "Lists" },
+    { title: "Upper Roman", tag: "ol", className: "listTypeUpperRoman", type: "Lists" },
+    { title: "Definition term", tag: "dt", className: "", type: "Lists" },
+    { title: "Definition description", tag: "dd", className: "", type: "Lists" },
+    { title: "Odd row", tag: "tr", className: "odd", type: "Tables" },
+    { title: "Even row", tag: "tr", className: "even", type: "Tables" },
+    { title: "Heading cell", tag: "th", className: "", type: "Tables" },
+    { title: "Page break (print only)", tag: "div", className: "pageBreak", type: "Print" }]",⋅
+    { title: "Clear floats", tag: "div", className: "visualClear", type: "Text" },
+    { title: "(remove style)", tag: "", className: "", type: "Selection" }
+        ],
+
+  };
+  window.initTinyMCE(document, config);
   return ;      //plone43
-
-(function($) {
-  $('.mce_editable', el).each(function(){
-    var id = $(this).attr('id');
-
-    var config = new TinyMCEConfig(id);
-    config.widget_config.buttons = [
-      "save",
-      "style",
-      "bold",
-      "italic",
-      "justifyleft",
-      "justifycenter",
-      "justifyright",
-      "justifyfull",
-      "bullist",
-      "numlist",
-      "definitionlist",
-      "outdent",
-      "indent",
-      //"image",
-      "link",
-      "unlink",
-      "anchor",
-      //"tablecontrols",
-      "code",
-      "fullscreen",
-      ""
-    ];
-    config.widget_config.styles = [
-      "Invisible grid|table|invisible",
-      "Fancy listing|table|listing",
-      "Fancy grid listing|table|grid listing",
-      "Fancy vertical listing|table|vertical listing",
-      "Literal|pre",
-      "Discreet|span|discreet",
-      "Pull-quote|blockquote|pullquote",
-      "Call-out|p|callout",
-      "Highlight|span|visualHighlight",
-      "Disc|ul|listTypeDisc",
-      "Square|ul|listTypeSquare",
-      "Circle|ul|listTypeCircle",
-      "Numbers|ol|listTypeDecimal",
-      "Lower Alpha|ol|listTypeLowerAlpha",
-      "Upper Alpha|ol|listTypeUpperAlpha",
-      "Lower Roman|ol|listTypeLowerRoman",
-      "Upper Roman|ol|listTypeUpperRoman",
-      "Definition term|dt",
-      "Definition description|dd",
-      "Odd row|tr|odd",
-      "Even row|tr|even",
-      "Heading cell|th|",
-      "Page break (print only)|div|pageBreak",
-      "Clear floats|div|visualClear"
-    ];
-
-    delete InitializedTinyMCEInstances[id];
-    config.init();
-
-  });
-})(jQuery);
 }
 
-//window.tinyMCE.onAddEditor.add(function(tiny, editor){
-  //editor.settings.theme_advanced_resizing = false;
-  //editor.settings.theme_advanced_resizing_use_cookie = false;
-  //editor.settings.theme_advanced_resize_horizontal = false;
-  //editor.onInit.add(function(ed){
-    //var width = 'width:'+jQuery(ed.contentAreaContainer).width()+'px;';
-    //jQuery('iframe', ed.contentAreaContainer).attr('style','height:400px !important; '+width);
-  //});
-  ////debugger; 
-//});
 
 function ajaxify(el, fieldname){
   // This will make a form submit and resubmit itself using AJAX
