@@ -107,7 +107,7 @@ function init_tinymce(el){
     { title: "Odd row", tag: "tr", className: "odd", type: "Tables" },
     { title: "Even row", tag: "tr", className: "even", type: "Tables" },
     { title: "Heading cell", tag: "th", className: "", type: "Tables" },
-    { title: "Page break (print only)", tag: "div", className: "pageBreak", type: "Print" }]",⋅
+    { title: "Page break (print only)", tag: "div", className: "pageBreak", type: "Print" },
     { title: "Clear floats", tag: "div", className: "visualClear", type: "Text" },
     { title: "(remove style)", tag: "", className: "", type: "Selection" }
         ],
@@ -127,7 +127,7 @@ function ajaxify(el, fieldname){
   $("form", el).submit(
     function(e){
       block_ui();
-      tinyMCE.triggerSave();
+      /* tinyMCE.triggerSave(); */
       var form = this;
       var data = ($(form).serialize() + "&form_submit=Save&form.submitted=1");
 
@@ -338,7 +338,7 @@ function schemata_ajaxify(el, active_region){
   $("form", el).submit(
     function(e){
       block_ui();
-      tinyMCE.triggerSave();
+      /* tinyMCE.triggerSave(); */
       var form = this;
 
       var inputs = [];
