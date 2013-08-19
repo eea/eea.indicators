@@ -28,7 +28,7 @@ Changelog
   list of all published assessments, only the latest versions
   [tiberich #14871 EEA]
 * Bug fix: added a content rule to enable discussions on Assessments when the
-  'show' or 'publishEionet' transitions are executed. 
+  'show' or 'publishEionet' transitions are executed.
   [tiberich #14858]
 * Bug fix: don't try to set discussionAllowed on assessments from code; this
   will be done from a content rule.
