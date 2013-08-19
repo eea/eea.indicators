@@ -110,7 +110,7 @@ function init_tinymce(el){
     { title: "Page break (print only)", tag: "div", className: "pageBreak", type: "Print" },
     { title: "Clear floats", tag: "div", className: "visualClear", type: "Text" },
     { title: "(remove style)", tag: "", className: "", type: "Selection" }
-        ],
+        ]
 
   };
   window.initTinyMCE(document, config);
