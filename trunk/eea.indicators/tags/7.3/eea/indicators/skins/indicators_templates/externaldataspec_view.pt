@@ -1,0 +1,86 @@
+<metal:tooltip define-macro="tooltip"
+               tal:define="tooltip field/widget/description|nothing"
+               tal:condition="python:tooltip">
+  <img class="eea-flexible-tooltip-bottom"
+       src="information.png"
+       title=""
+       tal:attributes="src string:${portal_url}/information.png;
+                       title tooltip" />
+</metal:tooltip>
+
+<metal:main_macro define-macro="body"
+                  tal:define="portal_url context/portal_url">
+
+
+  <tal:tags define="facetId string:c9">
+    <metal:related use-macro="here/dataset_view/macros/tags" />
+  </tal:tags>
+
+  <div class="metadata-container">
+
+    <dl>
+      <tal:block define="field python:context.getField('provider_url');
+                         url python:field.getAccessor(context)()">
+        <dt>
+          <metal:basic use-macro="here/dataset_view/macros/tooltip" />
+          <span i18n:translate="">Provider:</span>
+        </dt>
+        <tal:block define="field python:context.getField('provider_name');
+                         value python:field.getAccessor(context)()"
+                 tal:condition="python: value and not url">
+         <dd tal:content="value" /> 
+        </tal:block>
+        <tal:block condition="python:url"
+                   define="org python:context.getOrganisationByUrl(url)">
+                <dd tal:condition="org">
+                    <a href="#" title=""
+                       tal:attributes="href org/getURL; title org/Title"
+                       tal:content="org/Title" />
+                </dd>
+                <dd tal:condition="python:not org">
+                    <span tal:content="url" />
+                </dd>
+        </tal:block>
+        
+      </tal:block>
+      
+
+
+
+      <tal:block define="field python:context.getField('dataset_url');
+                         value python:field.getAccessor(context)()"
+                 tal:condition="python:value">
+        <dt>
+          <metal:basic use-macro="here/dataset_view/macros/tooltip" />
+          <span i18n:translate="">Dataset URL:</span>
+        </dt>
+        <dd>
+          <a href="" tal:attributes="href value" tal:content="value" />
+        </dd>
+      </tal:block>
+
+      <tal:block define="field python:context.getField('dataset_path');
+                         value python:field.getAccessor(context)()"
+                 condition="python:value">
+        <dt>
+          <metal:basic use-macro="here/dataset_view/macros/tooltip" />
+          <span i18n:translate="">Dataset path:</span>
+        </dt>
+        <dd tal:content="structure value"></dd>
+      </tal:block>
+
+
+      <tal:block define="field python:context.getField('other_comments');
+        value python:field.getAccessor(context)()" tal:condition="python:value">
+        <dt>
+          <metal:basic use-macro="here/dataset_view/macros/tooltip" />
+          <span i18n:translate="">Other comments:</span>
+        </dt>
+        <dd tal:content="structure value"></dd>
+      </tal:block>
+
+
+    </dl>
+  </div>
+
+</metal:main_macro>
