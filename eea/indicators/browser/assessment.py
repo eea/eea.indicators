@@ -33,6 +33,9 @@ logger = logging.getLogger("eea.indicators.browser.assessment")
 class IndexPage(BrowserView):
     """The Assessment index page"""
 
+    def getId(self):
+        return "view"
+
 
 class AggregatedEditPage(BrowserView):
     """Aggregated edit"""
