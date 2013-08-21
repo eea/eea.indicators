@@ -1,8 +1,8 @@
 Changelog
 =========
 
-7.3-dev - (unreleased)
-----------------------
+7.3 - (2013-08-21)
+------------------
 * Bug fix: fix popup editing in aggregated edit view for Indicators and
   Assessments
   [tiberich #15969]
