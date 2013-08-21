@@ -1,6 +1,9 @@
 Changelog
 =========
 
+7.4-dev - (unreleased)
+----------------------
+
 7.3 - (2013-08-21)
 ------------------
 * Bug fix: fix popup editing in aggregated edit view for Indicators and
