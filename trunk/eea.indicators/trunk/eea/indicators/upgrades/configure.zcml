@@ -1,47 +1,59 @@
 <configure
   xmlns="http://namespaces.zope.org/zope"
-  xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+  xmlns:gs="http://namespaces.zope.org/genericsetup"
   i18n_domain="eea">
 
-  <genericsetup:upgradeSteps
+  <gs:upgradeSteps
     source="*"
     destination="4.0.1"
     profile="eea.indicators:default">
 
-    <genericsetup:upgradeDepends
+    <gs:upgradeDepends
       title="Import all steps from eea.indicators profile"
       import_profile="eea.indicators:default"
       />
 
-    <genericsetup:upgradeStep
+    <gs:upgradeStep
       title="Update IMS content to provide IVersionEnhanced if they should"
       handler="eea.indicators.upgrades.assign_iversionenhanced_to_content"
       />
 
-  </genericsetup:upgradeSteps>
+  </gs:upgradeSteps>
 
-  <genericsetup:upgradeSteps
+  <gs:upgradeSteps
     source="*"
     destination="6.7"
     profile="eea.indicators:default">
 
-    <genericsetup:upgradeStep
+    <gs:upgradeStep
       title="Cleanup erased daviz information from AssessmentParts"
       handler="eea.indicators.upgrades.cleanup_assessmentparts"
       />
 
-  </genericsetup:upgradeSteps>
+  </gs:upgradeSteps>
 
-  <genericsetup:upgradeSteps
+  <gs:upgradeSteps
     source="*"
     destination="7.1"
     profile="eea.indicators:default">
 
-    <genericsetup:upgradeDepends
+    <gs:upgradeDepends
       title="Import all steps from eea.indicators upgrade 7.1 profile"
       import_profile="eea.indicators:upgrade71"
       />
 
-  </genericsetup:upgradeSteps>
+  </gs:upgradeSteps>
+
+  <gs:upgradeSteps
+    source="7.1"
+    destination="7.4"
+    profile="eea.indicators:default">
+
+    <gs:upgradeStep
+      title="Migrate storage for frequency_of_updates field"
+      handler="eea.indicators.upgrades.evolve74.evolve"
+      />
+
+    </gs:upgradeSteps>
 
 </configure>

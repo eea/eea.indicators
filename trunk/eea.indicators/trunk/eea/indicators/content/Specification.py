@@ -48,6 +48,7 @@ from zope.interface import implements
 from DateTime import DateTime
 import datetime
 import logging
+import json
 
 #from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 #from eea.versions.versions import isVersionEnhanced
@@ -61,57 +62,55 @@ trimesters = ['Q1', 'Q2', 'Q3', 'Q4']
 
 frequency_of_updates_schema = Schema((
 
+    DataGridField(
+        name='frequency',
+        searchable=False,
+        widget=DataGridWidget(
+            label="Frequency of updates",
+            description="""description here""",
+            columns={'years_freq':
+                        Column("Years frequency"),
+                     'time_of_year':
+                        SelectColumn(
+                            "Trimester", 
+                            vocabulary="get_trimesters_vocabulary",
+                            )},
+            auto_insert=True,
+            label_msgid='indicators_label_codes',
+            i18n_domain='indicators',
+            ),
+        columns=("years_freq", "time_of_year"),
+        required_for_published=True,
+        #validators=('unique_specification_code',),
+        #allow_empty_rows=True,
+        ),
 
 
 
-#this is part of work on #14929
-#   DataGridField(
-#       name='frequency',
-#       searchable=False,
-#       widget=DataGridWidget(
-#           label="Frequency of updates",
-#           description="""description here""",
-#           columns={'years_freq':Column("Code number"),
-#                    'time_of_year':SelectColumn(
-#                           "Set ID", vocabulary="get_trimesters_vocabulary",
-#                           #vocabulary=[" "] + trimesters
-#                           )},
-#           auto_insert=True,
-#           label_msgid='indicators_label_codes',
-#           i18n_domain='indicators',
-#           ),
-#       columns=("years_freq", "time_of_year"),
-#       required_for_published=True,
-#       #validators=('unique_specification_code',),
-#       #allow_empty_rows=True,
+
+#   IntegerField(
+#       name='frequency_years',
+#       default=1,
+#       #required=True,
+#       widget=IntegerWidget(
+#           label="Frequency (years)",
+#           description="The indicator is published every &lt;x&gt; years",
+#           macro="widget_frequency_years",
 #       ),
-
-
-
-
-    IntegerField(
-        name='frequency_years',
-        default=1,
-        #required=True,
-        widget=IntegerWidget(
-            label="Frequency (years)",
-            description="The indicator is published every &lt;x&gt; years",
-            macro="widget_frequency_years",
-        ),
-        validators=("validate_frequency_years",),
-        vocabulary = range(1,11),
-    ),
-    StringField(
-        name='time_of_year',
-        #required=True,
-        widget=SelectionWidget(
-            label="Time of year",
-            description="In which trimester the indicator is published"
-        ),
-        vocabulary= [" "] + trimesters,
-        default=" ",
-        validators=("validate_time_of_year")
-    ),
+#       validators=("validate_frequency_years",),
+#       vocabulary = range(1,11),
+#   ),
+#   StringField(
+#       name='time_of_year',
+#       #required=True,
+#       widget=SelectionWidget(
+#           label="Time of year",
+#           description="In which trimester the indicator is published"
+#       ),
+#       vocabulary= [" "] + trimesters,
+#       default=" ",
+#       validators=("validate_time_of_year")
+#   ),
 
 
     DateTimeField(
@@ -132,6 +131,7 @@ frequency_of_updates_schema = Schema((
         ),
         #default_method='get_default_frequency_of_updates_ending_date',
     ),
+
 ))
 
 schema = Schema((
@@ -890,8 +890,10 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
         info            = self.getFrequency_of_updates()
         ending          = info['ending_date']
         starting        = info['starting_date']
-        time_of_year    = info['time_of_year'].strip()
-        frequency_years = info['frequency_years']
+        frequency = info['frequency']
+
+        # time_of_year    = info['time_of_year'].strip()
+        # frequency_years = info['frequency_years']
         now             = DateTime()
 
         if type(starting) is not type(now):
@@ -903,13 +905,10 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
                 return ("This indicator is discontinued. No more "
                         "assessments will be produced.")
 
-        if frequency_years in [None, ""]:
+        #if frequency_years in [None, ""]:
+        if not frequency:
             return "Required information is not filled in: Information about " \
                    "frequency of update for this indicator is missing."
-
-        if not time_of_year:
-            return "Required information is not filled in: " \
-                   "Information about trimester is missing"
 
         _trims = {
             'Q1':'January-March',
@@ -918,11 +917,18 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
             'Q4':'October-December',
             }
 
-        time_of_year = "%s (%s)" % (_trims.get(time_of_year),
-                                    time_of_year)
+        out = []
+        for line in frequency:
+            if not (line['years_freq'] and line['time_of_year']):
+                return "Required information is not filled in: " \
+                       "Information about trimester or frequency is missing"
 
-        return "Updates are scheduled every %s year(s) in %s" % \
-                                    (info['frequency_years'], time_of_year)
+            ty = line['time_of_year']
+            yf = line['years_freq']
+            time_of_year = "%s (%s)" % (_trims.get(ty), ty)
+
+            out.append("Updates are scheduled every %s year(s) in %s" %
+                                    (yf, time_of_year))
 
     security.declarePublic("validator_frequency_of_updates")
     def validator_frequency_of_updates(self):
@@ -1004,6 +1010,83 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
 
         return v
 
+    def get_dgf_value(self, field, value):
+        """ Convert DataGridField input to value
+
+        Code lifted from Products.DataGridField because it can't be reused 
+        from there due to API.
+        """
+
+        cleaned = []
+        doSort = False
+
+        if value == ({},):
+            # With some Plone versions, it looks like that AT init
+            # causes DGF to get one empty dictionary as the base value
+            # and later, it will be appended as a cleaned row below if
+            # we don't filter out it here.
+            value = []
+
+        if isinstance(value, basestring):
+            # replace () by []
+            value = value.strip()
+            if value.startswith('('):
+                value = "[%s]" % value[1:-1]
+
+            # if simple quotes are used as separators, replace them by '"'
+            if value.replace(' ', '')[2] == "'":
+                value = value.replace("'",'"')
+
+            value = json.loads(value)
+        else:
+
+            # Passed in value is a HTML form data
+            # from DataGridWidget. Value is Python array,
+            # each item being a dictionary with column_name : value mappins
+            # + orderinder which is used in JS reordering
+
+            for row in value:
+                order = row.get('orderindex_', None)
+
+                empty = True
+
+                if order != "template_row_marker":
+                    # don't process hidden template row as
+                    # input data
+                    val = {}
+                    for col in field.getColumnIds():
+                        row_value = row.get(col,'')
+                        # LinesColumn provides list, not string.
+                        if isinstance(row_value, basestring):
+                            val[col] = row_value.strip()
+                        else:
+                            val[col] = row_value
+
+                        if val[col]:
+                            empty = False
+
+                    if order is not None:
+                        try:
+                            order = int(order)
+                            doSort = True
+                        except ValueError:
+                            pass
+
+                    # create sortable tuples
+                    if (not field.allow_empty_rows) and empty:
+                        logger.debug("Filtered out an empty row")
+                    else:
+                        logger.debug("Appending cleaned row:" + str(val))
+                        cleaned.append((order, val.copy()))
+
+            if doSort:
+                cleaned.sort()
+
+            # remove order keys when sorting is complete
+            value = tuple([x for (throwaway, x) in cleaned])
+
+        return value
+
     security.declareProtected('Modify portal content',
                               'setFrequency_of_updates')
     def setFrequency_of_updates(self, value, field='frequency_of_updates'):
@@ -1020,21 +1103,33 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
         if value is None:
             return
 
+        frequency = value['frequency']
+        # this is something like: 
+        #([{'orderindex_': '1', 'time_of_year': 'Q1', 'years_freq': '1'}, 
+        #  {'orderindex_': '3', 'time_of_year': ' ', 'years_freq': ''}, 
+        #  {'orderindex_': 'template_row_marker', 'time_of_year': ' ', 
+        #                                         'years_freq': ''}], {})
+
+
+        atfield = self.getField(field)
+        freqfield = atfield.schema['frequency']
+        
+        frequency = self.get_dgf_value(freqfield, value['frequency'][0])
         ending_date     = self._extract_value(value['ending_date'], DateTime)
         starting_date   = self._extract_value(value['starting_date'], DateTime)
-        frequency_years = self._extract_value(value['frequency_years'], int)
-        time_of_year    = self._extract_value(value['time_of_year'], str)
-        if time_of_year and time_of_year.strip() == "":
-            time_of_year = ' '
+        # frequency_years = self._extract_value(value['frequency_years'], int)
+        # time_of_year    = self._extract_value(value['time_of_year'], str)
+        # if time_of_year and time_of_year.strip() == "":
+        #     time_of_year = ' '
 
         d = {
-            'frequency_years':frequency_years,
-            'time_of_year':time_of_year,
+            'frequency':frequency,
+            # 'frequency_years':frequency_years,
+            # 'time_of_year':time_of_year,
             'starting_date':starting_date,
             'ending_date':ending_date,
         }
 
-        atfield = self.getField(field)
         atfield.set(self, d)
 
 
