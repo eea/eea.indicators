@@ -73,6 +73,9 @@ class FrequencyOfUpdatesFieldValueProvider(ATFieldValueProvider):
     def has_value(self, **kwargs):
         """ Returns true if text field has at least 2 words in it
         """
+        return True
+
+        #TODO: refactor this
         accessor = self.field.getAccessor(self.context)
         if not accessor:
             msg = "Field %s for %s has no accessor" % (self.field, 
