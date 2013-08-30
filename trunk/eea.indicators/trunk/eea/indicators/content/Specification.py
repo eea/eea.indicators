@@ -919,9 +919,11 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
 
         out = []
         for line in frequency:
-            if not (line['years_freq'] and line['time_of_year']):
-                return "Required information is not filled in: " \
-                       "Information about trimester or frequency is missing"
+            if (not line['years_freq']) and (not line['time_of_year']):
+                continue
+                #this filters the empty lines
+                # return "Required information is not filled in: " \
+                #        "Information about trimester or frequency is missing"
 
             ty = line['time_of_year']
             yf = line['years_freq']
@@ -930,6 +932,8 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
             out.append("Updates are scheduled every %s year(s) in %s" %
                                     (yf, time_of_year))
 
+        return "\n".join(out)
+
     security.declarePublic("validator_frequency_of_updates")
     def validator_frequency_of_updates(self):
         """human readable frequency of updates
@@ -937,11 +941,19 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
         info = self.getFrequency_of_updates()
         msgs = []
 
-        if not info['time_of_year'] in ['Q1', 'Q2', 'Q3', 'Q4']:
-            msgs.append("Time of year is not properly set.")
+        frequency = info['frequency']
 
-        if not info['frequency_years'] in range(1, 11):
-            msgs.append("Frequency needs to be a number between 1 and 10.")
+        for line in frequency:
+            if (not line['time_of_year']) and (not line['years_freq']):
+                continue    #an empty record
+
+            if not (line['time_of_year'] in ['Q1', 'Q2', 'Q3', 'Q4']):
+                msgs.append("Time of year is not properly set.")
+
+            if line['years_freq']:
+                if not (int(line['years_freq']) in range(1, 11)):
+                    msgs.append("Frequency needs to be a number between "
+                                "1 and 10.")
 
         if not info['starting_date']:
             msgs.append("Starting date needs to be filled in.")
@@ -1115,6 +1127,9 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
         freqfield = atfield.schema['frequency']
         
         frequency = self.get_dgf_value(freqfield, value['frequency'][0])
+        #filter incomplete lines because both values are required
+        frequency = [l for l in frequency if all(l.values())]
+
         ending_date     = self._extract_value(value['ending_date'], DateTime)
         starting_date   = self._extract_value(value['starting_date'], DateTime)
         # frequency_years = self._extract_value(value['frequency_years'], int)
