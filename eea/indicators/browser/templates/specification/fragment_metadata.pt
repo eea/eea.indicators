@@ -319,6 +319,7 @@
                                 Please fill in. <span tal:replace="context/validator_frequency_of_updates" />
                             </div>
                             <p class="aggedit_frequency_of_updates" tal:content="structure context/get_frequency_of_updates"></p>
+                            <h5>Raw field values:</h5>
                             <dl tal:define="values context/getFrequency_of_updates; 
                                             widgets python:context.Schema().getField('frequency_of_updates').schema.widgets()">
                                 <tal:rep tal:repeat="key python:widgets.keys()">
