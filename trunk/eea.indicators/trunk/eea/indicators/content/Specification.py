@@ -9,7 +9,6 @@ from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
 from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
 from Products.Archetypes.atapi import CalendarWidget
 from Products.Archetypes.atapi import DateTimeField
-from Products.Archetypes.atapi import IntegerField, IntegerWidget
 from Products.Archetypes.atapi import Schema, RichWidget
 from Products.Archetypes.atapi import SelectionWidget, LinesField
 from Products.Archetypes.atapi import StringField, TextField
@@ -916,23 +915,38 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
             'Q3':'July-September',
             'Q4':'October-December',
             }
-
-        out = []
+        
+        out = {}
         for line in frequency:
             if (not line['years_freq']) and (not line['time_of_year']):
                 continue
-                #this filters the empty lines
-                # return "Required information is not filled in: " \
-                #        "Information about trimester or frequency is missing"
-
             ty = line['time_of_year']
             yf = line['years_freq']
             time_of_year = "%s (%s)" % (_trims.get(ty), ty)
 
-            out.append("Updates are scheduled every %s year(s) in %s" %
-                                    (yf, time_of_year))
+            if yf not in out:
+                out[yf] = [ty]
+            else:
+                out[yf].append(ty)
 
-        return "\n".join(out)
+        result = []
+        for key, value in out.items():
+            value.sort()
+            qrts = ", ".join([" ".join([_trims.get(qrt), "(" + qrt + ")"])
+                                        for qrt in value])
+            suffix = 's'
+            if key == '1':
+                 suffix = ''
+            
+            result.append("every %s year%s in %s" % (key, suffix, qrts))
+        
+        result.sort()
+        phrase = "Updates are scheduled " + ",\n".join(result[:-1])
+
+        if len(result) > 1:
+           return phrase + "\nand " + result[-1]
+        else:
+            return phrase + result[-1]
 
     security.declarePublic("validator_frequency_of_updates")
     def validator_frequency_of_updates(self):

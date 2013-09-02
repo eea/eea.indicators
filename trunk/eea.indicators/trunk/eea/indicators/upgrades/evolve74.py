@@ -9,6 +9,9 @@ logger = logging.getLogger('eea.indicators.migration')
 
 
 def evolve(context):
+    """ Migrate frequency_of_updates storage
+    """
+
     catalog = getToolByName(context, 'portal_catalog')
 
     logger.info("Started migration of frequency_of_updates "
