@@ -929,17 +929,15 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
                 out[yf].append(ty)
 
         result = []
-        for key, value in out.items():
-            value.sort()
+        for key in sorted(out, key=out.get):
             qrts = ", ".join([" ".join([_trims.get(qrt), "(" + qrt + ")"])
-                                        for qrt in value])
+                                        for qrt in sorted(out[key])])
             suffix = 's'
             if key == '1':
                 suffix = ''
-            
+
             result.append("every %s year%s in %s" % (key, suffix, qrts))
         
-        result.sort()
         phrase = "Updates are scheduled " + ",\n".join(result[:-1])
 
         if len(result) > 1:
