@@ -922,7 +922,6 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
                 continue
             ty = line['time_of_year']
             yf = line['years_freq']
-            time_of_year = "%s (%s)" % (_trims.get(ty), ty)
 
             if yf not in out:
                 out[yf] = [ty]
@@ -936,7 +935,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
                                         for qrt in value])
             suffix = 's'
             if key == '1':
-                 suffix = ''
+                suffix = ''
             
             result.append("every %s year%s in %s" % (key, suffix, qrts))
         
@@ -944,7 +943,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
         phrase = "Updates are scheduled " + ",\n".join(result[:-1])
 
         if len(result) > 1:
-           return phrase + "\nand " + result[-1]
+            return phrase + "\nand " + result[-1]
         else:
             return phrase + result[-1]
 
