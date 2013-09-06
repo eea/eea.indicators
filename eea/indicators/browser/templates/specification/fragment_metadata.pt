@@ -328,7 +328,24 @@
                                                      field_name python:key.split('|')[1]; 
                                                      value python:values[field_name]" >
                                     <dt tal:content="label">Widget label</dt>
-                                    <dd tal:content="value" tal:condition="value" />
+                                    <dd tal:condition="value">
+                                        <tal:block tal:condition="python: isinstance(value, tuple)">
+                                            <ul tal:repeat="data value">
+                                                <li i18n:translate="raw_freq_of_updates" tal:define="years_freq python:data.get('years_freq')">
+                                                    Every <span i18n:name="years_freq" tal:content="years_freq"/> year(s)
+                                                    <ul>
+                                                        <li tal:define="time_of_year python: data.get('time_of_year')">
+                                                            <span i18n:translate="">Quarter: </span>
+                                                            <span tal:content="time_of_year"/>
+                                                        </li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </tal:block>
+                                        <tal:block tal:condition="python: not isinstance(value, tuple)">
+                                            <span tal:content="value"/>
+                                        </tal:block>
+                                    </dd>
                                     <dd tal:condition="not:value">Not set</dd>
                                     </tal:def>
                                 </tal:rep>

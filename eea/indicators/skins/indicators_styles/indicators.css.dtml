@@ -828,6 +828,10 @@ ul.token-input-list-facebook {
 .table-document-actions {width:100%}
 #archetypes-fieldname-more_updates_on textarea { width: 100% !important; height:280px !important; }
 
+.plone-jscalendar-popup ~ span {
+    display: none;
+}
+
 /* ==============proposed improvements ============*/
   
 /*
