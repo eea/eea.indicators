@@ -86,9 +86,12 @@ class AssessmentVersions(BrowserView):
         res['published'] = list(reversed(sorted(assessments, key=get)))
 
         assessments = self.context.getFolderContents(
-                             contentFilter={'review_state':'draft',
-                                            'portal_type':'Assessment'},
+                             contentFilter={'portal_type':'Assessment'},
                              full_objects = True)
+
+        get_info = self.context.portal_workflow.getInfoFor
+        assessments = [obj for obj in assessments
+                        if get_info(obj, 'review_state') != 'published']
 
         res['draft'] = list(reversed(sorted(assessments, key=get)))
 

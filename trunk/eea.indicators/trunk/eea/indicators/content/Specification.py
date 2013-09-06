@@ -929,7 +929,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
                 out[yf].append(ty)
 
         result = []
-        for key in sorted(out, key=out.get):
+        for key in sorted(out.keys()):
             qrts = ", ".join([" ".join([_trims.get(qrt), "(" + qrt + ")"])
                                         for qrt in sorted(out[key])])
             suffix = 's'
@@ -1033,83 +1033,6 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
 
         return v
 
-    def get_dgf_value(self, field, value):
-        """ Convert DataGridField input to value
-
-        Code lifted from Products.DataGridField because it can't be reused 
-        from there due to API.
-        """
-
-        cleaned = []
-        doSort = False
-
-        if value == ({},):
-            # With some Plone versions, it looks like that AT init
-            # causes DGF to get one empty dictionary as the base value
-            # and later, it will be appended as a cleaned row below if
-            # we don't filter out it here.
-            value = []
-
-        if isinstance(value, basestring):
-            # replace () by []
-            value = value.strip()
-            if value.startswith('('):
-                value = "[%s]" % value[1:-1]
-
-            # if simple quotes are used as separators, replace them by '"'
-            if value.replace(' ', '')[2] == "'":
-                value = value.replace("'",'"')
-
-            value = json.loads(value)
-        else:
-
-            # Passed in value is a HTML form data
-            # from DataGridWidget. Value is Python array,
-            # each item being a dictionary with column_name : value mappins
-            # + orderinder which is used in JS reordering
-
-            for row in value:
-                order = row.get('orderindex_', None)
-
-                empty = True
-
-                if order != "template_row_marker":
-                    # don't process hidden template row as
-                    # input data
-                    val = {}
-                    for col in field.getColumnIds():
-                        row_value = row.get(col,'')
-                        # LinesColumn provides list, not string.
-                        if isinstance(row_value, basestring):
-                            val[col] = row_value.strip()
-                        else:
-                            val[col] = row_value
-
-                        if val[col]:
-                            empty = False
-
-                    if order is not None:
-                        try:
-                            order = int(order)
-                            doSort = True
-                        except ValueError:
-                            pass
-
-                    # create sortable tuples
-                    if (not field.allow_empty_rows) and empty:
-                        logger.debug("Filtered out an empty row")
-                    else:
-                        logger.debug("Appending cleaned row:" + str(val))
-                        cleaned.append((order, val.copy()))
-
-            if doSort:
-                cleaned.sort()
-
-            # remove order keys when sorting is complete
-            value = tuple([x for (throwaway, x) in cleaned])
-
-        return value
-
     security.declareProtected('Modify portal content',
                               'setFrequency_of_updates')
     def setFrequency_of_updates(self, value, field='frequency_of_updates'):
@@ -1133,25 +1056,18 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
         #  {'orderindex_': 'template_row_marker', 'time_of_year': ' ', 
         #                                         'years_freq': ''}], {})
 
-
         atfield = self.getField(field)
         freqfield = atfield.schema['frequency']
-        
-        frequency = self.get_dgf_value(freqfield, value['frequency'][0])
+
+        frequency = list(value['frequency'])
         #filter incomplete lines because both values are required
-        frequency = [l for l in frequency if all(l.values())]
+        frequency[0] = [l for l in frequency[0] if all(l.values())]
 
         ending_date     = self._extract_value(value['ending_date'], DateTime)
         starting_date   = self._extract_value(value['starting_date'], DateTime)
-        # frequency_years = self._extract_value(value['frequency_years'], int)
-        # time_of_year    = self._extract_value(value['time_of_year'], str)
-        # if time_of_year and time_of_year.strip() == "":
-        #     time_of_year = ' '
 
         d = {
             'frequency':frequency,
-            # 'frequency_years':frequency_years,
-            # 'time_of_year':time_of_year,
             'starting_date':starting_date,
             'ending_date':ending_date,
         }
