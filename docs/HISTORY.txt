@@ -1,8 +1,8 @@
 Changelog
 =========
 
-7.4-dev - (unreleased)
-----------------------
+7.4 - (2013-09-06)
+------------------
 * Change WIP: change frequency_of_updates to have multiple pairs of
   frequency years/time of year information
   [tiberich #14929]
