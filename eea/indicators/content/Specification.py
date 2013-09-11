@@ -921,7 +921,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
             if (not line['years_freq']) and (not line['time_of_year']):
                 continue
             ty = line['time_of_year']
-            yf = line['years_freq']
+            yf = int(line['years_freq'])
 
             if yf not in out:
                 out[yf] = [ty]
@@ -933,7 +933,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
             qrts = ", ".join([" ".join([_trims.get(qrt), "(" + qrt + ")"])
                                         for qrt in sorted(out[key])])
             suffix = 's'
-            if key == '1':
+            if key == 1:
                 suffix = ''
 
             result.append("every %s year%s in %s" % (key, suffix, qrts))
