@@ -25,3 +25,7 @@ class IIndicatorUtils(Interface):
         """Return True if the given field has a value
            for the given context object
         """
+
+
+class IIMSBaseView(Interface):
+    """Marker interface for IMS views"""

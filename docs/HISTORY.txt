@@ -6,6 +6,9 @@ Changelog
 
 7.5 - (2013-09-17)
 ------------------
+* Bug fix: Fixed manage portlets page on Assessment, IndicatorFactSheet and
+  Specification
+  [tiberich #14593]
 * Bug fix: fix logic condition in eea.indicators frequency of edit display
   [tiberich #16754]
 

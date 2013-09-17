@@ -12,6 +12,7 @@ from Products.CMFPlone.utils import getToolByName
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from ZPublisher.Client import querify
+from eea.indicators.browser.interfaces import IIMSBaseView
 from eea.indicators.browser.utils import has_one_of
 from eea.versions.interfaces import IVersionControl
 from eea.versions.versions import CreateVersion as BaseCreateVersion
@@ -32,6 +33,7 @@ logger = logging.getLogger('eea.indicators.browser.specification')
 
 class IndexPage(BrowserView):
     """ Index page """
+    implements(IIMSBaseView)
 
     def getId(self):
         return "view"
@@ -39,7 +41,7 @@ class IndexPage(BrowserView):
 
 class AggregatedEditPage(BrowserView):
     """Agg edit page"""
-    implements(IViewView)
+    implements(IViewView, IIMSBaseView)
 
     template = \
         ViewPageTemplateFile('templates/specification/aggregated_edit.pt')
