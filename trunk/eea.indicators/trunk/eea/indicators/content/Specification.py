@@ -918,7 +918,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
         
         out = {}
         for line in frequency:
-            if (not line['years_freq']) and (not line['time_of_year']):
+            if not (line['years_freq'] and line['time_of_year']):
                 continue
             ty = line['time_of_year']
             yf = int(line['years_freq'])
