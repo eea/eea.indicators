@@ -47,7 +47,6 @@ from zope.interface import implements
 from DateTime import DateTime
 import datetime
 import logging
-import json
 
 #from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 #from eea.versions.versions import isVersionEnhanced
@@ -1057,7 +1056,6 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
         #                                         'years_freq': ''}], {})
 
         atfield = self.getField(field)
-        freqfield = atfield.schema['frequency']
 
         frequency = list(value['frequency'])
         #filter incomplete lines because both values are required
