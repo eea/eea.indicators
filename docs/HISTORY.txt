@@ -3,6 +3,8 @@ Changelog
 
 7.5-dev - (unreleased)
 ----------------------
+* Bug fix: fix logic condition in eea.indicators frequency of edit display
+  [tiberich #16754]
 
 7.4 - (2013-09-06)
 ------------------
