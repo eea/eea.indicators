@@ -11,6 +11,7 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from ZPublisher.Client import querify
 from bs4 import UnicodeDammit, BeautifulSoup
 from eea.indicators.browser.utils import has_one_of
+from eea.indicators.browser.interfaces import IIMSBaseView
 from eea.indicators.content.Assessment import getPossibleVersionsId
 from eea.indicators.content.Assessment import hasWrongVersionId
 from eea.versions.interfaces import IGetVersions
@@ -32,6 +33,7 @@ logger = logging.getLogger("eea.indicators.browser.assessment")
 
 class IndexPage(BrowserView):
     """The Assessment index page"""
+    implements(IIMSBaseView)
 
     def getId(self):
         return "view"
@@ -39,7 +41,7 @@ class IndexPage(BrowserView):
 
 class AggregatedEditPage(BrowserView):
     """Aggregated edit"""
-    implements(IViewView)
+    implements(IViewView, IIMSBaseView)
     template = ViewPageTemplateFile('templates/assessment/aggregated_edit.pt')
 
     __call__ = template

@@ -7,14 +7,16 @@ __author__ = """European Environment Agency (EEA)"""
 __docformat__ = 'plaintext'
 __credits__ = """contributions: Alec Ghica, Tiberiu Ichim"""
 
-
+from eea.indicators.browser.interfaces import IIMSBaseView
 from Products.CMFCore.utils import getToolByName
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
+from zope.interface import implements
 
 
 class AggregatedEditPage(BrowserView):
     """Aggregated edit"""
+    implements(IIMSBaseView)
     template = ViewPageTemplateFile(
         'templates/indicatorfactsheet/aggregated_edit.pt')
 

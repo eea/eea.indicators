@@ -177,15 +177,15 @@
 
 
   <adapter factory=".manager.IndicatorsPortletManagerRenderer"
-           for="eea.indicators.content.interfaces.IIndicatorFactSheet zope.publisher.interfaces.browser.IBrowserRequest zope.publisher.interfaces.browser.IBrowserView plone.portlets.interfaces.IPortletManager"
+           for="eea.indicators.content.interfaces.IIndicatorFactSheet zope.publisher.interfaces.browser.IBrowserRequest eea.indicators.browser.interfaces.IIMSBaseView plone.portlets.interfaces.IPortletManager"
            provides="plone.portlets.interfaces.IPortletManagerRenderer" />
 
   <adapter factory=".manager.IndicatorsPortletManagerRenderer"
-           for="eea.indicators.content.interfaces.IAssessment zope.publisher.interfaces.browser.IBrowserRequest zope.publisher.interfaces.browser.IBrowserView plone.portlets.interfaces.IPortletManager"
+           for="eea.indicators.content.interfaces.IAssessment zope.publisher.interfaces.browser.IBrowserRequest eea.indicators.browser.interfaces.IIMSBaseView plone.portlets.interfaces.IPortletManager"
            provides="plone.portlets.interfaces.IPortletManagerRenderer" />
 
   <adapter factory=".manager.IndicatorsPortletManagerRenderer"
-           for="eea.indicators.content.interfaces.ISpecification zope.publisher.interfaces.browser.IBrowserRequest zope.publisher.interfaces.browser.IBrowserView plone.portlets.interfaces.IPortletManager"
+           for="eea.indicators.content.interfaces.ISpecification zope.publisher.interfaces.browser.IBrowserRequest eea.indicators.browser.interfaces.IIMSBaseView plone.portlets.interfaces.IPortletManager"
            provides="plone.portlets.interfaces.IPortletManagerRenderer" />
 
 </configure>
