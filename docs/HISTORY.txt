@@ -6,6 +6,8 @@ Changelog
 * Bug fix: Fixed manage portlets page on Assessment, IndicatorFactSheet and
   Specification
   [tiberich #14593]
+* Bug fix: more logic condition fixes on frequency of updates agg edit
+  [tiberich #16754]
 
 7.5 - (2013-09-17)
 ------------------

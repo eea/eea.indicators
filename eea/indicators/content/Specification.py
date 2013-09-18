@@ -941,8 +941,10 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
 
         if len(result) > 1:
             return phrase + "\nand " + result[-1]
-        else:
+        elif len(result) == 1:
             return phrase + result[-1]
+        elif len(result) == 0
+            return "No frequency of updates information"
 
     security.declarePublic("validator_frequency_of_updates")
     def validator_frequency_of_updates(self):
