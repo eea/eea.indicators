@@ -1,6 +1,9 @@
 Changelog
 =========
 
+7.7-dev - (unreleased)
+----------------------
+
 7.6 - (2013-09-18)
 ------------------
 * Bug fix: Fixed manage portlets page on Assessment, IndicatorFactSheet and
