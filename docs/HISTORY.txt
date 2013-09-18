@@ -1,8 +1,8 @@
 Changelog
 =========
 
-7.6-dev - (unreleased)
-----------------------
+7.6 - (2013-09-18)
+------------------
 * Bug fix: Fixed manage portlets page on Assessment, IndicatorFactSheet and
   Specification
   [tiberich #14593]
