@@ -169,45 +169,47 @@ class Assessment(ATFolder, ModalFieldEditableAware,
         if parent:  # the parent seems to be missing in tests
             spec_title = parent.getTitle()
         else:
-            spec_title = u"Missing parent"
+            spec_title = "Missing parent"
+
+        title = spec_title
 
         try:
             wftool = getToolByName(self, 'portal_workflow')
         except AttributeError:
             # the object has not finished its creation process
-            title = spec_title + u' - newly created assessment'
-            return title.encode('utf-8')
+            title += ' - newly created assessment'
+            return title
 
         time = self.getEffectiveDate()
         info = wftool.getStatusOf('indicators_workflow', self)
 
         if not info:
             # the object has not finished its creation process
-            title = spec_title + u' - newly created assessment'
+            title += ' - newly created assessment'
         elif info['review_state'] == "published":
             if time is None:
                 time = self.creation_date
                 msg = _(u"Assessment published with invalid published date")
-                return (spec_title + u' - ' +
-                            self.translate(msg)).encode('utf-8')
+                return (title + ' - ' +
+                        self.translate(msg).encode('utf-8'))
 
             msg = _(u"Assessment published ${date}",
-                    mapping={'date':u"%s %s" %
+                    mapping={'date': u"%s %s" %
                              (time.Mon(), time.year())
                              }
                     )
-            title = spec_title + u' - ' + self.translate(msg)
+            title += ' - ' + self.translate(msg).encode('utf-8')
         else:
             if time is None:
                 time = self.creation_date
             msg = _(u"Assessment DRAFT created ${date}",
-                    mapping={'date':u"%s %s" %
+                    mapping={'date': u"%s %s" %
                              (time.Mon(), time.year())
                              }
                     )
-            title = spec_title + u' - ' + self.translate(msg)
+            title += ' - ' + self.translate(msg).encode('utf-8')
 
-        return title.encode('utf-8')
+        return title
 
     security.declarePublic('Subject')
     def Subject(self):

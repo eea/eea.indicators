@@ -3,6 +3,10 @@ Changelog
 
 7.7-dev - (unreleased)
 ----------------------
+* Bug fix: use bytestreams as return values for Title in IMS content. By default
+  Plone (Archetypes) stores fields values as unicode, but returns them as bytestreams
+  encoded as utf-8 (or the field's specified encoding)
+  [tiberich #16767]
 
 7.6 - (2013-09-18)
 ------------------
