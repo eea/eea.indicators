@@ -137,7 +137,7 @@ class AssessmentPart(ATFolder, ModalFieldEditableAware,
         question = self.get_related_question()
 
         if question:
-            return question.Title().encode('utf-8')
+            return question.Title()
         else:
             return "Answer to unknown question"
 
@@ -236,7 +236,6 @@ class AssessmentPart(ATFolder, ModalFieldEditableAware,
     def set_related_items(self, value):
         """ Set related items
         """
-        #import pdb; pdb.set_trace()
         instance = self
         field = self.getField('relatedItems')
 

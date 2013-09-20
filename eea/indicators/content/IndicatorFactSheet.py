@@ -272,15 +272,20 @@ class IndicatorFactSheet(ATFolder, ModalFieldEditableAware,
         """
         codes = self.getCodes()
 
-        res = u''
+        title = self.title
+        if isinstance(self.title, unicode):
+            title = self.title.encode('utf-8')
+
+        res = ''
         for code in codes:
             if code:
-                res = res + u"%s %s/" % (code['set'], code['code'])
+                res = res + "%s %s/" % (code['set'], code['code'])
         if res:
-            res = self.title + u' (' + res[:-1] + u')'
+            res = title + ' (' + res[:-1] + ')'
         else:
-            res = self.title
-        return res.encode('utf-8')
+            res = title
+        
+        return res
 
     security.declarePublic('get_codes')
     def get_codes(self):

@@ -613,16 +613,21 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
         """ Return title with codes """
         codes = self.getCodes()
 
-        res = u''
+        title = self.title
+        if isinstance(self.title, unicode):
+            title = self.title.encode('utf-8')
+
+        res = ''
         for code in codes:
             if code:
-                res = res + u"%s %s/" % (code['set'], code['code'])
-        if res:
-            res = self.title + u' (' + res[:-1] + u')'
-        else:
-            res = self.title
+                res = res + "%s %s/" % (code['set'], code['code'])
 
-        return res.encode('utf-8')
+        if res:
+            res = title + ' (' + res[:-1] + ')'
+        else:
+            res = title
+
+        return res
 
     security.declarePublic("get_raw_title")
     def get_raw_title(self):
