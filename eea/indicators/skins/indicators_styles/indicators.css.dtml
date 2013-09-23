@@ -57,7 +57,7 @@ dl.enableFormTabbing dd {
     line-height:2em;
 }
 
-#content-core .readiness_accordion {overflow:hidden;}
+#content-core .readiness_accordion {overflow:hidden; width:100%}
 #content-core .readiness_accordion a { display:inline; }
 #content-core .readiness_accordion .error { width:inherit; }
 #content-core .percentageDone { float:right; clear:none;} 
