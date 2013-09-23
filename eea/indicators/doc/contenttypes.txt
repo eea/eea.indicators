@@ -483,7 +483,7 @@ The submit button is created by javascript, through the jQuery UI framework.
 Submiting the form, if the form is properly validated, will return a small Javascript
 fragment that closes the dialog and reloads the region to which that field belongs:
 
-    >>> req = {'specific_field':'title', 'fieldset':'default', 'title':'Some title',
+    >>> req = {'specific_field':'title', 'fieldset':'default', 'title':u'Some title',
     ...        'form.submitted':'1', 'form_submit':'Save'}
     >>> data = urllib.urlencode(req)
     >>> browser.open(baseurl + '/simple_edit', data=data)
@@ -498,7 +498,7 @@ They are: WorkItems, MethodologyReferences, RationaleReferences and PolicyQuesti
     >>> pq = spec.objectValues('PolicyQuestion')[0]
     >>> url = pq.absolute_url()
     >>> browser.open(url + '/schemata_edit?fieldset=default')
-    >>> browser.getControl(name="title").value = 'First question'
+    >>> browser.getControl(name="title").value = u'First question'
     >>> browser.getForm(name="edit_form").submit()
     >>> print browser.contents        #doctest: +NORMALIZE_WHITESPACE
     <script>...close_dialog...</script>
@@ -628,4 +628,33 @@ created:
     This indicator is discontinued. No more assessments will be produced.
     >>> print spec.is_discontinued()
     True
+
+
+Unicode handling
+----------------
+Application should not crash when unicode characters are used.
+
+    >>> spec.title = u"Some title \u20ac"
+    >>> spec['pq'].title = u"Some main question \u20ac"
+    >>> print spec.Title()
+    Some title €
+    >>> print spec['as'].Title()
+    Some title € - Assessment DRAFT created Sep 2013
+    >>> print spec['pq'].Title()
+    Some main question €
+
+We had issues with object reindexing:
+
+    >>> spec.reindexObject()
+    >>> spec['as'].reindexObject()
+    >>> spec['pq'].reindexObject()
+
+Values are stored as bytestream in brains:
+
+    >>> brains = catalog.searchResults(getId="spec1")
+    >>> title= brains[0].Title
+    >>> title == 'Some title \xe2\x82\xac'
+    True
+    >>> print title
+    Some title €
 
