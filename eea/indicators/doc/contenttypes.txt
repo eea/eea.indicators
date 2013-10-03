@@ -639,7 +639,7 @@ Application should not crash when unicode characters are used.
     >>> print spec.Title()
     Some title €
     >>> print spec['as'].Title()
-    Some title € - Assessment DRAFT created Sep 2013
+    Some title € - Assessment DRAFT created...
     >>> print spec['pq'].Title()
     Some main question €
 
