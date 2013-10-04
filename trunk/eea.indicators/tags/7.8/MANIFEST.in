@@ -1,0 +1,9 @@
+recursive-include eea/indicators *
+recursive-include eea/indicators/skins *
+global-exclude *pyc
+global-exclude *~
+global-exclude *.un~
+
+global-include *mo
+
+global-include *.mo
