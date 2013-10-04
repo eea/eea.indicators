@@ -496,8 +496,6 @@ Several content types can be edited from the aggregated edit view in a full popu
 They are: WorkItems, MethodologyReferences, RationaleReferences and PolicyQuestions
 
     >>> pq = spec.objectValues('PolicyQuestion')[0]
-    >>> # TemporalCoverage is now a required field, from Products.EEAPloneAdmin
-    >>> pq.setTemporalCoverage(["1990"])
     >>> url = pq.absolute_url()
     >>> browser.open(url + '/schemata_edit?fieldset=default')
     >>> browser.getControl(name="title").value = u'First question'
