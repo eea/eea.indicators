@@ -172,6 +172,8 @@ class Assessment(ATFolder, ModalFieldEditableAware,
             spec_title = "Missing parent"
 
         title = spec_title
+        if isinstance(title, unicode):
+            title = title.encode('utf-8')
 
         try:
             wftool = getToolByName(self, 'portal_workflow')

@@ -416,7 +416,6 @@ class MetadataAsESMSXML(BrowserView):
                         '\nRationale uncertainty: ' +\
                         getText(spec.getRationale_uncertainty())
 
-
         questions = [b.getObject() for b in spec.getFolderContents(
                         contentFilter={'portal_type':'PolicyQuestion'})]
         qpart = ""
