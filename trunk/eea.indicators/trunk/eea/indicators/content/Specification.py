@@ -627,6 +627,8 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
         else:
             res = title
 
+        if isinstance(res, unicode):
+            res = res.encode('utf-8')
         return res
 
     security.declarePublic("get_raw_title")
