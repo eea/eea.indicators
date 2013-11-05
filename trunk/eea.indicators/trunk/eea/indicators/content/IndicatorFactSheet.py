@@ -285,7 +285,9 @@ class IndicatorFactSheet(ATFolder, ModalFieldEditableAware,
         else:
             res = title
         
-        return res.encode('utf-8')
+        if isinstance(res, unicode):
+            res = res.encode('utf-8')
+        return res
 
     security.declarePublic('get_codes')
     def get_codes(self):
