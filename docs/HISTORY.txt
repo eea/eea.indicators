@@ -1,8 +1,8 @@
 Changelog
 =========
 
-7.9-dev - (unreleased)
-----------------------
+7.9 - (2013-11-05)
+------------------
 * Bug fix: make sure computed Titles are bytestreams not unicode
   [tiberich #17364]
 
