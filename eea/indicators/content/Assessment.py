@@ -29,6 +29,9 @@ from eea.versions.interfaces import IGetVersions
 from eea.workflow.interfaces import IHasMandatoryWorkflowFields
 from eea.workflow.interfaces import IObjectReadiness
 from eea.workflow.utils import ATFieldValueProvider
+
+from eea.dataservice.interfaces import ITemporalCoverageAdapter
+
 from zope.component import adapts
 from zope.interface import implements
 import logging
@@ -279,7 +282,7 @@ class Assessment(ATFolder, ModalFieldEditableAware,
 
         for assessment_part in self.objectValues('AssessmentPart'):
             for ob in assessment_part.getRelatedItems():
-                if ob.portal_type == 'EEAFigure':
+                if ob.portal_type in ['EEAFigure', 'DavizVisualization']:
                     state = wftool.getInfoFor(ob, 'review_state', '(Unknown)')
                     if state in ['published', 'visible']:
                         result.extend(ob.getLocation())
@@ -294,10 +297,12 @@ class Assessment(ATFolder, ModalFieldEditableAware,
 
         for assessment_part in self.objectValues('AssessmentPart'):
             for ob in assessment_part.getRelatedItems():
-                if ob.portal_type == 'EEAFigure':
+                if ob.portal_type in ('EEAFigure', 'DavizVisualization'):
                     state = wftool.getInfoFor(ob, 'review_state', '(Unknown)')
                     if state in ['published', 'visible']:
-                        for val in ob.getTemporalCoverage():
+                        temporal_coverage = ITemporalCoverageAdapter(ob
+                                                                    ).value()
+                        for val in temporal_coverage:
                             result[val] = val
         return list(result.keys())
 
