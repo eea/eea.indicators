@@ -1,8 +1,8 @@
 Changelog
 =========
 
-8.0-dev - (unreleased)
-----------------------
+8.0 - (2013-11-20)
+------------------
 * Feature: check for temporalCoverage and geographicalCoverage also from 
   DavizVizualizations within an Assessment or an IndicatorFactSheet
   [ichimdav refs #17306]
