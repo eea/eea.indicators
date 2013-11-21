@@ -1,0 +1,47 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+      metal:use-macro="here/main_template/macros/master"
+      i18n:domain="eea">
+
+  <metal:block use-macro="here/global_defines/macros/defines" />
+
+  <metal:baseslot fill-slot="base">
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=true"></script>
+    <base href="" tal:attributes="href request/URL" />
+  </metal:baseslot>
+
+  <metal:jsslot fill-slot="javascript_head_slot">
+    <script type="text/javascript" tal:attributes="src string:${portal_url}/++resource++indicators.js"></script>
+    <script type="text/javascript"
+        tal:attributes="src string:${context/portal_url}/++resource++daviz_relations.js"></script>
+  </metal:jsslot>
+
+  <body>
+    <div metal:fill-slot="main" class="assessment_edit aggregated_edit">
+
+      <div id="dialog_edit_target">
+        <!-- This div is used by active field editing -->
+      </div>
+
+      <h1 id="headline-assessment" tal:content="context/Title">Title here</h1>
+
+      <h2 i18n:translate="">Assessment versions</h2>
+      <metal:versions use-macro="here/portlet_versions/macros/versions">
+        <metal:new fill-slot="old" />
+      </metal:versions>
+
+      <div tal:replace="structure context/fragment_keymessage" />
+
+      <div tal:define="
+        assessments context/get_assessments;
+        key nocall:assessments/key;
+        secondary nocall:assessments/secondary;">
+        <tal:parts repeat="part python:[key] + secondary">
+          <div tal:replace="structure part/fragment_assessment_part"
+               tal:condition="python:part" />
+        </tal:parts>
+      </div>
+      <div tal:replace="structure context/fragment_metadata" />
+
+    </div>
+  </body>
+</html>
