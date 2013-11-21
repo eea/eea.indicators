@@ -3,6 +3,8 @@ Changelog
 
 8.1-dev - (unreleased)
 ----------------------
+* Change: cosmetics. harmonized box style
+  [demarant refs ##16676]
 
 8.0 - (2013-11-20)
 ------------------
