@@ -1,14 +1,14 @@
 Changelog
 =========
 
-8.1-dev - (unreleased)
-----------------------
+8.1 - (2013-11-21)
+------------------
 * Change: cosmetics. harmonized box style
   [demarant refs ##16676]
 
 8.0 - (2013-11-20)
 ------------------
-* Feature: check for temporalCoverage and geographicalCoverage also from 
+* Feature: check for temporalCoverage and geographicalCoverage also from
   DavizVizualizations within an Assessment or an IndicatorFactSheet
   [ichimdav refs #17306]
 
