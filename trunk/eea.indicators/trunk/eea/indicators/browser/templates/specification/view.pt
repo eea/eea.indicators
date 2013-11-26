@@ -27,9 +27,6 @@
           tal:condition="context/getMore_updates_on"
           tal:content="structure context/getMore_updates_on" />
 
-        <metal:versions use-macro="here/portlet_versions/macros/versions">
-        </metal:versions>
-
         <div id="frequency_of_updates" class="system-message" 
             tal:content="context/get_frequency_of_updates" 
             tal:condition="context/is_discontinued"/>
