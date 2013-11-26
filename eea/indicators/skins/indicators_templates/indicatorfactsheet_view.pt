@@ -26,9 +26,6 @@
     <div class="factsheet_view" metal:fill-slot="content-core" id='region-content'>
       <metal:main_macro define-macro="main">
 
-        <metal:versions use-macro="here/portlet_versions/macros/versions">
-        </metal:versions>
-
         <div class="visualClear"><!-- --></div>
 
         <div id="box-classification">

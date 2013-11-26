@@ -51,8 +51,6 @@
 
       <div tal:condition="not:isAnon" tal:replace="structure context/@@readiness" />
 
-      <metal:versions use-macro="here/portlet_versions/macros/versions"></metal:versions>
-
       <div id="frequency_of_updates" class="system-message" 
             tal:content="context/get_frequency_of_updates" 
             tal:condition="context/is_discontinued"/>
@@ -198,7 +196,7 @@
                 tal:condition="python:manager_ob"
                 title="Contact indicator manager"
                 i18n:attributes="title"
-                tal:attributes="href string:http://www.eionet.europa.eu/sitedirsearch?name=${manager_ob/username}"
+                tal:attributes="href string:http://www.eionet.europa.eu/users/${manager_ob/username}"
                 tal:content="manager_ob/fullname">Contact</a>
               <p tal:condition="python:not manager_ob">
                 <span i18n:translate="">User not found:</span>
