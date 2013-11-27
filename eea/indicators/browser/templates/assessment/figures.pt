@@ -60,6 +60,12 @@
                         inline_chart nocall:obj/@@embed-inline | nothing;" >
 
             <p class="figure-title" tal:content="obj/Title" />
+            <div class="metadata" style="display:none;">
+              <div class="part_url" tal:content="python:context.absolute_url()">
+              </div>
+              <div class="daviz_uid" tal:content="uid">
+              </div>
+            </div>
 
             <div class="indicator-figure-image">
                 <dl class="enableFormTabbing">
@@ -92,8 +98,6 @@
                                     <span tal:condition="python:not figure_description">N/A</span>
                                   </div>
 
-                                  <a tal:attributes="href obj/absolute_url"
-                                     class="standardButton" i18n:translate="">Explore chart interactively</a>
                               </div>
 
                               <tal:data tal:define="data_info obj/@@data.info | python:{}">

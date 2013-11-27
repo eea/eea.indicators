@@ -175,6 +175,9 @@
   <browser:resource name='indicators-toc.js'
                     file='js/indicators-toc.js' />
 
+  <browser:resource name='daviz-inline-resize.js'
+                    file='js/daviz-inline-resize.js' />
+
 
   <adapter factory=".manager.IndicatorsPortletManagerRenderer"
            for="eea.indicators.content.interfaces.IIndicatorFactSheet zope.publisher.interfaces.browser.IBrowserRequest eea.indicators.browser.interfaces.IIMSBaseView plone.portlets.interfaces.IPortletManager"

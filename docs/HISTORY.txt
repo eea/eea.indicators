@@ -3,6 +3,9 @@ Changelog
 
 8.2-dev - (unreleased)
 ----------------------
+* Feature: WIP: added resize feature for embedded charts
+  [szabozo0 refs #17453]
+
 * Change: removed versions macro; now using viewlet
   [simiamih refs #17321]
 
