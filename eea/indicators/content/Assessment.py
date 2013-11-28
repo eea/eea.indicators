@@ -30,7 +30,7 @@ from eea.workflow.interfaces import IHasMandatoryWorkflowFields
 from eea.workflow.interfaces import IObjectReadiness
 from eea.workflow.utils import ATFieldValueProvider
 
-from eea.dataservice.interfaces import ITemporalCoverageAdapter
+from Products.EEAContentTypes.interfaces import ITemporalCoverageAdapter
 
 from zope.component import adapts
 from zope.interface import implements

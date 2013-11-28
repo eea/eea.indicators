@@ -22,7 +22,7 @@ from eea.indicators.content.utils import get_dgf_value
 from eea.relations.field import EEAReferenceField
 from eea.relations.widget import EEAReferenceBrowserWidget
 
-from eea.dataservice.interfaces import ITemporalCoverageAdapter
+from Products.EEAContentTypes.interfaces import ITemporalCoverageAdapter
 
 from eea.workflow.interfaces import IHasMandatoryWorkflowFields
 from zope.interface import implements
