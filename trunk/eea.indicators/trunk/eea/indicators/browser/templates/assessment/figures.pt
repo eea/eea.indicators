@@ -74,12 +74,12 @@
                             tal:content="python:chart[1]"></dt>
                         <dd id="fieldset-1" tal:attributes="id string:fieldset-${uid}-${repeat/chart/index}">
 
-                              <div class="figure-chart-live" tal:condition="python:chart[2] == 'live'" >
+                              <div class="figure-chart-live" tal:condition="python:chart[2]['type'] == 'live'" >
                                 <script tal:replace="structure python:inline_chart(chart=chart[0])" ></script>
                                  <div class="visualClear" ><!-- --></div>
                               </div>
 
-                              <div class="figure-chart-preview" tal:condition="python:chart[2] == 'preview'">
+                              <div class="figure-chart-preview" tal:condition="python:chart[2]['type'] == 'preview'">
                                   <a title="Interact" i18n:attributes="title" href=""
                                      tal:attributes="href python:obj.absolute_url()+'#tab-' + chart[0]">
                                     <img alt="" title="" src=""
