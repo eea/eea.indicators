@@ -3,6 +3,12 @@ Changelog
 
 8.2-dev - (unreleased)
 ----------------------
+* Change: explicitly depend of Products.EEAContentTypes within setup.py of 
+  this package
+  [ichimdav refs #17588]
+* Change: use the ITemporalCoverageAdapter from within Products.EEAContentTypes
+  instead of eea.dataservice
+  [ichimdav refs #17588]
 * Feature: WIP: added resize feature for embedded charts
   [szabozo0 refs #17453]
 

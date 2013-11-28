@@ -34,6 +34,7 @@ setup(
      "Products.ATVocabularyManager",
      "Products.DataGridField",
      "Products.UserAndGroupSelectionWidget",
+     "Products.EEAContentTypes",
      "eea.facetednavigation",
      "eea.themecentre",
      "eea.dataservice",
