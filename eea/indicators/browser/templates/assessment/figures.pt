@@ -73,6 +73,18 @@
                         <dt id="fieldsetlegend-1" tal:attributes="id string:fieldsetlegend-${uid}-${repeat/chart/index}"
                             tal:content="python:chart[1]"></dt>
                         <dd id="fieldset-1" tal:attributes="id string:fieldset-${uid}-${repeat/chart/index}">
+                              <div class='chart-custom-settings'
+                                    style="display:none"
+                                    tal:attributes="
+                                        chart_id python:chart[0];
+                                        chart_width python:chart[2].get('width','');
+                                        chart_height python:chart[2].get('height','');
+                                        chart_chartAreaWidth python:chart[2].get('chartAreaWidth','');
+                                        chart_chartAreaHeight python:chart[2].get('chartAreaHeight','');
+                                        chart_chartAreaTop python:chart[2].get('chartAreaTop','');
+                                        chart_chartAreaLeft python:chart[2].get('chartAreaLeft','')
+                                    ">
+                              </div>
 
                               <div class="figure-chart-live" tal:condition="python:chart[2]['type'] == 'live'" >
                                 <script tal:replace="structure python:inline_chart(chart=chart[0])" ></script>
