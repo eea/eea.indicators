@@ -3,7 +3,7 @@ Changelog
 
 8.2-dev - (unreleased)
 ----------------------
-* Change: explicitly depend of Products.EEAContentTypes within setup.py of 
+* Change: explicitly depend of Products.EEAContentTypes within setup.py of
   this package
   [ichimdav refs #17588]
 * Change: use the ITemporalCoverageAdapter from within Products.EEAContentTypes
@@ -11,9 +11,10 @@ Changelog
   [ichimdav refs #17588]
 * Feature: WIP: added resize feature for embedded charts
   [szabozo0 refs #17453]
-
 * Change: removed versions macro; now using viewlet
   [simiamih refs #17321]
+* Change: removed the dependecy to eea.locationwidget
+  [ghicaale refs #9155]
 
 8.1 - (2013-11-21)
 ------------------
