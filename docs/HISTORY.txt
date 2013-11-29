@@ -9,7 +9,7 @@ Changelog
 * Change: use the ITemporalCoverageAdapter from within Products.EEAContentTypes
   instead of eea.dataservice
   [ichimdav refs #17588]
-* Feature: WIP: added resize feature for embedded charts
+* Feature: Added resize feature for embedded charts
   [szabozo0 refs #17453]
 * Change: removed versions macro; now using viewlet
   [simiamih refs #17321]
