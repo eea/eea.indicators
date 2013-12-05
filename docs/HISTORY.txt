@@ -1,8 +1,8 @@
 Changelog
 =========
 
-8.2-dev - (unreleased)
-----------------------
+8.2 - (2013-12-05)
+------------------
 * Change: explicitly depend of Products.EEAContentTypes within setup.py of
   this package
   [ichimdav refs #17588]
