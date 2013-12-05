@@ -1,0 +1,80 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:cmf="http://namespaces.zope.org/cmf"
+    i18n_domain="eea">
+
+    <five:registerPackage package="." initialize=".initialize" />
+
+    <cmf:registerDirectory name="indicators_images"/>
+    <cmf:registerDirectory name="indicators_styles"/>
+    <cmf:registerDirectory name="indicators_templates"/>
+    <cmf:registerDirectory name="indicators_overrides"/>
+
+    <include file="profiles.zcml" />
+    <include package=".faceted" />
+    <include package=".browser" />
+
+    <interface interface="eea.indicators.content.interfaces.IIndicatorsDatabase" />
+
+    <class class=".content.Specification.Specification">
+        <implements interface="eea.workflow.interfaces.IHasMandatoryWorkflowFields" />
+        <implements interface="eea.versions.interfaces.IVersionEnhanced" />
+    </class>
+
+    <class class=".content.Assessment.Assessment">
+        <implements interface="eea.workflow.interfaces.IHasMandatoryWorkflowFields" />
+        <implements interface="eea.versions.interfaces.IVersionEnhanced" />
+    </class>
+
+    <class class=".content.AssessmentPart.AssessmentPart">
+        <implements interface="eea.workflow.interfaces.IHasMandatoryWorkflowFields" />
+    </class>
+
+    <class class="eea.indicators.content.IndicatorFactSheet.IndicatorFactSheet">
+        <implements interface="eea.versions.interfaces.IVersionEnhanced" />
+    </class>
+
+    <adapter factory=".content.marshaller.CodesField2Surf" name="codes" />
+
+    <adapter factory=".content.ExternalDataSpec.ExternalDataSpecThemes" />
+
+    <adapter factory=".content.Assessment.ManagementPlanFieldValueProvider" />
+
+    <subscriber for=".content.interfaces.ISpecification
+        zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+        handler="eea.indicators.events.handle_reindex_children" />
+
+    <subscriber for=".content.interfaces.IAssessment
+        Products.CMFCore.interfaces.IActionSucceededEvent"
+        handler="eea.indicators.events.handle_assessment_state_change" />
+
+    <adapter for="eea.indicators.content.interfaces.ISpecification"
+        provides="eea.relations.interfaces.IAutoRelations"
+        factory=".autorelations.LatestFigures"/>
+
+    <adapter for="eea.indicators.content.interfaces.IAssessment"
+        provides="eea.themecentre.interfaces.IThemeTagging"
+        factory=".themes.AssessmentThemes"/>
+
+    <adapter for="eea.indicators.content.interfaces.ISpecification"
+        provides="zope.traversing.interfaces.ITraversable"
+        factory=".traverse.SpecificationTraverser"/>
+
+
+    <subscriber for=".content.interfaces.IAssessmentPart
+        zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+        handler="eea.indicators.events.handle_assessmentpart_modification" />
+
+    <subscriber for=".content.interfaces.ISpecification
+        zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+        handler="eea.indicators.events.handle_specification_state_change" />
+
+    <subscriber for=".content.interfaces.IPolicyQuestion
+        zope.lifecycleevent.interfaces.IObjectModifiedEvent"
+        handler="eea.indicators.events.handle_policyquestion_modification" />
+
+    <include package=".upgrades" />
+
+
+
+</configure>
