@@ -32,8 +32,6 @@ form = REQUEST.form
 if form.has_key('current_lang'):
     form['language'] = form.get('current_lang')
 
-portal_status_message = _(u'Changes saved.')
-
 fieldset = REQUEST.get('fieldset', None)
 schemata = new_context.Schemata()
 
@@ -45,10 +43,6 @@ if reference_source_url is not None:
     reference_source_fieldset = env['reference_source_fieldset'].pop()
     portal = context.portal_url.getPortalObject()
     reference_obj = portal.restrictedTraverse(reference_source_url)
-
-    portal_status_message = _(u'Reference added.')
-
-    edited_reference_message = _(u'Reference edited.')
 
     # XXX disabled mark creation flag
     ## context.remove_creation_mark(old_id)
@@ -82,8 +76,6 @@ if not state.errors:
     transaction_note('Edited %s %s at %s' % (new_context.meta_type,
                                              new_context.title_or_id(),
                                              new_context.absolute_url()))
-
-addStatusMessage(REQUEST, portal_status_message)
 
 return state.set(status='success',
                  context=new_context,
