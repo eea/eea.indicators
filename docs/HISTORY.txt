@@ -1,8 +1,8 @@
 Changelog
 =========
 
-8.3-dev - (unreleased)
-----------------------
+8.3 - (2013-12-10)
+------------------
 * Change: do not save success portal message in aggregated edit,
   for simple_edit
   [simiamih refs #16797]
