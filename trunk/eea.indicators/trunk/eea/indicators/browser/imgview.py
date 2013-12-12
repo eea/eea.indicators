@@ -16,7 +16,6 @@ class ImageViewAssessment(BrowserView):
 
     def __init__(self, context, request):
         wftool = getToolByName(context, 'portal_workflow')
-
         super(ImageViewAssessment, self).__init__(context, request)
 
         eeafile = None
@@ -26,16 +25,16 @@ class ImageViewAssessment(BrowserView):
         assessments_list.extend(assessments['secondary'])
 
         for assessment in assessments_list:
+            if not assessment:
+                continue
             for rel_ob in assessment.getRelatedItems():
-                if rel_ob.portal_type == 'EEAFigure':
+                if rel_ob.portal_type in ('EEAFigure', 'DavizVisualizations'):
                     state = wftool.getInfoFor(rel_ob,
                                               'review_state',
                                               '(Unknown)')
                     if state in ['published', 'visible']:
                         eeafile = rel_ob
                         break
-
-        #ZZZ: also take into account DavizVisualizations
 
         self.img = queryMultiAdapter((eeafile, request), name=u'imgview')
 
@@ -63,12 +62,13 @@ class ImageViewIndicatorFactSheet(BrowserView):
 
         eeafile = None
         for rel_ob in context.getRelatedItems():
-            if rel_ob.portal_type == 'EEAFigure':
+            if not rel_ob:
+                continue
+            if rel_ob.portal_type in ('EEAFigure', 'DavizVisualizations'):
                 state = wftool.getInfoFor(rel_ob, 'review_state', '(Unknown)')
                 if state in ['published', 'visible']:
                     eeafile = rel_ob
                     break
-        #ZZZ: also take into account DavizVisualizations
 
         self.img = queryMultiAdapter((eeafile, request), name=u'imgview')
 

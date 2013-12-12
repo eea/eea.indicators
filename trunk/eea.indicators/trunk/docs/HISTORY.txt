@@ -3,6 +3,9 @@ Changelog
 
 8.4-dev - (unreleased)
 ----------------------
+* Bug fix: look also for DavizVizualizations when resolving image tags for 
+  Assessment and IndicatorFactSheet with fallback to depiction images
+  [ichimdav refs #17747]
 
 8.3 - (2013-12-10)
 ------------------
