@@ -28,7 +28,7 @@ class ImageViewAssessment(BrowserView):
             if not assessment:
                 continue
             for rel_ob in assessment.getRelatedItems():
-                if rel_ob.portal_type in ('EEAFigure', 'DavizVisualizations'):
+                if rel_ob.portal_type in ('EEAFigure', 'DavizVisualization'):
                     state = wftool.getInfoFor(rel_ob,
                                               'review_state',
                                               '(Unknown)')
@@ -64,7 +64,7 @@ class ImageViewIndicatorFactSheet(BrowserView):
         for rel_ob in context.getRelatedItems():
             if not rel_ob:
                 continue
-            if rel_ob.portal_type in ('EEAFigure', 'DavizVisualizations'):
+            if rel_ob.portal_type in ('EEAFigure', 'DavizVisualization'):
                 state = wftool.getInfoFor(rel_ob, 'review_state', '(Unknown)')
                 if state in ['published', 'visible']:
                     eeafile = rel_ob
