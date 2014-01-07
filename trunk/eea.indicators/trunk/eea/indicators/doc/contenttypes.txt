@@ -428,7 +428,7 @@ setGeographicCoverage, as geographicCoverage has been deprecated
     >>> rels = ap.getRelatedItems()
     >>> ap.setRelatedItems(rels + [figure_1])
     >>> figure_1.setGeographicCoverage(["ro", 'it', 'dk'])
-    >>> figure_1.setTemporalCoverage(["1990"])
+    >>> figure_1.getField('temporalCoverage').set(figure_1, ["1990"])
     >>> figure_1.setRelatedItems([ims['eds']])
     >>> figure_1.setTitle("Figure 1")
     >>> figure_1.setDataOwner("someone")
