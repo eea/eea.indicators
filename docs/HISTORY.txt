@@ -3,6 +3,9 @@ Changelog
 
 8.4-dev - (unreleased)
 ----------------------
+* Bug fix: reference temporal-coverage macros from eea.forms instead of
+  eea.dataservice
+  [ichimdav refs #16719]
 * Bug fix: fixed tests after adding the temporalCoverage through the 
   schema extender as appose to directly on the indicators schema
   [ichimdav #17611]
