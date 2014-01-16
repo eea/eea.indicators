@@ -63,7 +63,7 @@
               <li tal:repeat="code codes" tal:content="string:${code/set} ${code/code}">CSI 001</li>
             </ul>
           </div>
-          <metal:related use-macro="here/dataset_view/macros/temp-coverage" />
+          <metal:related use-macro="context/temporal_macros/macros/temporal-coverage-data" />
           <metal:related use-macro="here/dataset_view/macros/geotags-listing" />
           <metal:related use-macro="here/dataset_view/macros/geotags-map" />
         </div>
