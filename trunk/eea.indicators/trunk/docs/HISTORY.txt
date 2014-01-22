@@ -1,6 +1,9 @@
 Changelog
 =========
 
+8.5-dev - (unreleased)
+----------------------
+
 8.4 - (2014-01-22)
 ------------------
 * Bug fix: reference geotags macros from eea.forms instead of
