@@ -22,7 +22,7 @@
       <tal:block define="field python:context.getField('provider_url');
                          url python:field.getAccessor(context)()">
         <dt>
-          <metal:basic use-macro="here/dataset_view/macros/tooltip" />
+          <metal:basic use-macro="here/interface_elements_macros/macros/tooltip" />
           <span i18n:translate="">Provider:</span>
         </dt>
         <tal:block define="field python:context.getField('provider_name');
@@ -51,7 +51,7 @@
                          value python:field.getAccessor(context)()"
                  tal:condition="python:value">
         <dt>
-          <metal:basic use-macro="here/dataset_view/macros/tooltip" />
+          <metal:basic use-macro="here/interface_elements_macros/macros/tooltip" />
           <span i18n:translate="">Dataset URL:</span>
         </dt>
         <dd>
@@ -63,7 +63,7 @@
                          value python:field.getAccessor(context)()"
                  condition="python:value">
         <dt>
-          <metal:basic use-macro="here/dataset_view/macros/tooltip" />
+          <metal:basic use-macro="here/interface_elements_macros/macros/tooltip" />
           <span i18n:translate="">Dataset path:</span>
         </dt>
         <dd tal:content="structure value"></dd>
@@ -73,7 +73,7 @@
       <tal:block define="field python:context.getField('other_comments');
         value python:field.getAccessor(context)()" tal:condition="python:value">
         <dt>
-          <metal:basic use-macro="here/dataset_view/macros/tooltip" />
+          <metal:basic use-macro="here/interface_elements_macros/macros/tooltip" />
           <span i18n:translate="">Other comments:</span>
         </dt>
         <dd tal:content="structure value"></dd>
