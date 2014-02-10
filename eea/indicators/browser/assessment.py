@@ -344,7 +344,7 @@ class MetadataAsESMSXML(BrowserView):
 
         def getTextKeepHTML(value):
             value = escapeSpecialChars(value)
-            return _toUnicode("<![CDATA[{0}]]".format((value)))
+            return _toUnicode("<![CDATA[{0}]]>".format((value)))
 
         def getTextStripHTML(value):
             value = escapeSpecialChars(value)
@@ -639,10 +639,6 @@ class MetadataAsESMSXML(BrowserView):
                         conceptID="REL_POL_US_AC",
                     ),
                     conceptID="REL_POLICY",
-                ),
-                M.ReportedAttribute(
-                    M.Value("Not available"),
-                    conceptID="FREQ_DISS",
                 ),
                 M.ReportedAttribute(
                     M.Value("Not available"),
