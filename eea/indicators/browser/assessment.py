@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """ Assessment controllers
 """
 
@@ -313,6 +314,13 @@ def nsel(el, ns=None):
     return "{%s}%s" % (NAMESPACES[ns], el)
 
 
+def escapeSpecialChars(value):
+    """ Replace special characters.
+    """
+    return value.replace("–", "-").replace("±", "+/-")\
+        .replace("\xe2\x80\x94", "-")
+
+
 def _toUnicode(value):
     """Convert an unknown string to unicode
     """
@@ -334,7 +342,18 @@ class MetadataAsESMSXML(BrowserView):
         year_end = datetime.datetime(year=now.year, month=12, day=31)
         #maybe it should be done as timedelta of 1sec from previous year
 
-        getText = lambda value:BeautifulSoup(value).get_text()
+        def getTextKeepHTML(value):
+            value = escapeSpecialChars(value)
+            return _toUnicode("<![CDATA[{0}]]".format((value)))
+
+        def getTextStripHTML(value):
+            value = escapeSpecialChars(value)
+            return BeautifulSoup(value).get_text()
+
+        getText = getTextKeepHTML \
+            if self.request.get("keepHTML", "false") == "true"\
+            else getTextStripHTML
+
 
         #we extract some info here to simplify code down below
         spec = self.context.aq_parent
@@ -405,16 +424,18 @@ class MetadataAsESMSXML(BrowserView):
 
         mrefs = [b.getObject() for b in spec.getFolderContents(
                         contentFilter={'portal_type':'MethodologyReference'})]
-        methodology_reference = "\n".join(
-            [(_toUnicode(o.Title()) + "\n" + getText(o.getDescription()))
-                            for o in mrefs])
 
-        uncertainties = 'Methodology uncertainty: ' +\
-                        getText(spec.getMethodology_uncertainty()) +\
-                        '\nData uncertainty: ' +\
-                        getText(spec.getData_uncertainty()) +\
-                        '\nRationale uncertainty: ' +\
-                        getText(spec.getRationale_uncertainty())
+        methodology_reference = getText(
+            "\n".join(
+                [(o.Title() + "\n" + o.getDescription()) for o in mrefs]))
+
+
+        uncertainties = getText('Methodology uncertainty: ' +\
+                                spec.getMethodology_uncertainty() +\
+                                '\nData uncertainty: ' +\
+                                spec.getData_uncertainty() +\
+                                '\nRationale uncertainty: ' +\
+                                spec.getRationale_uncertainty())
 
         questions = [b.getObject() for b in spec.getFolderContents(
                         contentFilter={'portal_type':'PolicyQuestion'})]
@@ -432,12 +453,14 @@ class MetadataAsESMSXML(BrowserView):
                     continue
                 qpart += "Specific policy question: %s\n" % q.Title()
 
-        user_needs = 'Justification for indicator selection: '+\
-            getText(spec.getRationale_justification()) + "\n" + qpart
+        user_needs = getText('Justification for indicator selection: '+\
+                             spec.getRationale_justification()+ "\n" + qpart)
 
         methodology = getText(spec.getMethodology())
         methodology_gapfilling = getText(spec.getMethodology_gapfilling())
-        indicator_definition = getText(spec.getDefinition())
+        indicator_definition = getText(spec.Title() + ". " + \
+                                       spec.getDefinition())
+        frequency_of_updates = getText(spec.get_frequency_of_updates())
 
         #The xml construction
         E = ElementMaker(nsmap=NAMESPACES)
@@ -526,8 +549,7 @@ class MetadataAsESMSXML(BrowserView):
                 M.ReportedAttribute(    #STAT_PRES
                     M.Value(),
                     M.ReportedAttribute(
-                        M.Value(spec.Title() + ". " +
-                                indicator_definition),
+                        M.Value(indicator_definition),
                         conceptID="DATA_DESCR",
                     ),
                     M.ReportedAttribute(
@@ -811,6 +833,10 @@ class MetadataAsESMSXML(BrowserView):
                         M.Value(methodology_gapfilling),
                         conceptID="ADJUSTMENT",
                     ),
+                    M.ReportedAttribute(
+                        M.Value(frequency_of_updates),
+                        conceptID="FREQ_DISS",
+                    ),
                     conceptID="STAT_PROCESS",
                 ),
                 M.ReportedAttribute(
@@ -829,4 +855,3 @@ class MetadataAsESMSXML(BrowserView):
         root.append(metadata)
 
         return lxml.etree.tostring(root)
-

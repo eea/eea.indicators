@@ -3,6 +3,9 @@ Changelog
 
 8.6-dev - (unreleased)
 ----------------------
+* Feature: Added new compound field "frequency of update". Added option for 
+  export in HTML format "keepHTML=true"
+  [mironovi refs #18424]
 
 8.5 - (2014-02-03)
 ------------------
