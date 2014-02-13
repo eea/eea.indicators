@@ -1,6 +1,9 @@
 Changelog
 =========
 
+8.7-dev - (unreleased)
+----------------------
+
 8.6 - (2014-02-13)
 ------------------
 * Feature: Added new compound field "frequency of update". Added option for 
