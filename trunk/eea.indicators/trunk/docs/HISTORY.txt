@@ -3,6 +3,9 @@ Changelog
 
 8.7-dev - (unreleased)
 ----------------------
+* Feature: Set effective_date on related figures when syncing workflow for
+  related figures.
+  [olimpiurob refs #18601]
 
 8.6 - (2014-02-13)
 ------------------

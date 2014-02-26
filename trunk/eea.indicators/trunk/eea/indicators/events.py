@@ -42,6 +42,7 @@ The figure %s has an incompatible worklfow state. Please contact web admin.
 
                 # find transition that brings to the state of parent object
                 for item in to_do:
+                    figure.setEffectiveDate(context.getEffectiveDate())
                     workflow.doActionFor(figure, item.id, comment=comment)
                     figure.reindexObject()
                     break
