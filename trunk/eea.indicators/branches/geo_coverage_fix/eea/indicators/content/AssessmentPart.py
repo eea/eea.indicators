@@ -276,4 +276,19 @@ class AssessmentPart(ATFolder, ModalFieldEditableAware,
 
         uids = tuple([u for u in uids if u is not None])
         instance.at_ordered_refs[field.relationship] = uids
+        self.set_location()
 
+
+    security.declareProtected('Modify portal content', 'set_location')
+    def set_location(self):
+        result = []
+        wftool = getToolByName(self, 'portal_workflow')
+
+        for assessment_part in self.objectValues('AssessmentPart'):
+            for ob in assessment_part.getRelatedItems():
+                if ob.portal_type in ['EEAFigure', 'DavizVisualization']:
+                    state = wftool.getInfoFor(ob, 'review_state', '(Unknown)')
+                    if state in ['published', 'visible']:
+                        result.extend(ob.getLocation())
+        location = sorted(set(result))
+        self.getField('location').set(location)

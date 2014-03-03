@@ -183,10 +183,10 @@ schema = Schema((
         ),
     ),
     ComputedField(
-        name='geographicCoverage',
-        expression="context.getGeographicCoverage()",
+        name='location',
+        expression="context.getLocation()",
         widget=ComputedField._properties['widget'](
-            visible={'view':'invisible', 'edit':'invisible'},
+            visible={'view':'visible', 'edit':'invisible'},
         ),
     ),
 ),
@@ -216,8 +216,8 @@ class IndicatorFactSheet(ATFolder, ModalFieldEditableAware,
     portlet_readiness = \
             ViewPageTemplateFile('../browser/templates/portlet_readiness.pt')
 
-    security.declarePublic("getGeographicCoverage")
-    def getGeographicCoverage(self):
+    security.declarePublic("getLocation")
+    def getLocation(self):
         """ Geographic coverage
         """
         result = []

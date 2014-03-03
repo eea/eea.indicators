@@ -32,6 +32,8 @@ from eea.workflow.utils import ATFieldValueProvider
 
 from Products.EEAContentTypes.interfaces import ITemporalCoverageAdapter
 
+from eea.geotags.widget import GeotagsWidget
+
 from zope.component import adapts
 from zope.interface import implements
 import logging
@@ -114,10 +116,10 @@ schema = Schema((
         ),
     ),
     ComputedField(
-        name='geographicCoverage',
-        expression="context.getGeographicCoverage()",
-        widget=ComputedField._properties['widget'](
-            visible={'view':'invisible', 'edit':'invisible'},
+        name='location',
+        expression="context.getLocation()",
+        widget=GeotagsWidget(
+            visible={'view':'visible', 'edit':'invisible'},
         ),
     ),
     ),
@@ -271,22 +273,14 @@ class Assessment(ATFolder, ModalFieldEditableAware,
             logger.info(err)
         return text
 
-    security.declarePublic("getGeographicCoverage")
-    def getGeographicCoverage(self):
+    security.declarePublic("getLocation")
+    def getLocation(self):
         """ Return geographic coverage
 
         This is only used in the @@esms.xml view
         """
-        result = []
-        wftool = getToolByName(self, 'portal_workflow')
+        return self.getField('location').getAccessor(self)()
 
-        for assessment_part in self.objectValues('AssessmentPart'):
-            for ob in assessment_part.getRelatedItems():
-                if ob.portal_type in ['EEAFigure', 'DavizVisualization']:
-                    state = wftool.getInfoFor(ob, 'review_state', '(Unknown)')
-                    if state in ['published', 'visible']:
-                        result.extend(ob.getLocation())
-        return sorted(set(result))
 
     security.declarePublic("getTemporalCoverage")
     def getTemporalCoverage(self):
