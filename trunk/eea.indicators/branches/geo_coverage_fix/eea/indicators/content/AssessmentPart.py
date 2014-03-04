@@ -10,6 +10,7 @@ from Acquisition import aq_inner, aq_parent, aq_base
 from Products.ATContentTypes.content.base import ATCTContent
 from Products.ATContentTypes.content.folder import ATFolder, ATFolderSchema
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema
+from Products.Archetypes import atapi
 from Products.Archetypes.atapi import Schema, RichWidget
 from Products.Archetypes.atapi import TextField, StringField, TextAreaWidget
 from Products.Archetypes.config import REFERENCE_CATALOG
@@ -24,7 +25,7 @@ from eea.relations.field import EEAReferenceField
 from eea.relations.widget import EEAReferenceBrowserWidget
 from plone.uuid.interfaces import IUUID
 from zope.interface import implements
-
+import json
 
 schema = Schema((
 
@@ -281,14 +282,47 @@ class AssessmentPart(ATFolder, ModalFieldEditableAware,
 
     security.declareProtected('Modify portal content', 'set_location')
     def set_location(self):
-        result = []
+        first_result = False
         wftool = getToolByName(self, 'portal_workflow')
+        assessment = aq_parent(self)
 
-        for assessment_part in self.objectValues('AssessmentPart'):
+        location_json = {"type": "FeatureCollection", "features": []}
+        location_json_list = location_json['features']
+        locations_set = set()
+        for assessment_part in assessment.objectValues('AssessmentPart'):
             for ob in assessment_part.getRelatedItems():
                 if ob.portal_type in ['EEAFigure', 'DavizVisualization']:
                     state = wftool.getInfoFor(ob, 'review_state', '(Unknown)')
                     if state in ['published', 'visible']:
-                        result.extend(ob.getLocation())
-        location = sorted(set(result))
-        self.getField('location').set(location)
+                        obj_location = ob.getLocation()
+                        if not first_result:
+                            if not obj_location:
+                                continue
+                            location_json_list.extend(
+                                json.loads(ob.getField('location').getJSON(ob))
+                                ['features'])
+                            locations_set = set(obj_location)
+                            first_result = True
+                        else:
+                            obj_location_set = set(obj_location)
+                            if obj_location_set.issubset(locations_set):
+                                continue
+                            diff_locations = obj_location_set.difference(
+                                locations_set)
+                            obj_json_location = json.loads(
+                                ob.getField('location').getJSON(ob))
+                            for feature in obj_json_location['features']:
+                                feature_location = feature.get('properties',
+                                    {}).get('description', {})
+                                if feature_location in diff_locations:
+                                    locations_set.add(feature_location)
+                                    location_json_list.append(feature)
+
+        location_values = sorted(locations_set)
+        location_json['features'] = sorted(location_json_list, key=lambda x:
+                                    x['properties']['description'])
+        field = assessment.getField('location')
+        atapi.LinesField.set(field, assessment, location_values)
+        translation_json = field.setTranslationJSON(assessment, location_json)
+        if not translation_json:
+            field.setCanonicalJSON(assessment, location_json)

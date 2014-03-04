@@ -1,6 +1,5 @@
 """ Assessment content class and utilities
 """
-
 __docformat__ = 'plaintext'
 
 from AccessControl import ClassSecurityInfo
@@ -113,13 +112,6 @@ schema = Schema((
         expression="context.getTemporalCoverage()",
         widget=ComputedField._properties['widget'](
             visible={'view':'invisible', 'edit':'invisible'},
-        ),
-    ),
-    ComputedField(
-        name='location',
-        expression="context.getLocation()",
-        widget=GeotagsWidget(
-            visible={'view':'visible', 'edit':'invisible'},
         ),
     ),
     ),
@@ -272,15 +264,6 @@ class Assessment(ATFolder, ModalFieldEditableAware,
         except UnicodeDecodeError, err:
             logger.info(err)
         return text
-
-    security.declarePublic("getLocation")
-    def getLocation(self):
-        """ Return geographic coverage
-
-        This is only used in the @@esms.xml view
-        """
-        return self.getField('location').getAccessor(self)()
-
 
     security.declarePublic("getTemporalCoverage")
     def getTemporalCoverage(self):
