@@ -1,6 +1,5 @@
 """ Assessment content class and utilities
 """
-
 __docformat__ = 'plaintext'
 
 from AccessControl import ClassSecurityInfo
@@ -109,13 +108,6 @@ schema = Schema((
     ComputedField(
         name='temporalCoverage',
         expression="context.getTemporalCoverage()",
-        widget=ComputedField._properties['widget'](
-            visible={'view':'invisible', 'edit':'invisible'},
-        ),
-    ),
-    ComputedField(
-        name='geographicCoverage',
-        expression="context.getGeographicCoverage()",
         widget=ComputedField._properties['widget'](
             visible={'view':'invisible', 'edit':'invisible'},
         ),
@@ -270,23 +262,6 @@ class Assessment(ATFolder, ModalFieldEditableAware,
         except UnicodeDecodeError, err:
             logger.info(err)
         return text
-
-    security.declarePublic("getGeographicCoverage")
-    def getGeographicCoverage(self):
-        """ Return geographic coverage
-
-        This is only used in the @@esms.xml view
-        """
-        result = []
-        wftool = getToolByName(self, 'portal_workflow')
-
-        for assessment_part in self.objectValues('AssessmentPart'):
-            for ob in assessment_part.getRelatedItems():
-                if ob.portal_type in ['EEAFigure', 'DavizVisualization']:
-                    state = wftool.getInfoFor(ob, 'review_state', '(Unknown)')
-                    if state in ['published', 'visible']:
-                        result.extend(ob.getLocation())
-        return sorted(set(result))
 
     security.declarePublic("getTemporalCoverage")
     def getTemporalCoverage(self):

@@ -56,4 +56,16 @@
 
     </gs:upgradeSteps>
 
+    <gs:upgradeSteps
+            source="7.4"
+            destination="8.7"
+            profile="eea.indicators:default">
+
+        <gs:upgradeStep
+                title="Set location for assessments"
+                handler="eea.indicators.upgrades.evolve87.evolve"
+                />
+
+    </gs:upgradeSteps>
+
 </configure>
