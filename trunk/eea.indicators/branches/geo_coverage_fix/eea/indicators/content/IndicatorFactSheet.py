@@ -216,6 +216,9 @@ class IndicatorFactSheet(ATFolder, ModalFieldEditableAware,
     portlet_readiness = \
             ViewPageTemplateFile('../browser/templates/portlet_readiness.pt')
 
+    # TODO IndicatorFactSheet is deprecated and AssessmentPart is not addable
+    # as such these methods (getLocation, getTemporalCoverage will return
+    #  an empty result
     security.declarePublic("getLocation")
     def getLocation(self):
         """ Geographic coverage

@@ -31,8 +31,6 @@ from eea.workflow.utils import ATFieldValueProvider
 
 from Products.EEAContentTypes.interfaces import ITemporalCoverageAdapter
 
-from eea.geotags.widget import GeotagsWidget
-
 from zope.component import adapts
 from zope.interface import implements
 import logging
