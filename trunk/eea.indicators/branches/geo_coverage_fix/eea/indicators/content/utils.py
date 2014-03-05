@@ -5,6 +5,7 @@ from Acquisition import aq_inner, aq_parent
 from Products.Archetypes import atapi
 from Products.CMFCore.utils import getToolByName
 import json
+import logging
 from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
 
 
@@ -91,6 +92,7 @@ def set_location(self, on_parent=None, object_values=None, portal_types=None):
         :param object_values: ctypes to search for within self
         :param portal_types: ptypes to look for locations
     """
+    logger = logging.getLogger("set_location")
     first_result = False
     wftool = getToolByName(self, 'portal_workflow')
     assessment = on_parent and aq_parent(self) or self
@@ -106,7 +108,7 @@ def set_location(self, on_parent=None, object_values=None, portal_types=None):
             if obj.portal_type in p_types:
                 state = wftool.getInfoFor(obj, 'review_state', '(Unknown)')
                 if state in ['published', 'visible']:
-                    obj_location = obj.getLocation()
+                    obj_location = obj.location
                     if not first_result:
                         if not obj_location:
                             continue
@@ -130,7 +132,10 @@ def set_location(self, on_parent=None, object_values=None, portal_types=None):
                                     new_locations:
                                 locations_set.add(feature_location)
                                 location_json_list.append(feature)
-
+    if not location_json_list:
+        logger.info("No locations within relations found for %s",
+                    self.absolute_url(1))
+        return
     location_values = sorted(locations_set)
     location_json['features'] = sorted(location_json_list, key=lambda x:
                                 x['properties']['description'])

@@ -3,6 +3,11 @@ Changelog
 
 8.7-dev - (unreleased)
 ----------------------
+* Upgrade Step: upgrade the eea.indicators package from Addons in plone
+  control panel
+  [ichimdav #18602]
+* Bug fix: geotags are now properly set and displayed on Assessment portal_type
+  [ichimdav #18602]
 * Feature: Set effective_date on related figures when syncing workflow for
   related figures.
   [olimpiurob refs #18601]
