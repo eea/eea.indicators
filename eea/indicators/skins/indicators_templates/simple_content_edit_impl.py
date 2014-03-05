@@ -57,9 +57,11 @@ if reference_source_url is not None:
     return state.set(**kwargs)
 
 if state.errors:
+    import pdb; pdb.set_trace()
     errors = state.errors
     s_items = [(s, schemata[s].keys()) for s in schemata.keys()]
     fields = []
+    portal_status_message = "Error occurred when adding relation"
     for s, f_names in s_items:
         for f_name in f_names:
             fields.append((s, f_name))

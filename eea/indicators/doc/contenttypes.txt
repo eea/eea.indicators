@@ -420,14 +420,11 @@ By default, a newly created assessment is not ready to be published:
 
 We need to set the key message, set a figure as related and publish the specification:
 
-#TODO: refactor test to use figure.setLocation instead of
-setGeographicCoverage, as geographicCoverage has been deprecated
-
     >>> asp.setKey_message("something or other")
     >>> ap = asp.objectValues("AssessmentPart")[0]
     >>> rels = ap.getRelatedItems()
     >>> ap.setRelatedItems(rels + [figure_1])
-    >>> figure_1.setGeographicCoverage(["ro", 'it', 'dk'])
+    >>> figure_1.setLocation(["ro", 'it', 'dk'])
     >>> figure_1.getField('temporalCoverage').set(figure_1, ["1990"])
     >>> figure_1.setRelatedItems([ims['eds']])
     >>> figure_1.setTitle("Figure 1")

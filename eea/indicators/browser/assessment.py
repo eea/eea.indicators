@@ -368,7 +368,7 @@ class MetadataAsESMSXML(BrowserView):
         latest_version = IGetVersions(self.context).latest_version()
 
         ref_area = u", ".join([c.decode('utf-8') for c in
-                              self.context.getGeographicCoverage()])
+                              self.context.getLocation()])
 
         manager_id = spec.getManager_user_id()
         mtool = getToolByName(spec, 'portal_membership')
