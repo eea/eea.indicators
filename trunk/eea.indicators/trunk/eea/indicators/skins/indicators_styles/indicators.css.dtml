@@ -300,7 +300,7 @@ ul.sortable_spec {
     background: &dtml-lightBackgroundColor;;
     margin-top: 0.5em;
     padding: 1em;
-    clear: both;
+    overflow: hidden;
     color: #333;
     padding: 0.5em 2em 1em 2em;
 }
