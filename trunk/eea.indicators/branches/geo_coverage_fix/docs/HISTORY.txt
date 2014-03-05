@@ -1,6 +1,9 @@
 Changelog
 =========
 
+8.8-dev - (unreleased)
+----------------------
+
 8.7 - (2014-03-05)
 ------------------
 * Upgrade Step: upgrade the eea.indicators package from Addons in plone
