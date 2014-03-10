@@ -343,10 +343,14 @@ class MetadataAsESMSXML(BrowserView):
         #maybe it should be done as timedelta of 1sec from previous year
 
         def getTextKeepHTML(value):
+            """ Retrieve text content from html input while keeping the html
+            """
             value = escapeSpecialChars(value)
             return _toUnicode("<![CDATA[{0}]]>".format((value)))
 
         def getTextStripHTML(value):
+            """ Retrieve text content from html input removing the html
+            """
             value = escapeSpecialChars(value)
             return BeautifulSoup(value).get_text()
 
@@ -383,7 +387,8 @@ class MetadataAsESMSXML(BrowserView):
 
         dpsir = dpsir_vocab.get(spec.getDpsir())
         typology = typology_vocab.get(spec.getTypology())
-        dpsir_typology = "DPSIR: %s - Typology: %s" % (dpsir, _toUnicode(typology))
+        dpsir_typology = "DPSIR: %s - Typology: %s" % (dpsir,
+                _toUnicode(typology))
 
         themes_vocab = dict(spec._getMergedThemes())
         themes = ", ".join([themes_vocab.get(l) for l in spec.getThemes()])

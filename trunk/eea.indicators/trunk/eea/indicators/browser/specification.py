@@ -36,6 +36,8 @@ class IndexPage(BrowserView):
     implements(IIMSBaseView)
 
     def getId(self):
+        """ browser view id
+        """
         return "view"
 
 
