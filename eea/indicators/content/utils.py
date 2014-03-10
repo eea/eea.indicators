@@ -87,10 +87,10 @@ def get_specific_parent(startobj, criteria):
 
 def set_location(self, on_parent=None, object_values=None, portal_types=None):
     """ Set location helper method that sets location based on relations
-        :param self: object to use as target for location field setting
-        :param on_parent: boolean whether the target is self's parent
-        :param object_values: ctypes to search for within self
-        :param portal_types: ptypes to look for locations
+        :param object self: object to use as target for location field setting
+        :param bool on_parent: boolean whether the target is self's parent
+        :param list object_values: ctypes to search for within self
+        :param list portal_types: ptypes to look for locations
     """
     logger = logging.getLogger("set_location")
     first_result = False
