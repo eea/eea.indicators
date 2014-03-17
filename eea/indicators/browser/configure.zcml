@@ -10,9 +10,10 @@
   <adapter factory=".utils.FrequencyOfUpdatesFieldValueProvider"
               name="frequency_of_updates"/>
 
-  <adapter factory=".utils.IMSVersionControl" 
+  <adapter factory=".utils.IMSVersionControl"
     for="eea.indicators.content.interfaces.IAssessment" />
-  <adapter factory=".utils.IMSVersionControl" 
+
+  <adapter factory=".utils.IMSVersionControl"
     for="eea.indicators.content.interfaces.ISpecification" />
 
   <plone:portletRenderer
