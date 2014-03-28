@@ -3,6 +3,10 @@ Changelog
 
 8.8-dev - (unreleased)
 ----------------------
+* Bugfix: Display charts properly when too many charts from the same
+  visualization is added in a figure and the tabs are replaced with
+  a dropdown
+  [szabozo0 refs #19101]
 
 8.7 - (2014-03-05)
 ------------------
