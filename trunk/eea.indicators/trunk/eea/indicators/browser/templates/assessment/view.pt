@@ -34,6 +34,20 @@
                 drawDashboardEmbed(window["settings_" + id]);
             }
         });
+        jQuery(".embedded-daviz-visualization").find("select.formTabs").bind("change", function(){
+            var embedded_obj = jQuery("#fieldset-"+jQuery(this).attr("value").substr(15)).find(".googlechart_dashboard")
+            if ((embedded_obj.length === 0) || (embedded_obj[0].innerHTML.trim().length != 0)){
+                return;
+            }
+            var id = embedded_obj.attr("id").substr(22);
+            if (embedded_obj.hasClass("isChart")){
+                drawChart(window["settings_" + id], window["other_options_" + id]);
+            }
+            else{
+                drawDashboardEmbed(window["settings_" + id]);
+            }
+        });
+
     });
   </script>
 
