@@ -30,13 +30,12 @@
 				<metal:block define-slot="extra_bottom" />
 
 				<div class="formControls">
-
 					<input type="hidden" name="specific_field" tal:attributes="value specific_field" />
 
 					<input type="hidden"
 						name="fieldset"
 						value="default"
-						tal:attributes="value fieldset|request/fieldset"
+						tal:attributes="value fieldset|request/fieldset|string:default"
 						/>
 					<input type="hidden"
 						name="form.submitted"
