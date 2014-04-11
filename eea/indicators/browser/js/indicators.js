@@ -274,26 +274,28 @@ function reload_region(el){
       }
     });
   }
+  if (update_handler) {
+      $.ajax({
+          url: update_handler,
+          type:'GET',
+          cache:false,
+          // timeout: 2000,
+          error: function() {
+              unblock_ui();
+              alert("ERROR: There was a problem communicating with the server. Please reload this page.");
+          },
+          success: function(r) {
+              var id = $(el).attr('id');
+              $(el).replaceWith(r);
+              var new_el = $("#"+id);
+              $(new_el).effect('highlight');
+              on_load_dom();
+              unblock_ui();
+              return false;
+          }
 
-  $.ajax({
-    url: update_handler,
-    type:'GET',
-    cache:false,
-    // timeout: 2000,
-    error: function() {
-      unblock_ui();
-      alert("ERROR: There was a problem communicating with the server. Please reload this page.");
-    },
-    success: function(r) {
-      var id = $(el).attr('id');
-      $(el).replaceWith(r);
-      var new_el = $("#"+id);
-      $(new_el).effect('highlight');
-      on_load_dom();
-      unblock_ui();
-      return false;
-    }
-  });
+      });
+  }
 
   return false;
 })(jQuery);
@@ -357,7 +359,7 @@ function schemata_ajaxify(el, active_region){
         type:'POST',
         cache:false,
         // timeout: 2000,
-        error: function() {
+        error: function(r) {
           unblock_ui();
           alert("Failed to submit");
         },
@@ -476,7 +478,6 @@ function dialog_edit(url, title, callback, options){
     'cache':false,
     'success': function(r){
       $("#dialog-inner").html(r);
-
       // this is a workaround for the following bug:
       // after editing with Kupu in one of the popup dialogs,
       // it is not possible to click inside the text inputs anymore
