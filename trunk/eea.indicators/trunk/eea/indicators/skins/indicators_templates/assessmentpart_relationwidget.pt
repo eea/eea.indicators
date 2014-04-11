@@ -22,11 +22,11 @@ It may be that we can collapse the changes into the regular indicatorsrelations.
 			uids python:same_type(value, []) and value or [value];
 			multiVal python:test(field, field.multiValued, True);
 			required python:test(field, field.required, False);
-			domid string:$fieldName-${context/UID};
-			"
-			tal:attributes="id string:${domid}-widget"
-			class="eea-widget-referencebrowser"
-			>
+            uid context/UID;
+			domid string:$fieldName-${uid};
+            domIdWidget string:${domid}-widget;"
+			tal:attributes="id domIdWidget"
+			class="eea-widget-referencebrowser">
 
 			<!-- class="relations-widget"  -->
 			<div class="metadata">
@@ -38,6 +38,7 @@ It may be that we can collapse the changes into the regular indicatorsrelations.
 				<input type="hidden" value=""
 					tal:condition="python:multiVal"
 					tal:attributes="name string:$fieldName:default" />
+
 				<select style="display:none" tal:attributes="
 					multiple python:multiVal and 'multiple' or None;
 					name string:$fieldName:list; id domid;">
@@ -70,7 +71,32 @@ It may be that we can collapse the changes into the regular indicatorsrelations.
 					value="Edit" i18n:attributes="value"/>
 			</metal:slot>
 
-			<metal:slot define-slot="script"></metal:slot>
+			<metal:slot define-slot="script">
+                <tal:comment tal:replace="nothing">
+                    ichimdav #19222 this script is a workaround for the relation widget which no longer has events
+                    binded to the edit button after it is rendered with a validation error.
+                    Therefore we need to call boostrap_relations_widgets in order to bind the events for
+                    the relations widget.
+                    The hidden input with the active_region id is needed otherwise when the validation is fixed the
+                    ajax call will not have a region where it would apply the results and as such the relation widget
+                    would disappear without it.
+                    It needs to run only there is a validation error where the returned result is the popup template
+                    from eea.relations, hence the missing active_region login which is coming from eea.indicators.
+                </tal:comment>
+
+                <script type="text/javascript" tal:content="structure string:
+                    if ($('#archetypes-fieldname-relatedItems').find('.fieldErrorBox').text()) {
+                        bootstrap_relations_widgets();
+                        var meta = $('#${domIdWidget}').find('.metadata').eq(0);
+                        var input = $('<input>', {
+                              type: 'hidden',
+                              name: 'active_region',
+                              value: '${uid}'
+                        });
+                        input.insertAfter(meta);
+                    }">
+                </script>
+			</metal:slot>
 
 		</div>
 
