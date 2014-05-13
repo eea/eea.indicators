@@ -1,8 +1,8 @@
 Changelog
 =========
 
-8.8-dev - (unreleased)
-----------------------
+8.8 - (2014-05-13)
+------------------
 * Bugfix: relation validation error on Assessment no longer triggers an
   unauthorized error and widget can be used to correct the validation error
   [ichimdav refs #19222]
