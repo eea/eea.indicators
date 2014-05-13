@@ -1,6 +1,9 @@
 Changelog
 =========
 
+8.9-dev - (unreleased)
+----------------------
+
 8.8 - (2014-05-13)
 ------------------
 * Bugfix: relation validation error on Assessment no longer triggers an
