@@ -3,6 +3,8 @@ Changelog
 
 9.0-dev - (unreleased)
 ----------------------
+* Bug fix: fixed problems reported by running the tests
+  [ghicaale refs #20014]
 
 8.9 - (2014-06-11)
 ------------------
