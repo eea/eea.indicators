@@ -1,6 +1,9 @@
 Changelog
 =========
 
+9.0-dev - (unreleased)
+----------------------
+
 8.9 - (2014-06-11)
 ------------------
 * Bug fix: fixed saving process of "Other metadata" by intercepting wrong
