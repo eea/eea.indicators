@@ -70,7 +70,7 @@ frequency_of_updates_schema = Schema((
                         Column("Years frequency"),
                      'time_of_year':
                         SelectColumn(
-                            "Trimester", 
+                            "Trimester",
                             vocabulary="get_trimesters_vocabulary",
                             )},
             auto_insert=True,
@@ -921,7 +921,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
             'Q3':'July-September',
             'Q4':'October-December',
             }
-        
+
         out = {}
         for line in frequency:
             if not (line['years_freq'] and line['time_of_year']):
@@ -943,7 +943,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
                 suffix = ''
 
             result.append("every %s year%s in %s" % (key, suffix, qrts))
-        
+
         phrase = "Updates are scheduled " + ",\n".join(result[:-1])
 
         if len(result) > 1:
@@ -1054,19 +1054,19 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
                 'starting_date': ('2012-03-26 11:45', {})},)
         kwargs = {'field': 'frequency_of_updates'}
         """
-        if value is None:
-            return
-
         frequency = value['frequency']
-        # this is something like: 
-        #([{'orderindex_': '1', 'time_of_year': 'Q1', 'years_freq': '1'}, 
-        #  {'orderindex_': '3', 'time_of_year': ' ', 'years_freq': ''}, 
-        #  {'orderindex_': 'template_row_marker', 'time_of_year': ' ', 
-        #                                         'years_freq': ''}], {})
+        if value is None or isinstance(frequency, object):
+            return
 
         atfield = self.getField(field)
 
-        frequency = list(value['frequency'])
+        frequency = list(frequency)
+        # value['frequency'] will contain something like:
+        #    ([{'orderindex_': '1', 'time_of_year': 'Q1', 'years_freq': '1'},
+        #      {'orderindex_': '3', 'time_of_year': ' ', 'years_freq': ''},
+        #      {'orderindex_': 'template_row_marker', 'time_of_year': ' ',
+        #                                             'years_freq': ''}], {})
+
         #filter incomplete lines because both values are required
         frequency[0] = [l for l in frequency[0] if all(l.values())]
 

@@ -3,15 +3,17 @@ Changelog
 
 8.9-dev - (unreleased)
 ----------------------
+* Bug fix: fixed saving process of "Other metadata" by intercepting wrong
+  data structure of frequency of updates compound field.
+  [ghicaale refs #20014]
 
 8.8 - (2014-05-13)
 ------------------
-* Bugfix: relation validation error on Assessment no longer triggers an
+* Bug fix: relation validation error on Assessment no longer triggers an
   unauthorized error and widget can be used to correct the validation error
   [ichimdav refs #19222]
-* Bugfix: Display charts properly when too many charts from the same
-  visualization is added in a figure and the tabs are replaced with
-  a dropdown
+* Bug fix: Display charts properly when too many charts from the same
+  visualization is added in a figure and the tabs are replaced with a dropdown
   [szabozo0 refs #19101]
 
 8.7 - (2014-03-05)
@@ -27,7 +29,7 @@ Changelog
 
 8.6 - (2014-02-13)
 ------------------
-* Feature: Added new compound field "frequency of update". Added option for 
+* Feature: Added new compound field "frequency of update". Added option for
   export in HTML format "keepHTML=true"
   [mironovi refs #18424]
 
