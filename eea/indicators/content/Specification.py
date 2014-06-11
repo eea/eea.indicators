@@ -1054,8 +1054,13 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
                 'starting_date': ('2012-03-26 11:45', {})},)
         kwargs = {'field': 'frequency_of_updates'}
         """
+
+        if value is None:
+            return
+
         frequency = value['frequency']
-        if value is None or isinstance(frequency, object):
+
+        if not isinstance(frequency, tuple):
             return
 
         atfield = self.getField(field)
