@@ -1,8 +1,8 @@
 Changelog
 =========
 
-8.9-dev - (unreleased)
-----------------------
+8.9 - (2014-06-11)
+------------------
 * Bug fix: fixed saving process of "Other metadata" by intercepting wrong
   data structure of frequency of updates compound field.
   [ghicaale refs #20014]
