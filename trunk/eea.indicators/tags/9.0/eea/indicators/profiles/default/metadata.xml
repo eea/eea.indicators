@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<metadata>
+
+    <description>EEA Indicators profile</description>
+    <version>8.7</version>
+
+    <dependencies>
+        <dependency>profile-Products.ATVocabularyManager:default</dependency>
+        <dependency>profile-Products.EEAPloneAdmin:default</dependency>
+        <dependency>profile-Products.UserAndGroupSelectionWidget:default</dependency>
+        <dependency>profile-Products.DataGridField:default</dependency>
+        <dependency>profile-eea.themecentre:default</dependency>
+        <dependency>profile-eea.versions:default</dependency>
+        <dependency>profile-eea.workflow:default</dependency>
+        <dependency>profile-eea.dataservice:default</dependency>
+        <dependency>profile-eea.relations:default</dependency>
+        <dependency>profile-Products.RedirectionTool:default</dependency>
+    </dependencies>
+
+</metadata>
