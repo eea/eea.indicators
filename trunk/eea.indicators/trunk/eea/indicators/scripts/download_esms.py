@@ -1,5 +1,5 @@
 #!/usr/bin/python
-""" Save the links file and this script to the same directory. 
+""" Save the links file and this script to the same directory.
 
 Execute as python name_of_script.py path_to_links_file.txt
 It will download all links as xml text files to the current directory
@@ -20,7 +20,8 @@ if __name__ == "__main__":
 
     for l in links:
         if l.strip():
-            fname = l.split("/")[-3] + '.xml'
+            parts = l.split("/")
+            fname = parts[-3] + "_" + parts[-2] + '.xml'
             print "Saving %s from %s..." % (fname, l.strip()),
             req = urllib.urlopen(l)
             data = req.read()
