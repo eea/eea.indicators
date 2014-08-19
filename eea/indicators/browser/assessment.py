@@ -364,11 +364,11 @@ class MetadataAsESMSXML(BrowserView):
 
         effective = self.context.getEffectiveDate()
         if effective:
-            publish_date = effective.asdatetime().date().isoformat()
+            publish_date = effective.asdatetime().date().strftime("%d/%m/%Y")
         else:
             publish_date = ""
 
-        spec_modified = spec.modified().asdatetime().date().isoformat()
+        spec_modified = spec.modified().asdatetime().date().strftime("%d/%m/%Y")
         latest_version = IGetVersions(self.context).latest_version()
 
         ref_area = u", ".join([c.decode('utf-8') for c in
@@ -471,14 +471,14 @@ class MetadataAsESMSXML(BrowserView):
         E = ElementMaker(nsmap=NAMESPACES)
 
         header = E.Header(
-            E.ID("B5_ESMSIPEEA_A"),
-            E.Prepared(now.isoformat()),
+            E.ID("DMBB_ESMSIPEEA_A"),
+            E.Prepared(now.replace(microsecond=0).isoformat()),
             E.Sender(id="4D0"),
-            E.DataSetID("MDF_B5_ESMSIPEEA_A_1353407791410"),
+            E.DataSetID("DMBB_ESMSIPEEA_A_1353407791410"),
             E.DataSetAction("Append"),
-            E.Extracted(now.isoformat()),
-            E.ReportingBegin(year_start.isoformat()),
-            E.ReportingEnd(year_end.isoformat()),
+            E.Extracted(now.replace(microsecond=0).isoformat()),
+            E.ReportingBegin(year_start.replace(microsecond=0).isoformat()),
+            E.ReportingEnd(year_end.replace(microsecond=0).isoformat()),
         )
 
         M = ElementMaker(namespace=NAMESPACES['GenericMetadata'],
@@ -495,7 +495,7 @@ class MetadataAsESMSXML(BrowserView):
                                      object="TimeDimension"),
                     M.ComponentValue("4D0", component="DATA_PROVIDER",
                                      object="DataProvider"),
-                    M.ComponentValue("B5_ESMSIPEEA_A", component="DATAFLOW",
+                    M.ComponentValue("DMBB_ESMSIPEEA_A", component="DATAFLOW",
                                      object="DataFlow"),
                 ),
                 M.ReportedAttribute(    #CONTACT
@@ -851,8 +851,14 @@ class MetadataAsESMSXML(BrowserView):
             ),
         )
 
-        root = lxml.etree.Element(nsel("GenericMetadata"), nsmap=NAMESPACES)
+        xsi = "http://www.w3.org/2001/XMLSchema-instance"
+        schemaLocation = "http://www.SDMX.org/resources/SDMXML/schemas/v2_0/genericmetadata SDMXGenericMetadata.xsd " \
+                         "http://www.SDMX.org/resources/SDMXML/schemas/v2_0/message SDMXMessage.xsd"
+        root = lxml.etree.Element(nsel("GenericMetadata"), attrib={
+            "{" + xsi + "}schemaLocation": schemaLocation}, nsmap=NAMESPACES)
         root.append(header)
         root.append(metadata)
 
-        return lxml.etree.tostring(root)
+        return lxml.etree.tostring(root, pretty_print=True,
+                                   xml_declaration=True, encoding='UTF-8',
+                                   standalone="yes")
