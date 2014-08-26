@@ -3,6 +3,22 @@
 
 Execute as python name_of_script.py path_to_links_file.txt
 It will download all links as xml text files to the current directory
+
+
+To generate all links to the latest version of each indicator create a
+Script (Python) into ZODB with the following code:
+
+    Products.CMFCore.utils import getToolByName
+
+    res = {}
+    cat = getToolByName(context, 'portal_catalog', None)
+
+    ass = cat.searchResults(portal_type="Assessment", review_state="published")
+    for a in ass:
+        print a.getURL()
+
+    return printed
+
 """
 
 import sys
@@ -21,7 +37,7 @@ if __name__ == "__main__":
     for l in links:
         if l.strip():
             parts = l.split("/")
-            fname = "%s_%s.xml" % (parts[-2], parts[-1][:-1])
+            fname = "%s_%s.xml" % (parts[-3], parts[-2])
             print "Saving %s from %s..." % (fname, l.strip()),
             req = urllib.urlopen(l)
             data = req.read()
