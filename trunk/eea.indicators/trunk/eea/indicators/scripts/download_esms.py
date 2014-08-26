@@ -1,24 +1,12 @@
 #!/usr/bin/python
-""" Save the links file and this script to the same directory.
+""" 
+To generate all links to the latest version of each indicator call
+/@@assessments_latest_versions_links method.
+
+Save the links file and this script to the same directory.
 
 Execute as python name_of_script.py path_to_links_file.txt
 It will download all links as xml text files to the current directory
-
-
-To generate all links to the latest version of each indicator create a
-Script (Python) into ZODB with the following code:
-
-    Products.CMFCore.utils import getToolByName
-
-    res = {}
-    cat = getToolByName(context, 'portal_catalog', None)
-
-    ass = cat.searchResults(portal_type="Assessment", review_state="published")
-    for a in ass:
-        print a.getURL()
-
-    return printed
-
 """
 
 import sys
