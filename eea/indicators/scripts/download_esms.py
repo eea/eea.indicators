@@ -21,7 +21,7 @@ if __name__ == "__main__":
     for l in links:
         if l.strip():
             parts = l.split("/")
-            fname = parts[-3] + "_" + parts[-2] + '.xml'
+            fname = "%s_%s.xml" % (parts[-2], parts[-1][:-1])
             print "Saving %s from %s..." % (fname, l.strip()),
             req = urllib.urlopen(l)
             data = req.read()
