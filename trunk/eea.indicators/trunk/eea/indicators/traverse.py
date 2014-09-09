@@ -8,8 +8,6 @@ from zope.interface import implements
 from zope.traversing.interfaces import ITraversable
 from zope.traversing.adapters import DefaultTraversable
 
-#from Products.Five.traversable import FiveTraversable
-
 ANNO_MARKER = '__ims_migration__'
 
 class SpecificationTraverser(DefaultTraversable):   #FiveTraversable
