@@ -65,7 +65,7 @@ frequency_of_updates_schema = Schema((
         searchable=False,
         widget=DataGridWidget(
             label="Frequency of updates",
-            description="""description here""",
+            description="",
             columns={'years_freq':
                         Column("Years frequency"),
                      'time_of_year':
@@ -79,38 +79,9 @@ frequency_of_updates_schema = Schema((
             ),
         columns=("years_freq", "time_of_year"),
         required_for_published=True,
-        #validators=('unique_specification_code',),
+        #validators=('isInt',),
         #allow_empty_rows=True,
         ),
-
-
-
-
-#   IntegerField(
-#       name='frequency_years',
-#       default=1,
-#       #required=True,
-#       widget=IntegerWidget(
-#           label="Frequency (years)",
-#           description="The indicator is published every &lt;x&gt; years",
-#           macro="widget_frequency_years",
-#       ),
-#       validators=("validate_frequency_years",),
-#       vocabulary = range(1,11),
-#   ),
-#   StringField(
-#       name='time_of_year',
-#       #required=True,
-#       widget=SelectionWidget(
-#           label="Time of year",
-#           description="In which trimester the indicator is published"
-#       ),
-#       vocabulary= [" "] + trimesters,
-#       default=" ",
-#       validators=("validate_time_of_year")
-#   ),
-
-
     DateTimeField(
         name='starting_date',
         #required=True,
@@ -173,7 +144,6 @@ schema = Schema((
         schemata="Classification",
         columns=("set", "code"),
         required_for_published=True,
-        #validators=('unique_specification_code',),
         #allow_empty_rows=True,
         ),
     TextField(
@@ -892,14 +862,14 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
         """human readable frequency of updates
         """
 
-        info            = self.getFrequency_of_updates()
-        ending          = info['ending_date']
-        starting        = info['starting_date']
+        info = self.getFrequency_of_updates()
+        ending = info['ending_date']
+        starting = info['starting_date']
         frequency = info['frequency']
 
-        # time_of_year    = info['time_of_year'].strip()
+        # time_of_year = info['time_of_year'].strip()
         # frequency_years = info['frequency_years']
-        now             = DateTime()
+        now = DateTime()
 
         if type(starting) is not type(now):
             return ("Required information is not filled in: Information about "
@@ -920,14 +890,24 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
             'Q2':'April-June',
             'Q3':'July-September',
             'Q4':'October-December',
-            }
+        }
+
+        _times = {
+            1:'once',
+            2:'twice',
+            3:'three times',
+            4:'four time',
+        }
 
         out = {}
         for line in frequency:
             if not (line['years_freq'] and line['time_of_year']):
                 continue
             ty = line['time_of_year']
-            yf = int(line['years_freq'])
+            try:
+                yf = int(float(line['years_freq']))
+            except ValueError:
+                continue
 
             if yf not in out:
                 out[yf] = [ty]
@@ -942,7 +922,8 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
             if key == 1:
                 suffix = ''
 
-            result.append("every %s year%s in %s" % (key, suffix, qrts))
+            result.append("%s every %s year%s in %s" %
+                    (_times[len(out[key])],key, suffix, qrts))
 
         phrase = "Updates are scheduled " + ",\n".join(result[:-1])
 
@@ -970,7 +951,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
                 msgs.append("Time of year is not properly set.")
 
             if line['years_freq']:
-                if not (int(line['years_freq']) in range(1, 11)):
+                if not (int(float(line['years_freq'])) in range(1, 11)):
                     msgs.append("Frequency needs to be a number between "
                                 "1 and 10.")
 

@@ -8,7 +8,7 @@
     tal:attributes="src string:${context/portal_url}/++resource++indicators-toc.js">
  </script>
   </metal:javascript>
-  
+
   <body>
     <div metal:fill-slot="content-title" class="specification_view">
       <h1 class="documentFirstHeading" tal:content="context/Title">Title here</h1>
@@ -27,14 +27,14 @@
           tal:condition="context/getMore_updates_on"
           tal:content="structure context/getMore_updates_on" />
 
-        <div id="frequency_of_updates" class="system-message" 
-            tal:content="context/get_frequency_of_updates" 
+        <div id="frequency_of_updates" class="system-message"
+            tal:content="context/get_frequency_of_updates"
             tal:condition="context/is_discontinued"/>
-        
+
         <tal:block define="queryString string:h2">
           <metal:toc use-macro="here/portlet_toc/macros/portlet"/>
         </tal:block>
-        
+
         <div id="assessment-versions" tal:define="assessments context/@@assessment_versions;
           published python:assessments['published'];
           draft python:assessments['draft']">
@@ -192,7 +192,7 @@
               <a href=""
                 tal:attributes="href string:${context/portal_url}/data-and-maps/data/ds_resolveuid/${data/@@getVersions/versionId}"
                 tal:content="data/title">Dataset title</a><!-- TODO: to show title from latest dataset version -->
-                provided by 
+                provided by
                   <span tal:repeat="url python:data.getDataOwner()">
                    <tal:organisations condition="python:context.getOrganisationName(url)">
                     <strong tal:content="python:context.getOrganisationName(url).Title" />
@@ -392,7 +392,7 @@
             </div>
 
             <strong i18n:translate="">Specification</strong>
-             <div i18n:translate="">Link: <a href="" tal:attributes="href context/absolute_url" 
+             <div i18n:translate="">Link: <a href="" tal:attributes="href context/absolute_url"
                                            tal:content="context/getId"
                                            i18n:name="link">ISpecification1235</a>
             </div>
@@ -452,7 +452,7 @@
         <div class='headed-box'>
           <h3 i18n:translate="">Classification</h3>
           <div class="visualClear"><!-- --></div>
-           <strong i18n:translate="">DPSIR</strong>: <span tal:define="dpsirLabel nocall:context/@@dpsir_label" 
+           <strong i18n:translate="">DPSIR</strong>: <span tal:define="dpsirLabel nocall:context/@@dpsir_label"
             tal:replace="python:dpsirLabel(context.getDpsir())" />
           <br/>
           <strong i18n:translate="">Typology</strong>: <span tal:define="typologyLabel nocall:context/@@typology_label"

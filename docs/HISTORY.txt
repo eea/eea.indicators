@@ -3,6 +3,12 @@ Changelog
 
 9.2-dev - (unreleased)
 ----------------------
+* Bug fix: fixed representation of frequency of updates when value is not integer
+  [ghicaale refs #21951]
+* Bug fix: fixed frequency of updates logic when value is not numeric
+  [ghicaale refs #21951]
+* Bug fix: fixed frequency of updates display text
+  [ghicaale refs #21951]
 
 9.1 - (2014-08-27)
 ------------------

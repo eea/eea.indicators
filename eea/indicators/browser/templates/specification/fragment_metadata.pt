@@ -1,5 +1,5 @@
-<tal:def tal:define="region_name string:metadata_area; portal_url context/portal_url; 
-  submit_handler string:simple_edit; 
+<tal:def tal:define="region_name string:metadata_area; portal_url context/portal_url;
+  submit_handler string:simple_edit;
   region_update_handler string:fragment_metadata;
   also_reload python:['object_readiness', 'assessments_area'];
   imsutils nocall:context/@@indicator_utils;"
@@ -18,7 +18,7 @@
           </h4>
           <tal:def tal:define="fieldname string:manager_user_id; fieldset string:default">
             <metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
-              <metal:slot metal:fill-slot="content" 
+              <metal:slot metal:fill-slot="content"
                     tal:define="value_info python:imsutils.field_value_info(fieldname, context)">
                 <div tal:condition="not: value_info/has_value" class="placeholder">
                   <span class="required" i18n:translate="">
@@ -68,7 +68,7 @@
                 </div>
                 <ul tal:condition="python:owners">
                   <li tal:repeat="info owners" >
-                    <a tal:content="python:context.getOrganisationName(info).Title" 
+                    <a tal:content="python:context.getOrganisationName(info).Title"
                       tal:on-error="python:info" tal:attributes="href info">EEA</a>
                   </li>
                 </ul>
@@ -179,7 +179,7 @@
         <div class='headed-box'>
           <h3 i18n:translate="">Identification</h3>
           <div class="wrapper" >
-            <div tal:define="codes context/getCodes; 
+            <div tal:define="codes context/getCodes;
               duplicate_codes context/get_duplicated_codes;
               diff_codes context/get_diff_vers_setcode">
 
@@ -208,7 +208,7 @@
 
                     <p tal:condition="python:duplicate_codes">
                       In case you have specified the wrong code for the current Indicator, use the "Edit" button
-                      to change it. If you believe the following indicators should be related to each other, use the 
+                      to change it. If you believe the following indicators should be related to each other, use the
                       "Apply fix" button on each one to connect them as versions.
                     </p>
                     <table tal:repeat="code duplicate_codes">
@@ -228,7 +228,7 @@
                           <td>
                             <form method="POST" action="./@@assign_version" style="display:inline">
                               <input type="hidden" name="new-version" value="" tal:attributes="value brain/getVersionId" />
-                              <input type="hidden" name="nextURL" 
+                              <input type="hidden" name="nextURL"
                                 tal:attributes="value string:${context/absolute_url}/@@edit_aggregated"/>
                               <input type="submit" name="submit" value="Apply fix" i18n:attributes="value"/>
                             </form>
@@ -262,8 +262,8 @@
                             <td>
                               <form method="POST" action="./@@set_codes" style="display:inline"
                                 tal:attributes="action string:${spec/absolute_url}/@@set_codes" >
-                                <p i18n:translate="">The codes will be changed from 
-                                  <strong tal:content="python:context.format_codes(spec.getCodes())" i18n:name="code" /> to 
+                                <p i18n:translate="">The codes will be changed from
+                                  <strong tal:content="python:context.format_codes(spec.getCodes())" i18n:name="code" /> to
                                   <strong tal:content="python:context.format_codes(context.getCodes())" i18n:name="new-code" />.
                                 </p>
                                 <tal:rep tal:repeat="code context/getCodes">
@@ -278,8 +278,8 @@
                                 tal:attributes="action string:${spec/absolute_url}/@@set_codes"
                                 tal:define="candidates python: context.getCandidateFixedCode(spec)">
                                 <p i18n:translate="">
-                                  The codes will be changed from 
-                                  <strong tal:content="python:context.format_codes(spec.getCodes())" i18n:name="code" /> to 
+                                  The codes will be changed from
+                                  <strong tal:content="python:context.format_codes(spec.getCodes())" i18n:name="code" /> to
                                   <strong tal:content="python:context.format_codes(candidates)" i18n:name="new-code" />.
                                 </p>
                                 <tal:rep tal:repeat="code candidates">
@@ -318,14 +318,16 @@
                             <div tal:condition="python:not imsutils.field_has_value(fieldname, context)" class="placeholder">
                                 Please fill in. <span tal:replace="context/validator_frequency_of_updates" />
                             </div>
+                            <div tal:condition="python:not imsutils.frequency_is_integer(context)" class="placeholder">
+                                Years frequency must be integer.
+                            </div>
                             <p class="aggedit_frequency_of_updates" tal:content="structure context/get_frequency_of_updates"></p>
-                            <h5>Raw field values:</h5>
-                            <dl tal:define="values context/getFrequency_of_updates; 
+                            <dl tal:define="values context/getFrequency_of_updates;
                                             widgets python:context.Schema().getField('frequency_of_updates').schema.widgets()">
                                 <tal:rep tal:repeat="key python:widgets.keys()">
-                                    <tal:def define="widget python:widgets[key]; 
-                                                     label widget/label; 
-                                                     field_name python:key.split('|')[1]; 
+                                    <tal:def define="widget python:widgets[key];
+                                                     label widget/label;
+                                                     field_name python:key.split('|')[1];
                                                      value python:values[field_name]" >
                                     <dt tal:content="label">Widget label</dt>
                                     <dd tal:condition="value">
