@@ -1,6 +1,5 @@
 """ Indicator fact sheet
 """
-
 from AccessControl import ClassSecurityInfo
 from Products.ATContentTypes.content.folder import ATFolder, ATFolderSchema
 from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
@@ -164,7 +163,6 @@ schema = Schema((
         columns=("set", "code"),
         required_for_published=True,
         searchable = True,
-        #validators=('unique_specification_code',),
         ),
     EEAReferenceField('relatedItems',
             relationship='relatesTo',
@@ -292,7 +290,7 @@ class IndicatorFactSheet(ATFolder, ModalFieldEditableAware,
             res = title + ' (' + res[:-1] + ')'
         else:
             res = title
-        
+
         if isinstance(res, unicode):
             res = res.encode('utf-8')
         return res

@@ -154,13 +154,13 @@
     <browser:page for="eea.indicators.content.interfaces.ISpecification"
                   name="fragment_metadata"
                   template="templates/specification/fragment_metadata.pt"
-                  permission="cmf.ModifyPortalContent" 
+                  permission="cmf.ModifyPortalContent"
                   class=".specification.FragmentMetadataView"/>
 
     <browser:page for="eea.indicators.content.interfaces.ISpecification"
                   name="fragment_frequency_of_updates"
                   template="templates/specification/fragment_frequency_of_updates.pt"
-                  permission="cmf.ModifyPortalContent" 
+                  permission="cmf.ModifyPortalContent"
                   class=".specification.FragmentFrequencyOfUpdatesView"/>
 
     <browser:page for="eea.indicators.content.interfaces.ISpecification"

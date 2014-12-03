@@ -44,7 +44,7 @@ class IndicatorUtils(BrowserView):
         """
         field = context.schema[fieldname]
 
-        vp = queryMultiAdapter((context, field), IValueProvider, 
+        vp = queryMultiAdapter((context, field), IValueProvider,
                                 name=fieldname)
         if vp is None:
             vp = getMultiAdapter((context, field), IValueProvider)
@@ -64,6 +64,17 @@ class IndicatorUtils(BrowserView):
         """
         return self.adapter(context, fieldname).value_info()
 
+    def frequency_is_integer(self, context, fieldname='frequency'):
+        """frequency value is integer
+        """
+        for value in context.getFrequency_of_updates()['frequency']:
+            if value:
+                try:
+                    value = int(value['years_freq'])
+                except ValueError:
+                    return False
+        return True
+
 
 class FrequencyOfUpdatesFieldValueProvider(ATFieldValueProvider):
     """An IValueProvider implementation for Text Fields"""
@@ -76,7 +87,7 @@ class FrequencyOfUpdatesFieldValueProvider(ATFieldValueProvider):
 
         accessor = self.field.getAccessor(self.context)
         if not accessor:
-            msg = "Field %s for %s has no accessor" % (self.field, 
+            msg = "Field %s for %s has no accessor" % (self.field,
                                                        self.context)
             logger.warning(msg)
             return False

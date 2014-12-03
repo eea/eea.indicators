@@ -149,7 +149,7 @@ class WorkflowStateReadiness(ObjectReadiness):
                 lambda o:not bool(o.objectValues("PolicyQuestion")),
                 "You need to add at least one Policy Question"),
             (
-                lambda o: not bool([x for x in o.objectValues('PolicyQuestion') 
+                lambda o: not bool([x for x in o.objectValues('PolicyQuestion')
                                     if x.getIs_key_question()]),
                 "At least one PolicyQuestion needs to be main policy question"),
             (
@@ -314,7 +314,7 @@ class FragmentMetadataView(BrowserView):
         """
         c = self.context
         fields = c.schema.filterFields(lambda f:f.schemata in self.schematas)
-        fields = [f.getName() for f in fields if f.getName() not 
+        fields = [f.getName() for f in fields if f.getName() not
                                                         in self.exclude]
 
         return fields
