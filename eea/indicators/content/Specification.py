@@ -896,7 +896,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
             1:'once',
             2:'twice',
             3:'three times',
-            4:'four time',
+            4:'four times',
         }
 
         out = {}
@@ -916,23 +916,39 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
 
         result = []
         for key in sorted(out.keys()):
-            qrts = ", ".join([" ".join([_trims.get(qrt), "(" + qrt + ")"])
-                                        for qrt in sorted(out[key])])
+            qrts_msg = ", ".join([" ".join([_trims.get(qrt), "(" + qrt + ")"])
+                                        for qrt in sorted(out[key])[:-1]])
+            if len(out[key]) > 1:
+                qrt = sorted(out[key])[-1]
+                qrts_msg = qrts_msg + '\nand ' + _trims.get(qrt) + " (" + qrt + ") "
+            elif len(out[key]) == 1:
+                qrt = sorted(out[key])[0]
+                qrts_msg = _trims.get(qrt) + " (" + qrt + ") "
+
             suffix = 's'
+            every_msg = 'every %s' % key
             if key == 1:
                 suffix = ''
+                every_msg = 'per'
 
-            result.append("%s every %s year%s in %s" %
-                    (_times[len(out[key])],key, suffix, qrts))
+            if len(out[key]) > 4:
+                times = '%s ' % len(out[key])
+            elif key > 1 and len(out[key]) == 1:
+                times = ''
+            else:
+                times = '%s ' % _times[len(out[key])]
 
-        phrase = "Updates are scheduled " + ",\n".join(result[:-1])
+            result.append("%s%s year%s in %s" %
+                    (times, every_msg, suffix, qrts_msg))
+
+        phrase = 'Updates are scheduled ' + ',\n'.join(result[:-1])
 
         if len(result) > 1:
-            return phrase + "\nand " + result[-1]
+            return phrase + '\nand ' + result[-1]
         elif len(result) == 1:
             return phrase + result[0]
         elif len(result) == 0:
-            return "No frequency of updates information"
+            return 'No frequency of updates information'
 
     security.declarePublic("validator_frequency_of_updates")
     def validator_frequency_of_updates(self):
