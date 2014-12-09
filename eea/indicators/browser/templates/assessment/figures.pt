@@ -101,14 +101,18 @@
                                   </a>
                                   <div class="visualClear"><!-- --></div>
 
-                                  <div tal:define="notes_view nocall:obj/chart-notes; 
-                                                   figure_description python:notes_view(chart[0])">
-                                    <strong i18n:translate="">Note: </strong>
-                                    <tal:rep tal:repeat="info figure_description" >
-                                        <span tal:content="structure info/text" />
-                                    </tal:rep>
-                                    <span tal:condition="python:not figure_description">N/A</span>
-                                  </div>
+                                  <tal:comment tal:replace="nothing">
+                                      #22208 check if chart-notes is available, skip notes if not found
+                                  </tal:comment>
+                                  <tal:chart_notes tal:define="notes_view nocall:obj/chart-notes|nothing;" tal:condition="notes_view">
+                                      <div tal:define="figure_description python:notes_view(chart[0])">
+                                        <strong i18n:translate="">Note: </strong>
+                                        <tal:rep tal:repeat="info figure_description">
+                                            <span tal:content="structure info/text" />
+                                        </tal:rep>
+                                        <span tal:condition="python:not figure_description">N/A</span>
+                                      </div>
+                                  </tal:chart_notes>
 
                               </div>
 
