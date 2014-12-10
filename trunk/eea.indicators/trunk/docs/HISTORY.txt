@@ -3,6 +3,8 @@ Changelog
 
 9.2-dev - (unreleased)
 ----------------------
+* Bug fix: Fixed specification view to work with Chameleon
+  [voineali refs #21919]
 * Bug fix: check if chart-notes is available on context avoiding thus an
   AttributeError
   [ichimdav refs #22208]
