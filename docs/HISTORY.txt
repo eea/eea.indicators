@@ -1,8 +1,8 @@
 Changelog
 =========
 
-9.2-dev - (unreleased)
-----------------------
+9.2 - (2014-12-10)
+------------------
 * Bug fix: Fixed specification view to work with Chameleon
   [voineali refs #21919]
 * Bug fix: check if chart-notes is available on context avoiding thus an
