@@ -266,7 +266,7 @@
 
         <h2 id="further_work" i18n:translate="">Further work</h2>
 
-        <tal:def tal:define="works context/get_work; short works/short; long works/long">
+        <tal:def tal:define="works context/get_work; short works/short; works works/long">
           <h3 i18n:translate="">Short term work</h3>
           <p i18n:translate="">Work specified here requires to be completed within 1 year from now.</p>
           <div tal:repeat="work short">
@@ -290,7 +290,7 @@
           </div>
           <h3 i18n:translate="">Long term work</h3>
           <p i18n:translate="">Work specified here will require more than 1 year (from now) to be completed.</p>
-          <div tal:repeat="work long">
+          <div tal:repeat="work works">
             <h4 i18n:translate="">Work description</h4>
             <tal:description define="description work/Description">
               <p tal:condition="python:description" tal:replace="structure description"></p>
