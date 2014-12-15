@@ -15,7 +15,6 @@ from Products.Archetypes.atapi import TextField, StringField, TextAreaWidget
 from Products.Archetypes.config import REFERENCE_CATALOG
 from Products.CMFCore.utils import getToolByName
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
-import logging
 from eea.indicators.content import  interfaces
 from eea.indicators.content.base import CustomizedObjectFactory
 from eea.indicators.content.base import ModalFieldEditableAware
@@ -25,10 +24,7 @@ from eea.relations.field import EEAReferenceField
 from eea.relations.widget import EEAReferenceBrowserWidget
 from plone.uuid.interfaces import IUUID
 from zope.interface import implements
-from plone.memoize import instance
 
-
-logger = logging.getLogger(__name__)
 schema = Schema((
 
     TextField(
@@ -135,10 +131,8 @@ class AssessmentPart(ATFolder, ModalFieldEditableAware,
         return question
 
     security.declarePublic('Title')
-    @instance.memoize
     def Title(self):
         """Title"""
-        logger.info('%s', self.absolute_url())
         question = self.get_related_question()
 
         if question:
@@ -182,7 +176,6 @@ class AssessmentPart(ATFolder, ModalFieldEditableAware,
         return {'obj':figure, 'subview':'edit', 'direct_edit':True}
 
     security.declareProtected('View', 'get_related_items')
-    @instance.memoize
     def get_related_items(self):
         """ Related items
         """

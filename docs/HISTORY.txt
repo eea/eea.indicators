@@ -3,9 +3,6 @@ Changelog
 
 9.3-dev - (unreleased)
 ----------------------
-* Change: Cached Title and get_related_items for AssessmentParts per request as
-  they are called many times throught a versioning operation
-  [ichimdav refs #22047]
 
 9.2 - (2014-12-10)
 ------------------
