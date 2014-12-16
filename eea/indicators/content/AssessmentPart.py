@@ -25,84 +25,84 @@ from eea.relations.field import EEAReferenceField
 from eea.relations.widget import EEAReferenceBrowserWidget
 from plone.uuid.interfaces import IUUID
 from zope.interface import implements
-from plone.memoize import instance
+from plone.memoize import instance as cache
 
 
 logger = logging.getLogger(__name__)
 schema = Schema((
 
-                    TextField(
-                        name='assessment',
-                        widget=RichWidget(
-                            label='Assessment',
-                            description='Assessment',
-                            label_msgid='indicators_label_assessment',
-                            i18n_domain='indicators',
-                            ),
-                        default_content_type="text/html",
-                        searchable=True,
-                        required=True,
-                        required_for_published=True,
-                        allowable_content_types=('text/plain', 'text/structured',
-                                                 'text/html', 'application/msword',),
-                        default_output_type="text/x-html-safe",
-                        ),
-                    StringField(
-                        name='title',
-                        widget=StringField._properties['widget'](
-                            visible={'view':'invisible', 'edit':'invisible'},
-                            label='Title',
-                            description='Title',
-                            label_msgid='indicators_label_title',
-                            i18n_domain='indicators',
-                            ),
-                        required=False,
-                        accessor="Title",
-                        ),
-                    TextField(
-                        name='description',
-                        default="",
-                        widget=TextAreaWidget(
-                            visible={'edit' : 'invisible', 'view' : 'invisible' },
-                            label='Description',
-                            description='Description',
-                            label_msgid='indicators_label_description',
-                            i18n_domain='indicators',
-                            ),
-                        accessor="Description",
-                        searchable=True,
-                        ),
-                    EEAReferenceField(
-                        name="relatedItems",
-                        multiValued=True,
-                        relationship='relatesTo',
-                        required=True,
-                        validators=('one_assessment_per_question',),
-                        #referencesSortable=True,
-                        keepReferencesOnCopy=True,
-                        accessor="get_related_items",
-                        edit_accessor="get_raw_related_items",
-                        mutator="set_related_items",
-                        widget=EEAReferenceBrowserWidget(
-                            label="Answers to policy question and related EEAFigures",
-                            description='Answers to policy question and related EEAFigures',
-                            label_msgid='indicators_label_question_answered',
-                            i18n_domain='indicators',
-                            macro="assessmentpart_relationwidget",
-                            )
-                    ),
-                ),
-                )
+    TextField(
+        name='assessment',
+        widget=RichWidget(
+            label='Assessment',
+            description='Assessment',
+            label_msgid='indicators_label_assessment',
+            i18n_domain='indicators',
+            ),
+        default_content_type="text/html",
+        searchable=True,
+        required=True,
+        required_for_published=True,
+        allowable_content_types=('text/plain', 'text/structured',
+             'text/html', 'application/msword',),
+        default_output_type="text/x-html-safe",
+        ),
+    StringField(
+        name='title',
+        widget=StringField._properties['widget'](
+            visible={'view':'invisible', 'edit':'invisible'},
+            label='Title',
+            description='Title',
+            label_msgid='indicators_label_title',
+            i18n_domain='indicators',
+            ),
+        required=False,
+        accessor="Title",
+        ),
+    TextField(
+        name='description',
+        default="",
+        widget=TextAreaWidget(
+            visible={'edit' : 'invisible', 'view' : 'invisible' },
+            label='Description',
+            description='Description',
+            label_msgid='indicators_label_description',
+            i18n_domain='indicators',
+            ),
+        accessor="Description",
+        searchable=True,
+        ),
+    EEAReferenceField(
+        name="relatedItems",
+        multiValued=True,
+        relationship='relatesTo',
+        required=True,
+        validators=('one_assessment_per_question',),
+        #referencesSortable=True,
+        keepReferencesOnCopy=True,
+        accessor="get_related_items",
+        edit_accessor="get_raw_related_items",
+        mutator="set_related_items",
+        widget=EEAReferenceBrowserWidget(
+            label="Answers to policy question and related EEAFigures",
+            description='Answers to policy question and related EEAFigures',
+            label_msgid='indicators_label_question_answered',
+            i18n_domain='indicators',
+            macro="assessmentpart_relationwidget",
+            )
+        ),
+    ),
+)
 
 AssessmentPart_schema = ATFolderSchema.copy() + \
-                        getattr(ATCTContent, 'schema', Schema(())).copy() + \
-                        schema.copy()
+    getattr(ATCTContent, 'schema', Schema(())).copy() + \
+    schema.copy()
 
 AssessmentPart_schema.moveField('relatedItems', pos=0)
 finalizeATCTSchema(AssessmentPart_schema)
 
 class AssessmentPart(ATFolder, ModalFieldEditableAware,
-                     CustomizedObjectFactory, ATCTContent, BrowserDefaultMixin):
+        CustomizedObjectFactory, ATCTContent, BrowserDefaultMixin):
     """Assessment part
     """
     security = ClassSecurityInfo()
@@ -135,7 +135,7 @@ class AssessmentPart(ATFolder, ModalFieldEditableAware,
         return question
 
     security.declarePublic('Title')
-    @instance.memoize
+    @cache.memoize
     def Title(self):
         """Title"""
         logger.info('%s', self.absolute_url())
@@ -173,7 +173,7 @@ class AssessmentPart(ATFolder, ModalFieldEditableAware,
 
         try:
             spec = get_specific_parent(self,
-                                       lambda o:ISpecification.providedBy(o))
+                                      lambda o:ISpecification.providedBy(o))
             themes = spec.getThemes()
         except ValueError:
             themes = []
@@ -255,7 +255,7 @@ class AssessmentPart(ATFolder, ModalFieldEditableAware,
             value = value,
         elif not field.multiValued and len(value) > 1:
             raise ValueError, \
-                "Multiple values given for single valued field %r" % self
+                  "Multiple values given for single valued field %r" % self
 
         #convert objects to uids if necessary
         uids = []
