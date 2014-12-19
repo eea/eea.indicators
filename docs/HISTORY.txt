@@ -3,6 +3,8 @@ Changelog
 
 9.3-dev - (unreleased)
 ----------------------
+* Bug fix: Fixed inline comments for Indicators
+  [voineali refs #22291]
 
 9.2 - (2014-12-10)
 ------------------

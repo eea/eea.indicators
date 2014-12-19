@@ -4,10 +4,6 @@
 
   <metal:block use-macro="here/global_defines/macros/defines" />
 
-  <metal:baseslot fill-slot="base">
-    <base href="" tal:attributes="href request/URL" />
-  </metal:baseslot>
-
   <metal:jsslot fill-slot="javascript_head_slot">
     <script type="text/javascript"
             tal:attributes="src string:${portal_url}/++resource++indicators.js"></script>
@@ -23,7 +19,7 @@
             tal:attributes="src string:${portal_url}/multiselectautocomplete_widget.js"></script>
     <script type="text/javascript"
             tal:attributes="src string:${portal_url}/++resource++eea.tags.js"></script>
-    <link type="text/css" rel="stylesheet" href="" 
+    <link type="text/css" rel="stylesheet" href=""
             tal:attributes="href string:${portal_url}/++resource++eea.tags.css"/>
 
   </metal:jsslot>

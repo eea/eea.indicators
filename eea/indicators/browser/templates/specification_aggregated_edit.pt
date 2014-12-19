@@ -2,10 +2,6 @@
 	metal:use-macro="here/main_template/macros/master"
 	i18n:domain="eea">
 
-	<metal:baseslot fill-slot="base">
-		<base href="" tal:attributes="href request/URL" />
-	</metal:baseslot>
-
 	<metal:jsslot fill-slot="javascript_head_slot">
 		<script type="text/javascript" tal:attributes="src context/++resource++indicators.js"></script>
 	</metal:jsslot>
@@ -61,7 +57,7 @@
 						</div>
 					</div>
 					<strong i18n:translate="">Specification</strong>
-				<div i18n:translate="">Link: <a href="" tal:attributes="href context/absolute_url"	
+				<div i18n:translate="">Link: <a href="" tal:attributes="href context/absolute_url"
 					                                i18n:name="specification"
 							                        tal:content="context/getId">ISpecification1235</a>
 					</div>
