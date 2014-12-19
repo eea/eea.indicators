@@ -5,10 +5,6 @@
   <head>
   <title tal:content="context/Title"></title>
 
-    <metal:baseslot fill-slot="base">
-         <base tal:attributes="href python:request.URL.replace('@@','')" /><!--[if lt IE 7]></base><![endif]-->
-    </metal:baseslot>
-
   <metal:javascript fill-slot="javascript_head_slot">
     <script type="text/javascript"
         tal:attributes="src string:${context/portal_url}/++resource++indicators-toc.js">
@@ -69,8 +65,8 @@
 
       <div tal:condition="not:isAnon" tal:replace="structure context/@@readiness" />
 
-      <div id="frequency_of_updates" class="system-message" 
-            tal:content="context/get_frequency_of_updates" 
+      <div id="frequency_of_updates" class="system-message"
+            tal:content="context/get_frequency_of_updates"
             tal:condition="context/is_discontinued"/>
 
       <div id="box-classification">
@@ -266,7 +262,7 @@
         <metal:basicmeta use-macro="context/versions_macros/macros/permalinks" />
       </div>
 
-      
+
     </div>
   </body>
 </html>
