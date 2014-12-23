@@ -1,0 +1,122 @@
+<!-- This file is made to explore the required customizations needed for the AssessmentPart 
+It may be that we can collapse the changes into the regular indicatorsrelations.pt -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:tal="http://xml.zope.org/namespaces/tal"
+	xmlns:metal="http://xml.zope.org/namespaces/metal"
+	xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+	i18n:domain="eea">
+
+	<head><title></title></head>
+
+	<body>
+
+		<!-- the relations-widget class was added to do initializations that don't interfere with -->
+		<!-- other initializations -->
+		<div metal:define-macro="popup" 
+			tal:define="
+			fieldName fieldName;
+			field nocall:field | nothing;
+			widget nocall:widget | nothing;
+			value value | python:[];
+			uids python:value or [];
+			uids python:same_type(value, []) and value or [value];
+			multiVal python:test(field, field.multiValued, True);
+			required python:test(field, field.required, False);
+            uid context/UID;
+			domid string:$fieldName-${uid};
+            domIdWidget string:${domid}-widget;"
+			tal:attributes="id domIdWidget"
+			class="eea-widget-referencebrowser">
+
+			<!-- class="relations-widget"  -->
+			<div class="metadata">
+				<div class="fieldname" tal:content="fieldName" />
+				<div class="domid" tal:content="domid" />
+			</div>
+
+			<metal:slot define-slot="edit">
+				<input type="hidden" value=""
+					tal:condition="python:multiVal"
+					tal:attributes="name string:$fieldName:default" />
+
+				<select style="display:none" tal:attributes="
+					multiple python:multiVal and 'multiple' or None;
+					name string:$fieldName:list; id domid;">
+					<tal:uids repeat="uid uids">
+						<option selected="selected"
+							tal:condition="python:uid" tal:attributes="value uid" tal:content="uid" />
+					</tal:uids>
+				</select>
+			</metal:slot>
+
+			<metal:slot define-slot="view">
+				<div class="eea-ref-selecteditems eea-ref-selecteditems-box"
+					tal:define="popup_view nocall:here/@@eeareferencebrowser-popup-selecteditems.html"
+					tal:content="structure python:popup_view(field=fieldName, uids=uids)" />
+			</metal:slot>
+
+			<metal:slot define-slot="popup">
+				<div tal:attributes="
+					title python:widget and 'Edit %s' % widget.Label(here) or 'Edit';
+					id string:$domid-popup">	
+					<!-- NOTE: changed the id from fieldname to domid -->
+					<!-- NOTE: changed the field argument from fieldname to domid -->
+					<tal:popup define="popup_view nocall:here/@@eeareferencebrowser-popup.html"
+						replace="structure python:popup_view(field=domid, uids=uids)" />
+				</div>
+			</metal:slot>
+
+			<metal:slot define-slot="button">
+				<input class="searchButton eea-ref-popup-button" type="button"
+					value="Edit" i18n:attributes="value"/>
+			</metal:slot>
+
+			<metal:slot define-slot="script">
+                <tal:comment tal:replace="nothing">
+                    ichimdav #19222 this script is a workaround for the relation widget which no longer has events
+                    binded to the edit button after it is rendered with a validation error.
+                    Therefore we need to call boostrap_relations_widgets in order to bind the events for
+                    the relations widget.
+                    The hidden input with the active_region id is needed otherwise when the validation is fixed the
+                    ajax call will not have a region where it would apply the results and as such the relation widget
+                    would disappear without it.
+                    It needs to run only there if there is a validation error where the returned result is the popup template
+                    from eea.relations, hence the missing active_region login which is coming from eea.indicators.
+                </tal:comment>
+
+                <script type="text/javascript" tal:content="structure string:
+                    if ($('#archetypes-fieldname-relatedItems').find('.fieldErrorBox').text()) {
+                        bootstrap_relations_widgets();
+                        var meta = $('#${domIdWidget}').find('.metadata').eq(0);
+                        var input = $('<input>', {
+                              type: 'hidden',
+                              name: 'active_region',
+                              value: '${uid}'
+                        });
+                        input.insertAfter(meta);
+                    }">
+                </script>
+			</metal:slot>
+
+		</div>
+
+		<metal:view_macro define-macro="view">
+			<metal:slot define-slot="body">
+				<div metal:use-macro="here/eeareferencebrowser/macros/view" />
+			</metal:slot>
+		</metal:view_macro>
+
+		<metal:edit_macro define-macro='edit'>
+			<metal:use use-macro="field_macro | here/widgets/field/macros/edit">
+				<metal:fill fill-slot="widget_body">
+					<metal:use use-macro="here/assessmentpart_relationwidget/macros/popup" />
+				</metal:fill>
+			</metal:use>
+		</metal:edit_macro>
+
+		<metal:edit_macro define-macro='search'>
+			<div metal:use-macro="here/assessmentpart_relationwidget/macros/edit"></div>
+		</metal:edit_macro>
+
+	</body>
+</html>
