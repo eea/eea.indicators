@@ -1,8 +1,8 @@
 Changelog
 =========
 
-9.3-dev - (unreleased)
-----------------------
+9.3 - (2014-12-23)
+------------------
 * Bug fix: Fixed inline comments for Indicators
   [voineali refs #22291]
 
