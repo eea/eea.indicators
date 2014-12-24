@@ -87,7 +87,7 @@
                               </div>
 
                               <div class="figure-chart-live" tal:condition="python:chart[2]['type'] == 'live'" >
-                                <script tal:replace="structure python:inline_chart(chart=chart[0])" ></script>
+                                <script tal:condition="nocall:inline_chart" tal:replace="structure python:inline_chart(chart=chart[0])" ></script>
                                  <div class="visualClear" ><!-- --></div>
                               </div>
 
@@ -161,7 +161,7 @@
                 </dl>
             </div>
 
-          
+
 
 </div>
 
