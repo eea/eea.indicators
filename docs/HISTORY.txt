@@ -3,6 +3,8 @@ Changelog
 
 9.4-dev - (unreleased)
 ----------------------
+* Bug fix: Fixed figures.pt when inline_chart is not published
+  [voineali refs #22309]
 
 9.3 - (2014-12-23)
 ------------------
