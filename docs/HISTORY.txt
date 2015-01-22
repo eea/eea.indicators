@@ -1,6 +1,9 @@
 Changelog
 =========
 
+9.5-dev - (unreleased)
+----------------------
+
 9.4 - (2015-01-22)
 ------------------
 * Bug fix: Fixed figures.pt when inline_chart is not published
