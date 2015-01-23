@@ -25,7 +25,6 @@ from eea.relations.field import EEAReferenceField
 from eea.relations.widget import EEAReferenceBrowserWidget
 from plone.uuid.interfaces import IUUID
 from zope.interface import implements
-from plone.memoize import instance as cache
 
 
 logger = logging.getLogger(__name__)
@@ -135,7 +134,6 @@ class AssessmentPart(ATFolder, ModalFieldEditableAware,
         return question
 
     security.declarePublic('Title')
-    @cache.memoize
     def Title(self):
         """Title"""
         logger.info('%s', self.absolute_url())

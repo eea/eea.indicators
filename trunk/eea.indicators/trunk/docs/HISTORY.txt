@@ -3,6 +3,8 @@ Changelog
 
 9.5-dev - (unreleased)
 ----------------------
+* Bug fix: Fixed the display of AssementPart's title
+  [ghicaale refs #22637]
 
 9.4 - (2015-01-22)
 ------------------
