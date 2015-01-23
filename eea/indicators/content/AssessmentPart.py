@@ -15,7 +15,6 @@ from Products.Archetypes.atapi import TextField, StringField, TextAreaWidget
 from Products.Archetypes.config import REFERENCE_CATALOG
 from Products.CMFCore.utils import getToolByName
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
-import logging
 from eea.indicators.content import  interfaces
 from eea.indicators.content.base import CustomizedObjectFactory
 from eea.indicators.content.base import ModalFieldEditableAware
@@ -27,7 +26,6 @@ from plone.uuid.interfaces import IUUID
 from zope.interface import implements
 
 
-logger = logging.getLogger(__name__)
 schema = Schema((
 
     TextField(
@@ -136,7 +134,6 @@ class AssessmentPart(ATFolder, ModalFieldEditableAware,
     security.declarePublic('Title')
     def Title(self):
         """Title"""
-        logger.info('%s', self.absolute_url())
         question = self.get_related_question()
 
         if question:
