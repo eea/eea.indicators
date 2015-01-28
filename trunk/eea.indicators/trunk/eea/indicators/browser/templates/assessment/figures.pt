@@ -84,7 +84,7 @@
                                 chart_type_id python: chart[1];
                                 current_chart python: chart[2];
                                 chart_type python: current_chart['type'];
-                                chart_type python: 'preview' if isAssessment and chart_type_id == 'Dashboard' else chart_type;">
+                                chart_type python: 'preview' if (isAssessment and isPrint) and chart_type_id == 'Dashboard' else chart_type;">
                               <div class='chart-custom-settings'
                                     style="display:none"
                                     tal:attributes="
