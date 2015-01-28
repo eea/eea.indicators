@@ -3,6 +3,10 @@ Changelog
 
 9.5-dev - (unreleased)
 ----------------------
+* Change: use preview only for inline dashboards when printing an AssessmentPart
+  and use a predefined size for charts in order to avoid font reduction of entire
+  pdf output
+  [ichimdav refs #22489]
 * Bug fix: Fixed the display of AssementPart's title
   [ghicaale refs #22637]
 
