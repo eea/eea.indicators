@@ -1,6 +1,9 @@
 Changelog
 =========
 
+9.6.dev0 - (unreleased)
+-----------------------
+
 9.5 - (2015-02-03)
 ------------------
 * Change: use preview only for inline dashboards when printing an AssessmentPart
