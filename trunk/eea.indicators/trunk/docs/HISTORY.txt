@@ -1,8 +1,8 @@
 Changelog
 =========
 
-9.5-dev - (unreleased)
-----------------------
+9.5 - (2015-02-03)
+------------------
 * Change: use preview only for inline dashboards when printing an AssessmentPart
   and use a predefined size for charts in order to avoid font reduction of entire
   pdf output
