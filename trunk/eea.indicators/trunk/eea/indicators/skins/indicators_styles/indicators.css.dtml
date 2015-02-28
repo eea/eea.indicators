@@ -340,12 +340,6 @@ ul.sortable_spec {
     width: 215px;
     display: block !important;
 }
-.metadata-switch-show {
-    background-image: url(&dtml-portal_url;/bullet_add.png);
-}
-.metadata-switch-hide {
-    background-image: url(&dtml-portal_url;/bullet_delete.png);
-}
 .metadata-info-switchable {
     display: none;
 }
@@ -648,8 +642,6 @@ div.kupu-fulleditor-zoomed .kupu-editor-iframe {
 }
 
 .indicator-figure-plus a {
-    background-color: transparent;
-    color: #436976;
     text-decoration: none;
 }
 

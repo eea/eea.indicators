@@ -3,6 +3,9 @@ Changelog
 
 9.6.dev0 - (unreleased)
 -----------------------
+* Bug fix: Removed bullet background images from the metadata inputs and the
+  transparent background now that we have the single blue background
+  [ichimdav refs #23500]
 
 9.5 - (2015-02-03)
 ------------------
