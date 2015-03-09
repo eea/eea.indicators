@@ -1,6 +1,6 @@
 <tal:figures define="objects python:path('nocall:context/@@related_items')(['EEAFigure', 'DavizVisualization']);
                      isAssessment python: context.portal_type == 'AssessmentPart';
-                     isPrint python:1 if ('pdf.' in request['URL0'] or '.pdf' in request['URL0']) else 0;">
+                     isPrint python:1 if ('pdf.' in request['URL0'] else 0;">
 
   <div tal:repeat="obj objects" class="indicator-figure-plus-container">
 
@@ -58,7 +58,8 @@
             tal:define="uid obj/UID;
                         daviz_view nocall:context/@@get_daviz_chart;
                         charts python:daviz_view.get_charts(uid);
-                        inline_chart nocall:obj/@@embed-inline | nothing;" >
+                        inline_chart nocall:obj/@@embed-inline | nothing;">
+                        <!--tal:condition="python: context.absolute_url() == 'a'" -->
 
             <p class="figure-title" tal:content="obj/Title" />
             <div class="metadata" style="display:none;">
@@ -84,13 +85,13 @@
                                 chart_type_id python: chart[1];
                                 current_chart python: chart[2];
                                 chart_type python: current_chart['type'];
-                                chart_type python: 'preview' if (isAssessment and isPrint) and chart_type_id == 'Dashboard' else chart_type;">
+                                chart_type python: chart_type;">
                               <div class='chart-custom-settings'
                                     style="display:none"
                                     tal:attributes="
-                                            chart_width python:750 if isPrint else current_chart.get('width', '');
+                                            chart_width python:600 if isPrint else current_chart.get('width', '');
                                             chart_height python:472 if isPrint else current_chart.get('heigth', '');
-                                            chart_chartAreaWidth python:550 if isPrint else current_chart.get('chartAreaWidth', '');
+                                            chart_chartAreaWidth python:425 if isPrint else current_chart.get('chartAreaWidth', '');
                                             chart_chartAreaHeight python:375 if isPrint else current_chart.get('chartAreaHeight', '');
                                             chart_chartAreaTop python:35 if isPrint else current_chart.get('chartAreaTop', '');
                                             chart_chartAreaLeft python:60 if isPrint else current_chart.get('chartAreaLeft', '');">
