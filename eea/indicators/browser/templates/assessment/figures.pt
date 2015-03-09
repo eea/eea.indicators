@@ -1,6 +1,6 @@
 <tal:figures define="objects python:path('nocall:context/@@related_items')(['EEAFigure', 'DavizVisualization']);
                      isAssessment python: context.portal_type == 'AssessmentPart';
-                     isPrint python:1 if ('pdf.' in request['URL0'] else 0;">
+                     isPrint python:1 if 'pdf.' in request['URL0'] else 0;">
 
   <div tal:repeat="obj objects" class="indicator-figure-plus-container">
 
