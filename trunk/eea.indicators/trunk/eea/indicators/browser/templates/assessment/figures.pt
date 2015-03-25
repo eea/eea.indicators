@@ -59,7 +59,6 @@
                         daviz_view nocall:context/@@get_daviz_chart;
                         charts python:daviz_view.get_charts(uid);
                         inline_chart nocall:obj/@@embed-inline | nothing;">
-                        <!--tal:condition="python: context.absolute_url() == 'a'" -->
 
             <p class="figure-title" tal:content="obj/Title" />
             <div class="metadata" style="display:none;">
@@ -84,8 +83,7 @@
                                 chart_id python: chart[0];
                                 chart_type_id python: chart[1];
                                 current_chart python: chart[2];
-                                chart_type python: current_chart['type'];
-                                chart_type python: chart_type;">
+                                chart_type python: current_chart['type'];">
                               <div class='chart-custom-settings'
                                     style="display:none"
                                     tal:attributes="
