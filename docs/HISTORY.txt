@@ -3,6 +3,9 @@ Changelog
 
 9.7.dev0 - (unreleased)
 -----------------------
+* Change: removed the full and short Indicator view logic, opting to show
+  the full toc view by default
+  [ichimdav refs #24440]
 
 9.6 - (2015-03-17)
 ------------------

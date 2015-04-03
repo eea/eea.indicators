@@ -324,26 +324,6 @@ ul.sortable_spec {
    margin-bottom: 0px !important;
 }
 
-.metadata-switch {
-    padding-left: 1.5em;
-    /* background-position: left center; */
-    /* background-repeat: no-repeat; */
-    font-weight: bold;
-    cursor: pointer;
-    font-size: 130%;
-    position: relative;
-    margin-left:50px;
-    margin-bottom: -54px !important;
-    top: -65px;
-    position: relative;
-    line-height: 22px !important;
-    width: 215px;
-    display: block !important;
-}
-.metadata-info-switchable {
-    display: none;
-}
-
 .metadata_date div {display:inline }
 
 /* Update ui images path
