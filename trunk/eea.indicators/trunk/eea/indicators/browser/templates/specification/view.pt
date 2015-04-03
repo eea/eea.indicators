@@ -86,8 +86,7 @@
         </div>
 
         <div id="definition-and-units" metal:define-macro="definition-and-units">
-          <h2 class="notoc" i18n:translate="">Indicator definition</h2>
-          <!-- notoc class is used in the assessment view -->
+          <h2 i18n:translate="">Indicator definition</h2>
           <tal:definition define="definition context/getDefinition">
             <p tal:condition="python:not definition" i18n:translate="">No definition
                 has been specified</p>
@@ -103,7 +102,7 @@
         </div>
 
                                 <div id="policy-context-and-references" metal:define-macro="policy-context-and-references">
-          <h2 id="policy_context" class="notoc" i18n:translate="">Policy context and targets</h2>
+          <h2 id="policy_context" i18n:translate="">Policy context and targets</h2>
 
           <h3 i18n:translate="">Context description</h3>
           <tal:policy_description define="policy_description context/getPolicy_context_description">
@@ -149,7 +148,7 @@
         </tal:policy_question>
 
         <div id="methodology-and-references" metal:define-macro="methodology-and-references">
-          <h2 class="notoc" i18n:translate="">Methodology</h2>
+          <h2 i18n:translate="">Methodology</h2>
 
           <tal:methodology define="methodology context/getMethodology">
           <h3 i18n:translate="">Methodology for indicator calculation</h3>
@@ -241,7 +240,7 @@
 
         </div>
         <div id="uncertainties-part" metal:define-macro="uncertainties-part">
-          <h2 id="uncertainties" class="notoc" i18n:translate="">Uncertainties</h2>
+          <h2 id="uncertainties" i18n:translate="">Uncertainties</h2>
 
           <h3 i18n:translate="">Methodology uncertainty</h3>
           <tal:methodology_uncertainty define="methodology_uncertainty context/getMethodology_uncertainty">

@@ -120,13 +120,9 @@
         <metal:toc use-macro="here/portlet_toc/macros/portlet"/>
       </tal:block>
 
-      <div class="metadata-switch metadata-switch-show standardButton"
-           i18n:translate="">Switch to full indicator view</div>
 
       <div class="visualClear"><!-- --></div>
-      <div class="metadata-info-switchable">
-        <metal:definition-and-units use-macro="specification/@@view/macros/definition-and-units" />
-      </div>
+      <metal:definition-and-units use-macro="specification/@@view/macros/definition-and-units" />
       <br class="visualClear" />
       <div tal:define="assessments context/get_assessments;
         key nocall:assessments/key;
@@ -186,15 +182,9 @@
       <div class="indicator-metadata-info">
         <metal:justification use-macro="specification/@@view/macros/justification-and-references" />
       </div>
-      <div class="metadata-info-switchable">
         <metal:policy use-macro="specification/@@view/macros/policy-context-and-references" />
-      </div>
-      <div class="metadata-info-switchable">
         <metal:methodology use-macro="specification/@@view/macros/methodology-and-references" />
-      </div>
-      <div class="metadata-info-switchable">
         <metal:uncertainties use-macro="specification/@@view/macros/uncertainties-part" />
-      </div>
 
       <h2 id="methodology" i18n:translate="">More information about this indicator</h2>
       <p i18n:translate="">See this
