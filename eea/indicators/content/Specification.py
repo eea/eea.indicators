@@ -516,18 +516,18 @@ class SpecificationThemeSchemaModifier(object):
     def __init__(self, context):
         self.context = context
 
-    def fiddle(self, schema):
+    def fiddle(self, specification_schema):
         """Fiddle the schema
         """
         # first i make a copy of the themes field otherwise the changes 
         # will apply for all content types
-        schema['themes'] = schema['themes'].copy()
+        specification_schema['themes'] = specification_schema['themes'].copy()
 
         # set required_for_published and the schemata
-        schema['themes'].required_for_published = True
+        specification_schema['themes'].required_for_published = True
 
         #set the order of the fields
-        old_order = schema._names
+        old_order = specification_schema._names
         new_order = []
         for _info in _field_order:
             new_order.extend(_info['fields'])
@@ -535,7 +535,7 @@ class SpecificationThemeSchemaModifier(object):
         for name in old_order:
             if name not in new_order:
                 new_order.append(name)
-        schema._names = new_order
+        specification_schema._names = new_order
 
 
 class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
