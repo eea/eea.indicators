@@ -13,6 +13,7 @@
     <include file="profiles.zcml" />
     <include package=".faceted" />
     <include package=".browser" />
+    <include package=".content" />
 
     <interface interface="eea.indicators.content.interfaces.IIndicatorsDatabase" />
 

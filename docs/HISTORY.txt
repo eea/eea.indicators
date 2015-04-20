@@ -3,6 +3,10 @@ Changelog
 
 9.7.dev0 - (unreleased)
 -----------------------
+* Change: Updated the way how the 'themes' field is added:
+  instead of modifying directly the schema, use a SchemaModifier,
+  Updated tests
+  [szabozo0 refs #24412]
 * Change: removed the full and short Indicator view logic, opting to show
   the full toc view by default
   [ichimdav refs #24440]
