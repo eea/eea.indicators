@@ -4,7 +4,6 @@
 """
 from AccessControl import ClassSecurityInfo
 from Products.ATContentTypes.content.folder import ATFolder, ATFolderSchema
-from Products.ATContentTypes.content.schemata import finalizeATCTSchema
 from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
 from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
 from Products.Archetypes.atapi import CalendarWidget
@@ -14,7 +13,7 @@ from Products.Archetypes.atapi import SelectionWidget, LinesField
 from Products.Archetypes.atapi import StringField, TextField
 from Products.Archetypes.atapi import TextAreaWidget
 from Products.Archetypes.event import ObjectInitializedEvent
-from Products.Archetypes.utils import addStatusMessage, DisplayList, OrderedDict
+from Products.Archetypes.utils import addStatusMessage, DisplayList
 from Products.CMFCore import permissions
 from Products.CMFCore.permissions import AddPortalContent
 from Products.CMFCore.utils import getToolByName
@@ -26,7 +25,6 @@ from Products.DataGridField import DataGridField, DataGridWidget
 from Products.DataGridField.Column import Column
 from Products.DataGridField.SelectColumn import SelectColumn
 from Products.EEAContentTypes.content.ThemeTaggable import ThemeTaggable
-from Products.EEAContentTypes.content.ThemeTaggable import ThemeTaggable_schema
 from Products.UserAndGroupSelectionWidget import UserAndGroupSelectionWidget
 from archetypes.schemaextender.interfaces import ISchemaModifier
 from eea.dataservice.widgets import MultiOrganisationsWidget
@@ -500,7 +498,8 @@ _field_order = [
             },
         {
             'name':'Categorization',
-            'fields':['themes', 'subject', 'relatedItems', 'location', 'language', 'temporalCoverage']
+            'fields':['themes', 'subject', 'relatedItems', 'location',
+                      'language', 'temporalCoverage']
             },
         {
             'name':'Responsability',
@@ -510,12 +509,16 @@ _field_order = [
 
 
 class SpecificationThemeSchemaModifier(object):
+    """Schema Modifier for Specification field
+    """
     implements(ISchemaModifier)
 
     def __init__(self, context):
         self.context = context
 
     def fiddle(self, schema):
+        """Fiddle the schema
+        """
         # first i make a copy of the themes field otherwise the changes 
         # will apply for all content types
         schema['themes'] = schema['themes'].copy()
