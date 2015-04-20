@@ -14,7 +14,7 @@ from Products.Archetypes.atapi import SelectionWidget, LinesField
 from Products.Archetypes.atapi import StringField, TextField
 from Products.Archetypes.atapi import TextAreaWidget
 from Products.Archetypes.event import ObjectInitializedEvent
-from Products.Archetypes.utils import addStatusMessage, DisplayList
+from Products.Archetypes.utils import addStatusMessage, DisplayList, OrderedDict
 from Products.CMFCore import permissions
 from Products.CMFCore.permissions import AddPortalContent
 from Products.CMFCore.utils import getToolByName
@@ -28,6 +28,7 @@ from Products.DataGridField.SelectColumn import SelectColumn
 from Products.EEAContentTypes.content.ThemeTaggable import ThemeTaggable
 from Products.EEAContentTypes.content.ThemeTaggable import ThemeTaggable_schema
 from Products.UserAndGroupSelectionWidget import UserAndGroupSelectionWidget
+from archetypes.schemaextender.interfaces import ISchemaModifier
 from eea.dataservice.widgets import MultiOrganisationsWidget
 from eea.indicators import msg_factory as _
 from eea.indicators.browser.assessment import create_version as createVersion
@@ -461,15 +462,14 @@ Specification_schema = ATFolderSchema.copy() + \
         getattr(ATFolder, 'schema', Schema(())).copy() + \
         schema.copy()
 
-Specification_schema = Specification_schema + ThemeTaggable_schema.copy()
-Specification_schema['themes'].schemata = 'Classification'
-Specification_schema['themes'].required_for_published = True
 
 # Batch reorder of the fields
 
 #this is created like this because we want explicit control over how the
 #schemata fields are ordered and changing this in the UML modeler is just too
 #time consuming
+
+
 _field_order = [
         {
             'name':'default',
@@ -492,11 +492,15 @@ _field_order = [
             },
         {
             'name':'DataSpecs',
-            'fields':['relatedItems', 'data_uncertainty']
+            'fields':['data_uncertainty']
             },
         {
             'name':'Classification',
-            'fields':['codes', 'dpsir', 'typology', 'themes']
+            'fields':['codes', 'dpsir', 'typology']
+            },
+        {
+            'name':'Categorization',
+            'fields':['themes', 'subject', 'relatedItems', 'location', 'language', 'temporalCoverage']
             },
         {
             'name':'Responsability',
@@ -504,18 +508,31 @@ _field_order = [
             },
         ]
 
-old_order = Specification_schema._names
-new_order = []
-for _info in _field_order:
-    new_order.extend(_info['fields'])
 
-#add fields that are not in our specified list at the end of the schema
-for name in old_order:
-    if name not in new_order:
-        new_order.append(name)
+class SpecificationThemeSchemaModifier(object):
+    implements(ISchemaModifier)
 
-Specification_schema._names = new_order
-finalizeATCTSchema(Specification_schema)
+    def __init__(self, context):
+        self.context = context
+
+    def fiddle(self, schema):
+        # first i make a copy of the themes field otherwise the changes 
+        # will apply for all content types
+        schema['themes'] = schema['themes'].copy()
+
+        # set required_for_published and the schemata
+        schema['themes'].required_for_published = True
+
+        #set the order of the fields
+        old_order = schema._names
+        new_order = []
+        for _info in _field_order:
+            new_order.extend(_info['fields'])
+        #add fields that are not in our specified list at the end of the schema
+        for name in old_order:
+            if name not in new_order:
+                new_order.append(name)
+        schema._names = new_order
 
 
 class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,

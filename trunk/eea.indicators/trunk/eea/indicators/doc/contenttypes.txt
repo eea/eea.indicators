@@ -286,10 +286,12 @@ implement eea.workflow.interfaces.IHasMandatoryWorkflowFields:
     >>> from eea.workflow.readiness import OTHER_METADATA_FIELDS
     >>> from zope.component import getMultiAdapter
     >>> from eea.workflow.interfaces import IFieldIsRequiredForState
+    >>> from Products.Archetypes.interfaces import ISchema
     >>> def get_required_for_published(context):
     ...     i = 0
-    ...     for field in context.schema.fields():
-    ...         if field.isMetadata or field.getName in OTHER_METADATA_FIELDS:
+    ...     for field in ISchema(context).values():
+    ...     #for field in context.schema.fields():
+    ...         if field.isMetadata or field.getName() in OTHER_METADATA_FIELDS:
     ...             continue
     ...         required_for = getMultiAdapter((context, field), interface=IFieldIsRequiredForState)
     ...         is_needed = required_for(state_name)
@@ -301,7 +303,9 @@ implement eea.workflow.interfaces.IHasMandatoryWorkflowFields:
     >>> def percentage(val):
     ...     return int(float(val) /total_fields * 100.0)
 
-A specification has 21 fields.
+NOTE: now also the fields from schema extenders are counted so the total number of fields is 25
+
+Without the schema extenders we had 21 fields.
 
 NOTE plone4: they used to be 22. What happened?
 
@@ -332,12 +336,12 @@ specification doesn't have an invalid specification code.
 'optional_empty' is the number of fields that are not required for that state and don't have a value.
 
     >>> info['optional_empty']
-    9
+    12
 
 'total_fields' is the grand total number of fields. There are 21 fields
 
     >>> info['total_fields']
-    22
+    25
 
 Let's fill in another field, this time 'codes':
 
