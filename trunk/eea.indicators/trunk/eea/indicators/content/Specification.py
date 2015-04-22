@@ -445,7 +445,7 @@ schema = Schema((
         schema=frequency_of_updates_schema,
         schemata='default',
         required_for_published=True,
-        #validator='validate_frequency_of_updates',#not supported by simple_edit
+        validators=('validate_frequency_years',),
         #required=True,
         widget=CompoundWidget(
             label="Frequency of updates",
@@ -987,9 +987,14 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
                 msgs.append("Time of year is not properly set.")
 
             if line['years_freq']:
-                if not (int(float(line['years_freq'])) in range(1, 11)):
-                    msgs.append("Frequency needs to be a number between "
-                                "1 and 10.")
+                error_msg = "Frequency needs to be a number between " \
+                                "1 and 10."
+                try:
+                    year_freq = int(float(line['years_freq']))
+                    if not (year_freq in range(1, 11)):
+                        msgs.append(year_freq)
+                except ValueError:
+                    msgs.append(error_msg)
 
         if not info['starting_date']:
             msgs.append("Starting date needs to be filled in.")
