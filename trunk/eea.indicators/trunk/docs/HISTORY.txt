@@ -3,6 +3,9 @@ Changelog
 
 9.7.dev0 - (unreleased)
 -----------------------
+* Change: frequency_of_updates now implements the FrequencyUpdateValidator
+  and the DataGridWidgets no longer auto insert rows
+  [ichimdav refs #22900]
 * Change: Updated the way how the 'themes' field is added:
   instead of modifying directly the schema, use a SchemaModifier,
   Updated tests
