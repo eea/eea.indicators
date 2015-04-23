@@ -156,7 +156,7 @@ schema = Schema((
             columns={'set':SelectColumn("Set ID",
                 vocabulary="get_indicator_codes"),
                 "code":Column("Code number")},
-            auto_insert=True,
+            auto_insert=False,
             label_msgid='indicatorsfactsheet_label_codes',
             i18n_domain='indicators',
             ),
