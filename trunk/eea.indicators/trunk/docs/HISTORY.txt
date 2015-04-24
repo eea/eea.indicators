@@ -3,6 +3,9 @@ Changelog
 
 9.7.dev0 - (unreleased)
 -----------------------
+* Change: Updated error message to include the missing fields for 
+  unpublishable figures
+  [szabozo0 refs #24412]
 * Change: frequency_of_updates now implements the FrequencyUpdateValidator
   and the DataGridWidgets no longer auto insert rows
   [ichimdav refs #22900]
