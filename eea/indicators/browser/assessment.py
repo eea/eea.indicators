@@ -186,9 +186,7 @@ def hasUnpublishableFigure(ast):
 
     Also check that the figure is actually publishable
     """
-
     wftool = getToolByName(ast, 'portal_workflow')
-
     for part in ast.objectValues("AssessmentPart"):
         figures = [f for f in part.getRelatedItems()
                         if f.portal_type in ('EEAFigure',
@@ -207,42 +205,78 @@ def hasUnpublishableFigure(ast):
 
     return False
 
+def getUnpublishableFiguresMissingInformation(ast):
+    """ Collect and merge info about unpublishable figures
+    """
+
+    message = 'Some of the figures in this indicator are not completed, ' + \
+        'please check each of the figures to see what required information' + \
+        'is missing.<br/>'
+
+    wftool = getToolByName(ast, 'portal_workflow')
+    for part in ast.objectValues("AssessmentPart"):
+        figures = [f for f in part.getRelatedItems()
+                        if f.portal_type in ('EEAFigure',
+                                             'DavizVisualization')]
+        for fig in figures:
+            #skip published figures
+            if wftool.getInfoFor(fig, 'review_state') == 'published':
+                continue
+            #add message on not finished figures
+            info = IObjectReadiness(fig).get_info_for('published')
+            if len(info['rfs_field_names']) != 0:
+                fig_message = "Figure <b>%s</b> needs the " % fig.title + \
+                    "following required fields to be filled in: "
+                for field in info['rfs_field_names']:
+                    fig_message += "%s," % field[1]
+                fig_message = fig_message[0:-1]
+                fig_message += "<br/>"
+                message += fig_message
+                continue
+            #check that the figures are actually publishable
+            if not [t for t in wftool.getTransitionsFor(fig) if
+                    t['id'] in ('publish', 'quickPublish')]:
+                message += "Figure <b>%s</b> is not publishable<br/>" \
+                % fig.title
+    return message
 
 class WorkflowStateReadiness(ObjectReadiness):
     """ObjectReadiness customizations"""
 
     #ZZZ: translate messages
 
-    checks = {'published':(
+    def __init__(self, context):
+        self.context = context
+        self.checks = {'published':(
+            (lambda o:hasWrongVersionId(o),
+                'This Assessment belongs to the wrong version group. '
+                'To fix this please visit the Indicator Specification '
+                'edit page.'),
 
-        (lambda o:hasWrongVersionId(o),
-        'This Assessment belongs to the wrong version group. To fix this '
-        'please visit the Indicator Specification edit page.'),
-
-        (lambda o: bool([p for p in o.objectValues("AssessmentPart")
+            (lambda o: bool([p for p in o.objectValues("AssessmentPart")
                         if not IObjectReadiness(p).is_ready_for('published')]),
-        'You need to fill in the assessments for all the policy questions.'),
+                'You need to fill in the assessments '
+                'for all the policy questions.'),
 
-        (lambda o:not IObjectReadiness(
-                           aq_parent(aq_inner(o))).is_ready_for('published'),
-     "You need to finish the <a href='../'>Indicator Specification</a> first!"),
+            (lambda o:not IObjectReadiness(
+                        aq_parent(aq_inner(o))).is_ready_for('published'),
+                "You need to finish the <a href='../'>"
+                "Indicator Specification</a> first!"),
 
-        (lambda o: 'published' != getToolByName(o, 'portal_workflow').
-                            getInfoFor(aq_parent(aq_inner(o)), 'review_state'),
-        "The Indicator Specification needs to be published."
-        ),
+            (lambda o: 'published' != getToolByName(o, 'portal_workflow').
+                        getInfoFor(aq_parent(aq_inner(o)), 'review_state'),
+                "The Indicator Specification needs to be published."
+            ),
 
-        (lambda o: not [part for part in o.objectValues("AssessmentPart")
+            (lambda o: not [part for part in o.objectValues("AssessmentPart")
                         if has_one_of(["EEAFigure", "DavizVisualization"],
-                                      part.getRelatedItems())],
-        "The answered policy questions need to point to at least one "
-        "Figure or Daviz Visualization."),
+                                          part.getRelatedItems())],
+                "The answered policy questions need to point to at least one "
+                "Figure or Daviz Visualization."),
 
-        (lambda o:hasUnpublishableFigure(o),
-        'Some of the figures in this indicator are not completed, please check'
-        ' each of the figures to see what required information is missing.'),
-
-    )}
+            (lambda o:hasUnpublishableFigure(o),
+                getUnpublishableFiguresMissingInformation(context))
+        )}
 
     @property
     def depends_on(self):

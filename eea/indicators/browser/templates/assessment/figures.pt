@@ -71,7 +71,7 @@
             <tal:block tal:condition="nocall:inline_chart">
                 <tal:wtool define="wtool nocall:here/portal_workflow;">
                     <tal:block tal:condition="python: wtool.getInfoFor(obj,'review_state',None) != 'published'">
-                        <div class="warningMessage portalMessage visualNoPrint"> Warning! This visualization is not published, anonimous users might have issues viewing it</div>
+                        <div class="warningMessage portalMessage visualNoPrint"> Warning! This visualization is not published, anonymous users will not be able to see it</div>
                     </tal:block>
                 </tal:wtool>
             <div class="indicator-figure-image">
