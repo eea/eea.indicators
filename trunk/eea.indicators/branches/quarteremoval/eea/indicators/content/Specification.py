@@ -67,11 +67,7 @@ frequency_of_updates_schema = Schema((
             description="",
             columns={'years_freq':
                         Column("Years frequency"),
-                     'time_of_year':
-                        SelectColumn(
-                            "Trimester",
-                            vocabulary="get_trimesters_vocabulary",
-                            )},
+                     },
             auto_insert=False,
             label_msgid='indicators_label_codes',
             i18n_domain='indicators',
@@ -958,8 +954,8 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
             else:
                 times = '%s ' % _times[len(out[key])]
 
-            result.append("%s%s year%s in %s" %
-                    (times, every_msg, suffix, qrts_msg))
+            result.append("%s%s year%s" %
+                    (times, every_msg, suffix))
 
         phrase = 'Updates are scheduled ' + ',\n'.join(result[:-1])
 
