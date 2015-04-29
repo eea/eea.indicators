@@ -373,7 +373,7 @@ Let's move on making this spec ready for publishing:
     >>> spec.setThemes([u'something'])
     >>> spec.setOwnership([u'something'])
     >>> updates = spec.getFrequency_of_updates()
-    >>> frequency = ([{'time_of_year':'Q1', 'years_freq':'2'}], {})
+    >>> frequency = ([{'years_freq':'2'}], {})
     >>> updates['frequency'] = frequency
     >>> updates['starting_date'] = now
     >>> spec.setFrequency_of_updates(updates)
@@ -599,15 +599,15 @@ expect new updates.
     >>> print spec.get_frequency_of_updates()
     Required information is not filled in: Information about the starting date of the publishing schedule is missing.
 
-Fill in time_of_year and years frequency
+Fill in years frequency
 
     >>> updates = spec.getFrequency_of_updates()
-    >>> frequency = ([{'time_of_year':'Q1', 'years_freq':'2'}], {})
+    >>> frequency = ([{'years_freq':'2'}], {})
     >>> updates['frequency'] = frequency
     >>> updates['starting_date'] = now
     >>> spec.setFrequency_of_updates(updates)
     >>> print spec.get_frequency_of_updates()
-    Updates are scheduled every 2 years in January-March (Q1)
+    Updates are scheduled every 2 years
 
 Setting an ending date in the future has no impact in what is shown:
 
@@ -615,7 +615,7 @@ Setting an ending date in the future has no impact in what is shown:
     >>> updates['ending_date'] = ending
     >>> spec.setFrequency_of_updates(updates)
     >>> print spec.get_frequency_of_updates()
-    Updates are scheduled every 2 years in January-March (Q1)
+    Updates are scheduled every 2 years
     >>> print spec.is_discontinued()
     False
 

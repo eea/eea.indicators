@@ -3,6 +3,8 @@ Changelog
 
 9.7.dev0 - (unreleased)
 -----------------------
+* Change: frequency_of_updates no longer contains quarter information
+  [ichimdav refs #24322]
 * Change: Updated error message to include the missing fields for 
   unpublishable figures
   [szabozo0 refs #24412]

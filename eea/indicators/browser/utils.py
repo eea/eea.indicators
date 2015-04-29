@@ -84,7 +84,6 @@ class FrequencyOfUpdatesFieldValueProvider(ATFieldValueProvider):
     def has_value(self, **kwargs):
         """ Returns true if text field has at least 2 words in it
         """
-
         accessor = self.field.getAccessor(self.context)
         if not accessor:
             msg = "Field %s for %s has no accessor" % (self.field,
@@ -101,12 +100,8 @@ class FrequencyOfUpdatesFieldValueProvider(ATFieldValueProvider):
                 return False
 
         for line in value['frequency']:
-            if (not line['years_freq']) and (not line['time_of_year']):
+            if not line['years_freq']:
                 continue
-            if not (line['time_of_year'] in ['Q1', 'Q2', 'Q3', 'Q4']):
-                return False
-            if line['time_of_year'] and not line['years_freq']:
-                return False
 
         return True
 

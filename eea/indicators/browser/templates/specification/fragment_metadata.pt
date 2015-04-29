@@ -335,12 +335,6 @@
                                             <ul tal:repeat="data value">
                                                 <li i18n:translate="raw_freq_of_updates" tal:define="years_freq python:data.get('years_freq')">
                                                     Every <span i18n:name="years_freq" tal:content="years_freq"/> year(s)
-                                                    <ul>
-                                                        <li tal:define="time_of_year python: data.get('time_of_year')">
-                                                            <span i18n:translate="">Quarter: </span>
-                                                            <span tal:content="time_of_year"/>
-                                                        </li>
-                                                    </ul>
                                                 </li>
                                             </ul>
                                         </tal:block>
