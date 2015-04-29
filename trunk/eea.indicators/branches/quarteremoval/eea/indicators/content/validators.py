@@ -107,7 +107,6 @@ class FrequencyUpdateValidator:
         self.description = description
 
     def __call__(self, value, *args, **kwargs):
-
         # error message is required in order to trigger the validation
         error_msg = "Validation failed, Year value should be a number between" \
                     " 1 and 10"
@@ -122,8 +121,11 @@ class FrequencyUpdateValidator:
         frequency = value.get('frequency')
         if frequency:
             for row in frequency[0]:
+                val = row.get('years_freq')
+                if not val:
+                    continue
                 try:
-                    v = int(row.get('years_freq'))
+                    v = int(val)
                 except (TypeError, ValueError):
                     return error_msg
 

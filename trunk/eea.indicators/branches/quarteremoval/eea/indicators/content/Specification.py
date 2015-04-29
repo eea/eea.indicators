@@ -882,8 +882,6 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
         starting = info['starting_date']
         frequency = info['frequency']
 
-        # time_of_year = info['time_of_year'].strip()
-        # frequency_years = info['frequency_years']
         now = DateTime()
 
         if type(starting) is not type(now):
@@ -895,7 +893,6 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
                 return ("This indicator is discontinued. No more "
                         "assessments will be produced.")
 
-        #if frequency_years in [None, ""]:
         if not frequency:
             return "Required information is not filled in: Information about " \
                    "frequency of update for this indicator is missing."

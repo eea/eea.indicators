@@ -607,7 +607,7 @@ Fill in years frequency
     >>> updates['starting_date'] = now
     >>> spec.setFrequency_of_updates(updates)
     >>> print spec.get_frequency_of_updates()
-    Updates are scheduled every 2 years in January-March (Q1)
+    Updates are scheduled every 2 years
 
 Setting an ending date in the future has no impact in what is shown:
 
@@ -615,7 +615,7 @@ Setting an ending date in the future has no impact in what is shown:
     >>> updates['ending_date'] = ending
     >>> spec.setFrequency_of_updates(updates)
     >>> print spec.get_frequency_of_updates()
-    Updates are scheduled every 2 years in January-March (Q1)
+    Updates are scheduled every 2 years
     >>> print spec.is_discontinued()
     False
 
