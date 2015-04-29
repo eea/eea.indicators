@@ -122,9 +122,6 @@ class FrequencyUpdateValidator:
         frequency = value.get('frequency')
         if frequency:
             for row in frequency[0]:
-                # skip row if there is no time_of_year which means it's empty
-                if not row['time_of_year'].strip():
-                    continue
                 try:
                     v = int(row.get('years_freq'))
                 except (TypeError, ValueError):

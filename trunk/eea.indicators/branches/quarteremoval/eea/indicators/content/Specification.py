@@ -72,7 +72,7 @@ frequency_of_updates_schema = Schema((
             label_msgid='indicators_label_codes',
             i18n_domain='indicators',
             ),
-        columns=("years_freq", "time_of_year"),
+        columns=("years_freq",),
         required_for_published=True,
         #validators=('isInt',),
         #allow_empty_rows=True,
@@ -877,7 +877,6 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
     def get_frequency_of_updates(self):
         """human readable frequency of updates
         """
-
         info = self.getFrequency_of_updates()
         ending = info['ending_date']
         starting = info['starting_date']
@@ -900,14 +899,6 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
         if not frequency:
             return "Required information is not filled in: Information about " \
                    "frequency of update for this indicator is missing."
-
-        _trims = {
-            'Q1':'January-March',
-            'Q2':'April-June',
-            'Q3':'July-September',
-            'Q4':'October-December',
-        }
-
         _times = {
             1:'once',
             2:'twice',
@@ -917,29 +908,20 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
 
         out = {}
         for line in frequency:
-            if not (line['years_freq'] and line['time_of_year']):
+            if not line['years_freq']:
                 continue
-            ty = line['time_of_year']
             try:
                 yf = int(float(line['years_freq']))
             except ValueError:
                 continue
 
             if yf not in out:
-                out[yf] = [ty]
+                out[yf] = [yf]
             else:
-                out[yf].append(ty)
+                out[yf].append(yf)
 
         result = []
         for key in sorted(out.keys()):
-            qrts_msg = ", ".join([" ".join([_trims.get(qrt), "(" + qrt + ")"])
-                                        for qrt in sorted(out[key])[:-1]])
-            if len(out[key]) > 1:
-                qrt = sorted(out[key])[-1]
-                qrts_msg = qrts_msg + '\nand ' + _trims.get(qrt) + " (" + qrt + ") "
-            elif len(out[key]) == 1:
-                qrt = sorted(out[key])[0]
-                qrts_msg = _trims.get(qrt) + " (" + qrt + ") "
 
             suffix = 's'
             every_msg = 'every %s' % key
@@ -976,11 +958,8 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
         frequency = info['frequency']
 
         for line in frequency:
-            if (not line['time_of_year']) and (not line['years_freq']):
+            if not line['years_freq']:
                 continue    #an empty record
-
-            if not (line['time_of_year'] in ['Q1', 'Q2', 'Q3', 'Q4']):
-                msgs.append("Time of year is not properly set.")
 
             if line['years_freq']:
                 error_msg = "Frequency needs to be a number between " \
@@ -1068,7 +1047,6 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
         self = <Specification at trends-in-share-of-expenditure>
         args = ({'ending_date': ('1996-01-01 00:00', {}),
                 'frequency_years': ('1', {}),
-                'time_of_year': ('Q2', {}),
                 'starting_date': ('2012-03-26 11:45', {})},)
         kwargs = {'field': 'frequency_of_updates'}
         """
