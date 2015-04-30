@@ -2,6 +2,7 @@
 """
 
 from AccessControl import ClassSecurityInfo
+from Products.Archetypes.interfaces import ISchema
 from Products.Archetypes.event import ObjectEditedEvent
 from Products.Archetypes.event import ObjectInitializedEvent
 from Products.Archetypes.utils import mapply
@@ -56,7 +57,7 @@ class ModalFieldEditableAware(object):
         if not fieldname:
             raise ValueError("Please provide a specific field")
 
-        field = self.schema[fieldname]
+        field = ISchema(self)[fieldname]
         result = field.widget.process_form(self, field, form,
                                            empty_marker=_marker)
         try:
