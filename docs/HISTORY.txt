@@ -1,8 +1,8 @@
 Changelog
 =========
 
-9.7.dev0 - (unreleased)
------------------------
+9.7 - (2015-05-05)
+------------------
 * Bugfix: fixed themes on @@edit_aggregated
   [szabozo0]
 * Change: frequency_of_updates no longer contains quarter information
