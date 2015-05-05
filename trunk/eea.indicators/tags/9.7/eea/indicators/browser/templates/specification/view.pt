@@ -1,0 +1,465 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+  metal:use-macro="here/main_template/macros/master"
+  i18n:domain="eea">
+
+  <!-- #TODO: * i18n:translate -->
+ <metal:javascript fill-slot="javascript_head_slot">
+<script type="text/javascript"
+    tal:attributes="src string:${context/portal_url}/++resource++indicators-toc.js">
+ </script>
+  </metal:javascript>
+
+  <body>
+    <div metal:fill-slot="content-title" class="specification_view">
+      <h1 class="documentFirstHeading" tal:content="context/Title">Title here</h1>
+    </div>
+    <div metal:fill-slot="content-description"></div>
+    <div metal:fill-slot="content-core" class="specification_view" id='region-content'>
+      <metal:main_macro define-macro="main"
+        tal:define="portal_type python:here.getPortalTypeName().lower().replace(' ', '_');
+        base_macros here/base/macros;
+        view_template python:'%s_view' % portal_type;
+        view_macros python:path('here/%s/macros|nothing' % view_template);
+        specification python:context;">
+
+        <div id="content-more-updates-on"
+          class="system-message warningMessage"
+          tal:condition="context/getMore_updates_on"
+          tal:content="structure context/getMore_updates_on" />
+
+        <div id="frequency_of_updates" class="system-message"
+            tal:content="context/get_frequency_of_updates"
+            tal:condition="context/is_discontinued"/>
+
+        <tal:block define="queryString string:h2">
+          <metal:toc use-macro="here/portlet_toc/macros/portlet"/>
+        </tal:block>
+
+        <div id="assessment-versions" tal:define="assessments context/@@assessment_versions;
+          published python:assessments['published'];
+          draft python:assessments['draft']">
+          <a name="versions"></a>
+          <h2 id="assessment_versions" i18n:translate="">Assessment versions</h2>
+          <h5 i18n:translate="">Published (reviewed and quality assured)</h5>
+          <ul>
+            <li tal:condition="python:not published" i18n:translate="">No
+                published assessments</li>
+            <li tal:repeat="assessment published">
+              <a tal:attributes="href assessment/absolute_url" tal:content="assessment/Title">
+                Assessment title here
+              </a>
+            </li>
+          </ul>
+
+          <tal:draft_versions condition="not:context/@@plone_portal_state/anonymous">
+            <h5 i18n:translate="">Draft (not yet published - not quality assured)</h5>
+            <ul>
+              <li tal:condition="python:not draft">No drafts available</li>
+              <li tal:repeat="assessment draft">
+                <a tal:attributes="href assessment/absolute_url" tal:content="assessment/Title">
+                  Assessment title here
+                </a>
+              </li>
+            </ul>
+          </tal:draft_versions>
+
+        </div>
+
+        <div id="justification-and-references" metal:define-macro="justification-and-references">
+          <h2 i18n:translate="">Justification for indicator selection</h2>
+          <tal:justification define="rationale_justification context/rationale_justification">
+            <p tal:replace="structure rationale_justification"
+              tal:condition="python:rationale_justification">Rationale justification</p>
+            <p tal:condition="python:not rationale_justification">No rationale/justification has been specified</p>
+          </tal:justification>
+
+          <h3 i18n:translate="">Scientific references:</h3>
+          <ul tal:define="refs python:specification.getFolderContents(contentFilter={'portal_type':'RationaleReference'})">
+            <li tal:condition="python:not refs">No rationale references
+                available</li>
+            <li tal:repeat="ref refs">
+              <a href="" tal:attributes="href python:ref.getRemoteUrl or ref.absolute_url()"
+                tal:content="ref/Title">Ref title</a>
+              <p tal:replace="structure ref/Description" />
+            </li>
+          </ul>
+        </div>
+
+        <div id="definition-and-units" metal:define-macro="definition-and-units">
+          <h2 i18n:translate="">Indicator definition</h2>
+          <tal:definition define="definition context/getDefinition">
+            <p tal:condition="python:not definition" i18n:translate="">No definition
+                has been specified</p>
+            <p tal:condition="python:definition" tal:replace="structure definition"></p>
+          </tal:definition>
+
+          <h3 i18n:translate="">Units</h3>
+          <tal:units define="units context/getUnits">
+            <p tal:condition="python:not units" i18n:translate="">No units have been
+                specified</p>
+            <p tal:condition="python:units" tal:replace="structure units"></p>
+          </tal:units>
+        </div>
+
+                                <div id="policy-context-and-references" metal:define-macro="policy-context-and-references">
+          <h2 id="policy_context" i18n:translate="">Policy context and targets</h2>
+
+          <h3 i18n:translate="">Context description</h3>
+          <tal:policy_description define="policy_description context/getPolicy_context_description">
+          <p tal:condition="python:policy_description" tal:content="structure policy_description"></p>
+          <p tal:condition="python:not policy_description" i18n:translate="">No
+              context has been specified</p>
+          </tal:policy_description>
+
+          <h3 i18n:translate="">Targets</h3>
+          <tal:policy_targets define="policy_targets context/getPolicy_context_targets">
+          <p tal:condition="python:policy_targets" tal:content="structure policy_targets"></p>
+          <p tal:condition="python:not policy_targets" i18n:translate="">No targets
+              have been specified</p>
+          </tal:policy_targets>
+
+          <tal:policy_documents define="policyDocuments nocall:specification/@@related_items;
+          policy_documents python:policyDocuments('PolicyDocumentReference', sort=True)">
+          <h3 i18n:translate="">Related policy documents</h3>
+          <ul tal:condition="python:policy_documents">
+            <li tal:repeat="doc policy_documents">
+              <a href="" tal:attributes="href doc/getRemoteUrl" tal:content="doc/Title">
+                Doc title here
+              </a>
+              <div tal:content="structure doc/Description" />
+            </li>
+          </ul>
+          <p tal:condition="python:not policy_documents" i18n:translate="">No related policy documents have been specified</p>
+          </tal:policy_documents>
+        </div>
+
+        <tal:policy_question define="policy_questions context/@@policy_questions;
+          all_questions python:policy_questions['all'];
+          key_questions python:policy_questions['key_questions'];
+          questions python:policy_questions['questions']">
+          <tal:key_question repeat="question key_questions">
+            <h2 class="policy_question" i18n:translate="">Key policy question</h2>
+            <h3 tal:content="question/Title" i18n:translate="">Question title</h3>
+          </tal:key_question>
+          <tal:question repeat="question questions">
+            <h2 class="policy_question" i18n:translate="">Specific policy question</h2>
+            <h3 tal:content="question/Title" i18n:translate="">Question title</h3>
+          </tal:question>
+        </tal:policy_question>
+
+        <div id="methodology-and-references" metal:define-macro="methodology-and-references">
+          <h2 i18n:translate="">Methodology</h2>
+
+          <tal:methodology define="methodology context/getMethodology">
+          <h3 i18n:translate="">Methodology for indicator calculation</h3>
+          <p tal:condition="python:methodology" tal:content="structure methodology" />
+          <p tal:condition="python:not methodology" i18n:translate="">No methodology for indicator calculation has been specified</p>
+          </tal:methodology>
+
+          <tal:methodology_gapfilling define="methodology_gapfilling context/getMethodology_gapfilling">
+          <h3 i18n:translate="">Methodology for gap filling</h3>
+          <p tal:condition="python:methodology_gapfilling"
+             tal:replace="structure methodology_gapfilling" />
+          <p tal:condition="python:not methodology_gapfilling"
+             i18n:translate="">
+            No methodology for gap filling has been specified.
+            Probably this info has been added together with indicator calculation.</p>
+          </tal:methodology_gapfilling>
+
+          <h3 i18n:translate="">Methodology references</h3>
+          <tal:methodology_references define="references python:specification.getFolderContents(contentFilter={'portal_type':'MethodologyReference'})">
+          <ul tal:condition="python:references">
+            <li tal:repeat="ref references">
+              <a href="" tal:attributes="href ref/getRemoteUrl" tal:content="ref/Title">Ref</a>
+              <p tal:replace="structure ref/Description" />
+            </li>
+          </ul>
+          <p tal:condition="python:not references" i18n:translate="">No methodology
+              references available.</p>
+          </tal:methodology_references>
+        </div>
+        <!-- TODO: #3273 -->
+        <!-- TODO: add extra info from datasets like owner/provider/processor-->
+        <div id="data-specifications" metal:define-macro="data-specifications"
+          tal:define="datasetsView nocall:here/@@related_items;
+          auto_relations nocall:here/@@auto-relations.html">
+          <h2 id="data_specifications" i18n:translate="">Data specifications</h2>
+          <h3 i18n:translate="">EEA data references</h3>
+          <ul tal:define="datasets python:datasetsView('Data')">
+            <li tal:condition="python:not datasets" i18n:translate="">No datasets have been specified here.</li>
+            <li tal:repeat="data datasets" tal:condition="python:datasets">
+              <a href=""
+                tal:attributes="href string:${context/portal_url}/data-and-maps/data/ds_resolveuid/${data/@@getVersions/versionId}"
+                tal:content="data/title">Dataset title</a><!-- TODO: to show title from latest dataset version -->
+                provided by
+                  <span tal:repeat="url python:data.getDataOwner()">
+                   <tal:organisations condition="python:context.getOrganisationName(url)">
+                    <strong tal:content="python:context.getOrganisationName(url).Title" />
+                    <span tal:condition="not: repeat/url/end" tal:replace="string:, " />
+                   </tal:organisations>
+                  </span>
+            </li>
+          </ul>
+
+          <tal:external define="datasets python:datasetsView('ExternalDataSpec')">
+            <h3 tal:condition="python:datasets" i18n:translate="">External data references</h3>
+            <ul tal:condition="python:datasets">
+              <li tal:repeat="data datasets">
+                <a href="" tal:attributes="href data/absolute_url"
+                  tal:content="data/title">Dataset title</a>
+              </li>
+            </ul>
+          </tal:external>
+
+          <!-- TODO: to show other data sources coming from figures related dataset field #3452 -->
+
+          <tal:auto define="tabs python:auto_relations.tabs">
+            <h3 i18n:translate="">Data sources in latest figures</h3>
+            <div class="visualNoMarker">
+              <tal:tab repeat="tab tabs">
+                <tal:def define="label python:tab[0]; related python:tab[1]">
+                  <tal:figures condition="python:label=='Latest figures'">
+                    <tal:related tal:repeat="item related">
+                      <dl class="tileItem visualIEFloatFix vevent" tal:define="
+                        item item/getObject | nocall:item;
+                        title item/title_or_id;
+                        description item/description;
+                        url item/absolute_url;
+                        source_info item/dataSource | nocall:title;
+                        ">
+                        <dt tal:content="structure source_info"></dt>
+                        <dd i18n:translate="">Used in figure <a tal:attributes="href url;" tal:content="title" i18n:name="link"></a></dd>
+                      </dl>
+                    </tal:related>
+                  </tal:figures>
+                </tal:def>
+              </tal:tab>
+            </div>
+          </tal:auto>
+
+
+        </div>
+        <div id="uncertainties-part" metal:define-macro="uncertainties-part">
+          <h2 id="uncertainties" i18n:translate="">Uncertainties</h2>
+
+          <h3 i18n:translate="">Methodology uncertainty</h3>
+          <tal:methodology_uncertainty define="methodology_uncertainty context/getMethodology_uncertainty">
+          <p tal:condition="python:methodology_uncertainty"
+             tal:replace="structure methodology_uncertainty"></p>
+          <p tal:condition="python:not methodology_uncertainty" i18n:translate="">No uncertainty has been specified</p>
+          </tal:methodology_uncertainty>
+
+          <h3 i18n:translate="">Data sets uncertainty</h3>
+          <tal:data_uncertainty define="data_uncertainty context/getData_uncertainty">
+          <p tal:condition="python:data_uncertainty" tal:replace="structure data_uncertainty"></p>
+          <p tal:condition="python:not data_uncertainty" i18n:translate="">No uncertainty has been specified</p>
+          </tal:data_uncertainty>
+
+          <h3 i18n:translate="">Rationale uncertainty</h3>
+          <tal:rationale_uncertainty define="rationale_uncertainty context/getRationale_uncertainty">
+          <p tal:condition="python:rationale_uncertainty" tal:replace="structure rationale_uncertainty"></p>
+          <p tal:condition="python:not rationale_uncertainty" i18n:translate="">No uncertainty has been specified</p>
+          </tal:rationale_uncertainty>
+        </div>
+
+
+        <h2 id="further_work" i18n:translate="">Further work</h2>
+
+        <tal:def tal:define="works context/get_work; short works/short; works works/long">
+          <h3 i18n:translate="">Short term work</h3>
+          <p i18n:translate="">Work specified here requires to be completed within 1 year from now.</p>
+          <div tal:repeat="work short">
+            <h4 i18n:translate="">Work description</h4>
+            <tal:description define="description work/Description">
+              <p tal:condition="python:description" tal:replace="structure description"></p>
+              <p tal:condition="python:not description" i18n:translate="">No further work description has been specified</p>
+            </tal:description>
+            <h4 i18n:translate="">Resource needs</h4>
+            <tal:needs define="needs work/getNeeds">
+              <p tal:condition="python:needs" tal:replace="structure needs"></p>
+              <p tal:condition="python:not needs" i18n:translate="">No resource needs have been specified</p>
+            </tal:needs>
+            <h4 i18n:translate="">Status</h4>
+            <tal:status define="status work/getStatus">
+              <p tal:condition="python:status" tal:replace="structure status"></p>
+              <p tal:condition="python:not status" i18n:translate="">No status has been specified</p>
+            </tal:status>
+            <h4 i18n:translate="">Deadline</h4>
+            <p tal:replace="structure work/getDue_date"></p>
+          </div>
+          <h3 i18n:translate="">Long term work</h3>
+          <p i18n:translate="">Work specified here will require more than 1 year (from now) to be completed.</p>
+          <div tal:repeat="work works">
+            <h4 i18n:translate="">Work description</h4>
+            <tal:description define="description work/Description">
+              <p tal:condition="python:description" tal:replace="structure description"></p>
+              <p tal:condition="python:not description" i18n:translate="">No further work description has been specified</p>
+            </tal:description>
+            <h4 i18n:translate="">Resource needs</h4>
+            <tal:needs define="needs work/getNeeds">
+              <p tal:condition="python:needs" tal:replace="structure needs"></p>
+              <p tal:condition="python:not needs" i18n:translate="">No resource needs have been specified</p>
+            </tal:needs>
+            <h4 i18n:translate="">Status</h4>
+            <tal:status define="status work/getStatus">
+              <p tal:condition="python:status" tal:replace="structure status"></p>
+              <p tal:condition="python:not status" i18n:translate="">No statu
+                  s has been specified</p>
+            </tal:status>
+            <h4 i18n:translate="">Deadline</h4>
+            <p tal:replace="structure work/getDue_date"></p>
+          </div>
+        </tal:def>
+
+        <h2 id="general_metadata" i18n:translate="">General metadata</h2>
+
+        <div class='headed-box'>
+          <h3 i18n:translate="">Responsibility and ownership</h3>
+
+          <h4 i18n:translate="">EEA Contact Info</h4>
+          <tal:contact define="manager_id context/getManager_user_id">
+            <tal:manager condition="python:manager_id">
+              <tal:block define="manager_ob context/@@indicator_contact_info">
+                <a href=""
+                  tal:condition="python:manager_ob"
+                  title="Contact indicator manager"
+                  i18n:attributes="title"
+                  tal:attributes="href string:http://www.eionet.europa.eu/sitedirsearch?name=${manager_ob/username}"
+                  tal:content="manager_ob/fullname">Contact</a>
+                <p tal:condition="python:not manager_ob">
+                  <span i18n:translate="">User not found:</span>
+                  <tal:manager_id tal:content="manager_id" />
+                </p>
+              </tal:block>
+            </tal:manager>
+            <tal:contact condition="python:not manager_id">
+              <p i18n:translate="">no contact info</p>
+            </tal:contact>
+          </tal:contact>
+
+          <h4 i18n:translate="">Ownership</h4>
+          <tal:ownership define="urls context/getOwnership">
+            <tal:block repeat="url urls" condition="python:urls">
+              <tal:block define="value python:context.getOrganisationName(url)"
+                condition="python:value">
+                <dd>
+                  <a href="#" title=""
+                    tal:attributes="href value/getURL; title value/Title"
+                    tal:content="value/Title" />
+                </dd>
+              </tal:block>
+            </tal:block>
+            <p tal:condition="python:not urls" i18n:translate="">No owners.</p>
+          </tal:ownership>
+
+          <tal:management_plan define="assessments python:context.getFolderContents(
+            contentFilter={'portal_type':'Assessment'},
+            full_objects = True)"
+            condition="not:context/@@plone_portal_state/anonymous">
+            <h4 i18n:translate="">EEA Management Plan</h4>
+            <ul>
+              <tal:assessment repeat="assessment assessments">
+                <tal:block define="value assessment/getManagement_plan;
+                  myear python:value[0];
+                  mcode python:value[1];
+                  status python: myear and mcode">
+                  <li tal:condition="python:status">
+                    <strong tal:content="assessment/Title" />
+                    <span i18n:translate="">year</span>:
+                    <tal:block content="myear" />,
+                    <span i18n:translate="">code</span>:
+                    <tal:block content="mcode" />
+                  </li>
+                  <li tal:condition="python:not status">
+                    <strong tal:content="assessment/Title" />
+                    <span i18n:translate="">unplanned as usual :D</span>
+                  </li>
+                </tal:block>
+              </tal:assessment>
+            </ul>
+          </tal:management_plan>
+        </div>
+
+        <div class='headed-box'>
+          <h3 i18n:translate="">Identification</h3>
+          <div class="wrapper" >
+            <div tal:define="codes context/getCodes">
+              <strong i18n:translate="">Indicator code</strong>
+              <div tal:repeat="code codes" tal:content="string:${code/set} ${code/code}">
+                CSI 001
+              </div>
+            </div>
+
+            <strong i18n:translate="">Specification</strong>
+             <div i18n:translate="">Link: <a href="" tal:attributes="href context/absolute_url"
+                                           tal:content="context/getId"
+                                           i18n:name="link">ISpecification1235</a>
+            </div>
+            <div i18n:translate="">
+              Version id: <tal:version_id define="getVersions nocall:context/@@getVersions;
+                version_number getVersions/version_number"
+                i18n:name="version-number"
+                content="version_number" />
+            </div>
+
+            <div i18n:translate="" class="metadata_date">
+              First draft created: <metal:field i18n:name="creation-date" use-macro="python:context.widget('creation_date', mode='view')" />
+            </div>
+            <div i18n:translate="" class="metadata_date">
+              Publish date: <metal:field i18n:name="effective-date" use-macro="python:context.widget('effectiveDate', mode='view')" />
+            </div>
+            <div i18n:translate="" class="metadata_date">
+              Last modified: <metal:field i18n:name="modified-date" use-macro="python:context.widget('modification_date', mode='view')" />
+            </div>
+
+            <div>
+              <tal:block i18n:translate="">Primary theme:</tal:block>
+              <tal:block define="themesView here/@@themes-object|nothing;
+                themes themesView/full_items;
+                primaryTheme python:themes and themes[0] or None">
+
+                <tal:primaryTheme condition="python:primaryTheme">
+                  <a href="" title="" style="text-decoration: none"
+                    tal:attributes="href theme_url;
+                    title theme_title"
+                    tal:define="theme_title python:primaryTheme['title'];
+                    theme_url python:primaryTheme['url'];
+                    theme_image python:primaryTheme['image']">
+                    <img alt="" src=""
+                      tal:attributes="alt theme_title;
+                      src theme_image" />
+                    <tal:block replace="theme_title" />
+                  </a>
+                </tal:primaryTheme>
+
+              </tal:block>
+            </div>
+
+          </div>
+        </div>
+
+        <div class='headed-box'>
+          <h4 i18n:translate="">Permalinks</h4>
+          <metal:basicmeta use-macro="context/versions_macros/macros/permalinks" />
+        </div>
+
+        <div class='headed-box' tal:condition="context/should_show_frequency_of_updates">
+          <h4 i18n:translate="">Frequency of updates</h4>
+          <div tal:content="context/get_frequency_of_updates" />
+        </div>
+
+        <div class='headed-box'>
+          <h3 i18n:translate="">Classification</h3>
+          <div class="visualClear"><!-- --></div>
+           <strong i18n:translate="">DPSIR</strong>: <span tal:define="dpsirLabel nocall:context/@@dpsir_label"
+            tal:replace="python:dpsirLabel(context.getDpsir())" />
+          <br/>
+          <strong i18n:translate="">Typology</strong>: <span tal:define="typologyLabel nocall:context/@@typology_label"
+            tal:replace="python:typologyLabel(context.getTypology())" />
+          <br/>
+        </div>
+
+      </metal:main_macro>
+    </div>
+  </body>
+</html>
