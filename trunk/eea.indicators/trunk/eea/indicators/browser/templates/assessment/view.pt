@@ -146,7 +146,7 @@
 
        <!--? metadata -->
         <div id="box-classification">
-            <h4 i18n:translate="">Generic metadata</h4>
+            <h2 i18n:translate="">Generic metadata</h2>
             <div id="box-classification-col1">
                 <tal:block define="themesView specification/@@themes-object|nothing;
           themes themesView/full_items;

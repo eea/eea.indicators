@@ -3,6 +3,8 @@ Changelog
 
 9.8.dev0 - (unreleased)
 -----------------------
+* Change: Indicator Assessment layout changes
+  [ichimdav refs #25348]
 
 9.7 - (2015-05-05)
 ------------------
