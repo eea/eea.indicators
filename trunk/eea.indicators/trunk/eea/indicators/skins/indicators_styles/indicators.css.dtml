@@ -226,72 +226,73 @@ ul.sortable_spec {
 #content-more-updates-on {
     background-color: #d0df86;
 }
-/*#headline-assessment {*/
-    /*background: transparent url(&dtml-portal_url;/Assessment.gif) no-repeat scroll 0 8px;*/
-/*}*/
-.specification_view h1, .specification_edit h1 {
-    background: transparent url(&dtml-portal_url;/Specification.gif) no-repeat scroll 0 8px;
-    padding: 10px 0 6px 30px;
-}
-.assessment_view h1, .assessment_edit h1, .factsheet_view h1 {
-    background: transparent url(&dtml-portal_url;/Assessment.gif) no-repeat scroll 0 8px;
-    padding: 10px 0 6px 30px;
-}
+
 .assessment_view .figure-title {
     display:inherit;
 }
-.specification {
-    background: transparent url(&dtml-portal_url;/Specification.gif) no-repeat scroll 0 8px;
-    padding: 10px 0 6px 30px;
-}
-#assessment_versions {
-    background: transparent url(&dtml-portal_url;/Assessment.gif) no-repeat scroll 0 8px;
-    padding: 10px 0 6px 30px;
-}
-#assessment_title {
-    background: transparent url(&dtml-portal_url;/Assessment.gif) no-repeat scroll 0 8px;
-    padding: 10px 0 6px 30px;
-}
-#rationale {
-    background: transparent url(&dtml-portal_url;/RationaleReference.gif) no-repeat scroll 0 8px;
-    padding: 10px 0 6px 30px;
-}
-#indicator_definition {
-    background: transparent url(&dtml-portal_url;/IMSDefinition.gif) no-repeat scroll 0 8px;
-    padding: 10px 0 6px 30px;
-}
-#policy_context {
-    background: transparent url(&dtml-portal_url;/PolicyContext.gif) no-repeat scroll 0 8px;
-    padding: 10px 0 6px 30px;
-}
-.policy_question {
-    background: transparent url(&dtml-portal_url;/PolicyQuestion.gif) no-repeat scroll 0 8px;
-    padding: 10px 0 6px 30px;
-}
-#methodology_header {
-    background: transparent url(&dtml-portal_url;/MethodologyReference.gif) no-repeat scroll 0 8px;
-    padding: 10px 0 6px 30px;
-}
-#data_specifications {
-    background: transparent url(&dtml-portal_url;/DataSpecification.gif) no-repeat scroll 0 8px;
-    padding: 10px 0 6px 30px;
-}
-#uncertainties {
-    background: transparent url(&dtml-portal_url;/IMSUncertainties.gif) no-repeat scroll 0 8px;
-    padding: 10px 0 6px 30px;
-}
-#further_work {
-    background: transparent url(&dtml-portal_url;/WorkItem.gif) no-repeat scroll 0 8px;
-    padding: 10px 0 6px 30px;
-}
-#general_metadata {
-    background: transparent url(&dtml-portal_url;/IMSDescription.gif) no-repeat scroll 0 8px;
-    padding: 10px 0 6px 30px;
-}
-#related_items {
-    background: transparent url(&dtml-portal_url;/Relations.png) no-repeat scroll 0 8px;
-    padding: 13px 0 6px 35px;
-}
+/*#headline-assessment {*/
+    /*background: transparent url(&dtml-portal_url;/Assessment.gif) no-repeat scroll 0 8px;*/
+/*}*/
+/*.specification_view h1, .specification_edit h1 {*/
+    /*background: transparent url(&dtml-portal_url;/Specification.gif) no-repeat scroll 0 8px;*/
+    /*padding: 10px 0 6px 30px;*/
+/*}*/
+/*.assessment_view h1, .assessment_edit h1, .factsheet_view h1 {*/
+    /*background: transparent url(&dtml-portal_url;/Assessment.gif) no-repeat scroll 0 8px;*/
+    /*padding: 10px 0 6px 30px;*/
+/*}*/
+/*.specification {*/
+    /*background: transparent url(&dtml-portal_url;/Specification.gif) no-repeat scroll 0 8px;*/
+    /*padding: 10px 0 6px 30px;*/
+/*}*/
+/*#assessment_versions {*/
+    /*background: transparent url(&dtml-portal_url;/Assessment.gif) no-repeat scroll 0 8px;*/
+    /*padding: 10px 0 6px 30px;*/
+/*}*/
+/*#assessment_title {*/
+    /*background: transparent url(&dtml-portal_url;/Assessment.gif) no-repeat scroll 0 8px;*/
+    /*padding: 10px 0 6px 30px;*/
+/*}*/
+/*#rationale {*/
+    /*background: transparent url(&dtml-portal_url;/RationaleReference.gif) no-repeat scroll 0 8px;*/
+    /*padding: 10px 0 6px 30px;*/
+/*}*/
+/*#indicator_definition {*/
+    /*background: transparent url(&dtml-portal_url;/IMSDefinition.gif) no-repeat scroll 0 8px;*/
+    /*padding: 10px 0 6px 30px;*/
+/*}*/
+/*#policy_context {*/
+    /*background: transparent url(&dtml-portal_url;/PolicyContext.gif) no-repeat scroll 0 8px;*/
+    /*padding: 10px 0 6px 30px;*/
+/*}*/
+/*.policy_question {*/
+    /*background: transparent url(&dtml-portal_url;/PolicyQuestion.gif) no-repeat scroll 0 8px;*/
+    /*padding: 10px 0 6px 30px;*/
+/*}*/
+/*#methodology_header {*/
+    /*background: transparent url(&dtml-portal_url;/MethodologyReference.gif) no-repeat scroll 0 8px;*/
+    /*padding: 10px 0 6px 30px;*/
+/*}*/
+/*#data_specifications {*/
+    /*background: transparent url(&dtml-portal_url;/DataSpecification.gif) no-repeat scroll 0 8px;*/
+    /*padding: 10px 0 6px 30px;*/
+/*}*/
+/*#uncertainties {*/
+    /*background: transparent url(&dtml-portal_url;/IMSUncertainties.gif) no-repeat scroll 0 8px;*/
+    /*padding: 10px 0 6px 30px;*/
+/*}*/
+/*#further_work {*/
+    /*background: transparent url(&dtml-portal_url;/WorkItem.gif) no-repeat scroll 0 8px;*/
+    /*padding: 10px 0 6px 30px;*/
+/*}*/
+/*#general_metadata {*/
+    /*background: transparent url(&dtml-portal_url;/IMSDescription.gif) no-repeat scroll 0 8px;*/
+    /*padding: 10px 0 6px 30px;*/
+/*}*/
+/*#related_items {*/
+    /*background: transparent url(&dtml-portal_url;/Relations.png) no-repeat scroll 0 8px;*/
+    /*padding: 13px 0 6px 35px;*/
+/*}*/
 .specification-overlay {
     opacity:0.3;
     FILTER: Alpha(Opacity=30);
