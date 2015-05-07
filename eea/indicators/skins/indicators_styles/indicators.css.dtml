@@ -300,10 +300,13 @@ ul.sortable_spec {
 .keyMessage, #box-classification {
     background: &dtml-lightBackgroundColor;;
     margin-top: 0.5em;
-    padding: 1em;
     overflow: hidden;
     color: #333;
     padding: 0.5em 2em 1em 2em;
+}
+.keyMessage {
+    background: &dtml-corporateBlueBackgroundColor;;
+    border-left: 1em solid #346F83;
 }
 
 .keyMessage h3, .keyMessage h4 {
