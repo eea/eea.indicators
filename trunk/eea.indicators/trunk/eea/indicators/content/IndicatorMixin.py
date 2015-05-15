@@ -41,10 +41,10 @@ class IndicatorMixin(object):
             brains = search(portal_type="Specification", get_codes=[code])
             #brains += cat(portal_type="IndicatorFactSheet", get_codes=[code])
 
-            not_same = [b for b in brains if (b.UID not in versions) 
+            not_same = [b for b in brains if (b.UID not in versions)
                                          and (b.UID != self_UID)]
 
-            # now we filter the specification based on their versionId; 
+            # now we filter the specification based on their versionId;
             # we don't want to report all specifications in the versionId group
             _d = {}
             for b in not_same:

@@ -515,7 +515,7 @@ class SpecificationThemeSchemaModifier(object):
     def fiddle(self, specification_schema):
         """Fiddle the schema
         """
-        # first i make a copy of the themes field otherwise the changes 
+        # first i make a copy of the themes field otherwise the changes
         # will apply for all content types
         specification_schema['themes'] = specification_schema['themes'].copy()
 
