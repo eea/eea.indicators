@@ -1,5 +1,5 @@
-<tal:block tal:define="foo python:request.set('disable_plone.leftcolumn', 1); 
-                       bar python:request.set('disable_plone.rightcolumn', 1);"/> 
+<tal:block tal:define="foo python:request.set('disable_plone.leftcolumn', 1);
+                       bar python:request.set('disable_plone.rightcolumn', 1);"/>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
   metal:use-macro="here/main_template/macros/master"
   i18n:domain="eea">
@@ -54,9 +54,12 @@
                 </tal:comment>
 
                 <tal:def tal:define="info python:timeline[set][code].get(year);">
-                  <div tal:repeat="entry info">
+                  <div tal:repeat="entry info" style="border-bottom:dotted black 1px">
                     <a href="#" class="not-ready-anchor" tal:condition="python:entry['readiness']!=100">
-                      <img tal:attributes="src string:$portal_url/cancel.png" />
+                      <span style="color:#d9534f" class="eea-icon eea-icon-exclamation"></span>
+                    </a>
+                    <a href="#" class="not-ready-anchor" tal:condition="python:not entry['readiness']!=100">
+                      <span class="eea-icon eea-icon-check"></span>
                     </a>
                     <a href="" tal:condition="python:entry['type'] == 'a'"
                       tal:attributes="href python:entry['url'];
@@ -74,7 +77,7 @@
                       tal:define="state python: entry['state'];
                       state_label python: state == 'published' and 'Published' or 'Draft'"
                       i18n:translate="">
-                      <span i18n:name="state" tal:content="state_label"/> specification
+                      <span i18n:name="state" tal:content="state_label"/> <strong>specification</strong>
                     </a>
                     <a href="" tal:condition="python:entry['type'] == 'f'"
                       tal:attributes="href python:entry['url'];
@@ -93,7 +96,7 @@
                     <ul tal:condition="python:int(entry['comments'] or 0)" class="timeline-comments" >
                       <li>
                         <a href=""
-                          tal:attributes="href python:entry['url'] + '#eea-comments'" 
+                          tal:attributes="href python:entry['url'] + '#eea-comments'"
                           i18n:translate="">See comments</a>
                       </li>
                     </ul>
@@ -116,7 +119,7 @@
       </tal:rep>
       <script>
         $('.make_fullscreen').click(function(){
-          $("#header-holder").toggle();  
+          $("#header-holder").toggle();
           $("#visual-portal-wrapper").css("max-width", 'inherit');
           $("#portal-column-content").removeClass("width-3:4").addClass("width-full");
           $("#portal-column-two").hide();

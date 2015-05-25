@@ -285,12 +285,12 @@ class IncludeJqueryUI(BrowserView):
 class LatestAssessmentVersions(BrowserView):
     """Returns a list of urls for all latest assessments
 
-    It needs to be called as anonymous to get the published 
+    It needs to be called as anonymous to get the published
     latest versions.
     """
     def __call__(self):
         cat = self.context.portal_catalog
-        brains = cat.searchResults(portal_type="Assessment", 
+        brains = cat.searchResults(portal_type="Assessment",
                                    review_state="published")
 
         result = []
@@ -302,6 +302,6 @@ class LatestAssessmentVersions(BrowserView):
 
         result = sorted(list(set(result)))  #sort and keep only unique links
 
-        links = ["%s/@@esms.xml" % l for l in result] 
+        links = ["%s/@@esms.xml" % l for l in result]
 
         return "\n".join(links)
