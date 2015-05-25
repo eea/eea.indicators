@@ -401,15 +401,23 @@
                 i18n:name="version-number"
                 content="version_number" />
             </div>
-
             <div i18n:translate="" class="metadata_date">
-              First draft created: <metal:field i18n:name="creation-date" use-macro="python:context.widget('creation_date', mode='view')" />
+              First draft created:
             </div>
             <div i18n:translate="" class="metadata_date">
-              Publish date: <metal:field i18n:name="effective-date" use-macro="python:context.widget('effectiveDate', mode='view')" />
+              <metal:field i18n:name="creation-date" use-macro="python:context.widget('creation_date', mode='view')" />
             </div>
             <div i18n:translate="" class="metadata_date">
-              Last modified: <metal:field i18n:name="modified-date" use-macro="python:context.widget('modification_date', mode='view')" />
+              Publish date:
+            </div>
+            <div i18n:translate="" class="metadata_date">
+              <metal:field i18n:name="effective-date" use-macro="python:context.widget('effectiveDate', mode='view')" />
+            </div>
+            <div i18n:translate="" class="metadata_date">
+              Last modified:
+            </div>
+            <div i18n:translate="" class="metadata_date">
+              <metal:field i18n:name="modified-date" use-macro="python:context.widget('modification_date', mode='view')" />
             </div>
 
             <div>

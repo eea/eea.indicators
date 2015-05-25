@@ -3,6 +3,8 @@ Changelog
 
 9.9.dev0 - (unreleased)
 -----------------------
+* Bug fix: Fixed the display of dates on Indicator and Assessment views
+  [ghicaale refs #25309]
 
 9.8 - (2015-05-15)
 ------------------
@@ -11,11 +13,11 @@ Changelog
 
 9.7 - (2015-05-05)
 ------------------
-* Bugfix: fixed themes on @@edit_aggregated
+* Bug fix: fixed themes on @@edit_aggregated
   [szabozo0]
 * Change: frequency_of_updates no longer contains quarter information
   [ichimdav refs #24322]
-* Change: Updated error message to include the missing fields for 
+* Change: Updated error message to include the missing fields for
   unpublishable figures
   [szabozo0 refs #24412]
 * Change: frequency_of_updates now implements the FrequencyUpdateValidator
@@ -653,13 +655,13 @@ Changelog
   [tiberich #4450]
 * Fix a unicode bug in specification/@@rdf view
   [tiberich #4448]
-* Bugfix: Fixed IE JS errors, fixed code that uses jQuery to avoid conflicts
+* Bug fix: Fixed IE JS errors, fixed code that uses jQuery to avoid conflicts
   with other JS frameworks
   [szabozo0 #4542]
-* Bugfix: Removed readiness portlet from left column
+* Bug fix: Removed readiness portlet from left column
   [szabozo0 #4493]
 * TODO: fix "related policy document" button in specification aggedit
-* Bugfix: Fixed wrong date formats
+* Bug fix: Fixed wrong date formats
   [szabozo0 #4510]
 * Change: Migrated legacy left and right_slots portlets, created specific portlet manager renderer to display readiness portlet in top
   [szabozo0 #4493]
