@@ -35,7 +35,7 @@ from zope.component import adapts
 from zope.interface import implements
 import logging
 #from eea.versions.versions import get_version_id    #get_versions_api,
-
+from eea.geotags.widget import GeotagsWidget
 logger = logging.getLogger('eea.indicators.content.Assessment')
 
 
@@ -116,8 +116,8 @@ schema = Schema((
     ComputedField(
         name='location',
         expression="context.getLocation()",
-        widget=ComputedField._properties['widget'](
-            visible={'view':'invisible', 'edit':'invisible'},
+        widget=GeotagsWidget(
+            visible={'view':'visible', 'edit':'invisible'},
         ),
     ),
     ),

@@ -187,7 +187,6 @@
                 </div>
                 <metal:related use-macro="context/temporal_macros/macros/temporal-coverage-data" />
                 <metal:related use-macro="context/geotags_macros/macros/geotags-listing" />
-                <metal:related use-macro="context/geotags_macros/macros/geotags-map" />
             </div>
         </div>
 
