@@ -19,7 +19,7 @@ from eea.indicators.content import  interfaces
 from eea.indicators.content.base import CustomizedObjectFactory
 from eea.indicators.content.base import ModalFieldEditableAware
 from eea.indicators.content.interfaces import ISpecification
-from eea.indicators.content.utils import get_specific_parent, set_location
+from eea.indicators.content.utils import get_specific_parent
 from eea.relations.field import EEAReferenceField
 from eea.relations.widget import EEAReferenceBrowserWidget
 from plone.uuid.interfaces import IUUID
@@ -88,8 +88,7 @@ schema = Schema((
             macro="assessmentpart_relationwidget",
             )
         ),
-    ),
-)
+))
 
 AssessmentPart_schema = ATFolderSchema.copy() + \
     getattr(ATCTContent, 'schema', Schema(())).copy() + \
@@ -276,7 +275,6 @@ class AssessmentPart(ATFolder, ModalFieldEditableAware,
 
         uids = tuple([u for u in uids if u is not None])
         instance.at_ordered_refs[field.relationship] = uids
-        set_location(self, on_parent=True)
 
 
 
