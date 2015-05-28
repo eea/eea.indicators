@@ -3,6 +3,9 @@ Changelog
 
 9.9.dev0 - (unreleased)
 -----------------------
+* Bug fix: geotags now correctly update for Assessments when related
+  EEAFigure and DavizVizualizations are updated
+  [ichimdav refs #22232]
 * Bug fix: Fixed the display of dates on Indicator and Assessment views
   [ghicaale refs #25309]
 
