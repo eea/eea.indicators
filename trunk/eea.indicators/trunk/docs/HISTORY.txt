@@ -1,6 +1,9 @@
 Changelog
 =========
 
+10.0.dev0 - (unreleased)
+------------------------
+
 9.9 - (2015-06-02)
 ------------------
 * Bug fix: geotags now correctly update for Assessments when related
