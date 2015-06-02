@@ -40,8 +40,8 @@
                 <td>
                   <form method="POST" action="./@@set_codes" style="display:inline"
                     tal:attributes="action string:${spec/absolute_url}/@@set_codes" >
-                    <p i18n:translate="">The codes will be changed from 
-                      <strong tal:content="python:format_codes(spec.getCodes())" i18n:name="code" /> to 
+                    <p i18n:translate="">The codes will be changed from
+                      <strong tal:content="python:format_codes(spec.getCodes())" i18n:name="code" /> to
                       <strong tal:content="python:format_codes(wrong_spec.getCodes())" i18n:name="new-code" />.
                     </p>
                     <tal:rep tal:repeat="code wrong_spec/getCodes">
@@ -56,8 +56,8 @@
                     tal:attributes="action string:${spec/absolute_url}/@@set_codes"
                     tal:define="candidates python: wrong_spec.getCandidateFixedCode(spec)">
                     <p i18n:translate="">
-                      The codes will be changed from 
-                      <strong tal:content="python:format_codes(spec.getCodes())" i18n:name="code"/> to 
+                      The codes will be changed from
+                      <strong tal:content="python:format_codes(spec.getCodes())" i18n:name="code"/> to
                       <strong tal:content="python:format_codes(candidates)" i18n:name="new-code"/>.
                     </p>
                     <tal:rep tal:repeat="code candidates">
