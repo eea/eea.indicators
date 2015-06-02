@@ -1,4 +1,4 @@
-<metal:macro metal:define-macro="portlet" 
+<metal:macro metal:define-macro="portlet"
   tal:define="
   portal python:here.portal_url.getPortalObject();
   portal_type python:here.getPortalTypeName().lower().replace(' ', '_')">
