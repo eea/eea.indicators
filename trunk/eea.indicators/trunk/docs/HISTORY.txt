@@ -1,8 +1,8 @@
 Changelog
 =========
 
-9.9.dev0 - (unreleased)
------------------------
+9.9 - (2015-06-02)
+------------------
 * Bug fix: geotags now correctly update for Assessments when related
   EEAFigure and DavizVizualizations are updated
   [ichimdav refs #22232]
