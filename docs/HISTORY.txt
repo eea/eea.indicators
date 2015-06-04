@@ -3,6 +3,10 @@ Changelog
 
 10.0.dev0 - (unreleased)
 ------------------------
+* Change: updated indicators_worklow and one_state_workflow with latest
+  changes from production and removed frontpage_workflow references from
+  these workflows
+  [ichimdav refs #22596]
 
 9.9 - (2015-06-02)
 ------------------
