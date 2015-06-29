@@ -19,13 +19,13 @@ class ExtendedMessage(object):
     """
 
     template = None
-    html     = None
-    msg      = None
-    status   = None
+    html = None
+    msg = None
+    status = None
 
     def __init__(self, template, status, **kwds):
-        self.html   = template % kwds
-        self.msg    = kwds['msg']
+        self.html = template % kwds
+        self.msg = kwds['msg']
         self.status = status
 
     def __str__(self):

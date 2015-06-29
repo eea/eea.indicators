@@ -60,7 +60,7 @@ schema = Schema((
         name='description',
         default="",
         widget=TextAreaWidget(
-            visible={'edit' : 'invisible', 'view' : 'invisible' },
+            visible={'edit' : 'invisible', 'view' : 'invisible'},
             label='Description',
             description='Description',
             label_msgid='indicators_label_description',
@@ -167,7 +167,7 @@ class AssessmentPart(ATFolder, ModalFieldEditableAware,
 
         try:
             spec = get_specific_parent(self,
-                                      lambda o:ISpecification.providedBy(o))
+                                      lambda o: ISpecification.providedBy(o))
             themes = spec.getThemes()
         except ValueError:
             themes = []
@@ -270,7 +270,7 @@ class AssessmentPart(ATFolder, ModalFieldEditableAware,
         for uid in sub:
             tool.deleteReference(instance, uid, field.relationship)
 
-        if not hasattr( aq_base(instance), 'at_ordered_refs'):
+        if not hasattr(aq_base(instance), 'at_ordered_refs'):
             instance.at_ordered_refs = {}
 
         uids = tuple([u for u in uids if u is not None])

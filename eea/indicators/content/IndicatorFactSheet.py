@@ -63,7 +63,7 @@ schema = Schema((
     ),
     StringField(
         name='policy_question',
-        searchable = True,
+        searchable=True,
         widget=StringField._properties['widget'](
             label="Policy Question",
             label_msgid='indicators_label_policy_question',
@@ -92,7 +92,7 @@ schema = Schema((
     ),
     StringField(
         name='source_code',
-        searchable = True,
+        searchable=True,
         widget=StringField._properties['widget'](
             label="Source code",
             description="another code who may indentify this indicator "
@@ -103,7 +103,7 @@ schema = Schema((
     ),
     StringField(
         name='data_source_providers',
-        searchable = True,
+        searchable=True,
         widget=StringField._properties['widget'](
             label="Data source providers",
             label_msgid='indicators_label_data_source_providers',
@@ -128,7 +128,7 @@ schema = Schema((
     ),
     TextField(
         name='data_source_info',
-        searchable = True,
+        searchable=True,
         widget=TextAreaWidget(
             label="Data source info",
             label_msgid='indicators_label_data_source_info',
@@ -137,7 +137,7 @@ schema = Schema((
     ),
     TextField(
         name='priority_data_flows',
-        searchable = True,
+        searchable=True,
         widget=TextAreaWidget(
             label="Priority data flows",
             label_msgid='indicators_label_priority_data_flows',
@@ -162,7 +162,7 @@ schema = Schema((
             ),
         columns=("set", "code"),
         required_for_published=True,
-        searchable = True,
+        searchable=True,
         ),
     EEAReferenceField('relatedItems',
             relationship='relatesTo',

@@ -49,7 +49,7 @@ class IndicatorMixin(object):
             _d = {}
             for b in not_same:
                 if b.getVersionId == MissingValue: #this is infrequent
-                    logger.warn( "Missing versionid value: %s", b.getObject())
+                    logger.warn("Missing versionid value: %s", b.getObject())
                     continue
                 _d[b.getVersionId.strip()] = b
 

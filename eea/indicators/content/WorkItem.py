@@ -103,12 +103,12 @@ class WorkItem(ATCTContent, BrowserDefaultMixin):
     security.declarePublic('Title')
     def Title(self):
         """title"""
-        if not(self.getDue_date()):
+        if not self.getDue_date():
             return (_(u"Newly created work item")).encode('utf-8')
 
         duedate = self.toLocalizedTime(self.getDue_date(), long_format=0)
         title = _(u"Work due ${due}",  #${status}
-                mapping = {
+                mapping={
                     #'status':self.getStatus(),
                     'due':duedate,
                     }

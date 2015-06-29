@@ -409,7 +409,7 @@ schema = Schema((
             ),
     StringField(
             name='manager_user_id',
-            widget= UserAndGroupSelectionWidget(
+            widget=UserAndGroupSelectionWidget(
                 label="The manager of this Indicator Specification",
                 usersOnly=True,
                 description="The manager of this Indicator Specification",
@@ -534,7 +534,7 @@ class SpecificationThemeSchemaModifier(object):
         specification_schema._names = new_order
 
 
-class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
+class Specification(ATFolder, ThemeTaggable, ModalFieldEditableAware,
                     CustomizedObjectFactory, BrowserDefaultMixin,
                     IndicatorMixin):
     """ Specfication content type
@@ -562,7 +562,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
         incomplete = []
         for item in items:
             d = item.getDue_date()
-            if not(d):
+            if not d:
                 incomplete.append(item)
                 continue
             date = datetime.datetime(d.year(), d.month(), d.day())
@@ -630,7 +630,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
 
     def get_trimesters_vocabulary(self):
         """ get trimesters vocabulary """
-        return DisplayList([(x, x) for x in ([" "] + trimesters)])
+        return DisplayList([(x, x) for x in [" "] + trimesters])
 
     security.declarePublic('get_codes')
     def get_codes(self):
@@ -696,7 +696,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
         codes = self.getCodes()
 
         res = ''
-        if len(codes)>0:
+        if len(codes) > 0:
             code = codes[0]
             res = "%s %s" % (code['set'], code['code'])
         return res
@@ -810,17 +810,17 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
         return bool(IGetVersions(self).later_versions())
 
     security.declareProtected(AddPortalContent, 'invokeFactory')
-    def invokeFactory(self, type_name=None, id=None, RESPONSE=None,
+    def invokeFactory(self, type_name=None, Id=None, RESPONSE=None,
                       base_impl=False, *args, **kw):
         """invoke the factory"""
         if base_impl:
             return super(Specification, self).invokeFactory(
-                        type_name, id, RESPONSE, *args, **kw)
+                        type_name, Id, RESPONSE, *args, **kw)
         factory_name = 'factory_' + type_name
         factory = getattr(self, factory_name, None)
         if not factory:
             return super(Specification, self).invokeFactory(
-                        type_name, id, RESPONSE, *args, **kw)
+                        type_name, Id, RESPONSE, *args, **kw)
         try:
             res = factory()
         except ValueError, e:
@@ -963,7 +963,7 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
                                 "1 and 10."
                 try:
                     year_freq = int(float(line['years_freq']))
-                    if not (year_freq in range(1, 11)):
+                    if not year_freq in range(1, 11):
                         msgs.append(year_freq)
                 except ValueError:
                     msgs.append(error_msg)
@@ -1068,8 +1068,8 @@ class Specification(ATFolder, ThemeTaggable,  ModalFieldEditableAware,
         #filter incomplete lines because both values are required
         frequency[0] = [l for l in frequency[0] if all(l.values())]
 
-        ending_date     = self._extract_value(value['ending_date'], DateTime)
-        starting_date   = self._extract_value(value['starting_date'], DateTime)
+        ending_date = self._extract_value(value['ending_date'], DateTime)
+        starting_date = self._extract_value(value['starting_date'], DateTime)
 
         d = {
             'frequency':frequency,

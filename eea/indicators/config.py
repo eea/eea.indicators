@@ -25,7 +25,7 @@ ADD_CONTENT_PERMISSIONS = {
     'WorkItem': 'Add portal content',
 }
 
-setDefaultRoles('Add portal content', ('Manager','Owner'))
+setDefaultRoles('Add portal content', ('Manager', 'Owner'))
 
 product_globals = globals()
 
@@ -76,10 +76,10 @@ TYPOLOGY = [
 
 CATEGORY_OF_USE = [
      ("None", "N/A"),
-     ('DataUseCategory_01','Main dataset'),
-     ('DataUseCategory_02','Dataset for gapfilling'),
-     ('DataUseCategory_03','Dataset for normalizing'),
-     ('DataUseCategory_04','Indicator dataset')
+     ('DataUseCategory_01', 'Main dataset'),
+     ('DataUseCategory_02', 'Dataset for gapfilling'),
+     ('DataUseCategory_03', 'Dataset for normalizing'),
+     ('DataUseCategory_04', 'Indicator dataset')
     ]
 
 # These are the profiles that installed as dependencies on install
@@ -97,7 +97,7 @@ PROFILE_DEPENDENCIES = (
     )
 
 
-#this is the role that people need to receive to 
+#this is the role that people need to receive to
 #become a manager over a specification
 MANAGER_ROLE = 'ContentManager'
 ##/code-section config-bottom

@@ -50,7 +50,7 @@ class KeyMessages(BrowserView):
         return self.context.getFolderContents(contentFilter={
                     'portal_type': 'KeyMessage',
                     'review_state': ['published'],
-               }, full_objects = True)
+               }, full_objects=True)
 
 
 class FactSheetDocuments(BrowserView):
@@ -61,5 +61,5 @@ class FactSheetDocuments(BrowserView):
         return self.context.getFolderContents(contentFilter={
                     'portal_type': 'FactSheetDocument',
                     'review_state': ['published'],
-               }, full_objects = True)
+               }, full_objects=True)
 

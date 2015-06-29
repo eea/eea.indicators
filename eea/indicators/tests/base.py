@@ -9,16 +9,16 @@
 from Products.Five import fiveconfigure
 from Products.PloneTestCase import PloneTestCase
 from Products.PloneTestCase.layer import onsetup
-from Zope2.App import zcml 
+from Zope2.App import zcml
 
 PRODUCTS = [
-    'DataGridField', 
+    'DataGridField',
     'ATVocabularyManager',
     'EEAContentTypes',
     'EEAPloneAdmin',
     'UserAndGroupSelectionWidget',
     'kupu',
-    #'RedirectionTool', 
+    #'RedirectionTool',
 ]
 
 for product in PRODUCTS:
@@ -54,7 +54,7 @@ def setup_indicators():
     PloneTestCase.installPackage('eea.dataservice')
 
     import eea.tags
-    zcml.load_config('configure.zcml', eea.tags )
+    zcml.load_config('configure.zcml', eea.tags)
     PloneTestCase.installPackage('eea.tags')
 
     fiveconfigure.debug_mode = False

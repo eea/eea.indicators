@@ -138,7 +138,7 @@ class RelatedItems(BrowserView):
                 return sorted(res, key=lambda obj: sortable_title(obj)())
             return res
 
-        if type(ctype) not in (list, tuple):
+        if not isinstance(ctype, list) and not isinstance(ctype, tuple):
             ctype = [ctype]
 
         items = [rel for rel in self.context.getRelatedItems()

@@ -37,6 +37,7 @@ class IndexPage(BrowserView):
     implements(IIMSBaseView)
 
     def getId(self):
+        """Returns view id"""
         return "view"
 
 
@@ -248,7 +249,7 @@ class WorkflowStateReadiness(ObjectReadiness):
     def __init__(self, context):
         self.context = context
         self.checks = {'published':(
-            (lambda o:hasWrongVersionId(o),
+            (lambda o: hasWrongVersionId(o),
                 'This Assessment belongs to the wrong version group. '
                 'To fix this please visit the Indicator Specification '
                 'edit page.'),
@@ -258,7 +259,7 @@ class WorkflowStateReadiness(ObjectReadiness):
                 'You need to fill in the assessments '
                 'for all the policy questions.'),
 
-            (lambda o:not IObjectReadiness(
+            (lambda o: not IObjectReadiness(
                         aq_parent(aq_inner(o))).is_ready_for('published'),
                 "You need to finish the <a href='../'>"
                 "Indicator Specification</a> first!"),
@@ -274,7 +275,7 @@ class WorkflowStateReadiness(ObjectReadiness):
                 "The answered policy questions need to point to at least one "
                 "Figure or Daviz Visualization."),
 
-            (lambda o:hasUnpublishableFigure(o),
+            (lambda o: hasUnpublishableFigure(o),
                 getUnpublishableFiguresMissingInformation(context))
         )}
 
@@ -317,7 +318,7 @@ class FragmentMetadataView(BrowserView):
     def field_names(self):
         """ field names"""
         c = self.context
-        fields = c.schema.filterFields(lambda f:f.schemata in self.schematas)
+        fields = c.schema.filterFields(lambda f: f.schemata in self.schematas)
         fields = [f.getName() for f in fields if f.getName() not
                                                         in self.exclude]
 
@@ -369,7 +370,7 @@ class MetadataAsESMSXML(BrowserView):
     """
 
     def __call__(self):
-        self.request.response.setHeader('Content-Type','text/xml')
+        self.request.response.setHeader('Content-Type', 'text/xml')
 
         now = datetime.datetime.now()
         year_start = datetime.datetime(year=now.year, month=1, day=1)

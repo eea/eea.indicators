@@ -42,8 +42,8 @@ schema = Schema((
             i18n_domain='indicators',
         ),
         required=True,
-        vocabulary=[("",""), ("RationaleRefType_01", "Scientific reference"),
-           ("RationaleRefType_02", "Reference to other indicator initiative") ],
+        vocabulary=[("", ""), ("RationaleRefType_01", "Scientific reference"),
+           ("RationaleRefType_02", "Reference to other indicator initiative")],
         required_for_published=True,
     ),
     TextField(
