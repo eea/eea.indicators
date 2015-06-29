@@ -74,7 +74,7 @@ class IndicatorsSorter(object):
 
     def reorder_brains_effective(self):
         """reorder"""
-        self.brains.sort(key=lambda b:b.effective)
+        self.brains.sort(key=lambda b: b.effective)
         return
 
     def __call__(self, brains, form):

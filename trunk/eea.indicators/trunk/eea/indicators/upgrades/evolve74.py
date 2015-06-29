@@ -27,13 +27,13 @@ def evolve(context):
 
 
         if freq_years:
-            frequency = [{'years_freq':freq_years, 
+            frequency = [{'years_freq':freq_years,
                           'time_of_year':freq_time_of_year},]
         else:
             frequency = []
 
         value['frequency'] = frequency
         field.set(obj, value)
-        logger.info("Migrated frequency_of_updates storage for %s", 
+        logger.info("Migrated frequency_of_updates storage for %s",
                      obj.absolute_url())
 

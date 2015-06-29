@@ -81,17 +81,17 @@ class AssessmentVersions(BrowserView):
     def __call__(self):
         res = {'published': [], 'draft': []}
 
-        get = lambda o:o.effective_date or o.creation_date
+        get = lambda o: o.effective_date or o.creation_date
 
         assessments = self.context.getFolderContents(
                              contentFilter={'review_state':'published',
                                             'portal_type':'Assessment'},
-                             full_objects = True)
+                             full_objects=True)
         res['published'] = list(reversed(sorted(assessments, key=get)))
 
         assessments = self.context.getFolderContents(
                              contentFilter={'portal_type':'Assessment'},
-                             full_objects = True)
+                             full_objects=True)
 
         get_info = self.context.portal_workflow.getInfoFor
         assessments = [obj for obj in assessments
@@ -146,17 +146,17 @@ class WorkflowStateReadiness(ObjectReadiness):
                                             o.getRelatedItems()),
                 "You need to point to at least one EEA Data or ExternalData"),
             (
-                lambda o:not bool(o.objectValues("PolicyQuestion")),
+                lambda o: not bool(o.objectValues("PolicyQuestion")),
                 "You need to add at least one Policy Question"),
             (
                 lambda o: not bool([x for x in o.objectValues('PolicyQuestion')
                                     if x.getIs_key_question()]),
                 "At least one PolicyQuestion needs to be main policy question"),
             (
-                lambda o:not bool(o.getThemes()),
-                "You need to specify one primary theme" ),
+                lambda o: not bool(o.getThemes()),
+                "You need to specify one primary theme"),
             (
-                lambda o:o.has_duplicated_code(),
+                lambda o: o.has_duplicated_code(),
                 "The <a href='#rfs_codes'>Indicator Specification code</a> is "
                 "already used by some other document in IMS"),
             )}
@@ -171,7 +171,7 @@ class PolicyQuestions(BrowserView):
 
         questions = self.context.getFolderContents(
                            contentFilter={'portal_type':'PolicyQuestion'},
-                           full_objects = True)
+                           full_objects=True)
 
         res['all'] = questions
         for question in questions:
@@ -313,7 +313,7 @@ class FragmentMetadataView(BrowserView):
         """ field names
         """
         c = self.context
-        fields = c.schema.filterFields(lambda f:f.schemata in self.schematas)
+        fields = c.schema.filterFields(lambda f: f.schemata in self.schematas)
         fields = [f.getName() for f in fields if f.getName() not
                                                         in self.exclude]
 

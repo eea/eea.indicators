@@ -78,9 +78,9 @@ schema = Schema((
         required_for_published=True,
         required=False,
         default=(datetime.now().year, ''),
-        validators = ('management_plan_code_validator',),
+        validators=('management_plan_code_validator',),
         vocabulary_factory="Temporal coverage",
-        widget = ManagementPlanWidget(
+        widget=ManagementPlanWidget(
             format="select",
             label="EEA Management Plan",
             description=("EEA Management plan code. Internal EEA project "
@@ -346,7 +346,7 @@ def hasWrongVersionId(context):
         ])
 
     version_ids = {}
-    for a in (all_assessments + factsheets):
+    for a in all_assessments + factsheets:
         vid = IGetVersions(a).versionId
         version_ids[vid] = version_ids.get(vid, []) + [a]
 

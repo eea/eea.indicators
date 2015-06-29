@@ -48,16 +48,16 @@ schema = Schema((
     BlobField('file',
         required=False,
         primary=True,
-        validators = (('isNonEmptyFile', V_REQUIRED), 
+        validators=(('isNonEmptyFile', V_REQUIRED),
                       ('checkFileMaxSize', V_REQUIRED)),
-        widget = FileWidget(
-            description = "Select the file to be added by "
-                          "clicking the 'Browse' button.",
-            description_msgid = "help_file",
-            label= "File",
-            label_msgid = "label_file",
-            i18n_domain = "plone",
-            show_content_type = False,)),
+        widget=FileWidget(
+            description="Select the file to be added by "
+                        "clicking the 'Browse' button.",
+            description_msgid="help_file",
+            label="File",
+            label_msgid="label_file",
+            i18n_domain="plone",
+            show_content_type=False,)),
 ),
 )
 

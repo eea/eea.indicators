@@ -14,7 +14,7 @@ from Products.validation.interfaces.IValidator import IValidator
 from zope.interface import implements
 
 
-class UniquePolicyDocTitleValidator:
+class UniquePolicyDocTitleValidator(object):
     """Validator"""
 
     implements(IValidator)
@@ -34,7 +34,7 @@ class UniquePolicyDocTitleValidator:
                  'Title': list(words)}
         oid = kwargs['instance'].UID()
         brains = [b for b in cat(**query)
-                  if (b.Title == value and b.getObject().UID() != oid)]
+                  if b.Title == value and b.getObject().UID() != oid]
 
         if brains:
             return ("Validation failed, there is already an Policy "
@@ -42,7 +42,7 @@ class UniquePolicyDocTitleValidator:
 
         return True
 
-class UniquePolicyDocUrlValidator:
+class UniquePolicyDocUrlValidator(object):
     """Validator"""
     implements(IValidator)
 
@@ -66,7 +66,7 @@ class UniquePolicyDocUrlValidator:
                         "Policy Document pointing to this URL.")
         return True
 
-class OneAssessmentPartPerQuestionValidator:
+class OneAssessmentPartPerQuestionValidator(object):
     """ Validator """
     implements(IValidator)
 
@@ -93,7 +93,7 @@ class OneAssessmentPartPerQuestionValidator:
         return True
 
 
-class FrequencyUpdateValidator:
+class FrequencyUpdateValidator(object):
     """Validates the frequency_years of frequency_of_updates
     """
     implements(IValidator)
@@ -113,7 +113,7 @@ class FrequencyUpdateValidator:
         if not value and isinstance(value, basestring):
             return error_msg
 
-        if isinstance(value, basestring): 
+        if isinstance(value, basestring):
             if not value.strip():
                 return error_msg
             if not value.isdigit():
@@ -135,7 +135,7 @@ class FrequencyUpdateValidator:
         return True
 
 
-class TimeOfYearValidator:
+class TimeOfYearValidator(object):
     """Validates the time_of_year of frequency_of_updates
     """
     implements(IValidator)

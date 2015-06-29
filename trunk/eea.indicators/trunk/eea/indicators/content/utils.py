@@ -28,7 +28,7 @@ def get_dgf_value(field, value):
 
             val = {}
             for col in column_ids:
-                val[col] = (row.get(col,'')).strip()
+                val[col] = (row.get(col, '')).strip()
 
                 if val[col] != '':
                     empty = False
@@ -52,7 +52,7 @@ def get_dgf_value(field, value):
     # remove order keys when sorting is complete
     value = tuple(x[1] for x in cleaned)
     # make sure set+code are entered
-    value = [v for v in value if (v['set'] and v['code'])]
+    value = [v for v in value if v['set'] and v['code']]
 
     return value
 

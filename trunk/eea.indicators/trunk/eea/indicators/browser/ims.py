@@ -177,7 +177,7 @@ class IndicatorsTimeline(BrowserView, BaseIndicatorsReport):
 
         for spec in self.specs:
             assessments = self.get_child_assessments(spec)
-            for setcode in (get_codes(spec.get_codes) or none):
+            for setcode in get_codes(spec.get_codes) or none:
                 setc, code = setcode['set'], setcode['code']
                 if not setc in result:
                     result[setc] = {}
@@ -216,7 +216,7 @@ class IndicatorsTimeline(BrowserView, BaseIndicatorsReport):
                               'readiness': a.published_readiness}]
 
         for fs in self.factsheets:
-            for setcode in (get_codes(fs.get_codes) or none):
+            for setcode in get_codes(fs.get_codes) or none:
                 setc, code = setcode['set'], setcode['code']
                 if not setc in result:
                     result[setc] = {}

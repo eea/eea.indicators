@@ -1,5 +1,5 @@
 #!/usr/bin/python
-""" 
+"""
 To generate all links to the latest version of each indicator call
 /@@assessments_latest_versions_links method.
 
