@@ -810,17 +810,17 @@ class Specification(ATFolder, ThemeTaggable, ModalFieldEditableAware,
         return bool(IGetVersions(self).later_versions())
 
     security.declareProtected(AddPortalContent, 'invokeFactory')
-    def invokeFactory(self, type_name=None, Id=None, RESPONSE=None,
+    def invokeFactory(self, type_name=None, id=None, RESPONSE=None,
                       base_impl=False, *args, **kw):
         """invoke the factory"""
         if base_impl:
             return super(Specification, self).invokeFactory(
-                        type_name, Id, RESPONSE, *args, **kw)
+                        type_name, id, RESPONSE, *args, **kw)
         factory_name = 'factory_' + type_name
         factory = getattr(self, factory_name, None)
         if not factory:
             return super(Specification, self).invokeFactory(
-                        type_name, Id, RESPONSE, *args, **kw)
+                        type_name, id, RESPONSE, *args, **kw)
         try:
             res = factory()
         except ValueError, e:
