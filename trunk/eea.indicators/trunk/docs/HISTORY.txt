@@ -3,6 +3,9 @@ Changelog
 
 10.1.dev0 - (unreleased)
 ------------------------
+* Feature: add new template for eea.pdf to print indicators
+  Upgrade Step: upgrade the eea.indicators package from Addons in plone control panel
+  [lucas refs #27484]
 * Bug fix: Use safe condition within portal_css/portal_js in order
   not to break layout (e.g. @@dexterity-types)
   [voineali refs #26848]

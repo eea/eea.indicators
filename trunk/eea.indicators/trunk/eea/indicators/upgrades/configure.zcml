@@ -68,4 +68,16 @@
 
     </gs:upgradeSteps>
 
+    <gs:upgradeSteps
+            source="8.7"
+            destination="10.1"
+            profile="eea.indicators:default">
+
+        <gs:upgradeDepends
+                title="Create 'Indicator report' PDF Theme"
+                import_profile="eea.design:upgrade101"
+                />
+
+    </gs:upgradeSteps>
+
 </configure>
