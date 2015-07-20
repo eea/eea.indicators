@@ -14,6 +14,7 @@
     <include package=".faceted" />
     <include package=".browser" />
     <include package=".content" />
+    <include package=".pdf" />
 
     <interface interface="eea.indicators.content.interfaces.IIndicatorsDatabase" />
 

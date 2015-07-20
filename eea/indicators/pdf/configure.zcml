@@ -1,0 +1,37 @@
+<configure
+  xmlns:browser="http://namespaces.zope.org/browser"
+  xmlns:zcml="http://namespaces.zope.org/zcml"
+  i18n_domain="eea">
+
+    <configure zcml:condition="installed eea.pdf">
+      <browser:page
+        name="indicators.pdf.body"
+        layer="eea.pdf.interfaces.ILayer"
+        for="plone.app.folder.folder.IATUnifiedFolder"
+        class=".indicators.FolderBody"
+        permission="eea.pdf.download"
+        template="indicators.body.pt"
+        />
+
+      <browser:page
+        zcml:condition="installed Products.ATContentTypes.content.topic"
+        name="indicators.pdf.body"
+        layer="eea.pdf.interfaces.ILayer"
+        for="Products.ATContentTypes.interfaces.IATTopic"
+        class=".indicators.CollectionBody"
+        permission="eea.pdf.download"
+        template="indicators.body.pt"
+        />
+
+      <browser:page
+        zcml:condition="installed plone.app.collection"
+        name="indicators.pdf.body"
+        layer="eea.pdf.interfaces.ILayer"
+        for="plone.app.collection.interfaces.ICollection"
+        class=".indicators.CollectionBody"
+        permission="eea.pdf.download"
+        template="indicators.body.pt"
+        />
+    </configure>
+
+</configure>
