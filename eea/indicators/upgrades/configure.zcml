@@ -75,7 +75,7 @@
 
         <gs:upgradeDepends
                 title="Create 'Indicator report' PDF Theme"
-                import_profile="eea.design:upgrade101"
+                import_profile="eea.indicators:upgrade101"
                 />
 
     </gs:upgradeSteps>
