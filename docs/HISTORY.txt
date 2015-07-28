@@ -1,8 +1,8 @@
 Changelog
 =========
 
-10.2.dev0 - (unreleased)
-------------------------
+10.2 - (2015-07-28)
+-------------------
 * Bug fix: pylint compile
   [lucas refs #27245]
 * Buf fix: include eea.pdf into zcml
