@@ -4,6 +4,9 @@
   i18n_domain="eea">
 
     <configure zcml:condition="installed eea.pdf">
+    
+      <include package="eea.pdf" />
+      
       <browser:page
         name="indicators.pdf.body"
         layer="eea.pdf.interfaces.ILayer"

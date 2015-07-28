@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+# pylint: disable=W0622
 """ Specification content class and utilities
 """
 from AccessControl import ClassSecurityInfo
