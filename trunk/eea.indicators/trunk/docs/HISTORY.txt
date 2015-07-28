@@ -1,8 +1,8 @@
 Changelog
 =========
 
-10.1.dev0 - (unreleased)
-------------------------
+10.1 - (2015-07-28)
+-------------------
 * Feature: add new template for eea.pdf to print indicators
   Upgrade Step: upgrade the eea.indicators package from Addons in plone control panel
   [lucas refs #27484]
