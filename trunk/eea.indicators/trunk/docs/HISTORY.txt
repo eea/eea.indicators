@@ -1,6 +1,9 @@
 Changelog
 =========
 
+10.2.dev0 - (unreleased)
+------------------------
+
 10.1 - (2015-07-28)
 -------------------
 * Feature: add new template for eea.pdf to print indicators
