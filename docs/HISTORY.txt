@@ -4,7 +4,8 @@ Changelog
 10.2.dev0 - (unreleased)
 ------------------------
 * Bug fix: pylint compile
-  Buf fix: include eea.pdf into zcml
+  [lucas refs #27245]
+* Buf fix: include eea.pdf into zcml
   [lucas refs #27245]
 
 10.1 - (2015-07-28)
