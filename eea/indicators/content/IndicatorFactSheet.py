@@ -1,5 +1,8 @@
+# pylint: disable=W0511
+
 """ Indicator fact sheet
 """
+
 from AccessControl import ClassSecurityInfo
 from Products.ATContentTypes.content.folder import ATFolder, ATFolderSchema
 from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL

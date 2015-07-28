@@ -2,6 +2,7 @@
 #
 # $Id$
 #
+# pylint: disable=W0108
 """ Assessment Part
 """
 

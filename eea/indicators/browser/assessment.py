@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+# pylint: disable=C0301, W0108
 """ Assessment controllers
 """
 
