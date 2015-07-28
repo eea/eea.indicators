@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<object name="portal_catalog" meta_type="Plone Catalog Tool">
+  <index name="get_codes"
+         meta_type="KeywordIndex">
+    <indexed_attr value="get_codes"/>
+  </index>
+  <index name="getOwnership"
+         meta_type="KeywordIndex">
+    <indexed_attr value="getOwnership"/>
+  </index>
+  <column value="get_codes" />
+  <column value="getOwnership" />
+  <column value="published_readiness" />
+  <column value="comments" />
+</object>
