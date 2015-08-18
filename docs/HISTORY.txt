@@ -1,8 +1,8 @@
 Changelog
 =========
 
-10.3.dev0 - (unreleased)
-------------------------
+10.3 - (2015-08-18)
+-------------------
 * Change: improved indicators layout, reordered, simplified headings,
   removed TOC
   [demarant refs #26361]
