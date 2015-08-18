@@ -3,10 +3,13 @@ Changelog
 
 10.3.dev0 - (unreleased)
 ------------------------
+* Change: improved indicators layout, reordered, simplified headings,
+  removed TOC
+  [demarant refs #26361]
 * Change: indicators-figure-container now has no border and padding
   both in print and screen in order to accomodate as much info as possible
   on a single page
-  [ichimdav res #27537]
+  [ichimdav refs #27537]
 
 10.2 - (2015-07-28)
 -------------------
