@@ -66,7 +66,7 @@
         </div>
 
         <div id="justification-and-references" metal:define-macro="justification-and-references">
-          <h2 i18n:translate="">Justification for indicator selection</h2>
+          <h3 i18n:translate="">Justification for indicator selection</h3>
           <tal:justification define="rationale_justification context/rationale_justification">
             <p tal:replace="structure rationale_justification"
               tal:condition="python:rationale_justification">Rationale justification</p>
@@ -86,7 +86,7 @@
         </div>
 
         <div id="definition-and-units" metal:define-macro="definition-and-units">
-          <h2 i18n:translate="">Indicator definition</h2>
+          <h3 i18n:translate="">Indicator definition</h3>
           <tal:definition define="definition context/getDefinition">
             <p tal:condition="python:not definition" i18n:translate="">No definition
                 has been specified</p>
@@ -102,16 +102,16 @@
         </div>
 
                                 <div id="policy-context-and-references" metal:define-macro="policy-context-and-references">
-          <h2 id="policy_context" i18n:translate="">Policy context and targets</h2>
+          <h3 id="policy_context" i18n:translate="">Policy context and targets</h3>
 
-          <h3 i18n:translate="">Context description</h3>
+          <h4 i18n:translate="">Context description</h4>
           <tal:policy_description define="policy_description context/getPolicy_context_description">
           <p tal:condition="python:policy_description" tal:content="structure policy_description"></p>
           <p tal:condition="python:not policy_description" i18n:translate="">No
               context has been specified</p>
           </tal:policy_description>
 
-          <h3 i18n:translate="">Targets</h3>
+          <h4 i18n:translate="">Targets</h4>
           <tal:policy_targets define="policy_targets context/getPolicy_context_targets">
           <p tal:condition="python:policy_targets" tal:content="structure policy_targets"></p>
           <p tal:condition="python:not policy_targets" i18n:translate="">No targets
@@ -120,7 +120,7 @@
 
           <tal:policy_documents define="policyDocuments nocall:specification/@@related_items;
           policy_documents python:policyDocuments('PolicyDocumentReference', sort=True)">
-          <h3 i18n:translate="">Related policy documents</h3>
+          <h4 i18n:translate="">Related policy documents</h4>
           <ul tal:condition="python:policy_documents">
             <li tal:repeat="doc policy_documents">
               <a href="" tal:attributes="href doc/getRemoteUrl" tal:content="doc/Title">
@@ -138,26 +138,26 @@
           key_questions python:policy_questions['key_questions'];
           questions python:policy_questions['questions']">
           <tal:key_question repeat="question key_questions">
-            <h2 class="policy_question" i18n:translate="">Key policy question</h2>
-            <h3 tal:content="question/Title" i18n:translate="">Question title</h3>
+            <h3 class="policy_question" i18n:translate="">Key policy question</h3>
+            <h4 tal:content="question/Title" i18n:translate="">Question title</h4>
           </tal:key_question>
           <tal:question repeat="question questions">
-            <h2 class="policy_question" i18n:translate="">Specific policy question</h2>
-            <h3 tal:content="question/Title" i18n:translate="">Question title</h3>
+            <h3 class="policy_question" i18n:translate="">Specific policy question</h3>
+            <h4 tal:content="question/Title" i18n:translate="">Question title</h4>
           </tal:question>
         </tal:policy_question>
 
         <div id="methodology-and-references" metal:define-macro="methodology-and-references">
-          <h2 i18n:translate="">Methodology</h2>
+          <h3 i18n:translate="">Methodology</h3>
 
           <tal:methodology define="methodology context/getMethodology">
-          <h3 i18n:translate="">Methodology for indicator calculation</h3>
+          <h4 i18n:translate="">Methodology for indicator calculation</h4>
           <p tal:condition="python:methodology" tal:content="structure methodology" />
           <p tal:condition="python:not methodology" i18n:translate="">No methodology for indicator calculation has been specified</p>
           </tal:methodology>
 
           <tal:methodology_gapfilling define="methodology_gapfilling context/getMethodology_gapfilling">
-          <h3 i18n:translate="">Methodology for gap filling</h3>
+          <h4 i18n:translate="">Methodology for gap filling</h4>
           <p tal:condition="python:methodology_gapfilling"
              tal:replace="structure methodology_gapfilling" />
           <p tal:condition="python:not methodology_gapfilling"
@@ -166,7 +166,7 @@
             Probably this info has been added together with indicator calculation.</p>
           </tal:methodology_gapfilling>
 
-          <h3 i18n:translate="">Methodology references</h3>
+          <h4 i18n:translate="">Methodology references</h4>
           <tal:methodology_references define="references python:specification.getFolderContents(contentFilter={'portal_type':'MethodologyReference'})">
           <ul tal:condition="python:references">
             <li tal:repeat="ref references">
@@ -183,8 +183,8 @@
         <div id="data-specifications" metal:define-macro="data-specifications"
           tal:define="datasetsView nocall:here/@@related_items;
           auto_relations nocall:here/@@auto-relations.html">
-          <h2 id="data_specifications" i18n:translate="">Data specifications</h2>
-          <h3 i18n:translate="">EEA data references</h3>
+          <h3 id="data_specifications" i18n:translate="">Data specifications</h3>
+          <h4 i18n:translate="">EEA data references</h4>
           <ul tal:define="datasets python:datasetsView('Data')">
             <li tal:condition="python:not datasets" i18n:translate="">No datasets have been specified here.</li>
             <li tal:repeat="data datasets" tal:condition="python:datasets">
@@ -202,7 +202,7 @@
           </ul>
 
           <tal:external define="datasets python:datasetsView('ExternalDataSpec')">
-            <h3 tal:condition="python:datasets" i18n:translate="">External data references</h3>
+            <h4 tal:condition="python:datasets" i18n:translate="">External data references</h4>
             <ul tal:condition="python:datasets">
               <li tal:repeat="data datasets">
                 <a href="" tal:attributes="href data/absolute_url"
@@ -214,7 +214,7 @@
           <!-- TODO: to show other data sources coming from figures related dataset field #3452 -->
 
           <tal:auto define="tabs python:auto_relations.tabs">
-            <h3 i18n:translate="">Data sources in latest figures</h3>
+            <h4 i18n:translate="">Data sources in latest figures</h4>
             <div class="visualNoMarker">
               <tal:tab repeat="tab tabs">
                 <tal:def define="label python:tab[0]; related python:tab[1]">
@@ -240,22 +240,22 @@
 
         </div>
         <div id="uncertainties-part" metal:define-macro="uncertainties-part">
-          <h2 id="uncertainties" i18n:translate="">Uncertainties</h2>
+          <h3 id="uncertainties" i18n:translate="">Uncertainties</h3>
 
-          <h3 i18n:translate="">Methodology uncertainty</h3>
+          <h4 i18n:translate="">Methodology uncertainty</h4>
           <tal:methodology_uncertainty define="methodology_uncertainty context/getMethodology_uncertainty">
           <p tal:condition="python:methodology_uncertainty"
              tal:replace="structure methodology_uncertainty"></p>
           <p tal:condition="python:not methodology_uncertainty" i18n:translate="">No uncertainty has been specified</p>
           </tal:methodology_uncertainty>
 
-          <h3 i18n:translate="">Data sets uncertainty</h3>
+          <h4 i18n:translate="">Data sets uncertainty</h4>
           <tal:data_uncertainty define="data_uncertainty context/getData_uncertainty">
           <p tal:condition="python:data_uncertainty" tal:replace="structure data_uncertainty"></p>
           <p tal:condition="python:not data_uncertainty" i18n:translate="">No uncertainty has been specified</p>
           </tal:data_uncertainty>
 
-          <h3 i18n:translate="">Rationale uncertainty</h3>
+          <h4 i18n:translate="">Rationale uncertainty</h4>
           <tal:rationale_uncertainty define="rationale_uncertainty context/getRationale_uncertainty">
           <p tal:condition="python:rationale_uncertainty" tal:replace="structure rationale_uncertainty"></p>
           <p tal:condition="python:not rationale_uncertainty" i18n:translate="">No uncertainty has been specified</p>
@@ -263,10 +263,10 @@
         </div>
 
 
-        <h2 id="further_work" i18n:translate="">Further work</h2>
+        <h3 id="further_work" i18n:translate="">Further work</h3>
 
         <tal:def tal:define="works context/get_work; short works/short; works works/long">
-          <h3 i18n:translate="">Short term work</h3>
+          <h4 i18n:translate="">Short term work</h4>
           <p i18n:translate="">Work specified here requires to be completed within 1 year from now.</p>
           <div tal:repeat="work short">
             <h4 i18n:translate="">Work description</h4>
@@ -287,7 +287,7 @@
             <h4 i18n:translate="">Deadline</h4>
             <p tal:replace="structure work/getDue_date"></p>
           </div>
-          <h3 i18n:translate="">Long term work</h3>
+          <h4 i18n:translate="">Long term work</h4>
           <p i18n:translate="">Work specified here will require more than 1 year (from now) to be completed.</p>
           <div tal:repeat="work works">
             <h4 i18n:translate="">Work description</h4>
@@ -311,10 +311,10 @@
           </div>
         </tal:def>
 
-        <h2 id="general_metadata" i18n:translate="">General metadata</h2>
+        <h3 id="general_metadata" i18n:translate="">General metadata</h3>
 
         <div class='headed-box'>
-          <h3 i18n:translate="">Responsibility and ownership</h3>
+          <h4 i18n:translate="">Responsibility and ownership</h4>
 
           <h4 i18n:translate="">EEA Contact Info</h4>
           <tal:contact define="manager_id context/getManager_user_id">
@@ -381,7 +381,7 @@
         </div>
 
         <div class='headed-box'>
-          <h3 i18n:translate="">Identification</h3>
+          <h4 i18n:translate="">Identification</h4>
           <div class="wrapper" >
             <div tal:define="codes context/getCodes">
               <strong i18n:translate="">Indicator code</strong>
@@ -457,7 +457,7 @@
         </div>
 
         <div class='headed-box'>
-          <h3 i18n:translate="">Classification</h3>
+          <h4 i18n:translate="">Classification</h4>
           <div class="visualClear"><!-- --></div>
            <strong i18n:translate="">DPSIR</strong>: <span tal:define="dpsirLabel nocall:context/@@dpsir_label"
             tal:replace="python:dpsirLabel(context.getDpsir())" />
