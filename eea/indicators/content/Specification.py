@@ -594,8 +594,8 @@ class Specification(ATFolder, ThemeTaggable, ModalFieldEditableAware,
             logger.info(err)
         return text
 
-    security.declarePublic("getTitle")
-    def getTitle(self):
+    security.declarePublic("getTitleWithCodes")
+    def getTitleWithCodes(self):
         """ Return title with codes """
         codes = self.getCodes()
 
