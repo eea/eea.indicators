@@ -172,6 +172,29 @@ class Assessment(ATFolder, ModalFieldEditableAware,
         if parent:  # the parent seems to be missing in tests
             spec_title = parent.getTitle()
         else:
+            spec_title = "Missing indicator title"
+
+        title = spec_title
+        if isinstance(title, unicode):
+            title = title.encode('utf-8')
+
+        try:
+            wftool = getToolByName(self, 'portal_workflow')
+        except AttributeError:
+            # the object has not finished its creation process
+            title += ' - newly created assessment'
+            return title
+
+        return title
+
+    security.declarePublic("TitleWithCodeAndDate")
+    def TitleWithCodeAndDate(self):
+        """ return title based on parent specification title
+        """
+        parent = aq_parent(aq_inner(self))
+        if parent:  # the parent seems to be missing in tests
+            spec_title = parent.getTitle()
+        else:
             spec_title = "Missing parent"
 
         title = spec_title

@@ -142,7 +142,7 @@ class RelatedItems(BrowserView):
             ctype = [ctype]
 
         items = [rel for rel in self.context.getRelatedItems()
-                    if rel.portal_type in ctype]
+                    if rel and rel.portal_type in ctype]
 
         if state:
             wf_tool = getToolByName(self.context, 'portal_workflow')
