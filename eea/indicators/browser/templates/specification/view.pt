@@ -3,11 +3,6 @@
   i18n:domain="eea">
 
   <!-- #TODO: * i18n:translate -->
- <metal:javascript fill-slot="javascript_head_slot">
-<script type="text/javascript"
-    tal:attributes="src string:${context/portal_url}/++resource++indicators-toc.js">
- </script>
-  </metal:javascript>
 
   <body>
     <div metal:fill-slot="content-title" class="specification_view">
@@ -31,10 +26,6 @@
             tal:content="context/get_frequency_of_updates"
             tal:condition="context/is_discontinued"/>
 
-        <tal:block define="queryString string:h2">
-          <metal:toc use-macro="here/portlet_toc/macros/portlet"/>
-        </tal:block>
-
         <div id="assessment-versions" tal:define="assessments context/@@assessment_versions;
           published python:assessments['published'];
           draft python:assessments['draft']">
@@ -45,8 +36,8 @@
             <li tal:condition="python:not published" i18n:translate="">No
                 published assessments</li>
             <li tal:repeat="assessment published">
-              <a tal:attributes="href assessment/absolute_url" tal:content="assessment/Title">
-                Assessment title here
+              <a tal:attributes="href assessment/absolute_url">
+                <metal:field use-macro="python:assessment.widget('effectiveDate', mode='view')" /> - <span tal:replace="assessment/Title" />
               </a>
             </li>
           </ul>
@@ -56,8 +47,8 @@
             <ul>
               <li tal:condition="python:not draft">No drafts available</li>
               <li tal:repeat="assessment draft">
-                <a tal:attributes="href assessment/absolute_url" tal:content="assessment/Title">
-                  Assessment title here
+                <a tal:attributes="href assessment/absolute_url">
+                  <span tal:replace="assessment/Title" />
                 </a>
               </li>
             </ul>

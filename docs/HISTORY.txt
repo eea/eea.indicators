@@ -3,7 +3,13 @@ Changelog
 
 10.4.dev0 - (unreleased)
 ------------------------
+* Change: updated specification view, removed TOC and  
+  showing the date on the assessment versions, 
+  since now not part of title.
+  [demarant refs #26361]
 * Change: Remove dates and codes from indicator title.
+  Upgrade Step: reindex all indicators spec and assessment.
+  invalidate varnish for all urls having "/data-and-maps/indicators" 
   [demarant refs #26361]
 
 10.3 - (2015-08-18)
