@@ -87,10 +87,8 @@
                               <div class='chart-custom-settings'
                                     style="display:none"
                                     tal:attributes="
-                                            chart_width python:600 if isPrint else current_chart.get('width', '');
-                                            chart_height python:472 if isPrint else current_chart.get('heigth', '');
-                                            chart_chartAreaWidth python:425 if isPrint else current_chart.get('chartAreaWidth', '');
-                                            chart_chartAreaHeight python:375 if isPrint else current_chart.get('chartAreaHeight', '');
+                                            chart_width python:'99%' if isPrint else current_chart.get('width', '');
+                                            chart_height python:'98%' if isPrint else current_chart.get('heigth', '');
                                             chart_chartAreaTop python:35 if isPrint else current_chart.get('chartAreaTop', '');
                                             chart_chartAreaLeft python:60 if isPrint else current_chart.get('chartAreaLeft', '');">
                               </div>
