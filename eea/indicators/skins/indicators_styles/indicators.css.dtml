@@ -34,9 +34,7 @@ dl.enableFormTabbing dd {
     padding-top: 0;
 }
 
-.figure-chart-live {
-   margin-bottom: 1em;
-}
+
 
 /* Completeness status portlet
 ============================== */
@@ -589,6 +587,10 @@ div.kupu-fulleditor-zoomed .kupu-editor-iframe {
 
 .indicator-figure-plus .figure-title {
     font-size: 1.6em !important;
+}
+
+.indicator-figure-sources {
+    margin: 0;
 }
 
 /*start datagridwidget */
