@@ -124,7 +124,7 @@
 
                               <tal:data tal:define="data_info obj/@@data.info | python:{}">
                                 <strong i18n:translate="">Data sources:</strong>
-                                <ul tal:condition="data_info" tal:define="provenances data_info/provenances | python:[]">
+                                <ul tal:condition="data_info" tal:define="provenances data_info/provenances | python:[]" class="indicator-figure-sources">
                                     <tal:block tal:repeat="provenance provenances">
                                         <li tal:define="source provenance/source | python:{};
                                             owner provenance/owner | python:{}">
