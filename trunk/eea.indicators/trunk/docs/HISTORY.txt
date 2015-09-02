@@ -3,6 +3,9 @@ Changelog
 
 10.4.dev0 - (unreleased)
 ------------------------
+* Change: display indicator codes below title, 
+  as document by line.
+  [demarant refs #26361]
 * Change: updated specification view, removed TOC and  
   showing the date on the assessment versions, 
   since now not part of title.
