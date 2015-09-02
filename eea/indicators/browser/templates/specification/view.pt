@@ -8,7 +8,13 @@
     <div metal:fill-slot="content-title" class="specification_view">
       <h1 class="documentFirstHeading" tal:content="context/Title">Title here</h1>
     </div>
-    <div metal:fill-slot="content-description"></div>
+    <div metal:fill-slot="content-description" tal:define="codes context/getCodes" class="documentByLine">
+     <strong i18n:translate="">Indicator codes:</strong>
+     <span tal:repeat="code codes">
+     <span tal:replace="string:${code/set} ${code/code}" />
+     <span tal:condition="not:repeat/code/end" tal:replace="string:, " />
+     </span>
+    </div>
     <div metal:fill-slot="content-core" class="specification_view" id='region-content'>
       <metal:main_macro define-macro="main"
         tal:define="portal_type python:here.getPortalTypeName().lower().replace(' ', '_');
