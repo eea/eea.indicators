@@ -3,6 +3,8 @@ Changelog
 
 10.4.dev0 - (unreleased)
 ------------------------
+* Change: added Rationale heading.
+  [demarant refs #26361]
 * Change: display indicator codes below title, 
   as document by line.
   [demarant refs #26361]

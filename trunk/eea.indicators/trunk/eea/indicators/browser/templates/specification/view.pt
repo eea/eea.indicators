@@ -63,14 +63,15 @@
         </div>
 
         <div id="justification-and-references" metal:define-macro="justification-and-references">
-          <h3 i18n:translate="">Justification for indicator selection</h3>
+          <h3 i18n:translate="">Rationale</h3>
+          <h4 i18n:translate="">Justification for indicator selection</h4>
           <tal:justification define="rationale_justification context/rationale_justification">
             <p tal:replace="structure rationale_justification"
               tal:condition="python:rationale_justification">Rationale justification</p>
             <p tal:condition="python:not rationale_justification">No rationale/justification has been specified</p>
           </tal:justification>
 
-          <h3 i18n:translate="">Scientific references:</h3>
+          <h4 i18n:translate="">Scientific references</h4>
           <ul tal:define="refs python:specification.getFolderContents(contentFilter={'portal_type':'RationaleReference'})">
             <li tal:condition="python:not refs">No rationale references
                 available</li>
