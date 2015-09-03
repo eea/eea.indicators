@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<object name="portal_pdf" meta_type="PDFTool">
+ <object name="report-of-indicators" meta_type="PDFTheme">
+  <property name="title">Indicator report</property>
+  <property name="cover">pdf.cover</property>
+  <property name="disclaimer">pdf.disclaimer</property>
+  <property name="body">indicators.pdf.body</property>
+  <property name="backcover">pdf.cover.back</property>
+  <property name="header">pdf.header</property>
+  <property name="footer">pdf.footer</property>
+  <property name="staticFooterAndHeader">False</property>
+  <property name="toc">pdf.toc</property>
+  <property name="toclinks">False</property>
+  <property name="javascript">True</property>
+  <property name="javascriptdelay">20</property>
+  <property name="timeout">3600</property>
+  <property name="async">True</property>
+  <property name="offset">3</property>
+  <property name="maxdepth">1</property>
+  <property name="maxbreadth">100</property>
+  <property name="maxitems">1000</property>
+  <property name="types">
+   <element value="Collection"/>
+   <element value="Topic"/>
+   <element value="Folder"/>
+  </property>
+ </object>
+</object>

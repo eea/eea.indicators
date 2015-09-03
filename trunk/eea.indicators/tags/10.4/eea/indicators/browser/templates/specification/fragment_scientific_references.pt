@@ -1,0 +1,71 @@
+<tal:def tal:define="submit_handler string:simple_edit; ">
+  <tal:def tal:define="region_name string:scientific_references_area;
+                       region_update_handler string:fragment_scientific_references;
+                       also_reload python:['object_readiness'];
+                       imsutils nocall:context/@@indicator_utils;
+                       portal_url context/portal_url">
+
+    <metal:macro metal:use-macro="context/indicators_macros/macros/active_region">
+      <metal:slot metal:fill-slot="content">
+
+        <div class="logic_group">
+          <a name="rfs_rationale_justification" ></a>
+          <h2 id="rationale" i18n:translate="">Rationale</h2>
+          <h4 tal:define="field python:context.getField('rationale_justification')">
+            <span metal:use-macro="context/indicators_macros/macros/tooltip" />
+            <span i18n:translate="">Justification for indicator selection</span>
+          </h4>
+          <tal:def tal:define="fieldname string:rationale_justification; fieldset string:Rationale">
+            <metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
+              <metal:slot metal:fill-slot="content" 
+                    tal:define="value_info python:imsutils.field_value_info(fieldname, context)">
+                <div tal:condition="not: value_info/has_value" class="placeholder">
+                  <span class="required" i18n:translate="">
+                    Please fill in. <span i18n:name="msg" tal:replace="value_info/msg" />
+                  </span>
+                </div>
+                <p tal:replace="structure context/rationale_justification"></p>
+              </metal:slot>
+              <metal:slot metal:fill-slot="extra-metadata">
+                <div class="dialog_title" i18n:translate="">Edit Rationale</div>
+              </metal:slot>
+            </metal:macro>
+          </tal:def>
+        </div>
+
+        <div class="logic_group">
+          <h4 tal:define="tooltip string:Add Scientific references">
+            <span metal:use-macro="context/indicators_macros/macros/tooltip" />
+            <span i18n:translate="">Scientific references</span>
+          </h4>
+          <div class="grouped_field">
+            <a href='./object_factory?type_name=RationaleReference' class="object_creator standardButton" i18n:translate="">+ Scientific Reference</a>
+            <ul tal:define="refs python:context.objectValues('RationaleReference')" class="sortable_spec scientific_references">
+              <li tal:repeat="ref refs" class="list-item">
+                <span title="Drag and drop to set order"
+                      i18n:attributes="title"
+                      class="handler ui-icon ui-icon-arrowthick-2-n-s"></span>
+                <a href=""
+                  class="schemata_edit standardButton"
+                  title="Edit Scientific Reference"
+                  i18n:attributes="title"
+                  i18n:translate=""
+                  tal:attributes="href string:${ref/absolute_url}/schemata_edit?fieldset=default">Edit</a>
+                <a href=""
+                  class="object_delete standardButton"
+                  tal:attributes="href string:${ref/aq_parent/absolute_url}/obj_delete?id=${ref/getId}"
+                  i18n:translate="">Delete</a>
+                <a href="" tal:define="remote_url python: callable(ref.getRemoteUrl) and ref.getRemoteUrl() or None" 
+                  tal:attributes="href python:remote_url or ref.absolute_url()"
+                  tal:content="ref/Title">Ref title</a>
+                <p tal:replace="structure ref/getDescription" />
+              </li>
+            </ul>
+          </div>
+        </div>
+
+      </metal:slot>
+    </metal:macro>
+
+  </tal:def>
+</tal:def>

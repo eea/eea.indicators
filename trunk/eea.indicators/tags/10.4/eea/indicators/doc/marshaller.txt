@@ -1,0 +1,14 @@
+Test for the codes field adapter
+================================
+
+We have a special field adapter that extracts values from the codes field:
+
+    >>> self.loginAsPortalOwner()
+    >>> id = portal.invokeFactory('Folder', 'ims')
+    >>> ims = portal[id]
+    >>> id = ims.invokeFactory("Specification", 'spec1')
+    >>> spec = ims[id]
+    >>> spec.setCodes([{'set':'CSI', 'code':'001'}, {'set':'TERM', 'code':'002'}])
+    >>> rdf = spec.unrestrictedTraverse("@@rdf")()
+    >>> assert "<specification:codes>TERM002</specification:codes>" in rdf
+    >>> assert "<specification:codes>CSI001</specification:codes>" in rdf
