@@ -219,11 +219,6 @@ ul.sortable_spec {
 
 /* Specification view
 ===================== */
-/*.documentContent th {*/
-    /*background-color: #31B4FF;*/
-    /*font-weight: bold;*/
-    /*font-size: 1.2em;*/
-/*}*/
 #content-more-updates-on {
     background-color: #d0df86;
 }
@@ -565,6 +560,9 @@ div.kupu-fulleditor-zoomed .kupu-editor-iframe {
     page-break-inside: avoid;
 }
 
+.page-break-before {
+    page-break-before: always !important;
+}
 .no-page-break-before {
     page-break-before: avoid !important;
 }
