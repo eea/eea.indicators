@@ -2,9 +2,6 @@
   metal:use-macro="here/main_template/macros/master"
   i18n:domain="eea">
   <div metal:fill-slot="content-core">
-    <h1 tal:content="object_title" class="documentFirstHeading">
-      Title or id
-    </h1>
     <p>
       <span i18n:translate="">The link address is:</span>
       <a href="#" tal:attributes="href here/remote_url"
