@@ -197,12 +197,10 @@ def hasUnpublishableFigure(ast):
             #skip published figures
             if wftool.getInfoFor(fig, 'review_state') == 'published':
                 continue
-            #fail on not finished figures
-            if not IObjectReadiness(fig).is_ready_for('published'):
-                return True
-            #check that the figures are actually publishable
-            if not [t for t in wftool.getTransitionsFor(fig) if
-                    t['id'] in ('publish', 'quickPublish')]:
+            #fail on not finished figures with missing fields
+            info = IObjectReadiness(fig).get_info_for('published')
+            if not IObjectReadiness(fig).is_ready_for('published') and \
+                len(info['rfs_field_names']) != 0:
                 return True
 
     return False
@@ -211,9 +209,8 @@ def getUnpublishableFiguresMissingInformation(ast):
     """ Collect and merge info about unpublishable figures
     """
 
-    message = 'Some of the figures in this indicator are not completed, ' + \
-        'please check each of the figures to see what required information' + \
-        'is missing.<br/>'
+    message = ''
+    fig_messages = []
 
     wftool = getToolByName(ast, 'portal_workflow')
     for part in ast.objectValues("AssessmentPart"):
@@ -233,13 +230,16 @@ def getUnpublishableFiguresMissingInformation(ast):
                     fig_message += "%s," % field[1]
                 fig_message = fig_message[0:-1]
                 fig_message += "<br/>"
-                message += fig_message
-                continue
-            #check that the figures are actually publishable
-            if not [t for t in wftool.getTransitionsFor(fig) if
-                    t['id'] in ('publish', 'quickPublish')]:
-                message += "Figure <b>%s</b> is not publishable<br/>" \
-                % fig.title
+                fig_messages.append(fig_message)
+
+    if len(fig_messages)>0:
+        #at least one error/warning
+        fig_messages.insert(0,
+            'Some of the figures in this indicator are not completed, ' + \
+            'please check each of the figures to see what required ' + \
+            'information is missing.<br/>')
+        message = ''.join(fig_messages)
+
     return message
 
 class WorkflowStateReadiness(ObjectReadiness):
