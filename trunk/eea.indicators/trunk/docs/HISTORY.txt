@@ -3,9 +3,9 @@ Changelog
 
 10.5.dev0 - (unreleased)
 ------------------------
-* Bug: fixed erroneous message on indicators with daviz in first draft.
+* Bug fix: fixed erroneous message on indicators with daviz in first draft.
   [chiridra refs #28483]
-* Bug: remove duplicate title in policy document view.
+* Bug fix: remove duplicate title in policy document view.
   [demarant refs #28578]
 
 10.4 - (2015-09-03)
