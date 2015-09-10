@@ -1,0 +1,80 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+  metal:use-macro="here/main_template/macros/master"
+  i18n:domain="eea">
+  <head>
+    <title tal:content="context/Title"></title>
+  </head>
+
+  <body>
+    <div metal:fill-slot="main">
+      <h1 i18n:translate="">Create a new version of an Assessment</h1>
+      <form method="POST" action="." tal:attributes="action here/REQUEST/URL" id="astcreateversion">
+        <p i18n:translate="">
+            This indicator has a newer version, 
+            <a href="" tal:attributes="href view/spec_url" 
+               tal:content="view/spec_title" i18n:name="spec-title">Spec title</a> from
+            <span tal:replace="view/date" i18n:name="indicator-date"/>.
+        </p>
+        <p i18n:translate="">
+          Do you want to create this assessment
+          <input type="radio" name="choice" value="here" 
+                 i18n:attributes="value" 
+                 i18n:name="here" /> here or 
+          <input type="radio" name="choice" value="newest" 
+                 i18n:attributes="value"
+                 i18n:name="newest" 
+                 checked="checked" /> in the latest version of the Specification?
+        </p>
+        <input type="submit" name="submit" value="Submit" i18n:attributes="value" />
+      </form>
+            <script>
+// <!--
+jq("#astcreateversion").submit(
+function(e){
+    var form = this;
+    var formdata = jq(form).serialize() + "&submit=1";
+
+    // get the latest version url, before new version
+    jq.ajax({ 
+      url     : context_url+"/getLatestVersionUrl",
+      success : function(data){
+        latestVersionUrl = data;
+        var el = jq('<div style="text-align:center;width:250px;"/>').
+                   text("Please wait, a new version is being created.").
+                   append(jq('<img/>').attr('src', "++resource++jqzoom/zoomloader.gif")).html();
+        jq.fancybox(el);
+
+        // submit the form to create the new version
+        jq.ajax({
+          "data": formdata,
+          url: form.action,
+          type:'POST',
+          cache:false,
+          // timeout: 2000,
+          error   : function(xhr, ajaxOptions, thrownError){
+            if (xhr.status == 504){
+              checkLatestVersion(true);
+            }
+            else {
+              var el = jq('<div style="text-align:center;width:250px;" />').
+                        text("An internal error occured, please contact the administrator").html();
+              jq.fancybox(el, {'modal':false});
+            }},
+          success : function(data) {
+            if (data.indexOf("SEEURL")===0){
+                var url = data.replace("SEEURL:", ""); 
+                window.location.href = url;
+            } else {
+                checkLatestVersion(true);
+            }}
+       });
+
+       }});
+
+    return false;
+});
+// -->
+            </script>
+    </div>
+  </body>
+</html>
