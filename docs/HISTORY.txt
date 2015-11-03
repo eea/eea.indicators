@@ -1,8 +1,8 @@
 Changelog
 =========
 
-10.6.dev0 - (unreleased)
-------------------------
+10.6 - (2015-11-03)
+-------------------
 * Change: no longer modify height of tables when printing in order
   to avoid stretched and overly long tables
   [ichimdav refs #29335]
