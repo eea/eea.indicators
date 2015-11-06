@@ -3,6 +3,8 @@ Changelog
 
 10.8.dev0 - (unreleased)
 ------------------------
+* Bug fix: fix adding assessment part
+  [lucas refs #30425]
 
 10.7 - (2015-11-06)
 -------------------
