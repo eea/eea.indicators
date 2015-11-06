@@ -98,7 +98,7 @@ function init_tinymce(el){
     { title: "Square", tag: "ul", className: "listTypeSquare", type: "Lists" },
     { title: "Circle", tag: "ul", className: "listTypeCircle", type: "Lists" },
     { title: "Numbers", tag: "ol", className: "listTypeDecimal", type: "Lists" },
-    { title: "Lower Alpha", tag: "ol", className: "listTypeLowerAlpha", type: "Lists" },                                                                                               
+    { title: "Lower Alpha", tag: "ol", className: "listTypeLowerAlpha", type: "Lists" },
     { title: "Upper Alpha", tag: "ol", className: "listTypeUpperAlpha", type: "Lists" },
     { title: "Lower Roman", tag: "ol", className: "listTypeLowerRoman", type: "Lists" },
     { title: "Upper Roman", tag: "ol", className: "listTypeUpperRoman", type: "Lists" },
@@ -166,15 +166,20 @@ function set_relation_widgets() {
     }
 
     var popup = new EEAReferenceBrowser.Widget(fieldname);
-    try {
-      $('#' + widget_dom_id).get(0)._widget = popup;
-      $(popup.events).bind(popup.events.SAVED, function(evt){
-        ajaxify($('#'+widget_dom_id), realfieldname);
-        $('#' + widget_dom_id + ' form').trigger('submit');
-      });
-    } catch (e) {
-      // for some reasons this behaves as if the DOM is not fully loaded.
-      // Probably the calling script should be made smarter
+    
+    // 30425 fix Adding assessment part is not working,
+    // ajax save form call fail when add a data policy, it is not needed
+    if ($('body.portaltype-assessmentpart').length == 0){
+      try {
+        $('#' + widget_dom_id).get(0)._widget = popup;
+        $(popup.events).bind(popup.events.SAVED, function(evt){
+          ajaxify($('#'+widget_dom_id), realfieldname);
+          $('#' + widget_dom_id + ' form').trigger('submit');
+        });
+      } catch (e) {
+        // for some reasons this behaves as if the DOM is not fully loaded.
+        // Probably the calling script should be made smarter
+      }
     }
 
   });
@@ -235,15 +240,19 @@ function bootstrap_relations_widgets(){
       var popup = new EEAReferenceBrowser.Widget(domid, {'fieldname':fieldname});
       $('#' + domid).get(0)._widget = popup;
       var region = $(this).parents('.active_region'); // TODO: is this needed? doesn't look like
-
-      try {
-        $(popup.events).bind(popup.events.SAVED, function(evt){
-          ajaxify(active_field, domid);
-          $(widget).parents('form').trigger('submit');
-        });
-      } catch (e) {
-        // for some reasons this behaves as if the DOM is not fully loaded.
-        // Probably the calling script should be made smarter
+      
+      // 30425 fix Adding assessment part is not working,
+      // ajax save form call fail when add a data policy, it is not needed
+      if ($('body.portaltype-assessmentpart').length == 0){
+        try {
+          $(popup.events).bind(popup.events.SAVED, function(evt){
+            ajaxify(active_field, domid);
+            $(widget).parents('form').trigger('submit');
+          });
+        } catch (e) {
+          // for some reasons this behaves as if the DOM is not fully loaded.
+          // Probably the calling script should be made smarter
+        }
       }
     }
   );
@@ -484,12 +493,12 @@ function dialog_edit(url, title, callback, options){
       // surprisingly, clicking on their label activates the fields
       // this happens only in Internet Explorer
       //
-      $("#dialog-inner div.ArchetypesRichWidget > label").each(function(){ 
-          var label = this; 
-          if ($(label).parents('.ArchetypesRichWidget').length) { 
-            $(label).trigger('click'); 
-          } 
-      }); 
+      $("#dialog-inner div.ArchetypesRichWidget > label").each(function(){
+          var label = this;
+          if ($(label).parents('.ArchetypesRichWidget').length) {
+            $(label).trigger('click');
+          }
+      });
       set_inout($("#archetypes-fieldname-themes"));
       callback();
     }
@@ -711,24 +720,24 @@ function closer(fieldname, active_region, url){
 })(jQuery);
 }
 
-function close_dialog(info) {                                                                                                                                        
+function close_dialog(info) {
     var popups = [];
-    jq(".indicators_relations_widget").each(function(){ 
+    jq(".indicators_relations_widget").each(function(){
         var fieldname = $(".metadata .fieldName", this).text();
         var realfieldname = $(".metadata .realFieldName", this).text();
         var widget_dom_id = $(".metadata .widget_dom_id", this).text();
         if (!widget_dom_id) {
           return false;
         }
-        var popup = jq('#' + widget_dom_id).get(0)._widget; 
+        var popup = jq('#' + widget_dom_id).get(0)._widget;
         popups.push(popup);
     });
 
 
-   if (info.search('http://') !== -1) {                                                                                                                              
-       jq("#dialog-inner").dialog("close");                                                                                                                          
+   if (info.search('http://') !== -1) {
+       jq("#dialog-inner").dialog("close");
        if (typeof(window.popup) !== "undefined") {
-           jq(window.popup.events).trigger('EEA-REFERENCEBROWSER-BASKET-ADD', {url:info});                                                                               
+           jq(window.popup.events).trigger('EEA-REFERENCEBROWSER-BASKET-ADD', {url:info});
        } else {
         if (!popups.length) {
             alert("could not get eea.reference popup");
@@ -738,11 +747,11 @@ function close_dialog(info) {
             });
         }
        }
-   } else {                                                                                                                                                          
-       // compatibility with eea.indicators                                                                                                                          
-       reload_region($("#"+info));                                                                                                                                 
-       jq("#dialog-inner").dialog("close");                                                                                                                          
-   }                                                                                                                                                                 
+   } else {
+       // compatibility with eea.indicators
+       reload_region($("#"+info));
+       jq("#dialog-inner").dialog("close");
+   }
 }
 
 function open_relations_widget(widget_dom_id, selected_tab){
