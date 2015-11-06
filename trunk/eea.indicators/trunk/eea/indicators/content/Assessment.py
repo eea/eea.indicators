@@ -150,7 +150,12 @@ class Assessment(ATFolder, ModalFieldEditableAware,
     def get_assessments(self):
         """ Returns assessment parts
         """
-        parts = self.objectValues('AssessmentPart')
+        # 30415 objectValues does not take into consideration security
+        # consideration and getFolderContents will only show published
+        # items for anonymous users. This is used when AssessmantParts
+        # are added to the page and related_items is called upon them
+        parts = self.getFolderContents({'contentFilter':'AssessmentPart'})
+        parts = [b.getObject() for b in parts]
         key = None
         secondary = []
         for part in parts:
