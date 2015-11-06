@@ -1,6 +1,9 @@
 Changelog
 =========
 
+10.8.dev0 - (unreleased)
+------------------------
+
 10.7 - (2015-11-06)
 -------------------
 * Bug fix: get_assessments now checks if user has View permission
