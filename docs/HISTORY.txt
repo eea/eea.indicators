@@ -3,6 +3,10 @@ Changelog
 
 10.7.dev0 - (unreleased)
 ------------------------
+* Bug fix: get_assessments now use getFolderContents to get AssessmentParts
+  in order to avoid login page for anonymous users when an AssessmentPart
+  has a review state different from published and related_items is called on it
+  [ichimdav refs #30415]
 
 10.6 - (2015-11-03)
 -------------------
