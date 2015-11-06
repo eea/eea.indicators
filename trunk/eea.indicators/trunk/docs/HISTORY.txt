@@ -1,8 +1,8 @@
 Changelog
 =========
 
-10.7.dev0 - (unreleased)
-------------------------
+10.7 - (2015-11-06)
+-------------------
 * Bug fix: get_assessments now checks if user has View permission
   for the objectValues returned objects. This avoids listing objects
   that have review states which are not visible by anonymous and
