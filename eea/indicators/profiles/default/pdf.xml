@@ -13,7 +13,7 @@
   <property name="toclinks">False</property>
   <property name="javascript">True</property>
   <property name="javascriptdelay">20</property>
-  <property name="timeout">3600</property>
+  <property name="timeout">7200</property>
   <property name="async">True</property>
   <property name="offset">3</property>
   <property name="maxdepth">1</property>
