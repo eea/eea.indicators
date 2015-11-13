@@ -92,7 +92,6 @@
                                             chart_chartAreaTop python:35 if isPrint else current_chart.get('chartAreaTop', '');
                                             chart_chartAreaLeft python:60 if isPrint else current_chart.get('chartAreaLeft', '');">
                               </div>
-
                               <div class="figure-chart-live" tal:condition="python:chart_type == 'live'">
                                 <script tal:replace="structure python:inline_chart(chart=chart_id)"></script>
                                  <div class="visualClear"><!-- --></div>
@@ -139,7 +138,10 @@
                                 <p tal:condition="python:not data_info" i18n:translate="">Data provenance info is missing.</p>
                               </tal:data>
                               <a tal:attributes="href obj/absolute_url"
-                                     class="standardButton" i18n:translate="">Explore chart interactively</a>
+                                     class="standardButton">
+                                    <span class="eea-icon eea-icon-eye"></span>
+                                    <span i18n:translate="">Explore chart interactively</span>
+                              </a>
 
                         </dd>
                     </tal:rep>
@@ -160,9 +162,11 @@
                               tal:content="figure_description" />
                         <span tal:condition="python:not figure_description">N/A</span>
                       </p>
-                      <a tal:attributes="href obj/absolute_url"
-                             class="standardButton" i18n:translate="">Explore chart interactively</a>
-
+                        <a tal:attributes="href obj/absolute_url"
+                                class="standardButton">
+                            <span class="eea-icon eea-icon-eye"></span>
+                            <span i18n:translate="">Explore chart interactively</span>
+                        </a>
                     </dd>
                 </dl>
             </div>
