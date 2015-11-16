@@ -1,8 +1,8 @@
 Changelog
 =========
 
-10.9.dev0 - (unreleased)
-------------------------
+10.9 - (2015-11-16)
+-------------------
 * Change: increased timeout of the "Indicator report" PDF theme
   [ghicaale refs #29975]
 
