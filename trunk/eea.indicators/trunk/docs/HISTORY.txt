@@ -3,9 +3,6 @@ Changelog
 
 11.0.dev0 - (unreleased)
 ------------------------
-* Change: removed title of Chart in order to avoid double title from
-  python and the google chart Title
-  [ichimdav refs #30473]
 
 10.9 - (2015-11-16)
 -------------------
