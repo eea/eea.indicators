@@ -169,7 +169,7 @@ function set_relation_widgets() {
     
     // 30425 fix Adding assessment part is not working,
     // ajax save form call fail when add a data policy, it is not needed
-    if ($('body.portaltype-assessmentpart').length == 0){
+    if ($('body.portaltype-assessmentpart').length === 0){
       try {
         $('#' + widget_dom_id).get(0)._widget = popup;
         $(popup.events).bind(popup.events.SAVED, function(evt){
@@ -243,7 +243,7 @@ function bootstrap_relations_widgets(){
       
       // 30425 fix Adding assessment part is not working,
       // ajax save form call fail when add a data policy, it is not needed
-      if ($('body.portaltype-assessmentpart').length == 0){
+      if ($('body.portaltype-assessmentpart').length === 0){
         try {
           $(popup.events).bind(popup.events.SAVED, function(evt){
             ajaxify(active_field, domid);
