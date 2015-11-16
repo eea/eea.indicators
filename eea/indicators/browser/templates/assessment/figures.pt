@@ -60,7 +60,6 @@
                         charts python:daviz_view.get_charts(uid);
                         inline_chart nocall:obj/@@embed-inline | nothing;">
 
-            <p class="figure-title" tal:content="obj/Title" />
             <div class="metadata" style="display:none;">
               <div class="part_url" tal:content="python:context.absolute_url()">
               </div>
