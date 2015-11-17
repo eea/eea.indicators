@@ -6,7 +6,7 @@ from eea.indicators.tests.base import BaseIndicatorsTestCase
 from unittest import TestSuite
 from Testing.ZopeTestCase.zopedoctest import ZopeDocFileSuite
 import doctest
-
+import os
 
 OPTIONFLAGS = (doctest.REPORT_ONLY_FIRST_FAILURE |
                doctest.ELLIPSIS |
@@ -15,7 +15,7 @@ OPTIONFLAGS = (doctest.REPORT_ONLY_FIRST_FAILURE |
 
 def test_suite():
     """test suite"""
-    import os; os.environ['PLONE_CSRF_DISABLED'] = 'true'
+    os.environ['PLONE_CSRF_DISABLED'] = 'true'
 
     s1 = ZopeDocFileSuite('install.txt',
                          package='eea.indicators.doc',
