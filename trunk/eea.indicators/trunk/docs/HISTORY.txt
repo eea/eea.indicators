@@ -1,8 +1,8 @@
 Changelog
 =========
 
-11.0.dev0 - (unreleased)
-------------------------
+11.0 - (2015-11-17)
+-------------------
 * Fixed jslints
   [szabozo0]
 * Fixed tests, disabled CSRF protection while testing
