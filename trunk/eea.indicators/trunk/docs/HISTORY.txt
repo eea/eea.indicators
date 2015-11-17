@@ -5,6 +5,8 @@ Changelog
 ------------------------
 * Fixed jslints
   [szabozo0]
+* Fixed tests, disabled CSRF protection while testing
+  [szabozo0 refs #30716]
 
 10.9 - (2015-11-16)
 -------------------
