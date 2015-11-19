@@ -3,6 +3,8 @@ Changelog
 
 11.1.dev0 - (unreleased)
 ------------------------
+* Change: Removed CSRF security quickfix for tests
+  [szabozo0 refs #30858]
 
 11.0 - (2015-11-17)
 -------------------
