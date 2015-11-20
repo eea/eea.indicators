@@ -1,4 +1,4 @@
-<tal:figures define="objects python:path('nocall:context/@@related_items')(['EEAFigure', 'DavizVisualization']);
+<tal:figures define="objects python:path('nocall:context/@@related_items')(['EEAFigure', 'DavizVisualization', 'GIS Application']);
                      isAssessment python: context.portal_type == 'AssessmentPart';
                      isPrint python:1 if 'pdf.' in request['URL0'] else 0;">
 
@@ -51,6 +51,25 @@
 
     </div>
 
+    <!-- gis rendering -->
+    <div class="indicator-figure-plus" tal:attributes="id obj/getId"
+        tal:condition="python:obj.portal_type == 'GIS Application'">
+        <tal:block tal:define="gismap_uid obj/UID;
+                               get_gismap_embed nocall:context/@@get_gismap_embed;
+                               embed_type python:get_gismap_embed.get_embed_type(gismap_uid)">
+            <p class="figure-title" tal:content="obj/Title" />
+            <tal:block tal:condition="python:embed_type=='interactive' or embed_type=='' or embed_type is None">
+                <tal:block tal:replace="structure obj/gis_inline" />
+            </tal:block>
+            <tal:block tal:condition="python:embed_type=='static'">
+                <p>
+                    <a tal:attributes="href string:${obj/absolute_url}/">
+                        <img tal:attributes="src string:${obj/absolute_url}/image_large; title obj/title_or_id; alt obj/title_or_id" style="float:none;" />
+                    </a>
+                </p>
+            </tal:block>
+        </tal:block>
+     </div>
 
     <!-- daviz rendering -->
         <div class="indicator-figure-plus embedded-daviz-visualization" tal:attributes="id obj/getId"
