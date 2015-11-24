@@ -58,16 +58,25 @@
                                get_gismap_embed nocall:context/@@get_gismap_embed;
                                embed_type python:get_gismap_embed.get_embed_type(gismap_uid)">
             <p class="figure-title" tal:content="obj/Title" />
-            <tal:block tal:condition="python:embed_type=='interactive' or embed_type=='' or embed_type is None">
-                <tal:block tal:replace="structure obj/gis_inline" />
-            </tal:block>
-            <tal:block tal:condition="python:embed_type=='static'">
-                <p>
-                    <a tal:attributes="href string:${obj/absolute_url}/">
-                        <img tal:attributes="src string:${obj/absolute_url}/image_large; title obj/title_or_id; alt obj/title_or_id" style="float:none;" />
-                    </a>
-                </p>
-            </tal:block>
+            <div class="indicator-figure-image">
+                <tal:block tal:condition="python:(embed_type=='interactive' or embed_type=='' or embed_type is None) and (not isPrint)">
+                    <tal:block tal:replace="structure obj/gis_inline" />
+                </tal:block>
+                <tal:block tal:condition="python:(embed_type=='static') or isPrint">
+                    <p>
+                        <a tal:attributes="href string:${obj/absolute_url}/">
+                            <img tal:attributes="src string:${obj/absolute_url}/image_large; title obj/title_or_id; alt obj/title_or_id" style="float:none;" />
+                        </a>
+                    </p>
+                    <p>
+                        <a tal:attributes="href obj/absolute_url" class="standardButton">
+                            <span class="eea-icon eea-icon-eye"></span>
+                            <span i18n:translate="">Explore map interactively</span>
+                        </a>
+                    </p>
+                </tal:block>
+                <div class="visualClear"><!-- --></div>
+            </div>
         </tal:block>
      </div>
 
