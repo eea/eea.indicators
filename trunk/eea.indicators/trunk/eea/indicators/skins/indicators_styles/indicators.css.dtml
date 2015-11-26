@@ -13,14 +13,18 @@
     padding-top:1em;
 }
 
-#box-classification-col1 {
+.box-column-left {
    float:left;
    width: 48%;
 }
 
-#box-classification-col2 {
+.box-column-right {
    float:right;
    width: 48%;
+}
+
+.clear {
+    clear: both;
 }
 
 /* Style adjustments 

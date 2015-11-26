@@ -140,7 +140,7 @@
        <!--? metadata -->
         <div id="box-classification">
             <h3 i18n:translate="">Generic metadata</h3>
-            <div id="box-classification-col1">
+            <div class="box-column-left">
                 <tal:block define="themesView specification/@@themes-object|nothing;
           themes themesView/full_items;
           primaryTheme python:themes and themes[0] or None">
@@ -171,7 +171,7 @@
                 <strong i18n:translate="">Typology</strong>: <span tal:define="typologyLabel nocall:context/@@typology_label"
                     tal:replace="python:typologyLabel(context.getTypology())" />
             </div>
-            <div id="box-classification-col2">
+            <div class="box-column-right">
                 <div tal:define="codes context/getCodes">
                     <strong i18n:translate="">Indicator codes</strong>
                     <ul>
@@ -185,69 +185,78 @@
 
       <!--? /metadata -->
 
-      <div id="contact-and-ownership">
+      <div id="contact-and-ownership" class="clearfix">
       <h3 i18n:translate="">Contacts and ownership</h3>
-        <h4 i18n:translate="">EEA Contact Info</h4>
-        <tal:contact define="manager_id context/getManager_user_id">
-          <tal:manager condition="python:manager_id">
-            <tal:block define="manager_ob context/@@indicator_contact_info">
-              <a href=""
-                tal:condition="python:manager_ob"
-                title="Contact indicator manager"
-                i18n:attributes="title"
-                tal:attributes="href string:http://www.eionet.europa.eu/users/${manager_ob/username}"
-                tal:content="manager_ob/fullname">Contact</a>
-              <p tal:condition="python:not manager_ob">
-                <span i18n:translate="">User not found:</span>
-                <tal:manager_id tal:content="manager_id" />
-              </p>
-            </tal:block>
-          </tal:manager>
-          <tal:contact condition="python:not manager_id">
-            <p i18n:translate="">no contact info</p>
-          </tal:contact>
-        </tal:contact>
+          <div class="box-column-left">
+              <h4 i18n:translate="">EEA Contact Info</h4>
+              <tal:contact define="manager_id context/getManager_user_id">
+                  <tal:manager condition="python:manager_id">
+                      <tal:block define="manager_ob context/@@indicator_contact_info">
+                          <a href=""
+                                  tal:condition="python:manager_ob"
+                             title="Contact indicator manager"
+                                  i18n:attributes="title"
+                                  tal:attributes="href string:http://www.eionet.europa.eu/users/${manager_ob/username}"
+                                  tal:content="manager_ob/fullname">Contact</a>
+                          <p tal:condition="python:not manager_ob">
+                              <span i18n:translate="">User not found:</span>
+                              <tal:manager_id tal:content="manager_id" />
+                          </p>
+                      </tal:block>
+                  </tal:manager>
+                  <tal:contact condition="python:not manager_id">
+                      <p i18n:translate="">no contact info</p>
+                  </tal:contact>
+              </tal:contact>
+          </div>
 
-        <h4 i18n:translate="">Ownership</h4>
-        <ul>
-          <li tal:repeat="info context/getOwnership" >
-            <!--TODO: this uses aquisition, refactor-->
-            <a tal:content="python:context.getOrganisationName(info).Title" tal:attributes="href info" tal:on-error="python:info">EEA</a>
-          </li>
-        </ul>
+        <div class="box-column-right">
+            <h4 i18n:translate="">Ownership</h4>
+            <ul>
+                <li tal:repeat="info context/getOwnership" >
+                    <!--TODO: this uses aquisition, refactor-->
+                    <a tal:content="python:context.getOrganisationName(info).Title" tal:attributes="href info" tal:on-error="python:info">EEA</a>
+                </li>
+            </ul>
+        </div>
 
-        <h4 i18n:translate="">EEA Management Plan</h4>
+        <h4 class="clear" i18n:translate="">EEA Management Plan</h4>
         <a href=""
           tal:attributes="href python:'http://applications/managementplan/ProjectPlan.aspx?year=%s&amp;code=%s' % context.getManagement_plan()"
           tal:content="python:'%s %s' % context.getManagement_plan()"></a>
           <tal:block i18n:translate="">(note: EEA internal system)</tal:block>
       </div>
 
-      <div id="timestamps-info">
-        <h4 i18n:translate="">Dates</h4>
+      <div id="timestamps-info" class="clearfix">
 
-        <div i18n:translate="" class="metadata_date">
-          First draft created:
-        </div>
-        <div i18n:translate="" class="metadata_date">
-          <metal:field i18n:name="creation-date" use-macro="python:context.widget('creation_date', mode='view')" />
-        </div>
-        <div i18n:translate="" class="metadata_date">
-          Publish date:
-        </div>
-        <div i18n:translate="" class="metadata_date">
-          <metal:field i18n:name="effective-date" use-macro="python:context.widget('effectiveDate', mode='view')" />
-        </div>
-        <div i18n:translate="" class="metadata_date">
-          Last modified:
-        </div>
-        <div i18n:translate="" class="metadata_date">
-          <metal:field i18n:name="modified-date" use-macro="python:context.widget('modification_date', mode='view')" />
-        </div>
+          <div class="box-column-left">
+              <h4 i18n:translate="">Dates</h4>
 
-        <div tal:condition="context/should_show_frequency_of_updates">
-            <h4 i18n:translate="">Frequency of updates</h4>
-            <div tal:content="context/get_frequency_of_updates" />
+              <div i18n:translate="" class="metadata_date">
+                  First draft created:
+              </div>
+              <div i18n:translate="" class="metadata_date">
+                  <metal:field i18n:name="creation-date" use-macro="python:context.widget('creation_date', mode='view')" />
+              </div>
+              <div i18n:translate="" class="metadata_date">
+                  Publish date:
+              </div>
+              <div i18n:translate="" class="metadata_date">
+                  <metal:field i18n:name="effective-date" use-macro="python:context.widget('effectiveDate', mode='view')" />
+              </div>
+              <div i18n:translate="" class="metadata_date">
+                  Last modified:
+              </div>
+              <div i18n:translate="" class="metadata_date">
+                  <metal:field i18n:name="modified-date" use-macro="python:context.widget('modification_date', mode='view')" />
+              </div>
+          </div>
+
+          <div class="box-column-right">
+              <div tal:condition="context/should_show_frequency_of_updates">
+                  <h4 i18n:translate="">Frequency of updates</h4>
+                  <div tal:content="context/get_frequency_of_updates" />
+              </div>
           </div>
       </div>
 
