@@ -68,6 +68,7 @@
                             <img tal:attributes="src string:${obj/absolute_url}/image_large; title obj/title_or_id; alt obj/title_or_id" style="float:none;" />
                         </a>
                     </p>
+                    <tal:block tal:replace="structure obj/gis_data_sources" />
                     <p>
                         <a tal:attributes="href obj/absolute_url" class="standardButton">
                             <span class="eea-icon eea-icon-eye"></span>
