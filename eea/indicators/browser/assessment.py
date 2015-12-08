@@ -232,7 +232,7 @@ def getUnpublishableFiguresMissingInformation(ast):
                 fig_message += "<br/>"
                 fig_messages.append(fig_message)
 
-    if len(fig_messages)>0:
+    if len(fig_messages) > 0:
         #at least one error/warning
         fig_messages.insert(0,
             'Some of the figures in this indicator are not completed, ' + \
