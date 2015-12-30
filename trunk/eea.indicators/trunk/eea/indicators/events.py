@@ -34,10 +34,16 @@ def syncWorkflowStateRelatedFigures(context, dest_state):
                          if k.new_state_id == dest_state]
 
                 if not to_do:
+                    context_state = wftool.getInfoFor(context, 'review_state',
+                                                      'UNKNOWN')
                     err = """
-The figure %s has an incompatible worklfow state. Please contact web admin. 
-""" % figure.absolute_url()
-                    IStatusMessage(context.REQUEST).add(err, 'warn')
+                        <p>The related figure %s cannot reach the destination
+                           worklfow state <strong>%s</strong>.</p>
+                        <p>You need to change the workflow state of this figure
+                           to a state that has a transition to
+                           <strong>%s</strong>.</p>
+                        """ % (figure.absolute_url(), dest_state, context_state)
+                    IStatusMessage(context.REQUEST).add(err, 'error')
                     raise ValueError(err)
 
                 # find transition that brings to the state of parent object
