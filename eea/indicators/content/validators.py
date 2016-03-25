@@ -156,3 +156,57 @@ class TimeOfYearValidator(object):
             return True
 
         return False
+
+
+class CodesValidator(object):
+    """Validates the codes number
+    """
+    implements(IValidator)
+
+    def __init__(self,
+                 name,
+                 title='Code number',
+                 description="Check if the code is valid"):
+        self.name = name
+        self.title = title or name
+        self.description = description
+
+    def __call__(self, value, *args, **kwargs):
+        if not value and isinstance(value, basestring):
+            return False
+
+        instance = kwargs['instance']
+        cat = getToolByName(instance, 'portal_catalog')
+        for val in value:
+            val_code = int(val.get('code') or 0)
+            val_set = val.get('set')
+            val_id_code = '%s%d' % (val_set, val_code)
+            res = cat(get_codes=val_set, sort_on='created', sort_order='reverse',
+                      sort_limit=1)
+            if not res:
+                return True
+            res_codes = res[0].get_codes
+            code_value = 0
+            for code in res_codes:
+                if val_set in code:
+                    if len(val_set) < len(code):
+                        code_value = int(code.split(val_set)[-1])
+                        break
+            if val_code == code_value:
+                clim_obj = res[0].getObject()
+                versions_view = clim_obj.restrictedTraverse('@@getVersions', '')
+                if versions_view:
+                    versions = versions_view.versions()
+                    found_version = False
+                    for version in versions:
+                        if instance == version or instance == version.aq_parent:
+                            found_version = True
+                            break
+                    if not found_version:
+                        return ("Validation failed, you can only use the code "
+                                "%s if related to %s" %
+                                (val_id_code, versions[0].absolute_url()))
+            if val_code < code_value:
+                return ("Validation failed, code for %s cannot be lower "
+                        "then %d" % (val_set, code_value))
+        return False
