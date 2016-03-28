@@ -178,7 +178,9 @@ class CodesValidator(object):
         instance = kwargs['instance']
         cat = getToolByName(instance, 'portal_catalog')
         for val in value:
-            val_code = int(val.get('code') or 0, base=10)
+            code = val.get('code')
+            base8 = code.startswith('0')
+            val_code = int(code or 0, base=10)
             val_set = val.get('set')
             val_id_code = '%s%d' % (val_set, val_code)
             res = cat(get_codes=val_set, sort_on='created', sort_order='reverse',
@@ -207,6 +209,7 @@ class CodesValidator(object):
                                 "%s if related to %s" %
                                 (val_id_code, versions[0].absolute_url()))
             if val_code < code_value:
+                value_padding = '0' if base8 else ''
                 return ("Validation failed, code for %s cannot be lower "
-                        "then 0%d" % (val_set, code_value))
+                        "then %s%d" % (val_set, value_padding, code_value))
         return False
