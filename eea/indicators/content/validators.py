@@ -210,7 +210,7 @@ class CodesValidator(object):
                     if not found_version:
                         return ("Validation failed, you can only use the code "
                                 "%s if related to %s" %
-                                (val_id_code, versions[0].absolute_url()))
+                                (res_code, versions[0].absolute_url()))
             if val_code < code_value:
                 return ("Validation failed, code for %s cannot be lower "
                         "then %s" % (val_set, res_code))
