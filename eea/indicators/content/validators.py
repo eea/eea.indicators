@@ -185,7 +185,7 @@ class CodesValidator(object):
             val_set = val.get('set')
             val_id_code = '%s%d' % (val_set, val_code)
             res = cat(get_codes=val_set, sort_on='created', sort_order='reverse',
-                      sort_limit=1)
+                      portal_type="Specification", sort_limit=1)
             if not res:
                 return True
             res_codes = res[0].get_codes
