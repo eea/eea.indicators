@@ -39,7 +39,7 @@ function unblock_ui(){
 }
 
 function set_sortables() {
-  // make certain DOM elements sortable with jquery UI sortable
+  // make certain DOM elements sortable with jQueryery UI sortable
 
 (function($) {
   $('.sortable_spec').each(function(){
@@ -487,6 +487,7 @@ function dialog_edit(url, title, callback, options){
     'cache':false,
     'success': function(r){
       $("#dialog-inner").html(r);
+        $(window).trigger('aggregated_ajax_load');
       // this is a workaround for the following bug:
       // after editing with Kupu in one of the popup dialogs,
       // it is not possible to click inside the text inputs anymore
@@ -505,6 +506,55 @@ function dialog_edit(url, title, callback, options){
   });
 })(jQuery);
 }
+
+$(window).on('aggregated_ajax_load', function(ev, data) {
+    "use strict";
+    $(window).trigger('aggregated_ajax_change', data);
+});
+
+$(window).on('aggregated_ajax_change', function(ev, data) {
+    "use strict";
+    var $datatable = $("#datagridwidget-table-codes");
+    if (!$datatable.length) {
+        return;
+    }
+    var get_codes = function code_search(data) {
+        return $.ajax({
+            'url': 'get_codes_for?codes=' + data,
+            'type': 'GET'
+        });
+    };
+
+    $datatable.on("click", "input", function(ev) {
+        var $el = $(ev.target);
+        var $set_id_select = $el.closest('td').prev().find('select');
+        var set_id = $set_id_select.val();
+        $(window).trigger("codes_input_clicked", {el: this, set_select: $set_id_select, set_id: set_id});
+    });
+
+    $(window).on("codes_input_clicked", function(ev, data) {
+        var el = data.el;
+        var $el = $(el);
+        var codes_search;
+        var set_data = $.data(el, 'codes');
+        if (!set_data || set_data && set_data.indexOf(data.set_id) === -1) {
+            codes_search = get_codes(data.set_id);
+            codes_search.done(function(data) {
+                el.title = data;
+                if (window.eea_flexible_tooltip) {
+                    var old_tooltip = $.data(el, 'tooltip');
+                    if (old_tooltip) {
+                        old_tooltip.getTip().remove();
+                        $.data(el, 'tooltip', '');
+                    }
+                    window.eea_flexible_tooltip($el, 'top center', 'tooltip-box-tcontent', [10, 0]);
+                    $.data(el, 'codes', data);
+                    $el.click();
+                }
+            });
+        }
+    });
+});
 
 function set_editors(){
   // Set handlers for Edit (full schemata) buttons
@@ -603,7 +653,6 @@ function set_creators(){
         alert("ERROR: There was a problem communicating with the server. Please reload this page.");
       },
       success: function(r) {
-
         // In case there's an error, show it in a dialog and abort
         var error = $(r).children('.error');
         if (error) {
@@ -722,35 +771,35 @@ function closer(fieldname, active_region, url){
 
 function close_dialog(info) {
     var popups = [];
-    jq(".indicators_relations_widget").each(function(){
+    jQuery(".indicators_relations_widget").each(function(){
         var fieldname = $(".metadata .fieldName", this).text();
         var realfieldname = $(".metadata .realFieldName", this).text();
         var widget_dom_id = $(".metadata .widget_dom_id", this).text();
         if (!widget_dom_id) {
           return false;
         }
-        var popup = jq('#' + widget_dom_id).get(0)._widget;
+        var popup = jQuery('#' + widget_dom_id).get(0)._widget;
         popups.push(popup);
     });
 
 
    if (info.search('http://') !== -1) {
-       jq("#dialog-inner").dialog("close");
+       jQuery("#dialog-inner").dialog("close");
        if (typeof(window.popup) !== "undefined") {
-           jq(window.popup.events).trigger('EEA-REFERENCEBROWSER-BASKET-ADD', {url:info});
+           jQuery(window.popup.events).trigger('EEA-REFERENCEBROWSER-BASKET-ADD', {url:info});
        } else {
         if (!popups.length) {
             alert("could not get eea.reference popup");
         } else {
-            jq(popups).each(function(){
-                jq(this.events).trigger('EEA-REFERENCEBROWSER-BASKET-ADD', {url:info});
+            jQuery(popups).each(function(){
+                jQuery(this.events).trigger('EEA-REFERENCEBROWSER-BASKET-ADD', {url:info});
             });
         }
        }
    } else {
        // compatibility with eea.indicators
        reload_region($("#"+info));
-       jq("#dialog-inner").dialog("close");
+       jQuery("#dialog-inner").dialog("close");
    }
 }
 

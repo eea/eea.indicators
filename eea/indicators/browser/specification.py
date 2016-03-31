@@ -297,6 +297,18 @@ class SetCodes(BrowserView):
         return "Fixed"
 
 
+class GetCodesFor(BrowserView):
+    """Get codes view"""
+
+    def __call__(self, codes):
+        if not codes:
+            return ""
+        all_codes = self.context.portal_catalog.uniqueValuesFor('get_codes')
+        matching_codes = filter(lambda x: x.startswith(codes), all_codes)
+        matching_codes = " ".join(matching_codes)
+        return "Existing codes: " + matching_codes
+
+
 class FragmentFrequencyOfUpdatesView(BrowserView):
     """View for fragment_frequency_of_updatesik
     """
