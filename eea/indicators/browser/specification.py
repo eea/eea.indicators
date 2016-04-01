@@ -304,9 +304,10 @@ class GetCodesFor(BrowserView):
         if not codes:
             return ""
         all_codes = self.context.portal_catalog.uniqueValuesFor('get_codes')
+        clen = len(codes)
         matching_codes = filter(lambda x: x.startswith(codes), all_codes)
-        matching_codes = " ".join(matching_codes)
-        return "Existing codes: " + matching_codes
+        only_codes = " ".join([x[clen:] for x in matching_codes])
+        return "Existing codes: " + only_codes if only_codes else ""
 
 
 class FragmentFrequencyOfUpdatesView(BrowserView):

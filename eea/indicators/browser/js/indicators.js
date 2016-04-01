@@ -525,31 +525,41 @@ $(window).on('aggregated_ajax_change', function(ev, data) {
         });
     };
 
-    $datatable.on("click", "input", function(ev) {
-        var $el = $(ev.target);
+    $datatable.on("mouseenter", "input", function(ev) {
+        var el = ev.target;
+        var $el = $(el);
         var $set_id_select = $el.closest('td').prev().find('select');
         var set_id = $set_id_select.val();
-        $(window).trigger("codes_input_clicked", {el: this, set_select: $set_id_select, set_id: set_id});
+        if($.data(el, 'codes') === set_id) {
+            return;
+        }
+        $(window).trigger("codes_input_entered", {el: this, set_select: $set_id_select, set_id: set_id});
     });
 
-    $(window).on("codes_input_clicked", function(ev, data) {
+    $(window).on("codes_input_entered", function(ev, data) {
         var el = data.el;
         var $el = $(el);
         var codes_search;
         var set_data = $.data(el, 'codes');
         if (!set_data || set_data && set_data.indexOf(data.set_id) === -1) {
             codes_search = get_codes(data.set_id);
-            codes_search.done(function(data) {
-                el.title = data;
+            codes_search.done(function(res) {
+                el.title = res || "";
+                var old_tooltip, old_tooltip_tip;
                 if (window.eea_flexible_tooltip) {
-                    var old_tooltip = $.data(el, 'tooltip');
+                     old_tooltip = $.data(el, 'tooltip');
                     if (old_tooltip) {
-                        old_tooltip.getTip().remove();
-                        $.data(el, 'tooltip', '');
+                        old_tooltip_tip = old_tooltip.getTip();
+                        if (old_tooltip_tip) {
+                            old_tooltip_tip.remove();
+                        }
+                        $.removeData(el, 'tooltip');
+                    }
+                    if (!el.title) {
+                        return;
                     }
                     window.eea_flexible_tooltip($el, 'top center', 'tooltip-box-tcontent', [10, 0]);
-                    $.data(el, 'codes', data);
-                    $el.click();
+                    $.data(el, 'codes', data.set_id);
                 }
             });
         }
@@ -612,7 +622,6 @@ function set_edit_buttons() {
     var content = $('.content', field).get();
     var metadata = $('.metadata', field);
     var fieldname = $('.metadata > .fieldname', field).text();
-    var title = $('.metadata > .dialog_title', field).text();
 
     var options = {}; //'width':800, 'height':600 };
     options.height = Number($('.metadata > .height', field).text()) || options.height;
