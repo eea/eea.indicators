@@ -180,12 +180,15 @@ class CodesValidator(object):
         for val in value:
             code = val.get('code')
             if not code:
-                continue
+                return ("Validation failed, code cannot be empty")
+            if not code.isdigit():
+                return ("Validation failed, code must contain only numbers")
             val_code = int(code or '0', base=10)
             val_set = val.get('set')
-            val_id_code = '%s%d' % (val_set, val_code)
-            res = cat(get_codes=val_set, sort_on='created', sort_order='reverse',
-                      portal_type="Specification", sort_limit=1)
+            val_id_code = '%s%s' % (val_set, code)
+            res = cat(get_codes=val_set, sort_on='created',
+                      sort_order='reverse', portal_type="Specification",
+                      sort_limit=1)
             if not res:
                 return True
             res_codes = res[0].get_codes
