@@ -622,7 +622,7 @@ function set_edit_buttons() {
     var content = $('.content', field).get();
     var metadata = $('.metadata', field);
     var fieldname = $('.metadata > .fieldname', field).text();
-
+    var title = $('.metadata > .dialog_title', field).text();
     var options = {}; //'width':800, 'height':600 };
     options.height = Number($('.metadata > .height', field).text()) || options.height;
     options.width = Number($('.metadata > .width', field).text()) || options.width;
