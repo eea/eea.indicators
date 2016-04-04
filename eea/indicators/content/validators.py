@@ -174,17 +174,21 @@ class CodesValidator(object):
     def __call__(self, value, *args, **kwargs):
         if not value and isinstance(value, basestring):
             return False
-
         instance = kwargs['instance']
         cat = getToolByName(instance, 'portal_catalog')
+        pmembership = getToolByName(instance, 'portal_membership')
+        user = pmembership.getAuthenticatedMember()
+        roles = user.getRoles()
+        if 'Manager' in roles:
+            return True
         for val in value:
             code = val.get('code')
             if val.get('orderindex_') == "template_row_marker":
                 continue
             if not code:
-                return ("Validation failed, code cannot be empty")
+                return "Validation failed, code cannot be empty"
             if not code.isdigit():
-                return ("Validation failed, code must contain only numbers")
+                return "Validation failed, code must contain only numbers"
             val_code = int(code or '0', base=10)
             val_set = val.get('set')
             val_id_code = '%s%s' % (val_set, code)
@@ -216,7 +220,4 @@ class CodesValidator(object):
                         return ("Validation failed, you can only use the code "
                                 "%s if related to %s" %
                                 (res_code, versions[0].absolute_url()))
-            if val_code < code_value:
-                return ("Validation failed, code for %s cannot be lower "
-                        "then %s" % (val_set, res_code))
         return True
