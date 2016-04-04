@@ -476,7 +476,8 @@ function dialog_edit(url, title, callback, options){
         $("#dialog-inner").dialog("close");
       }
     },
-    beforeclose:function(event, ui){
+    beforeClose:function(event){
+      $(window).trigger('aggregated_ajax_close', event.target);
       return true;
     }
   });
@@ -512,6 +513,37 @@ $(window).on('aggregated_ajax_load', function(ev, data) {
     $(window).trigger('aggregated_ajax_change', data);
 });
 
+$(window).on('aggregated_ajax_close', function(ev, data) {
+    "use strict";
+    $(window).trigger('codes_ajax_close', data);
+});
+
+$(window).on('codes_ajax_close', function(ev, data) {
+    "use strict";
+
+    var $data = $(data);
+    var $codes_field = $data.find($("#archetypes-fieldname-codes"));
+    if (!$codes_field.length) {
+        return;
+    }
+    var inputs = $codes_field.find('input').filter('[name="codes.code:records"]');
+    $.each(inputs, function(idx, el) {
+       cleanupTooltip(el);
+    });
+});
+
+function cleanupTooltip(el) {
+    "use strict";
+    var old_tooltip, old_tooltip_tip;
+    old_tooltip = $.data(el, 'tooltip');
+    if (old_tooltip) {
+        old_tooltip_tip = old_tooltip.getTip();
+        if (old_tooltip_tip) {
+            old_tooltip_tip.remove();
+        }
+        $.removeData(el, 'tooltip');
+    }
+}
 $(window).on('aggregated_ajax_change', function(ev, data) {
     "use strict";
     var $datatable = $("#datagridwidget-table-codes");
@@ -545,16 +577,8 @@ $(window).on('aggregated_ajax_change', function(ev, data) {
             codes_search = get_codes(data.set_id);
             codes_search.done(function(res) {
                 el.title = res || "";
-                var old_tooltip, old_tooltip_tip;
                 if (window.eea_flexible_tooltip) {
-                     old_tooltip = $.data(el, 'tooltip');
-                    if (old_tooltip) {
-                        old_tooltip_tip = old_tooltip.getTip();
-                        if (old_tooltip_tip) {
-                            old_tooltip_tip.remove();
-                        }
-                        $.removeData(el, 'tooltip');
-                    }
+                    cleanupTooltip(el);
                     if (!el.title) {
                         return;
                     }
