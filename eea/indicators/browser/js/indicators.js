@@ -143,6 +143,8 @@ function ajaxify(el){
         },
         success: function(r) {
           $(el).html(r);
+            $(window).trigger('aggregated_ajax_cleanup', el);
+            $(window).trigger('aggregated_ajax_load', el);
           ajaxify(el);
           unblock_ui();
           return false;
@@ -467,16 +469,16 @@ function dialog_edit(url, title, callback, options){
     'title':title,
     closeOnEscape:true,
     buttons: {
-      'Save':function(){
+      'Save':function(event){
         $("#dialog-inner form").trigger('submit');
+        $(window).trigger('aggregated_ajax_cleanup', this);
       },
       'Cancel':function(){
         $("#dialog-inner").dialog("close");
       }
     },
     beforeClose:function(event){
-      $(window).trigger('aggregated_ajax_close', event.target);
-      return true;
+      $(window).trigger('aggregated_ajax_cleanup', event.target);
     }
   });
 
@@ -507,7 +509,6 @@ function dialog_edit(url, title, callback, options){
 }
 
 function cleanupTooltip(el) {
-    "use strict";
     var old_tooltip, old_tooltip_tip;
     old_tooltip = $.data(el, 'tooltip');
     if (old_tooltip) {
@@ -520,18 +521,18 @@ function cleanupTooltip(el) {
 }
 
 $(window).on('aggregated_ajax_load', function(ev, data) {
-    "use strict";
     $(window).trigger('aggregated_ajax_change', data);
 });
 
-$(window).on('aggregated_ajax_close', function(ev, data) {
-    "use strict";
-    $(window).trigger('codes_ajax_close', data);
+$(window).on('aggregated_ajax_cleanup', function(ev, data) {
+    $(window).trigger('codes_ajax_cleanup', {data: data});
 });
 
-$(window).on('codes_ajax_close', function(ev, data) {
-    "use strict";
+$(window).on('codes_ajax_cleanup', function(ev, data) {
 
+    if (typeof(data) === 'object') {
+        data = data.data;
+    }
     var $data = $(data);
     var $codes_field = $data.find($("#archetypes-fieldname-codes"));
     if (!$codes_field.length) {
@@ -547,7 +548,6 @@ $(window).on('codes_ajax_close', function(ev, data) {
 });
 
 $(window).on('aggregated_ajax_change', function() {
-    "use strict";
     var $datatable = $("#datagridwidget-table-codes");
     if (!$datatable.length) {
         return;
