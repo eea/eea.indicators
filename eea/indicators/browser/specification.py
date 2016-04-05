@@ -297,17 +297,77 @@ class SetCodes(BrowserView):
         return "Fixed"
 
 
+def value_as_digit(value):
+    """ Transform value into int or return 0
+    """
+    try:
+        return int(value, base=10)
+    except ValueError:
+        return 0
+
+
+def find_next_value(value_list):
+    """ Taken a value of string ints give a suggestion
+        for next value
+    """
+    zeros = ''
+    values = []
+    original_values = []
+    original_value = 0
+    chosen_value = 0
+    for value in reversed(value_list):
+        original_values.append(value)
+        digit_value = value_as_digit(value)
+        values.append(digit_value)
+        if len(values) >= 2:
+            difference = values[-2] - values[-1]
+            if difference == 1:
+                original_value = original_values[-2]
+                chosen_value = values[-2]
+                break
+    if not chosen_value:
+        return ""
+    incremented_chosen_entry = chosen_value + 1
+    for char in original_value:
+        # an extra 0 will be added if last digit is 9 to fix
+        if char != '0':
+            break
+        zeros += char
+    str_increment_entry = "%s%s" % (zeros, incremented_chosen_entry)
+    return str_increment_entry
+
+
+def get_codes_with_next_value_suggestion(only_codes, only_codes_list):
+    """ Return either the given codes or the suggested next
+        code if it can find one
+    """
+    suggestion_value = find_next_value(only_codes_list)
+    if not suggestion_value:
+        return "Used codes: " + only_codes
+    current = "Used codes: " + only_codes
+    msg = "%s \n Suggested new code: %s or higher" % (current,
+                                                      suggestion_value)
+    return msg
+
+
 class GetCodesFor(BrowserView):
     """Get codes view"""
 
-    def __call__(self, codes):
+    def __call__(self, codes, with_suggestions=False):
         if not codes:
             return ""
         all_codes = self.context.portal_catalog.uniqueValuesFor('get_codes')
         clen = len(codes)
         matching_codes = filter(lambda x: x.startswith(codes), all_codes)
-        only_codes = " ".join([x[clen:] for x in matching_codes])
-        return "Existing codes: " + only_codes if only_codes else ""
+        only_codes_list = [x[clen:] for x in matching_codes]
+        only_codes = " ".join(only_codes_list)
+        if only_codes:
+            if not with_suggestions:
+                return "Used codes: " + only_codes
+            else:
+                return get_codes_with_next_value_suggestion(only_codes,
+                                                            only_codes_list)
+        return ""
 
 
 class FragmentFrequencyOfUpdatesView(BrowserView):

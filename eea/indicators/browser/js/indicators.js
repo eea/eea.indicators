@@ -552,7 +552,7 @@ $(window).on('aggregated_ajax_change', function(ev, data) {
     }
     var get_codes = function code_search(data) {
         return $.ajax({
-            'url': 'get_codes_for?codes=' + data,
+            'url': 'get_codes_for?codes=' + data + '&with_suggestions=True',
             'type': 'GET'
         });
     };
