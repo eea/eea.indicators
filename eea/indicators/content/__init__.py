@@ -16,6 +16,7 @@ from eea.indicators.content.validators import (
     OneAssessmentPartPerQuestionValidator,
     FrequencyUpdateValidator,
     TimeOfYearValidator,
+    CodesValidator
 )
 
 # Validators
@@ -28,6 +29,7 @@ validation.register(
 validation.register(
     FrequencyUpdateValidator('validate_frequency_years'))
 validation.register(TimeOfYearValidator('validate_time_of_year'))
+validation.register(CodesValidator('validate_codes'))
 
 from eea.indicators.content.PolicyQuestion import PolicyQuestion
 from eea.indicators.content.ExternalDataSpec import ExternalDataSpec

@@ -31,6 +31,11 @@
                   permission="cmf.ModifyPortalContent"
                   class=".specification.SetCodes" />
 
+    <browser:page for="eea.indicators.content.IndicatorMixin.IndicatorMixin"
+        name="get_codes_for"
+        permission="cmf.ModifyPortalContent"
+        class=".specification.GetCodesFor" />
+
     <browser:page name="wrong_versions_report"
                   for="eea.indicators.content.interfaces.ISpecification"
                   class=".specification.WrongVersionReport"

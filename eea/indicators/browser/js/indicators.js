@@ -1,9 +1,9 @@
 function block_ui(){
 (function($) {
-  var scr_x = jQuery(window).scrollLeft();
-  var scr_y = jQuery(window).scrollTop();
-  var dim_x = jQuery(window).width();
-  var dim_y = jQuery(window).height();
+  var scr_x = $(window).scrollLeft();
+  var scr_y = $(window).scrollTop();
+  var dim_x = $(window).width();
+  var dim_y = $(window).height();
 
   var overlay = jQuery('<div>');
   overlay.addClass('specification-overlay');
@@ -39,7 +39,7 @@ function unblock_ui(){
 }
 
 function set_sortables() {
-  // make certain DOM elements sortable with jquery UI sortable
+  // make certain DOM elements sortable with jQueryery UI sortable
 
 (function($) {
   $('.sortable_spec').each(function(){
@@ -49,7 +49,7 @@ function set_sortables() {
       'items':'.list-item',
       placeholder: 'ui-state-highlight',
       // containment: 'parent'    // has a bug in UI, sometimes it's impossible to move #2 to #1
-      'update':function(event, ui){
+      'update':function(event){
         var sortable = event.target;
         var neworder = $(sortable).sortable('toArray');
         var data = "";
@@ -74,7 +74,7 @@ function set_sortables() {
 })(jQuery);
 }
 
-function init_tinymce(el){
+function init_tinymce(){
   // init tinymce edit fields
   var config = {
       'theme_advanced_buttons1': "save,style,bold,italic,justifyleft,justifycenter," +
@@ -118,14 +118,14 @@ function init_tinymce(el){
 }
 
 
-function ajaxify(el, fieldname){
+function ajaxify(el){
   // This will make a form submit and resubmit itself using AJAX
 
 (function($) {
   init_tinymce(el);
 
   $("form", el).submit(
-    function(e){
+    function(){
       block_ui();
       /* tinyMCE.triggerSave(); */
       var form = this;
@@ -139,10 +139,12 @@ function ajaxify(el, fieldname){
         // timeout: 2000,
         error: function() {
           unblock_ui();
-          alert("Failed to submit");
+          window.alert("Failed to submit");
         },
         success: function(r) {
           $(el).html(r);
+            $(window).trigger('aggregated_ajax_cleanup', el);
+            $(window).trigger('aggregated_ajax_load', el);
           ajaxify(el);
           unblock_ui();
           return false;
@@ -165,14 +167,14 @@ function set_relation_widgets() {
       return false;
     }
 
-    var popup = new EEAReferenceBrowser.Widget(fieldname);
+    var popup = new window.EEAReferenceBrowser.Widget(fieldname);
     
     // 30425 fix Adding assessment part is not working,
     // ajax save form call fail when add a data policy, it is not needed
     if ($('body.portaltype-assessmentpart').length === 0){
       try {
         $('#' + widget_dom_id).get(0)._widget = popup;
-        $(popup.events).bind(popup.events.SAVED, function(evt){
+        $(popup.events).bind(popup.events.SAVED, function(){
           ajaxify($('#'+widget_dom_id), realfieldname);
           $('#' + widget_dom_id + ' form').trigger('submit');
         });
@@ -189,14 +191,14 @@ function set_relation_widgets() {
 function bootstrap_select_widgets() {
 (function($) {
   $(".dummy-org-selector").each(function(i,v){
-    var widget = new MultiSelectAutocompleteWidget($(v));
+    var widget = new window.MultiSelectAutocompleteWidget($(v));
   });
 })(jQuery);
 }
 
 function set_generic_ajax_forms(){
 (function($) {
-  $(".generic_ajax_forms form").submit(function(e){
+  $(".generic_ajax_forms form").submit(function(){
     var form = this;
     var data = $(":input", form).serialize();
     var url = $(this).attr('action');
@@ -210,7 +212,7 @@ function set_generic_ajax_forms(){
       cache:false,
       error:function(){
         unblock_ui();
-        alert("ERROR: There was a problem communicating with the server. Please reload this page.");
+        window.alert("ERROR: There was a problem communicating with the server. Please reload this page.");
       },
       success:function(r){
         unblock_ui();
@@ -237,15 +239,14 @@ function bootstrap_relations_widgets(){
 
       var fieldname = $(".metadata .fieldname", this).text();
       var domid = $(".metadata .domid", this).text();    //$(this).attr('id');
-      var popup = new EEAReferenceBrowser.Widget(domid, {'fieldname':fieldname});
+      var popup = new window.EEAReferenceBrowser.Widget(domid, {'fieldname':fieldname});
       $('#' + domid).get(0)._widget = popup;
-      var region = $(this).parents('.active_region'); // TODO: is this needed? doesn't look like
-      
+
       // 30425 fix Adding assessment part is not working,
       // ajax save form call fail when add a data policy, it is not needed
       if ($('body.portaltype-assessmentpart').length === 0){
         try {
-          $(popup.events).bind(popup.events.SAVED, function(evt){
+          $(popup.events).bind(popup.events.SAVED, function(){
             ajaxify(active_field, domid);
             $(widget).parents('form').trigger('submit');
           });
@@ -265,7 +266,7 @@ function on_load_dom() {
   set_relation_widgets();
   bootstrap_relations_widgets();
   bootstrap_select_widgets();
-  set_readiness_accordion();  // for portlet_readiness
+  window.set_readiness_accordion();  // for portlet_readiness
   set_generic_ajax_forms();
 
 }
@@ -291,7 +292,7 @@ function reload_region(el){
           // timeout: 2000,
           error: function() {
               unblock_ui();
-              alert("ERROR: There was a problem communicating with the server. Please reload this page.");
+              window.alert("ERROR: There was a problem communicating with the server. Please reload this page.");
           },
           success: function(r) {
               var id = $(el).attr('id');
@@ -315,17 +316,17 @@ function set_actives(){
 
   // make the Cancel link from dialogs close the form
 (function($) {
-  $("#dialog-inner .cancel-btn").live('click', function(e){
+  $("#dialog-inner .cancel-btn").live('click', function(){
     $("#dialog-inner").dialog("close");
     return false;
   });
 
   // make the controls appear on the active fields, on hover
-  $(".active_field").live('mouseover', function(e){
+  $(".active_field").live('mouseover', function(){
     $(this).addClass("active_field_hovered");
     return false;
   });
-  $(".active_field").live('mouseout', function(e){
+  $(".active_field").live('mouseout', function(){
     $(this).removeClass("active_field_hovered");
     return false;
   });
@@ -347,7 +348,7 @@ function schemata_ajaxify(el, active_region){
   }
 
   $("form", el).submit(
-    function(e){
+    function(){
       block_ui();
       /* tinyMCE.triggerSave(); */
       var form = this;
@@ -368,9 +369,9 @@ function schemata_ajaxify(el, active_region){
         type:'POST',
         cache:false,
         // timeout: 2000,
-        error: function(r) {
+        error: function() {
           unblock_ui();
-          alert("Failed to submit");
+          window.alert("Failed to submit");
         },
         success: function(r) {
           $(el).html(r);
@@ -402,7 +403,7 @@ function set_inout(el){
 
     var opt = $(select).children().get(ix);
     var arr = [];
-    for (i=0; i<select.options.length; i++) {
+    for (var i=0; i<select.options.length; i++) {
       arr.push(select.options[i]);
     }
 
@@ -426,7 +427,7 @@ function set_inout(el){
 
     var opt = $(select).children().get(ix);
     var arr = [];
-    for (i=0; i<select.options.length; i++) {
+    for (var i=0; i<select.options.length; i++) {
       arr.push(select.options[i]);
     }
 
@@ -437,8 +438,8 @@ function set_inout(el){
     var len = select.options.length;
     select.options.length = 0;
 
-    for (i=0; i<len; i++) {
-      select.options[i] = arr[i];
+    for (var j=0; j<len; j++) {
+      select.options[j] = arr[j];
     }
   });
 })(jQuery);
@@ -468,16 +469,16 @@ function dialog_edit(url, title, callback, options){
     'title':title,
     closeOnEscape:true,
     buttons: {
-      'Save':function(e){
-        var button = e.target;
+      'Save':function(event){
         $("#dialog-inner form").trigger('submit');
+        $(window).trigger('aggregated_ajax_cleanup', this);
       },
-      'Cancel':function(e){
+      'Cancel':function(){
         $("#dialog-inner").dialog("close");
       }
     },
-    beforeclose:function(event, ui){
-      return true;
+    beforeClose:function(event){
+      $(window).trigger('aggregated_ajax_cleanup', event.target);
     }
   });
 
@@ -487,6 +488,7 @@ function dialog_edit(url, title, callback, options){
     'cache':false,
     'success': function(r){
       $("#dialog-inner").html(r);
+        $(window).trigger('aggregated_ajax_load');
       // this is a workaround for the following bug:
       // after editing with Kupu in one of the popup dialogs,
       // it is not possible to click inside the text inputs anymore
@@ -506,6 +508,90 @@ function dialog_edit(url, title, callback, options){
 })(jQuery);
 }
 
+function cleanupTooltip(el) {
+    var old_tooltip, old_tooltip_tip;
+    old_tooltip = $.data(el, 'tooltip');
+    if (old_tooltip) {
+        old_tooltip_tip = old_tooltip.getTip();
+        if (old_tooltip_tip) {
+            old_tooltip_tip.remove();
+        }
+        $.removeData(el, 'tooltip');
+    }
+}
+
+$(window).on('aggregated_ajax_load', function(ev, data) {
+    $(window).trigger('aggregated_ajax_change', data);
+});
+
+$(window).on('aggregated_ajax_cleanup', function(ev, data) {
+    $(window).trigger('codes_ajax_cleanup', {data: data});
+});
+
+$(window).on('codes_ajax_cleanup', function(ev, data) {
+
+    if (typeof(data) === 'object') {
+        data = data.data;
+    }
+    var $data = $(data);
+    var $codes_field = $data.find($("#archetypes-fieldname-codes"));
+    if (!$codes_field.length) {
+        return;
+    }
+    var inputs = $codes_field.find('input').filter('[name="codes.code:records"]');
+    $.each(inputs, function(idx, el) {
+       cleanupTooltip(el);
+    });
+    // cleanup codes_input_entered event binding after dialog close in order
+    // to avoid making extra ajax loades when opening dialog of codes again
+    $(window).off("codes_input_entered");
+});
+
+$(window).on('aggregated_ajax_change', function() {
+    var $datatable = $("#datagridwidget-table-codes");
+    if (!$datatable.length) {
+        return;
+    }
+    var get_codes = function code_search(data) {
+        return $.ajax({
+            'url': 'get_codes_for?codes=' + data + '&with_suggestions=True',
+            'type': 'GET'
+        });
+    };
+
+    $datatable.on("mouseenter", "input", function(ev) {
+        var el = ev.target;
+        var $el = $(el);
+        var $set_id_select = $el.closest('td').prev().find('select');
+        var set_id = $set_id_select.val();
+        if($.data(el, 'codes') === set_id) {
+            return;
+        }
+        $(window).trigger("codes_input_entered", {el: this, set_select: $set_id_select, set_id: set_id});
+    });
+
+    $(window).on("codes_input_entered", function(ev, data) {
+        var el = data.el;
+        var $el = $(el);
+        var codes_search;
+        var set_data = $.data(el, 'codes');
+        if (!set_data || set_data && set_data.indexOf(data.set_id) === -1) {
+            codes_search = get_codes(data.set_id);
+            codes_search.done(function(res) {
+                el.title = res || "";
+                if (window.eea_flexible_tooltip) {
+                    cleanupTooltip(el);
+                    if (!el.title) {
+                        return;
+                    }
+                    window.eea_flexible_tooltip($el, 'top center', 'tooltip-box-tcontent', [10, 0]);
+                    $.data(el, 'codes', data.set_id);
+                }
+            });
+        }
+    });
+});
+
 function set_editors(){
   // Set handlers for Edit (full schemata) buttons
 
@@ -524,7 +610,7 @@ function set_editors(){
     //};
     var active_region = region.id; //the region that will be reloaded
 
-    dialog_edit(link, title, function(text, status, xhr){
+    dialog_edit(link, title, function(){
       schemata_ajaxify($("#dialog-inner"), active_region);
       unblock_ui();
     }, options);
@@ -563,14 +649,13 @@ function set_edit_buttons() {
     var metadata = $('.metadata', field);
     var fieldname = $('.metadata > .fieldname', field).text();
     var title = $('.metadata > .dialog_title', field).text();
-
     var options = {}; //'width':800, 'height':600 };
     options.height = Number($('.metadata > .height', field).text()) || options.height;
     options.width = Number($('.metadata > .width', field).text()) || options.width;
 
     var id_to_fill = 'active_field-' + fieldname;
     $(content).attr('id', id_to_fill);
-    dialog_edit(link, title, function(text, status, xhr){
+    dialog_edit(link, title, function(){
       // schemata_ajaxify($("#dialog-inner"), fieldname);
       ajaxify($("#dialog-inner"), fieldname);
       bootstrap_select_widgets();
@@ -600,10 +685,9 @@ function set_creators(){
       // timeout: 2000,
       error: function() {
         unblock_ui();
-        alert("ERROR: There was a problem communicating with the server. Please reload this page.");
+        window.alert("ERROR: There was a problem communicating with the server. Please reload this page.");
       },
       success: function(r) {
-
         // In case there's an error, show it in a dialog and abort
         var error = $(r).children('.error');
         if (error) {
@@ -628,7 +712,7 @@ function set_creators(){
             return false;
           } else {
             reload_region($(region));
-            dialog_edit(edit_link, title, function(text, status, xhr){
+            dialog_edit(edit_link, title, function(){
               schemata_ajaxify($("#dialog-inner"), $(region).attr('id'));
               unblock_ui();
             },
@@ -679,9 +763,9 @@ function set_deleters(){
       // timeout: 2000,
       error: function() {
         unblock_ui();
-        alert("ERROR: There was a problem communicating with the server. Please reload this page.");
+        window.alert("ERROR: There was a problem communicating with the server. Please reload this page.");
       },
-      success: function(r) {
+      success: function() {
         reload_region($(region));
         return false;
       }
@@ -722,35 +806,33 @@ function closer(fieldname, active_region, url){
 
 function close_dialog(info) {
     var popups = [];
-    jq(".indicators_relations_widget").each(function(){
-        var fieldname = $(".metadata .fieldName", this).text();
-        var realfieldname = $(".metadata .realFieldName", this).text();
+    jQuery(".indicators_relations_widget").each(function(){
         var widget_dom_id = $(".metadata .widget_dom_id", this).text();
         if (!widget_dom_id) {
           return false;
         }
-        var popup = jq('#' + widget_dom_id).get(0)._widget;
+        var popup = jQuery('#' + widget_dom_id).get(0)._widget;
         popups.push(popup);
     });
 
 
    if (info.search('http://') !== -1) {
-       jq("#dialog-inner").dialog("close");
+       jQuery("#dialog-inner").dialog("close");
        if (typeof(window.popup) !== "undefined") {
-           jq(window.popup.events).trigger('EEA-REFERENCEBROWSER-BASKET-ADD', {url:info});
+           jQuery(window.popup.events).trigger('EEA-REFERENCEBROWSER-BASKET-ADD', {url:info});
        } else {
         if (!popups.length) {
-            alert("could not get eea.reference popup");
+            window.alert("could not get eea.reference popup");
         } else {
-            jq(popups).each(function(){
-                jq(this.events).trigger('EEA-REFERENCEBROWSER-BASKET-ADD', {url:info});
+            jQuery(popups).each(function(){
+                jQuery(this.events).trigger('EEA-REFERENCEBROWSER-BASKET-ADD', {url:info});
             });
         }
        }
    } else {
        // compatibility with eea.indicators
        reload_region($("#"+info));
-       jq("#dialog-inner").dialog("close");
+       jQuery("#dialog-inner").dialog("close");
    }
 }
 
@@ -774,7 +856,7 @@ function preselect_relations_tab(region_id, selected_tab){
 })(jQuery);
 }
 
-jQuery(document).ready(function ($) {
+jQuery(document).ready(function () {
 
   set_editors();
   set_actives();
