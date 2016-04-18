@@ -1,8 +1,8 @@
 Changelog
 =========
 
-11.3.dev0 - (unreleased)
-------------------------
+11.3 - (2016-04-18)
+-------------------
 * Feature: added validators for codes field to enter only numeric
   values and to prevent user from using a code that is used by
   another indicator which isn't a relationship of that indicator.
