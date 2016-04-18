@@ -25,7 +25,7 @@ from Products.DataGridField import DataGridField, DataGridWidget
 from Products.DataGridField.Column import Column
 from Products.DataGridField.SelectColumn import SelectColumn
 from Products.EEAContentTypes.content.ThemeTaggable import ThemeTaggable
-from Products.UserAndGroupSelectionWidget import UserAndGroupSelectionWidget
+from Products.UserAndGroupSelectionWidget.at.widget import UserAndGroupSelectionWidget
 from archetypes.schemaextender.interfaces import ISchemaModifier
 from eea.dataservice.widgets import MultiOrganisationsWidget
 from eea.indicators import msg_factory as _

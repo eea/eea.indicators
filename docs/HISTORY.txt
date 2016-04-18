@@ -12,6 +12,8 @@ Changelog
 * Feature: added used and suggestion code to be used as tooltip
   for the indicator codes widget
   [ichimdav refs #69487]
+* Change: updated import related to Products.UserAndGroupSelectionWidget
+  [alecghica refs #70945]
 
 11.2 - (2015-12-08)
 -------------------
