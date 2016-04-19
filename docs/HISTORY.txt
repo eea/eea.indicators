@@ -3,6 +3,10 @@ Changelog
 
 11.4.dev0 - (unreleased)
 ------------------------
+* Change: modified text for display of indicators codes to
+  also known as now that we have the ability to display the
+  global version id
+  [ichim-david refs #70786]
 
 11.3 - (2016-04-18)
 -------------------
