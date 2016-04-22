@@ -559,7 +559,7 @@ div.kupu-fulleditor-zoomed .kupu-editor-iframe {
  * =================== */
 .indicator-figure-plus-container {
     padding: 0;
-    margin: 0;
+    margin-bottom: 3em;
 }
 .figure-title {
     page-break-before: always;
