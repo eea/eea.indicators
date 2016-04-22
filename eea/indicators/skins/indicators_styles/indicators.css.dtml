@@ -38,6 +38,10 @@ dl.enableFormTabbing dd {
     padding-top: 0;
 }
 
+.gis-notes {
+    margin-top: -6px;
+}
+
 
 
 /* Completeness status portlet

@@ -23,12 +23,16 @@
 
         <div class="visualClear" ><!-- --></div>
         <tal:description define="figure_description obj/Description">
-          <p>
-            <strong i18n:translate="">Note: </strong>
-            <span tal:condition="python:figure_description"
-                  tal:content="figure_description" />
-            <span tal:condition="python:not figure_description">N/A</span>
-          </p>
+            <div class="googlechart-notes">
+                <div class="googlecharts-note">
+                    <p class="callout">
+                        <strong i18n:translate="">Note: </strong>
+                        <span tal:condition="python:figure_description"
+                                tal:content="figure_description" />
+                        <span tal:condition="python:not figure_description">N/A</span>
+                    </p>
+                </div>
+            </div>
         </tal:description>
 
         <div tal:define="related python:[o for o in obj.getRelatedItems() if o.portal_type in ('ExternalDataSpec', 'Data')];
@@ -68,6 +72,20 @@
                             <img tal:attributes="src string:${obj/absolute_url}/image_large; title obj/title_or_id; alt obj/title_or_id" style="float:none;" />
                         </a>
                     </p>
+
+                    <tal:description define="gis_description obj/Description">
+                        <div class="googlechart-notes gis-notes">
+                            <div class="googlecharts-note">
+                                <p class="callout">
+                                    <strong i18n:translate="">Note: </strong>
+                        <span tal:condition="python:gis_description"
+                                tal:content="gis_description" />
+                                    <span tal:condition="python:not gis_description">N/A</span>
+                                </p>
+                            </div>
+                        </div>
+                    </tal:description>
+
                     <tal:block tal:replace="structure obj/gis_data_sources" />
                     <p>
                         <a tal:attributes="href obj/absolute_url" class="standardButton">
@@ -140,11 +158,17 @@
                                   </tal:comment>
                                   <tal:chart_notes tal:define="notes_view nocall:obj/chart-notes|nothing;" tal:condition="notes_view">
                                       <div tal:define="figure_description python:notes_view(chart_id)">
-                                        <strong i18n:translate="">Note: </strong>
-                                        <tal:rep tal:repeat="info figure_description">
-                                            <span tal:content="structure info/text" />
-                                        </tal:rep>
-                                        <span tal:condition="python:not figure_description">N/A</span>
+                                          <div class="googlechart-notes">
+                                              <div class="googlecharts-note">
+                                                  <p class="callout">
+                                                      <strong i18n:translate="">Note: </strong>
+                                                      <tal:rep tal:repeat="info figure_description">
+                                                          <span tal:content="structure info/text" />
+                                                      </tal:rep>
+                                                      <span tal:condition="python:not figure_description">N/A</span>
+                                                  </p>
+                                              </div>
+                                          </div>
                                       </div>
                                   </tal:chart_notes>
 
@@ -185,12 +209,16 @@
                           src string:${obj/absolute_url}/image_xlarge" />
                       </a>
                       <div class="visualClear"><!-- --></div>
-                      <p tal:define="figure_description obj/Description">
-                        <strong i18n:translate="">Note: </strong>
-                        <span tal:condition="python:figure_description"
-                              tal:content="figure_description" />
-                        <span tal:condition="python:not figure_description">N/A</span>
-                      </p>
+                        <div class="googlechart-notes">
+                            <div class="googlecharts-note">
+                                <p class="callout" tal:define="figure_description obj/Description">
+                                    <strong i18n:translate="">Note: </strong>
+                                    <span tal:condition="python:figure_description"
+                                            tal:content="figure_description" />
+                                    <span tal:condition="python:not figure_description">N/A</span>
+                                </p>
+                            </div>
+                        </div>
                         <a tal:attributes="href obj/absolute_url"
                                 class="standardButton">
                             <span class="eea-icon eea-icon-eye"></span>

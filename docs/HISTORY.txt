@@ -3,6 +3,9 @@ Changelog
 
 11.4.dev0 - (unreleased)
 ------------------------
+* Feature: display notes for GIS Application in the same way
+  we show it for EEAFigure and Google Charts
+  [ichim-david refs #70523]
 * Change: modified text for display of indicators codes to
   also known as now that we have the ability to display the
   global version id
