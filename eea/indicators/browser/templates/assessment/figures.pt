@@ -36,7 +36,7 @@
         </tal:description>
 
         <div tal:define="related python:[o for o in obj.getRelatedItems() if o.portal_type in ('ExternalDataSpec', 'Data')];
-                         figure_dataSource obj/getDataSource ">
+                         figure_dataSource obj/getDataSource">
 
             <strong i18n:translate="">Data source:</strong>
             <!-- We only show deprecated datasource free text field,
@@ -49,6 +49,9 @@
             <ul tal:repeat="item related" >
                 <li tal:content="structure item/@@related_title" />
             </ul>
+            <tal:nodata tal:condition="python: not related and not figure_dataSource">
+                <p i18n:translate="">Data provenance info is missing.</p>
+            </tal:nodata>
         </div>
 
         <a tal:attributes="href obj/absolute_url" class="standardButton" i18n:translate="">Downloads and more info</a>
