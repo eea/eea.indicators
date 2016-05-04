@@ -1,6 +1,9 @@
 Changelog
 =========
 
+11.5.dev0 - (unreleased)
+------------------------
+
 11.4 - (2016-05-04)
 -------------------
 * Feature: display notes for GIS Application in the same way
