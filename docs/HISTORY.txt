@@ -3,6 +3,9 @@ Changelog
 
 11.5.dev0 - (unreleased)
 ------------------------
+* Change: change import path of UserAndGroup widget after upgrade to
+  latest version
+  [ichim-david refs #68082]
 * Change: removed getCodes info, moved it to eea.design documentByLine
   [ichim-david refs #70786]
 
