@@ -51,14 +51,7 @@
       <h1 class="documentFirstHeading" tal:content="context/Title">Title here</h1>
     </div>
 
-    <div metal:fill-slot="content-description" tal:define="codes context/getCodes" class="documentByLine" id="indicator-codes">
-     <strong i18n:translate="">Also known as:</strong>
-     <span tal:repeat="code codes">
-     <span tal:replace="string:${code/set} ${code/code}" />
-     <span tal:condition="not:repeat/code/end" tal:replace="string:, " />
-     </span>
-    </div>
-    
+
     <div metal:fill-slot="content-core" tal:define="specification context/getParentNode"
     class='assessment_view'>
       <div id="content-more-updates-on"

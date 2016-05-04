@@ -22,7 +22,7 @@
         </div>
 
         <div class="visualClear" ><!-- --></div>
-        <tal:description define="figure_description obj/Description">
+        <tal:description tal:define="figure_description obj/Description">
             <div class="googlechart-notes">
                 <div class="googlecharts-note">
                     <p class="callout">

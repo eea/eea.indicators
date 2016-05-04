@@ -3,6 +3,8 @@ Changelog
 
 11.5.dev0 - (unreleased)
 ------------------------
+* Change: removed getCodes info, moved it to eea.design documentByLine
+  [ichim-david refs #70786]
 
 11.4 - (2016-05-04)
 -------------------
