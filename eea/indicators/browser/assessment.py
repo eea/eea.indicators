@@ -118,7 +118,6 @@ def create_version(original, request=None):
     #same version id.
     #>>>if the parent Specification has versions, then the Assessment
     #needs to be a version of those assessments
-    import pdb; pdb.set_trace()
     ver = base_create_version(original, reindex=False)
 
     # The assessment is no longer effective

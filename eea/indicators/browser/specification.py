@@ -105,7 +105,6 @@ class AssessmentVersions(BrowserView):
 def create_version(original, request=None):
     """ Create version
     """
-    import pdb; pdb.set_trace()
     new_spec = base_create_version(original, False)
     new_spec.setEffectiveDate(None)
 

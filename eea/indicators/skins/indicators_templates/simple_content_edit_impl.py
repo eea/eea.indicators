@@ -60,14 +60,14 @@ if state.errors:
     errors = state.errors
     s_items = [(s, schemata[s].keys()) for s in schemata.keys()]
     fields = []
-    # portal_status_message = "Please correct the indicated errors."
+    portal_status_message = "Please correct the indicated errors."
     for s, f_names in s_items:
         for f_name in f_names:
             fields.append((s, f_name))
     for s_name, f_name in fields:
         if errors.has_key(f_name):
             REQUEST.set('fieldset', s_name)
-            # addStatusMessage(REQUEST, portal_status_message, type="error")
+            addStatusMessage(REQUEST, portal_status_message, type="error")
             return state.set(
                 status='failure',
                 context=new_context,)
