@@ -1,8 +1,8 @@
 Changelog
 =========
 
-11.5.dev0 - (unreleased)
-------------------------
+11.5 - (2016-05-05)
+-------------------
 * Change: change import path of UserAndGroup widget after upgrade to
   latest version
   [ichim-david refs #68082]
