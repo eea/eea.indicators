@@ -6,7 +6,11 @@
 """ ExternalDataSpec content type
 """
 
+import logging
 from AccessControl import ClassSecurityInfo
+
+from zope.interface import implements
+
 from Products.ATContentTypes.content.base import ATCTContent
 from Products.ATContentTypes.content.base import ATContentTypeSchema
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema
@@ -16,13 +20,11 @@ from Products.Archetypes.atapi import StringField, Schema, TextField
 from Products.Archetypes.utils import shasattr
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 from Products.CMFPlone.utils import getToolByName
+from Products.EEAContentTypes.content.ThemeTaggable import ThemeTaggable_schema
 from eea.dataservice.widgets import OrganisationsWidget
 from eea.indicators.content import interfaces
 from eea.themecentre.interfaces import IThemeTagging
-from Products.EEAContentTypes.content.ThemeTaggable import ThemeTaggable_schema
 from zope.component import adapts
-from zope.interface import implements
-import logging
 
 logger = logging.getLogger('eea.indicators.content.ExternalDataSpec')
 

@@ -1,14 +1,15 @@
 """ ims.py """
 
-from eea.versions.interfaces import IGetVersions
+import re
+from zope.interface import implements
+
+import DateTime
 from Products.CMFPlone.utils import getToolByName
 from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from eea.indicators.browser.interfaces import IIndicatorsPermissionsOverview
 from eea.indicators.content.Assessment import hasWrongVersionId
-from zope.interface import implements
-import DateTime
-import re
+from eea.versions.interfaces import IGetVersions
 
 codesre = re.compile(r"([a-zA-Z]+)(\d+)")
 

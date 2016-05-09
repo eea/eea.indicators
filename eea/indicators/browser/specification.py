@@ -2,9 +2,9 @@
 """ Specification controllers
 """
 
-__author__ = """European Environment Agency (EEA)"""
-__docformat__ = 'plaintext'
-__credits__ = """contributions: Alec Ghica, Tiberiu Ichim"""
+import logging
+
+from zope.interface import implements
 
 from DateTime import DateTime
 from Products.CMFPlone import PloneMessageFactory as _
@@ -14,19 +14,21 @@ from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from ZPublisher.Client import querify
 from eea.indicators.browser.interfaces import IIMSBaseView
 from eea.indicators.browser.utils import has_one_of
+from eea.versions.interfaces import IGetVersions
 from eea.versions.interfaces import IVersionControl
 from eea.versions.versions import CreateVersion as BaseCreateVersion
+from eea.versions.versions import _random_id
 from eea.versions.versions import assign_version as base_assign_version
 from eea.versions.versions import create_version as base_create_version
-from eea.versions.versions import _random_id
-from eea.versions.interfaces import IGetVersions
 from eea.workflow.interfaces import IFieldIsRequiredForState, IValueProvider
 from eea.workflow.readiness import ObjectReadiness
 from plone.app.layout.globals.interfaces import IViewView
 from zope.component import getMultiAdapter
-from zope.interface import implements
-import logging
+
 #from zope.interface import alsoProvides
+__author__ = """European Environment Agency (EEA)"""
+__docformat__ = 'plaintext'
+__credits__ = """contributions: Alec Ghica, Tiberiu Ichim"""
 
 logger = logging.getLogger('eea.indicators.browser.specification')
 

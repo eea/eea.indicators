@@ -274,8 +274,8 @@ class AssessmentPart(ATFolder, ModalFieldEditableAware,
         if not hasattr(aq_base(instance), 'at_ordered_refs'):
             instance.at_ordered_refs = {}
 
-        uids = tuple([u for u in uids if u is not None])
-        instance.at_ordered_refs[field.relationship] = uids
+        tpl_uids = tuple([u for u in uids if u is not None])
+        instance.at_ordered_refs[field.relationship] = tpl_uids
 
 
 

@@ -3,7 +3,13 @@
 """ Assessment controllers
 """
 
+import datetime
+import logging
 from Acquisition import aq_inner, aq_parent
+
+import lxml
+from zope.interface import implements
+
 from DateTime import DateTime
 from Products.ATVocabularyManager import NamedVocabulary
 from Products.Archetypes.event import ObjectInitializedEvent
@@ -12,8 +18,8 @@ from Products.Five import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from ZPublisher.Client import querify
 from bs4 import UnicodeDammit, BeautifulSoup
-from eea.indicators.browser.utils import has_one_of
 from eea.indicators.browser.interfaces import IIMSBaseView
+from eea.indicators.browser.utils import has_one_of
 from eea.indicators.content.Assessment import getPossibleVersionsId
 from eea.indicators.content.Assessment import hasWrongVersionId
 from eea.versions.interfaces import IGetVersions
@@ -25,10 +31,6 @@ from lxml.builder import ElementMaker
 from plone.app.layout.globals.interfaces import IViewView
 from zope.component import getMultiAdapter
 from zope.event import notify
-from zope.interface import implements
-import datetime
-import logging
-import lxml
 
 logger = logging.getLogger("eea.indicators.browser.assessment")
 
@@ -265,8 +267,8 @@ class WorkflowStateReadiness(ObjectReadiness):
                 "You need to finish the <a href='../'>"
                 "Indicator Specification</a> first!"),
 
-            (lambda o: 'published' != getToolByName(o, 'portal_workflow').
-                        getInfoFor(aq_parent(aq_inner(o)), 'review_state'),
+            (lambda o: getToolByName(o, 'portal_workflow').
+                        getInfoFor(aq_parent(aq_inner(o)), 'review_state') != 'published',
                 "The Indicator Specification needs to be published."
             ),
 

@@ -2,13 +2,14 @@
 """
 
 from AccessControl import ClassSecurityInfo
-from Products.Archetypes.interfaces import ISchema
+from zope import event
+
 from Products.Archetypes.event import ObjectEditedEvent
 from Products.Archetypes.event import ObjectInitializedEvent
+from Products.Archetypes.interfaces import ISchema
 from Products.Archetypes.utils import mapply
 from Products.CMFCore import permissions
 from Products.CMFCore.permissions import AddPortalContent
-from zope import event
 from zope.lifecycleevent import ObjectAddedEvent
 
 

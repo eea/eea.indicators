@@ -3,6 +3,8 @@ Changelog
 
 11.6.dev0 - (unreleased)
 ------------------------
+* Bug fix: Fix pylint warnings
+  [ichim-david refs #71940]
 
 11.5 - (2016-05-05)
 -------------------

@@ -1,9 +1,13 @@
 """ Assessment content class and utilities
 """
-__docformat__ = 'plaintext'
 
+import logging
 from AccessControl import ClassSecurityInfo
 from Acquisition import aq_inner, aq_parent
+from datetime import datetime
+
+from zope.interface import implements
+
 from Products.ATContentTypes.content.folder import ATFolder
 from Products.ATContentTypes.content.folder import ATFolderSchema
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema
@@ -14,8 +18,8 @@ from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 from Products.EEAContentTypes.content.validators import (
     ManagementPlanCodeValidator,
 )
+from Products.EEAContentTypes.interfaces import ITemporalCoverageAdapter
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from datetime import datetime
 from eea.forms.fields.ManagementPlanField import ManagementPlanField
 from eea.forms.widgets.ManagementPlanWidget import ManagementPlanWidget
 from eea.indicators import msg_factory as _
@@ -28,33 +32,29 @@ from eea.versions.interfaces import IGetVersions
 from eea.workflow.interfaces import IHasMandatoryWorkflowFields
 from eea.workflow.interfaces import IObjectReadiness
 from eea.workflow.utils import ATFieldValueProvider
-
-from Products.EEAContentTypes.interfaces import ITemporalCoverageAdapter
-
 from zope.component import adapts
-from zope.interface import implements
-import logging
-#from eea.versions.versions import get_version_id    #get_versions_api,
-from eea.geotags.widget import GeotagsWidget
-logger = logging.getLogger('eea.indicators.content.Assessment')
 
+# from eea.versions.versions import get_version_id    #get_versions_api,
+from eea.geotags.widget import GeotagsWidget
+
+logger = logging.getLogger('eea.indicators.content.Assessment')
 
 schema = Schema((
 
     StringField(
         name='title',
         widget=StringField._properties['widget'](
-            visible={'view':'invisible', 'edit':'invisible'},
+            visible={'view': 'invisible', 'edit': 'invisible'},
             label='Title',
             description='Title',
             label_msgid='indicators_label_title',
             i18n_domain='indicators',
-            ),
+        ),
         required=False,
         accessor="Title",
         searchable=True,
         default=u'Assessment',
-        ),
+    ),
     TextField(
         name='key_message',
         allowable_content_types=('text/plain', 'text/structured',
@@ -66,12 +66,12 @@ schema = Schema((
                          "entire indicator assessment."),
             label_msgid='indicators_label_key_message',
             i18n_domain='indicators',
-            ),
+        ),
         default_content_type="text/html",
         searchable=True,
         default_output_type="text/x-html-safe",
         required_for_published=True,
-        ),
+    ),
     ManagementPlanField(
         name='management_plan',
         languageIndependent=True,
@@ -91,25 +91,25 @@ schema = Schema((
             description_msgid='dataservice_help_eea_mp',
             i18n_domain='eea.dataservice',
         )
-        ),
+    ),
     EEAReferenceField(
         name='relatedItems',
         isMetadata=False,
         keepReferencesOnCopy=True,
         multiValued=True,
         relationship='relatesTo',
-        #referencesSortable=True,
+        # referencesSortable=True,
         widget=EEAReferenceBrowserWidget(
-            visible={'view':'invisible', 'edit':'invisible'},
+            visible={'view': 'invisible', 'edit': 'invisible'},
             label='Related Item(s)',
             description='Specify related item(s).',
         )
-        ),
+    ),
     ComputedField(
         name='temporalCoverage',
         expression="context.getTemporalCoverage()",
         widget=ComputedField._properties['widget'](
-            visible={'view':'invisible', 'edit':'invisible'},
+            visible={'view': 'invisible', 'edit': 'invisible'},
         ),
     ),
 
@@ -117,15 +117,15 @@ schema = Schema((
         name='location',
         expression="context.getLocation()",
         widget=GeotagsWidget(
-            visible={'view':'visible', 'edit':'invisible'},
+            visible={'view': 'visible', 'edit': 'invisible'},
         ),
     ),
-    ),
+),
 )
 
 Assessment_schema = ATFolderSchema.copy() + \
-                  getattr(ATFolder, 'schema', Schema(())).copy() + \
-                  schema.copy()
+                    getattr(ATFolder, 'schema', Schema(())).copy() + \
+                    schema.copy()
 
 finalizeATCTSchema(Assessment_schema)
 
@@ -144,9 +144,10 @@ class Assessment(ATFolder, ModalFieldEditableAware,
     schema = Assessment_schema
 
     portlet_readiness = \
-          ViewPageTemplateFile('../browser/templates/portlet_readiness.pt')
+        ViewPageTemplateFile('../browser/templates/portlet_readiness.pt')
 
     security.declarePublic('get_assessments')
+
     def get_assessments(self):
         """ Returns assessment parts
         """
@@ -165,11 +166,12 @@ class Assessment(ATFolder, ModalFieldEditableAware,
                 secondary.append(part)
 
         return {
-            'key':key,
-            'secondary':secondary
+            'key': key,
+            'secondary': secondary
         }
 
     security.declarePublic("Title")
+
     def Title(self):
         """ return title based on parent specification title
         """
@@ -184,7 +186,7 @@ class Assessment(ATFolder, ModalFieldEditableAware,
             title = title.encode('utf-8')
 
         try:
-            wftool = getToolByName(self, 'portal_workflow')
+            getToolByName(self, 'portal_workflow')
         except AttributeError:
             # the object has not finished its creation process
             title += ' - newly created assessment'
@@ -193,6 +195,7 @@ class Assessment(ATFolder, ModalFieldEditableAware,
         return title
 
     security.declarePublic("TitleWithCodeAndDate")
+
     def TitleWithCodeAndDate(self):
         """ return title based on parent specification title
         """
@@ -228,7 +231,7 @@ class Assessment(ATFolder, ModalFieldEditableAware,
 
             msg = _(u"Assessment published ${date}",
                     mapping={'date': u"%s %s" %
-                             (time.Mon(), time.year())
+                                     (time.Mon(), time.year())
                              }
                     )
             title += ' - ' + self.translate(msg).encode('utf-8')
@@ -237,7 +240,7 @@ class Assessment(ATFolder, ModalFieldEditableAware,
                 time = self.creation_date
             msg = _(u"Assessment DRAFT created ${date}",
                     mapping={'date': u"%s %s" %
-                             (time.Mon(), time.year())
+                                     (time.Mon(), time.year())
                              }
                     )
             title += ' - ' + self.translate(msg).encode('utf-8')
@@ -245,6 +248,7 @@ class Assessment(ATFolder, ModalFieldEditableAware,
         return title
 
     security.declarePublic('Subject')
+
     def Subject(self):
         """ Overwrite standard Subject method to dynamically get all
             keywords from other objects used in this assessment.
@@ -259,10 +263,10 @@ class Assessment(ATFolder, ModalFieldEditableAware,
                 if ob.portal_type in ['EEAFigure', 'DavizVisualization']:
                     result.extend(ob.Subject())
 
-        #ZZZ: keywords from datasets, work but needs to be double checked
+        # ZZZ: keywords from datasets, work but needs to be double checked
         #      with content experts
-        #spec = aq_parent(aq_inner(self))
-        #for ob in spec.getRelatedItems():
+        # spec = aq_parent(aq_inner(self))
+        # for ob in spec.getRelatedItems():
         #       if ob.portal_type == 'Data':
         #           result.extend(ob.Subject())
 
@@ -270,6 +274,7 @@ class Assessment(ATFolder, ModalFieldEditableAware,
         return list(set(result))
 
     security.declarePublic('getThemes')
+
     def getThemes(self):
         """ Returns parent themes
         """
@@ -277,6 +282,7 @@ class Assessment(ATFolder, ModalFieldEditableAware,
         return parent.getThemes()
 
     security.declarePublic('SearchableText')
+
     def SearchableText(self):
         """ Override SearchableText to index codes """
         searchable_text = super(Assessment, self).SearchableText()
@@ -288,6 +294,7 @@ class Assessment(ATFolder, ModalFieldEditableAware,
         return searchable_text
 
     security.declarePublic("Description")
+
     def Description(self):
         """ Returns description
         """
@@ -300,6 +307,7 @@ class Assessment(ATFolder, ModalFieldEditableAware,
         return text
 
     security.declarePublic("getLocation")
+
     def getLocation(self):
         """ Return geographic coverage
         """
@@ -313,8 +321,8 @@ class Assessment(ATFolder, ModalFieldEditableAware,
                         result.extend(ob.getLocation())
         return sorted(set(result))
 
-
     security.declarePublic("getTemporalCoverage")
+
     def getTemporalCoverage(self):
         """ Return temporal coverage
         """
@@ -327,24 +335,27 @@ class Assessment(ATFolder, ModalFieldEditableAware,
                     state = wftool.getInfoFor(ob, 'review_state', '(Unknown)')
                     if state in ['published', 'visible']:
                         temporal_coverage = ITemporalCoverageAdapter(ob
-                                                                    ).value()
+                                                                     ).value()
                         for val in temporal_coverage:
                             result[val] = val
         return list(result.keys())
 
     security.declarePublic("published_readiness")
+
     def published_readiness(self):
         """ Used as index for readiness
         """
         return IObjectReadiness(self).get_info_for('published')['rfs_done']
 
     security.declarePublic("comments")
+
     def comments(self):
         """ Return the number of comments
         """
 
         thread = self.plone_utils.getDiscussionThread(self)
         return len(thread) - 1
+
 
 def hasWrongVersionId(context):
     """ Determines if the assessment belongs to a wrong version group
@@ -369,9 +380,9 @@ def hasWrongVersionId(context):
 
     for code in codes:
         factsheets.extend([
-            b.getObject() for b in cat.searchResults(
+                              b.getObject() for b in cat.searchResults(
                 get_codes=code, portal_type="IndicatorFactSheet")
-        ])
+                              ])
 
     version_ids = {}
     for a in all_assessments + factsheets:
@@ -383,18 +394,18 @@ def hasWrongVersionId(context):
 
     return True
 
-    #needs python2.5
-    #major = max(version_ids.keys(), key_func=lambda k:len(version_ids[k]))
+    # needs python2.5
+    # major = max(version_ids.keys(), key_func=lambda k:len(version_ids[k]))
 
-    #major = None
-    #for k in version_ids.keys():
-        #if not major:
-            #major = k
-        #if len(version_ids[k]) > len(version_ids[major]):
-            #major = k
+    # major = None
+    # for k in version_ids.keys():
+    # if not major:
+    # major = k
+    # if len(version_ids[k]) > len(version_ids[major]):
+    # major = k
 
-    #vid = get_version_id(context)
-    #return not major == vid
+    # vid = get_version_id(context)
+    # return not major == vid
 
 
 def getPossibleVersionsId(context):
@@ -415,9 +426,9 @@ def getPossibleVersionsId(context):
     factsheets = []
     for code in codes:
         factsheets.extend([
-            b.getObject() for b in cat.searchResults(
+                              b.getObject() for b in cat.searchResults(
                 get_codes=code, portal_type="IndicatorFactSheet")
-        ])
+                              ])
 
     version_ids = {}
     for a in all_assessments + factsheets:

@@ -2,17 +2,17 @@
 
 """Validators for eea.indicators content
 """
+from Acquisition import aq_inner, aq_parent
+
+from zope.interface import implements
+
+from Products.CMFPlone.UnicodeSplitter import process_unicode
+from Products.CMFPlone.utils import getToolByName
+from Products.validation.interfaces.IValidator import IValidator
 
 __author__ = """European Environment Agency (EEA)"""
 __docformat__ = 'plaintext'
 __credits__ = """contributions: Alec Ghica, Tiberiu Ichim"""
-
-from Acquisition import aq_inner, aq_parent
-from Products.CMFPlone.UnicodeSplitter import process_unicode
-from Products.CMFPlone.utils import getToolByName
-from Products.validation.interfaces.IValidator import IValidator
-from zope.interface import implements
-
 
 class UniquePolicyDocTitleValidator(object):
     """Validator"""

@@ -1,11 +1,12 @@
 """ Test suites for eea.indicators
 """
 
-from Products.PloneTestCase.layer import PloneSite
-from eea.indicators.tests.base import BaseIndicatorsTestCase
-from unittest import TestSuite
-from Testing.ZopeTestCase.zopedoctest import ZopeDocFileSuite
 import doctest
+from unittest import TestSuite
+
+from Products.PloneTestCase.layer import PloneSite
+from Testing.ZopeTestCase.zopedoctest import ZopeDocFileSuite
+from eea.indicators.tests.base import BaseIndicatorsTestCase
 
 OPTIONFLAGS = (doctest.REPORT_ONLY_FIRST_FAILURE |
                doctest.ELLIPSIS |

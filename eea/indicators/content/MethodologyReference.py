@@ -5,17 +5,19 @@
 """Methodology Reference content type
 """
 
+import logging
 from AccessControl import ClassSecurityInfo
+
+from zope.interface import implements
+
 from Products.ATContentTypes.content.link import ATLink, ATLinkSchema
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema
-from Products.Archetypes.atapi import StringField, Schema, TextField
 from Products.Archetypes.atapi import RichWidget
+from Products.Archetypes.atapi import StringField, Schema, TextField
 from Products.CMFCore import permissions
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 from Products.CMFPlone.utils import getToolByName
 from eea.indicators.content import interfaces
-from zope.interface import implements
-import logging
 
 logger = logging.getLogger('eea.indicators.content.MethodologyReference')
 

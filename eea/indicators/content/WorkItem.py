@@ -4,7 +4,11 @@
 """ Work item
 """
 
+import logging
 from AccessControl import ClassSecurityInfo
+
+from zope.interface import implements
+
 from Products.ATContentTypes.content.base import ATCTContent
 from Products.ATContentTypes.content.base import ATContentTypeSchema
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema
@@ -15,8 +19,6 @@ from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 from Products.CMFPlone.utils import getToolByName
 from eea.indicators import msg_factory as _
 from eea.indicators.content import interfaces
-from zope.interface import implements
-import logging
 
 logger = logging.getLogger('eea.indicators.content.WorkItem')
 

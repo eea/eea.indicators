@@ -2,7 +2,15 @@
 # pylint: disable=W0622
 """ Specification content class and utilities
 """
+import datetime
+import logging
 from AccessControl import ClassSecurityInfo
+
+from Products.UserAndGroupSelectionWidget.at.widget import \
+    UserAndGroupSelectionWidget
+from zope.interface import implements
+
+from DateTime import DateTime
 from Products.ATContentTypes.content.folder import ATFolder, ATFolderSchema
 from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
 from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
@@ -25,7 +33,6 @@ from Products.DataGridField import DataGridField, DataGridWidget
 from Products.DataGridField.Column import Column
 from Products.DataGridField.SelectColumn import SelectColumn
 from Products.EEAContentTypes.content.ThemeTaggable import ThemeTaggable
-from Products.UserAndGroupSelectionWidget.at.widget import UserAndGroupSelectionWidget
 from archetypes.schemaextender.interfaces import ISchemaModifier
 from eea.dataservice.widgets import MultiOrganisationsWidget
 from eea.indicators import msg_factory as _
@@ -42,10 +49,6 @@ from eea.versions.interfaces import IVersionControl
 from eea.workflow.interfaces import IHasMandatoryWorkflowFields
 from eea.workflow.interfaces import IObjectReadiness
 from zope.event import notify
-from zope.interface import implements
-from DateTime import DateTime
-import datetime
-import logging
 
 #from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 #from eea.versions.versions import isVersionEnhanced

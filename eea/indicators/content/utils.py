@@ -1,11 +1,12 @@
 """Various utilities for content types
 """
 
-from Acquisition import aq_inner, aq_parent
-from Products.Archetypes import atapi
-from Products.CMFCore.utils import getToolByName
 import json
 import logging
+from Acquisition import aq_inner, aq_parent
+
+from Products.Archetypes import atapi
+from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.interfaces.siteroot import IPloneSiteRoot
 
 

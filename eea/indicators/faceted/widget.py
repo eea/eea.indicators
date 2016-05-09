@@ -51,7 +51,7 @@ class IndicatorsSorter(object):
             dominant = biggest
 
         #dumb filtering with the first setcode
-        if dominant == None:
+        if dominant is None:
             def get_first_setcode(b):
                 """ returns """
                 if b.get_codes:

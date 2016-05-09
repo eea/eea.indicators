@@ -1,6 +1,10 @@
 """Browser utilities
 """
 
+import logging
+
+from zope.interface import implements, Interface
+
 from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.CatalogTool import sortable_title
@@ -12,8 +16,6 @@ from eea.versions.versions import VersionControl
 from eea.workflow.interfaces import IValueProvider
 from eea.workflow.utils import ATFieldValueProvider
 from zope.component import getMultiAdapter, queryMultiAdapter, adapts
-from zope.interface import implements, Interface
-import logging
 
 logger = logging.getLogger('eea.indicators')
 
@@ -132,7 +134,7 @@ class RelatedItems(BrowserView):
     def _get_items(self, ctype, state=None, sort=False):
         """get filtered items """
 
-        if ctype == None:
+        if ctype is None:
             res = self.context.getRelatedItems()
             if sort:
                 return sorted(res, key=lambda obj: sortable_title(obj)())

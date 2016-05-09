@@ -1,9 +1,9 @@
 """ eea.indicators 8.7 migration scripts
 """
-import transaction
-
-from Products.CMFPlone.utils import getToolByName
 import logging
+
+import transaction
+from Products.CMFPlone.utils import getToolByName
 from eea.indicators.content.utils import set_location
 
 logger = logging.getLogger('eea.indicators.migration')
