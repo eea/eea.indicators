@@ -1,6 +1,9 @@
 Changelog
 =========
 
+11.7.dev0 - (unreleased)
+------------------------
+
 11.6 - (2016-05-19)
 -------------------
 * Bug fix: readded toc js in assessment and specification view.
