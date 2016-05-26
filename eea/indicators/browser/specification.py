@@ -17,7 +17,7 @@ from eea.indicators.browser.utils import has_one_of
 from eea.versions.interfaces import IGetVersions
 from eea.versions.interfaces import IVersionControl
 from eea.versions.versions import CreateVersion as BaseCreateVersion
-from eea.versions.versions import _random_id
+from eea.versions.utils import _random_id
 from eea.versions.versions import assign_version as base_assign_version
 from eea.versions.versions import create_version as base_create_version
 from eea.workflow.interfaces import IFieldIsRequiredForState, IValueProvider
