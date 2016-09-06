@@ -3,6 +3,8 @@ Changelog
 
 11.8.dev0 - (unreleased)
 ------------------------
+* Bug fix: check if ref is found within Subject getBrefs
+  [ichim-david refs #75321]
 
 11.7 - (2016-05-27)
 -------------------

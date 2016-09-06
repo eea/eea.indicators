@@ -210,7 +210,7 @@ class ExternalDataSpec(ATCTContent, BrowserDefaultMixin):
         """
         result = []
         for ref in self.getBRefs():
-            if ref.portal_type != "Specification":
+            if ref and ref.portal_type != "Specification":
                 continue
             result.extend(ref.Subject())
         return sorted(list(set(result)))
