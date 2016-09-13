@@ -1,8 +1,8 @@
 Changelog
 =========
 
-11.8.dev0 - (unreleased)
-------------------------
+11.8 - (2016-09-13)
+-------------------
 * Bug fix: updated tests to take into account the new TOC field
   [alecghica refs #76246]
 * Bug fix: check if ref is found within Subject getBrefs
