@@ -336,12 +336,12 @@ specification doesn't have an invalid specification code.
 'optional_empty' is the number of fields that are not required for that state and don't have a value.
 
     >>> info['optional_empty']
-    12
+    13
 
 'total_fields' is the grand total number of fields. There are 21 fields
 
     >>> info['total_fields']
-    25
+    26
 
 Let's fill in another field, this time 'codes':
 
