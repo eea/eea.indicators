@@ -3,6 +3,10 @@ Changelog
 
 11.9.dev0 - (unreleased)
 ------------------------
+* Change: AssessmentPart assessment field now has only text/html
+  input in order to avoid having a situation where the user
+  selects text/plain which would disable the tinymce editor
+  [ichim-david refs #78578]
 
 11.8 - (2016-09-13)
 -------------------
