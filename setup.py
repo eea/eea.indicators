@@ -11,7 +11,7 @@ setup(
  name=NAME,
  version=VERSION,
  description="EEA Indicators",
- long_description=open("README.txt").read() + "\n" +
+ long_description=open("README.rst").read() + "\n" +
                   open(os.path.join("docs", "HISTORY.txt")).read(),
  url="https://svn.eionet.europa.eu/projects/"
      "Zope/browser/trunk/eea.indicators",
