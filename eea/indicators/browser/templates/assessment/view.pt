@@ -53,8 +53,6 @@
     <div metal:fill-slot="content-title" class="assessment_view" >
       <h1 class="documentFirstHeading" tal:content="context/Title">Title here</h1>
     </div>
-
-
     <div metal:fill-slot="content-core" tal:define="specification context/getParentNode"
     class='assessment_view'>
       <div id="content-more-updates-on"
@@ -91,8 +89,6 @@
         </tal:parts>
       </div>
 
-      
-      <!-- BEGIN SPECIFICATION and METADATA -->
       <div class="visualClear"><!-- --></div>
       <h2 i18n:translate="">Indicator specification and metadata</h2>
       <metal:definition-and-units use-macro="specification/@@view/macros/definition-and-units" />
@@ -110,7 +106,7 @@
         datasets python:datasetsView('Data'); extdatasets python:datasetsView('ExternalDataSpec')">
         <li tal:repeat="data datasets" tal:condition="python:datasets">
           <a href=""
-            tal:attributes="href string:${context/portal_url}/data-and-maps/data/ds_resolveuid/${data/@@getVersions/versionId}"
+            tal:attributes="href string:${context/portal_url}/ds_resolveuid/${data/@@getVersions/versionId}"
             tal:content="data/title">Dataset title</a><br/>provided by
           <span tal:repeat="url python:data.getDataOwner()">
            <tal:organisations condition="python:specification.getOrganisationName(url)">
@@ -132,8 +128,6 @@
         <li tal:condition="python:(not extdatasets and not datasets)">No datasets have been specified.</li>
       </ul>
 
-
-       <!--? metadata -->
         <div id="box-classification">
             <h3 i18n:translate="">Generic metadata</h3>
             <div class="box-column-left">
@@ -178,8 +172,6 @@
                 <metal:related use-macro="context/geotags_macros/macros/geotags-listing" />
             </div>
         </div>
-
-      <!--? /metadata -->
 
       <div id="contact-and-ownership" class="clearfix">
       <h3 i18n:translate="">Contacts and ownership</h3>
@@ -258,9 +250,8 @@
 
       <div id="permalinks-info">
         <h4 i18n:translate="">Permalinks</h4>
-        <metal:basicmeta use-macro="context/versions_macros/macros/permalinks" />
+        <metal:permalinks use-macro="context/versions_macros/macros/permalinks" />
       </div>
-      <!-- END SPECIFICATION and METADATA -->
 
     </div>
   </body>

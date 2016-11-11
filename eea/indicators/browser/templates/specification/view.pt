@@ -174,8 +174,6 @@
               references available.</p>
           </tal:methodology_references>
         </div>
-        <!-- TODO: #3273 -->
-        <!-- TODO: add extra info from datasets like owner/provider/processor-->
         <div id="data-specifications" metal:define-macro="data-specifications"
           tal:define="datasetsView nocall:here/@@related_items;
           auto_relations nocall:here/@@auto-relations.html">
@@ -185,8 +183,8 @@
             <li tal:condition="python:not datasets" i18n:translate="">No datasets have been specified here.</li>
             <li tal:repeat="data datasets" tal:condition="python:datasets">
               <a href=""
-                tal:attributes="href string:${context/portal_url}/data-and-maps/data/ds_resolveuid/${data/@@getVersions/versionId}"
-                tal:content="data/title">Dataset title</a><!-- TODO: to show title from latest dataset version -->
+                tal:attributes="href string:${context/portal_url}/ds_resolveuid/${data/@@getVersions/versionId}"
+                tal:content="data/title">Dataset title</a>
                 provided by
                   <span tal:repeat="url python:data.getDataOwner()">
                    <tal:organisations condition="python:context.getOrganisationName(url)">
@@ -206,8 +204,6 @@
               </li>
             </ul>
           </tal:external>
-
-          <!-- TODO: to show other data sources coming from figures related dataset field #3452 -->
 
           <tal:auto define="tabs python:auto_relations.tabs">
             <h4 i18n:translate="">Data sources in latest figures</h4>
@@ -232,7 +228,6 @@
               </tal:tab>
             </div>
           </tal:auto>
-
 
         </div>
         <div id="uncertainties-part" metal:define-macro="uncertainties-part">
@@ -444,7 +439,7 @@
 
         <div class='headed-box'>
           <h4 i18n:translate="">Permalinks</h4>
-          <metal:basicmeta use-macro="context/versions_macros/macros/permalinks" />
+          <metal:permalinks use-macro="context/versions_macros/macros/permalinks" />
         </div>
 
         <div class='headed-box' tal:condition="context/should_show_frequency_of_updates">
