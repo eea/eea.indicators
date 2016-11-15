@@ -437,11 +437,6 @@
           </div>
         </div>
 
-        <div class='headed-box'>
-          <h4 i18n:translate="">Permalinks</h4>
-          <metal:permalinks use-macro="context/versions_macros/macros/permalinks" />
-        </div>
-
         <div class='headed-box' tal:condition="context/should_show_frequency_of_updates">
           <h4 i18n:translate="">Frequency of updates</h4>
           <div tal:content="context/get_frequency_of_updates" />

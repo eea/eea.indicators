@@ -248,11 +248,6 @@
           </div>
       </div>
 
-      <div id="permalinks-info">
-        <h4 i18n:translate="">Permalinks</h4>
-        <metal:permalinks use-macro="context/versions_macros/macros/permalinks" />
-      </div>
-
     </div>
   </body>
 </html>

@@ -135,13 +135,6 @@
           </ul>
         </tal:factSheetDocuments>
 
-        <div class='headed-box'>
-          <h4 i18n:translate="">Permalinks</h4>
-          <metal:permalinks use-macro="context/versions_macros/macros/permalinks" />
-        </div>
-
-<!-- #TODO: <dtml-var show_related_indicators> -->
-
       </metal:main_macro>
     </div>
   </body>
