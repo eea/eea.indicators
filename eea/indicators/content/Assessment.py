@@ -371,8 +371,12 @@ def hasWrongVersionId(context):
         spec_versions.append(spec)
 
     all_assessments = []
+    context_lang = context.getLanguage()
     for spec in spec_versions:
-        all_assessments.extend(spec.objectValues("Assessment"))
+        assessments = spec.objectValues("Assessment")
+        for assessment in assessments:
+            if assessment.getLanguage() == context_lang:
+                all_assessments.append(assessment)
 
     # now also checking IndicatorFactSheets, using codes to do matching
     codes = ["%s%s" % (c['set'], c['code']) for c in context.getCodes()]
