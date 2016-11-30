@@ -3,6 +3,9 @@ Changelog
 
 12.2.dev0 - (unreleased)
 ------------------------
+* Bug fix: hasWrongVersionId now checks assessment for context language
+  as assessments have different versionIds when encountering translations
+  [ichim-david refs #79112] 
 
 12.1 - (2016-11-21)
 -------------------
