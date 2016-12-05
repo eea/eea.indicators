@@ -1,6 +1,9 @@
 Changelog
 =========
 
+12.3.dev0 - (unreleased)
+------------------------
+
 12.2 - (2016-12-05)
 -------------------
 * Bug fix: hasWrongVersionId now checks assessment for context language
