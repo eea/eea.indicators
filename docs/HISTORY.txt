@@ -3,6 +3,9 @@ Changelog
 
 12.3.dev0 - (unreleased)
 ------------------------
+* Feature: geotags, temporal coverage and themes display 
+  alligned with tags style
+  [alecghica refs #81054]
 
 12.2 - (2016-12-05)
 -------------------

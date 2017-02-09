@@ -32,23 +32,24 @@
           <h3 id="general_metadata" i18n:translate="">Generic metadata</h3>
           <h4 i18n:translate="">Classification</h4>
           <tal:block define="themesView here/@@themes-object|nothing;
-            themes themesView/full_items;
-            primaryTheme python:themes and themes[0] or None">
-
-            <tal:primaryTheme repeat="theme themes" condition="primaryTheme">
-              <a href="" title="" style="text-decoration: none"
-                tal:attributes="href theme_url;
-                title theme_title"
-                tal:define="theme_title python:theme['title'];
-                theme_url python:theme['url'];
-                theme_image python:theme['image']">
-                <img alt="" src=""
-                  tal:attributes="alt theme_title;
-                  src theme_image" />
-                <tal:block replace="theme_title" />
-              </a> <span tal:condition="python:theme == themes[0]">(Primary theme)</span>
-              <br /><br />
-            </tal:primaryTheme>
+                             themes themesView/full_items;
+                             primaryTheme python:themes and themes[0] or None">
+            <strong i18n:translate="">Topics</strong>:<br /><br />
+            <tal:themes condition="python:primaryTheme">
+                <div id="themes-tags">
+                    <tal:values repeat="theme themes">
+                       <span>
+                            <a class="link-category" rel="tag"
+                               tal:define="theme_title python:theme['title'];
+                                           theme_url python:theme['url']"
+                               tal:attributes="title theme_title;
+                                               href theme_url"
+                               tal:content="theme_title"></a>
+                            <span class="separator" tal:condition="not:repeat/theme/end">,</span>
+                        </span>
+                    </tal:values>
+                </div>
+            </tal:themes>
           </tal:block>
           <tal:tags define="facetId string:c9">
             <metal:related use-macro="here/dataset_view/macros/tags" />
