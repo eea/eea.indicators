@@ -3,10 +3,12 @@ Changelog
 
 12.4.dev0 - (unreleased)
 ------------------------
+* Feature: Export geotags to @@rdf
+  [avoinea refs #81054]
 
 12.3 - (2017-02-14)
 -------------------
-* Feature: geotags, temporal coverage and themes display 
+* Feature: geotags, temporal coverage and themes display
   alligned with tags style
   [alecghica refs #81054]
 
@@ -14,7 +16,7 @@ Changelog
 -------------------
 * Bug fix: hasWrongVersionId now checks assessment for context language
   as assessments have different versionIds when encountering translations
-  [ichim-david refs #79112] 
+  [ichim-david refs #79112]
 
 12.1 - (2016-11-21)
 -------------------
@@ -152,16 +154,16 @@ Changelog
 -------------------
 * Change: added Rationale heading.
   [demarant refs #26361]
-* Change: display indicator codes below title, 
+* Change: display indicator codes below title,
   as document by line.
   [demarant refs #26361]
-* Change: updated specification view, removed TOC and  
-  showing the date on the assessment versions, 
+* Change: updated specification view, removed TOC and
+  showing the date on the assessment versions,
   since now not part of title.
   [demarant refs #26361]
 * Change: Remove dates and codes from indicator title.
   Upgrade Step: reindex all indicators spec and assessment.
-  invalidate varnish for all urls having "/data-and-maps/indicators" 
+  invalidate varnish for all urls having "/data-and-maps/indicators"
   [demarant refs #26361]
 
 10.3 - (2015-08-18)

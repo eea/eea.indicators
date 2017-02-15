@@ -2,7 +2,6 @@
 """
 
 import logging
-import json
 from AccessControl import ClassSecurityInfo
 from Acquisition import aq_inner, aq_parent
 from datetime import datetime
@@ -44,37 +43,36 @@ from eea.geotags.interfaces import IGeoTags
 logger = logging.getLogger('eea.indicators.content.Assessment')
 
 
-class AssesmentComputedField(GeotagsFieldMixin, ComputedField):
+class AssessmentComputedField(GeotagsFieldMixin, ComputedField):
     """ Custom computed field
     """
-
     def getGeoTags(self, instance, **kwargs):
         """ Get GeoJSON tags from instance related items using IGeoTags adapter
         """
-        relatedItems = getattr(instance, 'getLocationRelatedItems', lambda: [])
         geotags = {
             'countries': {},
             'other': {},
         }
-        for ob in relatedItems():
-            geo = queryAdapter(ob, IGeoTags)
-            if not geo:
-                continue
-            features = geo.tags.get('features', [])
-            for feature in features:
-                properties = feature.get('properties', {})
-                tags = properties.get('tags', '')
-                if isinstance(tags, (list, tuple)):
-                    tags = u', '.join(tags)
-                key = properties.get('title', '')
-                val = properties.get('description', '')
-                if u'country' in tags:
-                    geotags['countries'][key] = val
-                elif u'independent political entity' in tags:
-                    geotags['countries'][key] = val
-                else:
-                    geotags['other'][key] = val
+        geo = queryAdapter(instance, IGeoTags)
+        if not geo:
+            return geotags
+
+        features = geo.tags.get('features', [])
+        for feature in features:
+            properties = feature.get('properties', {})
+            tags = properties.get('tags', '')
+            if isinstance(tags, (list, tuple)):
+                tags = u', '.join(tags)
+            key = properties.get('title', '')
+            val = properties.get('description', '')
+            if u'country' in tags:
+                geotags['countries'][key] = val
+            elif u'independent political entity' in tags:
+                geotags['countries'][key] = val
+            else:
+                geotags['other'][key] = val
         return geotags
+
 
 schema = Schema((
 
@@ -150,7 +148,7 @@ schema = Schema((
         ),
     ),
 
-    AssesmentComputedField(
+    AssessmentComputedField(
         name='location',
         expression="context.getLocation()",
         widget=GeotagsWidget(
