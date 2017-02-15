@@ -1,0 +1,61 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:tal="http://xml.zope.org/namespaces/tal"
+      xmlns:metal="http://xml.zope.org/namespaces/metal"
+      xmlns:i18n="http://xml.zope.org/namespaces/i18n"
+      i18n:domain="eea">
+
+  <head><title></title></head>
+
+  <body>
+
+  <metal:view_macro define-macro="view">
+    <tal:view_macro tal:define="geotags python:field.getGeoTags(here);
+                                countries python:geotags.get('countries', {});
+                                other python:geotags.get('other', {});
+                                portal_state context/@@plone_portal_state;
+                                portal_url portal_state/portal_url;"
+                    tal:condition="python:countries or other">
+      <div tal:attributes="class string:eea-location-listing" metal:define-slot="location-listing">
+        <span i18n:translate="" metal:define-slot="geotags">Geotags:</span>
+
+        <h4 tal:condition="countries" i18n:translate="">Countries covered</h4>
+        <tal:tags tal:repeat="tag python:sorted(countries)">
+          <span>
+            <a class="link-category" rel="tag" tal:define="
+               title python:tag;
+               description python:countries[tag]"
+               tal:attributes="href python:portal_url + '/@@search?getGeographicCoverage%3Alist={title}'.format(title=title)"
+               tal:content="python:'{title} ({description})'.format(title=title, description=description) if (description and title != description) else title"></a>
+            <span class="separator" tal:condition="python:not repeat['tag'].end">,</span>
+          </span>
+        </tal:tags>
+
+        <h4 tal:condition="other" i18n:translate="">Specific area covered</h4>
+        <tal:tags tal:repeat="tag python:sorted(other)">
+          <span>
+            <a class="link-category" rel="tag" tal:define="
+               title python:tag;
+               description python:other[tag]"
+               tal:attributes="href python:portal_url + '/@@search?getGeographicCoverage%3Alist={title}'.format(title=title)"
+               tal:content="python:'{title} ({description})'.format(title=title, description=description) if (description and title != description) else title"></a>
+            <span class="separator" tal:condition="python:not repeat['tag'].end">,</span>
+          </span>
+        </tal:tags>
+      </div>
+    </tal:view_macro>
+  </metal:view_macro>
+
+  <div metal:define-macro="location">
+    <metal:use metal:use-macro="here/eea.geotags/macros/location" />
+  </div>
+
+  <metal:edit_macro define-macro="edit">
+    <metal:use metal:use-macro="here/eea.geotags/macros/edit" />
+  </metal:edit_macro>
+
+  <metal:search_macro define-macro="search">
+    <div metal:use-macro="here/eea.geotags/macros/edit" />
+  </metal:search_macro>
+
+</body>
+</html>

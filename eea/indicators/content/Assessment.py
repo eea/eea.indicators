@@ -47,18 +47,34 @@ logger = logging.getLogger('eea.indicators.content.Assessment')
 class AssesmentComputedField(GeotagsFieldMixin, ComputedField):
     """ Custom computed field
     """
-    
-    def getJSON(self, instance, **kwargs):
+
+    def getGeoTags(self, instance, **kwargs):
         """ Get GeoJSON tags from instance related items using IGeoTags adapter
         """
         relatedItems = getattr(instance, 'getLocationRelatedItems', lambda: [])
-        tags = {}
+        geotags = {
+            'countries': {},
+            'other': {},
+        }
         for ob in relatedItems():
             geo = queryAdapter(ob, IGeoTags)
             if not geo:
                 continue
-            tags.update(geo.tags)
-        return json.dumps(tags)
+            features = geo.tags.get('features', [])
+            for feature in features:
+                properties = feature.get('properties', {})
+                tags = properties.get('tags', '')
+                if isinstance(tags, (list, tuple)):
+                    tags = u', '.join(tags)
+                key = properties.get('title', '')
+                val = properties.get('description', '')
+                if u'country' in tags:
+                    geotags['countries'][key] = val
+                elif u'independent political entity' in tags:
+                    geotags['countries'][key] = val
+                else:
+                    geotags['other'][key] = val
+        return geotags
 
 schema = Schema((
 
@@ -138,6 +154,7 @@ schema = Schema((
         name='location',
         expression="context.getLocation()",
         widget=GeotagsWidget(
+            macro='assesment.geotags',
             visible={'view': 'visible', 'edit': 'invisible'},
         ),
     ),

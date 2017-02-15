@@ -128,7 +128,7 @@
         <li tal:condition="python:(not extdatasets and not datasets)">No datasets have been specified.</li>
       </ul>
 
-        <div id="box-classification">
+        <div id="box-classification" class="clearfix">
             <h3 i18n:translate="">Generic metadata</h3>
             <div class="box-column-left">
                 <tal:block define="themesView specification/@@themes-object|nothing;
