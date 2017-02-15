@@ -2,11 +2,13 @@
 """
 
 import logging
+import json
 from AccessControl import ClassSecurityInfo
 from Acquisition import aq_inner, aq_parent
 from datetime import datetime
 
 from zope.interface import implements
+from zope.component import queryAdapter
 
 from Products.ATContentTypes.content.folder import ATFolder
 from Products.ATContentTypes.content.folder import ATFolderSchema
@@ -35,9 +37,44 @@ from eea.workflow.utils import ATFieldValueProvider
 from zope.component import adapts
 
 # from eea.versions.versions import get_version_id    #get_versions_api,
+from eea.geotags.field.location import GeotagsFieldMixin
 from eea.geotags.widget import GeotagsWidget
+from eea.geotags.interfaces import IGeoTags
 
 logger = logging.getLogger('eea.indicators.content.Assessment')
+
+
+class AssesmentComputedField(GeotagsFieldMixin, ComputedField):
+    """ Custom computed field
+    """
+
+    def getGeoTags(self, instance, **kwargs):
+        """ Get GeoJSON tags from instance related items using IGeoTags adapter
+        """
+        relatedItems = getattr(instance, 'getLocationRelatedItems', lambda: [])
+        geotags = {
+            'countries': {},
+            'other': {},
+        }
+        for ob in relatedItems():
+            geo = queryAdapter(ob, IGeoTags)
+            if not geo:
+                continue
+            features = geo.tags.get('features', [])
+            for feature in features:
+                properties = feature.get('properties', {})
+                tags = properties.get('tags', '')
+                if isinstance(tags, (list, tuple)):
+                    tags = u', '.join(tags)
+                key = properties.get('title', '')
+                val = properties.get('description', '')
+                if u'country' in tags:
+                    geotags['countries'][key] = val
+                elif u'independent political entity' in tags:
+                    geotags['countries'][key] = val
+                else:
+                    geotags['other'][key] = val
+        return geotags
 
 schema = Schema((
 
@@ -113,15 +150,17 @@ schema = Schema((
         ),
     ),
 
-    ComputedField(
+    AssesmentComputedField(
         name='location',
         expression="context.getLocation()",
         widget=GeotagsWidget(
+            macro='assesment.geotags',
             visible={'view': 'visible', 'edit': 'invisible'},
         ),
     ),
 ),
 )
+
 
 Assessment_schema = ATFolderSchema.copy() + \
                     getattr(ATFolder, 'schema', Schema(())).copy() + \
@@ -306,20 +345,26 @@ class Assessment(ATFolder, ModalFieldEditableAware,
             logger.info(err)
         return text
 
-    security.declarePublic("getLocation")
-
-    def getLocation(self):
-        """ Return geographic coverage
+    security.declarePrivate("getLocationRelatedItems")
+    def getLocationRelatedItems(self):
+        """ Return related items sutable for location
         """
-        result = []
         wftool = getToolByName(self, 'portal_workflow')
         for assessment_part in self.objectValues('AssessmentPart'):
             for ob in assessment_part.getRelatedItems():
                 if ob.portal_type in ['EEAFigure', 'DavizVisualization']:
                     state = wftool.getInfoFor(ob, 'review_state', '(Unknown)')
                     if state in ['published', 'visible']:
-                        result.extend(ob.getLocation())
-        return sorted(set(result))
+                        yield ob
+
+    security.declarePublic("getLocation")
+    def getLocation(self):
+        """ Return geographic coverage
+        """
+        result = set()
+        for ob in self.getLocationRelatedItems():
+            result.update(ob.getLocation())
+        return sorted(result)
 
     security.declarePublic("getTemporalCoverage")
 
