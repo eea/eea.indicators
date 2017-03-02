@@ -1,8 +1,8 @@
 Changelog
 =========
 
-12.5.dev0 - (unreleased)
-------------------------
+12.5 - (2017-03-02)
+-------------------
 * Bug fix: Get resources over https
   [avoinea refs #82562]
 * Change: adjust geotags labeling
