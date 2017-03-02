@@ -3,6 +3,8 @@ Changelog
 
 12.5.dev0 - (unreleased)
 ------------------------
+* Bug fix: Get resources over https
+  [avoinea refs #82562]
 * Change: adjust geotags labeling
   [demarant refs #81054]
 
