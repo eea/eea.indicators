@@ -3,6 +3,8 @@ Changelog
 
 12.6.dev0 - (unreleased)
 ------------------------
+* Change: hide non publish visualization warning for anonymous users
+  [ichim-david]
 
 12.5 - (2017-03-02)
 -------------------

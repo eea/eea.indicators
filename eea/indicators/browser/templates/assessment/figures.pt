@@ -1,5 +1,6 @@
 <tal:figures define="objects python:path('nocall:context/@@related_items')(['EEAFigure', 'DavizVisualization', 'GIS Application']);
                      isAssessment python: context.portal_type == 'AssessmentPart';
+                     isAnon not: context/@@plone_portal_state/anonymous;
                      isPrint python:1 if 'pdf.' in request['URL0'] else 0;">
 
   <div tal:repeat="obj objects" class="indicator-figure-plus-container">
@@ -120,8 +121,8 @@
 
             <tal:block tal:condition="nocall:inline_chart">
                 <tal:wtool define="wtool nocall:here/portal_workflow;">
-                    <tal:block tal:condition="python: wtool.getInfoFor(obj,'review_state',None) != 'published'">
-                        <div class="warningMessage portalMessage visualNoPrint"> Warning! This visualization is not published, anonymous users will not be able to see it</div>
+                    <tal:block tal:condition="python: wtool.getInfoFor(obj,'review_state',None) != 'published' and not isAnon">
+                        <div class="warningMessage portalMessage visualNoPrint"> Warning! The visualization is in draft and only visible via this page</div>
                     </tal:block>
                 </tal:wtool>
             <div class="indicator-figure-image">
