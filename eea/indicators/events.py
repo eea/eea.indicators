@@ -17,7 +17,8 @@ def syncWorkflowStateRelatedFigures(context, dest_state):
 
     for ap in context.objectValues('AssessmentPart'):
         for figure in (o for o in ap.getRelatedItems()
-                       if o.portal_type in ("EEAFigure", "DavizVisualization")):
+                       if o.portal_type in ("EEAFigure", "DavizVisualization",
+                                            "GIS Application")):
             figState = wftool.getInfoFor(figure, 'review_state')
 
             # ignore already published figures
