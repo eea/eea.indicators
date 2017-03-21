@@ -900,3 +900,20 @@ class MetadataAsESMSXML(BrowserView):
         return lxml.etree.tostring(root, pretty_print=True,
                                    xml_declaration=True, encoding='UTF-8',
                                    standalone="yes")
+
+
+class VisibleForAnonymous(BrowserView):
+    """ Check if obj is visible for anonymous """
+
+    def __init__(self, context, request):
+        """ init """
+        self.context = context
+        self.request = request
+
+    def __call__(self):
+        app_perms = self.context.rolesOfPermission(permission='View')
+        for app_perm in app_perms:
+            if app_perm['name'] == 'Anonymous' \
+                    and app_perm['selected'] == 'SELECTED':
+                return True
+        return False

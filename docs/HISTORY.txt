@@ -3,7 +3,12 @@ Changelog
 
 12.6.dev0 - (unreleased)
 ------------------------
-* Feature: GIS Application review state is now syncronized with the review
+* Feature: assessments are now visible to anonymous users if they
+  can view it and we show both a warning to the editor when a
+  visualization will not be viewable by anon users and an information
+  to the anon user that he cannot view that visualization
+  [ichim-david refs #83287]
+* Feature: GIS Application review state is now synchronized with the review
   state of the assessment
   [ichim-david refs #83287]
 * Change: hide non publish visualization warning for anonymous users

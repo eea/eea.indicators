@@ -29,6 +29,11 @@
                   template="templates/assessment/figures.pt"
                   permission="zope2.View" />
 
+    <browser:page name="isVisibleForAnon"
+                  for="*"
+                  class=".assessment.VisibleForAnonymous"
+                  permission="zope2.Public" />
+
     <browser:page name="edit_aggregated"
                   for="eea.indicators.content.interfaces.IAssessment"
                   class=".assessment.AggregatedEditPage"
