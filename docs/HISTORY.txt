@@ -1,8 +1,8 @@
 Changelog
 =========
 
-12.6.dev0 - (unreleased)
-------------------------
+12.6 - (2017-03-27)
+-------------------
 * Feature: assessments are now visible to anonymous users if they
   can view it and we show both a warning to the editor when a
   visualization will not be viewable by anon users and an information
