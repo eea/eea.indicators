@@ -1,6 +1,9 @@
 Changelog
 =========
 
+12.7.dev0 - (unreleased)
+------------------------
+
 12.6 - (2017-03-27)
 -------------------
 * Feature: assessments are now visible to anonymous users if they
