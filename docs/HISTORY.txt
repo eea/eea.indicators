@@ -3,6 +3,9 @@ Changelog
 
 12.7.dev0 - (unreleased)
 ------------------------
+* Bug fix: fixed view of Data and ExternalDataSpec relations on specification
+  view
+  [ichim-david refs #83102]
 
 12.6 - (2017-03-27)
 -------------------

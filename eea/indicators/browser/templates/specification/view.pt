@@ -2,7 +2,6 @@
   metal:use-macro="here/main_template/macros/master"
   i18n:domain="eea">
 
-  <!-- #TODO: * i18n:translate -->
    <metal:javascript fill-slot="javascript_head_slot">
     <script type="text/javascript"
         tal:attributes="src string:${context/portal_url}/++resource++indicators-toc.js">
@@ -175,8 +174,8 @@
           </tal:methodology_references>
         </div>
         <div id="data-specifications" metal:define-macro="data-specifications"
-          tal:define="datasetsView nocall:here/@@related_items;
-          auto_relations nocall:here/@@auto-relations.html">
+          tal:define="datasetsView nocall:specification/@@related_items;
+          auto_relations nocall:specification/@@auto-relations.html">
           <h3 id="data_specifications" i18n:translate="">Data specifications</h3>
           <h4 i18n:translate="">EEA data references</h4>
           <ul tal:define="datasets python:datasetsView('Data')">
