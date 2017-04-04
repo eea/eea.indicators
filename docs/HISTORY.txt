@@ -1,8 +1,8 @@
 Changelog
 =========
 
-12.7.dev0 - (unreleased)
-------------------------
+12.7 - (2017-04-04)
+-------------------
 * Bug fix: fixed view of Data and ExternalDataSpec relations on specification
   view
   [ichim-david refs #83102]
