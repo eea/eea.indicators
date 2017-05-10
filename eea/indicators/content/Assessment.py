@@ -2,13 +2,13 @@
 """
 
 import logging
+from datetime import datetime
 from AccessControl import ClassSecurityInfo
 from Acquisition import aq_inner, aq_parent
-from datetime import datetime
 
 from zope.interface import implements
 from zope.component import queryAdapter
-
+from zope.component import adapts
 from Products.ATContentTypes.content.folder import ATFolder
 from Products.ATContentTypes.content.folder import ATFolderSchema
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema
@@ -33,12 +33,11 @@ from eea.versions.interfaces import IGetVersions
 from eea.workflow.interfaces import IHasMandatoryWorkflowFields
 from eea.workflow.interfaces import IObjectReadiness
 from eea.workflow.utils import ATFieldValueProvider
-from zope.component import adapts
-
-# from eea.versions.versions import get_version_id    #get_versions_api,
 from eea.geotags.field.location import GeotagsFieldMixin
 from eea.geotags.widget import GeotagsWidget
 from eea.geotags.interfaces import IGeoTags
+
+# from eea.versions.versions import get_version_id    #get_versions_api,
 
 logger = logging.getLogger('eea.indicators.content.Assessment')
 

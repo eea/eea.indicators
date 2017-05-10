@@ -19,18 +19,6 @@ from eea.indicators.content.validators import (
     CodesValidator
 )
 
-# Validators
-validation.register(
-    UniquePolicyDocTitleValidator('unique_policy_title_validator'))
-validation.register(
-    UniquePolicyDocUrlValidator('unique_policy_url_validator'))
-validation.register(
-    OneAssessmentPartPerQuestionValidator('one_assessment_per_question'))
-validation.register(
-    FrequencyUpdateValidator('validate_frequency_years'))
-validation.register(TimeOfYearValidator('validate_time_of_year'))
-validation.register(CodesValidator('validate_codes'))
-
 from eea.indicators.content.PolicyQuestion import PolicyQuestion
 from eea.indicators.content.ExternalDataSpec import ExternalDataSpec
 from eea.indicators.content.MethodologyReference import MethodologyReference
@@ -45,6 +33,18 @@ from eea.indicators.content.KeyMessage import KeyMessage
 from eea.indicators.content.PolicyDocumentReference import (
     PolicyDocumentReference,
 )
+
+# Validators
+validation.register(
+    UniquePolicyDocTitleValidator('unique_policy_title_validator'))
+validation.register(
+    UniquePolicyDocUrlValidator('unique_policy_url_validator'))
+validation.register(
+    OneAssessmentPartPerQuestionValidator('one_assessment_per_question'))
+validation.register(
+    FrequencyUpdateValidator('validate_frequency_years'))
+validation.register(TimeOfYearValidator('validate_time_of_year'))
+validation.register(CodesValidator('validate_codes'))
 
 def register():
     """ Register custom content

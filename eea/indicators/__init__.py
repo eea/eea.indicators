@@ -41,4 +41,3 @@ def initialize(context):
         context.registerClass(meta_type=all_ftis[i]['meta_type'],
                               constructors=(all_constructors[i],),
                               permission=ADD_CONTENT_PERMISSIONS[klassname])
-

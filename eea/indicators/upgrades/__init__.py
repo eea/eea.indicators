@@ -1,11 +1,11 @@
 """ Upgrades
 """
 
+import logging
 from Products.Archetypes.utils import shasattr
 from Products.CMFPlone.utils import getToolByName
 from eea.versions.interfaces import IVersionEnhanced
 from zope.interface import alsoProvides, providedBy
-import logging
 import transaction
 
 

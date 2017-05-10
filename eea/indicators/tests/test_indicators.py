@@ -44,4 +44,3 @@ def test_suite():
     s4.layer = PloneSite
 
     return TestSuite((s1, s2, s3, s4))
-

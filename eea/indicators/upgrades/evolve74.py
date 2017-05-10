@@ -2,8 +2,8 @@
 a DataGridField widget
 """
 
-from Products.CMFPlone.utils import getToolByName
 import logging
+from Products.CMFPlone.utils import getToolByName
 
 logger = logging.getLogger('eea.indicators.migration')
 
@@ -36,4 +36,3 @@ def evolve(context):
         field.set(obj, value)
         logger.info("Migrated frequency_of_updates storage for %s",
                      obj.absolute_url())
-

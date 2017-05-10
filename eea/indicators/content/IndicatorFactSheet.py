@@ -16,16 +16,13 @@ from Products.DataGridField import DataGridField, DataGridWidget
 from Products.DataGridField.Column import Column
 from Products.DataGridField.SelectColumn import SelectColumn
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-
+from Products.EEAContentTypes.interfaces import ITemporalCoverageAdapter
 from eea.indicators.content import interfaces
 from eea.indicators.content.IndicatorMixin import IndicatorMixin
 from eea.indicators.content.base import ModalFieldEditableAware
 from eea.indicators.content.utils import get_dgf_value
 from eea.relations.field import EEAReferenceField
 from eea.relations.widget import EEAReferenceBrowserWidget
-
-from Products.EEAContentTypes.interfaces import ITemporalCoverageAdapter
-
 from eea.workflow.interfaces import IHasMandatoryWorkflowFields
 from zope.interface import implements
 

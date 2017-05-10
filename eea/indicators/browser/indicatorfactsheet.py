@@ -61,4 +61,3 @@ class FactSheetDocuments(BrowserView):
                     'portal_type': 'FactSheetDocument',
                     'review_state': ['published'],
                }, full_objects=True)
-

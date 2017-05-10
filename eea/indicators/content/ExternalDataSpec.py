@@ -10,7 +10,7 @@ import logging
 from AccessControl import ClassSecurityInfo
 
 from zope.interface import implements
-
+from zope.component import adapts
 from Products.ATContentTypes.content.base import ATCTContent
 from Products.ATContentTypes.content.base import ATContentTypeSchema
 from Products.ATContentTypes.content.schemata import finalizeATCTSchema
@@ -24,7 +24,6 @@ from Products.EEAContentTypes.content.ThemeTaggable import ThemeTaggable_schema
 from eea.dataservice.widgets import OrganisationsWidget
 from eea.indicators.content import interfaces
 from eea.themecentre.interfaces import IThemeTagging
-from zope.component import adapts
 
 logger = logging.getLogger('eea.indicators.content.ExternalDataSpec')
 
@@ -256,4 +255,3 @@ class ExternalDataSpecThemes(object):
         return
 
     tags = property(_get_tags, _set_tags)
-

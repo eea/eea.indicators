@@ -5,7 +5,7 @@
 import logging
 
 from zope.interface import implements
-
+from zope.component import getMultiAdapter
 from DateTime import DateTime
 from Products.CMFPlone import PloneMessageFactory as _
 from Products.CMFPlone.utils import getToolByName
@@ -23,7 +23,6 @@ from eea.versions.versions import create_version as base_create_version
 from eea.workflow.interfaces import IFieldIsRequiredForState, IValueProvider
 from eea.workflow.readiness import ObjectReadiness
 from plone.app.layout.globals.interfaces import IViewView
-from zope.component import getMultiAdapter
 
 #from zope.interface import alsoProvides
 __author__ = """European Environment Agency (EEA)"""

@@ -100,4 +100,3 @@ def handle_reindex_children(context, event):
     objs = context.objectValues()
     for obj in objs:
         catalog.reindexObject(obj)
-

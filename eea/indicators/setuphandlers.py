@@ -1,8 +1,8 @@
 """Custom import steps for eea.indicators"""
 
+import logging
 from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
 from Products.CMFCore.utils import getToolByName
-import logging
 from eea.indicators.config import (
     CODES,
     DPSIR,

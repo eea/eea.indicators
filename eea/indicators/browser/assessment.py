@@ -8,8 +8,10 @@ import logging
 from Acquisition import aq_inner, aq_parent
 
 import lxml
+from lxml.builder import ElementMaker
 from zope.interface import implements
-
+from zope.component import getMultiAdapter
+from zope.event import notify
 from DateTime import DateTime
 from Products.ATVocabularyManager import NamedVocabulary
 from Products.Archetypes.event import ObjectInitializedEvent
@@ -27,10 +29,8 @@ from eea.versions.versions import CreateVersion as BaseCreateVersion
 from eea.versions.versions import create_version as base_create_version
 from eea.workflow.interfaces import IObjectReadiness
 from eea.workflow.readiness import ObjectReadiness
-from lxml.builder import ElementMaker
 from plone.app.layout.globals.interfaces import IViewView
-from zope.component import getMultiAdapter
-from zope.event import notify
+
 
 logger = logging.getLogger("eea.indicators.browser.assessment")
 

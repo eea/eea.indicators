@@ -5,12 +5,11 @@
 import datetime
 import logging
 from AccessControl import ClassSecurityInfo
-
+from zope.interface import implements
+from zope.event import notify
+from DateTime import DateTime
 from Products.UserAndGroupSelectionWidget.at.widget import \
     UserAndGroupSelectionWidget
-from zope.interface import implements
-
-from DateTime import DateTime
 from Products.ATContentTypes.content.folder import ATFolder, ATFolderSchema
 from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
 from Products.ATVocabularyManager.namedvocabulary import NamedVocabulary
@@ -48,7 +47,6 @@ from eea.versions.interfaces import IGetVersions
 from eea.versions.interfaces import IVersionControl
 from eea.workflow.interfaces import IHasMandatoryWorkflowFields
 from eea.workflow.interfaces import IObjectReadiness
-from zope.event import notify
 
 #from Products.PageTemplates.PageTemplateFile import PageTemplateFile
 #from eea.versions.versions import isVersionEnhanced

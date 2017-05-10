@@ -4,7 +4,7 @@
 import logging
 
 from zope.interface import implements, Interface
-
+from zope.component import getMultiAdapter, queryMultiAdapter, adapts
 from Products.ATVocabularyManager.config import TOOL_NAME as ATVOCABULARYTOOL
 from Products.CMFCore.utils import getToolByName
 from Products.CMFPlone.CatalogTool import sortable_title
@@ -15,7 +15,6 @@ from eea.indicators.browser.interfaces import IIndicatorUtils
 from eea.versions.versions import VersionControl
 from eea.workflow.interfaces import IValueProvider
 from eea.workflow.utils import ATFieldValueProvider
-from zope.component import getMultiAdapter, queryMultiAdapter, adapts
 
 logger = logging.getLogger('eea.indicators')
 

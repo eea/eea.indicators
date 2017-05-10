@@ -80,4 +80,3 @@ class BaseIndicatorsTestCase(PloneTestCase.FunctionalTestCase):
 
     #def afterSetUp(self):
     #    pass
-
