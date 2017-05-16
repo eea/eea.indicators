@@ -160,14 +160,6 @@
                                                         chart_type_id python: chart[1];
                                                                 current_chart python: chart[2];
                                                                         chart_type python: current_chart['type'];">
-                                        <div class='chart-custom-settings'
-                                             style="display:none"
-                                                 tal:attributes="
-                                                        chart_width python:'99%' if isPrint else current_chart.get('width', '');
-                                                        chart_height python:'98%' if isPrint and chart_type_id != 'Table' else current_chart.get('heigth', '');
-                                                        chart_chartAreaTop python:35 if isPrint else current_chart.get('chartAreaTop', '');
-                                                        chart_chartAreaLeft python:60 if isPrint else current_chart.get('chartAreaLeft', '');">
-                                                </div>
                                                         <div class="figure-chart-live" tal:condition="python:chart_type == 'live'">
                                             <script tal:replace="structure python:inline_chart(chart=chart_id)"></script>
                                             <div class="visualClear"><!-- --></div>
@@ -265,5 +257,4 @@
         </tal:defines>
     </div>
 </tal:figures>
-
 

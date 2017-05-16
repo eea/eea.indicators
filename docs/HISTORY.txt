@@ -3,6 +3,11 @@ Changelog
 
 13.0.dev0 - (unreleased)
 ------------------------
+* Change: removed customization of chart area from figures.pt since the percentage
+  width didn't produce good renders of indicator pdfs
+  [ichim-david refs #83520]
+* Change: changed reference to indicators collection pdf after changes done within eea.pdf
+  [ichim-david refs #83520]
 
 12.9 - (2017-05-15)
 -------------------
