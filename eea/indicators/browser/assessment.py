@@ -202,7 +202,7 @@ def hasUnpublishableFigure(ast):
             #fail on not finished figures with missing fields
             info = IObjectReadiness(fig).get_info_for('published')
             if not IObjectReadiness(fig).is_ready_for('published') and \
-                len(info['rfs_field_names']) != 0:
+                    info['rfs_field_names']:
                 return True
 
     return False
@@ -225,7 +225,7 @@ def getUnpublishableFiguresMissingInformation(ast):
                 continue
             #add message on not finished figures
             info = IObjectReadiness(fig).get_info_for('published')
-            if len(info['rfs_field_names']) != 0:
+            if info['rfs_field_names']:
                 fig_message = "Figure <b>%s</b> needs the " % fig.title + \
                     "following required fields to be filled in: "
                 for field in info['rfs_field_names']:
@@ -234,7 +234,7 @@ def getUnpublishableFiguresMissingInformation(ast):
                 fig_message += "<br/>"
                 fig_messages.append(fig_message)
 
-    if len(fig_messages) > 0:
+    if fig_messages:
         #at least one error/warning
         fig_messages.insert(0,
             'Some of the figures in this indicator are not completed, ' + \

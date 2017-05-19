@@ -173,8 +173,7 @@ class DpsirLabel(BrowserView):
         value = vocab.get(value)
         if value:
             return value.Title()
-        else:
-            return ""
+        return ""
 
 
 class TypologyLabel(BrowserView):
@@ -187,8 +186,7 @@ class TypologyLabel(BrowserView):
         value = vocab.get(value)
         if value:
             return value.Title()
-        else:
-            return ""
+        return ""
 
 
 class CategoryLabel(BrowserView):
@@ -201,8 +199,7 @@ class CategoryLabel(BrowserView):
         value = vocab.get(value)
         if value:
             return value.Title()
-        else:
-            return ""
+        return ""
 
 
 def has_one_of(has, in_list):

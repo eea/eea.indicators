@@ -700,7 +700,7 @@ class Specification(ATFolder, ThemeTaggable, ModalFieldEditableAware,
         codes = self.getCodes()
 
         res = ''
-        if len(codes) > 0:
+        if codes:
             code = codes[0]
             res = "%s %s" % (code['set'], code['code'])
         return res
@@ -946,7 +946,7 @@ class Specification(ATFolder, ThemeTaggable, ModalFieldEditableAware,
             return phrase + '\nand ' + result[-1]
         elif len(result) == 1:
             return phrase + result[0]
-        elif len(result) == 0:
+        elif not result:
             return 'No frequency of updates information'
 
     security.declarePublic("validator_frequency_of_updates")

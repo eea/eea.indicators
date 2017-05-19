@@ -38,11 +38,12 @@ class ModalFieldEditableAware(object):
 
     security.declareProtected(permissions.ModifyPortalContent,
                               'simpleProcessForm')
+
     def simpleProcessForm(self, data=1, metadata=0, REQUEST=None, values=None):
         """Processes the schema looking for data in the form.
         """
 
-        #customized to process a single field instead of multiple fields
+        # customized to process a single field instead of multiple fields
 
         is_new_object = self.checkCreationFlag()
 
@@ -74,26 +75,26 @@ class ModalFieldEditableAware(object):
 
         # Set things by calling the mutator
         mutator = field.getMutator(self)
-        #__traceback_info__ = (self, field, mutator) #was this line used?
+        # __traceback_info__ = (self, field, mutator) #was this line used?
         result[1]['field'] = field.__name__
         mapply(mutator, result[0], **result[1])
 
         self.reindexObject()
 
         self.unmarkCreationFlag()
-        #NOTE: at the moment, this is not very elegant
-        #the problem is that the objects, when are editing
-        #in a composite manner with the aggregated edit view,
-        #will change their ids after the first save. For example
-        #when editing the title for a Specification, it will
-        #change its id. This means that all the URLs that are
-        #already on the page (for example adding a PolicyQuestion)
-        #will be invalid. To solve this particular case we make
-        #the page reload after editing the Title. In all other cases
-        #we want to either skip this behaviour or make those objects
-        #have their _at_rename_after_creation set to False
+        # NOTE: at the moment, this is not very elegant
+        # the problem is that the objects, when are editing
+        # in a composite manner with the aggregated edit view,
+        # will change their ids after the first save. For example
+        # when editing the title for a Specification, it will
+        # change its id. This means that all the URLs that are
+        # already on the page (for example adding a PolicyQuestion)
+        # will be invalid. To solve this particular case we make
+        # the page reload after editing the Title. In all other cases
+        # we want to either skip this behaviour or make those objects
+        # have their _at_rename_after_creation set to False
         if self._at_rename_after_creation and is_new_object \
-          and fieldname == 'title':
+                and fieldname == 'title':
             self._renameAfterCreation(check_auto_id=True)
 
         # Post create/edit hooks
@@ -111,8 +112,8 @@ class ModalFieldEditableAware(object):
     def simple_validate(self, REQUEST, errors=None):
         """Validate simple"""
 
-        #customized because we don't want to validate a whole
-        #schemata, because some fields are required
+        # customized because we don't want to validate a whole
+        # schemata, because some fields are required
 
         if errors is None:
             errors = {}
@@ -126,7 +127,7 @@ class ModalFieldEditableAware(object):
             raise ValueError("Could not get valid field from the request")
 
         fields = [(field.getName(), field) for field in
-                        self.schema.filterFields(__name__=fieldname)]
+                  self.schema.filterFields(__name__=fieldname)]
         for field_info in fields:
             value = None
             field = field_info[1]
@@ -137,7 +138,7 @@ class ModalFieldEditableAware(object):
                 result = None
             if result is None or result is _marker:
                 accessor = field.getEditAccessor(instance) or \
-                             field.getAccessor(instance)
+                    field.getAccessor(instance)
                 if accessor is not None:
                     value = accessor()
                 else:
@@ -157,12 +158,12 @@ class ModalFieldEditableAware(object):
 
 class CustomizedObjectFactory(object):
     """Content classes subclassing this want to customize how contained
-         objects are created.
+       objects are created.
 
-       These object factories are used in the Specification Aggregated Edit View
-         The main method is object_factory, which reads the request to look for
-         a type_name parameter. It returns a html structure with info about
-         the newly created object.
+       These object factories are used in the Specification Aggregated Edit
+       View. The main method is object_factory, which reads the request to look
+       for a type_name parameter. It returns a html structure with info about
+       the newly created object.
     """
 
     security = ClassSecurityInfo()
@@ -173,23 +174,24 @@ class CustomizedObjectFactory(object):
             u"<div class='metadata'><div class='error'>%(msg)s</div></div>",
             'FAILURE',
             msg=error
-            )
+        )
 
     def _success(self, **kw):
         """Returns success structure"""
         obj = kw['obj']
         subview = kw.get('subview', 'schemata_edit')
         url = obj.absolute_url() + '/' + subview
-        f = kw.get('direct_edit') and "<div class='direct_edit' />" or ''
+        f = "<div class='direct_edit' />" if kw.get('direct_edit') else ''
 
         return ExtendedMessage(
             (u"<div class='metadata'>%(msg)s"
              u"<div class='object_edit_url'>%(url)s</div></div>"),
             'SUCCESS',
             msg=f, url=url
-            )
+        )
 
     security.declareProtected(AddPortalContent, 'object_factory')
+
     def object_factory(self):
         """Create an object according to special rules for that object.
 
@@ -213,18 +215,18 @@ class CustomizedObjectFactory(object):
         """Generic factory"""
         gid = self.generateUniqueId(type_name)
         new_id = self.invokeFactory(
-                type_name,
-                gid,
-                base_impl=True,
-                title=self.translate(
-                    msgid='label-newly-created-type',
-                    domain='indicators',
-                    default="Newly created ${type_name}",
-                    mapping={'type_name':type_name},
-                    ))
+            type_name,
+            gid,
+            base_impl=True,
+            title=self.translate(
+                msgid='label-newly-created-type',
+                domain='indicators',
+                default="Newly created ${type_name}",
+                mapping={'type_name': type_name},
+            ))
 
         ref = self[new_id]
-        return {'obj':ref,
-                'error':'',
-                'subview':'schemata_edit',
-                'direct_edit':False}
+        return {'obj': ref,
+                'error': '',
+                'subview': 'schemata_edit',
+                'direct_edit': False}

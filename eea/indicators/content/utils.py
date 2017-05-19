@@ -96,7 +96,7 @@ def set_location(self, on_parent=None, object_values=None, portal_types=None):
     logger = logging.getLogger("set_location")
     first_result = False
     wftool = getToolByName(self, 'portal_workflow')
-    assessment = on_parent and aq_parent(self) or self
+    assessment = aq_parent(self) if on_parent else self
     obj_values = object_values or 'AssessmentPart'
     p_types = portal_types or ('EEAFigure', 'DavizVisualization')
 

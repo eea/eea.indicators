@@ -180,7 +180,7 @@ class IndicatorsTimeline(BrowserView, BaseIndicatorsReport):
             assessments = self.get_child_assessments(spec)
             for setcode in get_codes(spec.get_codes) or none:
                 setc, code = setcode['set'], setcode['code']
-                if not setc in result:
+                if setc not in result:
                     result[setc] = {}
 
                 if not code in result[setc]:
@@ -219,7 +219,7 @@ class IndicatorsTimeline(BrowserView, BaseIndicatorsReport):
         for fs in self.factsheets:
             for setcode in get_codes(fs.get_codes) or none:
                 setc, code = setcode['set'], setcode['code']
-                if not setc in result:
+                if setc not in result:
                     result[setc] = {}
 
                 if not code in result[setc]:

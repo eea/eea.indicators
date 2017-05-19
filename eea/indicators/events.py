@@ -11,7 +11,7 @@ def syncWorkflowStateRelatedFigures(context, dest_state):
     wftool = getToolByName(context, "portal_workflow")
 
     codes = context.get_codes()
-    indcodes = codes and codes[-1] or "_missing_"
+    indcodes = codes[-1] if codes else "_missing_"
     comment = ("Automatic state change since related indicator (%s) "
                "has also changed state") % indcodes
 
@@ -29,7 +29,7 @@ def syncWorkflowStateRelatedFigures(context, dest_state):
                 workflow = wftool.getWorkflowsFor(figure)[0]
                 transitions = workflow.transitions
                 available_transitions = [transitions[i['id']] for i in
-                                            wftool.getTransitionsFor(figure)]
+                                         wftool.getTransitionsFor(figure)]
 
                 to_do = [k for k in available_transitions
                          if k.new_state_id == dest_state]
@@ -43,7 +43,9 @@ def syncWorkflowStateRelatedFigures(context, dest_state):
                         <p>You need to change the workflow state of this figure
                            to a state that has a transition to
                            <strong>%s</strong>.</p>
-                        """ % (figure.absolute_url(), dest_state, context_state)
+                        """ % (figure.absolute_url(),
+                               dest_state,
+                               context_state)
                     IStatusMessage(context.REQUEST).add(err, 'error')
                     raise ValueError(err)
 

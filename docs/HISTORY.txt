@@ -8,6 +8,8 @@ Changelog
   [ichim-david refs #83520]
 * Change: changed reference to indicators collection pdf after changes done within eea.pdf
   [ichim-david refs #83520]
+* Change: fixed PyLint warnings and errors
+  [valipod refs #84949]
 
 12.9 - (2017-05-15)
 -------------------

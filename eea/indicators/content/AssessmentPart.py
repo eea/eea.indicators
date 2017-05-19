@@ -90,15 +90,15 @@ schema = Schema((
 ))
 
 AssessmentPart_schema = ATFolderSchema.copy() + \
-                        getattr(ATCTContent, 'schema', Schema(())).copy() + \
-                        schema.copy()
+    getattr(ATCTContent, 'schema', Schema(())).copy() + schema.copy()
 
 AssessmentPart_schema.moveField('relatedItems', pos=0)
 finalizeATCTSchema(AssessmentPart_schema)
 
 
 class AssessmentPart(ATFolder, ModalFieldEditableAware,
-                     CustomizedObjectFactory, ATCTContent, BrowserDefaultMixin):
+                     CustomizedObjectFactory, ATCTContent,
+                     BrowserDefaultMixin):
     """Assessment part
     """
     security = ClassSecurityInfo()
@@ -139,8 +139,7 @@ class AssessmentPart(ATFolder, ModalFieldEditableAware,
 
         if question:
             return question.Title()
-        else:
-            return "Answer to unknown question"
+        return "Answer to unknown question"
 
     security.declarePublic('is_key_message')
 
@@ -150,8 +149,7 @@ class AssessmentPart(ATFolder, ModalFieldEditableAware,
 
         if question:
             return question.getIs_key_question()
-        else:
-            return False
+        return False
 
     security.declarePublic('get_specification_path')
 
@@ -255,8 +253,8 @@ class AssessmentPart(ATFolder, ModalFieldEditableAware,
         if not isinstance(value, (list, tuple)):
             value = value,
         elif not field.multiValued and len(value) > 1:
-            raise ValueError, \
-                "Multiple values given for single valued field %r" % self
+            raise ValueError(
+                "Multiple values given for single valued field %r" % self)
 
         # convert objects to uids if necessary
         uids = []

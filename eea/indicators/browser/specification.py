@@ -359,14 +359,13 @@ class GetCodesFor(BrowserView):
             return ""
         all_codes = self.context.portal_catalog.uniqueValuesFor('get_codes')
         clen = len(codes)
-        matching_codes = filter(lambda x: x.startswith(codes), all_codes)
+        matching_codes = [x for x in all_codes if x.startswith(codes)]
         only_codes_list = [x[clen:] for x in matching_codes]
         only_codes = " ".join(only_codes_list)
         if only_codes:
             if not with_suggestions:
                 return "Used codes: " + only_codes
-            else:
-                return get_codes_with_next_value_suggestion(only_codes,
+            return get_codes_with_next_value_suggestion(only_codes,
                                                             only_codes_list)
         return ""
 
