@@ -1,8 +1,8 @@
 Changelog
 =========
 
-13.0.dev0 - (unreleased)
-------------------------
+13.0 - (2017-05-22)
+-------------------
 * Change: removed customization of chart area from figures.pt since the percentage
   width didn't produce good renders of indicator pdfs
   [ichim-david refs #83520]
