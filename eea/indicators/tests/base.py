@@ -18,6 +18,7 @@ PRODUCTS = [
     'EEAPloneAdmin',
     'UserAndGroupSelectionWidget',
     'kupu',
+    'eea.depiction'
     #'RedirectionTool',
 ]
 
@@ -56,6 +57,10 @@ def setup_indicators():
     import eea.tags
     zcml.load_config('configure.zcml', eea.tags)
     PloneTestCase.installPackage('eea.tags')
+
+    import eea.depiction
+    zcml.load_config('configure.zcml', eea.depiction)
+    PloneTestCase.installPackage('eea.depiction')
 
     fiveconfigure.debug_mode = False
 
