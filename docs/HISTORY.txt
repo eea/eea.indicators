@@ -1,11 +1,10 @@
 Changelog
 =========
 
-13.1.dev0 - (unreleased)
-------------------------
+13.1 - (2017-06-26)
+-------------------
 * Bug fix: fixed failing tests due to depiction changes
   [zoltan_andras refs #81209]
-
 
 13.0 - (2017-05-22)
 -------------------
