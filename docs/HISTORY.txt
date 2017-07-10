@@ -3,6 +3,9 @@ Changelog
 
 13.2.dev0 - (unreleased)
 ------------------------
+* Change: avoid error in can we have a missing relationship
+  when checking for get_uids
+  [ichim-david refs #86620]
 
 13.1 - (2017-06-26)
 -------------------

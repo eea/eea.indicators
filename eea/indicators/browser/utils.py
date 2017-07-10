@@ -160,7 +160,7 @@ class RelatedItems(BrowserView):
     def get_uids(self, ctype=None):
         """ returns uids """
 
-        return [rel.UID() for rel in self._get_items(ctype)]
+        return [rel.UID() for rel in self._get_items(ctype) if rel]
 
 
 class DpsirLabel(BrowserView):
