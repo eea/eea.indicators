@@ -1,4 +1,4 @@
-<!-- This file is made to explore the required customizations needed for the AssessmentPart 
+<!-- This file is made to explore the required customizations needed for the AssessmentPart
 It may be that we can collapse the changes into the regular indicatorsrelations.pt -->
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:tal="http://xml.zope.org/namespaces/tal"
@@ -12,7 +12,7 @@ It may be that we can collapse the changes into the regular indicatorsrelations.
 
 		<!-- the relations-widget class was added to do initializations that don't interfere with -->
 		<!-- other initializations -->
-		<div metal:define-macro="popup" 
+		<div metal:define-macro="popup"
 			tal:define="
 			fieldName fieldName;
 			field nocall:field | nothing;
@@ -24,10 +24,12 @@ It may be that we can collapse the changes into the regular indicatorsrelations.
 			required python:test(field, field.required, False);
             uid context/UID;
 			domid string:$fieldName-${uid};
-            domIdWidget string:${domid}-widget;"
-			tal:attributes="id domIdWidget"
-			class="eea-widget-referencebrowser">
-
+            domIdWidget string:${domid}-widget;
+            errors options/state/getErrors | python: {};
+            error_id python:errors.get(fieldName);"
+			tal:attributes="id domIdWidget;
+                            class python: 'eea-widget-referencebrowser field error' if errors else 'eea-widget-referencebrowser'">
+            <div class="fieldErrorBox" tal:content="errors" tal:condition="errors"></div>
 			<!-- class="relations-widget"  -->
 			<div class="metadata">
 				<div class="fieldname" tal:content="fieldName" />
@@ -58,7 +60,7 @@ It may be that we can collapse the changes into the regular indicatorsrelations.
 			<metal:slot define-slot="popup">
 				<div tal:attributes="
 					title python:widget and 'Edit %s' % widget.Label(here) or 'Edit';
-					id string:$domid-popup">	
+					id string:$domid-popup">
 					<!-- NOTE: changed the id from fieldname to domid -->
 					<!-- NOTE: changed the field argument from fieldname to domid -->
 					<tal:popup define="popup_view nocall:here/@@eeareferencebrowser-popup.html"
@@ -120,3 +122,4 @@ It may be that we can collapse the changes into the regular indicatorsrelations.
 
 	</body>
 </html>
+
