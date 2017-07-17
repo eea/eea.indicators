@@ -150,7 +150,9 @@
                         </div>
 
                         <tal:block tal:condition="nocall:inline_chart">
+
                             <div class="indicator-figure-image">
+
                                 <dl class="enableFormTabbing">
                                     <tal:rep repeat="chart charts">
                                         <dt id="fieldsetlegend-1" tal:attributes="id string:fieldsetlegend-${uid}-${repeat/chart/index}"
@@ -160,8 +162,10 @@
                                                         chart_type_id python: chart[1];
                                                                 current_chart python: chart[2];
                                                                         chart_type python: current_chart['type'];">
-                                                        <div class="figure-chart-live" tal:condition="python:chart_type == 'live'">
-                                            <script tal:replace="structure python:inline_chart(chart=chart_id)"></script>
+                                            <div class="figure-chart-live" tal:condition="python:chart_type == 'live'">
+                                                <tal:content_core_only tal:define="content_core_only request/content_core_only | nothing;">
+                                                    <script tal:replace="structure python:inline_chart(chart=chart_id)" tal:condition="not:content_core_only"></script>
+                                                </tal:content_core_only>
                                             <div class="visualClear"><!-- --></div>
                                         </div>
                                             <div class="figure-chart-preview" tal:condition="python:chart_type == 'preview'">
