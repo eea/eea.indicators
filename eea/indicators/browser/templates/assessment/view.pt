@@ -60,7 +60,7 @@
         tal:condition="context/getMore_updates_on"
         tal:content="structure context/getMore_updates_on" />
 
-      <div tal:condition="not:isAnon" tal:replace="structure context/@@readiness" />
+      <div tal:define="isAnon isAnon|context/@@plone_portal_state/anonymous" tal:condition="not:isAnon" tal:replace="structure context/@@readiness" />
 
       <div id="frequency_of_updates" class="system-message"
             tal:content="context/get_frequency_of_updates"
