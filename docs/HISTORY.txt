@@ -1,8 +1,8 @@
 Changelog
 =========
 
-13.2.dev0 - (unreleased)
-------------------------
+13.2 - (2017-08-16)
+-------------------
 * Change: avoid loading the inline chart scripts when we check the reading time
   [ichim-david refs #85791]
 * Bug fix: show errors within the relations widget of assessment
