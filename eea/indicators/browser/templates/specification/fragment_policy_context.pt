@@ -19,7 +19,7 @@
           </h4>
           <tal:def tal:define="fieldname string:policy_context_description; fieldset string:PolicyContext">
             <metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
-              <metal:slot metal:fill-slot="content" 
+              <metal:slot metal:fill-slot="content"
                     tal:define="value_info python:imsutils.field_value_info(fieldname, context)">
                 <div tal:condition="not: value_info/has_value" class="placeholder">
                   <span class="required" i18n:translate="">
@@ -40,7 +40,7 @@
           </h4>
           <tal:def tal:define="fieldname string:policy_context_targets; fieldset string:PolicyContext">
             <metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
-              <metal:slot metal:fill-slot="content" 
+              <metal:slot metal:fill-slot="content"
                     tal:define="value_info python:imsutils.field_value_info(fieldname, context)">
                 <div tal:condition="not: value_info/has_value" class="placeholder">
                   <span i18n:translate="">
@@ -71,7 +71,7 @@
             <metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
               <metal:slot metal:fill-slot="content">
                 <div tal:condition="python:not values"
-                  class="placeholder">
+                  class="placeholder" i18n:translate="">
                   Please fill in
                 </div>
                 <ul>

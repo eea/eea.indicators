@@ -48,7 +48,7 @@
           <tal:draft_versions condition="not:context/@@plone_portal_state/anonymous">
             <h5 i18n:translate="">Draft (not yet published - not quality assured)</h5>
             <ul>
-              <li tal:condition="python:not draft">No drafts available</li>
+              <li tal:condition="python:not draft" i18n:translate="">No drafts available</li>
               <li tal:repeat="assessment draft">
                 <a tal:attributes="href assessment/absolute_url">
                   <span tal:replace="assessment/Title" />
@@ -65,13 +65,12 @@
           <tal:justification define="rationale_justification context/rationale_justification">
             <p tal:replace="structure rationale_justification"
               tal:condition="python:rationale_justification">Rationale justification</p>
-            <p tal:condition="python:not rationale_justification">No rationale/justification has been specified</p>
+            <p tal:condition="python:not rationale_justification" i18n:translate="">No rationale/justification has been specified</p>
           </tal:justification>
 
           <h4 i18n:translate="">Scientific references</h4>
           <ul tal:define="refs python:specification.getFolderContents(contentFilter={'portal_type':'RationaleReference'})">
-            <li tal:condition="python:not refs">No rationale references
-                available</li>
+            <li tal:condition="python:not refs" i18n:translate="">No rationale references available</li>
             <li tal:repeat="ref refs">
               <a href="" tal:attributes="href python:ref.getRemoteUrl or ref.absolute_url()"
                 tal:content="ref/Title">Ref title</a>
@@ -184,7 +183,7 @@
               <a href=""
                 tal:attributes="href string:${context/portal_url}/ds_resolveuid/${data/@@getVersions/versionId}"
                 tal:content="data/title">Dataset title</a>
-                provided by
+                <tal:p i18n:translate="">provided by</tal:p>
                   <span tal:repeat="url python:data.getDataOwner()">
                    <tal:organisations condition="python:context.getOrganisationName(url)">
                     <strong tal:content="python:context.getOrganisationName(url).Title" />

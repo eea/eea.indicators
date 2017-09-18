@@ -142,7 +142,7 @@
             fieldset string:Classification;
             vocab python:context.Vocabulary(fieldname);
             themes context/getThemes">
-            <div class="portalMessage" tal:condition="python:not themes">
+            <div class="portalMessage" tal:condition="python:not themes" i18n:translate="">
               You need to assign a primary theme
             </div>
             <metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
@@ -202,11 +202,11 @@
                       CSI 001
                     </div>
                     <div tal:condition="python:duplicate_codes"
-                         class="portalMessage warningMessage">
+                         class="portalMessage warningMessage" i18n:translate="">
                       Unrelated Indicators Specifications have the same codes.
                     </div>
 
-                    <p tal:condition="python:duplicate_codes">
+                    <p tal:condition="python:duplicate_codes" i18n:translate="">
                       In case you have specified the wrong code for the current Indicator, use the "Edit" button
                       to change it. If you believe the following indicators should be related to each other, use the
                       "Apply fix" button on each one to connect them as versions.
@@ -238,11 +238,11 @@
                     </table>
 
 
-                    <div tal:condition="python:diff_codes" class="portalMessage warningMessage">
+                    <div tal:condition="python:diff_codes" class="portalMessage warningMessage" i18n:translate="">
                       The main code for this Indicator Specification is not consistent with the rest of the related Indicators.
                     </div>
 
-                    <div tal:condition="python:diff_codes" class="generic_ajax_forms">
+                    <div tal:condition="python:diff_codes" class="generic_ajax_forms" i18n:translate="">
                       The following Indicator Specifications belong to the same versioning group but have a different main code. There are
                       two ways of fixing this: either assign all the codes of this current specification, or assign just the maincode of this
                       specification.
@@ -315,10 +315,10 @@
                 <tal:def tal:define="fieldname string:frequency_of_updates; fieldset string:default">
                     <metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
                         <metal:slot metal:fill-slot="content">
-                            <div tal:condition="python:not imsutils.field_has_value(fieldname, context)" class="placeholder">
-                                Please fill in. <span tal:replace="context/validator_frequency_of_updates" />
+                            <div tal:condition="python:not imsutils.field_has_value(fieldname, context)" class="placeholder" i18n:translate="">
+                                Please fill in. <span tal:replace="context/validator_frequency_of_updates" i18n:name="freq" />
                             </div>
-                            <div tal:condition="python:not imsutils.frequency_is_integer(context)" class="placeholder">
+                            <div tal:condition="python:not imsutils.frequency_is_integer(context)" class="placeholder" i18n:translate="">
                                 Years frequency must be integer.
                             </div>
                             <p class="aggedit_frequency_of_updates" tal:content="structure context/get_frequency_of_updates"></p>
@@ -342,7 +342,7 @@
                                             <span tal:content="value"/>
                                         </tal:block>
                                     </dd>
-                                    <dd tal:condition="not:value">Not set</dd>
+                                    <dd tal:condition="not:value" i18n:translate="">Not set</dd>
                                     </tal:def>
                                 </tal:rep>
                             </dl>

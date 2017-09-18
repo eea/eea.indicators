@@ -90,7 +90,7 @@
                     </a>
                     <a href=""
                       tal:condition="python:entry['type'] == 'p'"
-                      tal:attributes="href python:entry[1]">See publication</a>
+                      tal:attributes="href python:entry[1]" i18n:translate="">See publication</a>
 
                     <!-- Comments -->
                     <ul tal:condition="python:int(entry['comments'] or 0)" class="timeline-comments" >

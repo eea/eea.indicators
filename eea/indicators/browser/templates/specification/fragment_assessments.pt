@@ -20,7 +20,7 @@
           </h2>
           <tal:def tal:define="fieldname string:more_updates_on; fieldset string:default">
             <metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
-              <metal:slot metal:fill-slot="content" 
+              <metal:slot metal:fill-slot="content"
                      tal:define="value_info python:imsutils.field_value_info(fieldname, context)" >
                 <div tal:condition="not: value_info/has_value" class="placeholder">
                   <span i18n:translate="">
@@ -53,8 +53,8 @@
               class="object_creator standardButton"
               tal:attributes="class string:object_creator${can_add} direct_edit"
               i18n:translate="" tal:condition="can_create_assessments">+ Indicator Assessment</a>
-            <div tal:condition="not:can_create_assessments">This indicator has
-            been discontinued, no new Assessments can be made. See <a href="#rfs_frequency_of_updates">frequency of updates</a>.</div>
+            <div tal:condition="not:can_create_assessments" i18n:translate="">This indicator has
+            been discontinued, no new Assessments can be made. See <a href="#rfs_frequency_of_updates" i18n:translate="" i18n:name="link" i18n:translate="">frequency of updates</a>.</div>
 
             <!-- <div class="object_creator_options"> -->
             <!--   <input type="radio" name="create_in_new" value="true" onclick="toggle_creator_option(this)"/>Create in latest Specification &nbsp; -->
@@ -64,8 +64,7 @@
             <div style="width:49%; float:left">
               <h5 i18n:translate="">Published (reviewed and quality assured)</h5>
               <ul>
-                <li tal:condition="python:not published">No published
-                    assessments</li>
+                <li tal:condition="python:not published" i18n:translate="">No published assessments</li>
                 <li tal:repeat="ast published">
                   <a tal:attributes="href ast/absolute_url" tal:content="ast/Title">
                     Assessment title here
@@ -77,7 +76,7 @@
             <div style="width:49%; float:left">
               <h5 i18n:translate="">Draft (not yet published - not quality assured)</h5>
               <ul>
-                <li tal:condition="python:not draft">No drafts available</li>
+                <li tal:condition="python:not draft" i18n:translate="">No drafts available</li>
                 <li tal:repeat="ast python:draft">
                   <a tal:attributes="href ast/absolute_url" tal:content="ast/Title">
                     Assessment title here

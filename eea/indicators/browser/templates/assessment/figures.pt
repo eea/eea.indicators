@@ -12,12 +12,12 @@
             <div class="indicator-figure-plus" tal:attributes="id obj/getId"
                      tal:condition="python:obj.portal_type == 'EEAFigure'">
                 <tal:block tal:condition="python: showReviewStateWarning">
-                    <div class="warningMessage portalMessage visualNoPrint"> Warning! This figure is currently not viewable by anonymous users. Please review its worklow state.</div>
+                    <div class="warningMessage portalMessage visualNoPrint" i18n:translate=""> Warning! This figure is currently not viewable by anonymous users. Please review its worklow state.</div>
                 </tal:block>
 
                 <p class="figure-title" tal:content="obj/Title" />
                 <tal:block tal:condition="python: showAnonCannotViewWarning">
-                    <div class="warningMessage portalMessage visualNoPrint"> This figure is currently not viewable by anonymous users.</div>
+                    <div class="warningMessage portalMessage visualNoPrint" i18n:translate="">This figure is currently not viewable by anonymous users.</div>
                 </tal:block>
 
                 <tal:block tal:condition="python: not showAnonCannotViewWarning">
@@ -41,7 +41,7 @@
                                     <strong i18n:translate="">Note: </strong>
                                     <span tal:condition="python:figure_description"
                                              tal:content="figure_description" />
-                                    <span tal:condition="python:not figure_description">N/A</span>
+                                    <span tal:condition="python:not figure_description" i18n:translate="">N/A</span>
                                 </p>
                             </div>
                         </div>
@@ -75,11 +75,11 @@
             <div class="indicator-figure-plus" tal:attributes="id obj/getId"
                      tal:condition="python:obj.portal_type == 'GIS Application'">
                 <tal:block tal:condition="python: showReviewStateWarning">
-                    <div class="warningMessage portalMessage visualNoPrint"> Warning! This figure is currently not viewable by anonymous users. Please review its worklow state.</div>
+                    <div class="warningMessage portalMessage visualNoPrint" i18n:translate=""> Warning! This figure is currently not viewable by anonymous users. Please review its worklow state.</div>
                 </tal:block>
                 <p class="figure-title" tal:content="obj/Title" />
                 <tal:block tal:condition="python: showAnonCannotViewWarning">
-                    <div class="warningMessage portalMessage visualNoPrint"> This figure is currently not viewable by anonymous users.</div>
+                    <div class="warningMessage portalMessage visualNoPrint" i18n:translate="">This figure is currently not viewable by anonymous users.</div>
                 </tal:block>
 
                 <tal:block tal:condition="python: not showAnonCannotViewWarning">
@@ -104,7 +104,7 @@
                                                 <strong i18n:translate="">Note: </strong>
                                                 <span tal:condition="python:gis_description"
                                                          tal:content="gis_description" />
-                                                <span tal:condition="python:not gis_description">N/A</span>
+                                                <span tal:condition="python:not gis_description" i18n:translate="">N/A</span>
                                             </p>
                                         </div>
                                     </div>
@@ -129,11 +129,11 @@
                      tal:condition="python:obj.portal_type=='DavizVisualization'">
 
                 <tal:block tal:condition="python: showReviewStateWarning">
-                    <div class="warningMessage portalMessage visualNoPrint"> Warning! This figure is currently not viewable by anonymous users. Please review its worklow state.</div>
+                    <div class="warningMessage portalMessage visualNoPrint" i18n:translate=""> Warning! This figure is currently not viewable by anonymous users. Please review its worklow state.</div>
                 </tal:block>
                 <p class="figure-title" tal:content="obj/Title" />
                 <tal:block tal:condition="python: showAnonCannotViewWarning">
-                    <div class="warningMessage portalMessage visualNoPrint"> This figure is currently not viewable by anonymous users.</div>
+                    <div class="warningMessage portalMessage visualNoPrint" i18n:translate=""> This figure is currently not viewable by anonymous users.</div>
                 </tal:block>
 
                 <tal:block tal:condition="python: not showAnonCannotViewWarning">
@@ -190,7 +190,7 @@
                                                                     <tal:rep tal:repeat="info figure_description">
                                                                         <span tal:content="structure info/text" />
                                                                     </tal:rep>
-                                                                    <span tal:condition="python:not figure_description">N/A</span>
+                                                                    <span tal:condition="python:not figure_description" i18n:translate="">N/A</span>
                                                                 </p>
                                                             </div>
                                                         </div>
@@ -240,7 +240,7 @@
                                                     <strong i18n:translate="">Note: </strong>
                                                     <span tal:condition="python:figure_description"
                                                              tal:content="figure_description" />
-                                                    <span tal:condition="python:not figure_description">N/A</span>
+                                                    <span tal:condition="python:not figure_description" i18n:translate="">N/A</span>
                                                 </p>
                                             </div>
                                         </div>

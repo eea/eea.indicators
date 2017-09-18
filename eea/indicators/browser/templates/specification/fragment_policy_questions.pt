@@ -21,7 +21,7 @@
         </tal:defs>
         <div class="grouped_field">
 
-          <a href='./object_factory?type_name=PolicyQuestion' 
+          <a href='./object_factory?type_name=PolicyQuestion'
              class="object_creator standardButton" i18n:translate="">+ Policy Question</a>
 
           <div id="policy_questions" class="sortable_spec" tal:condition="python:questions">
@@ -31,7 +31,7 @@
             </div>
             <div tal:repeat="question questions"
               class="list-item" tal:attributes="id question/getId">
-              <span title="Drag and drop to set order" 
+              <span title="Drag and drop to set order"
                     i18n:attributes="title"
                     class="handler ui-icon ui-icon-arrowthick-2-n-s"></span>
               <a href=""
@@ -45,7 +45,7 @@
                 tal:attributes="href string:${question/aq_parent/absolute_url}/@@obj_delete?id=${question/getId}"
                 i18n:translate="">Delete</a>
               <strong tal:content="question/Title">Question title</strong>
-              <span tal:condition="question/getIs_key_question">(Main question)</span>
+              <span tal:condition="question/getIs_key_question" i18n:translate="">(Main question)</span>
             </div>
           </div>
 

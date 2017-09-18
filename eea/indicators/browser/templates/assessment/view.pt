@@ -107,7 +107,8 @@
         <li tal:repeat="data datasets" tal:condition="python:datasets">
           <a href=""
             tal:attributes="href string:${context/portal_url}/ds_resolveuid/${data/@@getVersions/versionId}"
-            tal:content="data/title">Dataset title</a><br/>provided by
+            tal:content="data/title">Dataset title</a><br/>
+            <tal:p i18n:translate="">provided by</tal:p>
           <span tal:repeat="url python:data.getDataOwner()">
            <tal:organisations condition="python:specification.getOrganisationName(url)">
             <strong tal:content="python:specification.getOrganisationName(url).Title" />
@@ -118,14 +119,15 @@
         <li tal:repeat="data extdatasets" tal:condition="python:extdatasets">
           <a href=""
             tal:attributes="href data/absolute_url"
-            tal:content="data/title">Dataset title</a><br/>provided by
+            tal:content="data/title">Dataset title</a><br/>
+            <tal:p i18n:translate="">provided by</tal:p>
           <span tal:define="url python:data.getProvider_url()">
             <tal:organisations condition="python:specification.getOrganisationName(url)">
             <strong tal:content="python:specification.getOrganisationName(url).Title" />
             </tal:organisations>
           </span>
         </li>
-        <li tal:condition="python:(not extdatasets and not datasets)">No datasets have been specified.</li>
+        <li tal:condition="python:(not extdatasets and not datasets)" i18n:translate="">No datasets have been specified.</li>
       </ul>
 
         <div id="box-classification" class="clearfix">

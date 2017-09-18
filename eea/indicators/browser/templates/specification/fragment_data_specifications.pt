@@ -16,18 +16,17 @@
       <div class="logic_group">
         <h2 id="data_specifications"
             tal:define="tooltip string:Data specifications">
-          <span metal:use-macro="tooltip_macro" /> 
+          <span metal:use-macro="tooltip_macro" />
           <tal:block i18n:translate="">Data specifications</tal:block>
         </h2>
 
-        <div class="portalMessage" tal:condition="python:not values">
+        <div class="portalMessage" tal:condition="python:not values" i18n:translate="">
           You need to reference at least one Data Spec
         </div>
 
         <metal:macro metal:use-macro="here/indicators_macros/macros/active_field">
           <metal:slot metal:fill-slot="content">
-            <div tal:condition="python:not values"
-              class="placeholder">
+            <div tal:condition="python:not values" class="placeholder" i18n:translate="">
               Please fill in
             </div>
             <ul>
@@ -41,7 +40,7 @@
           <metal:slot metal:fill-slot="control">
             <div class="control-special-handler standardButton">
               <a href=""
-                tal:attributes="onclick string:return open_relations_widget('active_field-$fieldname','$selected_tab')" 
+                tal:attributes="onclick string:return open_relations_widget('active_field-$fieldname','$selected_tab')"
                 i18n:translate="">Edit</a>
             </div>
           </metal:slot>
