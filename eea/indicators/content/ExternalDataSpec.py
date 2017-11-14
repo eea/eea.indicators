@@ -21,6 +21,10 @@ from Products.Archetypes.utils import shasattr
 from Products.CMFDynamicViewFTI.browserdefault import BrowserDefaultMixin
 from Products.CMFPlone.utils import getToolByName
 from Products.EEAContentTypes.content.ThemeTaggable import ThemeTaggable_schema
+from Products.EEAContentTypes.subtypes import ThemesSchemaExtender, \
+    ExtensionThemesField
+from Products.LinguaPlone.public import InAndOutWidget
+from archetypes.schemaextender.interfaces import ISchemaExtender, ISchemaModifier
 from eea.dataservice.widgets import OrganisationsWidget
 from eea.indicators.content import interfaces
 from eea.themecentre.interfaces import IThemeTagging
@@ -255,3 +259,49 @@ class ExternalDataSpecThemes(object):
         return
 
     tags = property(_get_tags, _set_tags)
+
+
+class ExternalDataSpecThemesExtender(ThemesSchemaExtender):
+    """ ExternalDataSpec themes adapter Refs #89852
+    """
+    implements(ISchemaExtender)
+
+    fields = (
+        ExtensionThemesField(
+            name='themes',
+            schemata='categorization',
+            validators=('maxValues',),
+            required=False,
+            widget=InAndOutWidget(
+                maxValues=0,
+                label="Themes",
+                description=u"Topics are inherited from the related objects "
+                            u"using this as data source. If you want to change "
+                            u"topics you need to change the topics on the "
+                            u"related objects.",
+                required=False,
+            ),
+            languageIndependent=True,
+            vocabulary_factory=u"Allowed themes for edit",
+            default=[],
+        ),
+    )
+
+
+class ExternalDataSpecThemesSchemaModifier(object):
+    """ ExternalDataSpec schema modifier for the themes field in order to make
+    it not required Refs #89852
+    """
+    implements(ISchemaModifier)
+
+    def __init__(self, context):
+        self.context = context
+
+    def fiddle(self, dataspec_schema):
+        # first i make a copy of the themes field otherwise the changes
+        # will apply for all content types
+        dataspec_schema['themes'] = dataspec_schema['themes'].copy()
+
+        # set required_for_published and required to False
+        dataspec_schema['themes'].required_for_published = False
+        dataspec_schema['themes'].required = False

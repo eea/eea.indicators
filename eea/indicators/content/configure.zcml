@@ -9,5 +9,16 @@
     factory=".Specification.SpecificationThemeSchemaModifier"
     />
 
+  <adapter name="eea.themesfield"
+      for=".interfaces.IExternalDataSpec"
+      factory=".ExternalDataSpec.ExternalDataSpecThemesExtender"
+    />
+
+  <adapter
+      for=".interfaces.IExternalDataSpec"
+      provides="archetypes.schemaextender.interfaces.ISchemaModifier"
+      factory=".ExternalDataSpec.ExternalDataSpecThemesSchemaModifier"
+    />
+
 
 </configure>

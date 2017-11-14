@@ -3,6 +3,10 @@ Changelog
 
 13.3.dev0 - (unreleased)
 ------------------------
+* Change: Changed the themes field for the ExternalDataSpec content type
+  Now the themes field is no longer required and themes can't be added
+  anymore through the edit interaction
+  [petchesi-iulian refs #89852]
 
 13.2 - (2017-08-16)
 -------------------
