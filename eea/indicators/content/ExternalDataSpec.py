@@ -273,13 +273,14 @@ class ExternalDataSpecThemesExtender(ThemesSchemaExtender):
             validators=('maxValues',),
             required=False,
             widget=InAndOutWidget(
-                maxValues=0,
+                maxValues=3,
                 label="Themes",
                 description=u"Topics are inherited from the related objects "
                             u"using this as data source. If you want to change "
                             u"topics you need to change the topics on the "
                             u"related objects.",
                 required=False,
+                helper_css=('externaldataspec_themes.css',),
             ),
             languageIndependent=True,
             vocabulary_factory=u"Allowed themes for edit",
