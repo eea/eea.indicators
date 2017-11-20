@@ -1,8 +1,8 @@
 Changelog
 =========
 
-13.3.dev0 - (unreleased)
-------------------------
+13.3 - (2017-11-20)
+-------------------
 * Change: Reverted maxValues to the default value and added css in order
   to disable the widget
   [petchesi-iulian refs #89852]
