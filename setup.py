@@ -43,7 +43,7 @@ setup(
      "Products.DataGridField",
      "Products.UserAndGroupSelectionWidget",
      "Products.EEAContentTypes",
-     "eea.facetednavigation",
+     "eea.facetednavigation > 10.0",
      "eea.themecentre",
      "eea.dataservice",
      "eea.workflow",
@@ -53,7 +53,6 @@ setup(
      'eea.tags',
      'eea.app.visualization',
      'Products.CompoundField',
-     #'eea.daviz>=6.2'
  ],
  entry_points="""
  # -*- Entry points: -*-
