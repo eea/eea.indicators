@@ -2,7 +2,10 @@
            xmlns:faceted="http://namespaces.zope.org/faceted"
            i18n_domain="eea">
 
-  <faceted:widget factory=".widget.IndicatorsSortingWidget" />
+  <faceted:widget
+    factory=".widget.IndicatorsSortingWidget"
+    schema=".interfaces.IIndicatorsSortingSchema"
+    />
 
   <utility component=".vocabulary.sorting_options_vocabulary"
            name="eea.indicators.faceted_sorting_options" />

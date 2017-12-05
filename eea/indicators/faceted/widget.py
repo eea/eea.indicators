@@ -3,7 +3,7 @@
 
 from eea.facetednavigation.widgets.sorting.widget import Widget as SortingWidget
 from eea.facetednavigation.interfaces import IWidgetFilterBrains
-from zope.interface import implements
+from zope.interface import implementer
 
 
 class IndicatorsSortingWidget(SortingWidget):
@@ -13,10 +13,10 @@ class IndicatorsSortingWidget(SortingWidget):
     widget_label = 'Indicators sorting'
 
 
+@implementer(IWidgetFilterBrains)
 class IndicatorsSorter(object):
     """A sorter for indicators"""
 
-    implements(IWidgetFilterBrains)
     def __init__(self, context):
         self.widget = context
 
