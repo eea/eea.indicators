@@ -31,7 +31,9 @@ def setup_indicators():
     fiveconfigure.debug_mode = True
 
     import eea.indicators
+    import eea.indicators.tests
     zcml.load_config('configure.zcml', eea.indicators)
+    zcml.load_config('testing.zcml', eea.indicators.tests)
     PloneTestCase.installPackage('eea.indicators')
 
     import eea.themecentre
@@ -74,6 +76,7 @@ PloneTestCase.setupPloneSite(
         extension_profiles=
         [
             'eea.indicators:default',
+            'eea.indicators.tests:testfixture',
             'Products.DataGridField:default',
             ]
     )

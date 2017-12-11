@@ -1,8 +1,12 @@
 ==============
 EEA Indicators
 ==============
+.. image:: http://ci.eionet.europa.eu/job/eea/job/eea.indicators/job/develop/badge/icon
+  :target: http://ci.eionet.europa.eu/job/eea/job/eea.indicators/job/develop/display/redirect
+  :alt: Develop
 .. image:: http://ci.eionet.europa.eu/job/eea/job/eea.indicators/job/master/badge/icon
   :target: http://ci.eionet.europa.eu/job/eea/job/eea.indicators/job/master/display/redirect
+  :alt: Master
 
 Contents
 ========

@@ -11,6 +11,7 @@
 
   <adapter name="eea.themesfield"
       for=".interfaces.IExternalDataSpec"
+      provides="archetypes.schemaextender.interfaces.ISchemaExtender"
       factory=".ExternalDataSpec.ExternalDataSpecThemesExtender"
     />
 
