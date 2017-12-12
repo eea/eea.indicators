@@ -1,8 +1,8 @@
 Changelog
 =========
 
-13.4.dev0 - (unreleased)
-------------------------
+13.4 - (2017-12-12)
+-------------------
 * Change: Replace eeacms/zptlint with eeacms/plone-test:4 zptlint
   [avoinea refs #90415]
 * Change: Update to work with eea.facetednavigation 10.0+
