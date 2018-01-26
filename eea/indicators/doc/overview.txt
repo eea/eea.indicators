@@ -6,7 +6,6 @@ Test views. Test workflows. Test permissions.
 
 Versioning
 ----------
-
 Specifications have versions; a version of a specification is a new revision of the Spec;
 it is a completely restructured specification, with new format for Assessments. This is implemented
 with eea.versions

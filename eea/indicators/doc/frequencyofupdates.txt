@@ -5,7 +5,6 @@ This document is intended to track details on functionality of frequency
 of updates field and its development. It is a more coherent copy of comments 
 entered on the ticket http://taskman.eionet.europa.eu/issues/14361
 
-
 Field description
 -----------------
 Frequency of updates describes how often new versions of Assessments are 
@@ -34,13 +33,11 @@ specification version is made the "Frequency of update" is copied over to the
 new version. So, different specifications may have different frequency of
 updates.
 
-
 Default value of starting date:
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "Frequency of update > starting date" will default as "None". It must be
 entered by Indicator manager. It indicates from when the frequency of update
 scheduling is valid.
-
 
 Readiness for publication
 -------------------------
@@ -50,7 +47,6 @@ feedback as follow: "Information about frequency of update for this indicator
 is missing." If indicator expired, then a very visible box appears saying
 indicator has been discontinued.
 
-
 Information display
 -------------------
 This information is shown both in the specification and assessment. This
@@ -59,7 +55,6 @@ terminated, then show a very visible box at the top, informing that the
 indicator has been discontinued.
 
 If the field is not properly filled in, don't show anything in the views.
-
 
 Ending date/expiration date
 ---------------------------
@@ -73,7 +68,6 @@ it has the following effects:
 Ending date MUST NOT be synched to EXPIRATION DATE. Because we do not
 want the case when a frequency of update ends on a certain date and indicators
 that are just one year old disappears from searches, it is too aggressive.
-
 
 Need input from editors group
 -----------------------------

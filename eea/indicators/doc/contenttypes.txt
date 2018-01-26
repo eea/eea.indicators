@@ -1,11 +1,7 @@
 The Indicators Database
 =======================
-# vim: ft=doctest:
-# vim: sw=4 ts=4 et:
 
 We have several main content types. The most important are the Specification and their Assessments.
-
-TODO: add getVersionId index in catalog
 
     >>> import urllib
     >>> import pprint
@@ -33,7 +29,6 @@ TODO: add getVersionId index in catalog
     ... 
     >>> from DateTime import DateTime
     >>> now = DateTime()
-
 
 Containments
 ------------
@@ -71,7 +66,6 @@ EEAFigures sit in a separate folder, not under the IMS control:
 
     >>> ef = portal[portal.invokeFactory("EEAFigure", 'ef')]
 
-
 Relationships
 -------------
 The IMS uses the relatedItems field to store all relationships. We use the eea.relations
@@ -104,10 +98,8 @@ TODO: add new content from updated possible_relations.xml
 #    >>> ids.intersection(our_ids) == our_ids
 #    True
 
-
 Versioning and utility views
 ----------------------------
-
 Editing the IMS should be done through a modified Edit form, which aggregates
 all content into a single view, to make editing the tree of objects easier.
 
@@ -224,7 +216,6 @@ In the future it would be good to be able to use the regular invokeFactory call.
 When creating a new Assessment for a Specification, the Assessment should already contain
 AssessmentParts created for all the PolicyQuestions - this is already demonstrated above.
 
-
 Catalog Indexes
 ---------------
 We index the codes of a Specification using the get_codes index. First, let's
@@ -258,7 +249,6 @@ catalog searches based on either the full code or the Set code:
 Indexing this object, as it is required in a test later on:
 
     >>> catalog.indexObject(spec)
-
 
 Readiness for publication
 -------------------------
@@ -452,7 +442,6 @@ The management plan needs to be filled in:
     >>> asp.unrestrictedTraverse('@@get_readiness').is_ready_for('published')
     False
 
-
 Simple field editing and schemata editing
 -----------------------------------------
 
@@ -509,7 +498,6 @@ the title, the PolicyQuestion's id was changed, so let's get it again.
     >>> print browser.contents        #doctest: +NORMALIZE_WHITESPACE
     <...form...>
 
-
 Specification codes validation
 ------------------------------
 We have a soft requirement that we shouldn't have Specifications with the same
@@ -534,7 +522,6 @@ code is duplicated and offer a link to link it as a version of the other specifi
     >>> browser.open(spec.absolute_url() + '/fragment_metadata')
     >>> print browser.contents  #doctest: +NORMALIZE_WHITESPACE
     <...Unrelated Indicators Specifications have the same codes...CSI001...@@assign_version...
-
 
 Reassigning versions for Specifications
 ---------------------------------------
@@ -581,7 +568,6 @@ Each object involved has a different version id:
     >>> IGetVersions(as6).versionId == va5
     True
 
-
 Frequency of updates
 --------------------
 
@@ -625,7 +611,6 @@ created:
     >>> print spec.is_discontinued()
     True
 
-
 Unicode handling
 ----------------
 Application should not crash when unicode characters are used.
@@ -653,4 +638,3 @@ Values are stored as bytestream in brains:
     True
     >>> print title
     Some title €
-
