@@ -51,6 +51,7 @@ setup(
      'zope.traversing',
      "eea.forms",
      'eea.tags',
+     'eea.versions >= 10.7',
      'eea.app.visualization',
      'Products.CompoundField',
  ],
