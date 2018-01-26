@@ -1,7 +1,7 @@
 Changelog
 =========
 
-13.5.dev0 - (unreleased)
+13.5 - (2018-01-26)
 ------------------------
 * Change: Policy Question default view displays key messages of related
   assessment
