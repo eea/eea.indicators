@@ -3,6 +3,9 @@ Changelog
 
 13.5.dev0 - (unreleased)
 ------------------------
+* Change: Policy Question default view displays key messages of related
+  assessment
+  [valipod refs #90671]
 
 13.4 - (2017-12-12)
 -------------------
