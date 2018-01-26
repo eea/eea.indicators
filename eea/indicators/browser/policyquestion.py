@@ -32,4 +32,4 @@ class KeyMessages(BrowserView):
         versions = self.get_versions()
         if versions:
             return self.context.toLocalizedTime(
-                self.get_assessment().modified())
+                self.get_assessment().effective())
