@@ -6,24 +6,6 @@ pipeline {
     }
 
   stages {
-    stage('Tests') {
-      steps {
-        parallel(
-
-          "WWW": {
-            node(label: 'docker-1.13') {
-              sh '''docker run -i --rm --name="$BUILD_TAG-www" -e GIT_NAME="$GIT_NAME" -e GIT_BRANCH="$BRANCH_NAME" -e GIT_CHANGE_ID="$CHANGE_ID" eeacms/www-devel /debug.sh bin/test -v -vv -s $GIT_NAME'''
-            }
-          },
-
-          "Plone4": {
-            node(label: 'docker-1.13') {
-              sh '''docker run -i --rm --name="$BUILD_TAG-plone4" -e GIT_BRANCH="$BRANCH_NAME" -e ADDONS="$GIT_NAME" -e DEVELOP="src/$GIT_NAME" -e GIT_CHANGE_ID="$CHANGE_ID" eeacms/plone-test:4 -v -vv -s $GIT_NAME'''
-            }
-          }
-        )
-      }
-    }
 
     stage('Code') {
       steps {
@@ -50,6 +32,25 @@ pipeline {
           "i18n": {
             node(label: 'docker-1.13') {
               sh '''docker run -i --rm --name=$BUILD_TAG-i18n -e GIT_SRC="https://github.com/eea/$GIT_NAME.git" -e GIT_NAME="$GIT_NAME" -e GIT_BRANCH="$BRANCH_NAME" -e GIT_CHANGE_ID="$CHANGE_ID" eeacms/i18ndude'''
+            }
+          }
+        )
+      }
+    }
+
+    stage('Tests') {
+      steps {
+        parallel(
+
+          "WWW": {
+            node(label: 'docker-1.13') {
+              sh '''docker run -i --rm --name="$BUILD_TAG-www" -e GIT_NAME="$GIT_NAME" -e GIT_BRANCH="$BRANCH_NAME" -e GIT_CHANGE_ID="$CHANGE_ID" eeacms/www-devel /debug.sh bin/test -v -vv -s $GIT_NAME'''
+            }
+          },
+
+          "Plone4": {
+            node(label: 'docker-1.13') {
+              sh '''docker run -i --rm --name="$BUILD_TAG-plone4" -e GIT_BRANCH="$BRANCH_NAME" -e ADDONS="$GIT_NAME" -e DEVELOP="src/$GIT_NAME" -e GIT_CHANGE_ID="$CHANGE_ID" eeacms/plone-test:4 -v -vv -s $GIT_NAME'''
             }
           }
         )
