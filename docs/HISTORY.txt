@@ -5,6 +5,9 @@ Changelog
 -------------------
 * Change: cleanup test modules and updated package structure
   [alecghica refs #92027]
+* Upgrade step: Within "Plone > Site setup > Add-ons" click on
+  upgrade button available for EEA Indicators
+  [valipod refs #90671]
 * Change: Policy Question default view displays key messages of related
   assessment
   [valipod refs #90671]
