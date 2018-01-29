@@ -5,8 +5,17 @@
 		<title tal:content="context/Title"></title>
 	</head>
 	<body>
-		<div metal:fill-slot="main">
-		</div>
+		<tal:block condition="view/assessment_url">
+			<div metal:fill-slot="content-core">
+				<h3>Key messages</h3>
+        <p>(<span tal:content="view/assessment_date" />)</p>
+				<tal:block content="structure view/key_messages" />
+				<p>
+					<a tal:attributes="href view/assessment_url"
+						class="moreLink">Read full indicator assessment</a>
+				</p>
+			</div>
+		</tal:block>
 	</body>
 </html>
 
