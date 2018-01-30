@@ -82,6 +82,7 @@
   <browser:page for="eea.indicators.content.interfaces.IPolicyQuestion"
                 name="view"
                 template="templates/policyquestion_view.pt"
+                class="eea.indicators.browser.policyquestion.KeyMessages"
                 permission="zope2.View" />
 
   <browser:page for="eea.indicators.content.interfaces.IRationaleReference"

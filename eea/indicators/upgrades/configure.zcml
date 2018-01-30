@@ -80,4 +80,16 @@
 
     </gs:upgradeSteps>
 
+    <gs:upgradeSteps
+            source="10.1"
+            destination="13.5"
+            profile="eea.indicators:default">
+
+        <gs:upgradeDepends
+                title="Custom view for PolicyQuestion ctype"
+                import_steps="typeinfo"
+                />
+
+    </gs:upgradeSteps>
+
 </configure>
