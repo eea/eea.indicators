@@ -32,15 +32,17 @@
 					<script type="text/javascript" 
 						tal:define="widget_dom_id string:active_field-$fieldName;" 
 						tal:content="string:
-							var popup = new EEAReferenceBrowser.Widget('$fieldName', {});;
-              try {
-                $('#' + '$widget_dom_id').get(0)._widget = popup;;
-                } catch (err) {}
+                            jQuery.ready(function($){
+                                var popup = new EEAReferenceBrowser.Widget('$fieldName', {});;
+                                try {
+                                    $('#' + '$widget_dom_id').get(0)._widget = popup;;
+                                } catch (err) {}
 
-							$(popup.events).bind(popup.events.SAVED, function(evt){
-								ajaxify($('#active_field-$fieldName'), '$fieldName');;
-								$('#active_field-$fieldName form').trigger('submit');;
-							});
+                                $(popup.events).bind(popup.events.SAVED, function(evt){
+                                    ajaxify($('#active_field-$fieldName'), '$fieldName');;
+                                    $('#active_field-$fieldName form').trigger('submit');;
+                                });
+                            });
 							">
 						</script>
 				</metal:slot>
