@@ -32,7 +32,7 @@
 					<script type="text/javascript" 
 						tal:define="widget_dom_id string:active_field-$fieldName;" 
 						tal:content="string:
-                            jQuery.ready(function($){
+                            jQuery(function($){
                                 var popup = new EEAReferenceBrowser.Widget('$fieldName', {});;
                                 try {
                                     $('#' + '$widget_dom_id').get(0)._widget = popup;;

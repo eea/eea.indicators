@@ -118,7 +118,7 @@
         </table>
       </tal:rep>
       <script>
-          jQuery.ready(function($){
+          jQuery(function($){
             $('.make_fullscreen').click(function(){
               $("#header-holder").toggle();
               $("#visual-portal-wrapper").css("max-width", 'inherit');

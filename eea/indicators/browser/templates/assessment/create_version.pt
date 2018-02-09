@@ -29,7 +29,7 @@
       </form>
             <script>
 // <!--
-jQuery.ready(function($){
+jQuery(function($){
     jQuery("#astcreateversion").submit(
             function(e){
                 var form = this;
