@@ -14,13 +14,14 @@ jQuery(document).ready(function($){
         }
     });
 
-    jQuery("a.googlechart-inline-resize").click(function(){
+    jQuery(".googlechart-inline-resize").click(function(){
         var chartToResize;
-        jQuery.each(jQuery(this).closest(".embedded-daviz-visualization").find(".googlechart_dashboard"), function(idx, chart){
-            if (jQuery(chart).is(":visible")){
-                chartToResize = jQuery(chart);
-            }
-        });
-        chartToResize.EEAChartResizer();
+        var chart = jQuery(this).closest("dd").find(".googlechart_dashboard");
+	if (jQuery(chart).is(":visible")){
+		chartToResize = jQuery(chart);
+	}
+        if (chartToResize) {
+            chartToResize.EEAChartResizer();
+        }
     });
 });
