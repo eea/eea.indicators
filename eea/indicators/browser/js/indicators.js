@@ -266,7 +266,9 @@ function on_load_dom() {
   set_relation_widgets();
   bootstrap_relations_widgets();
   bootstrap_select_widgets();
-  window.set_readiness_accordion();  // for portlet_readiness
+  if (window.set_readiness_accordion) {
+      window.set_readiness_accordion();  // for portlet_readiness
+  }
   set_generic_ajax_forms();
 
 }
