@@ -3,6 +3,9 @@ Changelog
 
 13.5 - (2018-01-26)
 -------------------
+* Bug fix: fixed check for viewing permission of anonymous users when we have
+  figures added within assessment view
+  [ichim-david refs #93369]
 * Bug fix: avoid IndicatorFactSheet edit error when readiness js is missing
   [ichim-david refs #91577]
 * Change: cleanup test modules and updated package structure

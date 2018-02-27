@@ -8,6 +8,9 @@ import logging
 from Acquisition import aq_inner, aq_parent
 
 import lxml
+
+from AccessControl.PermissionRole import rolesForPermissionOn
+
 from lxml.builder import ElementMaker
 from zope.interface import implements
 from zope.component import getMultiAdapter
@@ -911,9 +914,7 @@ class VisibleForAnonymous(BrowserView):
         self.request = request
 
     def __call__(self):
-        app_perms = self.context.rolesOfPermission(permission='View')
-        for app_perm in app_perms:
-            if app_perm['name'] == 'Anonymous' \
-                    and app_perm['selected'] == 'SELECTED':
-                return True
+        roles = rolesForPermissionOn('View', self.context)
+        if 'Anonymous' in roles:
+            return True
         return False
