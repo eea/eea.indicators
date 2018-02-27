@@ -1,6 +1,13 @@
 Changelog
 =========
 
+
+13.6 - (2018-02-27)
+-------------------
+* Bug fix: fixed check for viewing permission of anonymous users when we have
+  figures added within assessment view
+  [ichim-david refs #93369]
+
 13.5 - (2018-01-26)
 -------------------
 * Change: cleanup test modules and updated package structure
