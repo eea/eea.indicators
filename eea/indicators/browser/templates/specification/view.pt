@@ -7,7 +7,7 @@
                 tal:attributes="src string:${context/portal_url}/++resource++indicators-toc.js">
        </script>
        <script type="text/javascript"
-                tal:attributes="src string:${context/portal_url}/collective.js.jqueryui.custom.min.js">
+                tal:attributes="src string:${context/portal_url}/collective.js.jqueryui.custom.min.eea.js">
        </script>
   </metal:javascript>
 
