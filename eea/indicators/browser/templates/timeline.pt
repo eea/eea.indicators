@@ -118,13 +118,15 @@
         </table>
       </tal:rep>
       <script>
-        $('.make_fullscreen').click(function(){
-          $("#header-holder").toggle();
-          $("#visual-portal-wrapper").css("max-width", 'inherit');
-          $("#portal-column-content").removeClass("width-3:4").addClass("width-full");
-          $("#portal-column-two").hide();
-          return false;
-        });
+          jQuery(function($){
+            $('.make_fullscreen').click(function(){
+              $("#header-holder").toggle();
+              $("#visual-portal-wrapper").css("max-width", 'inherit');
+              $("#portal-column-content").removeClass("width-3:4").addClass("width-full");
+              $("#portal-column-two").hide();
+              return false;
+            });
+          });
       </script>
 
     </div>

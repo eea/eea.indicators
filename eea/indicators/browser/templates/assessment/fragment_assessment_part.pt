@@ -54,7 +54,9 @@
                         </metal:slot>
                     </metal:macro>
           <script type="text/javascript" tal:content="string:
-            preselect_relations_tab('${region_name}', 'relatedItems-$UID-eea-figure');
+		jQuery(function($) {
+		    preselect_relations_tab('${region_name}', 'relatedItems-$UID-eea-figure');
+		});
             "></script>
                 </tal:def>
             </div>

@@ -1,7 +1,13 @@
 Changelog
 =========
 
-
+13.7 - (2018-03-14)
+-------------------
+* Change: reference customized jqueryui within assessment pages
+  [ichim-david refs #91577]
+* Bug fix: avoid IndicatorFactSheet edit error when readiness js is missing
+  [ichim-david refs #91577]
+  
 13.6 - (2018-02-27)
 -------------------
 * Bug fix: fixed check for viewing permission of anonymous users when we have

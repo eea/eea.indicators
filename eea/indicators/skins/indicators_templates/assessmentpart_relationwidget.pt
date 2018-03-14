@@ -87,16 +87,19 @@ It may be that we can collapse the changes into the regular indicatorsrelations.
                 </tal:comment>
 
                 <script type="text/javascript" tal:content="structure string:
-                    if ($('#archetypes-fieldname-relatedItems').find('.fieldErrorBox').text()) {
-                        bootstrap_relations_widgets();
-                        var meta = $('#${domIdWidget}').find('.metadata').eq(0);
-                        var input = $('<input>', {
-                              type: 'hidden',
-                              name: 'active_region',
-                              value: '${uid}'
+                        jQuery(function($){
+                            if ($('#archetypes-fieldname-relatedItems').find('.fieldErrorBox').text()) {
+                                bootstrap_relations_widgets();
+                                var meta = $('#${domIdWidget}').find('.metadata').eq(0);
+                                var input = $('<input>', {
+                                type: 'hidden',
+                                name: 'active_region',
+                                value: '${uid}'
+                                });
+                                input.insertAfter(meta);
+                            }
                         });
-                        input.insertAfter(meta);
-                    }">
+                    ">
                 </script>
 			</metal:slot>
 

@@ -29,49 +29,51 @@
       </form>
             <script>
 // <!--
-jq("#astcreateversion").submit(
-function(e){
-    var form = this;
-    var formdata = jq(form).serialize() + "&submit=1";
+jQuery(function($){
+    jQuery("#astcreateversion").submit(
+            function(e){
+                var form = this;
+                var formdata = jq(form).serialize() + "&submit=1";
 
-    // get the latest version url, before new version
-    jq.ajax({ 
-      url     : context_url+"/getLatestVersionUrl",
-      success : function(data){
-        latestVersionUrl = data;
-        var el = jq('<div style="text-align:center;width:250px;"/>').
-                   text("Please wait, a new version is being created.").
-                   append(jq('<img/>').attr('src', "++resource++jqzoom/zoomloader.gif")).html();
-        jq.fancybox(el);
+                // get the latest version url, before new version
+                jq.ajax({
+                    url     : context_url+"/getLatestVersionUrl",
+                    success : function(data){
+                        latestVersionUrl = data;
+                        var el = jq('<div style="text-align:center;width:250px;"/>').
+                        text("Please wait, a new version is being created.").
+                        append(jq('<img/>').attr('src', "++resource++jqzoom/zoomloader.gif")).html();
+                        jq.fancybox(el);
 
-        // submit the form to create the new version
-        jq.ajax({
-          "data": formdata,
-          url: form.action,
-          type:'POST',
-          cache:false,
-          // timeout: 2000,
-          error   : function(xhr, ajaxOptions, thrownError){
-            if (xhr.status == 504){
-              checkLatestVersion(true);
-            }
-            else {
-              var el = jq('<div style="text-align:center;width:250px;" />').
-                        text("An internal error occured, please contact the administrator").html();
-              jq.fancybox(el, {'modal':false});
-            }},
-          success : function(data) {
-            if (data.indexOf("SEEURL")===0){
-                var url = data.replace("SEEURL:", ""); 
-                window.location.href = url;
-            } else {
-                checkLatestVersion(true);
-            }}
-       });
+                        // submit the form to create the new version
+                        jq.ajax({
+                            "data": formdata,
+                            url: form.action,
+                            type:'POST',
+                            cache:false,
+                            // timeout: 2000,
+                            error   : function(xhr, ajaxOptions, thrownError){
+                                if (xhr.status == 504){
+                                    checkLatestVersion(true);
+                                }
+                                else {
+                                    var el = jq('<div style="text-align:center;width:250px;" />').
+                                    text("An internal error occured, please contact the administrator").html();
+                                    jq.fancybox(el, {'modal':false});
+                                }},
+                            success : function(data) {
+                                if (data.indexOf("SEEURL")===0){
+                                    var url = data.replace("SEEURL:", "");
+                                    window.location.href = url;
+                                } else {
+                                    checkLatestVersion(true);
+                                }}
+                        });
 
-       }});
+                    }});
 
-    return false;
+                return false;
+            });
 });
 // -->
             </script>
