@@ -5,6 +5,8 @@ Changelog
 -------------------
 * Change: reference customized jqueryui within assessment pages
   [ichim-david refs #91577]
+* Bug fix: avoid IndicatorFactSheet edit error when readiness js is missing
+  [ichim-david refs #91577]
   
 13.6 - (2018-02-27)
 -------------------
@@ -14,8 +16,6 @@ Changelog
 
 13.5 - (2018-01-26)
 -------------------
-* Bug fix: avoid IndicatorFactSheet edit error when readiness js is missing
-  [ichim-david refs #91577]
 * Change: cleanup test modules and updated package structure
   [alecghica refs #92027]
 * Upgrade step: Within "Plone > Site setup > Add-ons" click on
