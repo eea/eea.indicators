@@ -300,6 +300,10 @@ ul.sortable_spec {
 .ui-state-error .ui-icon, .ui-state-error-text .ui-icon {
     cursor: pointer;
 }
+/* 91590 div needs to be inline when they are part of list links */
+li > a > div {
+    display: inline;
+}
 
 
 /* jquery ui overrides
@@ -595,9 +599,6 @@ div.kupu-fulleditor-zoomed .kupu-editor-iframe {
     font-size: 1.6em !important;
 }
 
-.indicator-figure-sources {
-    margin: 0;
-}
 
 /*start datagridwidget */
 /* We copy the content from the datagrid widget. For some reason Internet Explorer */

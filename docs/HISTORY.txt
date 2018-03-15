@@ -1,6 +1,11 @@
 Changelog
 =========
 
+13.8 - (unreleased)
+-------------------
+* Change: reference customized jqueryui within assessment pages
+  [ichim-david refs #91577]
+
 13.7 - (2018-03-14)
 -------------------
 * Change: reference customized jqueryui within assessment pages
