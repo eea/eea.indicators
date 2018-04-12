@@ -82,22 +82,31 @@ It may be that we can collapse the changes into the regular indicatorsrelations.
                     The hidden input with the active_region id is needed otherwise when the validation is fixed the
                     ajax call will not have a region where it would apply the results and as such the relation widget
                     would disappear without it.
-                    It needs to run only there if there is a validation error where the returned result is the popup template
+                    It needs to run only if there is a validation error where the returned result is the popup template
                     from eea.relations, hence the missing active_region login which is coming from eea.indicators.
                 </tal:comment>
 
                 <script type="text/javascript" tal:content="structure string:
                         jQuery(function($){
-                            if ($('#archetypes-fieldname-relatedItems').find('.fieldErrorBox').text()) {
-                                bootstrap_relations_widgets();
-                                var meta = $('#${domIdWidget}').find('.metadata').eq(0);
-                                var input = $('<input>', {
-                                type: 'hidden',
-                                name: 'active_region',
-                                value: '${uid}'
-                                });
-                                input.insertAfter(meta);
-                            }
+                            $('.fieldErrorBox').each(function() {
+	                            if ($(this).text()) {
+	                                bootstrap_relations_widgets();
+	                                var meta = $('#${domIdWidget}').find('.metadata').eq(0);
+	                                var input = $('<input>', {
+	                                type: 'hidden',
+	                                name: 'active_region',
+	                                value: '${uid}'
+	                                });
+	                                input.insertAfter(meta);
+	                            }
+                            });
+
+                            $('.fieldErrorBox').each(function() {
+                            	var error_text = $(this).text();
+                            	if (error_text.indexOf('Assessment is required, please correct.') >= 0) {
+                            		$(this).html('Fill in the Assessment field below before choosing the related items. <br /><br />');
+                            	}
+                            });
                         });
                     ">
                 </script>

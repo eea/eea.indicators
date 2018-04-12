@@ -5,6 +5,8 @@ Changelog
 -------------------
 * Change: reference customized jqueryui within assessment pages
   [ichim-david refs #91577]
+* Bug fix: fixed the error messages on Assessment Part inline editing.
+  [alecghica refs #94673]
 
 13.7 - (2018-03-14)
 -------------------
