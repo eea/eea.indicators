@@ -1,6 +1,9 @@
 Changelog
 =========
 
+13.9-dev0 - (unreleased)
+---------------------
+
 13.8 - (2018-04-12)
 -------------------
 * Change: reference customized jqueryui within assessment pages
@@ -1384,4 +1387,3 @@ Changelog
 ------------------
 * Initial release
   [ghicaale]
-
