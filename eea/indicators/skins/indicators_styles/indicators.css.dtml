@@ -342,8 +342,7 @@ li > a > div {
  * ========================== */
 
 #dialog-inner {
-    /* height:500px; */
-    /* overflow:auto; */
+     overflow:auto !important;  /* 94182 eea.similarities add hidden as overflow */
 }
 
 #dialog-inner .cancel-btn {
