@@ -3,6 +3,8 @@ Changelog
 
 14.0-dev0 - (unreleased)
 ---------------------
+* Change: do not show management plan code for anonymous.
+  [demarant refs #95846]
 
 13.9 - (2018-04-27)
 ---------------------

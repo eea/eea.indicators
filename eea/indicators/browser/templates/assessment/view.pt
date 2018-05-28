@@ -214,11 +214,13 @@
             </ul>
         </div>
 
-        <h4 class="clear" i18n:translate="">EEA Management Plan</h4>
-        <a href=""
-          tal:attributes="href python:'http://applications/managementplan/ProjectPlan.aspx?year=%s&amp;code=%s' % context.getManagement_plan()"
-          tal:content="python:'%s %s' % context.getManagement_plan()"></a>
-          <tal:block i18n:translate="">(note: EEA internal system)</tal:block>
+        <tal:authenticated tal:define="isAnon isAnon|context/@@plone_portal_state/anonymous" tal:condition="not:isAnon">
+           <h4 class="clear" i18n:translate="">EEA Management Plan</h4>
+           <a href=""
+             tal:attributes="href python:'http://applications/managementplan/ProjectPlan.aspx?year=%s&amp;code=%s' % context.getManagement_plan()"
+             tal:content="python:'%s %s' % context.getManagement_plan()"></a>
+             <tal:block i18n:translate="">(note: EEA internal system)</tal:block>
+        </tal:authenticated>
       </div>
 
       <div id="timestamps-info" class="clearfix">
