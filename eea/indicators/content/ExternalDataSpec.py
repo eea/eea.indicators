@@ -200,7 +200,7 @@ class ExternalDataSpec(ATCTContent, BrowserDefaultMixin):
         """ Get themes
         """
         themes = []
-        for ref in self.getBRefs():
+        for ref in self.getBRefs('relatesTo'):
             if not shasattr(ref, 'getThemes'):
                 continue
             themes.extend(ref.getThemes())
@@ -212,7 +212,7 @@ class ExternalDataSpec(ATCTContent, BrowserDefaultMixin):
             keywords from other specifications
         """
         result = []
-        for ref in self.getBRefs():
+        for ref in self.getBRefs('relatesTo'):
             if not ref or ref.portal_type != "Specification":
                 continue
             result.extend(ref.Subject())
