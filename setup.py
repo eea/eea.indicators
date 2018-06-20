@@ -13,8 +13,7 @@ setup(
  description="EEA Indicators",
  long_description=open("README.rst").read() + "\n" +
                   open(os.path.join("docs", "HISTORY.txt")).read(),
- url="https://svn.eionet.europa.eu/projects/"
-     "Zope/browser/trunk/eea.indicators",
+ url="https://github.com/eea/eea.indicators",
       # https://pypi.python.org/pypi?%3Aaction=list_classifiers
  classifiers=[
      "Framework :: Zope2",
