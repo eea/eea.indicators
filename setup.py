@@ -15,7 +15,7 @@ setup(
                   open(os.path.join("docs", "HISTORY.txt")).read(),
  url="https://svn.eionet.europa.eu/projects/"
      "Zope/browser/trunk/eea.indicators",
-      # http://pypi.python.org/pypi?%3Aaction=list_classifiers
+      # https://pypi.python.org/pypi?%3Aaction=list_classifiers
  classifiers=[
      "Framework :: Zope2",
      "Framework :: Plone",

@@ -3,7 +3,7 @@ Frequency of updates
 
 This document is intended to track details on functionality of frequency 
 of updates field and its development. It is a more coherent copy of comments 
-entered on the ticket http://taskman.eionet.europa.eu/issues/14361
+entered on the ticket https://taskman.eionet.europa.eu/issues/14361
 
 Field description
 -----------------
