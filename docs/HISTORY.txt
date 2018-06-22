@@ -1,6 +1,11 @@
 Changelog
 =========
 
+14.2 - (2018-06-20)
+---------------------
+* Change: updated URLs pointing to eea.europa.eu with https://
+  [alecghica refs #95849]
+
 14.1 - (2018-05-30)
 ---------------------
 * Bug fix: Restrict getBRefs only to related items
@@ -603,7 +608,7 @@ Changelog
   and set the ExternalDataSpec as factory type
   [tiberich #14467]
 * Upgrade Step:
-    * go to http://www.eea.europa.eu/aq_parent/portal_actions/object_buttons/create_version/manage_propertiesForm
+    * go to https://www.eea.europa.eu/aq_parent/portal_actions/object_buttons/create_version/manage_propertiesForm
     * Change the "Condition (Expression)" to: python: object.restrictedTraverse('@@can_version')()
     * [tiberich #14361]
 * Feature: added a new compound field, frequency_of_updates

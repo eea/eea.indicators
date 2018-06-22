@@ -698,7 +698,7 @@ class MetadataAsESMSXML(BrowserView):
                     ),
                     M.ReportedAttribute(
                         M.Value(
-                        "http://www.eea.europa.eu/data-and-maps/indicators"),
+                        "https://www.eea.europa.eu/data-and-maps/indicators"),
                         conceptID="ONLINE_DB",
                     ),
                     M.ReportedAttribute(
@@ -710,9 +710,9 @@ class MetadataAsESMSXML(BrowserView):
 "announced via EEA's Twitter channel (https://twitter.com/euenvironment), "
 "which users can follow. RSS feed: Indicators are automatically "
 "announced in a dedicated EEA indicators RSS feed "
-"(http://www.eea.europa.eu/data-and-maps/indicators/RSS2), which users can "
+"(https://www.eea.europa.eu/data-and-maps/indicators/RSS2), which users can "
 "subscribe to. A catalogue of all indicators is available "
-"(http://www.eea.europa.eu/data-and-maps/indicators)."),
+"(https://www.eea.europa.eu/data-and-maps/indicators)."),
                         conceptID="DISS_OTHER",
                     ),
                     conceptID="DISS_FORMAT",
@@ -884,7 +884,7 @@ class MetadataAsESMSXML(BrowserView):
                 M.ReportedAttribute(
                     M.Value("Please note that more metadata and additional "
 "information about this indicator is available online at %s. For technical "
-"issues contact EEA web team at http://www.eea.europa.eu/help/contact-info. "
+"issues contact EEA web team at https://www.eea.europa.eu/help/contact-info. "
 "Metadata extracted automatically by EEA IMS at %s." %
 (self.context.absolute_url(), now.isoformat())),
                     conceptID="COMMENT_DSET",
