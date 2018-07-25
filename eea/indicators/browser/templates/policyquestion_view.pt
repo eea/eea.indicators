@@ -8,7 +8,8 @@
 		<tal:block condition="view/assessment_url">
 			<div metal:fill-slot="content-core">
 				<h3 i18n:translate="">Key messages</h3>
-        <p>(<span tal:content="view/assessment_date" />)</p>
+        <p tal:define="adate view/assessment_date"
+           tal:condition="adate">(<span tal:content="adate" />)</p>
 				<tal:block content="structure view/key_messages" />
 				<p>
 					<a tal:attributes="href view/assessment_url"

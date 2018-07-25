@@ -3,6 +3,8 @@ Changelog
 
 14.3-dev0 - (unreleased)
 ---------------------
+* Bug fix: Fix policyquestion_view when effective_date is missing
+  [avoinea refs #97095]
 
 14.2 - (2018-06-20)
 ---------------------
