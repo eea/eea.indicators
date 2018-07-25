@@ -1,6 +1,11 @@
 Changelog
 =========
 
+14.3 - (2018-07-25)
+---------------------
+* Bug fix: Fix policyquestion_view when effective_date is missing
+  [avoinea refs #97095]
+
 14.2 - (2018-06-20)
 ---------------------
 * Change: updated URLs pointing to eea.europa.eu with https://
