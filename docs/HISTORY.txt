@@ -3,6 +3,8 @@ Changelog
 
 14.4-dev0 - (unreleased)
 ---------------------
+* Change: fixed the usage of BeautifulSoup
+  [alecghica refs #96974]
 
 14.3 - (2018-07-25)
 ---------------------
