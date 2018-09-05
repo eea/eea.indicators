@@ -3,6 +3,8 @@ Changelog
 
 14.4-dev0 - (unreleased)
 ---------------------
+* Change: Remove unused call to Google Maps API
+  [avoinea refs #98073]
 * Change: fixed the usage of BeautifulSoup
   [alecghica refs #96974]
 
