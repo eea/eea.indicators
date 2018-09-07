@@ -1,6 +1,13 @@
 Changelog
 =========
 
+14.4 - (2018-09-05)
+---------------------
+* Change: Remove unused call to Google Maps API
+  [avoinea refs #98073]
+* Change: fixed the usage of BeautifulSoup
+  [alecghica refs #96974]
+
 14.3 - (2018-07-25)
 ---------------------
 * Bug fix: Fix policyquestion_view when effective_date is missing

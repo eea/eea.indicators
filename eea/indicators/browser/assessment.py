@@ -393,7 +393,7 @@ class MetadataAsESMSXML(BrowserView):
             """ Retrieve text content from html input removing the html
             """
             value = escapeSpecialChars(value)
-            return BeautifulSoup(value).get_text()
+            return BeautifulSoup(value, 'lxml').get_text()
 
         getText = getTextKeepHTML \
             if self.request.get("keepHTML", "false") == "true"\
