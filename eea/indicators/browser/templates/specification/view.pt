@@ -115,8 +115,8 @@
               have been specified</p>
           </tal:policy_targets>
 
-          <tal:policy_documents define="policyDocuments nocall:specification/@@related_items;
-          policy_documents python:policyDocuments('PolicyDocumentReference', sort=True)">
+          <tal:policy_documents define="policyDocuments nocall:specification/@@related_items|nothing;
+          policy_documents python:policyDocuments('PolicyDocumentReference', sort=True) if policyDocuments else []">
           <h4 i18n:translate="">Related policy documents</h4>
           <ul tal:condition="python:policy_documents">
             <li tal:repeat="doc policy_documents">
@@ -176,11 +176,11 @@
           </tal:methodology_references>
         </div>
         <div id="data-specifications" metal:define-macro="data-specifications"
-          tal:define="datasetsView nocall:specification/@@related_items;
+          tal:define="datasetsView nocall:specification/@@related_items|nothing;
           auto_relations nocall:specification/@@auto-relations.html">
           <h3 id="data_specifications" i18n:translate="">Data specifications</h3>
           <h4 i18n:translate="">EEA data references</h4>
-          <ul tal:define="datasets python:datasetsView('Data')">
+          <ul tal:define="datasets python:datasetsView('Data') if datasetsView else []">
             <li tal:condition="python:not datasets" i18n:translate="">No datasets have been specified here.</li>
             <li tal:repeat="data datasets" tal:condition="python:datasets">
               <a href=""
@@ -196,7 +196,7 @@
             </li>
           </ul>
 
-          <tal:external define="datasets python:datasetsView('ExternalDataSpec')">
+          <tal:external define="datasets python:datasetsView('ExternalDataSpec') if datasetsView else []">
             <h4 tal:condition="python:datasets" i18n:translate="">External data references</h4>
             <ul tal:condition="python:datasets">
               <li tal:repeat="data datasets">

@@ -4,11 +4,11 @@
 		imsutils nocall:context/@@indicator_utils;
 		portal_url context/portal_url;
 		tooltip_macro context/indicators_macros/macros/tooltip;
-		related_view nocall:context/@@related_items;
+		related_view nocall:context/@@related_items|nothing;
 		also_reload python:['policy_context_area', 'data_spec_area'];
 
 		field python:context.schema['relatedItems'];
-		value python:related_view.get_uids();
+		value python:related_view.get_uids() if related_view else [];
 		fieldName string:relatedItems;
 		realFieldName string:relatedItems;
 		default_selected_tab string:eea-data;

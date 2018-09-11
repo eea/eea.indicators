@@ -3,6 +3,8 @@ Changelog
 
 14.5-dev0 - (unreleased)
 ---------------------
+* Bug fix: Fixed access to '@@related_items' for visible objects
+  [avoinea refs #98379]
 
 14.4 - (2018-09-05)
 ---------------------
