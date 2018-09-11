@@ -1,7 +1,7 @@
 Changelog
 =========
 
-14.5-dev0 - (unreleased)
+14.5 - (2018-09-11)
 ---------------------
 * Bug fix: Fixed access to '@@related_items' for visible objects
   [avoinea refs #98379]
