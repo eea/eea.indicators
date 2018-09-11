@@ -87,12 +87,12 @@ It may be that we can collapse the changes into the regular indicatorsrelations.
                 </tal:comment>
 
                 <script type="text/javascript" tal:content="structure string:
-                        jQuery(function($){
-                            $('.fieldErrorBox').each(function() {
-	                            if ($(this).text()) {
+                        jQuery(function(){
+                            jQuery('.fieldErrorBox').each(function() {
+	                            if (jQuery(this).text()) {
 	                                bootstrap_relations_widgets();
-	                                var meta = $('#${domIdWidget}').find('.metadata').eq(0);
-	                                var input = $('<input>', {
+	                                var meta = jQuery('#${domIdWidget}').find('.metadata').eq(0);
+	                                var input = jQuery('<input>', {
 	                                type: 'hidden',
 	                                name: 'active_region',
 	                                value: '${uid}'
@@ -101,11 +101,11 @@ It may be that we can collapse the changes into the regular indicatorsrelations.
 	                            }
                             });
 
-                            $('.fieldErrorBox').each(function() {
-                            	var error_text = $(this).text();
-                            	if (error_text.indexOf('Assessment is required, please correct.') >= 0) {
-                            		$(this).html('Fill in the Assessment field below before choosing the related items. <br /><br />');
-                            	}
+                            jQuery('.fieldErrorBox').each(function() {
+                              var error_text = jQuery(this).text();
+                              if (error_text.indexOf('Assessment is required, please correct.') >= 0) {
+                                jQuery(this).html('Fill in the Assessment field below before choosing the related items. <br /><br />');
+                              }
                             });
                         });
                     ">

@@ -4,9 +4,9 @@
                       imsutils nocall:context/@@indicator_utils;
                       tooltip_macro context/indicators_macros/macros/tooltip;
                       portal_url context/portal_url;
-                      related_view nocall:context/@@related_items;
+                      related_view nocall:context/@@related_items|nothing;
 
-                      values python:related_view(['Data', 'ExternalDataSpec']);
+                      values python:related_view(['Data', 'ExternalDataSpec']) if related_view else [];
                       fieldname string:relatedItems;
                       selected_tab string:$fieldname-eea-data">
 

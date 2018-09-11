@@ -105,8 +105,9 @@
         <metal:uncertainties use-macro="specification/@@view/macros/uncertainties-part" />
 
       <h3 id="data_specifications" i18n:translate="">Data sources</h3>
-      <ul tal:define="datasetsView nocall:specification/@@related_items;
-        datasets python:datasetsView('Data'); extdatasets python:datasetsView('ExternalDataSpec')">
+      <ul tal:define="datasetsView nocall:specification/@@related_items|nothing;
+                      datasets python:datasetsView('Data') if datasetsView else [];
+                      extdatasets python:datasetsView('ExternalDataSpec') if datasetsView else []">
         <li tal:repeat="data datasets" tal:condition="python:datasets">
           <a href=""
             tal:attributes="href string:${context/portal_url}/ds_resolveuid/${data/@@getVersions/versionId}"

@@ -1,6 +1,11 @@
 Changelog
 =========
 
+14.5 - (2018-09-11)
+---------------------
+* Bug fix: Fixed access to '@@related_items' for visible objects
+  [avoinea refs #98379]
+
 14.4 - (2018-09-05)
 ---------------------
 * Change: Remove unused call to Google Maps API
