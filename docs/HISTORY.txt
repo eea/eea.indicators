@@ -1,7 +1,7 @@
 Changelog
 =========
 
-14.6-dev0 - (unreleased)
+14.6 - (2018-10-10)
 ---------------------
 * Bug fix: Fixed 'invalidateall' failure when publishling indicators
   [avoinea refs #99303]
