@@ -3,6 +3,8 @@ Changelog
 
 14.6-dev0 - (unreleased)
 ---------------------
+* Bug fix: Fixed 'invalidateall' failure when publishling indicators
+  [avoinea refs #99303]
 
 14.5 - (2018-09-11)
 ---------------------
