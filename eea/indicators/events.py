@@ -30,11 +30,11 @@ def syncWorkflowStateRelatedFigures(context, dest_state):
             transitions = workflow.transitions
             for transition in wftool.getTransitionsFor(figure):
                 tid = transition.get('id')
-                tobj = transitions.get(tid)
-                if not tobj:
+                tob = transitions.get(tid)
+                if not tob:
                     continue
 
-                if tobj.new_state_id != dest_state:
+                if tob.new_state_id != dest_state:
                     continue
 
                 figure.setEffectiveDate(context.getEffectiveDate())
