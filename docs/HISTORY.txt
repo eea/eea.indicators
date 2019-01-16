@@ -1,6 +1,9 @@
 Changelog
 =========
 
+14.8-dev0 - (unreleased)
+---------------------
+
 14.7 - (2019-01-16)
 ------------------------
 * Bug fix: patch jQuery ui dialog in order to avoid incompatibility with TinyMCE
