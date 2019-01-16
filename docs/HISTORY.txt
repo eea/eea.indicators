@@ -2,7 +2,10 @@ Changelog
 =========
 
 14.7-dev0 - (unreleased)
----------------------
+------------------------
+* Bug fix: patch jQuery ui dialog in order to avoid incompatibility with TinyMCE
+  when used inside the dialog
+  [ichim-david refs #101246]
 
 14.6 - (2018-10-10)
 ---------------------
