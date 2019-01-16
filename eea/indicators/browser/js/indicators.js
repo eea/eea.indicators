@@ -74,7 +74,7 @@ function set_sortables() {
 })(jQuery);
 }
 
-function init_tinymce(){
+function init_tinymce(el){
   // init tinymce edit fields
   var config = {
       'theme_advanced_buttons1': "save,style,bold,italic,justifyleft,justifycenter," +
@@ -113,7 +113,8 @@ function init_tinymce(){
         ]
 
   };
-  window.initTinyMCE(document, config);
+  
+  window.initTinyMCE(el);
   return ;      //plone43
 }
 
@@ -122,6 +123,7 @@ function ajaxify(el){
   // This will make a form submit and resubmit itself using AJAX
 
 (function($) {
+  // debugger;
   init_tinymce(el);
 
   $("form", el).submit(
@@ -461,6 +463,37 @@ function dialog_edit(url, title, callback, options){
   var target = $('#dialog_edit_target');
   $("#dialog-inner").remove();     // temporary, apply real fix
   $(target).append("<div id='dialog-inner'></div>");
+  
+  // #101246 address bug of jquery ui dialog and tinyMCE focus call
+  $.widget( "ui.dialog", $.ui.dialog, {
+    _allowInteraction: function(event) {
+      
+      if (this._super(event)) {
+        return true;
+      }
+  
+      // address interaction issues with general iframes with the dialog
+      if (event.target.ownerDocument != this.document[0]) {
+        return true;
+      }
+  
+      // address interaction issues with dialog window
+      if ($(event.target).closest(".mce-window").length) {
+        return true;
+      }
+      
+      // address interaction issues with dialog window
+      if (event.target.tagName === "IFRAME") {
+        return true;
+      }
+  
+      // address interaction issues with PLONE tinyMCE style selection
+      if ($(event.target).hasClass("ploneSkin")) {
+        return true;
+      }
+    }
+  });
+
   window.onbeforeunload = null; // this disables the form unloaders
   $("#dialog-inner").dialog({
     modal:true,
