@@ -3,6 +3,8 @@ Changelog
 
 14.9-dev0 - (unreleased)
 ---------------------
+* Change: Collapse indicator metadata via accordion
+  [demarant]
 
 14.8 - (2019-01-28)
 ---------------------
