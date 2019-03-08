@@ -1,6 +1,11 @@
 Changelog
 =========
 
+14.9 - (2019-03-08)
+---------------------
+* Change: Collapse indicator metadata via accordion
+  [demarant]
+
 14.8 - (2019-01-28)
 ---------------------
 * Jenkins: Add sonarqube step
