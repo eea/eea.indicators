@@ -3,6 +3,8 @@ Changelog
 
 15.0-dev0 - (unreleased)
 ---------------------
+* Change: font size tweaks after base font increase
+  [ichim-david refs #106884]
 
 14.9 - (2019-03-08)
 ---------------------

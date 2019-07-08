@@ -20,7 +20,7 @@
 
 .box-column-right {
    float:right;
-   width: 48%;
+   width: 50%;
 }
 
 .clear {
