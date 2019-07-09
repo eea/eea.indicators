@@ -33,7 +33,7 @@
                         tal:condition="python:manager_ob"
                         title="Contact indicator manager"
                         i18n:attributes="title"
-                        tal:attributes="href string:http://www.eionet.europa.eu/sitedirsearch?name=${manager_ob/username}"
+                        tal:attributes="href string:https://www.eionet.europa.eu/sitedirsearch?name=${manager_ob/username}"
                         tal:content="manager_ob/fullname">Contact</a>
                       <p tal:condition="python:not manager_ob">
                         <span i18n:translate="">User not found:</span>

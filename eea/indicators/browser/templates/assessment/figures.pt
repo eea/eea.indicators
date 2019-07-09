@@ -1,4 +1,5 @@
-<tal:figures define="objects python:path('nocall:context/@@related_items')(['EEAFigure', 'DavizVisualization', 'GIS Application']);
+<tal:figures define="related_view nocall:context/@@related_items|nothing;
+                     objects python:related_view(['EEAFigure', 'DavizVisualization', 'GIS Application']) if related_view else [];
                      isAssessment python: context.portal_type == 'AssessmentPart';
                      isAnon context/@@plone_portal_state/anonymous;
                      isPrint python:1 if 'pdf.' in request['URL0'] else 0;">

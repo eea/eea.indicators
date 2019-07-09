@@ -22,39 +22,38 @@ def syncWorkflowStateRelatedFigures(context, dest_state):
             figState = wftool.getInfoFor(figure, 'review_state')
 
             # ignore already published figures
-            if figState != dest_state and figState != 'published':
+            if figState in (dest_state, 'published'):
+                return
 
-                # get possible transitions for object in current state
+            # get possible transitions for object in current state
+            workflow = wftool.getWorkflowsFor(figure)[0]
+            transitions = workflow.transitions
+            for transition in wftool.getTransitionsFor(figure):
+                tid = transition.get('id')
+                tob = transitions.get(tid)
+                if not tob:
+                    continue
 
-                workflow = wftool.getWorkflowsFor(figure)[0]
-                transitions = workflow.transitions
-                available_transitions = [transitions[i['id']] for i in
-                                         wftool.getTransitionsFor(figure)]
+                if tob.new_state_id != dest_state:
+                    continue
 
-                to_do = [k for k in available_transitions
-                         if k.new_state_id == dest_state]
-
-                if not to_do:
-                    context_state = wftool.getInfoFor(context, 'review_state',
-                                                      'UNKNOWN')
-                    err = """
-                        <p>The related figure %s cannot reach the destination
-                           worklfow state <strong>%s</strong>.</p>
-                        <p>You need to change the workflow state of this figure
-                           to a state that has a transition to
-                           <strong>%s</strong>.</p>
-                        """ % (figure.absolute_url(),
-                               dest_state,
-                               context_state)
-                    IStatusMessage(context.REQUEST).add(err, 'error')
-                    raise ValueError(err)
-
-                # find transition that brings to the state of parent object
-                for item in to_do:
-                    figure.setEffectiveDate(context.getEffectiveDate())
-                    workflow.doActionFor(figure, item.id, comment=comment)
-                    figure.reindexObject()
-                    break
+                figure.setEffectiveDate(context.getEffectiveDate())
+                workflow.doActionFor(figure, tid, comment=comment)
+                figure.reindexObject()
+                break
+            else:
+                # State not changed
+                context_state = wftool.getInfoFor(
+                    context, 'review_state', 'UNKNOWN')
+                err = """
+                    <p>The related figure %s cannot reach the destination
+                       worklfow state <strong>%s</strong>.</p>
+                    <p>You need to change the workflow state of this figure
+                       to a state that has a transition to
+                       <strong>%s</strong>.</p>
+                    """ % (figure.absolute_url(), dest_state, context_state)
+                IStatusMessage(context.REQUEST).add(err, 'error')
+                raise ValueError(err)
 
 
 def handle_assessment_state_change(context, event):

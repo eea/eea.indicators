@@ -8,7 +8,8 @@ class KeyMessages(BrowserView):
     its key message to be displayed in the question view """
 
     def get_versions(self):
-        related = [rel for rel in self.context.getBRefs() if rel is not None]
+        related = [rel for rel in self.context.getBRefs('relatesTo')
+                   if rel is not None]
         if related:
             related = related[0]
             return queryAdapter(related, IGetVersions)
@@ -31,5 +32,6 @@ class KeyMessages(BrowserView):
     def assessment_date(self):
         versions = self.get_versions()
         if versions:
-            return self.context.toLocalizedTime(
-                self.get_assessment().effective())
+            adate = self.get_assessment().effective()
+            if getattr(adate, 'year', lambda: 1000)() >= 1900:
+                return self.context.toLocalizedTime(adate)

@@ -1,10 +1,92 @@
 Changelog
 =========
 
-13.5 - (2018-01-26)
+15.0-dev0 - (unreleased)
+---------------------
+* Change: font size tweaks after base font increase
+  [ichim-david refs #106884]
+
+14.9 - (2019-03-08)
+---------------------
+* Change: Collapse indicator metadata via accordion
+  [demarant]
+
+14.8 - (2019-01-28)
+---------------------
+* Jenkins: Add sonarqube step
+  [avoinea refs #101552]
+
+14.7 - (2019-01-16)
+------------------------
+* Bug fix: patch jQuery ui dialog in order to avoid incompatibility with TinyMCE
+  when used inside the dialog
+  [ichim-david refs #101246]
+
+14.6 - (2018-10-10)
+---------------------
+* Bug fix: Fixed 'invalidateall' failure when publishling indicators
+  [avoinea refs #99303]
+
+14.5 - (2018-09-11)
+---------------------
+* Bug fix: Fixed access to '@@related_items' for visible objects
+  [avoinea refs #98379]
+
+14.4 - (2018-09-05)
+---------------------
+* Change: Remove unused call to Google Maps API
+  [avoinea refs #98073]
+* Change: fixed the usage of BeautifulSoup
+  [alecghica refs #96974]
+
+14.3 - (2018-07-25)
+---------------------
+* Bug fix: Fix policyquestion_view when effective_date is missing
+  [avoinea refs #97095]
+
+14.2 - (2018-06-20)
+---------------------
+* Change: updated URLs pointing to eea.europa.eu with https://
+  [alecghica refs #95849]
+
+14.1 - (2018-05-30)
+---------------------
+* Bug fix: Restrict getBRefs only to related items
+  [avoinea refs #95796]
+
+14.0 - (2018-05-28)
+---------------------
+* Change: do not show management plan code for anonymous.
+  [demarant refs #95846]
+
+13.9 - (2018-04-27)
+---------------------
+* Bug fix: fixed dialog scrolling when clicking on titles found in
+  popups
+  [ichim-david refs #94182]
+
+13.8 - (2018-04-12)
 -------------------
+* Change: reference customized jqueryui within assessment pages
+  [ichim-david refs #91577]
+* Bug fix: fixed the error messages on Assessment Part inline editing.
+  [alecghica refs #94673]
+
+13.7 - (2018-03-14)
+-------------------
+* Change: reference customized jqueryui within assessment pages
+  [ichim-david refs #91577]
 * Bug fix: avoid IndicatorFactSheet edit error when readiness js is missing
   [ichim-david refs #91577]
+
+13.6 - (2018-02-27)
+-------------------
+* Bug fix: fixed check for viewing permission of anonymous users when we have
+  figures added within assessment view
+  [ichim-david refs #93369]
+
+13.5 - (2018-01-26)
+-------------------
 * Change: cleanup test modules and updated package structure
   [alecghica refs #92027]
 * Upgrade step: Within "Plone > Site setup > Add-ons" click on
@@ -569,7 +651,7 @@ Changelog
   and set the ExternalDataSpec as factory type
   [tiberich #14467]
 * Upgrade Step:
-    * go to http://www.eea.europa.eu/aq_parent/portal_actions/object_buttons/create_version/manage_propertiesForm
+    * go to https://www.eea.europa.eu/aq_parent/portal_actions/object_buttons/create_version/manage_propertiesForm
     * Change the "Condition (Expression)" to: python: object.restrictedTraverse('@@can_version')()
     * [tiberich #14361]
 * Feature: added a new compound field, frequency_of_updates
@@ -1366,4 +1448,3 @@ Changelog
 ------------------
 * Initial release
   [ghicaale]
-
