@@ -3,6 +3,9 @@ Changelog
 
 15.0-dev0 - (unreleased)
 ---------------------
+* Bug fix: uncatalog Assessment and WorkItems after removing them from a
+  new version creation of a Specification
+  [ichim-david refs #107760]
 * Change: font size tweaks after base font increase
   [ichim-david refs #106884]
 

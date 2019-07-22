@@ -4,6 +4,7 @@
 
 import logging
 
+import transaction
 from zope.interface import implements
 from zope.component import getMultiAdapter
 from DateTime import DateTime
@@ -24,7 +25,6 @@ from eea.workflow.interfaces import IFieldIsRequiredForState, IValueProvider
 from eea.workflow.readiness import ObjectReadiness
 from plone.app.layout.globals.interfaces import IViewView
 
-#from zope.interface import alsoProvides
 __author__ = """European Environment Agency (EEA)"""
 __docformat__ = 'plaintext'
 __credits__ = """contributions: Alec Ghica, Tiberiu Ichim"""
@@ -110,8 +110,17 @@ def create_version(original, request=None):
     new_spec.setEffectiveDate(None)
 
     #Delete assessments and work items
-    new_spec.manage_delObjects(ids=new_spec.objectIds('Assessment'))
-    new_spec.manage_delObjects(ids=new_spec.objectIds('WorkItem'))
+    assessments_ids = new_spec.objectIds('Assessment')
+    assessments_values = new_spec.objectValues('Assessment')
+    assesments_urls = ["/".join(w.getPhysicalPath()) for w in
+                       assessments_values]
+    new_spec.manage_delObjects(ids=assessments_ids)
+
+    workitems_ids = new_spec.objectIds('WorkItem')
+    workitems_values = new_spec.objectValues('WorkItem')
+    workitems_urls = ["/".join(w.getPhysicalPath()) for w in workitems_values]
+    assesments_urls.extend(workitems_urls)
+    new_spec.manage_delObjects(ids=workitems_ids)
 
     #ZZZ: should we reindex the objects here?
     for obj in new_spec.objectValues():
@@ -121,6 +130,14 @@ def create_version(original, request=None):
     new_spec.reindexObject()
     original.reindexObject() #some indexed values of the context may
                              #depend on versions
+
+    # 107760 we need to commit first the reindexing then uncatalog the
+    # urls of Assessment and WorkItems otherwise they remain in catalog after
+    # specification creation
+    transaction.commit()
+    for url in assesments_urls:
+        new_spec.portal_catalog.uncatalog_object(url)
+
     return new_spec
 
 
