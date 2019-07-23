@@ -1,6 +1,9 @@
 Changelog
 =========
 
+15.1-dev0 - (unreleased)
+---------------------
+
 15.0 - (2019-07-22)
 ---------------------
 * Bug fix: uncatalog Assessment and WorkItems after removing them from a
