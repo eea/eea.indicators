@@ -1,6 +1,14 @@
 Changelog
 =========
 
+15.0 - (2019-07-22)
+---------------------
+* Bug fix: uncatalog Assessment and WorkItems after removing them from a
+  new version creation of a Specification
+  [ichim-david refs #107760]
+* Change: font size tweaks after base font increase
+  [ichim-david refs #106884]
+
 14.9 - (2019-03-08)
 ---------------------
 * Change: Collapse indicator metadata via accordion

@@ -14,13 +14,14 @@
 }
 
 .box-column-left {
-   float:left;
-   width: 48%;
+    float:left;
+    width: 48%;
+    margin-bottom: 1em;
 }
 
 .box-column-right {
    float:right;
-   width: 48%;
+   width: 50%;
 }
 
 .clear {
@@ -255,10 +256,6 @@ ul.sortable_spec {
     border:none;
     color: #333;
     text-shadow: 0 1px 1px #fff;
-}
-
-#assessment-versions {
-    margin-top: 70px;
 }
 
 /* Assessment view
