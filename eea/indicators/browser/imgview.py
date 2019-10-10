@@ -13,30 +13,35 @@ class ImageViewAssessment(BrowserView):
     """ Get cover image from related EEAFigure of its AssessmentParts
     """
     implements(IImageView)
+    _img = False
 
-    def __init__(self, context, request):
-        wftool = getToolByName(context, 'portal_workflow')
-        super(ImageViewAssessment, self).__init__(context, request)
+    @property
+    def img(self):
+        """ self.img
+        """
+        if self._img is False:
+            wftool = getToolByName(self.context, 'portal_workflow')
+            assessments = self.context.get_assessments()
+            assessments_list = []
+            assessments_list.append(assessments['key'])
+            assessments_list.extend(assessments['secondary'])
 
-        eeafile = None
-        assessments = context.get_assessments()
-        assessments_list = []
-        assessments_list.append(assessments['key'])
-        assessments_list.extend(assessments['secondary'])
-
-        for assessment in assessments_list:
-            if not assessment:
-                continue
-            for rel_ob in assessment.getRelatedItems():
-                if rel_ob.portal_type in ('EEAFigure', 'DavizVisualization'):
-                    state = wftool.getInfoFor(rel_ob,
-                                              'review_state',
-                                              '(Unknown)')
-                    if state in ['published', 'visible']:
-                        eeafile = rel_ob
-                        break
-
-        self.img = queryMultiAdapter((eeafile, request), name=u'imgview')
+            eeafile = None
+            for assessment in assessments_list:
+                if not assessment:
+                    continue
+                for rel_ob in assessment.getRelatedItems():
+                    if rel_ob.portal_type in (
+                        'EEAFigure', 'DavizVisualization'):
+                        state = wftool.getInfoFor(rel_ob,
+                                                'review_state',
+                                                '(Unknown)')
+                        if state in ['published', 'visible']:
+                            eeafile = rel_ob
+                            break
+            self._img = queryMultiAdapter(
+                (eeafile, self.request), name=u'imgview')
+        return self._img
 
     def display(self, scalename='thumb'):
         """ display """
@@ -54,23 +59,25 @@ class ImageViewIndicatorFactSheet(BrowserView):
     """ Get cover image from related EEAFigure
     """
     implements(IImageView)
+    _img = False
 
-    def __init__(self, context, request):
-        wftool = getToolByName(context, 'portal_workflow')
-
-        super(ImageViewIndicatorFactSheet, self).__init__(context, request)
-
-        eeafile = None
-        for rel_ob in context.getRelatedItems():
-            if not rel_ob:
-                continue
-            if rel_ob.portal_type in ('EEAFigure', 'DavizVisualization'):
-                state = wftool.getInfoFor(rel_ob, 'review_state', '(Unknown)')
-                if state in ['published', 'visible']:
-                    eeafile = rel_ob
-                    break
-
-        self.img = queryMultiAdapter((eeafile, request), name=u'imgview')
+    @property
+    def img(self):
+        """ self.img
+        """
+        if self._img is False:
+            wftool = getToolByName(self.context, 'portal_workflow')
+            eeafile = None
+            for rel_ob in self.context.getRelatedItems():
+                if not rel_ob:
+                    continue
+                if rel_ob.portal_type in ('EEAFigure', 'DavizVisualization'):
+                    state = wftool.getInfoFor(rel_ob, 'review_state', '(Unknown)')
+                    if state in ['published', 'visible']:
+                        eeafile = rel_ob
+                        break
+            self._img = queryMultiAdapter((eeafile, self.request), name=u'imgview')
+        return self._img
 
     def display(self, scalename='thumb'):
         """ display """
