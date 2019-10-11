@@ -11,6 +11,7 @@ setup(
  name=NAME,
  version=VERSION,
  description="EEA Indicators",
+ long_description_content_type="text/x-rst"
  long_description=open("README.rst").read() + "\n" +
                   open(os.path.join("docs", "HISTORY.txt")).read(),
  url="https://github.com/eea/eea.indicators",
