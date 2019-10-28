@@ -3,6 +3,8 @@ Changelog
 
 15.2-dev0 - (unreleased)
 ---------------------------
+* Change: removed the <base> tag
+  [alecghica refs #106535]
 
 15.1 - (2019-10-10)
 --------------------------
