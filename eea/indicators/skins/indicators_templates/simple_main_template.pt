@@ -1,10 +1,6 @@
 <metal:page define-macro="master">
 	<metal:block define-slot="top_slot" />
 
-	<metal:baseslot define-slot="base">
-		<base href="" tal:attributes="href context/@@plone/renderBase" />
-	</metal:baseslot>
-
 	<metal:noborder tal:define="dummy python:request.set('disable_border',1)" />
 	<metal:headslot define-slot="head_slot" />
 	<metal:cssslot define-slot="css_slot" />

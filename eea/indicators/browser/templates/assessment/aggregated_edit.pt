@@ -4,10 +4,6 @@
 
   <metal:block use-macro="here/global_defines/macros/defines" />
 
-  <metal:baseslot fill-slot="base">
-    <base href="" tal:attributes="href context/@@plone/renderBase" />
-  </metal:baseslot>
-
   <metal:jsslot fill-slot="javascript_head_slot">
       <script type="text/javascript"
                tal:attributes="src string:${portal_url}/++resource++eea.tags.js"></script>

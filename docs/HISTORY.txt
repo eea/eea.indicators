@@ -1,6 +1,11 @@
 Changelog
 =========
 
+15.2 - (2019-10-28)
+---------------------------
+* Change: removed the <base> tag
+  [alecghica refs #106535]
+
 15.1 - (2019-10-10)
 --------------------------
 * Bug fix: Optimize imgview adapters by moving code from __init__
