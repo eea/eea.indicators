@@ -123,7 +123,6 @@ function ajaxify(el){
   // This will make a form submit and resubmit itself using AJAX
 
 (function($) {
-  // debugger;
   init_tinymce(el);
 
   $("form", el).submit(
@@ -661,7 +660,7 @@ function set_edit_buttons() {
 
 (function($) {
   $('.active_field .control a').disableSelection();
-  $('.active_field').on('click', ' .control a', function(){
+  $('body').on('click', ' .control a', function(){
 
     // check if the control belongs in a disabled region
     var is_disabled = $(this).parents('.active_region').hasClass('disabled');
