@@ -1,6 +1,11 @@
 Changelog
 =========
 
+15.3 - (2020-02-28)
+---------------------------
+* Change: use on instead of live since jquery 3.4 no longer has live present
+  [ichim-david refs #105112]
+
 15.2 - (2019-10-28)
 ---------------------------
 * Change: removed the <base> tag

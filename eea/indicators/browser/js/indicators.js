@@ -123,7 +123,6 @@ function ajaxify(el){
   // This will make a form submit and resubmit itself using AJAX
 
 (function($) {
-  // debugger;
   init_tinymce(el);
 
   $("form", el).submit(
@@ -320,17 +319,18 @@ function set_actives(){
 
   // make the Cancel link from dialogs close the form
 (function($) {
-  $("#dialog-inner .cancel-btn").live('click', function(){
+  $("#dialog-inner").on('click', '.cancel-btn', function(){
     $("#dialog-inner").dialog("close");
     return false;
   });
 
   // make the controls appear on the active fields, on hover
-  $(".active_field").live('mouseover', function(){
+  $("body").on('mouseover', ".active_field", function(){
     $(this).addClass("active_field_hovered");
     return false;
   });
-  $(".active_field").live('mouseout', function(){
+
+  $("body").on('mouseout', ".active_field", function(){
     $(this).removeClass("active_field_hovered");
     return false;
   });
@@ -631,7 +631,7 @@ function set_editors(){
   // Set handlers for Edit (full schemata) buttons
 
 (function($) {
-  $('a.schemata_edit').live('click', function(){
+  $('body').on('click', '.schemata_edit', function(){
     block_ui();
     var link = $(this).attr('href');
     var title = $(this).attr('title');
@@ -660,7 +660,7 @@ function set_edit_buttons() {
 
 (function($) {
   $('.active_field .control a').disableSelection();
-  $('.active_field .control a').live('click', function(){
+  $('body').on('click', ' .control a', function(){
 
     // check if the control belongs in a disabled region
     var is_disabled = $(this).parents('.active_region').hasClass('disabled');
@@ -705,7 +705,7 @@ function set_creators(){
   // Set handlers for Create buttons
 
 (function($) {
-  $('a.object_creator').live('click', function(){
+  $('body').on('click', '.object_creator',  function(){
     block_ui();
     var link = $(this).attr('href');
     var is_direct_edit = $(this).hasClass('direct_edit');
@@ -786,7 +786,7 @@ function set_deleters(){
   // Set handlers for Delete buttons
 
 (function($) {
-  $('a.object_delete').live('click', function(){
+  $('body').on('click', '.object_delete', function(){
     block_ui();
     var link = $(this).attr('href');
     var region = $(this).parents(".active_region")[0];

@@ -33,7 +33,7 @@
             }
         });
         jQuery(".embedded-daviz-visualization").find("select.formTabs").bind("change", function(){
-            var embedded_obj = jQuery("#fieldset-"+jQuery(this).attr("value").substr(15)).find(".googlechart_dashboard")
+            var embedded_obj = jQuery("#fieldset-"+jQuery(this).prop("value").substr(15)).find(".googlechart_dashboard")
             if ((embedded_obj.length === 0) || (embedded_obj[0].innerHTML.trim().length != 0)){
                 return;
             }
