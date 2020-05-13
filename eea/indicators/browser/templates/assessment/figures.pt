@@ -115,7 +115,7 @@
                                 <p>
                                     <a tal:attributes="href obj/absolute_url" class="standardButton">
                                         <span class="eea-icon eea-icon-eye"></span>
-                                        <span i18n:translate="">Explore map interactively</span>
+                                        <span i18n:translate="">More info</span>
                                     </a>
                                 </p>
                             </tal:block>
