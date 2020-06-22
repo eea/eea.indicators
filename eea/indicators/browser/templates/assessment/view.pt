@@ -134,9 +134,9 @@
         <li tal:condition="python:(not extdatasets and not datasets)" i18n:translate="">No datasets have been specified.</li>
       </ul>
 
-        <div id="box-metadata" class="clearfix eea-accordion-panels collapsed-by-default non-exclusive">
+        <div id="box-metadata" class="clearfix eea-accordion-panels eea-accordion-panels-plain collapsed-by-default non-exclusive">
         <div class="eea-accordion-panel">
-            <h2 i18n:translate="" class="notoc eea-icon-right-container">Metadata</h2>
+            <h2 i18n:translate="" class="notoc eea-accordion-title eea-icon-left-container">Metadata</h2>
             <div class="pane">
             <div class="box-column-left">
                 <tal:block define="themesView specification/@@themes-object|nothing;
