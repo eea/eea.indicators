@@ -1,6 +1,9 @@
 Changelog
 =========
 
+15.5-dev0 - (unreleased)
+---------------------------
+
 15.4 - (2020-06-23)
 ---------------------------
 * Change: metadata accordion redesign to the new article style
