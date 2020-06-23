@@ -1,6 +1,11 @@
 Changelog
 =========
 
+15.4 - (2020-06-23)
+---------------------------
+* Change: metadata accordion redesign to the new article style
+  [ichim-david refs #117295]
+
 15.3 - (2020-02-28)
 ---------------------------
 * Change: use on instead of live since jquery 3.4 no longer has live present
