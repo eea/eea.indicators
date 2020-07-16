@@ -136,7 +136,7 @@
 
         <div id="box-metadata" class="clearfix eea-accordion-panels eea-accordion-panels-plain collapsed-by-default non-exclusive">
         <div class="eea-accordion-panel">
-            <h2 i18n:translate="" class="notoc eea-accordion-title eea-icon-left-container">Metadata</h2>
+            <h2 i18n:translate="" class="notoc eea-accordion-title eea-icon-left-container">Other info</h2>
             <div class="pane">
             <div class="box-column-left">
                 <tal:block define="themesView specification/@@themes-object|nothing;
@@ -222,7 +222,15 @@
                                      title="Contact indicator manager"
                                           i18n:attributes="title"
                                           tal:attributes="href string:https://www.eionet.europa.eu/users/${manager_ob/username}"
-                                          tal:content="manager_ob/fullname">Contact</a>
+                                          tal:content="manager_ob/fullname"
+                                          tal:condition="not:context/@@plone_portal_state/anonymous">Contact</a>
+                                  <a href=""
+                                          tal:condition="python:manager_ob"
+                                     title="Contact indicator manager"
+                                          i18n:attributes="title"
+                                          tal:attributes="href string:mailto:info@eea.europa.eu"
+                                          tal:content="string:info@eea.europa.eu"
+                                          tal:condition="context/@@plone_portal_state/anonymous">Contact</a>
                                   <p tal:condition="python:not manager_ob">
                                       <span i18n:translate="">User not found:</span>
                                       <tal:manager_id tal:content="manager_id" />
