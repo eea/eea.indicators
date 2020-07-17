@@ -46,6 +46,16 @@
             }
         });
 
+        // Tweaks
+        // move other info accordion with the other accordions
+        jQuery('.mini-header-below-content').append(jQuery('.other-info-accordion'));
+        jQuery('#box-metadata').hide();
+
+        // set the page with from full to 3:4
+        document.getElementById('portal-column-content').className = 'width-3:4';
+
+        // modify figure image sizes
+        jQuery('.indicator-figure-image a').addClass('max-container-centered');
     });
   </script>
 
@@ -133,36 +143,35 @@
         </li>
         <li tal:condition="python:(not extdatasets and not datasets)" i18n:translate="">No datasets have been specified.</li>
       </ul>
-
         <div id="box-metadata" class="clearfix eea-accordion-panels eea-accordion-panels-plain collapsed-by-default non-exclusive">
-        <div class="eea-accordion-panel">
+        <div class="eea-accordion-panel other-info-accordion">
             <h2 i18n:translate="" class="notoc eea-accordion-title eea-icon-left-container">Other info</h2>
             <div class="pane">
             <div class="box-column-left">
-                <tal:block define="themesView specification/@@themes-object|nothing;
-                                   themes themesView/full_items;
-                                   primaryTheme python:themes and themes[0] or None">
-                    <strong i18n:translate="">Topics</strong>:<br /><br />
-                    <tal:themes condition="python:primaryTheme">
-                        <div id="themes-tags">
-                            <tal:values repeat="theme themes">
-                               <span>
-                                    <a class="link-category" rel="tag"
-                                       tal:define="theme_title python:theme['title'];
-                                                   theme_url python:theme['url']"
-                                       tal:attributes="title theme_title;
-                                                       href theme_url"
-                                       tal:content="theme_title"></a>
-                                    <span class="separator" tal:condition="not:repeat/theme/end">,</span>
-                                </span>
-                            </tal:values>
-                        </div>
-                    </tal:themes>
-                </tal:block>
+                <!--<tal:block define="themesView specification/@@themes-object|nothing;-->
+                <!--                   themes themesView/full_items;-->
+                <!--                   primaryTheme python:themes and themes[0] or None">-->
+                <!--    <strong i18n:translate="">Topics</strong>:<br /><br />-->
+                <!--    <tal:themes condition="python:primaryTheme">-->
+                <!--        <div id="themes-tags">-->
+                <!--            <tal:values repeat="theme themes">-->
+                <!--               <span>-->
+                <!--                    <a class="link-category" rel="tag"-->
+                <!--                       tal:define="theme_title python:theme['title'];-->
+                <!--                                   theme_url python:theme['url']"-->
+                <!--                       tal:attributes="title theme_title;-->
+                <!--                                       href theme_url"-->
+                <!--                       tal:content="theme_title"></a>-->
+                <!--                    <span class="separator" tal:condition="not:repeat/theme/end">,</span>-->
+                <!--                </span>-->
+                <!--            </tal:values>-->
+                <!--        </div>-->
+                <!--    </tal:themes>-->
+                <!--</tal:block>-->
 
-                <tal:tags define="facetId string:c9">
-                    <metal:related use-macro="here/dataset_view/macros/tags" />
-                </tal:tags>
+                <!--<tal:tags define="facetId string:c9">-->
+                <!--    <metal:related use-macro="here/dataset_view/macros/tags" />-->
+                <!--</tal:tags>-->
                 <div class="visualClear"><!-- --></div>
                 <strong i18n:translate="">DPSIR</strong>: <span tal:define="dpsirLabel nocall:context/@@dpsir_label"
                     tal:replace="python:dpsirLabel(context.getDpsir())" />
@@ -177,32 +186,32 @@
                         <li tal:repeat="code codes" tal:content="string:${code/set} ${code/code}">CSI 001</li>
                     </ul>
                 </div>
-                <metal:related use-macro="context/temporal_macros/macros/temporal-coverage-data" />
-                <metal:related use-macro="context/geotags_macros/macros/geotags-listing" />
+                <!--<metal:related use-macro="context/temporal_macros/macros/temporal-coverage-data" />-->
+                <!--<metal:related use-macro="context/geotags_macros/macros/geotags-listing" />-->
             </div>
             <div id="timestamps-info" class="clearfix">
-                      <div class="box-column-left">
-                          <h4 i18n:translate="">Dates</h4>
+                      <!--<div class="box-column-left">-->
+                      <!--    <h4 i18n:translate="">Dates</h4>-->
             
-                          <div i18n:translate="" class="metadata_date">
-                              First draft created:
-                          </div>
-                          <div i18n:translate="" class="metadata_date">
-                              <metal:field i18n:name="creation-date" use-macro="python:context.widget('creation_date', mode='view')" />
-                          </div>
-                          <div i18n:translate="" class="metadata_date">
-                              Publish date:
-                          </div>
-                          <div i18n:translate="" class="metadata_date">
-                              <metal:field i18n:name="effective-date" use-macro="python:context.widget('effectiveDate', mode='view')" />
-                          </div>
-                          <div i18n:translate="" class="metadata_date">
-                              Last modified:
-                          </div>
-                          <div i18n:translate="" class="metadata_date">
-                              <metal:field i18n:name="modified-date" use-macro="python:context.widget('modification_date', mode='view')" />
-                          </div>
-                      </div>
+                      <!--    <div i18n:translate="" class="metadata_date">-->
+                      <!--        First draft created:-->
+                      <!--    </div>-->
+                      <!--    <div i18n:translate="" class="metadata_date">-->
+                      <!--        <metal:field i18n:name="creation-date" use-macro="python:context.widget('creation_date', mode='view')" />-->
+                      <!--    </div>-->
+                      <!--    <div i18n:translate="" class="metadata_date">-->
+                      <!--        Publish date:-->
+                      <!--    </div>-->
+                      <!--    <div i18n:translate="" class="metadata_date">-->
+                      <!--        <metal:field i18n:name="effective-date" use-macro="python:context.widget('effectiveDate', mode='view')" />-->
+                      <!--    </div>-->
+                      <!--    <div i18n:translate="" class="metadata_date">-->
+                      <!--        Last modified:-->
+                      <!--    </div>-->
+                      <!--    <div i18n:translate="" class="metadata_date">-->
+                      <!--        <metal:field i18n:name="modified-date" use-macro="python:context.widget('modification_date', mode='view')" />-->
+                      <!--    </div>-->
+                      <!--</div>-->
             
                       <div class="box-column-right">
                           <div tal:condition="context/should_show_frequency_of_updates">
