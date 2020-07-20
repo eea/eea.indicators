@@ -752,6 +752,35 @@ ul.token-input-list-facebook {
     display: none;
 }
 
+/* flex wrap for miniheader */
+@media (min-width: 1024px) {
+    .mini-header-below-content {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .mini-header-below-content > div {
+        display: flex;
+        flex-wrap: wrap;
+        flex: 1 0 46%;
+        /*flex: 1 0 40%;*/
+    }
+
+    .mini-header-below-content > div {
+        width: 100%;
+    }
+
+    .mini-header-below-content .eea-pdf-viewlet,
+    .mini-header-below-content .exclude-toc,
+    .mini-header-below-content .qrbox {
+        display: none !important;
+    }
+
+    .eea-accordion-title, .eea-accordion-panel > h2 {
+        width: 95% !important;
+    }
+}
+
 /* ==============proposed improvements ============*/
   
 /*

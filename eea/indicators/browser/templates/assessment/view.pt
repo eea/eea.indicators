@@ -56,6 +56,12 @@
 
         // modify figure image sizes
         jQuery('.indicator-figure-image a').addClass('max-container-centered');
+
+        // add correct title class to older versions accordion
+        jQuery('.eea-versions-portlet > h2').addClass('eea-accordion-title');
+
+        jQuery('.eea-versions-portlet > h2 > span').removeClass('eea-icon-right')
+        jQuery('.eea-versions-portlet > h2 > span').addClass('eea-icon-left')
     });
   </script>
 
