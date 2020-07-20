@@ -55,6 +55,7 @@
         document.getElementById('portal-column-content').className = 'width-3:4';
 
         // modify figure image sizes
+        jQuery('.indicator-figure-image').addClass('max-container-centered');
         jQuery('.indicator-figure-image a').addClass('max-container-centered');
 
         // add correct title class to older versions accordion

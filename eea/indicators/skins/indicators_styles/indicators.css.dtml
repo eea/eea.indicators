@@ -752,6 +752,19 @@ ul.token-input-list-facebook {
     display: none;
 }
 
+/* figure images sizes fixes */
+.max-container-centered.indicator-figure-image > * {
+    max-width: 1400px;
+}
+
+.indicator-figure-sources a.max-container-centered {
+    margin: 0;
+}
+
+.indicator-figure-image .standardButton.max-container-centered {
+    margin: 0;
+}
+
 /* flex wrap for miniheader */
 @media (min-width: 1024px) {
     .mini-header-below-content {
