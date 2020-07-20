@@ -765,6 +765,10 @@ ul.token-input-list-facebook {
     margin: 0;
 }
 
+.indicator-figure-image .standardButton.max-container-centered > * {
+    width: auto;
+}
+
 /* flex wrap for miniheader */
 @media (min-width: 1024px) {
     .mini-header-below-content {

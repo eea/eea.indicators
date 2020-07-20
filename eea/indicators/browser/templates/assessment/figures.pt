@@ -36,9 +36,9 @@
 
                     <div class="visualClear" ><!-- --></div>
                     <tal:description tal:define="figure_description obj/Description">
-                        <div class="box box--full box-secondary">
-                            <div class="">
-                                <p class="">
+                        <div class="googlechart-notes">
+                            <div class="googlecharts-note">
+                                <p class="callout">
                                     <strong i18n:translate="">Note: </strong>
                                     <span tal:condition="python:figure_description"
                                              tal:content="figure_description" />
@@ -99,9 +99,9 @@
                                 </p>
 
                                 <tal:description define="gis_description obj/Description">
-                                    <div class="box box--full box-secondary gis-notes">
-                                        <div class="">
-                                            <p class="">
+                                    <div class="googlechart-notes gis-notes">
+                                        <div class="googlecharts-note">
+                                            <p class="callout">
                                                 <strong i18n:translate="">Note: </strong>
                                                 <span tal:condition="python:gis_description"
                                                          tal:content="gis_description" />
@@ -184,9 +184,9 @@
                                                 </tal:comment>
                                                 <tal:chart_notes tal:define="notes_view nocall:obj/chart-notes|nothing;" tal:condition="notes_view">
                                                     <div tal:define="figure_description python:notes_view(chart_id)">
-                                                        <div class="box box--full box-secondary">
-                                                            <div class="">
-                                                                <p class="">
+                                                        <div class="googlechart-notes">
+                                                            <div class="googlecharts-note">
+                                                                <p class="callout">
                                                                     <strong i18n:translate="">Note: </strong>
                                                                     <tal:rep tal:repeat="info figure_description">
                                                                         <span tal:content="structure info/text" />
@@ -235,9 +235,9 @@
                                                             src string:${obj/absolute_url}/image_landscape" />
                                         </a>
                                         <div class="visualClear"><!-- --></div>
-                                        <div class="box box--full box-secondary">
-                                            <div class="">
-                                                <p class="" tal:define="figure_description obj/Description">
+                                        <div class="googlechart-notes">
+                                            <div class="googlecharts-note">
+                                                <p class="callout" tal:define="figure_description obj/Description">
                                                     <strong i18n:translate="">Note: </strong>
                                                     <span tal:condition="python:figure_description"
                                                              tal:content="figure_description" />
