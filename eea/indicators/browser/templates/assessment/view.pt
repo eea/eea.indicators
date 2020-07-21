@@ -67,6 +67,21 @@
         jQuery('.googlechart-notes').removeClass('googlechart-notes');
         jQuery('.googlecharts-note').removeClass('googlecharts-note');
         jQuery('p.callout').removeClass('callout');
+
+        // set data sources and buttons within column area
+        var max_width = jQuery('#content').css('width');
+        var margin = jQuery('#portal-column-content').css('margin');
+        var padding = jQuery('#portal-column-content').css('padding');
+        var side_margin = jQuery('#portal-column-content').css('margin-left').match(/\d+/g).map(Number)[0];
+        var side_padding = jQuery('#portal-column-content').css('padding-left').match(/\d+/g).map(Number)[0];
+        var button_margin = (side_margin+side_padding).toString() + "px";
+
+        jQuery('.indicator-figure-image .formPanel > *:not(.figure-chart-live)').css('max-width', max_width);
+        jQuery('.indicator-figure-image .formPanel > *:not(.figure-chart-live)').css('margin', margin);
+        jQuery('.indicator-figure-image .formPanel > *:not(.figure-chart-live, .standardButton)').css('padding', padding);
+        jQuery('.indicator-figure-image .formPanel .standardButton').css('margin-left', button_margin);
+        jQuery('.indicator-figure-image .formPanel .standardButton').css('margin-right', button_margin);
+        jQuery('.indicator-figure-image .formPanel .googlechart-inline-resize').css('margin-left', '0');
     });
   </script>
 
@@ -250,8 +265,8 @@
                                           tal:condition="python:manager_ob"
                                      title="Contact indicator manager"
                                           i18n:attributes="title"
-                                          tal:attributes="href string:mailto:eea_generic_email"
-                                          tal:content="string:eea_generic_email"
+                                          tal:attributes="href string:mailto:$eea_generic_email"
+                                          tal:content="eea_generic_email"
                                           tal:condition="context/@@plone_portal_state/anonymous">Contact</a>
                                   <p tal:condition="python:not manager_ob">
                                       <span i18n:translate="">User not found:</span>
