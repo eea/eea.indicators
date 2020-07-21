@@ -795,6 +795,7 @@ ul.token-input-list-facebook {
 
     .eea-accordion-title, .eea-accordion-panel > h2 {
         width: 95% !important;
+        display: inline-table;
     }
 }
 

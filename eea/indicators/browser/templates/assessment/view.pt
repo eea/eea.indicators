@@ -237,8 +237,8 @@
                       <tal:contact define="manager_id context/getManager_user_id">
                           <tal:manager condition="python:manager_id">
                               <tal:block define="manager_ob context/@@indicator_contact_info;
-                                                 portal context/@@plone_portal_state/portal;
-                                                 eea_generic_email portal/eea_generic_email;">
+                                                 site_properties context/portal_properties/site_properties;
+                                                 eea_generic_email site_properties/eea_generic_email;">
                                   <a href=""
                                           tal:condition="python:manager_ob"
                                      title="Contact indicator manager"
@@ -251,7 +251,7 @@
                                      title="Contact indicator manager"
                                           i18n:attributes="title"
                                           tal:attributes="href string:mailto:eea_generic_email"
-                                          tal:content="string:info@eea.europa.eu"
+                                          tal:content="string:eea_generic_email"
                                           tal:condition="context/@@plone_portal_state/anonymous">Contact</a>
                                   <p tal:condition="python:not manager_ob">
                                       <span i18n:translate="">User not found:</span>
