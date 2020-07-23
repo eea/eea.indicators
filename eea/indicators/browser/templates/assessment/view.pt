@@ -1,49 +1,49 @@
 <div tal:replace="nothing" tal:define="unused_dummy python:request.set('disable_plone.rightcolumn', True)" />
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
-      metal:use-macro="here/main_template/macros/master"
-      i18n:domain="eea">
-  <head>
+     metal:use-macro="here/main_template/macros/master"
+     i18n:domain="eea">
+<head>
   <title tal:content="context/Title"></title>
 
   <metal:javascript fill-slot="javascript_head_slot">
     <script type="text/javascript"
-               tal:attributes="src string:${context/portal_url}/collective.js.jqueryui.custom.min.eea.js">
+         tal:attributes="src string:${context/portal_url}/collective.js.jqueryui.custom.min.eea.js">
     </script>
     <script tal:replace="structure context/embed-inline-includes"> </script>
     <script type="text/javascript" tal:condition="python:context.portal_membership.checkPermission('Modify portal content', context)"
-        tal:attributes="src string:${context/portal_url}/++resource++daviz-inline-resize.js">
+         tal:attributes="src string:${context/portal_url}/++resource++daviz-inline-resize.js">
     </script>
     <script type="text/javascript"
-        tal:attributes="src string:${context/portal_url}/++resource++indicators-toc.js">
-     </script>
+         tal:attributes="src string:${context/portal_url}/++resource++indicators-toc.js">
+    </script>
 
-  <script type="text/javascript">
-    jQuery(document).ready(function($){
+    <script type="text/javascript">
+      jQuery(document).ready(function($){
         jQuery(".embedded-daviz-visualization").find("ul.formTabs a").bind("click", function(){
-            var embedded_obj = jQuery("#fieldset-"+jQuery(this).attr("id").substr(15)).find(".googlechart_dashboard")
-            if ((embedded_obj.length === 0) || (embedded_obj[0].innerHTML.trim().length != 0)){
-                return;
-            }
-            var id = embedded_obj.attr("id").substr(22);
-            if (embedded_obj.hasClass("isChart")){
-                drawChart(window["settings_" + id], window["other_options_" + id]);
-            }
-            else{
-                drawDashboardEmbed(window["settings_" + id]);
-            }
+          var embedded_obj = jQuery("#fieldset-"+jQuery(this).attr("id").substr(15)).find(".googlechart_dashboard")
+          if ((embedded_obj.length === 0) || (embedded_obj[0].innerHTML.trim().length != 0)){
+            return;
+          }
+          var id = embedded_obj.attr("id").substr(22);
+          if (embedded_obj.hasClass("isChart")){
+            drawChart(window["settings_" + id], window["other_options_" + id]);
+          }
+          else{
+            drawDashboardEmbed(window["settings_" + id]);
+          }
         });
         jQuery(".embedded-daviz-visualization").find("select.formTabs").bind("change", function(){
-            var embedded_obj = jQuery("#fieldset-"+jQuery(this).prop("value").substr(15)).find(".googlechart_dashboard")
-            if ((embedded_obj.length === 0) || (embedded_obj[0].innerHTML.trim().length != 0)){
-                return;
-            }
-            var id = embedded_obj.attr("id").substr(22);
-            if (embedded_obj.hasClass("isChart")){
-                drawChart(window["settings_" + id], window["other_options_" + id]);
-            }
-            else{
-                drawDashboardEmbed(window["settings_" + id]);
-            }
+          var embedded_obj = jQuery("#fieldset-"+jQuery(this).prop("value").substr(15)).find(".googlechart_dashboard")
+          if ((embedded_obj.length === 0) || (embedded_obj[0].innerHTML.trim().length != 0)){
+            return;
+          }
+          var id = embedded_obj.attr("id").substr(22);
+          if (embedded_obj.hasClass("isChart")){
+            drawChart(window["settings_" + id], window["other_options_" + id]);
+          }
+          else{
+            drawDashboardEmbed(window["settings_" + id]);
+          }
         });
 
         // Tweaks
@@ -82,220 +82,215 @@
         jQuery('.indicator-figure-image .formPanel .standardButton').css('margin-left', button_margin);
         jQuery('.indicator-figure-image .formPanel .standardButton').css('margin-right', button_margin);
         jQuery('.indicator-figure-image .formPanel .googlechart-inline-resize').css('margin-left', '0');
-    });
-  </script>
+      });
+    </script>
 
   </metal:javascript>
-  </head>
+</head>
 
-  <body>
-    <div metal:fill-slot="content-title" class="assessment_view" >
-      <h1 class="documentFirstHeading" tal:content="context/Title">Title here</h1>
-    </div>
-    <div metal:fill-slot="content-core" tal:define="specification context/getParentNode"
+<body>
+<div metal:fill-slot="content-title" class="assessment_view" >
+  <h1 class="documentFirstHeading" tal:content="context/Title">Title here</h1>
+</div>
+<div metal:fill-slot="content-core" tal:define="specification context/getParentNode"
     class='assessment_view'>
-      <div id="content-more-updates-on"
-        class="system-message warningMessage"
-        tal:condition="context/getMore_updates_on"
-        tal:content="structure context/getMore_updates_on" />
+  <div id="content-more-updates-on"
+       class="system-message warningMessage"
+       tal:condition="context/getMore_updates_on"
+       tal:content="structure context/getMore_updates_on" />
 
-      <div tal:define="isAnon isAnon|context/@@plone_portal_state/anonymous" tal:condition="not:isAnon" tal:replace="structure context/@@readiness" />
+  <div tal:define="isAnon isAnon|context/@@plone_portal_state/anonymous" tal:condition="not:isAnon" tal:replace="structure context/@@readiness" />
 
-      <div id="frequency_of_updates" class="system-message"
-            tal:content="context/get_frequency_of_updates"
-            tal:condition="context/is_discontinued"/>
+  <div id="frequency_of_updates" class="system-message"
+       tal:content="context/get_frequency_of_updates"
+       tal:condition="context/is_discontinued"/>
 
-      <div class="keyMessage">
-        <h3 i18n:translate="">Key messages</h3>
-        <p tal:replace="structure context/getKey_message" />
-      </div>
+  <div class="keyMessage">
+    <h3 i18n:translate="">Key messages</h3>
+    <p tal:replace="structure context/getKey_message" />
+  </div>
 
-      <div tal:define="assessments context/get_assessments;
-        key nocall:assessments/key;
-        secondary assessments/secondary;">
-        <div tal:condition="python:key">
-          <h2 class="policy_question" i18n:translate=""><span tal:content="key/Title" i18n:name="title"></span></h2>
-          <tal:figures tal:replace="structure key/@@figures" />
-          <div tal:replace="structure python:key.getAssessment()">Question here</div>
-        </div>
+  <div tal:define="assessments context/get_assessments;
+      key nocall:assessments/key;
+          secondary assessments/secondary;">
+    <div tal:condition="python:key">
+      <h2 class="policy_question" i18n:translate=""><span tal:content="key/Title" i18n:name="title"></span></h2>
+      <tal:figures tal:replace="structure key/@@figures" />
+      <div tal:replace="structure python:key.getAssessment()">Question here</div>
+    </div>
 
-        <tal:parts repeat="part secondary">
-          <h2 class="policy_question" i18n:translate="">
-             <span tal:replace="part/Title" i18n:name="title" />
-          </h2>
-	  <tal:figures tal:replace="structure part/@@figures" />
-          <div tal:replace="structure part/assessment">Question here</div>
-        </tal:parts>
-      </div>
+    <tal:parts repeat="part secondary">
+      <h2 class="policy_question" i18n:translate="">
+        <span tal:replace="part/Title" i18n:name="title" />
+      </h2>
+      <tal:figures tal:replace="structure part/@@figures" />
+      <div tal:replace="structure part/assessment">Question here</div>
+    </tal:parts>
+  </div>
 
-      <div class="visualClear"><!-- --></div>
-      <h2 i18n:translate="">Indicator specification and metadata</h2>
-      <metal:definition-and-units use-macro="specification/@@view/macros/definition-and-units" />
-      <br class="visualClear" />
+  <div class="visualClear"><!-- --></div>
+  <h2 i18n:translate="">Indicator specification and metadata</h2>
+  <metal:definition-and-units use-macro="specification/@@view/macros/definition-and-units" />
+  <br class="visualClear" />
 
-      <div class="indicator-metadata-info">
-        <metal:justification use-macro="specification/@@view/macros/justification-and-references" />
-      </div>
-        <metal:policy use-macro="specification/@@view/macros/policy-context-and-references" />
-        <metal:methodology use-macro="specification/@@view/macros/methodology-and-references" />
-        <metal:uncertainties use-macro="specification/@@view/macros/uncertainties-part" />
+  <div class="indicator-metadata-info">
+    <metal:justification use-macro="specification/@@view/macros/justification-and-references" />
+  </div>
+  <metal:policy use-macro="specification/@@view/macros/policy-context-and-references" />
+  <metal:methodology use-macro="specification/@@view/macros/methodology-and-references" />
+  <metal:uncertainties use-macro="specification/@@view/macros/uncertainties-part" />
 
-      <h3 id="data_specifications" i18n:translate="">Data sources</h3>
-      <ul tal:define="datasetsView nocall:specification/@@related_items|nothing;
-                      datasets python:datasetsView('Data') if datasetsView else [];
-                      extdatasets python:datasetsView('ExternalDataSpec') if datasetsView else []">
-        <li tal:repeat="data datasets" tal:condition="python:datasets">
-          <a href=""
-            tal:attributes="href string:${context/portal_url}/ds_resolveuid/${data/@@getVersions/versionId}"
-            tal:content="data/title">Dataset title</a><br/>
-            <tal:p i18n:translate="">provided by</tal:p>
-          <span tal:repeat="url python:data.getDataOwner()">
+  <h3 id="data_specifications" i18n:translate="">Data sources</h3>
+  <ul tal:define="datasetsView nocall:specification/@@related_items|nothing;
+      datasets python:datasetsView('Data') if datasetsView else [];
+          extdatasets python:datasetsView('ExternalDataSpec') if datasetsView else []">
+    <li tal:repeat="data datasets" tal:condition="python:datasets">
+      <a href=""
+           tal:attributes="href string:${context/portal_url}/ds_resolveuid/${data/@@getVersions/versionId}"
+           tal:content="data/title">Dataset title</a><br/>
+      <tal:p i18n:translate="">provided by</tal:p>
+      <span tal:repeat="url python:data.getDataOwner()">
            <tal:organisations condition="python:specification.getOrganisationName(url)">
             <strong tal:content="python:specification.getOrganisationName(url).Title" />
             <span tal:condition="not:repeat/url/end" tal:replace="string:, " />
            </tal:organisations>
           </span>
-        </li>
-        <li tal:repeat="data extdatasets" tal:condition="python:extdatasets">
-          <a href=""
-            tal:attributes="href data/absolute_url"
-            tal:content="data/title">Dataset title</a><br/>
-            <tal:p i18n:translate="">provided by</tal:p>
-          <span tal:define="url python:data.getProvider_url()">
+    </li>
+    <li tal:repeat="data extdatasets" tal:condition="python:extdatasets">
+      <a href=""
+           tal:attributes="href data/absolute_url"
+           tal:content="data/title">Dataset title</a><br/>
+      <tal:p i18n:translate="">provided by</tal:p>
+      <span tal:define="url python:data.getProvider_url()">
             <tal:organisations condition="python:specification.getOrganisationName(url)">
             <strong tal:content="python:specification.getOrganisationName(url).Title" />
             </tal:organisations>
           </span>
-        </li>
-        <li tal:condition="python:(not extdatasets and not datasets)" i18n:translate="">No datasets have been specified.</li>
-      </ul>
-        <div id="box-metadata" class="clearfix eea-accordion-panels eea-accordion-panels-plain collapsed-by-default non-exclusive">
+    </li>
+    <li tal:condition="python:(not extdatasets and not datasets)" i18n:translate="">No datasets have been specified.</li>
+  </ul>
+
+  <div id="box-metadata" class="clearfix eea-accordion-panels eea-accordion-panels-plain collapsed-by-default non-exclusive">
         <div class="eea-accordion-panel other-info-accordion">
             <h2 i18n:translate="" class="notoc eea-accordion-title eea-icon-left-container">Other info</h2>
-            <div class="pane">
-            <div class="box-column-left">
-                <!--<tal:block define="themesView specification/@@themes-object|nothing;-->
-                <!--                   themes themesView/full_items;-->
-                <!--                   primaryTheme python:themes and themes[0] or None">-->
-                <!--    <strong i18n:translate="">Topics</strong>:<br /><br />-->
-                <!--    <tal:themes condition="python:primaryTheme">-->
-                <!--        <div id="themes-tags">-->
-                <!--            <tal:values repeat="theme themes">-->
-                <!--               <span>-->
-                <!--                    <a class="link-category" rel="tag"-->
-                <!--                       tal:define="theme_title python:theme['title'];-->
-                <!--                                   theme_url python:theme['url']"-->
-                <!--                       tal:attributes="title theme_title;-->
-                <!--                                       href theme_url"-->
-                <!--                       tal:content="theme_title"></a>-->
-                <!--                    <span class="separator" tal:condition="not:repeat/theme/end">,</span>-->
-                <!--                </span>-->
-                <!--            </tal:values>-->
-                <!--        </div>-->
-                <!--    </tal:themes>-->
-                <!--</tal:block>-->
+      <div class="pane">
+        <div class="box-column-left">
+<!--?          <tal:block define="themesView specification/@@themes-object|nothing;-->
+<!--?                                   themes themesView/full_items;-->
+<!--?                                   primaryTheme python:themes and themes[0] or None">-->
+<!--?            <strong i18n:translate="">Topics</strong>:<br /><br />-->
+<!--?            <tal:themes condition="python:primaryTheme">-->
+<!--?              <div id="themes-tags">-->
+<!--?                <tal:values repeat="theme themes">-->
+<!--?                               <span>-->
+<!--?                                    <a class="link-category" rel="tag"-->
+<!--?                                         tal:define="theme_title python:theme['title'];-->
+<!--?                                            theme_url python:theme['url']"-->
+<!--?                                         tal:attributes="title theme_title;-->
+<!--?                                            href theme_url"-->
+<!--?                                         tal:content="theme_title"></a>-->
+<!--?                                    <span class="separator" tal:condition="not:repeat/theme/end">,</span>-->
+<!--?                                </span>-->
+<!--?                </tal:values>-->
+<!--?              </div>-->
+<!--?            </tal:themes>-->
+<!--?          </tal:block>-->
 
-                <!--<tal:tags define="facetId string:c9">-->
-                <!--    <metal:related use-macro="here/dataset_view/macros/tags" />-->
-                <!--</tal:tags>-->
-                <div class="visualClear"><!-- --></div>
-                <strong i18n:translate="">DPSIR</strong>: <span tal:define="dpsirLabel nocall:context/@@dpsir_label"
-                    tal:replace="python:dpsirLabel(context.getDpsir())" />
-                <br/>
-                <strong i18n:translate="">Typology</strong>: <span tal:define="typologyLabel nocall:context/@@typology_label"
-                    tal:replace="python:typologyLabel(context.getTypology())" />
+<!--?          <tal:tags define="facetId string:c9">-->
+<!--?            <metal:related use-macro="here/dataset_view/macros/tags" />-->
+<!--?          </tal:tags>-->
+          <div class="visualClear"><!-- --></div>
+          <strong i18n:translate="">DPSIR</strong>: <span tal:define="dpsirLabel nocall:context/@@dpsir_label"
+             tal:replace="python:dpsirLabel(context.getDpsir())" />
+          <br/>
+          <strong i18n:translate="">Typology</strong>: <span tal:define="typologyLabel nocall:context/@@typology_label"
+             tal:replace="python:typologyLabel(context.getTypology())" />
+        </div>
+        <div class="box-column-right">
+          <div tal:define="codes context/getCodes">
+            <strong i18n:translate="">Indicator codes</strong>
+            <ul>
+              <li tal:repeat="code codes" tal:content="string:${code/set} ${code/code}">CSI 001</li>
+            </ul>
+          </div>
+<!--?          <metal:related use-macro="context/temporal_macros/macros/temporal-coverage-data" />-->
+<!--?          <metal:related use-macro="context/geotags_macros/macros/geotags-listing" />-->
+        </div>
+        <div id="timestamps-info" class="clearfix">
+          <div class="box-column-left">
+<!--?            <h4 i18n:translate="">Dates</h4>-->
+
+<!--?            <div i18n:translate="" class="metadata_date">-->
+<!--?              First draft created:-->
+<!--?            </div>-->
+<!--?            <div i18n:translate="" class="metadata_date">-->
+<!--?              <metal:field i18n:name="creation-date" use-macro="python:context.widget('creation_date', mode='view')" />-->
+<!--?            </div>-->
+<!--?            <div i18n:translate="" class="metadata_date">-->
+<!--?              Publish date:-->
+<!--?            </div>-->
+<!--?            <div i18n:translate="" class="metadata_date">-->
+<!--?              <metal:field i18n:name="effective-date" use-macro="python:context.widget('effectiveDate', mode='view')" />-->
+<!--?            </div>-->
+<!--?            <div i18n:translate="" class="metadata_date">-->
+<!--?              Last modified:-->
+<!--?            </div>-->
+<!--?            <div i18n:translate="" class="metadata_date">-->
+<!--?              <metal:field i18n:name="modified-date" use-macro="python:context.widget('modification_date', mode='view')" />-->
+<!--?            </div>-->
+          </div>
+
+          <div class="box-column-right">
+            <div tal:condition="context/should_show_frequency_of_updates">
+              <h4 i18n:translate="">Frequency of updates</h4>
+              <div tal:content="context/get_frequency_of_updates" />
             </div>
-            <div class="box-column-right">
-                <div tal:define="codes context/getCodes">
-                    <strong i18n:translate="">Indicator codes</strong>
-                    <ul>
-                        <li tal:repeat="code codes" tal:content="string:${code/set} ${code/code}">CSI 001</li>
-                    </ul>
-                </div>
-                <!--<metal:related use-macro="context/temporal_macros/macros/temporal-coverage-data" />-->
-                <!--<metal:related use-macro="context/geotags_macros/macros/geotags-listing" />-->
-            </div>
-            <div id="timestamps-info" class="clearfix">
-                      <!--<div class="box-column-left">-->
-                      <!--    <h4 i18n:translate="">Dates</h4>-->
-            
-                      <!--    <div i18n:translate="" class="metadata_date">-->
-                      <!--        First draft created:-->
-                      <!--    </div>-->
-                      <!--    <div i18n:translate="" class="metadata_date">-->
-                      <!--        <metal:field i18n:name="creation-date" use-macro="python:context.widget('creation_date', mode='view')" />-->
-                      <!--    </div>-->
-                      <!--    <div i18n:translate="" class="metadata_date">-->
-                      <!--        Publish date:-->
-                      <!--    </div>-->
-                      <!--    <div i18n:translate="" class="metadata_date">-->
-                      <!--        <metal:field i18n:name="effective-date" use-macro="python:context.widget('effectiveDate', mode='view')" />-->
-                      <!--    </div>-->
-                      <!--    <div i18n:translate="" class="metadata_date">-->
-                      <!--        Last modified:-->
-                      <!--    </div>-->
-                      <!--    <div i18n:translate="" class="metadata_date">-->
-                      <!--        <metal:field i18n:name="modified-date" use-macro="python:context.widget('modification_date', mode='view')" />-->
-                      <!--    </div>-->
-                      <!--</div>-->
-            
-                      <div class="box-column-right">
-                          <div tal:condition="context/should_show_frequency_of_updates">
-                              <h4 i18n:translate="">Frequency of updates</h4>
-                              <div tal:content="context/get_frequency_of_updates" />
-                          </div>
-                      </div>
-                  </div>
-                              <div id="contact-and-ownership" class="clearfix">
-                  <div class="box-column-left">
-                      <h4 i18n:translate="">EEA Contact Info</h4>
-                      <tal:contact define="manager_id context/getManager_user_id">
-                          <tal:manager condition="python:manager_id">
-                              <tal:block define="manager_ob context/@@indicator_contact_info;
-                                                 site_properties context/portal_properties/site_properties;
-                                                 eea_generic_email site_properties/eea_generic_email;">
-                                  <a href=""
-                                          tal:condition="python:manager_ob"
-                                     title="Contact indicator manager"
-                                          i18n:attributes="title"
-                                          tal:attributes="href string:https://www.eionet.europa.eu/users/${manager_ob/username}"
-                                          tal:content="manager_ob/fullname"
-                                          tal:condition="not:context/@@plone_portal_state/anonymous">Contact</a>
-                                  <a href=""
-                                          tal:condition="python:manager_ob"
-                                     title="Contact indicator manager"
-                                          i18n:attributes="title"
-                                          tal:attributes="href string:mailto:$eea_generic_email"
-                                          tal:content="eea_generic_email"
-                                          tal:condition="context/@@plone_portal_state/anonymous">Contact</a>
-                                  <p tal:condition="python:not manager_ob">
-                                      <span i18n:translate="">User not found:</span>
-                                      <tal:manager_id tal:content="manager_id" />
-                                  </p>
-                              </tal:block>
-                          </tal:manager>
-                          <tal:contact condition="python:not manager_id">
-                              <p i18n:translate="">no contact info</p>
-                          </tal:contact>
-                      </tal:contact>
-                  </div>
-        
-                <div class="box-column-right">
-                    <tal:authenticated tal:define="isAnon isAnon|context/@@plone_portal_state/anonymous" tal:condition="not:isAnon">
-                       <h4 class="clear" i18n:translate="">EEA Management Plan</h4>
-                       <a href=""
-                         tal:attributes="href python:'http://applications/managementplan/ProjectPlan.aspx?year=%s&amp;code=%s' % context.getManagement_plan()"
-                         tal:content="python:'%s %s' % context.getManagement_plan()"></a>
-                         <tal:block i18n:translate="">(note: EEA internal system)</tal:block>
-                    </tal:authenticated>
-                </div>
-        
-            </div>
-            </div>
+          </div>
+        </div>
+        <div id="contact-and-ownership" class="clearfix">
+          <div class="box-column-left">
+            <h4 i18n:translate="">EEA Contact Info</h4>
+<!--?            <tal:contact define="manager_id context/getManager_user_id">-->
+<!--?              <tal:manager condition="python:manager_id">-->
+<!--?                              <tal:block define="manager_ob context/@@indicator_contact_info;-->
+<!--?                                                 site_properties context/portal_properties/site_properties;-->
+<!--?                                                 eea_generic_email site_properties/eea_generic_email;">-->
+<!--?                  <a href=""-->
+<!--?                       tal:condition="python:manager_ob"-->
+<!--?                     title="Contact indicator manager"-->
+<!--?                       i18n:attributes="title"-->
+<!--?                       tal:attributes="href string:https://www.eionet.europa.eu/users/${manager_ob/username}"-->
+<!--?                       tal:content="manager_ob/fullname">Contact</a>-->
+<!--?                  <p tal:condition="python:not manager_ob">-->
+<!--?                    <span i18n:translate="">User not found:</span>-->
+<!--?                    <tal:manager_id tal:content="manager_id" />-->
+<!--?                  </p>-->
+<!--?                </tal:block>-->
+<!--?              </tal:manager>-->
+<!--?              <tal:contact condition="python:not manager_id">-->
+<!--?                <p i18n:translate="">no contact info</p>-->
+<!--?              </tal:contact>-->
+<!--?            </tal:contact>-->
+          </div>
+
+          <div class="box-column-right">
+            <tal:authenticated tal:define="isAnon isAnon|context/@@plone_portal_state/anonymous" tal:condition="not:isAnon">
+              <h4 class="clear" i18n:translate="">EEA Management Plan</h4>
+              <a href=""
+                   tal:attributes="href python:'http://applications/managementplan/ProjectPlan.aspx?year=%s&amp;code=%s' % context.getManagement_plan()"
+                   tal:content="python:'%s %s' % context.getManagement_plan()"></a>
+              <tal:block i18n:translate="">(note: EEA internal system)</tal:block>
+            </tal:authenticated>
+          </div>
 
         </div>
-        </div>
+      </div>
+
+
 
     </div>
-  </body>
+  </div>
+
+</div>
+</body>
 </html>
