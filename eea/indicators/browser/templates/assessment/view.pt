@@ -105,7 +105,7 @@
        tal:content="context/get_frequency_of_updates"
        tal:condition="context/is_discontinued"/>
 
-  <div class="keyMessage">
+  <div class="keyFact">
     <h3 i18n:translate="">Key messages</h3>
     <p tal:replace="structure context/getKey_message" />
   </div>
@@ -114,91 +114,71 @@
       key nocall:assessments/key;
           secondary assessments/secondary;">
     <div tal:condition="python:key">
-      <h2 class="policy_question" i18n:translate=""><span tal:content="key/Title" i18n:name="title"></span></h2>
       <tal:figures tal:replace="structure key/@@figures" />
       <div tal:replace="structure python:key.getAssessment()">Question here</div>
     </div>
 
     <tal:parts repeat="part secondary">
-      <h2 class="policy_question" i18n:translate="">
-        <span tal:replace="part/Title" i18n:name="title" />
-      </h2>
       <tal:figures tal:replace="structure part/@@figures" />
       <div tal:replace="structure part/assessment">Question here</div>
     </tal:parts>
   </div>
 
   <div class="visualClear"><!-- --></div>
-  <h2 i18n:translate="">Indicator specification and metadata</h2>
-  <metal:definition-and-units use-macro="specification/@@view/macros/definition-and-units" />
-  <br class="visualClear" />
+  <div class="clearfix eea-accordion-panels eea-accordion-panels-plain collapsed-by-default non-exclusive">
+    <div class="eea-accordion-panel">
+      <h2 i18n:translate="" class="notoc eea-accordion-title eea-icon-left-container">Supporting information</h2>
+      <div class="pane">
+        <metal:definition-and-units use-macro="specification/@@view/macros/definition-and-units" />
+        <br class="visualClear" />
 
-  <div class="indicator-metadata-info">
-    <metal:justification use-macro="specification/@@view/macros/justification-and-references" />
-  </div>
-  <metal:policy use-macro="specification/@@view/macros/policy-context-and-references" />
-  <metal:methodology use-macro="specification/@@view/macros/methodology-and-references" />
-  <metal:uncertainties use-macro="specification/@@view/macros/uncertainties-part" />
+        <div class="indicator-metadata-info">
+          <metal:justification use-macro="specification/@@view/macros/justification-and-references" />
+        </div>
+        <metal:policy use-macro="specification/@@view/macros/policy-context-and-references" />
+        <metal:methodology use-macro="specification/@@view/macros/methodology-and-references" />
+        <metal:uncertainties use-macro="specification/@@view/macros/uncertainties-part" />
 
-  <h3 id="data_specifications" i18n:translate="">Data sources</h3>
-  <ul tal:define="datasetsView nocall:specification/@@related_items|nothing;
-      datasets python:datasetsView('Data') if datasetsView else [];
-          extdatasets python:datasetsView('ExternalDataSpec') if datasetsView else []">
-    <li tal:repeat="data datasets" tal:condition="python:datasets">
-      <a href=""
-           tal:attributes="href string:${context/portal_url}/ds_resolveuid/${data/@@getVersions/versionId}"
-           tal:content="data/title">Dataset title</a><br/>
-      <tal:p i18n:translate="">provided by</tal:p>
-      <span tal:repeat="url python:data.getDataOwner()">
+        <h3 id="data_specifications" i18n:translate="">Data sources</h3>
+        <ul tal:define="datasetsView nocall:specification/@@related_items|nothing;
+            datasets python:datasetsView('Data') if datasetsView else [];
+                extdatasets python:datasetsView('ExternalDataSpec') if datasetsView else []">
+          <li tal:repeat="data datasets" tal:condition="python:datasets">
+            <a href=""
+                 tal:attributes="href string:${context/portal_url}/ds_resolveuid/${data/@@getVersions/versionId}"
+                 tal:content="data/title">Dataset title</a><br/>
+            <tal:p i18n:translate="">provided by</tal:p>
+            <span tal:repeat="url python:data.getDataOwner()">
            <tal:organisations condition="python:specification.getOrganisationName(url)">
             <strong tal:content="python:specification.getOrganisationName(url).Title" />
             <span tal:condition="not:repeat/url/end" tal:replace="string:, " />
            </tal:organisations>
           </span>
-    </li>
-    <li tal:repeat="data extdatasets" tal:condition="python:extdatasets">
-      <a href=""
-           tal:attributes="href data/absolute_url"
-           tal:content="data/title">Dataset title</a><br/>
-      <tal:p i18n:translate="">provided by</tal:p>
-      <span tal:define="url python:data.getProvider_url()">
+          </li>
+          <li tal:repeat="data extdatasets" tal:condition="python:extdatasets">
+            <a href=""
+                 tal:attributes="href data/absolute_url"
+                 tal:content="data/title">Dataset title</a><br/>
+            <tal:p i18n:translate="">provided by</tal:p>
+            <span tal:define="url python:data.getProvider_url()">
             <tal:organisations condition="python:specification.getOrganisationName(url)">
             <strong tal:content="python:specification.getOrganisationName(url).Title" />
             </tal:organisations>
           </span>
-    </li>
-    <li tal:condition="python:(not extdatasets and not datasets)" i18n:translate="">No datasets have been specified.</li>
-  </ul>
+          </li>
+          <li tal:condition="python:(not extdatasets and not datasets)" i18n:translate="">No datasets have been specified.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
 
   <div id="box-metadata" class="clearfix eea-accordion-panels eea-accordion-panels-plain collapsed-by-default non-exclusive">
         <div class="eea-accordion-panel other-info-accordion">
             <h2 i18n:translate="" class="notoc eea-accordion-title eea-icon-left-container">Other info</h2>
       <div class="pane">
         <div class="box-column-left">
-<!--?          <tal:block define="themesView specification/@@themes-object|nothing;-->
-<!--?                                   themes themesView/full_items;-->
-<!--?                                   primaryTheme python:themes and themes[0] or None">-->
-<!--?            <strong i18n:translate="">Topics</strong>:<br /><br />-->
-<!--?            <tal:themes condition="python:primaryTheme">-->
-<!--?              <div id="themes-tags">-->
-<!--?                <tal:values repeat="theme themes">-->
-<!--?                               <span>-->
-<!--?                                    <a class="link-category" rel="tag"-->
-<!--?                                         tal:define="theme_title python:theme['title'];-->
-<!--?                                            theme_url python:theme['url']"-->
-<!--?                                         tal:attributes="title theme_title;-->
-<!--?                                            href theme_url"-->
-<!--?                                         tal:content="theme_title"></a>-->
-<!--?                                    <span class="separator" tal:condition="not:repeat/theme/end">,</span>-->
-<!--?                                </span>-->
-<!--?                </tal:values>-->
-<!--?              </div>-->
-<!--?            </tal:themes>-->
-<!--?          </tal:block>-->
-
-<!--?          <tal:tags define="facetId string:c9">-->
-<!--?            <metal:related use-macro="here/dataset_view/macros/tags" />-->
-<!--?          </tal:tags>-->
           <div class="visualClear"><!-- --></div>
           <strong i18n:translate="">DPSIR</strong>: <span tal:define="dpsirLabel nocall:context/@@dpsir_label"
              tal:replace="python:dpsirLabel(context.getDpsir())" />
@@ -213,8 +193,6 @@
               <li tal:repeat="code codes" tal:content="string:${code/set} ${code/code}">CSI 001</li>
             </ul>
           </div>
-<!--?          <metal:related use-macro="context/temporal_macros/macros/temporal-coverage-data" />-->
-<!--?          <metal:related use-macro="context/geotags_macros/macros/geotags-listing" />-->
         </div>
         <div id="timestamps-info" class="clearfix">
           <div class="box-column-left">

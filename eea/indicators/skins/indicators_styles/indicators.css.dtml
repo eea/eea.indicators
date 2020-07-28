@@ -780,6 +780,7 @@ ul.token-input-list-facebook {
         display: flex;
         flex-wrap: wrap;
         flex: 1 0 46%;
+        align-content: baseline;
         /*flex: 1 0 40%;*/
     }
 

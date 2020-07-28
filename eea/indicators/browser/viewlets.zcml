@@ -4,15 +4,6 @@
            xmlns:zcml="http://namespaces.zope.org/zcml"
            xmlns:five="http://namespaces.zope.org/five">
 
-    <browser:viewlet
-        name="assessment.topics.viewlet"
-        for="eea.indicators.content.interfaces.IAssessment"
-        manager="plone.app.layout.viewlets.interfaces.IBelowContentBody"
-        view="plone.app.layout.globals.interfaces.IViewView"
-        class=".viewlets.AssessmentTopicsViewlet"
-        layer="eea.design.browser.interfaces.IEEACommonLayer"
-        permission="zope2.View"
-    />
 
     <browser:viewlet
         name="assessment.dates.viewlet"
@@ -22,15 +13,6 @@
         class=".viewlets.AssessmentDatesViewlet"
         layer="eea.design.browser.interfaces.IEEACommonLayer"
         permission="zope2.View"
-    />
-
-    <browser:viewlet
-        name="assessment.temporal_coverage.viewlet"
-        for="eea.indicators.content.interfaces.IAssessment"
-        manager="plone.app.layout.viewlets.interfaces.IBelowContentBody"
-        layer="eea.design.browser.interfaces.IEEACommonLayer"
-        class=".viewlets.AssessmentTemporalCoverageViewlet"
-        permission="zope.Public"
     />
 
     <browser:viewlet

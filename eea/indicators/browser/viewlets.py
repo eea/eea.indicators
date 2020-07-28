@@ -5,21 +5,6 @@ from zope.component import getMultiAdapter
 from plone.app.layout.viewlets import common
 
 
-class AssessmentTopicsViewlet(common.ViewletBase):
-    """ Assessment Topics field Viewlet
-    """
-    render = ViewPageTemplateFile('templates/viewlets/topics.pt')
-
-    @property
-    def available(self):
-        """ Condition for rendering of this viewlets
-        """
-        plone = getMultiAdapter((self.context, self.request),
-                                name=u'plone_context_state')
-        return plone.is_view_template() and \
-               self.context.portal_type == 'Assessment'
-
-
 class AssessmentDatesViewlet(common.ViewletBase):
     """ Assessment Dates field Viewlet
     """
@@ -47,20 +32,6 @@ class AssessmentGeographicalCoverageViewlet(common.ViewletBase):
         """
         plone = getMultiAdapter((self.context, self.request),
                                 name=u'plone_context_state')
-        return plone.is_view_template() and \
-               self.context.portal_type == 'Assessment'
+        return plone.is_view_template()
 
 
-class AssessmentTemporalCoverageViewlet(common.ViewletBase):
-    """ Assessment TemporalCoverage field Viewlet
-    """
-    render = ViewPageTemplateFile('templates/viewlets/temporal_coverage.pt')
-
-    @property
-    def available(self):
-        """ Condition for rendering of this viewlets
-        """
-        plone = getMultiAdapter((self.context, self.request),
-                                name=u'plone_context_state')
-        return plone.is_view_template() and \
-               self.context.portal_type == 'Assessment'
