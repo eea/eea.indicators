@@ -16,9 +16,8 @@
                                 portal_url portal_state/portal_url;"
                     tal:condition="python:countries or other">
       <div tal:attributes="class string:eea-location-listing" metal:define-slot="location-listing">
-        <span i18n:translate="" metal:define-slot="geotags">Geotags:</span>
 
-        <h4 tal:condition="countries" i18n:translate="">Countries</h4>
+        <span tal:condition="countries" i18n:translate="">Countries:</span>
         <tal:tags tal:repeat="tag python:sorted(countries)">
           <span>
             <a class="link-category" rel="tag" tal:define="
@@ -30,7 +29,7 @@
           </span>
         </tal:tags>
 
-        <h4 tal:condition="other" i18n:translate="">Geographical areas</h4>
+        <span tal:condition="other" i18n:translate="">Geographical areas:</span>
         <tal:tags tal:repeat="tag python:sorted(other)">
           <span>
             <a class="link-category" rel="tag" tal:define="

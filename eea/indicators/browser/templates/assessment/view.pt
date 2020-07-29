@@ -92,6 +92,12 @@
 <div metal:fill-slot="content-title" class="assessment_view" >
   <h1 class="documentFirstHeading" tal:content="context/Title">Title here</h1>
 </div>
+
+<div metal:fill-slot="content-description">
+  <div class="documentDescription">
+    <p tal:replace="structure context/getKey_message" />
+  </div>
+</div>
 <div metal:fill-slot="content-core"
 tal:define="specification context/getParentNode;
     isAnon isAnon|context/@@plone_portal_state/anonymous;
@@ -108,10 +114,6 @@ tal:define="specification context/getParentNode;
        tal:content="context/get_frequency_of_updates"
        tal:condition="context/is_discontinued"/>
 
-  <div class="keyFact">
-    <h3 i18n:translate="">Key messages</h3>
-    <p tal:replace="structure context/getKey_message" />
-  </div>
 
   <div tal:define="assessments context/get_assessments;
       key nocall:assessments/key;
@@ -201,14 +203,12 @@ tal:define="specification context/getParentNode;
 
           <div class="box-column-right">
             <div tal:condition="context/should_show_frequency_of_updates">
-              <h4 i18n:translate="">Frequency of updates</h4>
+              <strong i18n:translate="">Frequency of updates</strong>
               <div tal:content="context/get_frequency_of_updates" />
             </div>
           </div>
-        </div>
-        <div id="contact-and-ownership" class="clearfix">
           <div class="box-column-left">
-            <h4 i18n:translate="">EEA Contact Info</h4>
+            <strong i18n:translate="">EEA Contact Info</strong>
 
             <tal:authenticated tal:condition="not:isAnon">
             <tal:contact define="manager_id context/getManager_user_id" >
@@ -243,16 +243,19 @@ tal:define="specification context/getParentNode;
             </tal:anon>
           </div>
 
+
+        </div>
+        <div class="flex-container">
+
           <div class="box-column-right">
             <tal:authenticated tal:condition="not:isAnon">
-              <h4 class="clear" i18n:translate="">EEA Management Plan</h4>
+              <strong class="clear" i18n:translate="">EEA Management Plan</strong>
               <a href=""
                    tal:attributes="href python:'http://applications/managementplan/ProjectPlan.aspx?year=%s&amp;code=%s' % context.getManagement_plan()"
                    tal:content="python:'%s %s' % context.getManagement_plan()"></a>
               <tal:block i18n:translate="">(note: EEA internal system)</tal:block>
             </tal:authenticated>
           </div>
-
         </div>
       </div>
 

@@ -24,6 +24,7 @@
    width: 50%;
 }
 
+.clearfix,
 .clear {
     clear: both;
 }
