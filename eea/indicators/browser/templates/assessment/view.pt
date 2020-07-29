@@ -95,7 +95,7 @@
 <div class="fullwidth-img-bg"
      tal:define="themes context/getThemes;
              portal_path python: portal_url + '/';
-            image_url python: portal_path + 'themes/' + themes[0] if themes  else portal_path + 'portal_depiction/generic-header'"
+            image_url python: portal_path + 'themes/' + themes[0] + '/theme_image/' if themes  else portal_path + 'portal_depiction/generic-header'"
      tal:attributes="style python:'background-image:url(' + image_url + '/image_panoramic' + ')'; title here/getImageCopyright|nothing;">
     </div>
 </metal:fullbgimg>
