@@ -89,15 +89,26 @@
 </head>
 
 <body>
-<div metal:fill-slot="content-title" class="assessment_view" >
-  <h1 class="documentFirstHeading" tal:content="context/Title">Title here</h1>
-</div>
 
-<div metal:fill-slot="content-description">
+
+<metal:fullbgimg metal:fill-slot="content-header-image">
+<div class="fullwidth-img-bg"
+     tal:define="themes context/getThemes;
+             portal_path python: portal_url + '/';
+            image_url python: portal_path + 'themes/' + themes[0] if themes  else portal_path + 'portal_depiction/generic-header'"
+     tal:attributes="style python:'background-image:url(' + image_url + '/image_panoramic' + ')'; title here/getImageCopyright|nothing;">
+    </div>
+</metal:fullbgimg>
+
+<metal:title metal:fill-slot="content-title">
+  <h1 class="documentFirstHeading" tal:content="context/Title">Title here</h1>
+</metal:title>
+
+<metal:description metal:fill-slot="content-description">
   <div class="documentDescription">
     <p tal:replace="structure context/getKey_message" />
   </div>
-</div>
+</metal:description>
 <div metal:fill-slot="content-core"
 tal:define="specification context/getParentNode;
     isAnon isAnon|context/@@plone_portal_state/anonymous;
