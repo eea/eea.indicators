@@ -576,9 +576,25 @@ div.kupu-fulleditor-zoomed .kupu-editor-iframe {
     page-break-before: avoid !important;
 }
 
-.indicator-figure-plus {
-    font-size: 0.8em;
+/* #119540 style charts for assessment embeds */
+.max-container-centered.embedded-chart {
+    width: initial !important;
 }
+.figure-chart-live .googlechart_dashboard {
+    border: 0;
+    box-shadow: none;
+}
+.indicator-figure-plus-container .callout {
+    border-left: 0;
+    padding: 2rem;
+    font-size: 1rem !important;
+}
+.indicator-figure-plus-container .max-container-centered {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+/* end #119540 style charts for assessment embeds */
 
 .indicator-figure-plus a {
     text-decoration: none;
@@ -775,7 +791,7 @@ ul.token-input-list-facebook {
     .mini-header-below-content {
         display: flex;
         flex-wrap: wrap;
-    }
+    }            
 
     .mini-header-below-content > div {
         display: flex;

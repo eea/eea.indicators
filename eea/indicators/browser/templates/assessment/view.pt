@@ -52,8 +52,13 @@
         jQuery('#box-metadata').hide();
 
         // modify figure image sizes
-        jQuery('.indicator-figure-image').addClass('max-container-centered');
-        jQuery('.indicator-figure-image a').addClass('max-container-centered');
+        jQuery(document).on('googlecharts.embed.pending', function(ev, data) {
+          var $chart = $("#googlechart_view_" + data);
+          if (!$chart.hasClass('max-container-centered')) {
+            $chart.addClass('max-container-centered');
+          }
+        });
+
 
         // add correct title class to older versions accordion
         jQuery('.eea-versions-portlet > h2').addClass('eea-accordion-title');
@@ -61,27 +66,6 @@
         jQuery('.eea-versions-portlet > h2 > span').removeClass('eea-icon-right');
         jQuery('.eea-versions-portlet > h2 > span').addClass('eea-icon-left');
 
-        // remove gchart note classes and add box
-        jQuery('.googlechart-notes').addClass('box box--full box-secondary');
-
-        jQuery('.googlechart-notes').removeClass('googlechart-notes');
-        jQuery('.googlecharts-note').removeClass('googlecharts-note');
-        jQuery('p.callout').removeClass('callout');
-
-        // set data sources and buttons within column area
-        var max_width = jQuery('#content').css('width');
-        var margin = jQuery('#portal-column-content').css('margin');
-        var padding = jQuery('#portal-column-content').css('padding');
-        var side_margin = jQuery('#portal-column-content').css('margin-left').match(/\d+/g).map(Number)[0];
-        var side_padding = jQuery('#portal-column-content').css('padding-left').match(/\d+/g).map(Number)[0];
-        var button_margin = (side_margin+side_padding).toString() + "px";
-
-        jQuery('.indicator-figure-image .formPanel > *:not(.figure-chart-live)').css('max-width', max_width);
-        jQuery('.indicator-figure-image .formPanel > *:not(.figure-chart-live)').css('margin', margin);
-        jQuery('.indicator-figure-image .formPanel > *:not(.figure-chart-live, .standardButton)').css('padding', padding);
-        jQuery('.indicator-figure-image .formPanel .standardButton').css('margin-left', button_margin);
-        jQuery('.indicator-figure-image .formPanel .standardButton').css('margin-right', button_margin);
-        jQuery('.indicator-figure-image .formPanel .googlechart-inline-resize').css('margin-left', '0');
       });
     </script>
 
