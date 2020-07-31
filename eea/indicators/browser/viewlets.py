@@ -19,19 +19,3 @@ class AssessmentDatesViewlet(common.ViewletBase):
 
         return plone.is_view_template() and \
                self.context.portal_type == 'Assessment'
-
-
-class AssessmentGeographicalCoverageViewlet(common.ViewletBase):
-    """ Assessment GeographicalCoverage field Viewlet
-    """
-    render = ViewPageTemplateFile('templates/viewlets/geographical_coverage.pt')
-
-    @property
-    def available(self):
-        """ Condition for rendering of this viewlets
-        """
-        plone = getMultiAdapter((self.context, self.request),
-                                name=u'plone_context_state')
-        return plone.is_view_template()
-
-

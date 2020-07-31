@@ -15,13 +15,5 @@
         permission="zope2.View"
     />
 
-    <browser:viewlet
-        name="assessment.geographical_coverage.viewlet"
-        for="eea.indicators.content.interfaces.IAssessment"
-        manager="plone.app.layout.viewlets.interfaces.IBelowContentBody"
-        layer="eea.design.browser.interfaces.IEEACommonLayer"
-        class=".viewlets.AssessmentGeographicalCoverageViewlet"
-        permission="zope.Public"
-    />
 
 </configure>

@@ -236,6 +236,9 @@ ul.sortable_spec {
 .assessment_view .figure-title {
     display:inherit;
 }
+.assessment_view > div {
+    font-size: 1.25rem;
+}
 
 .specification-overlay {
     opacity:0.3;
@@ -587,7 +590,7 @@ div.kupu-fulleditor-zoomed .kupu-editor-iframe {
 .indicator-figure-plus-container .callout {
     border-left: 0;
     padding: 2rem;
-    font-size: 1rem !important;
+    font-size: 1.25rem !important;
 }
 .indicator-figure-plus-container .max-container-centered {
     margin-top: 0;
@@ -600,18 +603,9 @@ div.kupu-fulleditor-zoomed .kupu-editor-iframe {
     text-decoration: none;
 }
 
-.indicator-figure-plus img {
-    float: left;
-    margin: 0 1em 0 0;
-    border: medium none;
-    vertical-align: middle;
-    width: 100%;
-}
-
 .indicator-figure-plus .figure-title {
-    font-size: 1.6em !important;
+    font-size: 1.6rem !important;
 }
-
 
 /*start datagridwidget */
 /* We copy the content from the datagrid widget. For some reason Internet Explorer */

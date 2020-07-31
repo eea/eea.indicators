@@ -115,19 +115,19 @@ tal:define="specification context/getParentNode;
        tal:condition="context/is_discontinued"/>
 
 
-  <div tal:define="assessments context/get_assessments;
+  <tal:assessments tal:define="assessments context/get_assessments;
       key nocall:assessments/key;
           secondary assessments/secondary;">
-    <div tal:condition="python:key">
+    <tal:questions tal:condition="python:key">
       <tal:figures tal:replace="structure key/@@figures" />
       <div tal:replace="structure python:key.getAssessment()">Question here</div>
-    </div>
+    </tal:questions>
 
     <tal:parts repeat="part secondary">
       <tal:figures tal:replace="structure part/@@figures" />
       <div tal:replace="structure part/assessment">Question here</div>
     </tal:parts>
-  </div>
+  </tal:assessments>
 
   <div class="visualClear"><!-- --></div>
   <div class="clearfix eea-accordion-panels eea-accordion-panels-plain collapsed-by-default non-exclusive">
