@@ -37,7 +37,7 @@
               <img alt="" title="" src=""
                    tal:attributes="alt obj/Title;
                   title obj/Title;
-                  src string:${obj/absolute_url}/image_landscape" />
+                  src string:${obj/absolute_url}/image_original" />
             </a>
           </div>
 
@@ -66,8 +66,10 @@
               <tal:datasource tal:replace="structure figure_dataSource"></tal:datasource>
             </p>
             <!-- Show related data sources -->
-            <ul tal:repeat="item related" >
-              <li tal:content="structure item/@@related_title" />
+            <ul class="data-source-related">
+              <tal:items tal:repeat="item related">
+                <li tal:content="structure item/@@related_title" />
+              </tal:items>
             </ul>
             <tal:nodata tal:condition="python: not related and not figure_dataSource">
               <p i18n:translate="">Data provenance info is missing.</p>
@@ -270,7 +272,7 @@
                       <img alt="" title="" src=""
                            tal:attributes="alt obj/Title;
                               title  obj/Title;
-                              src string:${obj/absolute_url}/image_landscape" />
+                              src string:${obj/absolute_url}/image_original" />
                     </a>
                     <div class="visualClear"><!-- --></div>
                     <div class="googlechart-notes">

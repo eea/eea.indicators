@@ -19,7 +19,12 @@
 
     <script type="text/javascript">
       jQuery(document).ready(function($){
-        jQuery(".embedded-daviz-visualization").find("ul.formTabs a").bind("click", function(){
+          var $embedded_visualization =  jQuery(".embedded-daviz-visualization");
+          var $ul_tabs = $embedded_visualization.find("ul.formTabs");
+          var $select_tabs = $embedded_visualization.find("select.formTabs");
+          $ul_tabs.wrap("<div class='max-container-centered'></div>");
+          $select_tabs.wrap("<div class='max-container-centered'></div>");
+          $ul_tabs.find("a").bind("click", function(){
           var embedded_obj = jQuery("#fieldset-"+jQuery(this).attr("id").substr(15)).find(".googlechart_dashboard")
           if ((embedded_obj.length === 0) || (embedded_obj[0].innerHTML.trim().length != 0)){
             return;
@@ -32,7 +37,7 @@
             drawDashboardEmbed(window["settings_" + id]);
           }
         });
-        jQuery(".embedded-daviz-visualization").find("select.formTabs").bind("change", function(){
+        $embedded_visualization.find("select.formTabs").bind("change", function(){
           var embedded_obj = jQuery("#fieldset-"+jQuery(this).prop("value").substr(15)).find(".googlechart_dashboard")
           if ((embedded_obj.length === 0) || (embedded_obj[0].innerHTML.trim().length != 0)){
             return;
