@@ -63,6 +63,7 @@
         </div>
 
         <div id="justification-and-references" metal:define-macro="justification-and-references">
+          <span>&nbsp;</span>
           <h3 i18n:translate="">Rationale</h3>
           <h4 i18n:translate="">Justification for indicator selection</h4>
           <tal:justification define="rationale_justification context/rationale_justification">
@@ -99,6 +100,7 @@
         </div>
 
                                 <div id="policy-context-and-references" metal:define-macro="policy-context-and-references">
+            <span>&nbsp;</span>
           <h3 id="policy_context" i18n:translate="">Policy context and targets</h3>
 
           <h4 i18n:translate="">Context description</h4>
@@ -145,6 +147,7 @@
         </tal:policy_question>
 
         <div id="methodology-and-references" metal:define-macro="methodology-and-references">
+          <span>&nbsp;</span>
           <h3 i18n:translate="">Methodology</h3>
 
           <tal:methodology define="methodology context/getMethodology">
@@ -178,6 +181,7 @@
         <div id="data-specifications" metal:define-macro="data-specifications"
           tal:define="datasetsView nocall:specification/@@related_items|nothing;
           auto_relations nocall:specification/@@auto-relations.html">
+          <span>&nbsp;</span>
           <h3 id="data_specifications" i18n:translate="">Data specifications</h3>
           <h4 i18n:translate="">EEA data references</h4>
           <ul tal:define="datasets python:datasetsView('Data') if datasetsView else []">
@@ -232,6 +236,7 @@
 
         </div>
         <div id="uncertainties-part" metal:define-macro="uncertainties-part">
+          <span>&nbsp;</span>
           <h3 id="uncertainties" i18n:translate="">Uncertainties</h3>
 
           <h4 i18n:translate="">Methodology uncertainty</h4>

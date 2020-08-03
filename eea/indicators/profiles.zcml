@@ -25,6 +25,13 @@
     description="Extension profile for EEA Indicators upgrade to 10.1."
     provides="Products.GenericSetup.interfaces.EXTENSION" />
 
+  <genericsetup:registerProfile
+    name="upgrade155"
+    title="EEA Indicators Upgrade to 15.5"
+    directory="profiles/upgrade_15.5"
+    description="Extension profile for EEA Indicators upgrade to 15.5."
+    provides="Products.GenericSetup.interfaces.EXTENSION" />
+
   <genericsetup:importStep
     name="indicators-postInstall"
     title="Manual coded post-install for indicators" description=""

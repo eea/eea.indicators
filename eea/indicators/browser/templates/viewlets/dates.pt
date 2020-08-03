@@ -1,0 +1,26 @@
+<div i18n:domain="plone"
+     id="mini-dates"
+     class="eea-accordion-panel"
+     tal:condition="view/available">
+    <h2 class="eea-accordion-title eea-icon-left-container" i18n:translate="">Dates</h2>
+    <div class="pane">
+        <div i18n:translate="" class="metadata_date">
+            First draft created:
+        </div>
+        <div i18n:translate="" class="metadata_date">
+            <metal:field i18n:name="creation-date" use-macro="python:context.widget('creation_date', mode='view')" />
+        </div>
+        <div i18n:translate="" class="metadata_date">
+            Publish date:
+        </div>
+        <div i18n:translate="" class="metadata_date">
+            <metal:field i18n:name="effective-date" use-macro="python:context.widget('effectiveDate', mode='view')" />
+        </div>
+        <div i18n:translate="" class="metadata_date">
+            Last modified:
+        </div>
+        <div i18n:translate="" class="metadata_date">
+            <metal:field i18n:name="modified-date" use-macro="python:context.widget('modification_date', mode='view')" />
+        </div>
+    </div>
+</div>

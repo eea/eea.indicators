@@ -143,7 +143,7 @@ schema = Schema((
         name='temporalCoverage',
         expression="context.getTemporalCoverage()",
         widget=ComputedField._properties['widget'](
-            visible={'view': 'invisible', 'edit': 'invisible'},
+            visible={'view': 'visible', 'edit': 'invisible'},
         ),
     ),
 
