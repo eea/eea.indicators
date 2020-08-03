@@ -228,13 +228,16 @@ tal:define="specification context/getParentNode;
             </tal:authenticated>
 
             <tal:anon tal:condition="isAnon">
+              <tal:defines  tal:define="site_properties context/portal_properties/site_properties;
+                  eea_generic_email site_properties/eea_generic_email|string:info@eea.europa.eu">
               <a href=""
                  title="Contact indicator manager"
                  i18n:attributes="title"
-                 tal:attributes="href string:mailto:info@eea.europa.eu"
-                i18n:translate="">
+                 tal:attributes="href string:mailto:$eea_generic_email"
+                tal:content="eea_generic_email">
                 info@eea.europa.eu
               </a>
+              </tal:defines>
             </tal:anon>
           </div>
 
