@@ -64,13 +64,6 @@
           }
         });
 
-
-        // add correct title class to older versions accordion
-        jQuery('.eea-versions-portlet > h2').addClass('eea-accordion-title');
-
-        jQuery('.eea-versions-portlet > h2 > span').removeClass('eea-icon-right');
-        jQuery('.eea-versions-portlet > h2 > span').addClass('eea-icon-left');
-
       });
     </script>
 
@@ -132,7 +125,7 @@ tal:define="specification context/getParentNode;
   <div class="visualClear"><!-- --></div>
   <div class="clearfix eea-accordion-panels eea-accordion-panels-plain collapsed-by-default non-exclusive">
     <div class="eea-accordion-panel">
-      <h2 i18n:translate="" class="notoc eea-accordion-title eea-icon-left-container">Supporting information</h2>
+      <p i18n:translate="" class="notoc eea-accordion-title eea-icon-left-container">Supporting information</p>
       <div class="pane">
         <metal:definition-and-units use-macro="specification/@@view/macros/definition-and-units" />
         <br class="visualClear" />
@@ -183,23 +176,25 @@ tal:define="specification context/getParentNode;
         <div class="eea-accordion-panel other-info-accordion">
             <h2 i18n:translate="" class="notoc eea-accordion-title eea-icon-left-container">Other info</h2>
       <div class="pane">
-        <div class="box-column-left">
-          <div class="visualClear"><!-- --></div>
-          <strong i18n:translate="">DPSIR</strong>: <span tal:define="dpsirLabel nocall:context/@@dpsir_label"
-             tal:replace="python:dpsirLabel(context.getDpsir())" />
-          <br/>
-          <strong i18n:translate="">Typology</strong>: <span tal:define="typologyLabel nocall:context/@@typology_label"
-             tal:replace="python:typologyLabel(context.getTypology())" />
-        </div>
-        <div class="box-column-right">
-          <div tal:define="codes context/getCodes">
-            <strong i18n:translate="">Indicator codes</strong>
-            <ul>
-              <li tal:repeat="code codes" tal:content="string:${code/set} ${code/code}">CSI 001</li>
-            </ul>
+        <div id="indicator-codes" class="clearfix  mb-1">
+          <div class="box-column-left">
+            <div class="visualClear"><!-- --></div>
+            <strong i18n:translate="">DPSIR</strong>: <span tal:define="dpsirLabel nocall:context/@@dpsir_label"
+               tal:replace="python:dpsirLabel(context.getDpsir())" />
+            <br/>
+            <strong i18n:translate="">Typology</strong>: <span tal:define="typologyLabel nocall:context/@@typology_label"
+               tal:replace="python:typologyLabel(context.getTypology())" />
+          </div>
+          <div class="box-column-right">
+            <div tal:define="codes context/getCodes">
+              <strong i18n:translate="">Indicator codes</strong>
+              <ul>
+                <li tal:repeat="code codes" tal:content="string:${code/set} ${code/code}">CSI 001</li>
+              </ul>
+            </div>
           </div>
         </div>
-        <div id="timestamps-info" class="clearfix">
+        <div id="timestamps-info" class="clearfix  mb-1">
 
           <div class="box-column-right">
             <div tal:condition="context/should_show_frequency_of_updates">
@@ -245,7 +240,7 @@ tal:define="specification context/getParentNode;
 
 
         </div>
-        <div class="flex-container">
+        <div class="flex-container mb-1">
 
           <div class="box-column-right">
             <tal:authenticated tal:condition="not:isAnon">
