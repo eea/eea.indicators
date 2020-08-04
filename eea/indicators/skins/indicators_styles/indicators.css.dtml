@@ -582,14 +582,16 @@ div.kupu-fulleditor-zoomed .kupu-editor-iframe {
 .max-container-centered.embedded-chart {
     width: initial !important;
 }
+
+.indicator-figure-sources, .indicator-figure-sources li {
+    font-size: 12px !important;
+}
 .figure-chart-live .googlechart_dashboard {
     border: 0;
     box-shadow: none;
 }
 .indicator-figure-plus-container .callout {
     border-left: 0;
-    padding: 2rem;
-    font-size: 1.25rem !important;
 }
 .indicator-figure-plus-container .max-container-centered {
     margin-top: 0;

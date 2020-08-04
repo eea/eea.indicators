@@ -33,7 +33,7 @@
             <a title="Downloads and more info"
                  i18n:attributes="title"
                href=""
-                 tal:attributes="href obj/absolute_url" class="max-container-centered">
+                 tal:attributes="href obj/absolute_url" class="widescreen-container">
               <img alt="" title="" src=""
                    tal:attributes="alt obj/Title;
                   title obj/Title;
@@ -56,8 +56,7 @@
           </tal:description>
 
           <div tal:define="related python:[o for o in obj.getRelatedItems() if o.portal_type in ('ExternalDataSpec', 'Data')];
-              figure_dataSource obj/getDataSource">
-
+              figure_dataSource obj/getDataSource" class="indicator-figure-sources">
             <strong i18n:translate="">Data source:</strong>
             <!-- We only show deprecated datasource free text field,
             form old figures, otherwise we use the new approach
@@ -74,11 +73,12 @@
             <tal:nodata tal:condition="python: not related and not figure_dataSource">
               <p i18n:translate="">Data provenance info is missing.</p>
             </tal:nodata>
-          </div>
 
-          <a tal:attributes="href obj/absolute_url"
-              class="standardButton" i18n:translate="">Downloads and more
-            info</a>
+            <div class="indicator-figure-buttons">
+              <a tal:attributes="href obj/absolute_url"
+                  class="standardButton" i18n:translate="">Downloads and more info</a>
+            </div>
+          </div>
 
         </tal:block>
       </div>
@@ -105,15 +105,14 @@
           <tal:block tal:define="gismap_uid obj/UID;
               get_gismap_embed nocall:context/@@get_gismap_embed;
                   embed_type python:get_gismap_embed.get_embed_type(gismap_uid)">
-            <div class="indicator-figure-image">
+            <div class="indicator-figure-image widescreen-container">
               <tal:block tal:condition="python:(embed_type=='interactive' or embed_type=='' or embed_type is None) and (not isPrint)">
                 <tal:block tal:replace="structure obj/gis_inline" />
               </tal:block>
               <tal:block tal:condition="python:(embed_type=='static') or isPrint">
                 <p>
                   <a tal:attributes="href string:${obj/absolute_url}/">
-                    <img tal:attributes="src string:${obj/absolute_url}/image_large; title obj/title_or_id; alt obj/title_or_id"
-                        style="float:none;"/>
+                    <img tal:attributes="src string:${obj/absolute_url}/image_large; title obj/title_or_id; alt obj/title_or_id" />
                   </a>
                 </p>
 
@@ -130,14 +129,19 @@
                   </div>
                 </tal:description>
 
-                <tal:block tal:replace="structure obj/gis_data_sources" />
-                <p>
-                  <a tal:attributes="href obj/absolute_url"
-                      class="standardButton">
-                    <span class="eea-icon eea-icon-eye"></span>
-                    <span i18n:translate="">Explore map interactively</span>
-                  </a>
-                </p>
+                <div class="indicator-figure-sources widescreen-container">
+                  <tal:block tal:replace="structure obj/gis_data_sources" />
+                  <p>
+
+                  <div class="indicator-figure-buttons">
+                    <a tal:attributes="href obj/absolute_url"
+                        class="standardButton">
+                      <span class="eea-icon eea-icon-eye"></span>
+                      <span i18n:translate="">Explore map interactively</span>
+                    </a>
+                  </div>
+                  </p>
+                </div>
               </tal:block>
               <div class="visualClear"><!-- --></div>
             </div>
@@ -192,7 +196,7 @@
                                 current_chart python: chart[2];
                                     chart_type python: current_chart['type'];">
                       <div
-                          class="figure-chart-live" tal:condition="python:chart_type == 'live'">
+                          class="figure-chart-live widescreen-container" tal:condition="python:chart_type == 'live'">
                         <tal:content_core_only tal:define="content_core_only request/content_core_only | nothing;">
                           <script tal:replace="structure python:inline_chart(chart=chart_id)" tal:condition="not:content_core_only"></script>
                         </tal:content_core_only>
@@ -232,33 +236,35 @@
                       </div>
 
                       <tal:data tal:define="data_info obj/@@data.info | python:{}">
-                        <div class="indicator-figure-sources">
-                        <strong i18n:translate="">Data sources:</strong>
-                        <ul tal:condition="data_info" tal:define="provenances data_info/provenances | python:[]"
-                            >
-                          <tal:block tal:repeat="provenance provenances">
-                            <li tal:define="source provenance/source | python:{};
-                                owner provenance/owner | python:{}">
-                              <a tal:attributes="href source/url | python:''"
-                                   tal:content="source/title | python:''">Data
-                                Title</a>
-                              <tal:block i18n:translate="">provided by
-                              </tal:block>&nbsp;
-                              <strong tal:content="owner/title | python:''">Data
-                                owner</strong>
-                            </li>
-                          </tal:block>
-                        </ul>
+                        <div class="indicator-figure-sources widescreen-container">
+                          <strong i18n:translate="">Data sources:</strong>
+                          <ul tal:condition="data_info" tal:define="provenances data_info/provenances | python:[]">
+                            <tal:block tal:repeat="provenance provenances">
+                              <li tal:define="source provenance/source | python:{};
+                                  owner provenance/owner | python:{}">
+                                <a tal:attributes="href source/url | python:''"
+                                     tal:content="source/title | python:''">Data
+                                  Title</a>
+                                <tal:block i18n:translate="">provided by
+                                </tal:block>&nbsp;
+                                <strong tal:content="owner/title | python:''">Data
+                                  owner</strong>
+                              </li>
+                            </tal:block>
+                          </ul>
 
-                        <p tal:condition="python:not data_info" i18n:translate="">
-                          Data provenance info is missing.</p>
+                          <p tal:condition="python:not data_info" i18n:translate="">
+                            Data provenance info is missing.</p>
+
+                          <div class="indicator-figure-buttons">
+                            <a tal:attributes="href obj/absolute_url"
+                                class="standardButton">
+                              <span class="eea-icon eea-icon-eye"></span>
+                              <span i18n:translate="">Explore chart interactively</span>
+                            </a>
                           </div>
+                        </div>
                       </tal:data>
-                      <a tal:attributes="href obj/absolute_url"
-                          class="standardButton">
-                        <span class="eea-icon eea-icon-eye"></span>
-                        <span i18n:translate="">Explore chart interactively</span>
-                      </a>
 
                     </dd>
                   </tal:rep>
@@ -268,28 +274,32 @@
                       information, using default chart:
                     </div>
                     <a title="Interact" i18n:attributes="title" href=""
-                         tal:attributes="href obj/absolute_url" class="max-container-centered">
+                         tal:attributes="href obj/absolute_url" class="widescreen-container">
                       <img alt="" title="" src=""
                            tal:attributes="alt obj/Title;
                               title  obj/Title;
                               src string:${obj/absolute_url}/image_original" />
                     </a>
                     <div class="visualClear"><!-- --></div>
-                    <div class="googlechart-notes">
-                      <div class="googlecharts-note">
-                        <p class="callout" tal:define="figure_description obj/Description">
-                          <strong i18n:translate="">Note: </strong>
-                          <span tal:condition="python:figure_description"
-                               tal:content="figure_description" />
-                          <span tal:condition="python:not figure_description" i18n:translate="">N/A</span>
-                        </p>
+                    <div class="widescreen-container">
+                      <div class="googlechart-notes">
+                        <div class="googlecharts-note">
+                          <p class="callout" tal:define="figure_description obj/Description">
+                            <strong i18n:translate="">Note: </strong>
+                            <span tal:condition="python:figure_description"
+                                 tal:content="figure_description" />
+                            <span tal:condition="python:not figure_description" i18n:translate="">N/A</span>
+                          </p>
+                        </div>
+                      </div>
+                      <div class="indicator-figure-buttons">
+                        <a tal:attributes="href obj/absolute_url"
+                            class="standardButton">
+                          <span class="eea-icon eea-icon-eye"></span>
+                          <span i18n:translate="">Explore chart interactively</span>
+                        </a>
                       </div>
                     </div>
-                    <a tal:attributes="href obj/absolute_url"
-                        class="standardButton">
-                      <span class="eea-icon eea-icon-eye"></span>
-                      <span i18n:translate="">Explore chart interactively</span>
-                    </a>
                   </dd>
                 </dl>
               </div>

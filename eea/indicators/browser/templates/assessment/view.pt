@@ -57,12 +57,12 @@
         jQuery('#box-metadata').hide();
 
         // modify figure image sizes
-        jQuery(document).on('googlecharts.embed.pending', function(ev, data) {
-          var $chart = $("#googlechart_view_" + data);
-          if (!$chart.hasClass('max-container-centered')) {
-            $chart.addClass('max-container-centered');
-          }
-        });
+        // jQuery(document).on('googlecharts.embed.pending', function(ev, data) {
+        //   var $chart = $("#googlechart_view_" + data);
+        //   if (!$chart.hasClass('widescreen-container')) {
+        //     $chart.addClass('widescreen-container');
+        //   }
+        // });
 
       });
     </script>
