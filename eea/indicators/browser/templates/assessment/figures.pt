@@ -29,11 +29,12 @@
         </tal:block>
 
         <tal:block tal:condition="python: not showAnonCannotViewWarning">
+          <div class="widescreen-container">
           <div class="indicator-figure-image">
             <a title="Downloads and more info"
                  i18n:attributes="title"
                href=""
-                 tal:attributes="href obj/absolute_url" class="widescreen-container">
+                 tal:attributes="href obj/absolute_url">
               <img alt="" title="" src=""
                    tal:attributes="alt obj/Title;
                   title obj/Title;
@@ -41,18 +42,17 @@
             </a>
           </div>
 
-          <div class="visualClear"><!-- --></div>
           <tal:description tal:define="figure_description obj/Description">
-            <div class="googlechart-notes">
-              <div class="googlecharts-note">
-                <p class="callout">
-                  <strong i18n:translate="">Note: </strong>
-                  <span tal:condition="python:figure_description"
-                       tal:content="figure_description" />
-                  <span tal:condition="python:not figure_description" i18n:translate="">N/A</span>
-                </p>
+              <div class="googlechart-notes">
+                <div class="googlecharts-note">
+                  <p class="callout">
+                    <strong i18n:translate="">Note: </strong>
+                    <span tal:condition="python:figure_description"
+                         tal:content="figure_description" />
+                    <span tal:condition="python:not figure_description" i18n:translate="">N/A</span>
+                  </p>
+                </div>
               </div>
-            </div>
           </tal:description>
 
           <div tal:define="related python:[o for o in obj.getRelatedItems() if o.portal_type in ('ExternalDataSpec', 'Data')];
@@ -80,6 +80,7 @@
             </div>
           </div>
 
+          </div>
         </tal:block>
       </div>
 
@@ -105,7 +106,7 @@
           <tal:block tal:define="gismap_uid obj/UID;
               get_gismap_embed nocall:context/@@get_gismap_embed;
                   embed_type python:get_gismap_embed.get_embed_type(gismap_uid)">
-            <div class="indicator-figure-image widescreen-container">
+            <div class="indicator-figure-image">
               <tal:block tal:condition="python:(embed_type=='interactive' or embed_type=='' or embed_type is None) and (not isPrint)">
                 <tal:block tal:replace="structure obj/gis_inline" />
               </tal:block>
@@ -129,7 +130,7 @@
                   </div>
                 </tal:description>
 
-                <div class="indicator-figure-sources widescreen-container">
+                <div class="indicator-figure-sources">
                   <tal:block tal:replace="structure obj/gis_data_sources" />
                   <p>
 
@@ -143,7 +144,6 @@
                   </p>
                 </div>
               </tal:block>
-              <div class="visualClear"><!-- --></div>
             </div>
           </tal:block>
         </tal:block>
@@ -195,8 +195,9 @@
                             chart_type_id python: chart[1];
                                 current_chart python: chart[2];
                                     chart_type python: current_chart['type'];">
+                      <div class=" widescreen-container">
                       <div
-                          class="figure-chart-live widescreen-container" tal:condition="python:chart_type == 'live'">
+                          class="figure-chart-live" tal:condition="python:chart_type == 'live'">
                         <tal:content_core_only tal:define="content_core_only request/content_core_only | nothing;">
                           <script tal:replace="structure python:inline_chart(chart=chart_id)" tal:condition="not:content_core_only"></script>
                         </tal:content_core_only>
@@ -236,7 +237,7 @@
                       </div>
 
                       <tal:data tal:define="data_info obj/@@data.info | python:{}">
-                        <div class="indicator-figure-sources widescreen-container">
+                        <div class="indicator-figure-sources">
                           <strong i18n:translate="">Data sources:</strong>
                           <ul tal:condition="data_info" tal:define="provenances data_info/provenances | python:[]">
                             <tal:block tal:repeat="provenance provenances">
@@ -265,7 +266,7 @@
                           </div>
                         </div>
                       </tal:data>
-
+</div>
                     </dd>
                   </tal:rep>
 
