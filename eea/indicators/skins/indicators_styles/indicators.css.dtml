@@ -583,8 +583,14 @@ div.kupu-fulleditor-zoomed .kupu-editor-iframe {
     width: initial !important;
 }
 
-.indicator-figure-sources, .indicator-figure-sources li {
+.indicator-figure-sources, .indicator-figure-sources li,
+.googlecharts-note .box
+{
     font-size: 12px !important;
+}
+/* force box style of chart notes to 12px for bck compat */
+.googlecharts-note .box {
+    padding: 12px;
 }
 .figure-chart-live .googlechart_dashboard {
     border: 0;
