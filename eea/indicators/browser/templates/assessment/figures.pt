@@ -10,7 +10,7 @@
         showAnonCannotViewWarning python: isAnon and not visibleForAnon">
 
       <!-- figure rendering -->
-      <div class="indicator-figure-plus" tal:attributes="id obj/getId"
+      <div class="indicator-figure-plus widescreen-container" tal:attributes="id obj/getId"
            tal:condition="python:obj.portal_type == 'EEAFigure'">
         <tal:block tal:condition="python: showReviewStateWarning">
           <div
@@ -29,7 +29,7 @@
         </tal:block>
 
         <tal:block tal:condition="python: not showAnonCannotViewWarning">
-          <div class="widescreen-container">
+          <div class="indicator-figure">
           <div class="indicator-figure-image">
             <a title="Downloads and more info"
                  i18n:attributes="title"
@@ -85,7 +85,7 @@
       </div>
 
       <!-- gis rendering -->
-      <div class="indicator-figure-plus" tal:attributes="id obj/getId"
+      <div class="indicator-figure-plus widescreen-container" tal:attributes="id obj/getId"
            tal:condition="python:obj.portal_type == 'GIS Application'">
         <tal:block tal:condition="python: showReviewStateWarning">
           <div
@@ -151,7 +151,7 @@
 
       <!-- daviz rendering -->
       <div
-          class="indicator-figure-plus embedded-daviz-visualization" tal:attributes="id obj/getId"
+          class="indicator-figure-plus embedded-daviz-visualization widescreen-container" tal:attributes="id obj/getId"
            tal:condition="python:obj.portal_type=='DavizVisualization'">
 
         <tal:block tal:condition="python: showReviewStateWarning">

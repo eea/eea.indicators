@@ -31,6 +31,15 @@
 /* Style adjustments 
    related to Daviz integration
 ============================== */
+/* figure images sizes fixes */
+.indicator-figure-image .formTabs {
+    margin-bottom: 0;
+    padding-top: 0.25rem;
+}
+
+.indicator-figure-image select.formTabs {
+    max-width: 800px !important;
+}
 .enableFormTabbing {
     padding-right: 0;
 }
@@ -578,9 +587,9 @@ div.kupu-fulleditor-zoomed .kupu-editor-iframe {
     page-break-before: avoid !important;
 }
 
-/* #119540 style charts for assessment embeds */
-.max-container-centered.embedded-chart {
-    width: initial !important;
+.indicator-figure-sources {
+    padding: 1rem;
+    background-color: #f3f3f3;
 }
 
 .indicator-figure-sources, .indicator-figure-sources li,
@@ -591,17 +600,13 @@ div.kupu-fulleditor-zoomed .kupu-editor-iframe {
 /* force box style of chart notes to 12px for bck compat */
 .googlecharts-note .box {
     padding: 12px;
+    margin: 0;
 }
 .figure-chart-live .googlechart_dashboard {
-    border: 0;
-    box-shadow: none;
+    padding: 1rem;
 }
 .indicator-figure-plus-container .callout {
     border-left: 0;
-}
-.indicator-figure-plus-container .max-container-centered {
-    margin-top: 0;
-    margin-bottom: 0;
 }
 
 /* end #119540 style charts for assessment embeds */
@@ -770,22 +775,6 @@ ul.token-input-list-facebook {
     display: none;
 }
 
-/* figure images sizes fixes */
-.max-container-centered.indicator-figure-image > * {
-    max-width: 1400px;
-}
-
-.indicator-figure-sources a.max-container-centered {
-    margin: 0;
-}
-
-.indicator-figure-image .standardButton.max-container-centered {
-    margin: 0;
-}
-
-.indicator-figure-image .standardButton.max-container-centered > * {
-    width: auto;
-}
 
 /* flex wrap for miniheader */
 @media (min-width: 1024px) {
@@ -811,6 +800,17 @@ ul.token-input-list-facebook {
 
     .eea-accordion-title {
         width: 100%;
+    }
+}
+
+@media (min-width: 1025px) {
+    *::-webkit-scrollbar {
+        max-width: 12px;
+        background-color: #f3f3f3;
+    }
+    *::-webkit-scrollbar-thumb {
+        background-color: #CCC;
+        min-height: 50px;
     }
 }
 

@@ -22,8 +22,8 @@
           var $embedded_visualization =  jQuery(".embedded-daviz-visualization");
           var $ul_tabs = $embedded_visualization.find("ul.formTabs");
           var $select_tabs = $embedded_visualization.find("select.formTabs");
-          $ul_tabs.wrap("<div class='widescreen-container'></div>");
-          $select_tabs.wrap("<div class='widescreen-container'></div>");
+          // $ul_tabs.wrap("<div class='widescreen-container'></div>");
+          // $select_tabs.wrap("<div class='widescreen-container'></div>");
           $ul_tabs.find("a").bind("click", function(){
           var embedded_obj = jQuery("#fieldset-"+jQuery(this).attr("id").substr(15)).find(".googlechart_dashboard")
           if ((embedded_obj.length === 0) || (embedded_obj[0].innerHTML.trim().length != 0)){
