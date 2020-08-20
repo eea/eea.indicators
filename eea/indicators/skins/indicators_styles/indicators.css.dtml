@@ -588,8 +588,8 @@ div.kupu-fulleditor-zoomed .kupu-editor-iframe {
 }
 
 .indicator-figure-sources {
-    padding: 1rem;
-    background-color: #f3f3f3;
+    padding: 12px;
+    background-color: #eee;
 }
 
 .indicator-figure-sources, .indicator-figure-sources li,
@@ -604,6 +604,7 @@ div.kupu-fulleditor-zoomed .kupu-editor-iframe {
 }
 .figure-chart-live .googlechart_dashboard {
     padding: 1rem;
+    border-top: 0;
 }
 .indicator-figure-plus-container .callout {
     border-left: 0;
