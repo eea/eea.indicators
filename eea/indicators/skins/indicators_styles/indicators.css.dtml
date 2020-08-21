@@ -38,7 +38,7 @@
 }
 
 .indicator-figure-image select.formTabs {
-    max-width: 800px !important;
+    max-width: 600px !important;
 }
 .enableFormTabbing {
     padding-right: 0;
@@ -604,6 +604,8 @@ div.kupu-fulleditor-zoomed .kupu-editor-iframe {
 }
 .figure-chart-live .googlechart_dashboard {
     padding: 1rem;
+}
+ul.formTabs + .enableFormTabbing  .googlechart_dashboard {
     border-top: 0;
 }
 .indicator-figure-plus-container .callout {
