@@ -16,7 +16,6 @@
 .box-column-left {
     float:left;
     width: 48%;
-    margin-bottom: 1em;
 }
 
 .box-column-right {
@@ -24,6 +23,7 @@
    width: 50%;
 }
 
+.clearfix,
 .clear {
     clear: both;
 }
@@ -31,6 +31,15 @@
 /* Style adjustments 
    related to Daviz integration
 ============================== */
+/* figure images sizes fixes */
+.indicator-figure-image .formTabs {
+    margin-bottom: 0;
+    padding-top: 0.25rem;
+}
+
+.indicator-figure-image select.formTabs {
+    max-width: 800px !important;
+}
 .enableFormTabbing {
     padding-right: 0;
 }
@@ -234,6 +243,9 @@ ul.sortable_spec {
 
 .assessment_view .figure-title {
     display:inherit;
+}
+.assessment_view > div {
+    font-size: 1.25rem;
 }
 
 .specification-overlay {
@@ -575,26 +587,38 @@ div.kupu-fulleditor-zoomed .kupu-editor-iframe {
     page-break-before: avoid !important;
 }
 
-.indicator-figure-plus {
-    font-size: 0.8em;
+.indicator-figure-sources {
+    padding: 12px;
+    background-color: #eee;
 }
+
+.indicator-figure-sources, .indicator-figure-sources li,
+.googlecharts-note .box
+{
+    font-size: 12px !important;
+}
+/* force box style of chart notes to 12px for bck compat */
+.googlecharts-note .box {
+    padding: 12px;
+    margin: 0;
+}
+.figure-chart-live .googlechart_dashboard {
+    padding: 1rem;
+    border-top: 0;
+}
+.indicator-figure-plus-container .callout {
+    border-left: 0;
+}
+
+/* end #119540 style charts for assessment embeds */
 
 .indicator-figure-plus a {
     text-decoration: none;
 }
 
-.indicator-figure-plus img {
-    float: left;
-    margin: 0 1em 0 0;
-    border: medium none;
-    vertical-align: middle;
-    width: 100%;
-}
-
 .indicator-figure-plus .figure-title {
-    font-size: 1.6em !important;
+    font-size: 1.6rem !important;
 }
-
 
 /*start datagridwidget */
 /* We copy the content from the datagrid widget. For some reason Internet Explorer */
@@ -750,6 +774,45 @@ ul.token-input-list-facebook {
 
 .plone-jscalendar-popup ~ span {
     display: none;
+}
+
+
+/* flex wrap for miniheader */
+@media (min-width: 1024px) {
+    .mini-header-below-content {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }            
+
+    .mini-header-below-content > div {
+        display: flex;
+        flex-wrap: wrap;
+        flex: 0 0 49%;
+        align-content: baseline;
+    }
+
+
+    .mini-header-below-content .eea-pdf-viewlet,
+    .mini-header-below-content .exclude-toc,
+    .mini-header-below-content .qrbox {
+        display: none !important;
+    }
+
+    .eea-accordion-title {
+        width: 100%;
+    }
+}
+
+@media (min-width: 1025px) {
+    *::-webkit-scrollbar {
+        max-width: 12px;
+        background-color: #f3f3f3;
+    }
+    *::-webkit-scrollbar-thumb {
+        background-color: #CCC;
+        min-height: 50px;
+    }
 }
 
 /* ==============proposed improvements ============*/

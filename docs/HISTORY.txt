@@ -1,6 +1,11 @@
 Changelog
 =========
 
+15.5 - (2020-08-03)
+---------------------------
+* Change: Indicator assessment redesign in accordance with miniheader
+  [iulianpetchesi refs #119540]
+
 15.4 - (2020-06-23)
 ---------------------------
 * Change: metadata accordion redesign to the new article style

@@ -6,6 +6,7 @@
   <include file="specification.zcml" />
   <include file="assessment.zcml" />
   <include file="indicatorfactsheet.zcml" />
+  <include file="viewlets.zcml" />
 
   <adapter factory=".utils.FrequencyOfUpdatesFieldValueProvider"
               name="frequency_of_updates"/>

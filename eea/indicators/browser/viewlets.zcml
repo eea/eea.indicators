@@ -1,0 +1,19 @@
+<configure xmlns="http://namespaces.zope.org/zope"
+           xmlns:browser="http://namespaces.zope.org/browser"
+           xmlns:plone="http://namespaces.plone.org/plone"
+           xmlns:zcml="http://namespaces.zope.org/zcml"
+           xmlns:five="http://namespaces.zope.org/five">
+
+
+    <browser:viewlet
+        name="assessment.dates.viewlet"
+        for="eea.indicators.content.interfaces.IAssessment"
+        manager="plone.app.layout.viewlets.interfaces.IBelowContentBody"
+        view="plone.app.layout.globals.interfaces.IViewView"
+        class=".viewlets.AssessmentDatesViewlet"
+        layer="eea.design.browser.interfaces.IEEACommonLayer"
+        permission="zope2.View"
+    />
+
+
+</configure>

@@ -4,262 +4,313 @@
                      isAnon context/@@plone_portal_state/anonymous;
                      isPrint python:1 if 'pdf.' in request['URL0'] else 0;">
 
-    <div tal:repeat="obj objects" class="indicator-figure-plus-container">
-        <tal:defines tal:define="visibleForAnon python:obj.restrictedTraverse('isVisibleForAnon')();
-                showReviewStateWarning python: not isAnon and not visibleForAnon;
-                showAnonCannotViewWarning python: isAnon and not visibleForAnon">
+  <div tal:repeat="obj objects" class="indicator-figure-plus-container">
+    <tal:defines tal:define="visibleForAnon python:obj.restrictedTraverse('isVisibleForAnon')();
+        showReviewStateWarning python: not isAnon and not visibleForAnon;
+        showAnonCannotViewWarning python: isAnon and not visibleForAnon">
 
-            <!-- figure rendering -->
-            <div class="indicator-figure-plus" tal:attributes="id obj/getId"
-                     tal:condition="python:obj.portal_type == 'EEAFigure'">
-                <tal:block tal:condition="python: showReviewStateWarning">
-                    <div class="warningMessage portalMessage visualNoPrint" i18n:translate=""> Warning! This figure is currently not viewable by anonymous users. Please review its worklow state.</div>
-                </tal:block>
+      <!-- figure rendering -->
+      <div class="indicator-figure-plus widescreen-container" tal:attributes="id obj/getId"
+           tal:condition="python:obj.portal_type == 'EEAFigure'">
+        <tal:block tal:condition="python: showReviewStateWarning">
+          <div
+              class="warningMessage portalMessage visualNoPrint" i18n:translate="">
+            Warning! This figure is currently not viewable by anonymous users.
+            Please review its worklow state.
+          </div>
+        </tal:block>
 
-                <p class="figure-title" tal:content="obj/Title" />
-                <tal:block tal:condition="python: showAnonCannotViewWarning">
-                    <div class="warningMessage portalMessage visualNoPrint" i18n:translate="">This figure is currently not viewable by anonymous users.</div>
-                </tal:block>
+        <p class="figure-title" tal:content="obj/Title" />
+        <tal:block tal:condition="python: showAnonCannotViewWarning">
+          <div
+              class="warningMessage portalMessage visualNoPrint" i18n:translate="">
+            This figure is currently not viewable by anonymous users.
+          </div>
+        </tal:block>
 
-                <tal:block tal:condition="python: not showAnonCannotViewWarning">
-                    <div class="indicator-figure-image">
-                        <a title="Downloads and more info"
-                                 i18n:attributes="title"
-                           href=""
-                                 tal:attributes="href obj/absolute_url">
-                            <img alt="" title="" src=""
-                                     tal:attributes="alt obj/Title;
-                                    title obj/Title;
-                                    src string:${obj/absolute_url}/image_xlarge" />
+        <tal:block tal:condition="python: not showAnonCannotViewWarning">
+          <div class="indicator-figure">
+          <div class="indicator-figure-image">
+            <a title="Downloads and more info"
+                 i18n:attributes="title"
+               href=""
+                 tal:attributes="href obj/absolute_url">
+              <img alt="" title="" src=""
+                   tal:attributes="alt obj/Title;
+                  title obj/Title;
+                  src string:${obj/absolute_url}/image_original" />
+            </a>
+          </div>
+
+          <tal:description tal:define="figure_description obj/Description">
+              <div class="googlechart-notes">
+                <div class="googlecharts-note">
+                  <p class="callout">
+                    <strong i18n:translate="">Note: </strong>
+                    <span tal:condition="python:figure_description"
+                         tal:content="figure_description" />
+                    <span tal:condition="python:not figure_description" i18n:translate="">N/A</span>
+                  </p>
+                </div>
+              </div>
+          </tal:description>
+
+          <div tal:define="related python:[o for o in obj.getRelatedItems() if o.portal_type in ('ExternalDataSpec', 'Data')];
+              figure_dataSource obj/getDataSource" class="indicator-figure-sources">
+            <strong i18n:translate="">Data source:</strong>
+            <!-- We only show deprecated datasource free text field,
+            form old figures, otherwise we use the new approach
+            with related sources (which overrules the old one) -->
+            <p tal:condition="python:figure_dataSource and not related">
+              <tal:datasource tal:replace="structure figure_dataSource"></tal:datasource>
+            </p>
+            <!-- Show related data sources -->
+            <ul class="data-source-related">
+              <tal:items tal:repeat="item related">
+                <li tal:content="structure item/@@related_title" />
+              </tal:items>
+            </ul>
+            <tal:nodata tal:condition="python: not related and not figure_dataSource">
+              <p i18n:translate="">Data provenance info is missing.</p>
+            </tal:nodata>
+
+            <div class="indicator-figure-buttons">
+              <a tal:attributes="href obj/absolute_url"
+                  class="standardButton" i18n:translate="">Downloads and more info</a>
+            </div>
+          </div>
+
+          </div>
+        </tal:block>
+      </div>
+
+      <!-- gis rendering -->
+      <div class="indicator-figure-plus widescreen-container" tal:attributes="id obj/getId"
+           tal:condition="python:obj.portal_type == 'GIS Application'">
+        <tal:block tal:condition="python: showReviewStateWarning">
+          <div
+              class="warningMessage portalMessage visualNoPrint" i18n:translate="">
+            Warning! This figure is currently not viewable by anonymous users.
+            Please review its worklow state.
+          </div>
+        </tal:block>
+        <p class="figure-title" tal:content="obj/Title" />
+        <tal:block tal:condition="python: showAnonCannotViewWarning">
+          <div
+              class="warningMessage portalMessage visualNoPrint" i18n:translate="">
+            This figure is currently not viewable by anonymous users.
+          </div>
+        </tal:block>
+
+        <tal:block tal:condition="python: not showAnonCannotViewWarning">
+          <tal:block tal:define="gismap_uid obj/UID;
+              get_gismap_embed nocall:context/@@get_gismap_embed;
+                  embed_type python:get_gismap_embed.get_embed_type(gismap_uid)">
+            <div class="indicator-figure-image">
+              <tal:block tal:condition="python:(embed_type=='interactive' or embed_type=='' or embed_type is None) and (not isPrint)">
+                <tal:block tal:replace="structure obj/gis_inline" />
+              </tal:block>
+              <tal:block tal:condition="python:(embed_type=='static') or isPrint">
+                <p>
+                  <a tal:attributes="href string:${obj/absolute_url}/">
+                    <img tal:attributes="src string:${obj/absolute_url}/image_large; title obj/title_or_id; alt obj/title_or_id" />
+                  </a>
+                </p>
+
+                <tal:description define="gis_description obj/Description">
+                  <div class="googlechart-notes gis-notes">
+                    <div class="googlecharts-note">
+                      <p class="callout">
+                        <strong i18n:translate="">Note: </strong>
+                        <span tal:condition="python:gis_description"
+                             tal:content="gis_description" />
+                        <span tal:condition="python:not gis_description" i18n:translate="">N/A</span>
+                      </p>
+                    </div>
+                  </div>
+                </tal:description>
+
+                <div class="indicator-figure-sources">
+                  <tal:block tal:replace="structure obj/gis_data_sources" />
+                  <p>
+
+                  <div class="indicator-figure-buttons">
+                    <a tal:attributes="href obj/absolute_url"
+                        class="standardButton">
+                      <span class="eea-icon eea-icon-eye"></span>
+                      <span i18n:translate="">Explore map interactively</span>
+                    </a>
+                  </div>
+                  </p>
+                </div>
+              </tal:block>
+            </div>
+          </tal:block>
+        </tal:block>
+      </div>
+
+      <!-- daviz rendering -->
+      <div
+          class="indicator-figure-plus embedded-daviz-visualization widescreen-container" tal:attributes="id obj/getId"
+           tal:condition="python:obj.portal_type=='DavizVisualization'">
+
+        <tal:block tal:condition="python: showReviewStateWarning">
+          <div
+              class="warningMessage portalMessage visualNoPrint" i18n:translate="">
+            Warning! This figure is currently not viewable by anonymous users.
+            Please review its worklow state.
+          </div>
+        </tal:block>
+        <p class="figure-title" tal:content="obj/Title" />
+        <tal:block tal:condition="python: showAnonCannotViewWarning">
+          <div
+              class="warningMessage portalMessage visualNoPrint" i18n:translate="">
+            This figure is currently not viewable by anonymous users.
+          </div>
+        </tal:block>
+
+        <tal:block tal:condition="python: not showAnonCannotViewWarning">
+          <tal:daviz_defines tal:define="uid obj/UID;
+              daviz_view nocall:context/@@get_daviz_chart;
+                  charts python:daviz_view.get_charts(uid);
+                      inline_chart nocall:obj/@@embed-inline | nothing;">
+
+            <div class="metadata" style="display:none;">
+              <div class="part_url" tal:content="python:context.absolute_url()">
+              </div>
+              <div class="daviz_uid" tal:content="uid">
+              </div>
+            </div>
+
+            <tal:block tal:condition="nocall:inline_chart">
+
+              <div class="indicator-figure-image">
+
+                <dl class="enableFormTabbing">
+                  <tal:rep repeat="chart charts">
+                    <dt id="fieldsetlegend-1" tal:attributes="id string:fieldsetlegend-${uid}-${repeat/chart/index}"
+                         tal:content="python:chart[1]"></dt>
+                    <dd id="fieldset-1" tal:attributes="id string:fieldset-${uid}-${repeat/chart/index}" tal:define="
+                        chart_id python: chart[0];
+                            chart_type_id python: chart[1];
+                                current_chart python: chart[2];
+                                    chart_type python: current_chart['type'];">
+                      <div class=" widescreen-container">
+                      <div
+                          class="figure-chart-live" tal:condition="python:chart_type == 'live'">
+                        <tal:content_core_only tal:define="content_core_only request/content_core_only | nothing;">
+                          <script tal:replace="structure python:inline_chart(chart=chart_id)" tal:condition="not:content_core_only"></script>
+                        </tal:content_core_only>
+                        <div class="visualClear"><!-- --></div>
+                      </div>
+                      <div
+                          class="figure-chart-preview" tal:condition="python:chart_type == 'preview'">
+                        <a title="Interact" i18n:attributes="title" href=""
+                             tal:attributes="href python:obj.absolute_url()+'#tab-' + chart_id">
+                          <img alt="" title="" src=""
+                               tal:attributes="alt python:chart[1];
+                                  title python:chart[1];
+                                  src python:chart[3].strip()+'/image_large'" />
                         </a>
-                    </div>
+                        <div class="visualClear"><!-- --></div>
 
-                    <div class="visualClear" ><!-- --></div>
-                    <tal:description tal:define="figure_description obj/Description">
-                        <div class="googlechart-notes">
-                            <div class="googlecharts-note">
-                                <p class="callout">
-                                    <strong i18n:translate="">Note: </strong>
-                                    <span tal:condition="python:figure_description"
-                                             tal:content="figure_description" />
-                                    <span tal:condition="python:not figure_description" i18n:translate="">N/A</span>
+                        <tal:comment tal:replace="nothing">
+                          #22208 check if chart-notes is available, skip notes
+                          if not found
+                        </tal:comment>
+                        <tal:chart_notes tal:define="notes_view nocall:obj/chart-notes|nothing;" tal:condition="notes_view">
+                          <div tal:define="figure_description python:notes_view(chart_id)">
+                            <div class="googlechart-notes">
+                              <div class="googlecharts-note">
+                                <p  class="callout">
+                                  <strong i18n:translate="">Note: </strong>
+                                  <tal:rep tal:repeat="info figure_description">
+                                    <span tal:content="structure info/text" />
+                                  </tal:rep>
+                                  <span tal:condition="python:not figure_description" i18n:translate="">N/A</span>
                                 </p>
+                              </div>
                             </div>
-                        </div>
-                    </tal:description>
+                          </div>
+                        </tal:chart_notes>
 
-                    <div tal:define="related python:[o for o in obj.getRelatedItems() if o.portal_type in ('ExternalDataSpec', 'Data')];
-                            figure_dataSource obj/getDataSource">
+                      </div>
 
-                        <strong i18n:translate="">Data source:</strong>
-                        <!-- We only show deprecated datasource free text field,
-                        form old figures, otherwise we use the new approach
-                        with related sources (which overrules the old one) -->
-                        <p tal:condition="python:figure_dataSource and not related">
-                            <tal:datasource tal:replace="structure figure_dataSource"></tal:datasource>
-                        </p>
-                        <!-- Show related data sources -->
-                        <ul tal:repeat="item related" >
-                            <li tal:content="structure item/@@related_title" />
-                        </ul>
-                        <tal:nodata tal:condition="python: not related and not figure_dataSource">
-                            <p i18n:translate="">Data provenance info is missing.</p>
-                        </tal:nodata>
-                    </div>
-
-                    <a tal:attributes="href obj/absolute_url" class="standardButton" i18n:translate="">Downloads and more info</a>
-
-                </tal:block>
-            </div>
-
-            <!-- gis rendering -->
-            <div class="indicator-figure-plus" tal:attributes="id obj/getId"
-                     tal:condition="python:obj.portal_type == 'GIS Application'">
-                <tal:block tal:condition="python: showReviewStateWarning">
-                    <div class="warningMessage portalMessage visualNoPrint" i18n:translate=""> Warning! This figure is currently not viewable by anonymous users. Please review its worklow state.</div>
-                </tal:block>
-                <p class="figure-title" tal:content="obj/Title" />
-                <tal:block tal:condition="python: showAnonCannotViewWarning">
-                    <div class="warningMessage portalMessage visualNoPrint" i18n:translate="">This figure is currently not viewable by anonymous users.</div>
-                </tal:block>
-
-                <tal:block tal:condition="python: not showAnonCannotViewWarning">
-                    <tal:block tal:define="gismap_uid obj/UID;
-                            get_gismap_embed nocall:context/@@get_gismap_embed;
-                                    embed_type python:get_gismap_embed.get_embed_type(gismap_uid)">
-                        <div class="indicator-figure-image">
-                            <tal:block tal:condition="python:(embed_type=='interactive' or embed_type=='' or embed_type is None) and (not isPrint)">
-                                <tal:block tal:replace="structure obj/gis_inline" />
+                      <tal:data tal:define="data_info obj/@@data.info | python:{}">
+                        <div class="indicator-figure-sources">
+                          <strong i18n:translate="">Data sources:</strong>
+                          <ul tal:condition="data_info" tal:define="provenances data_info/provenances | python:[]">
+                            <tal:block tal:repeat="provenance provenances">
+                              <li tal:define="source provenance/source | python:{};
+                                  owner provenance/owner | python:{}">
+                                <a tal:attributes="href source/url | python:''"
+                                     tal:content="source/title | python:''">Data
+                                  Title</a>
+                                <tal:block i18n:translate="">provided by
+                                </tal:block>&nbsp;
+                                <strong tal:content="owner/title | python:''">Data
+                                  owner</strong>
+                              </li>
                             </tal:block>
-                            <tal:block tal:condition="python:(embed_type=='static') or isPrint">
-                                <p>
-                                    <a tal:attributes="href string:${obj/absolute_url}/">
-                                        <img tal:attributes="src string:${obj/absolute_url}/image_large; title obj/title_or_id; alt obj/title_or_id" style="float:none;" />
-                                    </a>
-                                </p>
+                          </ul>
 
-                                <tal:description define="gis_description obj/Description">
-                                    <div class="googlechart-notes gis-notes">
-                                        <div class="googlecharts-note">
-                                            <p class="callout">
-                                                <strong i18n:translate="">Note: </strong>
-                                                <span tal:condition="python:gis_description"
-                                                         tal:content="gis_description" />
-                                                <span tal:condition="python:not gis_description" i18n:translate="">N/A</span>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </tal:description>
+                          <p tal:condition="python:not data_info" i18n:translate="">
+                            Data provenance info is missing.</p>
 
-                                <tal:block tal:replace="structure obj/gis_data_sources" />
-                                <p>
-                                    <a tal:attributes="href obj/absolute_url" class="standardButton">
-                                        <span class="eea-icon eea-icon-eye"></span>
-                                        <span i18n:translate="">Explore map interactively</span>
-                                    </a>
-                                </p>
-                            </tal:block>
-                            <div class="visualClear"><!-- --></div>
+                          <div class="indicator-figure-buttons">
+                            <a tal:attributes="href obj/absolute_url"
+                                class="standardButton">
+                              <span class="eea-icon eea-icon-eye"></span>
+                              <span i18n:translate="">Explore chart interactively</span>
+                            </a>
+                          </div>
                         </div>
-                    </tal:block>
-                </tal:block>
-            </div>
+                      </tal:data>
+</div>
+                    </dd>
+                  </tal:rep>
 
-            <!-- daviz rendering -->
-            <div class="indicator-figure-plus embedded-daviz-visualization" tal:attributes="id obj/getId"
-                     tal:condition="python:obj.portal_type=='DavizVisualization'">
-
-                <tal:block tal:condition="python: showReviewStateWarning">
-                    <div class="warningMessage portalMessage visualNoPrint" i18n:translate=""> Warning! This figure is currently not viewable by anonymous users. Please review its worklow state.</div>
-                </tal:block>
-                <p class="figure-title" tal:content="obj/Title" />
-                <tal:block tal:condition="python: showAnonCannotViewWarning">
-                    <div class="warningMessage portalMessage visualNoPrint" i18n:translate=""> This figure is currently not viewable by anonymous users.</div>
-                </tal:block>
-
-                <tal:block tal:condition="python: not showAnonCannotViewWarning">
-                    <tal:daviz_defines tal:define="uid obj/UID;
-                            daviz_view nocall:context/@@get_daviz_chart;
-                                    charts python:daviz_view.get_charts(uid);
-                                            inline_chart nocall:obj/@@embed-inline | nothing;">
-
-                        <div class="metadata" style="display:none;">
-                            <div class="part_url" tal:content="python:context.absolute_url()">
-                            </div>
-                            <div class="daviz_uid" tal:content="uid">
-                            </div>
+                  <dd tal:condition="python:not charts">
+                    <div i18n:translate="" style="display:none">Missing chart
+                      information, using default chart:
+                    </div>
+                    <a title="Interact" i18n:attributes="title" href=""
+                         tal:attributes="href obj/absolute_url" class="widescreen-container">
+                      <img alt="" title="" src=""
+                           tal:attributes="alt obj/Title;
+                              title  obj/Title;
+                              src string:${obj/absolute_url}/image_original" />
+                    </a>
+                    <div class="visualClear"><!-- --></div>
+                    <div class="widescreen-container">
+                      <div class="googlechart-notes">
+                        <div class="googlecharts-note">
+                          <p class="callout" tal:define="figure_description obj/Description">
+                            <strong i18n:translate="">Note: </strong>
+                            <span tal:condition="python:figure_description"
+                                 tal:content="figure_description" />
+                            <span tal:condition="python:not figure_description" i18n:translate="">N/A</span>
+                          </p>
                         </div>
+                      </div>
+                      <div class="indicator-figure-buttons">
+                        <a tal:attributes="href obj/absolute_url"
+                            class="standardButton">
+                          <span class="eea-icon eea-icon-eye"></span>
+                          <span i18n:translate="">Explore chart interactively</span>
+                        </a>
+                      </div>
+                    </div>
+                  </dd>
+                </dl>
+              </div>
 
-                        <tal:block tal:condition="nocall:inline_chart">
-
-                            <div class="indicator-figure-image">
-
-                                <dl class="enableFormTabbing">
-                                    <tal:rep repeat="chart charts">
-                                        <dt id="fieldsetlegend-1" tal:attributes="id string:fieldsetlegend-${uid}-${repeat/chart/index}"
-                                                 tal:content="python:chart[1]"></dt>
-                                        <dd id="fieldset-1" tal:attributes="id string:fieldset-${uid}-${repeat/chart/index}" tal:define="
-                                                chart_id python: chart[0];
-                                                        chart_type_id python: chart[1];
-                                                                current_chart python: chart[2];
-                                                                        chart_type python: current_chart['type'];">
-                                            <div class="figure-chart-live" tal:condition="python:chart_type == 'live'">
-                                                <tal:content_core_only tal:define="content_core_only request/content_core_only | nothing;">
-                                                    <script tal:replace="structure python:inline_chart(chart=chart_id)" tal:condition="not:content_core_only"></script>
-                                                </tal:content_core_only>
-                                            <div class="visualClear"><!-- --></div>
-                                        </div>
-                                            <div class="figure-chart-preview" tal:condition="python:chart_type == 'preview'">
-                                                <a title="Interact" i18n:attributes="title" href=""
-                                                         tal:attributes="href python:obj.absolute_url()+'#tab-' + chart_id">
-                                                    <img alt="" title="" src=""
-                                                             tal:attributes="alt python:chart[1];
-                                                                    title python:chart[1];
-                                                                    src python:chart[3].strip()+'/image_large'" />
-                                                </a>
-                                                <div class="visualClear"><!-- --></div>
-
-                                                <tal:comment tal:replace="nothing">
-                                                    #22208 check if chart-notes is available, skip notes if not found
-                                                </tal:comment>
-                                                <tal:chart_notes tal:define="notes_view nocall:obj/chart-notes|nothing;" tal:condition="notes_view">
-                                                    <div tal:define="figure_description python:notes_view(chart_id)">
-                                                        <div class="googlechart-notes">
-                                                            <div class="googlecharts-note">
-                                                                <p class="callout">
-                                                                    <strong i18n:translate="">Note: </strong>
-                                                                    <tal:rep tal:repeat="info figure_description">
-                                                                        <span tal:content="structure info/text" />
-                                                                    </tal:rep>
-                                                                    <span tal:condition="python:not figure_description" i18n:translate="">N/A</span>
-                                                                </p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </tal:chart_notes>
-
-                                            </div>
-
-                                            <tal:data tal:define="data_info obj/@@data.info | python:{}">
-                                                <strong i18n:translate="">Data sources:</strong>
-                                                <ul tal:condition="data_info" tal:define="provenances data_info/provenances | python:[]" class="indicator-figure-sources">
-                                                    <tal:block tal:repeat="provenance provenances">
-                                                        <li tal:define="source provenance/source | python:{};
-                                                                owner provenance/owner | python:{}">
-                                                            <a tal:attributes="href source/url | python:''"
-                                                                     tal:content="source/title | python:''">Data Title</a>
-                                                            <tal:block i18n:translate="">provided by</tal:block>&nbsp;
-                                                            <strong tal:content="owner/title | python:''">Data owner</strong>
-                                                        </li>
-                                                    </tal:block>
-                                                </ul>
-
-                                                <p tal:condition="python:not data_info" i18n:translate="">Data provenance info is missing.</p>
-                                            </tal:data>
-                                            <a tal:attributes="href obj/absolute_url"
-                                                    class="standardButton">
-                                                <span class="eea-icon eea-icon-eye"></span>
-                                                <span i18n:translate="">Explore chart interactively</span>
-                                            </a>
-
-                                        </dd>
-                                    </tal:rep>
-
-                                    <dd tal:condition="python:not charts">
-                                        <div i18n:translate="" style="display:none">Missing chart information, using default chart:</div>
-                                        <a title="Interact" i18n:attributes="title" href=""
-                                                 tal:attributes="href obj/absolute_url">
-                                            <img alt="" title="" src=""
-                                                     tal:attributes="alt obj/Title;
-                                                            title  obj/Title;
-                                                            src string:${obj/absolute_url}/image_xlarge" />
-                                        </a>
-                                        <div class="visualClear"><!-- --></div>
-                                        <div class="googlechart-notes">
-                                            <div class="googlecharts-note">
-                                                <p class="callout" tal:define="figure_description obj/Description">
-                                                    <strong i18n:translate="">Note: </strong>
-                                                    <span tal:condition="python:figure_description"
-                                                             tal:content="figure_description" />
-                                                    <span tal:condition="python:not figure_description" i18n:translate="">N/A</span>
-                                                </p>
-                                            </div>
-                                        </div>
-                                        <a tal:attributes="href obj/absolute_url"
-                                                class="standardButton">
-                                            <span class="eea-icon eea-icon-eye"></span>
-                                            <span i18n:translate="">Explore chart interactively</span>
-                                        </a>
-                                    </dd>
-                                </dl>
-                            </div>
-
-                        </tal:block>
-                    </tal:daviz_defines>
-                </tal:block>
-            </div>
-            <div class="visualClear"><!-- --></div>
-        </tal:defines>
-    </div>
+            </tal:block>
+          </tal:daviz_defines>
+        </tal:block>
+      </div>
+      <div class="visualClear"><!-- --></div>
+    </tal:defines>
+  </div>
 </tal:figures>
 

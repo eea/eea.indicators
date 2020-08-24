@@ -15,31 +15,21 @@
                                 portal_state context/@@plone_portal_state;
                                 portal_url portal_state/portal_url;"
                     tal:condition="python:countries or other">
-      <div tal:attributes="class string:eea-location-listing" metal:define-slot="location-listing">
-        <span i18n:translate="" metal:define-slot="geotags">Geotags:</span>
 
-        <h4 tal:condition="countries" i18n:translate="">Countries</h4>
+      <h2 i18n:translate="" class="eea-accordion-title eea-icon-left-container" >Geographic coverage</h2>
+      <div class="geotags pane" metal:define-slot="location-listing">
+
         <tal:tags tal:repeat="tag python:sorted(countries)">
-          <span>
-            <a class="link-category" rel="tag" tal:define="
+            <span class="geotags-category" rel="tag" tal:define="
                title python:tag;
                description python:countries[tag]"
-               tal:attributes="href python:portal_url + '/@@search?getGeographicCoverage%3Alist={title}'.format(title=title)"
-               tal:content="python:'{title} ({description})'.format(title=title, description=description) if (description and title != description) else title"></a>
-            <span class="separator" tal:condition="python:not repeat['tag'].end">,</span>
-          </span>
+               tal:content="python:'{title} ({description})'.format(title=title, description=description) if (description and title != description) else title"></span>
         </tal:tags>
-
-        <h4 tal:condition="other" i18n:translate="">Geographical areas</h4>
         <tal:tags tal:repeat="tag python:sorted(other)">
-          <span>
-            <a class="link-category" rel="tag" tal:define="
+            <span class="geotags-category" rel="tag" tal:define="
                title python:tag;
                description python:other[tag]"
-               tal:attributes="href python:portal_url + '/@@search?getGeographicCoverage%3Alist={title}'.format(title=title)"
-               tal:content="python:'{title} ({description})'.format(title=title, description=description) if (description and title != description) else title"></a>
-            <span class="separator" tal:condition="python:not repeat['tag'].end">,</span>
-          </span>
+               tal:content="python:'{title} ({description})'.format(title=title, description=description) if (description and title != description) else title"></span>
         </tal:tags>
       </div>
     </tal:view_macro>

@@ -92,4 +92,16 @@
 
     </gs:upgradeSteps>
 
+    <gs:upgradeSteps
+            source="13.5"
+            destination="15.5"
+            profile="eea.indicators:default">
+
+        <gs:upgradeDepends
+                title="Added eea_generic_email site property"
+                import_profile="eea.indicators:upgrade155"
+                />
+
+    </gs:upgradeSteps>
+
 </configure>
