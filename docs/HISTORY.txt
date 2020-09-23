@@ -3,6 +3,8 @@ Changelog
 
 15.6-dev0 - (unreleased)
 ---------------------------
+* Bug fix: mobile view assessment fixes
+  [ichim-david refs #121911]
 
 15.5 - (2020-08-03)
 ---------------------------

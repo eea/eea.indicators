@@ -38,7 +38,12 @@
 }
 
 .indicator-figure-image select.formTabs {
-    max-width: 800px !important;
+    max-width: 800px;
+}
+@media (max-width: 800px) {
+    .indicator-figure-image select.formTabs {
+        max-width: 100%;
+    }
 }
 .enableFormTabbing {
     padding-right: 0;
@@ -775,6 +780,7 @@ ul.token-input-list-facebook {
 .plone-jscalendar-popup ~ span {
     display: none;
 }
+
 
 
 /* flex wrap for miniheader */
