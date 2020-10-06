@@ -1,6 +1,11 @@
 Changelog
 =========
 
+15.6 - (2020-10-06)
+---------------------------
+* Bug fix: mobile view assessment fixes
+  [ichim-david refs #121911]
+
 15.5 - (2020-08-03)
 ---------------------------
 * Change: Indicator assessment redesign in accordance with miniheader
