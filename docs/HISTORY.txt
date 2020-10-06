@@ -1,7 +1,7 @@
 Changelog
 =========
 
-15.6-dev0 - (unreleased)
+15.6 - (2020-10-06)
 ---------------------------
 * Bug fix: mobile view assessment fixes
   [ichim-david refs #121911]
