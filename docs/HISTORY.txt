@@ -1,7 +1,7 @@
 Changelog
 =========
 
-15.7-dev0 - (unreleased)
+15.7 - (2021-04-27)
 ---------------------------
 * Change: Added get_codes function for Assessment in order to index the
   assessment indicator codes
