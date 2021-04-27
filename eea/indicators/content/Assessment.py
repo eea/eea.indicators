@@ -398,6 +398,29 @@ class Assessment(ATFolder, ModalFieldEditableAware,
         thread = self.plone_utils.getDiscussionThread(self)
         return len(thread) - 1
 
+    security.declarePublic('get_codes')
+    def get_codes(self):
+        """ Returns a list of indicator codes, for indexing.
+
+        Indexes the codes of this specification in the form of
+        a KeywordIndex with ['SETA', "SETA001", "SETB", "SETB009"]
+        the idea is to be able to search for set code (ex: SETB)
+        but also for the full code (ex:SETB009)
+        """
+        codes = self.getCodes()
+        res = []
+        for code in codes:
+            if code:
+                res.extend(
+                        [code['set'],
+                            "%s%s" % (code['set'], code['code'])]
+                        )
+
+        if res == []:
+            if len(self.aq_parent.get_codes()) > 0:
+                logger.error("Cant set index for %s" % self.absolute_url())
+        return res
+
 
 def hasWrongVersionId(context):
     """ Determines if the assessment belongs to a wrong version group

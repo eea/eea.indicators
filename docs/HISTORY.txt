@@ -3,6 +3,9 @@ Changelog
 
 15.7-dev0 - (unreleased)
 ---------------------------
+* Change: Added get_codes function for Assessment in order to index the
+  assessment indicator codes
+  [iulianpetchesi refs #124273]
 
 15.6 - (2020-10-06)
 ---------------------------
