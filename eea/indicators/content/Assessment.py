@@ -399,6 +399,7 @@ class Assessment(ATFolder, ModalFieldEditableAware,
         return len(thread) - 1
 
 
+
 def hasWrongVersionId(context):
     """ Determines if the assessment belongs to a wrong version group
     """
